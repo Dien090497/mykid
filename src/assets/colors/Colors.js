@@ -49,4 +49,7 @@ export const Colors = {
   blueNotification: "#0087B3FF",
   blueTitle: "#1877F2FF",
   grayBackground: "#F8F8F8FF",
+  //
+  gradient: ["#FFFF00", "#FFFF00", "#FFFF00"],
+  GradientColor: ["#FFCC00", "#FF9900", "#FF6600"],
 };

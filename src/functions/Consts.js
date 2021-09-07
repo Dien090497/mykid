@@ -1,4 +1,6 @@
 import {Dimensions, StatusBar} from 'react-native';
+import Register from "../screens/auth/Register";
+import addDeviceScreen from "../screens/Profile/addDeviceScreen";
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height -
@@ -30,6 +32,10 @@ const ScreenIds = {
   ForgotPassword: 'ForgotPassword',
   Register: 'Register',
   PasswordRetrieval: 'PasswordRetrieval',
+  connection: 'connectionScreen',
+  addDeviceScreen: 'addDeviceScreen',
+  relationship: 'relationship',
+  QRCodeScreen: 'QRCodeScreen'
 };
 
 export default {

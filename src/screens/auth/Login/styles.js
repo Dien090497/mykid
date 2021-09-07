@@ -11,100 +11,48 @@ export const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    backgroundColor: '#FFF'
   },
   image: {
     flex: 1,
     resizeMode: 'cover',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  body: {
-    width: '80%',
-    height: 440,
-    backgroundColor: Colors.opacityWhite,
-    borderRadius: 10,
-    alignItems: 'center',
-  },
-  txtTitle: {
-    fontSize: 24,
-    color: Colors.lightBlack,
-    marginTop: 40,
-    fontFamily: "Roboto-Bold"
-  },
-  blockInput: {
-    width: '80%',
-    marginTop: 40
-  },
-  txtPhone: {
-    fontSize: 14,
-    color: Colors.lightGray,
-    marginBottom: 13,
-    fontFamily: "Roboto-Regular"
-  },
-  txtInput: {
-    fontSize: 14,
-    color: Colors.black,
-    height: 45,
-    borderRadius: 22,
-    backgroundColor: Colors.bgInput,
-    marginBottom: 14,
-    paddingHorizontal: 10,
-    fontFamily: "Roboto-Regular",
-  },
-  btnDangNhap: {
-    height: 50,
-    width: '100%',
-    borderRadius: 25,
-    backgroundColor: "#1877F2",
+    paddingHorizontal: 20,
     justifyContent: "center",
-    alignItems: 'center',
-    marginTop: 30
+    alignItems: "center"
   },
-  txtDangNhap: {
-    fontSize: 15,
-    color: "white",
-    fontFamily: "Roboto-Regular",
+  ViewResetPass: {
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: "space-between"
   },
-  txtQuenMk: {
-    fontSize: 14,
-    color: Colors.lightBlack,
-    fontFamily: "Roboto-Regular",
+  txtResetPass: {
+    color: '#4169E1'
   },
-  btnQuenMk: {
-    alignItems: 'center',
-    marginTop: 25
-  },
-  btnDangKy: {
-    width: '70%',
-    height: 50,
+  Sty_iconCheckbox: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: "rgba(255, 255, 255, 0.5)",
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
-    flexDirection: 'row',
+    borderWidth: 1,
+    borderRadius: 10,
+    backgroundColor: "#FFFFFF",
+    height: 20,
+    width: 20,
+    borderColor: '#3CB371',
   },
-  txtDangKy: {
-    fontSize: 14,
-    color: Colors.lightBlack,
-    fontFamily: "Roboto-Bold",
-    marginLeft: 10
+  Sty_Checkbox: {
+    borderRadius: 10,
+    backgroundColor: "#3CB371",
+    height: 15,
+    width: 15,
+    borderColor: '#FFFFFF',
   },
-  blockFbGg: {
-    flexDirection: 'row',
-    marginTop: 30
+  txtPolicy: {
+    fontWeight: "700",
+    fontSize: 13,
+    color: "#00CCCC",
+    textDecorationLine: "underline",
   },
-  btnGoogle: {
-    marginTop:5,
-    marginLeft: 15
-  },
-  btnFacebook: {
-    marginTop:5,
-    marginRight: 15
-  },
-  messageError: {
-    fontSize: 12,
-    color: Colors.red,
-    fontFamily: "Roboto-Regular"
+  txt_Policy: {
+    fontSize: 13,
+    marginLeft: 5,
   },
 });
