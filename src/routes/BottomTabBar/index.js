@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {View, TouchableOpacity, ImageBackground, Image, Keyboard} from 'react-native';
+import {View, TouchableOpacity, ImageBackground, Image, Keyboard, Text, SafeAreaView} from 'react-native';
 import {styles} from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Images from '../../assets/Images';
@@ -8,7 +8,7 @@ import {useEffect, useState} from 'react';
 
 export default function BottomTabBar({state, descriptors, navigation}) {
   const insets = useSafeAreaInsets();
-  const heightContent = Consts.screenHeight / 15;
+  const heightContent = Consts.screenHeight / 20;
   const focusedOptions = descriptors[state.routes[state.index].key].options;
   // const refCustomer = useRef();
   useEffect(() => {
@@ -17,8 +17,8 @@ export default function BottomTabBar({state, descriptors, navigation}) {
 
     // cleanup function
     return () => {
-      Keyboard.removeListener('keyboardDidShow', _keyboardDidShow);
-      Keyboard.removeListener('keyboardDidHide', _keyboardDidHide);
+      // Keyboard.removeListener('keyboardDidShow', _keyboardDidShow);
+      // Keyboard.removeListener('keyboardDidHide', _keyboardDidHide);
     };
   }, []);
 
@@ -31,29 +31,34 @@ export default function BottomTabBar({state, descriptors, navigation}) {
     return null;
   }
   return (
-    keyboardStatus == 0 ? (<></>) : (<ImageBackground
+    keyboardStatus == 0 ? (<></>) : (<SafeAreaView><ImageBackground
       style={[styles.container, {paddingTop: 0, height: heightContent + insets.bottom / 2}]}
       source={Images.bgBottom} resizeMode={'stretch'}>
       {state.routes.map((route, index) => {
         const {options} = descriptors[route.key];
         const isFocused = state.index === index;
         let icon;
+        let text = null;
         if (index == 0) {
           if (isFocused) {
             icon = <View style={styles.bgIcon}><Image source={Images.icHomeOn}
                                                       style={styles.icon}/></View>;
+            text = <Text style={{fontWeight: 'bold'}}>HOME</Text>
           } else {
             icon = <View style={styles.bgIcon}><Image source={Images.icHomeOff}
                                                       style={styles.icon}/></View>;
+            text = <Text>HOME</Text>
           }
         } else {
           if (isFocused) {
             icon =
               <View style={styles.bgIcon}><Image source={Images.icProfileOn}
                                                  style={styles.icon}/></View>;
+            text = <Text style={{fontWeight: 'bold'}}>MY</Text>
           } else {
             icon = <View style={styles.bgIcon}><Image source={Images.icProfileOff}
                                                       style={styles.icon}/></View>;
+            text = <Text>MY</Text>
           }
         }
         const onPress = () => {
@@ -82,12 +87,13 @@ export default function BottomTabBar({state, descriptors, navigation}) {
             testID={options.tabBarTestID}
             onPress={onPress}
             onLongPress={onLongPress}
-            style={styles.item}
+            style={[styles.item, {backgroundColor: index == 0 ? '#13c700' :'#079be6'}]}
           >
             {icon}
+            {text}
           </TouchableOpacity>
         );
       })}
-    </ImageBackground>)
+    </ImageBackground></SafeAreaView>)
   );
 }

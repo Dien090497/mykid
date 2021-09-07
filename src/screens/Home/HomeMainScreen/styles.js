@@ -4,7 +4,7 @@ import {Colors} from '../../../assets/colors/Colors';
 const itemWidth = (Const.windowWidth - 30) / 2;
 const searchHeight = (Const.screenHeight/24);
 const notifHeight = searchHeight/1.7;
-const itemHeight = (Const.screenHeight ) / 3.9;
+const itemHeight = (Const.screenHeight ) / 10;
 const tabViewHeight = Const.screenHeight;
 export const styles = StyleSheet.create({
   container: {
@@ -92,5 +92,22 @@ export const styles = StyleSheet.create({
     width: searchHeight,
     height: searchHeight,
     alignSelf: 'flex-end'
-  }
+  },
+  buttonContainer: {width: '50%', minHeight: '20%', padding: 5},
+  button: {flex: 1, borderRadius: 10,  justifyContent: 'center', alignItems: 'center'},
+  buttonText: {
+    fontSize: 16,
+    color: Colors.white,
+    fontFamily: "Roboto-Regular"
+  },
+  icon: {
+    height:23,
+    aspectRatio: 1,
+    resizeMode: 'stretch',
+  },
+  bgIcon: {
+    marginLeft: 5,
+    width:30,
+    height:30,
+  },
 });

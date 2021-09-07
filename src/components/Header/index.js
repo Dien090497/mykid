@@ -4,8 +4,9 @@ import {styles} from './styles';
 import {useSafeArea} from 'react-native-safe-area-context';
 import {String} from '../../assets/strings/String';
 import {useNavigation, useNavigationState} from '@react-navigation/native';
-import {IconArrowLeft} from '../../assets/svg/Common';
 import Consts from '../../functions/Consts';
+import Icons from '../../components/VectorIcons'
+import { Colors } from '../../assets/colors/Colors';
 // import Orientation from 'react-native-orientation';
 
 export default Header = (props) => {
@@ -26,7 +27,7 @@ export default Header = (props) => {
     <View style={[styles.container, {marginTop: insets.top}]}>
       <Text style={styles.title}>{props.title !== undefined ? props.title : String.bangSepHang}</Text>
       <TouchableOpacity style={styles.back} onPress={handleGoBack}>
-        <IconArrowLeft width={25} height={25}/>
+        <Icons name={'arrow-back'} iconFamily={'MaterialIcons'} size={28} color={Colors.white} />
       </TouchableOpacity>
     </View>
   );

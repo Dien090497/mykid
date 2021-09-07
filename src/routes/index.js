@@ -15,6 +15,9 @@ import Register from '../screens/auth/Register';
 import BottomTabBar from './BottomTabBar';
 import SplashScreen from '../screens/Splash';
 import Consts from '../functions/Consts';
+import SettingScreen from '../screens/Settings'
+import AddNewContact from '../screens/Settings/Contacts/addNew'
+import Contacts from '../screens/Settings/Contacts'
 
 
 const Tab = createBottomTabNavigator();
@@ -77,6 +80,9 @@ const Routes = () => {
         <Stack.Screen name={Consts.ScreenIds.Tabs} component={TabBarBottom} />
         <Stack.Screen name={Consts.ScreenIds.Auth} component={Auth} />
         <Stack.Screen name={Consts.ScreenIds.Register} component={DirectRegister} />
+        <Stack.Screen name={Consts.ScreenIds.Settings} component={SettingScreen} />
+        <Stack.Screen name={Consts.ScreenIds.AddNewContact} component={AddNewContact} />
+        <Stack.Screen name={Consts.ScreenIds.Contacts} component={Contacts} />
       </Stack.Navigator>
     </NavigationContainer>
   );

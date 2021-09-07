@@ -30,6 +30,11 @@ const ScreenIds = {
   ForgotPassword: 'ForgotPassword',
   Register: 'Register',
   PasswordRetrieval: 'PasswordRetrieval',
+
+  //Settings
+  Settings: 'Settings',
+  Contacts: 'Contacts',
+  AddNewContact: 'AddNewContact',
 };
 
 export default {

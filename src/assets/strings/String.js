@@ -18,6 +18,9 @@ export const String = {
 
   thisFunctionIsNotValid: 'Tính năng này chưa mở',
   settings: 'Cài đặt',
+  header_settings: 'Thiết lập',
+  header_contacts: 'Danh bạ',
+  header_addContact: 'Thêm liên lạc',
 
   // Codepush
   codepushChecking: 'Đang kiểm tra bản cập nhật...',

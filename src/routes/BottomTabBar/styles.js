@@ -25,7 +25,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems:"center",
     margin: 1,
-    padding: 20,
+    padding: 10,
   },
   icon: {
     height:23,
