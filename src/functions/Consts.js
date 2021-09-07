@@ -13,7 +13,7 @@ const vipBoundSizeBig = 170;
 const minSplashTime = 4; // seconds
 
 // anonymous
-const anonymousAccount = '+999999999';
+const anonymousAccount = 'Anonymous@Account.com';
 const anonymousPassword = 'AnonymousAccount';
 
 // screen

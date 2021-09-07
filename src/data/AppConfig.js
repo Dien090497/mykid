@@ -1,19 +1,19 @@
 const production = {
   env: 'production',
   xmppServer: 'poseidon.firecloud.live:5443',
-  rootDomain: 'hera.firecloud.live',
+  rootDomain: 'mykid.ttc.software',
 }
 
 const staging = {
   env: 'staging',
   xmppServer: 'dragon-uat.firecloud.live:5280',
-  rootDomain: 'unicorn-uat.firecloud.live',
+  rootDomain: 'mykid.ttc.software',
 }
 
 const dev = {
   env: 'dev',
   xmppServer: 'dragon-dev.firecloud.live:5280',
-  rootDomain: 'unicorn-dev.firecloud.live',
+  rootDomain: 'mykid.ttc.software',
 }
 
 export const RETRY_HTTP_REQUEST_NUMBER = 1;
