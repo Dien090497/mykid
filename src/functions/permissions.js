@@ -1,6 +1,6 @@
 import {Platform} from 'react-native';
 import {String} from '../assets/strings/String';
-// import {check, request, PERMISSIONS, RESULTS, openSettings} from 'react-native-permissions';
+import {check, request, PERMISSIONS, RESULTS, openSettings} from 'react-native-permissions';
 import {showAlert, showConfirmation} from './utils';
 
 export async function checkWriteExternalStorageAndroid() {

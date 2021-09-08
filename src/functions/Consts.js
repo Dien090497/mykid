@@ -15,7 +15,7 @@ const vipBoundSizeBig = 170;
 const minSplashTime = 4; // seconds
 
 // anonymous
-const anonymousAccount = '+999999999';
+const anonymousAccount = 'Anonymous@Account.com';
 const anonymousPassword = 'AnonymousAccount';
 
 // screen
@@ -35,7 +35,12 @@ const ScreenIds = {
   connection: 'connectionScreen',
   addDeviceScreen: 'addDeviceScreen',
   relationship: 'relationship',
-  QRCodeScreen: 'QRCodeScreen'
+  QRCodeScreen: 'QRCodeScreen',
+
+  //Settings
+  Settings: 'Settings',
+  Contacts: 'Contacts',
+  AddNewContact: 'AddNewContact',
 };
 
 export default {

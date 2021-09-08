@@ -55,9 +55,9 @@ function getHeaders(headers) {
   let requestHeaders = headers;
   if (!headers) requestHeaders = getDefaultHeaders();
 
-  if (accessToken) {
-    requestHeaders['Authorization'] = 'Bearer ' + accessToken;
-  }
+  // if (accessToken) {
+  //   requestHeaders['Authorization'] = 'Bearer ' + accessToken;
+  // }
 
   return requestHeaders;
 }

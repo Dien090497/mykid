@@ -19,6 +19,10 @@ import Consts from '../functions/Consts';
 import addDeviceScreen from "../screens/Profile/addDeviceScreen";
 import relationship from "../screens/Profile/relationship";
 import QRCodeScreen from "../screens/Profile/QRCodeScreen";
+import SettingScreen from '../screens/Settings'
+import AddNewContact from '../screens/Settings/Contacts/addNew'
+import Contacts from '../screens/Settings/Contacts'
+
 
 const Tab = createBottomTabNavigator();
 const TabBarBottom = () => {
@@ -86,10 +90,10 @@ const Routes = () => {
         <Stack.Screen name={Consts.ScreenIds.Auth} component={Auth} />
         <Stack.Screen name={Consts.ScreenIds.relationship} component={relationship} />
         <Stack.Screen name={Consts.ScreenIds.QRCodeScreen} component={QRCodeScreen} />
-        <Stack.Screen
-          name={Consts.ScreenIds.Register}
-          component={DirectRegister}
-        />
+        <Stack.Screen name={Consts.ScreenIds.Register} component={DirectRegister} />
+        <Stack.Screen name={Consts.ScreenIds.Settings} component={SettingScreen} />
+        <Stack.Screen name={Consts.ScreenIds.AddNewContact} component={AddNewContact} />
+        <Stack.Screen name={Consts.ScreenIds.Contacts} component={Contacts} />
       </Stack.Navigator>
     </NavigationContainer>
   );

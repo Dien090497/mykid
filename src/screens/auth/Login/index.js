@@ -21,6 +21,7 @@ import { showAlert } from "../../../functions/utils";
 import LoadingIndicator from "../../../components/LoadingIndicator";
 import ComponentInput from "../../../components/CustomInput";
 import Button from "../../../components/buttonGradient";
+import Consts from "../../../functions/Consts";
 
 const Login = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -48,7 +49,7 @@ const Login = ({ navigation }) => {
     setPassword(text);
   };
   const onclick = () => {
-    navigation.navigate("connectionScreen");
+    navigation.navigate(Consts.ScreenIds.Tabs);
   };
 
   return (

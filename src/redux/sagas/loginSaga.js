@@ -8,14 +8,8 @@ import loginAction from '../actions/loginAction';
 function* postLoginAction(username, password, refLoading) {
   try {
     showLoading(refLoading);
-    let phoneFormat = username;
-    if (username && username !== '') {
-      if (username[0] === '0') {
-        phoneFormat = username.replace('0', '+84');
-      }
-    }
     let params = {
-      phone_number: phoneFormat,
+      email: username,
       password: password,
     };
     let response = yield call(loginService, params);

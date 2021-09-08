@@ -58,6 +58,9 @@
 		88899476362B47D095A061A3 /* Roboto-ThinItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-ThinItalic.ttf"; path = "../assets/fonts/Roboto-ThinItalic.ttf"; sourceTree = "<group>"; };
 		899C6E4EA0084568BA546B6C /* Roboto-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-MediumItalic.ttf"; path = "../assets/fonts/Roboto-MediumItalic.ttf"; sourceTree = "<group>"; };
 		8B6C34F403B18B6F878F202D /* libPods-MyKid.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MyKid.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8B97BD51DFBA40F1AF6C5AC0 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
+		98EC53CD910348249A166C82 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
+		9D25947FCC09462DA0ACDB33 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		AFF740BCBE9F2DD790E22839 /* Pods-MyKid-MyKidTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyKid-MyKidTests.release.xcconfig"; path = "Target Support Files/Pods-MyKid-MyKidTests/Pods-MyKid-MyKidTests.release.xcconfig"; sourceTree = "<group>"; };
 		C12B295606A043C3930BA418 /* Roboto-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Light.ttf"; path = "../assets/fonts/Roboto-Light.ttf"; sourceTree = "<group>"; };
 		D318D7A914ED4EBCA4A1656D /* Roboto-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Medium.ttf"; path = "../assets/fonts/Roboto-Medium.ttf"; sourceTree = "<group>"; };
@@ -111,7 +114,6 @@
 				2624A7CF2E897CA2FB65A895 /* Pods-MyKid-MyKidTests.debug.xcconfig */,
 				AFF740BCBE9F2DD790E22839 /* Pods-MyKid-MyKidTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -183,6 +185,9 @@
 				D9BE0AE89F1D4C33B00DD2F6 /* Roboto-Regular.ttf */,
 				8845B96E6AE44863A5CEB179 /* Roboto-Thin.ttf */,
 				88899476362B47D095A061A3 /* Roboto-ThinItalic.ttf */,
+				9D25947FCC09462DA0ACDB33 /* FontAwesome5_Solid.ttf */,
+				98EC53CD910348249A166C82 /* Ionicons.ttf */,
+				8B97BD51DFBA40F1AF6C5AC0 /* Zocial.ttf */,
 			);
 			name = Resources;
 			path = "";
@@ -533,7 +538,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9M46AU3YMQ;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = MyKid/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -545,8 +552,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ttc.mykid;
 				PRODUCT_NAME = MyKid;
+				PROVISIONING_PROFILE_SPECIFIER = "Mykid dev";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -559,7 +567,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9M46AU3YMQ;
 				INFOPLIST_FILE = MyKid/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -570,8 +580,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ttc.mykid;
 				PRODUCT_NAME = MyKid;
+				PROVISIONING_PROFILE_SPECIFIER = "Mykid dev";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

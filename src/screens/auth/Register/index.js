@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef, useState, useLayoutEffect} from 'react';
 import {
   View,
   Text,
@@ -9,7 +9,8 @@ import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
-  Linking,Image
+  Linking,
+  Image,
 } from 'react-native';
 import {styles} from './styles';
 import Images from '../../../assets/Images';
@@ -17,6 +18,7 @@ import {String} from '../../../assets/strings/String';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Colors} from '../../../assets/colors/Colors';
 import {hideLoading, phoneTest, showAlert, showLoading} from '../../../functions/utils';
+import { getCaptchaApi } from '../../../network/UserInfoService';
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import {appConfig} from '../../../network/http/ApiUrl';
 import Consts from '../../../functions/Consts';
@@ -31,6 +33,12 @@ const Register =({navigation})=> {
   const [checkPass, setCheckPass] = useState(false);
   const [showPass, setShowPass] = useState(true);
   const [checkbox, setCheckbox] = useState(false);
+  const [captchaData, setCaptchaData] = useState();
+  let isGetCaptcha = false;
+
+  useLayoutEffect(() => {
+    getCaptcha();
+  }, []);
 
   const onChangeGmail = (text) => {
     setGmail(text);
@@ -38,40 +46,31 @@ const Register =({navigation})=> {
   const onChangePass = (text) => {
     setPass(text);
   };
+
+  const getCaptcha = () => {
+    if (isGetCaptcha) return;
+    isGetCaptcha = true;
+    setCaptchaData();
+    getCaptchaApi(
+      {
+        success: resData => {
+          if (resData.data) {
+            setCaptchaData(resData.data);
+          }
+        },
+      }).then();
+    isGetCaptcha = false;
+  };
   const onChangeCode = (text) => {
     setCode(text);
   };
   const onChangeShowPass = () => {
-    console.log("11111");
     setShowPass(!showPass);
   };
   const onclick = () => {
     if (checkbox) {
-      // if (gmail == "") {
-      //   setCheckGmail(true);
-      // } else {
-      //   let filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-      //   if (!filter.test(gmail)) {
-      //     setCheckGmail(true);
-      //   } else {
-      //     setCheckGmail(false);
-      //   }
-      // }
-      // if (pass == "") {
-      //   setCheckPass(true);
-      // } else {
-      //   let filer = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-      //   if (!filer.test(pass)) {
-      //     setCheckPass(true);
-      //   } else {
-      //     setCheckPass(false);
-      //   }
-      // }
-      // if (checkCode == "") {
-      //   setCheckCode(true);
-      // }
       navigation.navigate('connectionScreen')
-    }else {
+    } else {
       Alert.alert("Thông báo", "Vui lòng đọc thảo thuận người dùng và chính sách bảo mật rồi đánh dấu vào đồng ý")
     }
   };
@@ -101,9 +100,10 @@ const Register =({navigation})=> {
               <View style={{ width: "40%" }}>
                 <Image
                   style={styles.Sty_iconCode}
-                  source={Images.materialIcons} />
+                  source={captchaData ? {uri: `data:image/png;base64,${captchaData.captcha}`} : Images.materialIcons} />
               </View>
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={getCaptcha}>
                 <Image
                   style={styles.Sty_iconReset}
                   source={Images.icReload} />
