@@ -3,6 +3,8 @@ import { View, Text, Linking, TouchableOpacity, FlatList, Image } from "react-na
 import styles from "./style";
 import Images from "../../../assets/Images";
 import Button from "../../../components/customButton";
+import Header from "../../../components/Header";
+import { String } from '../../../assets/strings/String';
 
 const relationship = ({ navigation }) => {
   const [relationship, setRelationship] = useState("Bố");
@@ -61,6 +63,7 @@ const relationship = ({ navigation }) => {
   }
   return (
     <View style={styles.container}>
+      <Header title={String.header_relationship} />
       <View style={styles.txtSelection}>
         <Text style={styles.txtRelationship}>Tôi là <Text
           style={{ color: "#000000", fontSize: 16, fontWeight: "bold" }}>{relationship}</Text> của anh ấy</Text>

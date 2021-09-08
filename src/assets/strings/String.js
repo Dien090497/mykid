@@ -23,6 +23,8 @@ export const String = {
   header_addContact: 'Thêm liên lạc',
   header_members: 'Danh sách thành viên',
   header_maps: 'Bản đồ',
+  header_addDevice: 'Thêm thiết bị',
+  header_relationship: 'Lựa chọn mối quan hệ',
 
   // Codepush
   codepushChecking: 'Đang kiểm tra bản cập nhật...',
