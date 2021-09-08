@@ -4,8 +4,6 @@ const { width, height } = Dimensions.get("window");
 const styles = StyleSheet.create({
   contain: {
     flex: 1,
-    alignItems: "center",
-    paddingHorizontal: 10,
     backgroundColor: "#FFFFFF",
   },
   viewImage: {
