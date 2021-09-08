@@ -32,7 +32,7 @@ export default function BottomTabBar({state, descriptors, navigation}) {
   }
   return (
     keyboardStatus == 0 ? (<></>) : (<SafeAreaView><ImageBackground
-      style={[styles.container, {paddingTop: 0, height: heightContent + insets.bottom / 2}]}
+      style={[styles.container, {paddingTop: 0}]}
       source={Images.bgBottom} resizeMode={'stretch'}>
       {state.routes.map((route, index) => {
         const {options} = descriptors[route.key];
