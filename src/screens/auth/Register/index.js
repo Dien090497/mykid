@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef, useState, useLayoutEffect} from 'react';
 import {
   View,
   Text,
@@ -10,6 +10,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Linking,
+  Image,
 } from 'react-native';
 import {styles} from './styles';
 import Images from '../../../assets/Images';
@@ -20,6 +21,7 @@ import {hideLoading, phoneTest, showAlert, showLoading} from '../../../functions
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import {appConfig} from '../../../network/http/ApiUrl';
 import Consts from '../../../functions/Consts';
+import { getCaptchaApi } from '../../../network/UserInfoService';
 
 export default function Register({navigation}) {
   const [timerCount, setTimerCount] = useState(60);
@@ -39,6 +41,13 @@ export default function Register({navigation}) {
     {label: String.sms, value: 'VOICE'},
     {label: String.telegram, value: 'TELEGRAM'},
   ];
+
+  const [captchaData, setCaptchaData] = useState();
+  let isGetCaptcha = false;
+  useLayoutEffect(() => {
+    getCaptcha();
+  }, []);
+
   const FormatPhone = () => {
     phoneFormat = phone;
     if (phone[0] === '0') {
@@ -47,21 +56,6 @@ export default function Register({navigation}) {
   };
   const onMethodChanged = (msg) => setGenderTitle(msg);
   const onClick = () => {
-    if (genderTitle === 'VOICE') {
-      GetOTP();
-    } else {
-      let phoneNumber = phone;
-      if (phoneNumber[0] === '0') {
-        phoneNumber = phoneNumber.replace('0', '84');
-      } else if (phoneNumber[0] === '+') {
-        phoneNumber = phoneNumber.replace('+', '');
-      }
-      if (!phoneTest('+' + phoneNumber)) {
-        showAlert(String.phoneInvalid);
-        return;
-      }
-      Linking.openURL(`https://t.me/${appConfig.teleOtpExt}?start=${phoneNumber}X${TYPE_ACTION}`);
-    }
   };
 
   const refreshCountdown = () => {
@@ -75,6 +69,22 @@ export default function Register({navigation}) {
         refreshCountdown();
       }
     }, 1000)
+  };
+
+  const getCaptcha = () => {
+    if (isGetCaptcha) return;
+    isGetCaptcha = true;
+    setCaptchaData();
+    getCaptchaApi(
+      {
+        success: resData => {
+          if (resData.data) {
+            setCaptchaData(resData.data);
+          }
+        },
+        refLoading,
+      }).then();
+    isGetCaptcha = false;
   };
 
   const getTime = () => { return Math.floor(Date.now() / 1000); };
@@ -172,7 +182,25 @@ export default function Register({navigation}) {
                     placeholder={'String.nhapMaxacminh'}
                     keyboardType={'number-pad'}
                   />
-                  {ChangeButton()}
+                  <View style={{
+    marginVertical: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 0,
+    height: 40,
+    width: 'auto',
+    backgroundColor: Colors.grayInput,
+    borderRadius: 20,
+    justifyContent: 'center',
+    minWidth: 100
+  }}>
+                    {captchaData && 
+                    <Image style={{
+                      width: 80,
+                      height: 30
+                    }} resizeMode={'contain'}
+                      source={{uri: `data:image/png;base64,${captchaData.captcha}`}} />
+                    }
+                  </View>
                 </View>
 
                 {otpSent && genderTitle === 'VOICE' &&
