@@ -42,6 +42,9 @@ const ScreenIds = {
   Contacts: 'Contacts',
   AddNewContact: 'AddNewContact',
   Members: 'Members',
+
+  //Maps
+  Maps: 'Maps'
 };
 
 export default {

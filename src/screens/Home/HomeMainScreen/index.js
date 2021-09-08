@@ -41,7 +41,7 @@ export default function HomeMainScreen() {
   }
 
   const pressMap = () => {
-    //navigation.navigate();
+    navigation.navigate(Consts.ScreenIds.Maps);
   }
 
   const pressSafeArea = () => {
