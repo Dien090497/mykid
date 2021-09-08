@@ -26,8 +26,8 @@ import Consts from "../../../functions/Consts";
 const Login = ({ navigation }) => {
   const dispatch = useDispatch();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("avddhffrhvvgi@gmail.com");
+  const [password, setPassword] = useState("hugu7866F");
   const [checkbox, setCheckbox] = useState(false);
 
   const refLoading = useRef();

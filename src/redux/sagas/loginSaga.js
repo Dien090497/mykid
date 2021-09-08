@@ -5,11 +5,11 @@ import {ErrorMsg} from '../../assets/strings/ErrorMsg';
 import reduxStore from '../config/redux';
 import loginAction from '../actions/loginAction';
 
-function* postLoginAction(username, password, refLoading) {
+function* postLoginAction(email, password, refLoading) {
   try {
     showLoading(refLoading);
     let params = {
-      email: username,
+      email: email,
       password: password,
     };
     let response = yield call(loginService, params);
@@ -32,5 +32,5 @@ function* postLoginAction(username, password, refLoading) {
 }
 
 export default function* (action) {
-  yield call(postLoginAction, action.payload.username, action.payload.password, action.payload.refLoading);
+  yield call(postLoginAction, action.payload.email, action.payload.password, action.payload.refLoading);
 }
