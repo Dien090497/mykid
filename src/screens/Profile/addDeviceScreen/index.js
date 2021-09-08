@@ -3,6 +3,8 @@ import { View, Text, Linking, TouchableOpacity, Image, ScrollView } from "react-
 import CustomInput from "../../../components/CustomInput";
 import styles from "./style";
 import Images from "../../../assets/Images";
+import { String } from '../../../assets/strings/String';
+import Header from "../../../components/Header";
 
 const addDeviceScreen = ({ navigation }) => {
   const [user, setUser] = useState("");
@@ -18,7 +20,8 @@ const addDeviceScreen = ({ navigation }) => {
   };
   return (
     <View style={styles.contain}>
-      <ScrollView>
+      <Header title={String.header_addDevice} />
+      <ScrollView style={{paddingHorizontal: 10}}>
         <View style={styles.viewImage}>
           <Image
             style={styles.Sty_Images}
