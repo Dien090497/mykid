@@ -31,16 +31,17 @@ const relationship = ({ navigation }) => {
       icon: Images.icGrandmother,
     },
     {
+      id: 6,
       name: "Anh trai",
       icon: Images.icBrother,
     },
     {
-      id: 6,
+      id: 7,
       name: "Chị",
       icon: Images.icSister,
     },
     {
-      id: 6,
+      id: 8,
       name: "Khác",
       icon: Images.icOther,
     },
