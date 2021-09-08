@@ -84,8 +84,9 @@ export default function SplashScreen() {
 
     } else if (!loginRequested) {
       loginRequested = true;
-      anonymousLogin();
+      // anonymousLogin();
     }
+    navigation.replace(Consts.ScreenIds.Auth);
   };
 
   const readyToContinue = () => {
@@ -110,7 +111,7 @@ export default function SplashScreen() {
 
     setSyncFailed(false);
     if (!loggedIn) {
-      anonymousLogin();
+      // anonymousLogin();
     }
   };
 

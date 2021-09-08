@@ -13,7 +13,12 @@ pod 'react-native-google-maps', :path => rn_maps_path
     :path => config[:reactNativePath],
     # to enable hermes on iOS, change `false` to `true` and then install pods
     :hermes_enabled => false
-  )
+  ) 
+
+  # use_react_native!(:path => config["reactNativePath"])
+  permissions_path = '../node_modules/react-native-permissions/ios'
+  
+
 
   pod 'RNPermissions', :path => '../node_modules/react-native-permissions'
 
