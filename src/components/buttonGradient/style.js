@@ -11,12 +11,13 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     paddingRight: 15,
     borderRadius:height*0.06,
+    justifyContent: "center",
+    alignItems:"center"
   },
   buttonText: {
-    fontSize: 16,
+    fontSize: height*0.02,
     fontFamily: 'Gill Sans',
     textAlign: 'center',
-    margin: 10,
     backgroundColor: 'transparent',
   },
 });
