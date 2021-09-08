@@ -27,7 +27,7 @@ export default ({ navigation, route }) => {
             icon: <CustomIcon name={'contacts'} iconFamily={'MaterialIcons'} size={24} color={'#15d4a1'}/>
         },
         {
-            key:'Contacts',
+            key:'Members',
             title: 'Thành viên',
             onPress: () => {navigation.navigate(Consts.ScreenIds.Members)},
             icon: <CustomIcon name={'people-alt'} iconFamily={'MaterialIcons'} size={24} color={'#15d4a1'}/>
@@ -51,6 +51,7 @@ export default ({ navigation, route }) => {
                 <FlatList
                     data={dataSettings}
                     renderItem={renderItem}
+                    keyExtractor={(item => item.key)}
                 />
             </View>
             <LoadingIndicator ref={refLoading} />

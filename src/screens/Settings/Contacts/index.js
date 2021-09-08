@@ -93,6 +93,7 @@ export default ({ navigation, route }) => {
                 <FlatList
                     data={dataContacts}
                     renderItem={renderItem}
+                    keyExtractor={(item) => item.key}
                 />
             </View>
             <View style={{padding: 10, flexDirection: 'row', width: '90%', alignSelf: 'center', borderRadius: 10, justifyContent: 'center', alignItems: 'center' }}>

@@ -6,6 +6,7 @@ import { String } from '../../../assets/strings/String';
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Header from "../../../components/Header";
 import {showAlert} from '../../../functions/utils';
+import { styles } from './styles';
 export default () => {
     const [relationship, setRelationship] = useState('')
     const [phone, setPhone] = useState('')
@@ -90,11 +91,4 @@ export default () => {
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'flex-start',
-        justifyContent: 'flex-start',
-    },
-});
+

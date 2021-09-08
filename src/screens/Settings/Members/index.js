@@ -86,15 +86,15 @@ export default ({ navigation, route }) => {
                 <FlatList
                     data={dataContacts}
                     renderItem={renderItem}
+                    keyExtractor={(item) => item.key}
                 />
-            </View>
-
-            <TouchableOpacity
+                 <TouchableOpacity
                 style={{ height: 60, backgroundColor: Colors.blueButton, width: '90%', alignSelf: 'center', borderRadius: 10, justifyContent: 'center', alignItems: 'center' }}
                 onPress={pressAddNew}
             >
                 <Text style={{ color: 'white', fontSize: 16 }}>Làm mới</Text>
             </TouchableOpacity>
+            </View>
             <LoadingIndicator ref={refLoading} />
         </View>
     );
