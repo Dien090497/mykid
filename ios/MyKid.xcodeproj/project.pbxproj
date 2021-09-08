@@ -537,9 +537,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 9M46AU3YMQ;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = MyKid/Info.plist;
@@ -554,7 +554,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ttc.mykid;
 				PRODUCT_NAME = MyKid;
-				PROVISIONING_PROFILE_SPECIFIER = "Mykid dev";
+				PROVISIONING_PROFILE_SPECIFIER = "Mykid AppStore";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -567,9 +567,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 9M46AU3YMQ;
 				INFOPLIST_FILE = MyKid/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -583,7 +583,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ttc.mykid;
 				PRODUCT_NAME = MyKid;
-				PROVISIONING_PROFILE_SPECIFIER = "Mykid dev";
+				PROVISIONING_PROFILE_SPECIFIER = "Mykid AppStore";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
