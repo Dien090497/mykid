@@ -29,7 +29,7 @@ export default ({ navigation, route }) => {
         {
             key:'Contacts',
             title: 'Thành viên',
-            onPress: () => {navigation.navigate()},
+            onPress: () => {navigation.navigate(Consts.ScreenIds.Members)},
             icon: <CustomIcon name={'people-alt'} iconFamily={'MaterialIcons'} size={24} color={'#15d4a1'}/>
         }
     ]

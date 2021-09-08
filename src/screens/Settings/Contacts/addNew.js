@@ -24,7 +24,7 @@ export default () => {
             
             try {
                 var rsSelected = await selectContact();
-                if (rsSelected.phones.length > 0)
+                if (rsSelected && rsSelected.phones.length > 0)
                 {
                     setRelationship(rsSelected.name)
                     setPhone(rsSelected.phones[0].number);

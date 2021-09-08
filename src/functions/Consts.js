@@ -41,6 +41,7 @@ const ScreenIds = {
   Settings: 'Settings',
   Contacts: 'Contacts',
   AddNewContact: 'AddNewContact',
+  Members: 'Members',
 };
 
 export default {

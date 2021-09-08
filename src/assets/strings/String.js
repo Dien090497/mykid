@@ -21,6 +21,7 @@ export const String = {
   header_settings: 'Thiết lập',
   header_contacts: 'Danh bạ',
   header_addContact: 'Thêm liên lạc',
+  header_members: 'Danh sách thành viên',
 
   // Codepush
   codepushChecking: 'Đang kiểm tra bản cập nhật...',

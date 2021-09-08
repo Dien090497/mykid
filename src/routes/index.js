@@ -22,7 +22,7 @@ import QRCodeScreen from "../screens/Profile/QRCodeScreen";
 import SettingScreen from '../screens/Settings'
 import AddNewContact from '../screens/Settings/Contacts/addNew'
 import Contacts from '../screens/Settings/Contacts'
-
+import Members from "../screens/Settings/Members"
 
 const Tab = createBottomTabNavigator();
 const TabBarBottom = () => {
@@ -94,6 +94,7 @@ const Routes = () => {
         <Stack.Screen name={Consts.ScreenIds.Settings} component={SettingScreen} />
         <Stack.Screen name={Consts.ScreenIds.AddNewContact} component={AddNewContact} />
         <Stack.Screen name={Consts.ScreenIds.Contacts} component={Contacts} />
+        <Stack.Screen name={Consts.ScreenIds.Members} component={Members} />
       </Stack.Navigator>
     </NavigationContainer>
   );
