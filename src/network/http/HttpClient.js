@@ -399,7 +399,7 @@ function checkFailure(result) {
   }
 
   const code = meta.code.toLowerCase().split('-').join('');
- 
+
   if (Object.keys(ErrorMsg).includes(code)) {
     return ErrorMsg[code];
   }
@@ -409,7 +409,7 @@ function checkFailure(result) {
 
 export function anonymousLogin(refLoading = null) {
   reduxStore.store.dispatch(Actions.actionLogin({
-    username: Consts.anonymousAccount,
+    email: Consts.anonymousAccount,
     password: Consts.anonymousPassword,
     refLoading: refLoading,
   }));

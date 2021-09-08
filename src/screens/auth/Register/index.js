@@ -15,17 +15,12 @@ import {
 import {styles} from './styles';
 import Images from '../../../assets/Images';
 import {String} from '../../../assets/strings/String';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Colors} from '../../../assets/colors/Colors';
-import {hideLoading, phoneTest, showAlert, showLoading} from '../../../functions/utils';
-import { getCaptchaApi } from '../../../network/UserInfoService';
-import LoadingIndicator from '../../../components/LoadingIndicator';
-import {appConfig} from '../../../network/http/ApiUrl';
-import Consts from '../../../functions/Consts';
+import { createAccountApi, getCaptchaApi } from "../../../network/UserInfoService";
 import CustomInput from '../../../components/inputRegister';
 import Button from '../../../components/buttonGradient';
 const Register =({navigation})=> {
-  const [gmail, setGmail] = useState("");
+  const [email, setEmail] = useState("");
   const [checkGmail, setCheckGmail] = useState(false);
   const [code, setCode] = useState("");
   const [checkCode, setCheckCode] = useState(false);
@@ -41,7 +36,7 @@ const Register =({navigation})=> {
   }, []);
 
   const onChangeGmail = (text) => {
-    setGmail(text);
+    setEmail(text);
   };
   const onChangePass = (text) => {
     setPass(text);
@@ -68,8 +63,22 @@ const Register =({navigation})=> {
     setShowPass(!showPass);
   };
   const onclick = () => {
+    let data = {
+      email: email,
+      password: pass,
+      answer: code,
+      captchaId: captchaData.captchaId
+    }
     if (checkbox) {
-      navigation.navigate('connectionScreen')
+      createAccountApi(data,
+        {
+          success: resData => {
+            if (resData.data) {
+              console.log("11111111",resData.data)
+            }
+          },
+        }).then();
+      // navigation.navigate('connectionScreen')
     } else {
       Alert.alert("Thông báo", "Vui lòng đọc thảo thuận người dùng và chính sách bảo mật rồi đánh dấu vào đồng ý")
     }
@@ -83,13 +92,14 @@ const Register =({navigation})=> {
             <CustomInput
               placeholder={String.placeholderGmail}
               onChangeText={onChangeGmail}
-              value={gmail}
+              value={email}
               notification={checkGmail}
               txtnotification={String.errorGmail}
             />
             <View style={styles.Sty_txtCode}>
               <View style={{ width: "50%" }}>
                 <CustomInput
+                  number
                   placeholder={String.placeholderCode}
                   onChangeText={onChangeCode}
                   value={code}
@@ -97,10 +107,10 @@ const Register =({navigation})=> {
                   txtnotification={String.errorCode}
                 />
               </View>
-              <View style={{ width: "40%" }}>
+              <View style={{ width: "40%", padding:2}}>
                 <Image
                   style={styles.Sty_iconCode}
-                  source={captchaData ? {uri: `data:image/png;base64,${captchaData.captcha}`} : Images.materialIcons} />
+                  source={captchaData ? {uri: `data:image/png;base64,${captchaData.captcha}`} : null} />
               </View>
               <TouchableOpacity
                 onPress={getCaptcha}>

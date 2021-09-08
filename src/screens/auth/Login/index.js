@@ -26,7 +26,7 @@ import Consts from "../../../functions/Consts";
 const Login = ({ navigation }) => {
   const dispatch = useDispatch();
 
-  const [gmail, setGmail] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [checkbox, setCheckbox] = useState(false);
 
@@ -42,14 +42,15 @@ const Login = ({ navigation }) => {
   // };
 
   const onChangeGmail = (text) => {
-    setGmail(text);
+    setEmail(text);
   };
 
   const onChangePassword = (text) => {
     setPassword(text);
   };
   const onclick = () => {
-    navigation.navigate(Consts.ScreenIds.Tabs);
+    dispatch(Actions.actionLogin({email, password, refLoading}));
+    // navigation.navigate(Consts.ScreenIds.Tabs);
   };
 
   return (
@@ -59,12 +60,13 @@ const Login = ({ navigation }) => {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <ImageBackground source={Images.bgLogin} style={styles.image}>
           <View style={styles.ViewResetPass}>
-            <TouchableOpacity onPress={() => navigation.navigate("registerScreen")}>
-              <Text
-                style={styles.txtResetPass}
+            <View/>
+            {/*<TouchableOpacity onPress={() => navigation.navigate("registerScreen")}>*/}
+            {/*  <Text*/}
+            {/*    style={styles.txtResetPass}*/}
 
-              >Quên mật khẩu</Text>
-            </TouchableOpacity>
+            {/*  >Quên mật khẩu</Text>*/}
+            {/*</TouchableOpacity>*/}
             <TouchableOpacity onPress={() => navigation.navigate("Register")}>
               <Text
                 style={styles.txtResetPass}>Đăng ký</Text>
@@ -72,7 +74,7 @@ const Login = ({ navigation }) => {
           </View>
           <ComponentInput
             placeholder={"Hộp thư"}
-            value={gmail}
+            value={email}
             onChangeText={onChangeGmail}
             Sty_input={{ backgroundColor: "#FFF", borderRadius: 100 }}
             title={"Tài khoản: "}
