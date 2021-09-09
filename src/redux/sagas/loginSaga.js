@@ -4,7 +4,6 @@ import {hideLoading, saveUserDataFromToken, showAlert, showLoading} from '../../
 import {ErrorMsg} from '../../assets/strings/ErrorMsg';
 import reduxStore from '../config/redux';
 import loginAction from '../actions/loginAction';
-import Consts from "../../functions/Consts";
 
 function* postLoginAction(email, password, refLoading) {
   try {

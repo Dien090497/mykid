@@ -52,6 +52,7 @@ export const Colors = {
   //
   gradient: ["#FFFF00", "#FFFF00", "#FFFF00"],
   GradientColor: ["#FFCC00", "#FF9900", "#FF6600"],
+  GradientColorGray: ["#808080", "#808080", "#808080"],
   blueButton: '#4086f5',
   cardHeader: '#f7f7f7'
 };

@@ -30,11 +30,18 @@ const Register = ({ navigation }) => {
   const [showPass, setShowPass] = useState(true);
   const [checkbox, setCheckbox] = useState(false);
   const [captchaData, setCaptchaData] = useState();
+  const [submitActive, setSubmitActive] = useState(false);
   let isGetCaptcha = false;
 
   useLayoutEffect(() => {
     getCaptcha();
   }, []);
+
+  useLayoutEffect(() => {
+    if (email && pass && email) {
+      setSubmitActive(true)
+    }
+  }, [email, pass, code]);
 
   const onChangeGmail = (text) => {
     setEmail(text);
@@ -64,6 +71,7 @@ const Register = ({ navigation }) => {
     setShowPass(!showPass);
   };
   const onclick = () => {
+    if (!submitActive) return;
     let data = {
       email: email,
       password: pass,
@@ -146,13 +154,15 @@ const Register = ({ navigation }) => {
               txtnotification={String.txtNotification}
               icon
               onChange={onChangeShowPass}
+              maxLength={16}
             />
           </View>
           <View style={styles.viewButton}>
             <Button
+              activeOpacity={submitActive ? 0 : 1}
               onclick={onclick}
               title={String.registrationConfirmation}
-              color={Colors.GradientColor}
+              color={submitActive ? Colors.GradientColor : Colors.GradientColorGray}
             />
           </View>
           <View style={{ marginTop: 30, flexDirection: "row", width: '96%', marginLeft: '2%' }}>

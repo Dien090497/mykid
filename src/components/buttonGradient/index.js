@@ -3,9 +3,9 @@ import { View, Text, Linking, TouchableOpacity, FlatList, Image } from "react-na
 import styles from "./style";
 import LinearGradient from "react-native-linear-gradient";
 
-const buttonGradient = ({ title, color, onclick, Sty_btn, txtColor}) => {
+const buttonGradient = ({ title, color, onclick, Sty_btn, txtColor, activeOpacity}) => {
   return (
-    <TouchableOpacity style={styles.btnGradient} onPress={onclick}>
+    <TouchableOpacity style={styles.btnGradient} onPress={onclick} activeOpacity={activeOpacity ? activeOpacity : 0}>
       <LinearGradient
         start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
         colors={color?color:["#4c669f", "#3b5998", "#192f6a"]}
