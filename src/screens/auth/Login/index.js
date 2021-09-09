@@ -8,7 +8,7 @@ import {
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
-  KeyboardAvoidingView, Image,
+  KeyboardAvoidingView, Image, Alert,
 } from "react-native";
 import { styles } from "./styles";
 import Images from "../../../assets/Images";
@@ -16,30 +16,18 @@ import { String } from "../../../assets/strings/String";
 import { Colors } from "../../../assets/colors/Colors";
 import { useDispatch } from "react-redux";
 import * as Actions from "../../../redux/actions";
-import PasswordInputComponent from "../../../components/PasswordInputComponent";
-import { showAlert } from "../../../functions/utils";
 import LoadingIndicator from "../../../components/LoadingIndicator";
 import ComponentInput from "../../../components/CustomInput";
 import Button from "../../../components/buttonGradient";
-import Consts from "../../../functions/Consts";
 
 const Login = ({ navigation }) => {
   const dispatch = useDispatch();
 
-  const [email, setEmail] = useState("avddhffrhvvgi@gmail.com");
-  const [password, setPassword] = useState("hugu7866F");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [checkbox, setCheckbox] = useState(false);
 
   const refLoading = useRef();
-
-  // const handleLogin = (username, password) => {
-  //   if (username === '' || password === '') {
-  //     showAlert(String.phoneNumberOrPasswordNotBlank);
-  //   } else {
-  //     Keyboard.dismiss();
-  //     dispatch(Actions.actionLogin({username, password, refLoading}));
-  //   }
-  // };
 
   const onChangeGmail = (text) => {
     setEmail(text);
@@ -49,8 +37,11 @@ const Login = ({ navigation }) => {
     setPassword(text);
   };
   const onclick = () => {
-    dispatch(Actions.actionLogin({email, password, refLoading}));
-    // navigation.navigate(Consts.ScreenIds.Tabs);
+    if(checkbox){
+      dispatch(Actions.actionLogin({email, password, refLoading}));
+    }else {
+      Alert.alert(String.notification, String.error_message);
+    }
   };
 
   return (
@@ -82,6 +73,7 @@ const Login = ({ navigation }) => {
           <ComponentInput
             placeholder={"8-16 chữ cái + kết hợp số"}
             value={password}
+            secureTextEntry
             onChangeText={onChangePassword}
             Sty_input={{ backgroundColor: "#FFF", borderRadius: 100 }}
             title={"Mật khẩu: "}

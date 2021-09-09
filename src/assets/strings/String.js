@@ -48,4 +48,6 @@ export const String = {
   placeholderGmail: "Vui lòng nhập email",
   errorCode: "Lỗi định dạng mã xác minh",
   placeholderCode: "Vui lòng nhập mã xác minh",
+  notification: 'Thông báo',
+  error_message: "Vui lòng đọc thảo thuận người dùng và chính sách bảo mật rồi đánh dấu vào đồng ý",
 };

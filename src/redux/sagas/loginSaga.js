@@ -4,6 +4,7 @@ import {hideLoading, saveUserDataFromToken, showAlert, showLoading} from '../../
 import {ErrorMsg} from '../../assets/strings/ErrorMsg';
 import reduxStore from '../config/redux';
 import loginAction from '../actions/loginAction';
+import Consts from "../../functions/Consts";
 
 function* postLoginAction(email, password, refLoading) {
   try {
@@ -22,6 +23,7 @@ function* postLoginAction(email, password, refLoading) {
       }
         reduxStore.store.dispatch(loginAction.loginSuccess({userInfo}));
     } else {
+      console.log(response.failure);
       yield put({type: 'LOGIN_FAILURE', payload: response.failure});
     }
     hideLoading(refLoading);

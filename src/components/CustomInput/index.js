@@ -3,7 +3,7 @@ import { View, TouchableOpacity, Text, TextInput, Image } from "react-native";
 import styles from "./style";
 import Images from "../../assets/Images";
 
-const CustomInput = ({title, value, onChangeText, number, secureTextEntry, onPress, icon, placeholder, Sty_input}) => {
+const CustomInput = ({title, value, onChangeText, number, secureTextEntry, onPress, icon, placeholder, Sty_input,}) => {
   return (
     <View style={{...styles.Sty_ViewInput, ...Sty_input}}>
       {icon &&  <Image

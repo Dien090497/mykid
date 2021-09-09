@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     borderRadius:5,
   },
   buttonText: {
-    fontSize: 16,
+    fontSize: height*0.03,
     fontFamily: 'Gill Sans',
     textAlign: 'center',
     margin: 10,
