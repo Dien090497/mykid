@@ -16,15 +16,18 @@ import { String } from "../../../assets/strings/String";
 import { Colors } from "../../../assets/colors/Colors";
 import { useDispatch } from "react-redux";
 import * as Actions from "../../../redux/actions";
+import PasswordInputComponent from "../../../components/PasswordInputComponent";
+import { showAlert } from "../../../functions/utils";
 import LoadingIndicator from "../../../components/LoadingIndicator";
 import ComponentInput from "../../../components/CustomInput";
 import Button from "../../../components/buttonGradient";
+import Consts from "../../../functions/Consts";
 
 const Login = ({ navigation }) => {
   const dispatch = useDispatch();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("hyhung@gmail.com");
+  const [password, setPassword] = useState("hung12345");
   const [checkbox, setCheckbox] = useState(false);
 
   const refLoading = useRef();
@@ -39,6 +42,7 @@ const Login = ({ navigation }) => {
   const onclick = () => {
     if(checkbox){
       dispatch(Actions.actionLogin({email, password, refLoading}));
+      navigation.navigate(Consts.ScreenIds.Tabs);
     }else {
       Alert.alert(String.notification, String.error_message);
     }
