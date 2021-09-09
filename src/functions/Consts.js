@@ -56,14 +56,14 @@ for (let index = 0; index < 100; index++) {
 }
 
 const FontSize = {
-  xxtraSmall: heights.h1_25,
-  xtraSmall: heights.h1_5,
-  small: heights.h1_75,
-  medium: heights.h2,
-  big: heights.h2_25,
-  xtraBig: heights.h2_5,
-  xxtraBig: heights.h2_75,
-  xxxtraBig: heights.h3_25,
+  xxtraSmall: heights.h1_5,
+  xtraSmall: heights.h1_75,
+  small: heights.h2,
+  medium: heights.h2_25,
+  big: heights.h2_5,
+  xtraBig: heights.h2_75,
+  xxtraBig: heights.h3,
+  xxxtraBig: heights.h3_5,
 }
 
 const ScaleHeight = {

@@ -91,7 +91,7 @@ export const styles = StyleSheet.create({
   buttonContainer: {width: '50%', minHeight: '20%', padding: 3},
   button: {flex: 1, borderRadius: 8,  justifyContent: 'center', alignItems: 'center'},
   buttonText: {
-    fontSize: FontSize.medium,
+    fontSize: FontSize.small,
     color: Colors.white,
     fontFamily: "Roboto-Regular",
     padding: 5

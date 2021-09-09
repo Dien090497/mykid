@@ -65,6 +65,10 @@ export const String = {
   home_findDevice: 'TÌM ĐỒNG HỒ',
   home_entertainment: 'GIẢI TRÍ',
   home_device: 'THIẾT BỊ',
-  home_setting: 'THIẾT LẬP'
+  home_setting: 'THIẾT LẬP',
+
+  //setting
+  setting_contact: 'Danh bạ',
+  setting_member: 'Thành viên',
 
 };
