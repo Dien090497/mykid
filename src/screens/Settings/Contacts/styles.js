@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import Consts from "../../../functions/Consts";
+import Consts, { FontSize } from "../../../functions/Consts";
 import {Colors} from "../../../assets/colors/Colors";
 
 const searchHeight = (Consts.screenHeight / 24);
@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
     // paddingVertical: '5%'
   },
   titleText: {
-    fontSize: 20,
+    fontSize: FontSize.medium,
     textAlignVertical: 'center',
     textAlign: 'left',
     color: Colors.black,
@@ -27,7 +27,7 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   phoneText: {
-    fontSize: 16,
+    fontSize: FontSize.small,
     textAlignVertical: 'center',
     textAlign: 'left',
     color: Colors.black,
@@ -47,7 +47,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'column',
     width: '100%',
     alignContent: 'center',
-    marginTop: 10
+    paddingVertical: 10
   },
   rowItem: {
     backgroundColor: Colors.white,

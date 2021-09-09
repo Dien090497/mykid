@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import Consts from "../../functions/Consts";
+import Consts, { FontSize } from "../../functions/Consts";
 import {Colors} from "../../assets/colors/Colors";
 
 const searchHeight = (Consts.screenHeight / 24);
@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
     // paddingVertical: '5%'
   },
   titleText: {
-    fontSize: 20,
+    fontSize: FontSize.big,
     textAlignVertical: 'center',
     textAlign: 'left',
     color: Colors.gray,

@@ -50,4 +50,26 @@ export const String = {
   placeholderCode: "Vui lòng nhập mã xác minh",
   notification: 'Thông báo',
   error_message: "Vui lòng đọc thảo thuận người dùng và chính sách bảo mật rồi đánh dấu vào đồng ý",
+
+  //member
+  member_refresh: 'Làm mới',
+  member_remove: 'Xoá',
+  member_approval: 'Đồng ý',
+  member_reject: 'Từ chối',
+
+  //home
+  home_gps: 'BẢN ĐỒ',
+  home_videoCall: 'VIDEO CALL',
+  home_journey: 'HÀNH TRÌNH',
+  home_chat: 'CHAT',
+  home_safeArea: 'KHU VỰC AN TOÀN',
+  home_alarm: 'CÀI ĐẶT CHUÔNG',
+  home_findDevice: 'TÌM ĐỒNG HỒ',
+  home_entertainment: 'GIẢI TRÍ',
+  home_device: 'THIẾT BỊ',
+  home_setting: 'THIẾT LẬP',
+
+  //setting
+  setting_contact: 'Danh bạ',
+  setting_member: 'Thành viên',
 };

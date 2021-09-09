@@ -3,7 +3,7 @@ import {View, TouchableOpacity, ImageBackground, Image, Keyboard, Text, SafeArea
 import {styles} from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Images from '../../assets/Images';
-import Consts from '../../functions/Consts';
+import Consts, { FontSize } from '../../functions/Consts';
 import {useEffect, useState} from 'react';
 
 export default function BottomTabBar({state, descriptors, navigation}) {
@@ -32,7 +32,7 @@ export default function BottomTabBar({state, descriptors, navigation}) {
   }
   return (
     keyboardStatus == 0 ? (<></>) : (<SafeAreaView><ImageBackground
-      style={[styles.container, {paddingTop: 0}]}
+      style={[styles.container]}
       source={Images.bgBottom} resizeMode={'stretch'}>
       {state.routes.map((route, index) => {
         const {options} = descriptors[route.key];
@@ -41,24 +41,19 @@ export default function BottomTabBar({state, descriptors, navigation}) {
         let text = null;
         if (index == 0) {
           if (isFocused) {
-            icon = <View style={styles.bgIcon}><Image source={Images.icHomeOn}
-                                                      style={styles.icon}/></View>;
-            text = <Text style={{fontWeight: 'bold'}}>HOME</Text>
+            icon = <Image source={Images.icHomeOn} style={styles.icon}/>;
+            text = <Text style={{fontWeight: 'bold', fontSize: FontSize.small}}>HOME</Text>
           } else {
-            icon = <View style={styles.bgIcon}><Image source={Images.icHomeOff}
-                                                      style={styles.icon}/></View>;
-            text = <Text>HOME</Text>
+            icon = <Image source={Images.icHomeOff} style={styles.icon}/>;
+            text = <Text style={{fontSize: FontSize.small}}>HOME</Text>
           }
         } else {
           if (isFocused) {
-            icon =
-              <View style={styles.bgIcon}><Image source={Images.icProfileOn}
-                                                 style={styles.icon}/></View>;
-            text = <Text style={{fontWeight: 'bold'}}>MY</Text>
+            icon = <Image source={Images.icProfileOn} style={styles.icon}/>;
+            text = <Text style={{fontWeight: 'bold',fontSize: FontSize.small}}>MY</Text>
           } else {
-            icon = <View style={styles.bgIcon}><Image source={Images.icProfileOff}
-                                                      style={styles.icon}/></View>;
-            text = <Text>MY</Text>
+            icon = <Image source={Images.icProfileOff} style={styles.icon}/>;
+            text = <Text style={{fontSize: FontSize.small}}>MY</Text>
           }
         }
         const onPress = () => {

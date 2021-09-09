@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {Colors} from '../../assets/colors/Colors';
-import Consts from "../../functions/Consts";
+import Consts, { FontSize, ScaleHeight } from "../../functions/Consts";
 
 const widthContent = Consts.screenWidth/2.2;
 const heightContent = widthContent / 2;
@@ -24,14 +24,15 @@ export const styles = StyleSheet.create({
   item: {
     flex: 1,
     alignItems:"center",
+    padding:5,
+    justifyContent: "center",
   },
   icon: {
-    height:23,
+    height: FontSize.xtraBig,
     aspectRatio: 1,
-    resizeMode: 'stretch',
+    margin: 3
   },
   bgIcon: {
-    marginLeft: 5,
     width:30,
     height:30,
   },

@@ -46,6 +46,7 @@ export default () => {
     return (
         <View style={[styles.container, { paddingBottom: useSafeAreaInsets().bottom }]}>
             <Header title={String.header_addContact} />
+            <View style={styles.mainView}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={{ flex: 1, paddingHorizontal: 20, width: '100%', justifyContent: 'center', alignItems: 'center' }}>
                     <TextInput
@@ -86,7 +87,7 @@ export default () => {
                 >
                 <Text style={{ color: 'white', fontSize: 16 }}>Lưu</Text>
             </TouchableOpacity>
-
+            </View>
         </View>
     );
 }

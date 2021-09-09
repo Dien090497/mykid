@@ -1,6 +1,7 @@
 import {Dimensions, StatusBar} from 'react-native';
 import Register from "../screens/auth/Register";
 import addDeviceScreen from "../screens/Profile/addDeviceScreen";
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height -
@@ -46,6 +47,37 @@ const ScreenIds = {
   //Maps
   Maps: 'Maps'
 };
+const heights = {};
+for (let index = 0; index < 100; index++) {
+  heights['h'+ index] = RFPercentage(index);
+  heights['h'+ index + '_25'] = RFPercentage(index+0.25);  
+  heights['h'+ index + '_5'] = RFPercentage(index+0.5);  
+  heights['h'+ index + '_75'] = RFPercentage(index+0.75);  
+}
+
+const FontSize = {
+  xxtraSmall: heights.h1_5,
+  xtraSmall: heights.h1_75,
+  small: heights.h2,
+  medium: heights.h2_25,
+  big: heights.h2_5,
+  xtraBig: heights.h2_75,
+  xxtraBig: heights.h3,
+  xxxtraBig: heights.h3_5,
+}
+
+const ScaleHeight = {
+  xxtraSmall: heights.h2,
+  xtraSmall: heights.h3,
+  small: heights.h4,
+  medium: heights.h6,
+  big: heights.h8,
+  xtraBig: heights.h10,
+  xxtraBig: heights.h13,
+  xxxtraBig: heights.h15,
+}
+
+export {FontSize, ScaleHeight}
 
 export default {
   windowWidth,
@@ -61,4 +93,5 @@ export default {
   maxSloganLength,
   vipBoundSizeBig,
   minSplashTime,
+  heights,
 };
