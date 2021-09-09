@@ -1,19 +1,27 @@
-import React, { useState } from "react";
-import { View, Text, TouchableOpacity, Image, ScrollView } from "react-native";
-import CustomInput from "../../../components/CustomInput";
+import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import React, { useLayoutEffect, useState } from "react";
+
 import Button from "../../../components/buttonGradient";
-import styles from "./style";
+import { Colors } from "../../../assets/colors/Colors";
+import Consts from "../../../functions/Consts";
+import CustomInput from "../../../components/CustomInput";
+import Header from "../../../components/Header";
 import Images from "../../../assets/Images";
 import { String } from '../../../assets/strings/String';
-import Header from "../../../components/Header";
-import { Colors } from "react-native/Libraries/NewAppScreen";
-import Consts from "../../../functions/Consts";
+import styles from "./style";
 
 const addDeviceScreen = ({ navigation }) => {
   const [user, setUser] = useState("");
   const [nickname, setNickname] = useState("");
   const [relationship, setRelationship] = useState("Bố");
   const [iconRelationship, setIconRelationship] = useState(Images.icFather);
+  const [submitActive, setSubmitActive] = useState(false);
+
+  useLayoutEffect(() => {
+    if (user && nickname) {
+      setSubmitActive(true)
+    }
+  }, [user, nickname]);
 
   const onChangeText = (text) => {
     setUser(text);
@@ -22,6 +30,7 @@ const addDeviceScreen = ({ navigation }) => {
     setNickname(text);
   };
   const addDevice = () => {
+    if (!submitActive) return;
     navigation.navigate(Consts.ScreenIds.Tabs);
   };
   return (
@@ -69,9 +78,10 @@ const addDeviceScreen = ({ navigation }) => {
 
         <View style={styles.viewButton}>
           <Button
+            activeOpacity={submitActive ? 0 : 1}
             onclick={addDevice}
             title={String.registrationConfirmation}
-            color={Colors.GradientColor}
+            color={submitActive ? Colors.GradientColor : Colors.GradientColorGray}
           />
         </View>
       </ScrollView>

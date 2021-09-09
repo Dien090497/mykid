@@ -44,7 +44,7 @@ export const String = {
   agreement: 'Thỏa thuận của người dùng',
   privacyPolicy: 'Chính sách bảo mật',
   registrationConfirmation: 'Xác nhận đăng ký',
-  txtNotification: "Nhập mật khẩu gồm 8-16 chữ + số",
+  txtNotification: "Nhập mật khẩu gồm 8-16 ký tự",
   errorGmail: "Lỗi định dạng hộp thư",
   placeholderGmail: "Nhập email",
   errorCode: "Lỗi định dạng mã xác minh",

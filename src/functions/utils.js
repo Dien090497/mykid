@@ -14,7 +14,7 @@ export function emailTest(email) {
   return /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(email);
 }
 export function passwordTest(pass) {
-  return /^[\x20-\x7E\p{L}]{8,32}$/.test(pass);
+  return /^[\x20-\x7E\p{L}]{8,16}$/.test(pass);
 }
 
 export function convertCountdownTime(seconds) {

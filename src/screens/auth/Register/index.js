@@ -1,24 +1,25 @@
-import React, { useState, useLayoutEffect } from "react";
 import {
-  View,
+  Image,
+  ImageBackground,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
   Text,
   TouchableOpacity,
-  ImageBackground,
-  Platform,
-  KeyboardAvoidingView,
   TouchableWithoutFeedback,
-  Keyboard,
-  Image,
+  View,
 } from "react-native";
-import { styles } from "./styles";
+import React, { useLayoutEffect, useState } from "react";
+import { createAccountApi, getCaptchaApi } from "../../../network/UserInfoService";
+import { emailTest, passwordTest, saveUserDataFromToken, showAlert } from "../../../functions/utils";
+
+import Button from "../../../components/buttonGradient";
+import { Colors } from "../../../assets/colors/Colors";
+import Consts from "../../../functions/Consts";
+import CustomInput from "../../../components/inputRegister";
 import Images from "../../../assets/Images";
 import { String } from "../../../assets/strings/String";
-import { Colors } from "../../../assets/colors/Colors";
-import { emailTest, passwordTest, saveUserDataFromToken, showAlert } from "../../../functions/utils";
-import { createAccountApi, getCaptchaApi } from "../../../network/UserInfoService";
-import CustomInput from "../../../components/inputRegister";
-import Button from "../../../components/buttonGradient";
-import Consts from "../../../functions/Consts";
+import { styles } from "./styles";
 
 const Register = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -30,11 +31,18 @@ const Register = ({ navigation }) => {
   const [showPass, setShowPass] = useState(true);
   const [checkbox, setCheckbox] = useState(false);
   const [captchaData, setCaptchaData] = useState();
+  const [submitActive, setSubmitActive] = useState(false);
   let isGetCaptcha = false;
 
   useLayoutEffect(() => {
     getCaptcha();
   }, []);
+
+  useLayoutEffect(() => {
+    if (email && pass && email) {
+      setSubmitActive(true)
+    }
+  }, [email, pass, code]);
 
   const onChangeGmail = (text) => {
     setEmail(text);
@@ -64,6 +72,7 @@ const Register = ({ navigation }) => {
     setShowPass(!showPass);
   };
   const onclick = () => {
+    if (!submitActive) return;
     let data = {
       email: email,
       password: pass,
@@ -146,13 +155,15 @@ const Register = ({ navigation }) => {
               txtnotification={String.txtNotification}
               icon
               onChange={onChangeShowPass}
+              maxLength={16}
             />
           </View>
           <View style={styles.viewButton}>
             <Button
+              activeOpacity={submitActive ? 0 : 1}
               onclick={onclick}
               title={String.registrationConfirmation}
-              color={Colors.GradientColor}
+              color={submitActive ? Colors.GradientColor : Colors.GradientColorGray}
             />
           </View>
           <View style={{ marginTop: 30, flexDirection: "row", width: '96%', marginLeft: '2%' }}>
