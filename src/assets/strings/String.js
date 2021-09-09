@@ -48,4 +48,23 @@ export const String = {
   placeholderGmail: "Vui lòng nhập email",
   errorCode: "Lỗi định dạng mã xác minh",
   placeholderCode: "Vui lòng nhập mã xác minh",
+
+  //member
+  member_refresh: 'Làm mới',
+  member_remove: 'Xoá',
+  member_approval: 'Đồng ý',
+  member_reject: 'Từ chối',
+
+  //home
+  home_gps: 'BẢN ĐỒ',
+  home_videoCall: 'VIDEO CALL',
+  home_journey: 'HÀNH TRÌNH',
+  home_chat: 'CHAT',
+  home_safeArea: 'KHU VỰC AN TOÀN',
+  home_alarm: 'CÀI ĐẶT CHUÔNG',
+  home_findDevice: 'TÌM ĐỒNG HỒ',
+  home_entertainment: 'GIẢI TRÍ',
+  home_device: 'THIẾT BỊ',
+  home_setting: 'THIẾT LẬP'
+
 };

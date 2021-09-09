@@ -30,4 +30,17 @@ export default {
   icHomeOn: require('./images/main/ic_home_on.png'),
   icProfileOff: require('./images/main/ic_profile_off.png'),
   icProfileOn: require('./images/main/ic_profile_on.png'),
+
+  //homeScreen
+  icAlarm: require('./images/home/alarm.png'),
+  icChat: require('./images/home/chat.png'),
+  icDevice: require('./images/home/device.png'),
+  icElectricFence: require('./images/home/electricFence.png'),
+  icEntertainment: require('./images/home/entertainment.png'),
+  icFindDevice: require('./images/home/findDevice.png'),
+  icGps: require('./images/home/gps.png'),
+  icJourney: require('./images/home/journey.png'),
+  icSetting: require('./images/home/setting.png'),
+  icVideoCall: require('./images/home/videoCall.png'),
+  icBanner: require('./images/home/banner.jpg')
 }

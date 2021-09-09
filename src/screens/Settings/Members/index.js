@@ -20,7 +20,6 @@ import Images from '../../../assets/Images';
 
 export default ({ navigation, route }) => {
     const refLoading = useRef();
-    const [isBlocking, setIsBlocking] = useState(false)
     const [dataContacts, setDataContacts] = useState([
         {
             key: 'Dad',
@@ -32,68 +31,105 @@ export default ({ navigation, route }) => {
             key: 'Mom',
             name: 'Mẹ',
             phone: '01233523',
-            selected: false
+            selected: false,
+            isApproval: true
         }
     ])
 
-    const changeSOS = (item) => {
-        //call API changeSOS
-        dataContacts.map((contact) => {
-            if (contact.key == item.key) {
-                contact.selected = true
-            }
-            else {
-                contact.selected = false
-            }
-        })
-        setDataContacts([...dataContacts]);
-    }
+    const [dataAdmin] = useState([
+        {
+            key: 'Dad',
+            userName: 'user234236',
+            phone: '012335236',
+            selected: true,
+            isAdmin: true
+        },
+    ])
+
+    useEffect(() => {
+        //call API Danh sách thành viên
+        //setDataContacts
+    })
 
     const removeContact = (item) => {
         //call remove Contact
     }
     const renderItem = ({ item }) => {
         return (
-            <TouchableOpacity activeOpacity={0.9} style={{ backgroundColor: Colors.cardHeader, borderRadius: 10, marginVertical: 2, marginHorizontal: 10 }} key={item.key} onPress={item.onPress}>
-                <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 15 }}>
-                <Image
-                    style={styles.Sty_iconCheckbox}
-                    source={Images.icAdmin} />
-                <Text  style={{padding: 10, fontWeight: 'bold', fontSize: 16}}>Administrator</Text>
-                </View>
-
-                <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', backgroundColor: 'white' }}>
-                <Image
-                    style={styles.Sty_iconCheckbox1}
-                    source={Images.icOther} />
-                    <View style={{justifyContent: 'center'}}>
-                    <Text  style={{padding: 10, fontWeight: 'bold', fontSize: 16}}>{item.userName}</Text>
-                    <Text  style={{padding: 10, fontSize: 16, color: Colors.grayPlaceHolder}}>Tài khoản: {item.account}</Text>
-                    <Text  style={{padding: 10, fontSize: 16, color: Colors.grayPlaceHolder}}>Mối quan hệ với trẻ: {item.relationship}</Text>
-                    </View>
-                </View>
-            </TouchableOpacity>
+            renderMemberItem(item)
         )
     }
-    const pressAddNew = () => {
-        navigation.navigate(Consts.ScreenIds.AddNewContact)
+    const pressRefresh = () => {
+        //Call API Refresh
+    }
+
+    const renderMemberItem = (item) => {
+        return (
+                <TouchableOpacity activeOpacity={0.9}  key={item.key} style={styles.itemContainer}>
+                    <View style={styles.itemLeft}>
+                        <Image
+                            style={styles.avatar}
+                            source={Images.icUser1} />
+                        <View style={styles.info}>
+                            <Text style={styles.username}>{item.userName}</Text>
+                            <Text style={styles.otherInfoText}>Tài khoản: {item.account}</Text>
+                            <Text style={styles.otherInfoText}>Mối quan hệ với trẻ: {item.relationship}</Text>
+                            {item.isApproval && (<View style={{ flexDirection: 'row' }}>
+                                <TouchableOpacity
+                                    style={[styles.smallButton, {marginRight: 10}]}
+                                    onPress={() => removeContact(item)}
+                                >
+                                    <Text style={[styles.smallButtonText, {color: Colors.orange}]}>{String.member_reject}</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    style={styles.smallButton}
+                                    onPress={() => removeContact(item)}
+                                >
+                                    <Text style={[styles.smallButtonText, {color: 'green'}]}>{String.member_approval}</Text>
+                                </TouchableOpacity>
+                            </View>)}
+                        </View>
+                    </View>
+                    {!item.isApproval && !item.isAdmin && (<View
+                        style={styles.itemRight}
+                    >
+                        <TouchableOpacity style={styles.smallButton} onPress={() => removeContact(item)}>
+                            <Text style={[styles.smallButtonText, {color: Colors.red }]}>{String.member_remove}</Text>
+                        </TouchableOpacity>
+                    </View>)}
+                </TouchableOpacity>
+
+        )
+    }
+
+    const renderHeader = (isAdmin) => {
+        return (<View style={styles.headerContainer}>
+            <Image
+                style={styles.iconHeader}
+                source={isAdmin ? Images.icAdmin : Images.icTwoUsers} />
+            <Text style={styles.headerText}>{isAdmin ? 'Administrator' : 'Family Members'}</Text>
+        </View>)
     }
 
     return (
         <View style={[styles.container, { paddingBottom: useSafeAreaInsets().bottom }]}>
             <Header title={String.header_members} />
             <View style={styles.mainView}>
+                {renderHeader(true)}
+                {renderMemberItem(dataAdmin[0])}
                 <FlatList
                     data={dataContacts}
                     renderItem={renderItem}
                     keyExtractor={(item) => item.key}
+                    ListHeaderComponent={renderHeader()}
+                    stickyHeaderIndices={[0]}
                 />
-                 <TouchableOpacity
-                style={{ height: 60, backgroundColor: Colors.blueButton, width: '90%', alignSelf: 'center', borderRadius: 10, justifyContent: 'center', alignItems: 'center' }}
-                onPress={pressAddNew}
-            >
-                <Text style={{ color: 'white', fontSize: 16 }}>Làm mới</Text>
-            </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={pressRefresh}
+                >
+                    <Text style={styles.buttonText}>{String.member_refresh}</Text>
+                </TouchableOpacity>
             </View>
             <LoadingIndicator ref={refLoading} />
         </View>

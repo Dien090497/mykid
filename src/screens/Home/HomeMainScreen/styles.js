@@ -1,10 +1,11 @@
 import {StyleSheet, Platform, StatusBar} from 'react-native';
-import Const from '../../../functions/Consts';
+import Const, { FontSize, ScaleHeight } from '../../../functions/Consts';
 import {Colors} from '../../../assets/colors/Colors';
+
 const itemWidth = (Const.windowWidth - 30) / 2;
 const searchHeight = (Const.screenHeight/24);
 const notifHeight = searchHeight/1.7;
-const itemHeight = (Const.screenHeight ) / 10;
+const itemHeight = (Const.screenHeight ) / 8;
 const tabViewHeight = Const.screenHeight;
 export const styles = StyleSheet.create({
   container: {
@@ -31,13 +32,12 @@ export const styles = StyleSheet.create({
     borderLeftWidth: 1,
     borderLeftColor: Colors.gray
   },
-  header: {
+  banner: {
     // flex: 3.5,
-    height: itemHeight,
+    height: ScaleHeight.xxxtraBig,
+    width: '100%',
     alignContent:'center',
     alignItems: 'center',
-    backgroundColor: Colors.white,
-    justifyContent: 'space-between'
   },
   textInput: {
     width: '100%',
@@ -73,11 +73,6 @@ export const styles = StyleSheet.create({
     height: searchHeight,
     alignSelf: 'center'
 },
- icon: {
-   width: 15,
-   height: 15,
-   alignSelf: 'center'
-},
  txt: {
    width: '84%',
    marginHorizontal: 5,
@@ -93,12 +88,13 @@ export const styles = StyleSheet.create({
     height: searchHeight,
     alignSelf: 'flex-end'
   },
-  buttonContainer: {width: '50%', minHeight: '20%', padding: 5},
-  button: {flex: 1, borderRadius: 10,  justifyContent: 'center', alignItems: 'center'},
+  buttonContainer: {width: '50%', minHeight: '20%', padding: 3},
+  button: {flex: 1, borderRadius: 8,  justifyContent: 'center', alignItems: 'center'},
   buttonText: {
-    fontSize: 16,
+    fontSize: FontSize.medium,
     color: Colors.white,
-    fontFamily: "Roboto-Regular"
+    fontFamily: "Roboto-Regular",
+    padding: 5
   },
   icon: {
     height:23,
@@ -106,7 +102,6 @@ export const styles = StyleSheet.create({
     resizeMode: 'stretch',
   },
   bgIcon: {
-    marginLeft: 5,
     width:30,
     height:30,
   },

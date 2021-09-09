@@ -10,7 +10,7 @@ import {
 
 import { styles } from './styles';
 import { String } from '../../../assets/strings/String';
-import Consts from '../../../functions/Consts';
+import Consts, { FontSize, ScaleHeight } from '../../../functions/Consts';
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import Header from "../../../components/Header";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -56,12 +56,12 @@ export default ({ navigation, route }) => {
             <TouchableOpacity activeOpacity={0.9} style={{ backgroundColor: Colors.grayInput, borderRadius: 10, marginVertical: 2, padding: 15, marginHorizontal: 10 }} key={item.key} onPress={item.onPress}>
                 <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
                     <View style={{ flex: 0.2, justifyContent: 'center', alignItems: 'center' }}>
-                        <Text style={{ fontSize: 8, color: 'red' }}>SOS</Text>
+                        <Text style={{ fontSize: FontSize.xtraSmall, color: 'red' }}>SOS</Text>
                         <TouchableOpacity 
-                        style={{ borderWidth: 1, borderColor: Colors.gray, width: 20, height: 20, borderRadius: 10, justifyContent: 'center', alignItems: 'center' }}
+                        style={{ borderWidth: 1, borderColor: Colors.gray, width: FontSize.medium, height: FontSize.medium, borderRadius: FontSize.medium/2, justifyContent: 'center', alignItems: 'center' }}
                         onPress={() => changeSOS(item)}
                         >
-                            {item.selected && <View style={{ backgroundColor: 'red', width: 14, height: 14, borderRadius: 7 }}></View>}
+                            {item.selected && <View style={{ backgroundColor: 'red', width: FontSize.small, height: FontSize.small, borderRadius: FontSize.small/2 }}></View>}
                         </TouchableOpacity>
                     </View>
                     <View style={{ flex: 0.8 }}>
@@ -72,7 +72,7 @@ export default ({ navigation, route }) => {
                     style={{ borderWidth: 1, paddingHorizontal: 20, paddingVertical: 5, borderRadius: 20, borderColor: Colors.grayColorKeyBoard, backgroundColor: Colors.grayBackground }}
                     onPress={() => removeContact(item)}
                     >
-                        <Text style={{ color: 'red' }}>Xoá</Text>
+                        <Text style={{fontSize: FontSize.small , color: 'red' }}>Xoá</Text>
                     </TouchableOpacity>
                 </View>
             </TouchableOpacity>
@@ -95,9 +95,8 @@ export default ({ navigation, route }) => {
                     renderItem={renderItem}
                     keyExtractor={(item) => item.key}
                 />
-            </View>
-            <View style={{padding: 10, flexDirection: 'row', width: '90%', alignSelf: 'center', borderRadius: 10, justifyContent: 'center', alignItems: 'center' }}>
-                <Text style={{ flex: 0.8, textAlign: 'left', fontSize: 16 }}>Chặn số từ người lạ</Text>
+                <View style={{padding: 10, flexDirection: 'row', width: '90%', alignSelf: 'center', borderRadius: 10, justifyContent: 'center', alignItems: 'center' }}>
+                <Text style={{ flex: 0.8, textAlign: 'left', fontSize: FontSize.small }}>Chặn số từ người lạ</Text>
                 <View style={{flex: 0.2, alignItems: 'center', justifyContent: 'center' }}>
                 <Switch
                     trackColor={{ false: Colors.blueTitle, true: "#81b0ff" }}
@@ -109,11 +108,13 @@ export default ({ navigation, route }) => {
                 </View>
             </View>
             <TouchableOpacity
-                style={{ height: 60, backgroundColor: '#2fc886', width: '90%', alignSelf: 'center', borderRadius: 10, justifyContent: 'center', alignItems: 'center' }}
+                style={{ height: ScaleHeight.medium, backgroundColor: '#2fc886', width: '90%', alignSelf: 'center', borderRadius: 10, justifyContent: 'center', alignItems: 'center' }}
                 onPress={pressAddNew}
             >
-                <Text style={{ color: 'white', fontSize: 16 }}>Thêm số mới</Text>
+                <Text style={{ color: 'white', fontSize: FontSize.medium}}>Thêm số mới</Text>
             </TouchableOpacity>
+            </View>
+            
             <LoadingIndicator ref={refLoading} />
         </View>
     );

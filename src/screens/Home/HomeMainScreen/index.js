@@ -13,6 +13,7 @@ import { appStatusBar } from '../../../components/CommonUIComponents';
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import Images from '../../../assets/Images';
 import Consts from '../../../functions/Consts';
+import { String } from '../../../assets/strings/String';
 
 export default function HomeMainScreen() {
   const navigation = useNavigation();
@@ -22,13 +23,11 @@ export default function HomeMainScreen() {
   useLayoutEffect(() => {
   }, []);
 
-  const renderHeader = () => {
-    return (
-      <HomeCarousel data={[]} />
-    );
-  };
+  const pressMap = () => {
+    navigation.navigate(Consts.ScreenIds.Maps);
+  }
 
-  const pressVoiceMess = () => {
+  const pressChat = () => {
     //navigation.navigate(Consts.ScreenIds.Register);
   }
 
@@ -40,27 +39,23 @@ export default function HomeMainScreen() {
    //navigation.navigate();
   }
 
-  const pressMap = () => {
-    navigation.navigate(Consts.ScreenIds.Maps);
-  }
-
   const pressSafeArea = () => {
     //navigation.navigate();
   }
 
-  const pressRewards = () => {
+  const pressAlarm = () => {
    //navigation.navigate();
   }
 
-  const pressAlarm = () => {
+  const pressFindDevice = () => {
     //navigation.navigate();
   }
 
-  const pressWarning = () => {
+  const pressEntertainment = () => {
     //navigation.navigate();
   }
 
-  const pressEquipments = () => {
+  const pressDevices = () => {
     //navigation.navigate();
   }
 
@@ -71,18 +66,18 @@ export default function HomeMainScreen() {
   return (
     <SafeAreaView style={styles.container}>
       {appStatusBar()}
-      <View style={[styles.header, { backgroundColor: '#05e5f5' }]}>
-      </View>
+      <Image source={Images.icBanner} resizeMode={'stretch'}
+              style={styles.banner} />
       <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap' }}>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             {...buttonProps}
             style={[styles.button, { backgroundColor: '#4896ff' }]}
-            onPress={pressVoiceMess}
+            onPress={pressMap}
           >
-            <View style={styles.bgIcon}><Image source={Images.icHomeOff}
+            <View style={styles.bgIcon}><Image source={Images.icGps}
               style={styles.icon} /></View>
-            <Text style={styles.buttonText}>TIN NHẮN THOẠI</Text>
+            <Text style={styles.buttonText}>{String.home_gps}</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.buttonContainer}>
@@ -91,9 +86,9 @@ export default function HomeMainScreen() {
             style={[styles.button, { backgroundColor: '#fb909f' }]}
             onPress={pressVideoCall}
           >
-            <View style={styles.bgIcon}><Image source={Images.icHomeOff}
+            <View style={styles.bgIcon}><Image source={Images.icVideoCall}
               style={styles.icon} /></View>
-            <Text style={styles.buttonText}>VIDEO CALL</Text>
+            <Text style={styles.buttonText}>{String.home_videoCall}</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.buttonContainer}>
@@ -102,20 +97,20 @@ export default function HomeMainScreen() {
             style={[styles.button, { backgroundColor: '#008dff' }]}
             onPress={pressJourney}
           >
-            <View style={styles.bgIcon}><Image source={Images.icHomeOff}
+            <View style={styles.bgIcon}><Image source={Images.icJourney}
               style={styles.icon} /></View>
-            <Text style={styles.buttonText}>HÀNH TRÌNH</Text>
+            <Text style={styles.buttonText}>{String.home_journey}</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             {...buttonProps}
             style={[styles.button, { backgroundColor: '#ffc24b' }]}
-            onPress={pressMap}
+            onPress={pressChat}
           >
-            <View style={styles.bgIcon}><Image source={Images.icHomeOff}
+            <View style={styles.bgIcon}><Image source={Images.icChat}
               style={styles.icon} /></View>
-            <Text style={styles.buttonText}>BẢN ĐỒ</Text>
+            <Text style={styles.buttonText}>{String.home_chat}</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.buttonContainer}>
@@ -124,53 +119,53 @@ export default function HomeMainScreen() {
             style={[styles.button, { backgroundColor: '#2b64c6' }]}
             onPress={pressSafeArea}
           >
-            <View style={styles.bgIcon}><Image source={Images.icHomeOff}
+            <View style={styles.bgIcon}><Image source={Images.icElectricFence}
               style={styles.icon} /></View>
-            <Text style={styles.buttonText}>KHU VỰC AN TOÀN</Text>
+            <Text style={styles.buttonText}>{String.home_safeArea}</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             {...buttonProps}
             style={[styles.button, { backgroundColor: '#f19204' }]}
-            onPress={pressRewards}
+            onPress={pressAlarm}
           >
-            <View style={styles.bgIcon}><Image source={Images.icHomeOff}
+            <View style={styles.bgIcon}><Image source={Images.icAlarm}
               style={styles.icon} /></View>
-            <Text style={styles.buttonText}>PHẦN THƯỞNG</Text>
+            <Text style={styles.buttonText}>{String.home_alarm}</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             {...buttonProps}
             style={[styles.button, { backgroundColor: '#13b96a' }]}
-            onPress={pressAlarm}
+            onPress={pressFindDevice}
           >
-            <View style={styles.bgIcon}><Image source={Images.icHomeOff}
+            <View style={styles.bgIcon}><Image source={Images.icFindDevice}
               style={styles.icon} /></View>
-            <Text style={styles.buttonText}>BÁO THỨC</Text>
+            <Text style={styles.buttonText}>{String.home_findDevice}</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             {...buttonProps}
             style={[styles.button, { backgroundColor: '#e17c3f' }]}
-            onPress={pressWarning}
+            onPress={pressEntertainment}
           >
-            <View style={styles.bgIcon}><Image source={Images.icHomeOff}
+            <View style={styles.bgIcon}><Image source={Images.icEntertainment}
               style={styles.icon} /></View>
-            <Text style={styles.buttonText}>CẢNH BÁO</Text>
+            <Text style={styles.buttonText}>{String.home_entertainment}</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             {...buttonProps}
             style={[styles.button, { backgroundColor: '#3db900' }]}
-            onPress={pressEquipments}
+            onPress={pressDevices}
           >
-            <View style={styles.bgIcon}><Image source={Images.icHomeOff}
+            <View style={styles.bgIcon}><Image source={Images.icDevice}
               style={styles.icon} /></View>
-            <Text style={styles.buttonText}>THIẾT BỊ</Text>
+            <Text style={styles.buttonText}>{String.home_device}</Text>
           </TouchableOpacity>
         </View>
 
@@ -180,9 +175,9 @@ export default function HomeMainScreen() {
             style={[styles.button, { backgroundColor: '#b16f21' }]}
             onPress={pressSettings}
           >
-            <View style={styles.bgIcon}><Image source={Images.icHomeOff}
+            <View style={styles.bgIcon}><Image source={Images.icSetting}
               style={styles.icon} /></View>
-            <Text style={styles.buttonText}>THIẾT LẬP</Text>
+            <Text style={styles.buttonText}>{String.home_setting}</Text>
           </TouchableOpacity>
         </View>
       </View>
