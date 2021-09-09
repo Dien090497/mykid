@@ -10,12 +10,15 @@ const connectionScreen = ({navigation}) => {
     navigation.navigate('addDeviceScreen')
   };
   return (
-    <View style={styles.container}>
-      <Button
-        onclick={onclick}
-        title={String.connection}
-        color={Colors.GradientColor}
-      />
+    <View style={styles.contain}>
+      <Header title={String.header_connectDevice} />
+      <View style={styles.container}>
+        <Button
+          onclick={onclick}
+          title={String.connection}
+          color={Colors.GradientColor}
+        />
+      </View>
     </View>
   );
 };
