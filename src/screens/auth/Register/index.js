@@ -97,81 +97,84 @@ const Register = ({ navigation }) => {
       behavior={Platform.OS === "ios" ? "padding" : ""}
       style={styles.container}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <ImageBackground source={Images.bgLogin} style={styles.image}>
-          <CustomInput
-            placeholder={String.placeholderGmail}
-            onChangeText={onChangeGmail}
-            value={email}
-            notification={checkGmail}
-            txtnotification={String.errorGmail}
-          />
-          <View style={styles.Sty_txtCode}>
-            <View style={{ width: "50%" }}>
-              <CustomInput
-                number
-                placeholder={String.placeholderCode}
-                onChangeText={onChangeCode}
-                value={code}
-                notification={checkCode}
-                txtnotification={String.errorCode}
+        <View style={styles.container}>
+          <Header title={String.register} />
+          <ImageBackground source={Images.bgLogin} style={styles.image}>
+            <CustomInput
+              placeholder={String.placeholderGmail}
+              onChangeText={onChangeGmail}
+              value={email}
+              notification={checkGmail}
+              txtnotification={String.errorGmail}
+            />
+            <View style={styles.Sty_txtCode}>
+              <View style={{ width: "50%" }}>
+                <CustomInput
+                  number
+                  placeholder={String.placeholderCode}
+                  onChangeText={onChangeCode}
+                  value={code}
+                  notification={checkCode}
+                  txtnotification={String.errorCode}
+                />
+              </View>
+              <View style={{ width: "40%", padding: 2 }}>
+                <Image
+                  style={styles.Sty_iconCode}
+                  source={captchaData ? { uri: `data:image/png;base64,${captchaData.captcha}` } : null} />
+              </View>
+              <TouchableOpacity
+                onPress={getCaptcha}>
+                <Image
+                  style={styles.Sty_iconReset}
+                  source={Images.icReload} />
+              </TouchableOpacity>
+            </View>
+            <CustomInput
+              placeholder={String.txtNotification}
+              onChangeText={onChangePass}
+              value={pass}
+              notification={checkPass}
+              secureTextEntry={showPass}
+              txtnotification={String.txtNotification}
+              icon
+              onChange={onChangeShowPass}
+            />
+            <View
+              style={{
+                width: "100%",
+                marginTop: 50,
+                justifyContent: "center",
+              }}
+            >
+              <Button
+                onclick={onclick}
+                title={String.registrationConfirmation}
+                color={Colors.GradientColor}
               />
             </View>
-            <View style={{ width: "40%", padding: 2 }}>
-              <Image
-                style={styles.Sty_iconCode}
-                source={captchaData ? { uri: `data:image/png;base64,${captchaData.captcha}` } : null} />
+            <View style={{ marginTop: 30, flexDirection: "row" }}>
+              <TouchableOpacity
+                onPress={() => setCheckbox(!checkbox)}
+              >
+                {
+                  checkbox ?
+                    <Image
+                      style={styles.Sty_iconCheckbox}
+                      source={Images.iconCheck} />
+                    :
+                    <View
+                      style={{ ...styles.Sty_iconCheckbox, borderRadius: 10, borderColor: "#009900", borderWidth: 1 }} />
+                }
+              </TouchableOpacity>
+              <Text style={styles.txt_Policy}>
+                {String.acceptMy} <Text style={styles.txtPolicy}
+                                        onPress={() => console.log("hello")}>{String.agreement}</Text><Text
+                style={styles.txtPolicy} onPress={() => console.log("Chính sách bảo mật")}> {String.privacyPolicy}</Text>
+              </Text>
             </View>
-            <TouchableOpacity
-              onPress={getCaptcha}>
-              <Image
-                style={styles.Sty_iconReset}
-                source={Images.icReload} />
-            </TouchableOpacity>
-          </View>
-          <CustomInput
-            placeholder={String.txtNotification}
-            onChangeText={onChangePass}
-            value={pass}
-            notification={checkPass}
-            secureTextEntry={showPass}
-            txtnotification={String.txtNotification}
-            icon
-            onChange={onChangeShowPass}
-          />
-          <View
-            style={{
-              width: "100%",
-              marginTop: 50,
-              justifyContent: "center",
-            }}
-          >
-            <Button
-              onclick={onclick}
-              title={String.registrationConfirmation}
-              color={Colors.GradientColor}
-            />
-          </View>
-          <View style={{ marginTop: 30, flexDirection: "row" }}>
-            <TouchableOpacity
-              onPress={() => setCheckbox(!checkbox)}
-            >
-              {
-                checkbox ?
-                  <Image
-                    style={styles.Sty_iconCheckbox}
-                    source={Images.iconCheck} />
-                  :
-                  <View
-                    style={{ ...styles.Sty_iconCheckbox, borderRadius: 10, borderColor: "#009900", borderWidth: 1 }} />
-              }
-            </TouchableOpacity>
-            <Text style={styles.txt_Policy}>
-              {String.acceptMy} <Text style={styles.txtPolicy}
-                                      onPress={() => console.log("hello")}>{String.agreement}</Text><Text
-              style={styles.txtPolicy} onPress={() => console.log("Chính sách bảo mật")}> {String.privacyPolicy}</Text>
-            </Text>
-          </View>
-        </ImageBackground>
+          </ImageBackground>
+        </View>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );
