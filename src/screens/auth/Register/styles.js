@@ -1,5 +1,5 @@
 import {StyleSheet, Dimensions} from 'react-native';
-import Consts from '../../../functions/Consts';
+import Consts, { FontSize } from '../../../functions/Consts';
 import {Colors} from '../../../assets/colors/Colors';
 
 export const styles = StyleSheet.create({
@@ -13,15 +13,31 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  Sty_txtCode: {
+  Sty_txtEmail: {
+    marginLeft: '2%',
+    marginTop: 25,
+    width: "96%",
+    flexDirection: "row",
+    marginVertical: 15,
+    alignItems: "center",
+  },
+  Sty_txtPass: {
+    marginLeft: '2%',
     width: "100%",
     flexDirection: "row",
-    marginVertical: 10,
+    marginVertical: 15,
+    alignItems: "center",
+  },
+  Sty_txtCode: {
+    marginLeft: '2%',
+    width: "96%",
+    flexDirection: "row",
+    marginVertical: 15,
     alignItems: "center",
   },
   Sty_iconCode: {
-    width: "100%",
-    height: 30,
+    width: 120,
+    height: 27,
   },
   Sty_iconReset: {
     width: 25,
@@ -43,12 +59,17 @@ export const styles = StyleSheet.create({
   },
   txtPolicy: {
     fontWeight: "700",
-    fontSize: 13,
+    fontSize: FontSize.medium,
     color: "#00CCCC",
     textDecorationLine: "underline",
   },
   txt_Policy: {
-    fontSize: 13,
+    fontSize: FontSize.medium,
     marginLeft: 5,
   },
+  viewButton: {
+    width: "96%",
+    marginTop: 50,
+    justifyContent: "center",
+  }
 });

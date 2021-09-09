@@ -1,4 +1,5 @@
 import {StyleSheet, Dimensions} from 'react-native';
+import { FontSize } from '../../functions/Consts';
 const { width, height } = Dimensions.get('window');
 const styles = StyleSheet.create({
   Sty_TitleInput: {
@@ -11,13 +12,13 @@ const styles = StyleSheet.create({
   },
   Sty_input: {
     width: '100%',
-    fontSize: 13,
+    fontSize: FontSize ? FontSize.small : 13,
     padding: 2,
   },
   txtNotification: {
     padding:0,
     color: '#D71921',
-    fontSize:13,
+    fontSize: FontSize ? FontSize.small : 13,
   },
   Sty_iconShow: {
     width:25,

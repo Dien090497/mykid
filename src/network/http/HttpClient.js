@@ -339,9 +339,9 @@ async function handleResp(response, autoShowMsg, success, failure, refLoading) {
     const err = checkFailure(result);
 
     if (autoShowMsg) {
-      if (err === UNEXPECTED_ERROR_MSG) {
+      // if (err === UNEXPECTED_ERROR_MSG) {
         showAlert(err);
-      }
+      // }
     }
 
     if (failure) {

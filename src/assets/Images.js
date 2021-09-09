@@ -1,4 +1,5 @@
 export default {
+  bgLogin: require('./images/bg_login.png'),
   icAdmin: require('./images/ic_admin.png'),
   icSW: require('./images/ic_sw.png'),
   icAlarmClock: require('./images/ic_alarm_clock.png'),

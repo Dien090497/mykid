@@ -14,23 +14,29 @@ import { styles } from "./styles";
 import Images from "../../../assets/Images";
 import { String } from "../../../assets/strings/String";
 import { Colors } from "../../../assets/colors/Colors";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as Actions from "../../../redux/actions";
-import PasswordInputComponent from "../../../components/PasswordInputComponent";
-import { showAlert } from "../../../functions/utils";
 import LoadingIndicator from "../../../components/LoadingIndicator";
 import ComponentInput from "../../../components/CustomInput";
 import Button from "../../../components/buttonGradient";
 import Consts from "../../../functions/Consts";
+import { emailTest, passwordTest, showAlert } from "../../../functions/utils";
 
 const Login = ({ navigation }) => {
   const dispatch = useDispatch();
+  const loggedInUserInfo = useSelector((state) => state.loginReducer.dataInfo);
 
   const [email, setEmail] = useState("hyhung@gmail.com");
   const [password, setPassword] = useState("hung12345");
   const [checkbox, setCheckbox] = useState(false);
 
   const refLoading = useRef();
+
+  useEffect(() => {
+    if (loggedInUserInfo.isLoggedIn) {
+      navigation.navigate(Consts.ScreenIds.Tabs);
+    }
+  }, [loggedInUserInfo])
 
   const onChangeGmail = (text) => {
     setEmail(text);
@@ -41,8 +47,15 @@ const Login = ({ navigation }) => {
   };
   const onclick = () => {
     if(checkbox){
+      if (!emailTest(email)) {
+        showAlert(String.errorGmail);
+        return;
+      }
+      if (!passwordTest(password)) {
+        showAlert(String.txtNotification);
+        return;
+      }
       dispatch(Actions.actionLogin({email, password, refLoading}));
-      navigation.navigate(Consts.ScreenIds.Tabs);
     }else {
       Alert.alert(String.notification, String.error_message);
     }
@@ -56,15 +69,9 @@ const Login = ({ navigation }) => {
         <ImageBackground source={Images.bgLogin} style={styles.image}>
           <View style={styles.ViewResetPass}>
             <View/>
-            {/*<TouchableOpacity onPress={() => navigation.navigate("registerScreen")}>*/}
-            {/*  <Text*/}
-            {/*    style={styles.txtResetPass}*/}
-
-            {/*  >Quên mật khẩu</Text>*/}
-            {/*</TouchableOpacity>*/}
-            <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+            <TouchableOpacity onPress={() => navigation.navigate(Consts.ScreenIds.Register)}>
               <Text
-                style={styles.txtResetPass}>Đăng ký</Text>
+                style={styles.txtRegister}>{String.register}</Text>
             </TouchableOpacity>
           </View>
           <ComponentInput
@@ -112,8 +119,8 @@ const Login = ({ navigation }) => {
             </TouchableOpacity>
             <Text style={styles.txt_Policy}>
               {String.acceptMy} <Text style={styles.txtPolicy}
-                                      onPress={() => console.log("hello")}>{String.agreement}</Text><Text
-              style={styles.txtPolicy} onPress={() => console.log("Chính sách bảo mật")}> {String.privacyPolicy}</Text>
+                                      onPress={() => console.log("hello")}>{String.agreement}</Text>    <Text
+              style={styles.txtPolicy} onPress={() => console.log("Chính sách bảo mật")}>{String.privacyPolicy}</Text>
             </Text>
           </View>
         </ImageBackground>

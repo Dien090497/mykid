@@ -1,5 +1,6 @@
 import ReactNative, {Alert, UIManager} from 'react-native';
 import KeepAwake from 'react-native-keep-awake';
+import DataLocal from '../data/dataLocal';
 
 const addCommas = (num, style) => {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, style);
@@ -124,4 +125,11 @@ export function sortByName(list) {
     if (a > b) { return 1; }
     return 0;
   });
+}
+
+export async function saveUserDataFromToken(token) {
+  await DataLocal.saveAccessToken(token);
+  // await DataLocal.saveUserInfo(userInfo);
+  // globalData.accessToken = token;
+  return token;
 }

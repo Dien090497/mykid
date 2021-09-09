@@ -16,7 +16,7 @@ const dev = {
   rootDomain: 'mykid.ttc.software',
 }
 
-export const RETRY_HTTP_REQUEST_NUMBER = 1;
+export const RETRY_HTTP_REQUEST_NUMBER = 0;
 export default {
   dev,
   staging,

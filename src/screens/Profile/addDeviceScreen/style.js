@@ -52,6 +52,12 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontSize: 16,
     color: '#00000060'
+  },
+  viewButton: {
+    marginLeft: '5%',
+    width: "90%",
+    marginTop: 40,
+    justifyContent: "center",
   }
 });
 export default styles;
