@@ -1,19 +1,20 @@
-import React, { useState, useLayoutEffect, useRef } from 'react';
 import {
-  View,
+  Image,
   SafeAreaView,
   Text,
   TouchableOpacity,
-  Image
+  View
 } from 'react-native';
-import { styles } from './styles';
-import HomeCarousel from '../../../components/Home/HomeCarousel';
-import { useNavigation } from '@react-navigation/native';
-import { appStatusBar } from '../../../components/CommonUIComponents';
-import LoadingIndicator from '../../../components/LoadingIndicator';
-import Images from '../../../assets/Images';
+import React, { useLayoutEffect, useRef, useState } from 'react';
+
 import Consts from '../../../functions/Consts';
+import HomeCarousel from '../../../components/Home/HomeCarousel';
+import Images from '../../../assets/Images';
+import LoadingIndicator from '../../../components/LoadingIndicator';
 import { String } from '../../../assets/strings/String';
+import { appStatusBar } from '../../../components/CommonUIComponents';
+import { styles } from './styles';
+import { useNavigation } from '@react-navigation/native';
 
 export default function HomeMainScreen() {
   const navigation = useNavigation();
@@ -32,7 +33,7 @@ export default function HomeMainScreen() {
   }
 
   const pressVideoCall = () => {
-    //navigation.navigate();
+    navigation.navigate(Consts.ScreenIds.ListDevice);
   }
 
   const pressJourney = () => {

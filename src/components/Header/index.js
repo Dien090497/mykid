@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
-import {styles} from './styles';
-import {useSafeArea} from 'react-native-safe-area-context';
-import {String} from '../../assets/strings/String';
+import {Text, TouchableOpacity, View} from 'react-native';
 import {useNavigation, useNavigationState} from '@react-navigation/native';
+
+import { Colors } from '../../assets/colors/Colors';
 import Consts from '../../functions/Consts';
 import Icons from '../../components/VectorIcons'
-import { Colors } from '../../assets/colors/Colors';
+import {String} from '../../assets/strings/String';
+import {styles} from './styles';
+import {useSafeArea} from 'react-native-safe-area-context';
+
 // import Orientation from 'react-native-orientation';
 
 export default Header = (props) => {

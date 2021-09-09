@@ -25,6 +25,7 @@ export default {
   materialIcons: require('./images/materialIcons.png'),
   iconCheck: require('./images/iconcheck.png'),
   icon_arrow_up: require('./images/icon_arrow_up.png'),
+  icPhone: require('./images/ic_phone.png'),
 
   icHomeOff: require('./images/main/ic_home_off.png'),
   icHomeOn: require('./images/main/ic_home_on.png'),

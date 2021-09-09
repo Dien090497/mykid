@@ -1,29 +1,31 @@
 import React, {useEffect} from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {navigationRef, isReadyRef} from './RootNavigation';
+import {isReadyRef, navigationRef} from './RootNavigation';
 
-//screen
-import HomeMainScreen from '../screens/Home/HomeMainScreen';
-// import ListGame from "../screens/ListGame";
-import Profile from '../screens/Profile';
-//auth screen
-import Login from '../screens/auth/Login';
-import Register from '../screens/auth/Register';
-import connectionScreen from '../screens/auth/connectionScreen';
+import AddNewContact from '../screens/Settings/Contacts/addNew'
 //tab bar
 import BottomTabBar from './BottomTabBar';
-import SplashScreen from '../screens/Splash';
 import Consts from '../functions/Consts';
-import addDeviceScreen from "../screens/Profile/addDeviceScreen";
-import relationship from "../screens/Profile/relationship";
-import QRCodeScreen from "../screens/Profile/QRCodeScreen";
-import SettingScreen from '../screens/Settings'
-import AddNewContact from '../screens/Settings/Contacts/addNew'
 import Contacts from '../screens/Settings/Contacts'
-import Members from "../screens/Settings/Members"
+import Header from '../components/Header';
+//screen
+import HomeMainScreen from '../screens/Home/HomeMainScreen';
+import ListDeviceScreen from '../screens/VideoCall'
+//auth screen
+import Login from '../screens/auth/Login';
 import Maps from '../screens/Maps';
+import Members from "../screens/Settings/Members"
+import {NavigationContainer} from '@react-navigation/native';
+// import ListGame from "../screens/ListGame";
+import Profile from '../screens/Profile';
+import QRCodeScreen from "../screens/Profile/QRCodeScreen";
+import Register from '../screens/auth/Register';
+import SettingScreen from '../screens/Settings'
+import SplashScreen from '../screens/Splash';
+import addDeviceScreen from "../screens/Profile/addDeviceScreen";
+import connectionScreen from '../screens/auth/connectionScreen';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createStackNavigator} from '@react-navigation/stack';
+import relationship from "../screens/Profile/relationship";
 
 const Tab = createBottomTabNavigator();
 const TabBarBottom = () => {
@@ -97,6 +99,10 @@ const Routes = () => {
         <Stack.Screen name={Consts.ScreenIds.Contacts} component={Contacts} />
         <Stack.Screen name={Consts.ScreenIds.Members} component={Members} />
         <Stack.Screen name={Consts.ScreenIds.Maps} component={Maps} />
+        <Stack.Screen
+          name={Consts.ScreenIds.ListDevice}
+          component={ListDeviceScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

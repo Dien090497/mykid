@@ -1,7 +1,8 @@
 import {Dimensions, StatusBar} from 'react-native';
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+
 import Register from "../screens/auth/Register";
 import addDeviceScreen from "../screens/Profile/addDeviceScreen";
-import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height -
@@ -14,6 +15,8 @@ const maxNicknameLength = 20;
 const maxSloganLength = 200;
 const vipBoundSizeBig = 170;
 const minSplashTime = 4; // seconds
+const maxSizeInPage = 36;
+const pageDefault = 0;
 
 // anonymous
 const anonymousAccount = 'Anonymous@Account.com';
@@ -45,14 +48,17 @@ const ScreenIds = {
   Members: 'Members',
 
   //Maps
-  Maps: 'Maps'
+  Maps: 'Maps',
+
+  //VideoCall
+  ListDevice: 'ListDevice'
 };
 const heights = {};
 for (let index = 0; index < 100; index++) {
   heights['h'+ index] = RFPercentage(index);
-  heights['h'+ index + '_25'] = RFPercentage(index+0.25);  
-  heights['h'+ index + '_5'] = RFPercentage(index+0.5);  
-  heights['h'+ index + '_75'] = RFPercentage(index+0.75);  
+  heights['h'+ index + '_25'] = RFPercentage(index+0.25);
+  heights['h'+ index + '_5'] = RFPercentage(index+0.5);
+  heights['h'+ index + '_75'] = RFPercentage(index+0.75);
 }
 
 const FontSize = {
@@ -94,4 +100,6 @@ export default {
   vipBoundSizeBig,
   minSplashTime,
   heights,
+  maxSizeInPage,
+  pageDefault
 };

@@ -13,7 +13,6 @@ const loginReducer = (state = initData, { type, payload }) => {
       };
     case 'LOGIN_SUCCESS':
       Object.assign(state.dataInfo, payload);
-
       return {
         ...state,
         dataInfo: payload,

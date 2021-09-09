@@ -72,4 +72,6 @@ export const String = {
   //setting
   setting_contact: 'Danh bạ',
   setting_member: 'Thành viên',
+  video_call: 'Video Call',
+  device_connected_not_found: 'Không tìm thấy thiết bị kết nối'
 };

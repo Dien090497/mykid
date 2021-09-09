@@ -13,6 +13,7 @@ export const createAccountUrl = appUrl + '/accounts';
 export const changePasswordUrl = appUrl + '/accounts/password';
 export const refreshTokenUrl = appUrl + '/auth/refresh';
 export const getCaptchaUrl = appUrl + '/captcha';
+export const listDeviceUrl = appUrl + '/account-devices'
 
 // User info
 export const accountDetailUrl = appUrl + '/accounts';
