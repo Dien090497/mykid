@@ -1,5 +1,5 @@
 import {StyleSheet, Dimensions} from 'react-native';
-import Consts from '../../../functions/Consts';
+import Consts, { FontSize } from '../../../functions/Consts';
 import {Colors} from '../../../assets/colors/Colors';
 
 export const styles = StyleSheet.create({
@@ -25,8 +25,9 @@ export const styles = StyleSheet.create({
     width: '100%',
     justifyContent: "space-between"
   },
-  txtResetPass: {
-    color: '#4169E1'
+  txtRegister: {
+    color: '#4169E1',
+    marginRight: 5
   },
   Sty_iconCheckbox: {
     justifyContent: 'center',
@@ -47,12 +48,12 @@ export const styles = StyleSheet.create({
   },
   txtPolicy: {
     fontWeight: "700",
-    fontSize: 13,
-    color: "#00CCCC",
+    fontSize: FontSize.medium,
+    color: Colors.red,
     textDecorationLine: "underline",
   },
   txt_Policy: {
-    fontSize: 13,
+    fontSize: FontSize.small,
     marginLeft: 5,
   },
 });

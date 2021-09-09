@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, Linking, TouchableOpacity, Image, ScrollView } from "react-native";
+import React, { useState } from "react";
+import { View, Text, TouchableOpacity, Image, ScrollView } from "react-native";
 import CustomInput from "../../../components/CustomInput";
+import Button from "../../../components/buttonGradient";
 import styles from "./style";
 import Images from "../../../assets/Images";
 import { String } from '../../../assets/strings/String';
 import Header from "../../../components/Header";
+import { Colors } from "react-native/Libraries/NewAppScreen";
+import Consts from "../../../functions/Consts";
 
 const addDeviceScreen = ({ navigation }) => {
   const [user, setUser] = useState("");
@@ -17,6 +20,9 @@ const addDeviceScreen = ({ navigation }) => {
   };
   const onChangeNickname = (text) => {
     setNickname(text);
+  };
+  const addDevice = () => {
+    navigation.navigate(Consts.ScreenIds.Tabs);
   };
   return (
     <View style={styles.contain}>
@@ -37,7 +43,7 @@ const addDeviceScreen = ({ navigation }) => {
           icon={Images.icSmartwatch}
         />
         <View style={styles.Sty_information}>
-          <Text style={styles.txtInformation}>Thông tin cơ bản</Text>
+          <Text style={styles.txtInformation}>{String.genneralInfo}</Text>
           <CustomInput
             placeholder={"Biệt danh thiết bị"}
             value={nickname}
@@ -60,6 +66,14 @@ const addDeviceScreen = ({ navigation }) => {
             source={Images.icon_arrow_up}
           />
         </TouchableOpacity>
+
+        <View style={styles.viewButton}>
+          <Button
+            onclick={addDevice}
+            title={String.registrationConfirmation}
+            color={Colors.GradientColor}
+          />
+        </View>
       </ScrollView>
     </View>
 

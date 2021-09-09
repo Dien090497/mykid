@@ -1,25 +1,24 @@
-import React, { useRef, useState, useLayoutEffect } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import {
   View,
   Text,
   TouchableOpacity,
   ImageBackground,
-  Alert,
   Platform,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
-  Linking,
   Image,
 } from "react-native";
 import { styles } from "./styles";
 import Images from "../../../assets/Images";
 import { String } from "../../../assets/strings/String";
 import { Colors } from "../../../assets/colors/Colors";
-import { emailTest, passwordTest } from "../../../functions/utils";
+import { emailTest, passwordTest, saveUserDataFromToken, showAlert } from "../../../functions/utils";
 import { createAccountApi, getCaptchaApi } from "../../../network/UserInfoService";
 import CustomInput from "../../../components/inputRegister";
 import Button from "../../../components/buttonGradient";
+import Consts from "../../../functions/Consts";
 
 const Register = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -78,18 +77,22 @@ const Register = ({ navigation }) => {
         createAccountApi(data,
           {
             success: resData => {
-              if (resData.data) {
+              if (resData.data.token) {
                 setCheckCode(false)
-                navigation.navigate('connectionScreen')
+                saveUserDataFromToken(resData.data.token).then(token => {
+                  navigation.navigate(Consts.ScreenIds.connection)
+                });
               }
             },
             failure: erro => {
-              setCheckCode(true)
+              // setCheckCode(true)
+              setCode('');
+              getCaptcha();
             }
           }).then();
       }
     } else {
-      Alert.alert("Thông báo", "Vui lòng đọc thảo thuận người dùng và chính sách bảo mật rồi đánh dấu vào đồng ý");
+      showAlert("Vui lòng đọc thảo thuận người dùng và chính sách bảo mật rồi đánh dấu vào đồng ý")
     }
   };
   return (
@@ -99,37 +102,41 @@ const Register = ({ navigation }) => {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.container}>
           <Header title={String.register} />
-          <ImageBackground source={Images.bgLogin} style={styles.image}>
+          <View style={styles.Sty_txtEmail}>
             <CustomInput
               placeholder={String.placeholderGmail}
               onChangeText={onChangeGmail}
               value={email}
               notification={checkGmail}
               txtnotification={String.errorGmail}
-            />
-            <View style={styles.Sty_txtCode}>
-              <View style={{ width: "50%" }}>
-                <CustomInput
-                  number
-                  placeholder={String.placeholderCode}
-                  onChangeText={onChangeCode}
-                  value={code}
-                  notification={checkCode}
-                  txtnotification={String.errorCode}
-                />
-              </View>
-              <View style={{ width: "40%", padding: 2 }}>
-                <Image
-                  style={styles.Sty_iconCode}
-                  source={captchaData ? { uri: `data:image/png;base64,${captchaData.captcha}` } : null} />
-              </View>
-              <TouchableOpacity
-                onPress={getCaptcha}>
-                <Image
-                  style={styles.Sty_iconReset}
-                  source={Images.icReload} />
-              </TouchableOpacity>
+           />
+          </View>
+          <View style={styles.Sty_txtCode}>
+            <View style={{ width: "100%" }}>
+              <CustomInput
+                number
+                placeholder={String.placeholderCode}
+                onChangeText={onChangeCode}
+                value={code}
+                notification={checkCode}
+                txtnotification={String.errorCode}
+                maxLength={10}
+              />
             </View>
+            <View style={{ width: 130, marginLeft: -155 }}>
+              <Image
+                style={styles.Sty_iconCode}
+                source={captchaData ? { uri: `data:image/png;base64,${captchaData.captcha}` } : null} />
+            </View>
+            <TouchableOpacity
+              onPress={getCaptcha}>
+              <Image
+                style={styles.Sty_iconReset}
+                source={Images.icReload} />
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.Sty_txtPass}>
             <CustomInput
               placeholder={String.txtNotification}
               onChangeText={onChangePass}
@@ -140,40 +147,34 @@ const Register = ({ navigation }) => {
               icon
               onChange={onChangeShowPass}
             />
-            <View
-              style={{
-                width: "100%",
-                marginTop: 50,
-                justifyContent: "center",
-              }}
+          </View>
+          <View style={styles.viewButton}>
+            <Button
+              onclick={onclick}
+              title={String.registrationConfirmation}
+              color={Colors.GradientColor}
+            />
+          </View>
+          <View style={{ marginTop: 30, flexDirection: "row", width: '96%', marginLeft: '2%' }}>
+            <TouchableOpacity
+              onPress={() => setCheckbox(!checkbox)}
             >
-              <Button
-                onclick={onclick}
-                title={String.registrationConfirmation}
-                color={Colors.GradientColor}
-              />
-            </View>
-            <View style={{ marginTop: 30, flexDirection: "row" }}>
-              <TouchableOpacity
-                onPress={() => setCheckbox(!checkbox)}
-              >
-                {
-                  checkbox ?
-                    <Image
-                      style={styles.Sty_iconCheckbox}
-                      source={Images.iconCheck} />
-                    :
-                    <View
-                      style={{ ...styles.Sty_iconCheckbox, borderRadius: 10, borderColor: "#009900", borderWidth: 1 }} />
-                }
-              </TouchableOpacity>
-              <Text style={styles.txt_Policy}>
-                {String.acceptMy} <Text style={styles.txtPolicy}
-                                        onPress={() => console.log("hello")}>{String.agreement}</Text><Text
-                style={styles.txtPolicy} onPress={() => console.log("Chính sách bảo mật")}> {String.privacyPolicy}</Text>
-              </Text>
-            </View>
-          </ImageBackground>
+              {
+                checkbox ?
+                  <Image
+                    style={styles.Sty_iconCheckbox}
+                    source={Images.iconCheck} />
+                  :
+                  <View
+                    style={{ ...styles.Sty_iconCheckbox, borderRadius: 10, borderColor: "#009900", borderWidth: 1 }} />
+              }
+            </TouchableOpacity>
+            <Text style={styles.txt_Policy}>
+              {String.acceptMy} <Text style={styles.txtPolicy}
+                                      onPress={() => console.log("hello")}>{String.agreement}</Text>   <Text
+              style={styles.txtPolicy} onPress={() => console.log("Chính sách bảo mật")}>{String.privacyPolicy}</Text>
+            </Text>
+          </View>
         </View>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>

@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
   Sty_icon: {
     height: height * 0.06 / 2,
     width: height * 0.06 / 2,
+    marginRight: 5
   },
   Title: {
     color: "#fff",

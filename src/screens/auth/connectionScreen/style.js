@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions } from "react-native";
+import { FontSize } from "../../../functions/Consts";
 
 const { width, height } = Dimensions.get("window");
 const styles = StyleSheet.create({
@@ -14,5 +15,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center"
   },
+  txtRegister: {
+    marginTop: -100,
+    marginBottom: 100,
+    fontSize: FontSize.xxxtraBig,
+    fontFamily: "Roboto-Bold",
+  }
 });
 export default styles;

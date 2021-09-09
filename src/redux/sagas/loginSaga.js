@@ -27,11 +27,10 @@ function* postLoginAction(email, password, refLoading) {
         showAlert(ErrorMsg.parseUserTokenFailed);
         return;
       }
-      reduxStore.store.dispatch(
-        loginAction.loginSuccess(response.success.data),
-      );
+      saveUserDataFromToken(token).then(token => {
+        reduxStore.store.dispatch(loginAction.loginSuccess({isLoggedIn: true , token: token}));
+      });
     } else {
-      console.log(response.failure);
       yield put({type: 'LOGIN_FAILURE', payload: response.failure});
     }
     hideLoading(refLoading);

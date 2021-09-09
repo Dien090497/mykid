@@ -14,6 +14,7 @@ const CustomInput = (navigation) => {
     txtnotification,
     icon,
     onChange,
+    maxLength
   } = navigation;
   return (
     <View style={styles.Sty_ViewInput}>
@@ -25,6 +26,7 @@ const CustomInput = (navigation) => {
           keyboardType={number ? "numeric" : "default"}
           onChangeText={(text) => onChangeText(text)}
           underlineColorAndroid={"transparent"}
+          maxLength={maxLength ? maxLength : 50}
           style={{
             ...styles.Sty_input,
             color: "#000000",

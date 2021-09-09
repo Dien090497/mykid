@@ -13,6 +13,7 @@ const connectionScreen = ({navigation}) => {
     <View style={styles.contain}>
       <Header title={String.header_connectDevice} />
       <View style={styles.container}>
+        <Text style={styles.txtRegister}>{String.registerSuccess}</Text>
         <Button
           onclick={onclick}
           title={String.connection}
