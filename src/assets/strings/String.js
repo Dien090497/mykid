@@ -26,6 +26,7 @@ export const String = {
   header_addDevice: 'Thêm thiết bị',
   header_relationship: 'Lựa chọn mối quan hệ',
   header_connectDevice: 'Kết nối thiết bị',
+  header_profile: 'Cá nhân',
 
   // Codepush
   codepushChecking: 'Đang kiểm tra bản cập nhật...',
