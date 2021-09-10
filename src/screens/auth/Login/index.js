@@ -4,7 +4,6 @@ import {
   Text,
   TouchableOpacity,
   ImageBackground,
-  TextInput,
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
@@ -33,7 +32,7 @@ const Login = ({ navigation }) => {
   const refLoading = useRef();
 
   useEffect(() => {
-    if (loggedInUserInfo.isLoggedIn) {
+    if (loggedInUserInfo.id) {
       navigation.navigate(Consts.ScreenIds.Tabs);
     }
   }, [loggedInUserInfo])
@@ -105,9 +104,7 @@ const Login = ({ navigation }) => {
             />
           </View>
           <View style={{ marginTop: 15, flexDirection: "row" }}>
-            <TouchableOpacity
-              onPress={() => setCheckbox(!checkbox)}
-            >
+            <TouchableOpacity onPress={() => setCheckbox(!checkbox)}>
               {
                 checkbox ?
                   <Image

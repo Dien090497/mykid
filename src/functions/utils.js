@@ -142,7 +142,14 @@ export function parseTokenToObject(token) {
 }
 
 export async function saveUserDataFromToken(token) {
-  
+  const userInfo = parseTokenToObject(token);
+  if (!userInfo) {
+    showAlert(ErrorMsg.parseUserTokenFailed);
+    return null;
+  }
+  DataLocal.accessToken = token;
+  DataLocal.userInfo = userInfo;
   await DataLocal.saveAccessToken(token);
-  return token;
+  await DataLocal.saveUserInfo(userInfo);
+  return userInfo;
 }

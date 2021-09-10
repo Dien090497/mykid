@@ -1,5 +1,5 @@
 import React from 'react';
-import { View} from 'react-native';
+import { ActivityIndicator, View} from 'react-native';
 
 export default class LoadingIndicator extends React.Component {
   constructor(props) {
@@ -46,7 +46,7 @@ export default class LoadingIndicator extends React.Component {
           borderRadius: 5,
           backgroundColor: 'rgba(0, 0, 0, 0.5)',
         }}>
-          {/* <ActivityIndicator size="large" color={'white'}/> */}
+          <ActivityIndicator size="large" color={'white'}/>
         </View>
       </View>;
     } else {

@@ -27,8 +27,9 @@ function* postLoginAction(email, password, refLoading) {
         showAlert(ErrorMsg.parseUserTokenFailed);
         return;
       }
-      saveUserDataFromToken(token).then(token => {
-        reduxStore.store.dispatch(loginAction.loginSuccess({isLoggedIn: true , token: token}));
+      
+      saveUserDataFromToken(token).then(userInfo => {
+        reduxStore.store.dispatch(loginAction.loginSuccess(userInfo));
       });
     } else {
       yield put({type: 'LOGIN_FAILURE', payload: response.failure});

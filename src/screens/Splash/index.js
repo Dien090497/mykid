@@ -8,10 +8,7 @@ import {String} from '../../assets/strings/String';
 import Consts from '../../functions/Consts';
 import {useNavigation} from '@react-navigation/core';
 import {appStatusBar} from '../../components/CommonUIComponents';
-
-let loginRequested = false;
-let loggedIn = false;
-let flag = true;
+import DataLocal from '../../data/dataLocal';
 
 export default function SplashScreen() {
   const navigation = useNavigation();
@@ -19,23 +16,16 @@ export default function SplashScreen() {
   const [syncFailed, setSyncFailed] = useState(false);
   const [msg, setMsg] = useState(String.splashMsg);
 
-  const startTime = Date.now();
-  let splashTimeout = null;
-  const _isMounted = useRef(true);
-
   useEffect(() => {
-    navigation.replace(Consts.ScreenIds.Auth);
+    loadFromData().then();
   }, []);
 
-  const retrySync = () => {
-    const success = readyToContinue();
-    if (success) {
-      return;
-    }
-
-    setSyncFailed(false);
-    if (!loggedIn) {
-      // anonymousLogin();
+  const loadFromData = async () => {
+    await DataLocal.loadFromData();
+    if (DataLocal.accessToken) {
+      navigation.replace(Consts.ScreenIds.Tabs);
+    } else {
+      navigation.replace(Consts.ScreenIds.Auth);
     }
   };
 

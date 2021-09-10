@@ -28,7 +28,7 @@ export default function Profile({navigation}) {
       <View style={styles.container}>
         <TouchableOpacity activeOpacity={1} style={styles.rowSettings}>
            <Image source={Images.icUser} resizeMode={'contain'} style={styles.iconSetting}/>
-           <Text style={styles.textSettings1}>{'useremail@xxx.xxx'}</Text>
+           <Text style={styles.textSettings1}>{DataLocal.userInfo ? DataLocal.userInfo.email : ''}</Text>
          </TouchableOpacity>
        
         <TouchableOpacity onPress={handleChangePass} style={styles.rowSettings}>
