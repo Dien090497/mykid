@@ -101,7 +101,7 @@ const Register = ({ navigation }) => {
           }).then();
       }
     } else {
-      showAlert("Vui lòng đọc thảo thuận người dùng và chính sách bảo mật rồi đánh dấu vào đồng ý")
+      showAlert(String.error_message)
     }
   };
   return (

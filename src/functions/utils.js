@@ -129,7 +129,5 @@ export function sortByName(list) {
 
 export async function saveUserDataFromToken(token) {
   await DataLocal.saveAccessToken(token);
-  // await DataLocal.saveUserInfo(userInfo);
-  // globalData.accessToken = token;
   return token;
 }

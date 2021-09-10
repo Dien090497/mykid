@@ -31,20 +31,20 @@ export default ({navigation, route}) => {
   const isFocused = useIsFocused();
   const refLoading = useRef();
 
-  useEffect(() => {
-    if (!isFocused) {
-      return;
-    }
-  }, [isFocused]);
+  // useEffect(() => {
+  //   if (!isFocused) {
+  //     return;
+  //   }
+  // }, [isFocused]);
 
-  useEffect(() => {
-    if (requestedLogout) {
-      navigation.navigate(Consts.ScreenIds.Profile);
-      return () => {
-        requestedLogout = false;
-      }
-    }
-  }, [loggedInUserInfo])
+  // useEffect(() => {
+  //   if (requestedLogout) {
+  //     navigation.navigate(Consts.ScreenIds.Profile);
+  //     return () => {
+  //       requestedLogout = false;
+  //     }
+  //   }
+  // }, [loggedInUserInfo])
 
   const handleChangePassword = () => {
     navigation.navigate(Consts.ScreenIds.ChangePassword, {
@@ -62,9 +62,9 @@ export default ({navigation, route}) => {
           return;
         }
 
-        await DataLocal.removeAll();
-        anonymousLogin(refLoading);
-        requestedLogout = true;
+        // await DataLocal.removeAll();
+        // anonymousLogin(refLoading);
+        // requestedLogout = true;
       },
     });
   };

@@ -1,9 +1,9 @@
 import {
   loginUrl,
-  getCaptchaUrl, createAccountUrl,
+  getCaptchaUrl, createAccountUrl, changePasswordUrl,
 } from "./http/ApiUrl";
 import { generateRandomId } from "../functions/utils";
-import { post, get } from "./http/HttpClient";
+import { post, get, put } from "./http/HttpClient";
 
 export function loginService(body, autoShowMsg = true) {
   return post(loginUrl, { body, autoShowMsg });
@@ -27,4 +27,12 @@ export function createAccountApi(data, { success, failure, autoShowMsg = true })
 
 export function getCaptchaApi({ success, failure, autoShowMsg = true } = {}) {
   return get(getCaptchaUrl, { success, failure, autoShowMsg });
+}
+
+export function changePasswordApi(currentPassword, newPassword, { success, failure, autoShowMsg = true }) {
+  let body = {
+    currentPassword,
+    newPassword
+  };
+  return put(changePasswordUrl, { body, success, failure, autoShowMsg });
 }

@@ -19,6 +19,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import Profile from '../screens/Profile';
 import QRCodeScreen from "../screens/Profile/QRCodeScreen";
 import Register from '../screens/auth/Register';
+import ChangePassword from '../screens/Profile/ChangePassword';
 import SettingScreen from '../screens/Settings'
 import SplashScreen from '../screens/Splash';
 import addDeviceScreen from "../screens/Profile/addDeviceScreen";
@@ -95,6 +96,7 @@ const Routes = () => {
         <Stack.Screen name={Consts.ScreenIds.QRCodeScreen} component={QRCodeScreen} />
         <Stack.Screen name={Consts.ScreenIds.Register} component={DirectRegister} />
         <Stack.Screen name={Consts.ScreenIds.Settings} component={SettingScreen} />
+        <Stack.Screen name={Consts.ScreenIds.ChangePassword} component={ChangePassword} />
         <Stack.Screen name={Consts.ScreenIds.AddNewContact} component={AddNewContact} />
         <Stack.Screen name={Consts.ScreenIds.Contacts} component={Contacts} />
         <Stack.Screen name={Consts.ScreenIds.Members} component={Members} />

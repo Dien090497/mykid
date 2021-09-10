@@ -51,13 +51,14 @@ const failureResponse = (err, rawResponse) => {
   return {success: null, failure: err, rawResponse};
 };
 
-function getHeaders(headers) {
+async function getHeaders(headers) {
   let requestHeaders = headers;
   if (!headers) requestHeaders = getDefaultHeaders();
 
-  // if (accessToken) {
-  //   requestHeaders['Authorization'] = 'Bearer ' + accessToken;
-  // }
+  const accessToken = await DataLocal.getAccessToken();
+  if (accessToken) {
+    requestHeaders['Authorization'] = 'Bearer ' + accessToken;
+  }
 
   return requestHeaders;
 }
@@ -317,7 +318,7 @@ async function handleResp(response, autoShowMsg, success, failure, refLoading) {
       await DataLocal.removeAccessToken();
       await DataLocal.removeUserInfo();
 
-      anonymousLogin(refLoading);
+      // anonymousLogin(refLoading);
 
       if (result.meta) {
         if (result.meta.code === 'LXA-4015') {

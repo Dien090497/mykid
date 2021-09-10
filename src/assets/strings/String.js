@@ -14,10 +14,10 @@ export const String = {
   exit: 'Thoát',
   loading: 'Đang tải...',
   splashMsg: 'Đang tải dữ liệu...',
+  ok: 'OK',
 
 
   thisFunctionIsNotValid: 'Tính năng này chưa mở',
-  settings: 'Cài đặt',
   header_settings: 'Thiết lập',
   header_contacts: 'Danh bạ',
   header_addContact: 'Thêm liên lạc',
@@ -39,6 +39,9 @@ export const String = {
   //
   login: 'Đăng nhập',
   register: 'Đăng ký',
+  logout: 'Đăng xuất',
+  changePassword: 'Đổi mật khẩu',
+  settings: 'Cài đặt',
   connection: 'Kết nối thiết bị',
   acceptMy: 'Tôi đã đọc và đồng ý',
   agreement: 'Thỏa thuận của người dùng',
@@ -50,9 +53,16 @@ export const String = {
   errorCode: "Lỗi định dạng mã xác minh",
   placeholderCode: "Nhập mã xác minh",
   notification: 'Thông báo',
-  error_message: "Vui lòng đọc thảo thuận người dùng và chính sách bảo mật rồi đánh dấu vào đồng ý",
+  error_message: "Vui lòng đọc thỏa thuận người dùng và chính sách bảo mật rồi đánh dấu vào đồng ý",
   registerSuccess: 'Đăng ký thành công',
   genneralInfo: 'Thông tin cơ bản',
+  enterCurrentPassword: "Nhập mật khẩu hiện tại",
+  enterNewPassword: "Nhập mật khẩu mới",
+  reEnterNewPassword: "Nhập lại mật khẩu mới",
+  changePasswordSuccess: 'Đổi mật khẩu thành công',
+  currentPasswordInvalid: 'Mật khẩu hiện tại bạn nhập không đúng định dạng (8-16 ký tự)',
+  newPasswordInvalid: 'Mật khẩu mới bạn nhập không đúng định dạng (8-16 ký tự)',
+  passwordConfirmInvalid: 'Mật khẩu mới và mật khẩu xác nhận không giống nhau',
 
   //member
   member_refresh: 'Làm mới',
