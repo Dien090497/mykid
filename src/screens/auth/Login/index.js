@@ -82,7 +82,7 @@ const Login = ({ navigation }) => {
             title={"Tài khoản: "}
           />
           <ComponentInput
-            placeholder={"8-16 chữ cái + kết hợp số"}
+            placeholder={'Nhập 8-16 ký tự'}
             value={password}
             secureTextEntry
             onChangeText={onChangePassword}
