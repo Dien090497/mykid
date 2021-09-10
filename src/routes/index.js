@@ -6,7 +6,7 @@ import {
 //tab bar
 // import BottomTabBar from './BottomTabBar';
 import Consts, {FontSize} from '../functions/Consts';
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {isReadyRef, navigationRef} from './RootNavigation';
 
 import AddNewContact from '../screens/Settings/Contacts/addNew';
@@ -29,6 +29,7 @@ import Register from '../screens/auth/Register';
 import SettingScreen from '../screens/Settings';
 import SplashScreen from '../screens/Splash';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import WS from './WebScoket';
 import addDeviceScreen from '../screens/Profile/addDeviceScreen';
 import connectionScreen from '../screens/auth/connectionScreen';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -201,7 +202,43 @@ const Routes = () => {
           component={ListDeviceScreen}
         />
       </Stack.Navigator>
+      <OS />
     </NavigationContainer>
+  );
+};
+
+//config and init websocket
+const OS = () => {
+  const ws = useRef(null);
+  const onOpen = () => {
+    console.log('Websocket Open!');
+    if (ws.current?.send) {
+      ws.current.send('Hello Mykid app'); //send example data test
+    }
+  };
+
+  const onClose = () => {
+    console.log('Websocket Close!');
+  };
+
+  const onError = error => {
+    console.log(error, 'Websocket Error!');
+  };
+
+  const onMessage = message => {
+    console.log(message, 'Websocket Message');
+  };
+  return (
+    <WS
+      ref={ws}
+      url="wss://dragon.firecloud.live/ws"
+      onOpen={onOpen}
+      onMessage={onMessage}
+      onError={onError}
+      onClose={onClose}
+      subProtocol={'janus-protocol'}
+      reconnect // Will try to reconnect onClose
+    />
   );
 };
 
