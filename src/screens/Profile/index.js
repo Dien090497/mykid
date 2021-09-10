@@ -11,14 +11,16 @@ import Images from '../../assets/Images';
 import {String} from '../../assets/strings/String';
 import { showAlert} from '../../functions/utils';
 import Consts from '../../functions/Consts';
+import DataLocal from '../../data/dataLocal';
 
 export default function Profile({navigation}) {
   const handleChangePass = () => {
     navigation.navigate(Consts.ScreenIds.ChangePassword)
   };
 
-  const handleLogout = () => {
-    showAlert(String.thisFunctionIsNotValid);
+  const handleLogout = async () => {
+    await DataLocal.removeAll();
+    navigation.navigate(Consts.ScreenIds.Login);
   };
 
   return (

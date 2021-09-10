@@ -51,9 +51,8 @@ const ChangePassword = ({ navigation }) => {
 
     changePasswordApi(currentPassword, newPassword, {
       success: resData => {
-        console.log(resData);
         if (resData.data.token) {
-          saveUserDataFromToken(data.token);
+          saveUserDataFromToken(resData.data.token);
         }
         showAlert(String.changePasswordSuccess, {
           close: () => {

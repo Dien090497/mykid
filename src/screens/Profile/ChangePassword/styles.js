@@ -1,6 +1,5 @@
-import {StyleSheet, Dimensions} from 'react-native';
-import Consts, { FontSize } from '../../../functions/Consts';
-import {Colors} from '../../../assets/colors/Colors';
+import {StyleSheet} from 'react-native';
+import { FontSize } from '../../../functions/Consts';
 
 export const styles = StyleSheet.create({
   container: {
@@ -69,6 +68,7 @@ export const styles = StyleSheet.create({
   },
   viewButton: {
     width: "96%",
+    marginLeft: '2%',
     marginTop: 50,
     justifyContent: "center",
   }

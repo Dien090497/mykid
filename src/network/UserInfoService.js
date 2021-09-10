@@ -21,6 +21,7 @@ export function createAccountApi(data, { success, failure, autoShowMsg = true })
     "X-Captcha-Answer":  parseInt(data.answer),
     "X-Captcha-Id":  data.captchaId,
   };
+  console.log(headers);
 
   return post(createAccountUrl, { body, headers, success, failure, autoShowMsg });
 }
