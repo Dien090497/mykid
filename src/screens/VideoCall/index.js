@@ -120,7 +120,10 @@ const ListDeviceScreen = () => {
   };
 
   const renderItem = ({item, index}) => (
-    <View key={index} activeOpacity={0.5} style={styles.containerDeviceItem}>
+    <View
+      key={item?.deviceName}
+      activeOpacity={0.5}
+      style={styles.containerDeviceItem}>
       <Text children={item?.deviceName} style={styles.txtNameDevice} />
 
       <TouchableOpacity
@@ -139,15 +142,13 @@ const ListDeviceScreen = () => {
         {!state.loading && !state.error && (
           <FlatList
             style={styles.containerFlatList}
-            data={[{deviceName: 'Con gái'}]}
+            data={state.data}
             renderItem={renderItem}
             keyExtractor={item => item.key}
             onMomentumScrollBegin={onMomentumScrollBegin}
             handleLoadMore={handleLoadMore}
             ListFooterComponent={
-              state.isLoadMore && (
-                <ActivityIndicator style={{marginVertical: 10}} />
-              )
+              state.isLoadMore && <ActivityIndicator style={styles.loadMore} />
             }
             ListEmptyComponent={
               <Text

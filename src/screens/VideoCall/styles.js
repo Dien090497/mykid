@@ -1,4 +1,3 @@
-import {Colors} from '../../assets/colors/Colors';
 import {FontSize} from '../../functions/Consts';
 import {StyleSheet} from 'react-native';
 
@@ -33,7 +32,8 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     fontStyle: 'italic',
   },
-  containerFlatList: {marginHorizontal: 4, paddingTop: 10}
+  containerFlatList: {marginHorizontal: 4, paddingTop: 10},
+  loadMore: {marginVertical: 10},
 });
 
 export default styles;
