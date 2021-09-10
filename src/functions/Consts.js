@@ -1,9 +1,6 @@
 import {Dimensions, StatusBar} from 'react-native';
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
-import Register from "../screens/auth/Register";
-import addDeviceScreen from "../screens/Profile/addDeviceScreen";
-
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height -
   (((StatusBar.currentHeight || 0) > 24 && ((StatusBar.currentHeight || 0) != 30 || Dimensions.get('screen').height- Dimensions.get('window').height >48)) ? 0 : StatusBar.currentHeight);

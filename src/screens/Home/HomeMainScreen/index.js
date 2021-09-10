@@ -1,8 +1,7 @@
-import {Image, SafeAreaView, Text, TouchableOpacity, View} from 'react-native';
-import React, {useLayoutEffect, useRef, useState} from 'react';
+import {Image, Text, TouchableOpacity, View} from 'react-native';
+import React, {useLayoutEffect, useRef} from 'react';
 
 import Consts from '../../../functions/Consts';
-import HomeCarousel from '../../../components/Home/HomeCarousel';
 import Images from '../../../assets/Images';
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import {String} from '../../../assets/strings/String';

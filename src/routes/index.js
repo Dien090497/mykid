@@ -10,6 +10,7 @@ import React, {useEffect, useRef} from 'react';
 import {isReadyRef, navigationRef} from './RootNavigation';
 
 import AddNewContact from '../screens/Settings/Contacts/addNew';
+import ChangePassword from '../screens/Profile/ChangePassword';
 import {Colors} from '../assets/colors/Colors';
 import Contacts from '../screens/Settings/Contacts';
 //screen
@@ -34,6 +35,10 @@ import addDeviceScreen from '../screens/Profile/addDeviceScreen';
 import connectionScreen from '../screens/auth/connectionScreen';
 import {createStackNavigator} from '@react-navigation/stack';
 import relationship from '../screens/Profile/relationship';
+
+// import BottomTabBar from './BottomTabBar';
+// import ListGame from "../screens/ListGame";
+// import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 const Tab = createBottomTabNavigator();
 
@@ -189,6 +194,10 @@ const Routes = () => {
         <Stack.Screen
           name={Consts.ScreenIds.Settings}
           component={SettingScreen}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.ChangePassword}
+          component={ChangePassword}
         />
         <Stack.Screen
           name={Consts.ScreenIds.AddNewContact}

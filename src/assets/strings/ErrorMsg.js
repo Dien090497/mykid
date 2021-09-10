@@ -3,6 +3,7 @@ export const ErrorMsg = {
     kwa4001: 'Tài khoản bạn nhập không đúng (KWA-4001)',
     kwa4002: 'Mật khẩu bạn nhập không đúng (KWA-4002)',
     kwa4017: 'Mã captcha bạn nhập không đúng (KWA-4017)',
+    kwa4022: 'Tài khoản bạn nhập đã tồn tại (KWA-4022)',
 
     // common
     exceedNicknameLength: 'Vượt quá số lượng ký tự cho phép',

@@ -1,78 +1,49 @@
+import React from 'react';
 import {
+  View,
   Image,
-  TextInput as NativeTextInput,
-  SafeAreaView,
-  ScrollView,
   Text,
   TouchableOpacity,
-  View,
 } from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
-
+import {styles} from './styles';
 import Header from '../../components/Header';
 import Images from '../../assets/Images';
 import {String} from '../../assets/strings/String';
-import {showAlert} from '../../functions/utils';
-import {styles} from './styles';
-import {useIsFocused} from '@react-navigation/native';
+import Consts from '../../functions/Consts';
+import DataLocal from '../../data/dataLocal';
 
 export default function Profile({navigation}) {
-  const isFocused = useIsFocused();
-  const refScroll = useRef();
-
-  useEffect(() => {
-    if (!isFocused) {
-      return;
-    }
-    refScroll.current?.scrollTo({
-      y: 0,
-      animated: true,
-    });
-    refreshUserInfo();
-  }, [isFocused]);
-
-  const refreshUserInfo = () => {};
-
-  const handleSettings = () => {
-    showAlert(String.thisFunctionIsNotValid);
+  const handleChangePass = () => {
+    navigation.navigate(Consts.ScreenIds.ChangePassword)
   };
 
-  const handleUserLevel = () => {
-    showAlert(String.thisFunctionIsNotValid);
+  const handleLogout = async () => {
+    await DataLocal.removeAll();
+    navigation.navigate(Consts.ScreenIds.Login);
   };
+
   return (
-    <View style={styles.container}>
-      <Header title={String.header_profile} back={false} />
-      <ScrollView ref={refScroll} style={styles.scrollView}>
-        <TouchableOpacity onPress={handleUserLevel} style={styles.rowSettings}>
-          <Image
-            source={Images.icProfileLevel}
-            resizeMode={'contain'}
-            style={styles.iconSetting}
-          />
-          <Text style={styles.textSettings}>{'String.level'}</Text>
-          <Image
-            source={Images.icProfileDetail}
-            resizeMode={'contain'}
-            style={styles.iconDetail}
-          />
+    <View style={styles.contain}>
+      <Header title={String.header_connectDevice} />
+      <View style={styles.container}>
+        <TouchableOpacity activeOpacity={1} style={styles.rowSettings}>
+           <Image source={Images.icUser} resizeMode={'contain'} style={styles.iconSetting}/>
+           <Text style={styles.textSettings1}>{'useremail@xxx.xxx'}</Text>
+         </TouchableOpacity>
+       
+        <TouchableOpacity onPress={handleChangePass} style={styles.rowSettings}>
+          <Image source={Images.icLock} resizeMode={'contain'}
+                  style={styles.iconSetting}/>
+          <Text style={styles.textSettings}>{String.changePassword}</Text>
+          <Image source={Images.icDetail} resizeMode={'contain'} style={styles.iconDetail}/>
         </TouchableOpacity>
-
-        <TouchableOpacity onPress={handleSettings} style={styles.rowSettings}>
-          <Image
-            source={Images.icProfileSettings}
-            resizeMode={'contain'}
-            style={styles.iconSetting}
-          />
-          <Text style={styles.textSettings}>{'String.settings'}</Text>
-          <Image
-            source={Images.icProfileDetail}
-            resizeMode={'contain'}
-            style={styles.iconDetail}
-          />
+        
+        <TouchableOpacity onPress={handleLogout} style={styles.rowSettings}>
+          <Image source={Images.icLogout} resizeMode={'contain'}
+                  style={styles.iconSetting}/>
+          <Text style={styles.textSettings1}>{String.logout}</Text>
         </TouchableOpacity>
-        <View style={{height: 30}} />
-      </ScrollView>
+      </View>
     </View>
   );
 }

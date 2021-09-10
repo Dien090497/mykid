@@ -1,6 +1,7 @@
 import ReactNative, {Alert, UIManager} from 'react-native';
 import KeepAwake from 'react-native-keep-awake';
 import DataLocal from '../data/dataLocal';
+import jwt_decode from 'jwt-decode';
 
 const addCommas = (num, style) => {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, style);
@@ -127,9 +128,21 @@ export function sortByName(list) {
   });
 }
 
+export function parseTokenToObject(token) {
+  if (!token) {
+    return null;
+  }
+  try {
+    const data = jwt_decode(token);
+    return data;
+  } catch (err) {
+    console.log('[ERROR] parsing user data failed:', err);
+    return null;
+  }
+}
+
 export async function saveUserDataFromToken(token) {
+  
   await DataLocal.saveAccessToken(token);
-  // await DataLocal.saveUserInfo(userInfo);
-  // globalData.accessToken = token;
   return token;
 }

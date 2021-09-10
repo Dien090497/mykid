@@ -51,13 +51,14 @@ const failureResponse = (err, rawResponse) => {
   return {success: null, failure: err, rawResponse};
 };
 
-function getHeaders(headers) {
+async function getHeaders(headers) {
   let requestHeaders = headers;
   if (!headers) requestHeaders = getDefaultHeaders();
 
-  // if (accessToken) {
-  //   requestHeaders['Authorization'] = 'Bearer ' + accessToken;
-  // }
+  const accessToken = await DataLocal.getAccessToken();
+  if (accessToken) {
+    requestHeaders['Authorization'] = 'Bearer ' + accessToken;
+  }
 
   return requestHeaders;
 }
@@ -136,7 +137,8 @@ export async function post(
     refLoading = null,
   } = {}) {
   showLoading(refLoading);
-  let response = await doRequest(url, getHeaders(headers), body, requestType.post);
+  const headersGet = await getHeaders(headers);
+  let response = await doRequest(url, headersGet, body, requestType.post);
   hideLoading(refLoading);
 
   return handleResp(response, autoShowMsg, success, failure, refLoading);
@@ -145,7 +147,8 @@ export async function post(
 export async function path(
   url, {body, headers, success, failure, autoShowMsg = true, refLoading = null} = {}) {
   showLoading(refLoading);
-  let response = await doRequest(url, getHeaders(headers), body, requestType.patch);
+  const headersGet = await getHeaders(headers);
+  let response = await doRequest(url, headersGet, body, requestType.patch);
   hideLoading(refLoading);
 
   return handleResp(response, autoShowMsg, success, failure, refLoading);
@@ -154,7 +157,8 @@ export async function path(
 export async function put(
   url, {body, headers, success, failure, autoShowMsg = true, refLoading = null} = {}) {
   showLoading(refLoading);
-  let response = await doRequest(url, getHeaders(headers), body, requestType.put);
+  const headersGet = await getHeaders(headers);
+  let response = await doRequest(url, headersGet, body, requestType.put);
   hideLoading(refLoading);
 
   return handleResp(response, autoShowMsg, success, failure, refLoading);
@@ -175,7 +179,8 @@ export async function get(
     url = url + '?' + strQuery;
   }
 
-  let response = await doRequest(url, getHeaders(headers), null, requestType.get);
+  const headersGet = await getHeaders(headers);
+  let response = await doRequest(url, headersGet, null, requestType.get);
   hideLoading(refLoading);
 
   return handleResp(response, autoShowMsg, success, failure, refLoading);
@@ -184,7 +189,8 @@ export async function get(
 export async function dele(
   url, {body = {}, headers, success, failure, autoShowMsg = true, refLoading = null} = {}) {
   showLoading(refLoading);
-  let response = await doRequest(url, getHeaders(headers), body, requestType.delete);
+  const headersGet = await getHeaders(headers);
+  let response = await doRequest(url, headersGet, body, requestType.delete);
   hideLoading(refLoading);
 
   return handleResp(response, autoShowMsg, success, failure, refLoading);
@@ -200,7 +206,7 @@ export async function upload(
     type: type ? type : 'image/png',
   });
 
-  let headers = getHeaders(null);
+  let headers = await getHeaders(null);
   headers['Content-Type'] = 'multipart/form-data';
 
   console.log('[API] [call] upload ' + url, formData, 'headers:', headers);
@@ -317,7 +323,7 @@ async function handleResp(response, autoShowMsg, success, failure, refLoading) {
       await DataLocal.removeAccessToken();
       await DataLocal.removeUserInfo();
 
-      anonymousLogin(refLoading);
+      // anonymousLogin(refLoading);
 
       if (result.meta) {
         if (result.meta.code === 'LXA-4015') {

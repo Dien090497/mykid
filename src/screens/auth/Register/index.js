@@ -20,6 +20,7 @@ import CustomInput from "../../../components/inputRegister";
 import Images from "../../../assets/Images";
 import { String } from "../../../assets/strings/String";
 import { styles } from "./styles";
+import { ErrorMsg } from "../../../assets/strings/ErrorMsg";
 
 const Register = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -86,22 +87,25 @@ const Register = ({ navigation }) => {
         createAccountApi(data,
           {
             success: resData => {
-              if (resData.data.token) {
+              if (resData === '') {
+                showAlert(ErrorMsg.kwa4022);
+              }
+              if (resData && resData.data && resData.data.token) {
                 setCheckCode(false)
                 saveUserDataFromToken(resData.data.token).then(token => {
                   navigation.navigate(Consts.ScreenIds.connection)
                 });
               }
             },
-            failure: erro => {
-              // setCheckCode(true)
+            failure: error => {
+              console.log(error);
               setCode('');
               getCaptcha();
             }
           }).then();
       }
     } else {
-      showAlert("Vui lòng đọc thảo thuận người dùng và chính sách bảo mật rồi đánh dấu vào đồng ý")
+      showAlert(String.error_message)
     }
   };
   return (
