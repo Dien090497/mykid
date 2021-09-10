@@ -1,6 +1,7 @@
-import {StyleSheet, Platform, StatusBar} from 'react-native';
-import Consts from '../../functions/Consts';
+import {Platform, StatusBar, StyleSheet} from 'react-native';
+
 import {Colors} from '../../assets/colors/Colors';
+import Consts from '../../functions/Consts';
 
 const searchHeight = (Consts.screenHeight / 24);
 const followHeight = (Consts.screenHeight /
@@ -12,7 +13,6 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     backgroundColor: '#FFF',
-    paddingTop: 10,
   },
   row: {
     flexDirection: 'row',

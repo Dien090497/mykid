@@ -1,22 +1,24 @@
-import React, {useEffect, useState, useRef} from 'react';
 import {
-  View,
-  ScrollView,
-  SafeAreaView,
   Image,
-  TouchableOpacity,
-  Text,
   TextInput as NativeTextInput,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import {styles} from './styles';
+import React, {useEffect, useRef, useState} from 'react';
+
+import Header from '../../components/Header';
 import Images from '../../assets/Images';
 import {String} from '../../assets/strings/String';
-import { showAlert} from '../../functions/utils';
+import {showAlert} from '../../functions/utils';
+import {styles} from './styles';
 import {useIsFocused} from '@react-navigation/native';
 
 export default function Profile({navigation}) {
   const isFocused = useIsFocused();
-  const refScroll = useRef()
+  const refScroll = useRef();
 
   useEffect(() => {
     if (!isFocused) {
@@ -29,8 +31,7 @@ export default function Profile({navigation}) {
     refreshUserInfo();
   }, [isFocused]);
 
-  const refreshUserInfo = () => {
-  };
+  const refreshUserInfo = () => {};
 
   const handleSettings = () => {
     showAlert(String.thisFunctionIsNotValid);
@@ -40,25 +41,38 @@ export default function Profile({navigation}) {
     showAlert(String.thisFunctionIsNotValid);
   };
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-      </View>
+    <View style={styles.container}>
+      <Header title={String.header_profile} back={false} />
       <ScrollView ref={refScroll} style={styles.scrollView}>
-        
         <TouchableOpacity onPress={handleUserLevel} style={styles.rowSettings}>
-          <Image source={Images.icProfileLevel} resizeMode={'contain'} style={styles.iconSetting}/>
+          <Image
+            source={Images.icProfileLevel}
+            resizeMode={'contain'}
+            style={styles.iconSetting}
+          />
           <Text style={styles.textSettings}>{'String.level'}</Text>
-          <Image source={Images.icProfileDetail} resizeMode={'contain'} style={styles.iconDetail}/>
+          <Image
+            source={Images.icProfileDetail}
+            resizeMode={'contain'}
+            style={styles.iconDetail}
+          />
         </TouchableOpacity>
-       
+
         <TouchableOpacity onPress={handleSettings} style={styles.rowSettings}>
-          <Image source={Images.icProfileSettings} resizeMode={'contain'}
-                 style={styles.iconSetting}/>
+          <Image
+            source={Images.icProfileSettings}
+            resizeMode={'contain'}
+            style={styles.iconSetting}
+          />
           <Text style={styles.textSettings}>{'String.settings'}</Text>
-          <Image source={Images.icProfileDetail} resizeMode={'contain'} style={styles.iconDetail}/>
+          <Image
+            source={Images.icProfileDetail}
+            resizeMode={'contain'}
+            style={styles.iconDetail}
+          />
         </TouchableOpacity>
-        <View style={{height: 30}}/>
+        <View style={{height: 30}} />
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }

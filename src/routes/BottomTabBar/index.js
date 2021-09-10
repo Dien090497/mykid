@@ -1,10 +1,20 @@
 import * as React from 'react';
-import {View, TouchableOpacity, ImageBackground, Image, Keyboard, Text, SafeAreaView} from 'react-native';
+
+import Consts, {FontSize} from '../../functions/Consts';
+import {
+  Image,
+  ImageBackground,
+  Keyboard,
+  SafeAreaView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import {useEffect, useState} from 'react';
+
+import Images from '../../assets/Images';
 import {styles} from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import Images from '../../assets/Images';
-import Consts, { FontSize } from '../../functions/Consts';
-import {useEffect, useState} from 'react';
 
 export default function BottomTabBar({state, descriptors, navigation}) {
   const insets = useSafeAreaInsets();
@@ -26,14 +36,20 @@ export default function BottomTabBar({state, descriptors, navigation}) {
   const _keyboardDidShow = () => setKeyboardStatus(0);
   const _keyboardDidHide = () => setKeyboardStatus(1);
 
-  if (keyboardStatus === 'Keyboard Shown') return (<></>);
-  if (focusedOptions.tabBarVisible === false || focusedOptions.keyboardHidesTabBar == true) {
+  if (keyboardStatus === 'Keyboard Shown') return <></>;
+  if (
+    focusedOptions.tabBarVisible === false ||
+    focusedOptions.keyboardHidesTabBar == true
+  ) {
     return null;
   }
-  return (
-    keyboardStatus == 0 ? (<></>) : (<SafeAreaView><ImageBackground
+  return keyboardStatus == 0 ? (
+    <></>
+  ) : (
+    <ImageBackground
       style={[styles.container]}
-      source={Images.bgBottom} resizeMode={'stretch'}>
+      source={Images.bgBottom}
+      resizeMode={'stretch'}>
       {state.routes.map((route, index) => {
         const {options} = descriptors[route.key];
         const isFocused = state.index === index;
@@ -41,19 +57,27 @@ export default function BottomTabBar({state, descriptors, navigation}) {
         let text = null;
         if (index == 0) {
           if (isFocused) {
-            icon = <Image source={Images.icHomeOn} style={styles.icon}/>;
-            text = <Text style={{fontWeight: 'bold', fontSize: FontSize.small}}>HOME</Text>
+            icon = <Image source={Images.icHomeOn} style={styles.icon} />;
+            text = (
+              <Text style={{fontWeight: 'bold', fontSize: FontSize.small}}>
+                HOME
+              </Text>
+            );
           } else {
-            icon = <Image source={Images.icHomeOff} style={styles.icon}/>;
-            text = <Text style={{fontSize: FontSize.small}}>HOME</Text>
+            icon = <Image source={Images.icHomeOff} style={styles.icon} />;
+            text = <Text style={{fontSize: FontSize.small}}>HOME</Text>;
           }
         } else {
           if (isFocused) {
-            icon = <Image source={Images.icProfileOn} style={styles.icon}/>;
-            text = <Text style={{fontWeight: 'bold',fontSize: FontSize.small}}>MY</Text>
+            icon = <Image source={Images.icProfileOn} style={styles.icon} />;
+            text = (
+              <Text style={{fontWeight: 'bold', fontSize: FontSize.small}}>
+                MY
+              </Text>
+            );
           } else {
-            icon = <Image source={Images.icProfileOff} style={styles.icon}/>;
-            text = <Text style={{fontSize: FontSize.small}}>MY</Text>
+            icon = <Image source={Images.icProfileOff} style={styles.icon} />;
+            text = <Text style={{fontSize: FontSize.small}}>MY</Text>;
           }
         }
         const onPress = () => {
@@ -82,13 +106,15 @@ export default function BottomTabBar({state, descriptors, navigation}) {
             testID={options.tabBarTestID}
             onPress={onPress}
             onLongPress={onLongPress}
-            style={[styles.item, {backgroundColor: index == 0 ? '#13c700' :'#079be6'}]}
-          >
+            style={[
+              styles.item,
+              {backgroundColor: index == 0 ? '#13c700' : '#079be6'},
+            ]}>
             {icon}
             {text}
           </TouchableOpacity>
         );
       })}
-    </ImageBackground></SafeAreaView>)
+    </ImageBackground>
   );
 }
