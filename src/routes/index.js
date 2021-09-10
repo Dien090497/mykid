@@ -20,6 +20,7 @@ import Login from '../screens/auth/Login';
 import Maps from '../screens/Maps';
 import Members from '../screens/Settings/Members';
 import {NavigationContainer} from '@react-navigation/native';
+import {Platform} from 'react-native';
 // import ListGame from "../screens/ListGame";
 import Profile from '../screens/Profile';
 import QRCodeScreen from '../screens/Profile/QRCodeScreen';
@@ -41,6 +42,9 @@ const styles = StyleSheet.create({
   },
   tabLabel: {
     fontSize: FontSize.medium,
+  },
+  bottomHeightAndroid: {
+    height: 60,
   },
 });
 
@@ -86,9 +90,14 @@ const TabBarBottom = () => {
   return (
     <Tab.Navigator
       tabBar={props => (
-        <BottomTabBar {...props} style={[props.style, styles.bottomBar]}>
-          {console.log(props)}
-        </BottomTabBar>
+        <BottomTabBar
+          {...props}
+          style={[
+            props.style,
+            styles.bottomBar,
+            Platform.OS === 'android' && styles.bottomHeightAndroid,
+          ]}
+        />
       )}
       tabBarOptions={{
         keyboardHidesTabBar: false,
