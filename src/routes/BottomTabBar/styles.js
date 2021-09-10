@@ -1,6 +1,7 @@
-import {StyleSheet} from 'react-native';
-import {Colors} from '../../assets/colors/Colors';
 import Consts, { FontSize, ScaleHeight } from "../../functions/Consts";
+
+import {Colors} from '../../assets/colors/Colors';
+import {StyleSheet} from 'react-native';
 
 const widthContent = Consts.screenWidth/2.2;
 const heightContent = widthContent / 2;
@@ -30,7 +31,8 @@ export const styles = StyleSheet.create({
   icon: {
     height: FontSize.xtraBig,
     aspectRatio: 1,
-    margin: 3
+    margin: 3,
+    resizeMode: 'contain'
   },
   bgIcon: {
     width:30,

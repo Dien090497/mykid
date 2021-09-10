@@ -5,8 +5,8 @@ import {Colors} from '../../assets/colors/Colors';
 const settingHeight = (Consts.screenHeight /
   (Consts.screenHeight < 800 ? Math.floor(Consts.screenHeight / 50) : Math.floor(
     Consts.screenHeight / 70)));
+    
 export const styles = StyleSheet.create({
-
   contain: {
     flex: 1,
     backgroundColor: Colors.white,

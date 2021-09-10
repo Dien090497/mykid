@@ -2,14 +2,13 @@ import React from 'react';
 import {
   View,
   Image,
-  TouchableOpacity,
   Text,
-  TextInput as NativeTextInput,
+  TouchableOpacity,
 } from 'react-native';
 import {styles} from './styles';
+import Header from '../../components/Header';
 import Images from '../../assets/Images';
 import {String} from '../../assets/strings/String';
-import { showAlert} from '../../functions/utils';
 import Consts from '../../functions/Consts';
 import DataLocal from '../../data/dataLocal';
 
