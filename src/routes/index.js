@@ -12,7 +12,7 @@ import AddDeviceScreen from '../screens/Profile/AddDeviceScreen';
 import AddNewContact from '../screens/Settings/Contacts/addNew';
 import ChangePassword from '../screens/Profile/ChangePassword';
 import {Colors} from '../assets/colors/Colors';
-import ConnectionScreen from '../screens/auth/ConnectionScreen';
+import ConnectionScreen from '../screens/auth/ConnectionScreen2';
 import Contacts from '../screens/Settings/Contacts';
 //screen
 import HomeMainScreen from '../screens/Home/HomeMainScreen';
@@ -27,7 +27,7 @@ import {Platform} from 'react-native';
 import Profile from '../screens/Profile';
 import QRCodeScreen from '../screens/Profile/QRCodeScreen';
 import Register from '../screens/auth/Register';
-import Relationship from '../screens/Profile/Relationship';
+import Relationship from '../screens/Profile/Relationship2';
 import SettingScreen from '../screens/Settings';
 import SplashScreen from '../screens/Splash';
 import WS from './WebScoket';
