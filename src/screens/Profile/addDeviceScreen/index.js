@@ -1,5 +1,5 @@
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
-import React, { useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 
 import Button from "../../../components/buttonGradient";
 import { Colors } from "../../../assets/colors/Colors";
@@ -8,7 +8,9 @@ import CustomInput from "../../../components/CustomInput";
 import Header from "../../../components/Header";
 import Images from "../../../assets/Images";
 import { String } from '../../../assets/strings/String';
+import {getListDeviceApi} from '../../../network/DeviceService';
 import styles from "./style";
+import DataLocal from "../../../data/dataLocal";
 
 const AddDeviceScreen = ({ navigation }) => {
   const [user, setUser] = useState("");
@@ -16,6 +18,11 @@ const AddDeviceScreen = ({ navigation }) => {
   const [relationship, setRelationship] = useState("Bố");
   const [iconRelationship, setIconRelationship] = useState(Images.icFather);
   const [submitActive, setSubmitActive] = useState(false);
+  const refLoading = useRef();
+
+  useLayoutEffect(() => {
+    getListDeviceInfo
+  }, []);
 
   useLayoutEffect(() => {
     if (user && nickname) {
@@ -23,6 +30,15 @@ const AddDeviceScreen = ({ navigation }) => {
     }
   }, [user, nickname]);
 
+  const getListDeviceInfo = () => {
+    getListDeviceApi( DataLocal.userInfo.id, Consts.pageDefault, 100,
+      {
+        success: resData => {
+          console.log(resData);
+        },
+        refLoading
+      }).then();
+  };
   const onChangeText = (text) => {
     setUser(text);
   };
@@ -85,6 +101,7 @@ const AddDeviceScreen = ({ navigation }) => {
           />
         </View>
       </ScrollView>
+      <LoadingIndicator ref={refLoading} />
     </View>
 
   );

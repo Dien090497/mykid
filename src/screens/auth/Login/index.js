@@ -20,6 +20,7 @@ import ComponentInput from "../../../components/CustomInput";
 import Button from "../../../components/buttonGradient";
 import Consts from "../../../functions/Consts";
 import { emailTest, passwordTest, showAlert } from "../../../functions/utils";
+import DataLocal from "../../../data/dataLocal";
 
 const Login = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ const Login = ({ navigation }) => {
   }, [loggedInUserInfo])
 
   const onLoggedIn = () => {
-    if (loggedInUserInfo.id) {
+    if (loggedInUserInfo.id && checkbox) {
       navigation.navigate(Consts.ScreenIds.Tabs);
     }
     // changePasswordApi(currentPassword, newPassword, {

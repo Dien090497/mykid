@@ -19,7 +19,7 @@ export default function Profile({navigation}) {
 
   const handleLogout = async () => {
     await DataLocal.removeAll();
-    navigation.navigate(Consts.ScreenIds.Login);
+    navigation.replace(Consts.ScreenIds.Login);
   };
 
   return (

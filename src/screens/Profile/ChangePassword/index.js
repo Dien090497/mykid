@@ -1,6 +1,4 @@
 import {
-  Image,
-  ImageBackground,
   Keyboard,
   KeyboardAvoidingView,
   Platform,
@@ -13,7 +11,6 @@ import { passwordTest, saveUserDataFromToken, showAlert } from "../../../functio
 
 import Button from "../../../components/buttonGradient";
 import { Colors } from "../../../assets/colors/Colors";
-import Consts from "../../../functions/Consts";
 import CustomInput from "../../../components/inputRegister";
 import { String } from "../../../assets/strings/String";
 import { styles } from "./styles";
@@ -25,7 +22,6 @@ const ChangePassword = ({ navigation }) => {
   const [showCurrentPassword, setShowCurrentPassword] = useState(true);
   const [showNewPassword, setShowNewPassword] = useState(true);
   const [showNewPasswordConfirm, setShowNewPasswordConfirm] = useState(true);
-  // const [code, setCode] = useState("");
   const [submitActive, setSubmitActive] = useState(false);
 
   useLayoutEffect(() => {
@@ -37,7 +33,7 @@ const ChangePassword = ({ navigation }) => {
   const onSubmit = () => {
     if (!submitActive) return;
     if (!passwordTest(currentPassword)) {
-      showAlert(String.placeholderCode);
+      showAlert(String.currentPasswordInvalid);
       return;
     }
     if (!passwordTest(newPassword)) {

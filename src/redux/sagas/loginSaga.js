@@ -5,8 +5,6 @@ import {
   showAlert,
   showLoading,
 } from '../../functions/utils';
-
-import Consts from '../../functions/Consts';
 import {ErrorMsg} from '../../assets/strings/ErrorMsg';
 import loginAction from '../actions/loginAction';
 import {loginService} from '../../network/UserInfoService';
