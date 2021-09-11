@@ -33,6 +33,7 @@ export default {
   icHomeOn: require('./images/main/ic_home_on.png'),
   icProfileOff: require('./images/main/ic_profile_off.png'),
   icProfileOn: require('./images/main/ic_profile_on.png'),
+  icBattery: require('./images/ic_battery.png'),
 
   //homeScreen
   icAlarm: require('./images/home/alarm.png'),

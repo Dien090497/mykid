@@ -2,7 +2,7 @@ import {FontSize} from '../../functions/Consts';
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
-  container: {flex: 1, backgroundColor: '#FFF'},
+  container: {flex: 1, backgroundColor: 'transparent'},
   mainView: {
     flex: 1,
     backgroundColor: '#EFF0F1',

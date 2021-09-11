@@ -1,5 +1,6 @@
-import {StyleSheet, Dimensions} from 'react-native';
 import Consts, { FontSize } from '../../../functions/Consts';
+import {Dimensions, StyleSheet} from 'react-native';
+
 import {Colors} from '../../../assets/colors/Colors';
 
 export const styles = StyleSheet.create({

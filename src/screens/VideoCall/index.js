@@ -9,7 +9,11 @@ import {
   View,
 } from 'react-native';
 import React, {memo, useEffect, useReducer, useRef, useState} from 'react';
-import {hideLoading, showLoading} from '../../functions/utils';
+import {
+  hideLoading,
+  parseTokenToObject,
+  showLoading,
+} from '../../functions/utils';
 
 import Consts from '../../functions/Consts';
 import Header from '../../components/Header';
@@ -20,6 +24,7 @@ import VideoCallModal from './VideoCallModal';
 import {getListDeviceConnected} from '../../network/DeviceService';
 import styles from './styles.js';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useSelector} from 'react-redux';
 
 const initialState = {
   data: [],
@@ -43,7 +48,6 @@ const reducer = (state, action) => {
       };
     }
     case 'success': {
-      console.log('params >>>>>>>>>>>>>>>>>', action);
       const {page} = action.params;
       const {data} = action.payload;
       return {
@@ -68,6 +72,7 @@ const reducer = (state, action) => {
 
 const ListDeviceScreen = () => {
   const refLoading = useRef();
+  const {token} = useSelector(state => state.loginReducer).dataInfo;
   const [state, dispatch] = useReducer(reducer, initialState);
   const [page, setPage] = useState(0);
   const [visibleCall, setVisibleCall] = useState({
@@ -78,8 +83,9 @@ const ListDeviceScreen = () => {
 
   const getData = async () => {
     try {
+      const user = parseTokenToObject(token);
       showLoading(refLoading);
-      const res = await getListDeviceConnected({page});
+      const res = await getListDeviceConnected({page, accountId: user?.id});
       dispatch({
         type: 'success',
         payload: {data: res.success.data},
@@ -144,7 +150,7 @@ const ListDeviceScreen = () => {
             style={styles.containerFlatList}
             data={state.data}
             renderItem={renderItem}
-            keyExtractor={item => item.key}
+            keyExtractor={item => item.deviceName}
             onMomentumScrollBegin={onMomentumScrollBegin}
             handleLoadMore={handleLoadMore}
             ListFooterComponent={

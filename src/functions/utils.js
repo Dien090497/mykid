@@ -1,6 +1,8 @@
 import ReactNative, {Alert, UIManager} from 'react-native';
-import KeepAwake from 'react-native-keep-awake';
+
 import DataLocal from '../data/dataLocal';
+import {ErrorMsg} from '../assets/strings/ErrorMsg';
+import KeepAwake from 'react-native-keep-awake';
 import jwt_decode from 'jwt-decode';
 
 const addCommas = (num, style) => {
@@ -9,10 +11,14 @@ const addCommas = (num, style) => {
 const removeNonNumeric = num => num.toString().replace(/[^0-9]/g, '');
 
 export function phoneTest(phoneNumber) {
-  return /^\+(9[976]\d|8[987530]\d|6[987]\d|5[90]\d|42\d|3[875]\d|2[98654321]\d|9[8543210]|8[6421]|6[6543210]|5[87654321]|4[987654310]|3[9643210]|2[70]|7|1)\d{5,14}$/.test(phoneNumber);
+  return /^\+(9[976]\d|8[987530]\d|6[987]\d|5[90]\d|42\d|3[875]\d|2[98654321]\d|9[8543210]|8[6421]|6[6543210]|5[87654321]|4[987654310]|3[9643210]|2[70]|7|1)\d{5,14}$/.test(
+    phoneNumber,
+  );
 }
 export function emailTest(email) {
-  return /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(email);
+  return /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(
+    email,
+  );
 }
 export function passwordTest(pass) {
   return /^[\x20-\x7E\p{L}]{8,16}$/.test(pass);
@@ -40,7 +46,8 @@ export function showAlert(msg, {close, needCheckDuplicate = true} = {}) {
             close();
           }
         },
-      }]);
+      },
+    ]);
   }, 100);
 }
 
@@ -108,7 +115,8 @@ export function keepScreenAwake(awake = true) {
 
 export function generateRandomId(length = 10) {
   let result = '';
-  let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let characters =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   let charactersLength = characters.length;
   for (let i = 0; i < length; i++) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
@@ -121,9 +129,13 @@ export function isEmptyObject(obj) {
 }
 
 export function sortByName(list) {
-  list.sort(function(a, b) {
-    if (a < b) { return -1; }
-    if (a > b) { return 1; }
+  list.sort(function (a, b) {
+    if (a < b) {
+      return -1;
+    }
+    if (a > b) {
+      return 1;
+    }
     return 0;
   });
 }

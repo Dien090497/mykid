@@ -1,6 +1,7 @@
-import {StyleSheet} from 'react-native';
 import Consts, { FontSize } from "../../functions/Consts";
+
 import {Colors} from "../../assets/colors/Colors";
+import {StyleSheet} from 'react-native';
 
 const searchHeight = (Consts.screenHeight / 24);
 const bgHeight = (Consts.screenHeight / Math.floor(Consts.screenHeight / 200));
@@ -8,7 +9,7 @@ const followHeight = (Consts.screenHeight / (Consts.screenHeight < 800 ? Math.fl
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFF',
+    backgroundColor: 'transparent',
   },
   header: {
     width: '95%',
@@ -22,7 +23,7 @@ export const styles = StyleSheet.create({
     textAlignVertical: 'center',
     textAlign: 'left',
     color: Colors.gray,
-    flex: 0.8, 
+    flex: 0.8,
     paddingHorizontal: 10
   },
 
@@ -35,7 +36,7 @@ export const styles = StyleSheet.create({
     },
   mainView: {
     flex: 1,
-    backgroundColor: Colors.grayButton,
+    // backgroundColor: Colors.grayButton,
     flexDirection: 'column',
     width: '100%',
     alignContent: 'center',
