@@ -71,5 +71,6 @@ export const styles = StyleSheet.create({
     width: "96%",
     marginTop: 50,
     justifyContent: "center",
+    marginLeft: '2%'
   }
 });
