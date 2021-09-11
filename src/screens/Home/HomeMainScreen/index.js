@@ -49,7 +49,7 @@ export default function HomeMainScreen() {
   };
 
   const pressDevices = () => {
-    //navigation.navigate();
+    navigation.navigate(Consts.ScreenIds.ConnectionScreen)
   };
 
   const pressSettings = () => {

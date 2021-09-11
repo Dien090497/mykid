@@ -19,3 +19,13 @@ export function getListDeviceApi(accountId, page, size, { success, failure, auto
   };
   return get(listDeviceUrl, { params, success, failure, autoShowMsg, refLoading });
 }
+
+export function addDeviceApi(deviceCode, deviceName, icon, relationship, { success, failure, autoShowMsg = true, refLoading = null } = {}) {
+  let body = {
+    deviceCode,
+    deviceName,
+    icon,
+    relationship
+  };
+  return post(listDeviceUrl, { body, success, failure, autoShowMsg, refLoading });
+}

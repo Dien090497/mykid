@@ -68,6 +68,7 @@ export const String = {
   deviceNickname: 'Biệt danh thiết bị',
   iAm: 'Tôi là ',
   ofHe: ' của anh ấy',
+  addDeviceSuccess: 'Kết nối thiết bị thành công',
 
   //member
   member_refresh: 'Làm mới',

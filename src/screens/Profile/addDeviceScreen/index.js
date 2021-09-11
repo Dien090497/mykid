@@ -10,48 +10,110 @@ import Header from '../../../components/Header';
 import Images from '../../../assets/Images';
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import {String} from '../../../assets/strings/String';
-import {getListDeviceApi} from '../../../network/DeviceService';
+import {addDeviceApi} from '../../../network/DeviceService';
 import styles from "./style";
 
 const AddDeviceScreen = ({navigation}) => {
-  const [user, setUser] = useState('');
-  const [nickname, setNickname] = useState('');
-  const [relationship, setRelationship] = useState('Bố');
-  const [iconRelationship, setIconRelationship] = useState(Images.icFather);
+  const [deviceCode, setDeviceCode] = useState('');
+  const [deviceName, setDeviceName] = useState('');
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const [submitActive, setSubmitActive] = useState(false);
   const refLoading = useRef();
 
-  useLayoutEffect(() => {
-    getListDeviceInfo();
-  }, []);
+  const dataMock = [
+    {
+      id: 1,
+      name: 'Bố',
+      icon: Images.icFather,
+      relationship: 'FATHER'
+    },
+    {
+      id: 2,
+      name: 'Mẹ',
+      icon: Images.icMother,
+      relationship: 'MOTHER'
+    },
+    {
+      id: 4,
+      name: 'Ông',
+      icon: Images.icGrandfather,
+      relationship: 'GRANDFATHER'
+    },
+    {
+      id: 5,
+      name: 'Bà',
+      icon: Images.icGrandmother,
+      relationship: 'GRANDMOTHER'
+    },
+    {
+      id: 6,
+      name: 'Anh',
+      icon: Images.icBrother,
+      relationship: 'BROTHER'
+    },
+    {
+      id: 7,
+      name: 'Chị',
+      icon: Images.icSister,
+      relationship: 'SISTER'
+    },
+    {
+      id: 8,
+      name: 'Khác',
+      icon: Images.icOther,
+      relationship: 'OTHER'
+    },
+  ];
+
+  // useLayoutEffect(() => {
+  //   getListDeviceInfo();
+  // }, []);
 
   useLayoutEffect(() => {
-    if (user && nickname) {
+    if (deviceCode && deviceName) {
       setSubmitActive(true);
     }
-  }, [user, nickname]);
+  }, [deviceCode, deviceName]);
 
-  const getListDeviceInfo = () => {
-    getListDeviceApi(DataLocal.userInfo.id, Consts.pageDefault, 100, {
-      success: resData => {
-        console.log(resData);
-      },
-      refLoading,
-    }).then();
-  };
+  // const getListDeviceInfo = () => {
+  //   getListDeviceApi(DataLocal.userInfo.id, Consts.pageDefault, 100, {
+  //     success: resData => {
+  //       console.log(resData);
+  //     },
+  //     refLoading,
+  //   }).then();
+  // };
   const onChangeText = text => {
     setUser(text);
   };
   const onChangeNickname = text => {
     setNickname(text);
   };
-  const onPlaceChosen = (params) => {
-    console.log(params);
+  const onPlaceChosen = (index) => {
+    console.log(index);
+    setSelectedIndex(index);
+  };
+  const onRelationship = () => {
+    navigation.navigate(Consts.ScreenIds.Relationship, {
+      selectedIndex: selectedIndex,
+      data: dataMock,
+      onChooseed: onPlaceChosen
+    });
   };
   const addDevice = () => {
     if (!submitActive) return;
-    navigation.navigate(Consts.ScreenIds.Tabs, {onPlaceChosen});
+    addDeviceApi(deviceCode, deviceName, dataMock[selectedIndex].icon, dataMock[selectedIndex].relationship, {
+      success: _ => {
+        showAlert(String.addDeviceSuccess, {
+          close: () => {
+            navigation.navigate(Consts.ScreenIds.Tabs);
+          },
+        });
+      },
+      refLoading,
+    }).then();
   };
+  
   return (
     <View style={styles.contain}>
       <Header title={String.header_addDevice} />
@@ -62,30 +124,30 @@ const AddDeviceScreen = ({navigation}) => {
 
         <CustomInput
           placeholder={String.enterOrScanCode}
-          value={user}
+          value={deviceCode}
           onPress={() => navigation.navigate(Consts.ScreenIds.QRCodeScreen)}
-          onChangeText={onChangeText}
+          onChangeText={code => setDeviceCode(code)}
           icon={Images.icSmartwatch}
         />
         <View style={styles.Sty_information}>
           <Text style={styles.txtInformation}>{String.genneralInfo}</Text>
           <CustomInput
             placeholder={String.deviceNickname}
-            value={nickname}
-            onChangeText={onChangeNickname}
+            value={deviceName}
+            onChangeText={name => setDeviceName(name)}
             icon={Images.icUser2}
           />
         </View>
         <TouchableOpacity
-          onPress={() => navigation.navigate(Consts.ScreenIds.Relationship)}
+          onPress={() => onRelationship()}
           style={styles.Sty_select}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Image style={styles.Sty_iconUser} source={iconRelationship} />
+            <Image style={styles.Sty_iconUser} source={dataMock[selectedIndex].icon} />
             <Text style={styles.txtRelationship}>
               {String.iAm}
               <Text
                 style={{color: '#000000', fontSize: 16, fontWeight: 'bold'}}>
-                {relationship}
+                {dataMock[selectedIndex].name}
               </Text>{String.ofHe}
             </Text>
           </View>
