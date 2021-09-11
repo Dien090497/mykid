@@ -67,6 +67,7 @@ export const String = {
   currentPasswordInvalid: 'Mật khẩu hiện tại bạn nhập không đúng định dạng (8-16 ký tự)',
   newPasswordInvalid: 'Mật khẩu mới bạn nhập không đúng định dạng (8-16 ký tự)',
   passwordConfirmInvalid: 'Mật khẩu mới và mật khẩu xác nhận không giống nhau',
+  passwordDuplicated: 'Mật khẩu mới và mật khẩu cũ không được trùng nhau',
   enterOrScanCode: 'Mã đăng ký nhập/quét',
   deviceNickname: 'Biệt danh thiết bị',
   iAm: 'Tôi là ',

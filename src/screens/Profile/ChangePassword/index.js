@@ -42,6 +42,10 @@ const ChangePassword = ({ navigation }) => {
       showAlert(String.passwordConfirmInvalid);
       return;
     }
+    if (newPassword === currentPassword) {
+      showAlert(String.passwordDuplicated);
+      return;
+    }
 
     changePasswordApi(currentPassword, newPassword, {
       success: resData => {
@@ -108,7 +112,7 @@ const ChangePassword = ({ navigation }) => {
             <Button
               activeOpacity={submitActive ? 0 : 1}
               onclick={onSubmit}
-              title={String.registrationConfirmation}
+              title={String.ok}
               color={submitActive ? Colors.GradientColor : Colors.GradientColorGray}
             />
           </View>
