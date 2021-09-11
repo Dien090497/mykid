@@ -1,10 +1,12 @@
+import { FlatList, Image, Linking, Text, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useState } from "react";
-import { View, Text, Linking, TouchableOpacity, FlatList, Image } from "react-native";
-import styles from "./style";
+
 import Button from "../../../components/buttonGradient";
-import { String } from "../../../assets/strings/String";
 import {Colors} from "../../../assets/colors/Colors";
 import Consts from "../../../functions/Consts";
+import Header from '../../../components/Header'
+import { String } from "../../../assets/strings/String";
+import styles from "./style";
 
 const ConnectionScreen = ({navigation}) => {
   const onclick = ()=>{

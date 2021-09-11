@@ -1,16 +1,18 @@
-import {Image, StyleSheet, Text} from 'react-native';
 import {
   BottomTabBar,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
 //tab bar
 import Consts, {FontSize} from '../functions/Consts';
+import {Image, StyleSheet, Text} from 'react-native';
 import React, {useEffect, useRef} from 'react';
 import {isReadyRef, navigationRef} from './RootNavigation';
 
+import AddDeviceScreen from '../screens/Profile/addDeviceScreen';
 import AddNewContact from '../screens/Settings/Contacts/addNew';
 import ChangePassword from '../screens/Profile/ChangePassword';
 import {Colors} from '../assets/colors/Colors';
+import ConnectionScreen from '../screens/auth/connectionScreen';
 import Contacts from '../screens/Settings/Contacts';
 //screen
 import HomeMainScreen from '../screens/Home/HomeMainScreen';
@@ -25,13 +27,11 @@ import {Platform} from 'react-native';
 import Profile from '../screens/Profile';
 import QRCodeScreen from '../screens/Profile/QRCodeScreen';
 import Register from '../screens/auth/Register';
+import Relationship from '../screens/Profile/relationship';
 import SettingScreen from '../screens/Settings';
 import SplashScreen from '../screens/Splash';
 import WS from './WebScoket';
-import AddDeviceScreen from '../screens/Profile/AddDeviceScreen';
-import ConnectionScreen from '../screens/auth/ConnectionScreen';
 import {createStackNavigator} from '@react-navigation/stack';
-import Relationship from '../screens/Profile/Relationship';
 
 const Tab = createBottomTabNavigator();
 
