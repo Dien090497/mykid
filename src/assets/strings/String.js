@@ -15,6 +15,7 @@ export const String = {
   loading: 'Đang tải...',
   splashMsg: 'Đang tải dữ liệu...',
   ok: 'OK',
+  change: 'Chuyển',
 
 
   thisFunctionIsNotValid: 'Tính năng này chưa mở',
@@ -27,6 +28,8 @@ export const String = {
   header_relationship: 'Lựa chọn mối quan hệ',
   header_connectDevice: 'Kết nối thiết bị',
   header_profile: 'Cá nhân',
+  header_account: 'Tài khoản',
+  header_deviceManager: 'Danh sách thiết bị',
 
   // Codepush
   codepushChecking: 'Đang kiểm tra bản cập nhật...',
@@ -69,6 +72,7 @@ export const String = {
   iAm: 'Tôi là ',
   ofHe: ' của anh ấy',
   addDeviceSuccess: 'Kết nối thiết bị thành công',
+  addDeviceSuccess2: 'Yêu cầu kết nối đã được gửi.\nVui lòng chờ admin xác nhận',
 
   //member
   member_refresh: 'Làm mới',

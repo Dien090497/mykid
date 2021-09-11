@@ -21,8 +21,6 @@ const Relationship = ({ navigation, route }) => {
   useEffect(() => {
     setData(route.params.data);
     setSelectedIndex(route.params.selectedIndex);
-    console.log(route.params.data);
-    console.log(route.params.selectedIndex);
   }, []);
 
   const onchangeItem = index => {
