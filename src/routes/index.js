@@ -8,11 +8,11 @@ import {Image, StyleSheet, Text} from 'react-native';
 import React, {useEffect, useRef} from 'react';
 import {isReadyRef, navigationRef} from './RootNavigation';
 
-import AddDeviceScreen from '../screens/Profile/addDeviceScreen';
+import AddDeviceScreen from '../screens/Profile/AddDeviceScreen';
 import AddNewContact from '../screens/Settings/Contacts/addNew';
 import ChangePassword from '../screens/Profile/ChangePassword';
 import {Colors} from '../assets/colors/Colors';
-import ConnectionScreen from '../screens/auth/connectionScreen';
+import ConnectionScreen from '../screens/auth/ConnectionScreen';
 import Contacts from '../screens/Settings/Contacts';
 //screen
 import HomeMainScreen from '../screens/Home/HomeMainScreen';
@@ -27,7 +27,7 @@ import {Platform} from 'react-native';
 import Profile from '../screens/Profile';
 import QRCodeScreen from '../screens/Profile/QRCodeScreen';
 import Register from '../screens/auth/Register';
-import Relationship from '../screens/Profile/relationship';
+import Relationship from '../screens/Profile/Relationship';
 import SettingScreen from '../screens/Settings';
 import SplashScreen from '../screens/Splash';
 import WS from './WebScoket';
@@ -126,14 +126,8 @@ const Auth = () => {
       }}>
       <Stack.Screen name={Consts.ScreenIds.Login} component={Login} />
       <Stack.Screen name={Consts.ScreenIds.Register} component={Register} />
-      <Stack.Screen
-        name={Consts.ScreenIds.ConnectionScreen}
-        component={ConnectionScreen}
-      />
-      <Stack.Screen
-        name={Consts.ScreenIds.AddDeviceScreen}
-        component={AddDeviceScreen}
-      />
+      <Stack.Screen name={Consts.ScreenIds.ConnectionScreen} component={ConnectionScreen} />
+      <Stack.Screen name={Consts.ScreenIds.AddDeviceScreen} component={AddDeviceScreen} />
     </StackAuth.Navigator>
   );
 };
@@ -173,14 +167,10 @@ const Routes = () => {
         <Stack.Screen name={Consts.ScreenIds.Tabs} component={TabBarBottom} />
         <Stack.Screen name={Consts.ScreenIds.Auth} component={Auth} />
         <Stack.Screen name={Consts.ScreenIds.Login} component={Login} />
-        <Stack.Screen
-          name={Consts.ScreenIds.Relationship}
-          component={Relationship}
-        />
-        <Stack.Screen
-          name={Consts.ScreenIds.QRCodeScreen}
-          component={QRCodeScreen}
-        />
+        <Stack.Screen name={Consts.ScreenIds.ConnectionScreen} component={ConnectionScreen} />
+        <Stack.Screen name={Consts.ScreenIds.AddDeviceScreen} component={AddDeviceScreen} />
+        <Stack.Screen name={Consts.ScreenIds.Relationship} component={Relationship} />
+        <Stack.Screen name={Consts.ScreenIds.QRCodeScreen} component={QRCodeScreen} />
         <Stack.Screen
           name={Consts.ScreenIds.Register}
           component={DirectRegister}

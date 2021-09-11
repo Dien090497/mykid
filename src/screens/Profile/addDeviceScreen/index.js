@@ -11,7 +11,7 @@ import Images from '../../../assets/Images';
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import {String} from '../../../assets/strings/String';
 import {getListDeviceApi} from '../../../network/DeviceService';
-import styles from './style';
+import styles from "./style";
 
 const AddDeviceScreen = ({navigation}) => {
   const [user, setUser] = useState('');
@@ -22,7 +22,7 @@ const AddDeviceScreen = ({navigation}) => {
   const refLoading = useRef();
 
   useLayoutEffect(() => {
-    getListDeviceInfo;
+    getListDeviceInfo();
   }, []);
 
   useLayoutEffect(() => {
@@ -45,9 +45,12 @@ const AddDeviceScreen = ({navigation}) => {
   const onChangeNickname = text => {
     setNickname(text);
   };
+  const onPlaceChosen = (params) => {
+    console.log(params);
+  };
   const addDevice = () => {
     if (!submitActive) return;
-    navigation.navigate(Consts.ScreenIds.Tabs);
+    navigation.navigate(Consts.ScreenIds.Tabs, {onPlaceChosen});
   };
   return (
     <View style={styles.contain}>
@@ -58,7 +61,7 @@ const AddDeviceScreen = ({navigation}) => {
         </View>
 
         <CustomInput
-          placeholder={'Nhập mã thiết bị/quét'}
+          placeholder={String.enterOrScanCode}
           value={user}
           onPress={() => navigation.navigate(Consts.ScreenIds.QRCodeScreen)}
           onChangeText={onChangeText}
@@ -67,7 +70,7 @@ const AddDeviceScreen = ({navigation}) => {
         <View style={styles.Sty_information}>
           <Text style={styles.txtInformation}>{String.genneralInfo}</Text>
           <CustomInput
-            placeholder={'Biệt danh thiết bị'}
+            placeholder={String.deviceNickname}
             value={nickname}
             onChangeText={onChangeNickname}
             icon={Images.icUser2}
@@ -79,12 +82,11 @@ const AddDeviceScreen = ({navigation}) => {
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Image style={styles.Sty_iconUser} source={iconRelationship} />
             <Text style={styles.txtRelationship}>
-              Tôi là{' '}
+              {String.iAm}
               <Text
                 style={{color: '#000000', fontSize: 16, fontWeight: 'bold'}}>
                 {relationship}
-              </Text>{' '}
-              của anh ấy
+              </Text>{String.ofHe}
             </Text>
           </View>
           <Image

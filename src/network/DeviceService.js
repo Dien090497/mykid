@@ -15,7 +15,7 @@ export function getListDeviceApi(accountId, page, size, { success, failure, auto
     accountId,
     page,
     size,
-    sort: 'createAt:ASC'
+    sort: 'createdAt:ASC'
   };
   return get(listDeviceUrl, { params, success, failure, autoShowMsg, refLoading });
 }
