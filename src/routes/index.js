@@ -1,10 +1,9 @@
-import {Alert, Dimensions, Image, StyleSheet, Text} from 'react-native';
+import {Image, StyleSheet, Text} from 'react-native';
 import {
   BottomTabBar,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
 //tab bar
-// import BottomTabBar from './BottomTabBar';
 import Consts, {FontSize} from '../functions/Consts';
 import React, {useEffect, useRef} from 'react';
 import {isReadyRef, navigationRef} from './RootNavigation';
@@ -23,22 +22,16 @@ import Maps from '../screens/Maps';
 import Members from '../screens/Settings/Members';
 import {NavigationContainer} from '@react-navigation/native';
 import {Platform} from 'react-native';
-// import ListGame from "../screens/ListGame";
 import Profile from '../screens/Profile';
 import QRCodeScreen from '../screens/Profile/QRCodeScreen';
 import Register from '../screens/auth/Register';
 import SettingScreen from '../screens/Settings';
 import SplashScreen from '../screens/Splash';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import WS from './WebScoket';
-import addDeviceScreen from '../screens/Profile/addDeviceScreen';
-import connectionScreen from '../screens/auth/connectionScreen';
+import AddDeviceScreen from '../screens/Profile/AddDeviceScreen';
+import ConnectionScreen from '../screens/auth/ConnectionScreen';
 import {createStackNavigator} from '@react-navigation/stack';
-import relationship from '../screens/Profile/relationship';
-
-// import BottomTabBar from './BottomTabBar';
-// import ListGame from "../screens/ListGame";
-// import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import Relationship from '../screens/Profile/Relationship';
 
 const Tab = createBottomTabNavigator();
 
@@ -134,12 +127,12 @@ const Auth = () => {
       <Stack.Screen name={Consts.ScreenIds.Login} component={Login} />
       <Stack.Screen name={Consts.ScreenIds.Register} component={Register} />
       <Stack.Screen
-        name={Consts.ScreenIds.connection}
-        component={connectionScreen}
+        name={Consts.ScreenIds.ConnectionScreen}
+        component={ConnectionScreen}
       />
       <Stack.Screen
-        name={Consts.ScreenIds.addDeviceScreen}
-        component={addDeviceScreen}
+        name={Consts.ScreenIds.AddDeviceScreen}
+        component={AddDeviceScreen}
       />
     </StackAuth.Navigator>
   );
@@ -180,8 +173,8 @@ const Routes = () => {
         <Stack.Screen name={Consts.ScreenIds.Tabs} component={TabBarBottom} />
         <Stack.Screen name={Consts.ScreenIds.Auth} component={Auth} />
         <Stack.Screen
-          name={Consts.ScreenIds.relationship}
-          component={relationship}
+          name={Consts.ScreenIds.Relationship}
+          component={Relationship}
         />
         <Stack.Screen
           name={Consts.ScreenIds.QRCodeScreen}

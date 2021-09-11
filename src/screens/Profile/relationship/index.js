@@ -6,7 +6,7 @@ import Button from "../../../components/customButton";
 import Header from "../../../components/Header";
 import { String } from '../../../assets/strings/String';
 
-const relationship = ({ navigation }) => {
+const Relationship = ({ navigation }) => {
   const [relationship, setRelationship] = useState("Bố");
   const [data, setData] = useState([
     {
@@ -103,4 +103,4 @@ const relationship = ({ navigation }) => {
     </View>
   );
 };
-export default relationship;
+export default Relationship;

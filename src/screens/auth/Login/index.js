@@ -32,10 +32,28 @@ const Login = ({ navigation }) => {
   const refLoading = useRef();
 
   useEffect(() => {
+    onLoggedIn();
+  }, [loggedInUserInfo])
+
+  const onLoggedIn = () => {
     if (loggedInUserInfo.id) {
       navigation.navigate(Consts.ScreenIds.Tabs);
     }
-  }, [loggedInUserInfo])
+    // changePasswordApi(currentPassword, newPassword, {
+    //   success: resData => {
+    //     if (resData.data.token) {
+    //       saveUserDataFromToken(resData.data.token);
+    //     }
+    //     showAlert(String.changePasswordSuccess, {
+    //       close: () => {
+    //         navigation.goBack();
+    //       },
+    //     });
+    //   },
+    //   failure: _ => {
+    //   }
+    // }).then();
+  };
 
   const onChangeGmail = (text) => {
     setEmail(text);
@@ -44,7 +62,8 @@ const Login = ({ navigation }) => {
   const onChangePassword = (text) => {
     setPassword(text);
   };
-  const onclick = () => {
+
+  const onSubmit = () => {
     if(checkbox){
       if (!emailTest(email)) {
         showAlert(String.errorGmail);
@@ -96,7 +115,7 @@ const Login = ({ navigation }) => {
             }}
           >
             <Button
-              onclick={onclick}
+              onclick={onSubmit}
               title={String.login}
               color={Colors.gradient}
               Sty_btn={{ borderWidth: 4, borderColor: "#D71921" }}

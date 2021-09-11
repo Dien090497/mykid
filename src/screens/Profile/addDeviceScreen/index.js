@@ -10,7 +10,7 @@ import Images from "../../../assets/Images";
 import { String } from '../../../assets/strings/String';
 import styles from "./style";
 
-const addDeviceScreen = ({ navigation }) => {
+const AddDeviceScreen = ({ navigation }) => {
   const [user, setUser] = useState("");
   const [nickname, setNickname] = useState("");
   const [relationship, setRelationship] = useState("Bố");
@@ -47,7 +47,7 @@ const addDeviceScreen = ({ navigation }) => {
         <CustomInput
           placeholder={"Nhập mã thiết bị/quét"}
           value={user}
-          onPress={() => navigation.navigate("QRCodeScreen")}
+          onPress={() => navigation.navigate(Consts.ScreenIds.QRCodeScreen)}
           onChangeText={onChangeText}
           icon={Images.icSmartwatch}
         />
@@ -61,7 +61,7 @@ const addDeviceScreen = ({ navigation }) => {
           />
         </View>
         <TouchableOpacity
-          onPress={()=> navigation.navigate('relationship')}
+          onPress={()=> navigation.navigate(Consts.ScreenIds.Relationship)}
           style={styles.Sty_select}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Image
@@ -89,4 +89,4 @@ const addDeviceScreen = ({ navigation }) => {
 
   );
 };
-export default addDeviceScreen;
+export default AddDeviceScreen;

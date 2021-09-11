@@ -87,13 +87,10 @@ const Register = ({ navigation }) => {
         createAccountApi(data,
           {
             success: resData => {
-              if (resData === '') {
-                showAlert(ErrorMsg.kwa4022);
-              }
               if (resData && resData.data && resData.data.token) {
                 setCheckCode(false)
                 saveUserDataFromToken(resData.data.token).then(token => {
-                  navigation.navigate(Consts.ScreenIds.connection)
+                  navigation.navigate(Consts.ScreenIds.ConnectionScreen)
                 });
               }
             },

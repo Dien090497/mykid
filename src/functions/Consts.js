@@ -33,9 +33,9 @@ const ScreenIds = {
   ForgotPassword: 'ForgotPassword',
   Register: 'Register',
   PasswordRetrieval: 'PasswordRetrieval',
-  connection: 'connectionScreen',
-  addDeviceScreen: 'addDeviceScreen',
-  relationship: 'relationship',
+  ConnectionScreen: 'ConnectionScreen',
+  AddDeviceScreen: 'AddDeviceScreen',
+  Relationship: 'Relationship',
   QRCodeScreen: 'QRCodeScreen',
 
   //Settings

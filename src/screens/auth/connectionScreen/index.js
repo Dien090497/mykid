@@ -4,10 +4,11 @@ import styles from "./style";
 import Button from "../../../components/buttonGradient";
 import { String } from "../../../assets/strings/String";
 import {Colors} from "../../../assets/colors/Colors";
+import Consts from "../../../functions/Consts";
 
-const connectionScreen = ({navigation}) => {
+const ConnectionScreen = ({navigation}) => {
   const onclick = ()=>{
-    navigation.navigate('addDeviceScreen')
+    navigation.navigate(Consts.ScreenIds.AddDeviceScreen)
   };
   return (
     <View style={styles.contain}>
@@ -23,4 +24,4 @@ const connectionScreen = ({navigation}) => {
     </View>
   );
 };
-export default connectionScreen;
+export default ConnectionScreen;
