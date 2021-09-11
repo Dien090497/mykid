@@ -1,5 +1,5 @@
 import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
-import React, {useLayoutEffect, useRef, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
 
 import Button from '../../../components/buttonGradient';
 import {Colors} from '../../../assets/colors/Colors';
@@ -70,9 +70,7 @@ const AddDeviceScreen = ({navigation}) => {
   // }, []);
 
   useLayoutEffect(() => {
-    if (deviceCode && deviceName) {
-      setSubmitActive(true);
-    }
+    setSubmitActive(deviceCode && deviceName);
   }, [deviceCode, deviceName]);
 
   // const getListDeviceInfo = () => {

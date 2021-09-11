@@ -25,9 +25,7 @@ const ChangePassword = ({ navigation }) => {
   const [submitActive, setSubmitActive] = useState(false);
 
   useLayoutEffect(() => {
-    if (currentPassword && newPassword && newPasswordConfirm) {
-      setSubmitActive(true)
-    }
+    setSubmitActive(currentPassword && newPassword && newPasswordConfirm)
   }, [currentPassword, newPassword, newPasswordConfirm]);
 
   const onSubmit = () => {

@@ -23,11 +23,11 @@ import { styles } from "./styles";
 import { ErrorMsg } from "../../../assets/strings/ErrorMsg";
 
 const Register = ({ navigation }) => {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
   const [checkGmail, setCheckGmail] = useState(false);
-  const [code, setCode] = useState("");
+  const [code, setCode] = useState('');
   const [checkCode, setCheckCode] = useState(false);
-  const [pass, setPass] = useState("");
+  const [pass, setPass] = useState('');
   const [checkPass, setCheckPass] = useState(false);
   const [showPass, setShowPass] = useState(true);
   const [checkbox, setCheckbox] = useState(false);
@@ -40,9 +40,7 @@ const Register = ({ navigation }) => {
   }, []);
 
   useLayoutEffect(() => {
-    if (email && pass && email) {
-      setSubmitActive(true)
-    }
+    setSubmitActive(email && pass && code)
   }, [email, pass, code]);
 
   const onChangeGmail = (text) => {
