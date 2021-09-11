@@ -8,7 +8,7 @@ import {Image, StyleSheet, Text} from 'react-native';
 import React, {useEffect, useRef} from 'react';
 import {isReadyRef, navigationRef} from './RootNavigation';
 
-import AddDeviceScreen from '../screens/Profile/AddDeviceScreen2';
+import AddDeviceScreen from '../screens/Profile/AddDeviceScreen';
 import AddNewContact from '../screens/Settings/Contacts/addNew';
 import ChangePassword from '../screens/Profile/ChangePassword';
 import {Colors} from '../assets/colors/Colors';
