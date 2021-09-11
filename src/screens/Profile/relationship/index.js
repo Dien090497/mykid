@@ -6,7 +6,7 @@ import Button from "../../../components/customButton";
 import Header from "../../../components/Header";
 import { String } from '../../../assets/strings/String';
 
-const Relationship = ({ navigation }) => {
+const Relationship = ({ navigation, onPlaceChosen }) => {
   const [relationship, setRelationship] = useState("Bố");
   const [data, setData] = useState([
     {
@@ -66,8 +66,8 @@ const Relationship = ({ navigation }) => {
     <View style={styles.container}>
       <Header title={String.header_relationship} />
       <View style={styles.txtSelection}>
-        <Text style={styles.txtRelationship}>Tôi là <Text
-          style={{ color: "#000000", fontSize: 16, fontWeight: "bold" }}>{relationship}</Text> của anh ấy</Text>
+        <Text style={styles.txtRelationship}>{String.iAm}<Text
+          style={{ color: "#000000", fontSize: 16, fontWeight: "bold" }}>{relationship}</Text>{String.ofHe}</Text>
       </View>
       {/*numColumns={2}*/}
       <View>
@@ -96,7 +96,7 @@ const Relationship = ({ navigation }) => {
       <View style={styles.Sty_btnView}>
         <Button
           onChange={onChange}
-          title={"Ok"}
+          title={String.ok}
         />
       </View>
 

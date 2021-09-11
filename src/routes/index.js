@@ -126,14 +126,8 @@ const Auth = () => {
       }}>
       <Stack.Screen name={Consts.ScreenIds.Login} component={Login} />
       <Stack.Screen name={Consts.ScreenIds.Register} component={Register} />
-      <Stack.Screen
-        name={Consts.ScreenIds.ConnectionScreen}
-        component={ConnectionScreen}
-      />
-      <Stack.Screen
-        name={Consts.ScreenIds.AddDeviceScreen}
-        component={AddDeviceScreen}
-      />
+      <Stack.Screen name={Consts.ScreenIds.ConnectionScreen} component={ConnectionScreen} />
+      <Stack.Screen name={Consts.ScreenIds.AddDeviceScreen} component={AddDeviceScreen} />
     </StackAuth.Navigator>
   );
 };
@@ -173,14 +167,10 @@ const Routes = () => {
         <Stack.Screen name={Consts.ScreenIds.Tabs} component={TabBarBottom} />
         <Stack.Screen name={Consts.ScreenIds.Auth} component={Auth} />
         <Stack.Screen name={Consts.ScreenIds.Login} component={Login} />
-        <Stack.Screen
-          name={Consts.ScreenIds.Relationship}
-          component={Relationship}
-        />
-        <Stack.Screen
-          name={Consts.ScreenIds.QRCodeScreen}
-          component={QRCodeScreen}
-        />
+        <Stack.Screen name={Consts.ScreenIds.ConnectionScreen} component={ConnectionScreen} />
+        <Stack.Screen name={Consts.ScreenIds.AddDeviceScreen} component={AddDeviceScreen} />
+        <Stack.Screen name={Consts.ScreenIds.Relationship} component={Relationship} />
+        <Stack.Screen name={Consts.ScreenIds.QRCodeScreen} component={QRCodeScreen} />
         <Stack.Screen
           name={Consts.ScreenIds.Register}
           component={DirectRegister}
