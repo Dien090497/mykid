@@ -15,11 +15,14 @@ import Header from '../../../components/Header';
 import Images from '../../../assets/Images';
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import {String} from '../../../assets/strings/String';
+import {getListDeviceApi} from '../../../network/DeviceService';
 import {styles} from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useSelector} from 'react-redux';
 
 export default ({navigation, route}) => {
   const refLoading = useRef();
+  const {dataInfo} = useSelector(state => state.loginReducer);
   const [dataContacts, setDataContacts] = useState([
     {
       key: 'Dad',
@@ -48,6 +51,14 @@ export default ({navigation, route}) => {
 
   useEffect(() => {
     //call API Danh sách thành viên
+    const getData = () => {
+      getListDeviceApi(dataInfo?.id, 0, 100, 1, {
+        success: res => {
+          console.log(res);
+        },
+      });
+    };
+    getData();
     //setDataContacts
   });
 

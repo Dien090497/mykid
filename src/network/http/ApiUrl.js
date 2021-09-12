@@ -15,6 +15,7 @@ export const changePasswordUrl = appUrl + '/accounts/password';
 export const refreshTokenUrl = appUrl + '/auth/refresh';
 export const getCaptchaUrl = appUrl + '/captcha';
 export const listDeviceUrl = appUrl + '/account-devices'
+export const locationDeviceUrl = appUrl + '/locations'
 
 // User info
 export const accountDetailUrl = appUrl + '/accounts';

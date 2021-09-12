@@ -1,18 +1,21 @@
-import axios from 'axios';
-import {Platform} from 'react-native';
-import DataLocal from '../../data/dataLocal';
+import * as Actions from '../../redux/actions';
+
 import {appUrl, refreshTokenUrl} from './ApiUrl';
-import {ErrorMsg} from '../../assets/strings/ErrorMsg';
 import {
+  generateRandomId,
+  hideLoading,
   showAlert,
   showLoading,
-  hideLoading,
-  generateRandomId,
 } from '../../functions/utils';
-import * as Actions from '../../redux/actions';
+
 import Consts from '../../functions/Consts';
-import reduxStore from '../../redux/config/redux';
+import DataLocal from '../../data/dataLocal';
+import {ErrorMsg} from '../../assets/strings/ErrorMsg';
+import {Platform} from 'react-native';
 import {RETRY_HTTP_REQUEST_NUMBER} from '../../data/AppConfig';
+import axios from 'axios';
+import reduxStore from '../../redux/config/redux';
+
 // import * as RNFS from 'react-native-fs';
 
 const TIMEOUT_CONNECT = 60000;
@@ -140,6 +143,7 @@ export async function post(
   const headersGet = getHeaders(headers);
   let response = await doRequest(url, headersGet, body, requestType.post);
   hideLoading(refLoading);
+  console.log()
 
   return handleResp(response, autoShowMsg, success, failure, refLoading);
 }
@@ -303,6 +307,7 @@ export async function upload(
 async function handleResp(response, autoShowMsg, success, failure, refLoading) {
   if (!response || response.status === 500) {
     let err = ErrorMsg.connectToServerFailed;
+    console.log('handleResp >>>>>>>>>>>', response)
     if (response && response.error) {
       err = response.error;
     }

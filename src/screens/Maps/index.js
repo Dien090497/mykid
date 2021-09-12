@@ -14,6 +14,7 @@ import {FontSize} from '../../functions/Consts';
 import Header from '../../components/Header';
 import Images from '../../assets/Images';
 import {String} from '../../assets/strings/String';
+import {getLocationDeviceApi} from '../../network/DeviceService';
 import {styles} from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
@@ -31,6 +32,18 @@ const initialRegion = {
 
 export default ({navigation, route}) => {
   const refMap = useRef(null);
+
+  useEffect(() => {
+    const getLocationDevice = () => {
+      getLocationDeviceApi(1, {
+        success: res => {
+          console.log(res, 'getLocationDevice>>>>>>>>>>>');
+        },
+      });
+    };
+    getLocationDevice();
+  }, []);
+
   return (
     <View
       style={[styles.container, {paddingBottom: useSafeAreaInsets().bottom}]}>
