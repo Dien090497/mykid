@@ -15,6 +15,7 @@ export const String = {
   loading: 'Đang tải...',
   splashMsg: 'Đang tải dữ liệu...',
   ok: 'OK',
+  change: 'Chuyển',
 
 
   thisFunctionIsNotValid: 'Tính năng này chưa mở',
@@ -27,6 +28,8 @@ export const String = {
   header_relationship: 'Lựa chọn mối quan hệ',
   header_connectDevice: 'Kết nối thiết bị',
   header_profile: 'Cá nhân',
+  header_account: 'Tài khoản',
+  header_deviceManager: 'Danh sách thiết bị',
 
   // Codepush
   codepushChecking: 'Đang kiểm tra bản cập nhật...',
@@ -64,11 +67,13 @@ export const String = {
   currentPasswordInvalid: 'Mật khẩu hiện tại bạn nhập không đúng định dạng (8-16 ký tự)',
   newPasswordInvalid: 'Mật khẩu mới bạn nhập không đúng định dạng (8-16 ký tự)',
   passwordConfirmInvalid: 'Mật khẩu mới và mật khẩu xác nhận không giống nhau',
+  passwordDuplicated: 'Mật khẩu mới và mật khẩu cũ không được trùng nhau',
   enterOrScanCode: 'Mã đăng ký nhập/quét',
   deviceNickname: 'Biệt danh thiết bị',
   iAm: 'Tôi là ',
   ofHe: ' của anh ấy',
   addDeviceSuccess: 'Kết nối thiết bị thành công',
+  addDeviceSuccess2: 'Yêu cầu kết nối đã được gửi.\nVui lòng chờ admin xác nhận',
 
   //member
   member_refresh: 'Làm mới',

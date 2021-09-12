@@ -25,9 +25,7 @@ const ChangePassword = ({ navigation }) => {
   const [submitActive, setSubmitActive] = useState(false);
 
   useLayoutEffect(() => {
-    if (currentPassword && newPassword && newPasswordConfirm) {
-      setSubmitActive(true)
-    }
+    setSubmitActive(currentPassword && newPassword && newPasswordConfirm)
   }, [currentPassword, newPassword, newPasswordConfirm]);
 
   const onSubmit = () => {
@@ -42,6 +40,10 @@ const ChangePassword = ({ navigation }) => {
     }
     if (newPassword !== newPasswordConfirm) {
       showAlert(String.passwordConfirmInvalid);
+      return;
+    }
+    if (newPassword === currentPassword) {
+      showAlert(String.passwordDuplicated);
       return;
     }
 
@@ -110,7 +112,7 @@ const ChangePassword = ({ navigation }) => {
             <Button
               activeOpacity={submitActive ? 0 : 1}
               onclick={onSubmit}
-              title={String.registrationConfirmation}
+              title={String.ok}
               color={submitActive ? Colors.GradientColor : Colors.GradientColorGray}
             />
           </View>

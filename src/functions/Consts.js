@@ -27,6 +27,7 @@ const ScreenIds = {
   Profile: 'Profile',
   ChangePassword: 'ChangePassword',
   HomeMainScreen: 'HomeMainScreen',
+  DeviceManager: 'DeviceManager',
 
   // Auth
   Login: 'Login',

@@ -20,6 +20,7 @@ import ComponentInput from "../../../components/CustomInput";
 import Button from "../../../components/buttonGradient";
 import Consts from "../../../functions/Consts";
 import { emailTest, passwordTest, showAlert } from "../../../functions/utils";
+import { getListDeviceApi } from "../../../network/DeviceService";
 
 const Login = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -35,24 +36,20 @@ const Login = ({ navigation }) => {
     onLoggedIn();
   }, [loggedInUserInfo])
 
-  const onLoggedIn = () => {
+  const onLoggedIn = async () => {
     if (loggedInUserInfo.id && checkbox) {
-      navigation.navigate(Consts.ScreenIds.Tabs);
+      getListDeviceApi(loggedInUserInfo.id, Consts.pageDefault, 100, {
+        success: resData => {
+          let devices = resData.data.filter(val => val.status === 'ACTIVE');
+          if (devices.length === 0) {
+            navigation.navigate(Consts.ScreenIds.AddDeviceScreen, {isShowAlert: resData.data.length > 0});
+          } else {
+            navigation.navigate(Consts.ScreenIds.Tabs);
+          }
+        },
+        refLoading,
+      });
     }
-    // changePasswordApi(currentPassword, newPassword, {
-    //   success: resData => {
-    //     if (resData.data.token) {
-    //       saveUserDataFromToken(resData.data.token);
-    //     }
-    //     showAlert(String.changePasswordSuccess, {
-    //       close: () => {
-    //         navigation.goBack();
-    //       },
-    //     });
-    //   },
-    //   failure: _ => {
-    //   }
-    // }).then();
   };
 
   const onChangeGmail = (text) => {

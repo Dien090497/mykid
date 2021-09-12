@@ -24,7 +24,7 @@ export default function Profile({navigation}) {
 
   return (
     <View style={styles.contain}>
-      <Header title={String.header_connectDevice} />
+      <Header title={String.header_account} />
       <View style={styles.container}>
         <TouchableOpacity activeOpacity={1} style={styles.rowSettings}>
            <Image source={Images.icUser} resizeMode={'contain'} style={styles.iconSetting}/>

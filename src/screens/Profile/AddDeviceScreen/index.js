@@ -1,5 +1,5 @@
 import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
-import React, {useLayoutEffect, useRef, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
 
 import Button from '../../../components/buttonGradient';
 import {Colors} from '../../../assets/colors/Colors';
@@ -12,8 +12,9 @@ import LoadingIndicator from '../../../components/LoadingIndicator';
 import {String} from '../../../assets/strings/String';
 import {addDeviceApi} from '../../../network/DeviceService';
 import styles from "./style";
+import { showAlert } from '../../../functions/utils';
 
-const AddDeviceScreen = ({navigation}) => {
+const AddDeviceScreen = ({navigation, route}) => {
   const [deviceCode, setDeviceCode] = useState('');
   const [deviceName, setDeviceName] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -65,32 +66,17 @@ const AddDeviceScreen = ({navigation}) => {
     },
   ];
 
-  // useLayoutEffect(() => {
-  //   getListDeviceInfo();
-  // }, []);
-
   useLayoutEffect(() => {
-    if (deviceCode && deviceName) {
-      setSubmitActive(true);
-    }
+    setSubmitActive(deviceCode && deviceName);
   }, [deviceCode, deviceName]);
 
-  // const getListDeviceInfo = () => {
-  //   getListDeviceApi(DataLocal.userInfo.id, Consts.pageDefault, 100, {
-  //     success: resData => {
-  //       console.log(resData);
-  //     },
-  //     refLoading,
-  //   }).then();
-  // };
-  const onChangeText = text => {
-    setUser(text);
-  };
-  const onChangeNickname = text => {
-    setNickname(text);
-  };
+  useLayoutEffect(() => {
+    if (route.params && route.params.isShowAlert) {
+      showAlert(String.addDeviceSuccess2);
+    }
+  }, []);
+
   const onPlaceChosen = (index) => {
-    console.log(index);
     setSelectedIndex(index);
   };
   const onRelationship = () => {
@@ -103,12 +89,47 @@ const AddDeviceScreen = ({navigation}) => {
   const addDevice = () => {
     if (!submitActive) return;
     addDeviceApi(deviceCode, deviceName, dataMock[selectedIndex].icon, dataMock[selectedIndex].relationship, {
-      success: _ => {
+      success: resp => {
+        if (resp.data) {
+          if (resp.data.status === 'PENDING') {
+            showAlert(String.addDeviceSuccess2, {
+              close: () => {
+                setDeviceCode('');
+                setDeviceName('');
+                setSelectedIndex(0);
+              },
+            });
+          } else if (resp.data.status === 'ACTIVE') {
+            showAlert(String.addDeviceSuccess, {
+              close: () => {
+                if (route.params && route.params.onRefresh) {
+                  route.params.onRefresh();
+                  navigation.goBack();
+                } else {
+                  navigation.navigate(Consts.ScreenIds.Tabs);
+                }
+              },
+            });
+          }
+        }
+        
+      },
+      failure: error => {
         showAlert(String.addDeviceSuccess, {
           close: () => {
-            navigation.navigate(Consts.ScreenIds.Tabs);
+            if (route.params && route.params.onRefresh) {
+              route.params.onRefresh();
+              navigation.goBack();
+            } else {
+              navigation.navigate(Consts.ScreenIds.Tabs);
+            }
           },
         });
+        // if (error.includes('KWA-4020')) {
+        //   setDeviceCode('');
+        //   setDeviceName('');
+        //   setSelectedIndex(0);
+        // }
       },
       refLoading,
     }).then();
