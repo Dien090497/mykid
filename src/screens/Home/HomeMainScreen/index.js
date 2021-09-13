@@ -41,7 +41,7 @@ export default function HomeMainScreen() {
   };
 
   const pressFindDevice = () => {
-    //navigation.navigate();
+    navigation.navigate(Consts.ScreenIds.FindDevice);
   };
 
   const pressEntertainment = () => {
@@ -49,7 +49,7 @@ export default function HomeMainScreen() {
   };
 
   const pressDevices = () => {
-    navigation.navigate(Consts.ScreenIds.DeviceManager)
+    navigation.navigate(Consts.ScreenIds.DeviceManager);
   };
 
   const pressSettings = () => {

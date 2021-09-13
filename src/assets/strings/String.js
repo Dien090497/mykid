@@ -30,6 +30,7 @@ export const String = {
   header_profile: 'Cá nhân',
   header_account: 'Tài khoản',
   header_deviceManager: 'Danh sách thiết bị',
+  header_findDevice: 'Thiết bị',
 
   // Codepush
   codepushChecking: 'Đang kiểm tra bản cập nhật...',
