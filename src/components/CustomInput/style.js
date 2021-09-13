@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions } from "react-native";
+import { FontSize } from "../../functions/Consts";
 
 const { width, height } = Dimensions.get("window");
 const styles = StyleSheet.create({
@@ -6,9 +7,10 @@ const styles = StyleSheet.create({
     // flex:1,
   },
   Sty_TitleInput: {
-    marginVertical: width * 0.02,
-    fontSize: 16,
+    marginVertical: 6,
+    fontSize: FontSize.medium,
     fontWeight: "700",
+    fontFamily: 'Roboto-Medium',
   },
   Sty_ViewInput: {
     marginVertical: 10,
@@ -17,22 +19,24 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     borderColor: "#cacaca",
-    paddingHorizontal: width * 0.04,
+    paddingHorizontal: 12,
     alignItems: "center",
   },
   Sty_input: {
-    height: height * 0.06,
+    height: 48,
     width: "80%",
-    fontSize: height * 0.02,
+    fontSize: FontSize.medium,
+    fontFamily: 'Roboto-Medium',
   },
   Sty_icon: {
-    height: height * 0.06 / 2,
-    width: height * 0.06 / 2,
+    height: 24,
+    width: 24,
     marginRight: 5
   },
   Title: {
     color: "#fff",
-    fontSize: 16,
+    fontSize: FontSize.medium,
+    fontFamily: 'Roboto-Medium',
   },
 });
 export default styles;
