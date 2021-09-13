@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
   },
   Sty_txtPass: {
     marginLeft: '2%',
-    width: "100%",
+    width: "98%",
     flexDirection: "row",
     marginVertical: 15,
     alignItems: "center",

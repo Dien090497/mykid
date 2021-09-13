@@ -3,7 +3,7 @@ import {Text, TouchableOpacity, View} from 'react-native';
 import {useNavigation, useNavigationState} from '@react-navigation/native';
 
 import {Colors} from '../../assets/colors/Colors';
-import Consts from '../../functions/Consts';
+import Consts, { FontSize } from '../../functions/Consts';
 import {Header as HeaderE} from 'react-native-elements';
 import Icons from '../../components/VectorIcons';
 import {String} from '../../assets/strings/String';
@@ -25,20 +25,8 @@ export default Header = props => {
   const [back] = useState(props.back !== undefined ? props.back : true);
 
   const handleGoBack = () => {
-    if (index > 0 && routes[index - 1].name === Consts.ScreenIds.Browser) {
-      // Orientation.lockToLandscape();
-    }
     navigation.goBack();
   };
-
-  // return (
-  //   <View style={[styles.container, {marginTop: insets.top}]}>
-  //     <Text style={styles.title}>{props.title !== undefined ? props.title : String.bangSepHang}</Text>
-  //     <TouchableOpacity style={styles.back} onPress={handleGoBack}>
-  //       <Icons name={'arrow-back'} iconFamily={'MaterialIcons'} size={28} color={Colors.white} />
-  //     </TouchableOpacity>
-  //   </View>
-  // );
 
   return (
     <HeaderE
@@ -50,7 +38,7 @@ export default Header = props => {
             <Icons
               name={'arrow-back'}
               iconFamily={'MaterialIcons'}
-              size={34}
+              size={FontSize.xxxtraBig}
               color={Colors.white}
             />
           </TouchableOpacity>
