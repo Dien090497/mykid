@@ -52,7 +52,7 @@ export default ({navigation, route}) => {
   useEffect(() => {
     //call API Danh sách thành viên
     const getData = () => {
-      getListDeviceApi(dataInfo?.id, 0, 100, 1, {
+      getListDeviceApi(dataInfo?.id, 0, 100, 2, '', {
         success: res => {
           console.log(res);
         },

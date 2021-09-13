@@ -1,19 +1,20 @@
-import React, { useLayoutEffect, useRef, useState } from 'react';
 import {
-  View,
+  FlatList,
   Image,
   Text,
   TouchableOpacity,
-  FlatList,
+  View,
 } from 'react-native';
-import {styles} from './styles';
-import Header from '../../../components/Header';
-import Images from '../../../assets/Images';
-import {String} from '../../../assets/strings/String';
+import React, { useLayoutEffect, useRef, useState } from 'react';
+
 import Consts from '../../../functions/Consts';
 import DataLocal from '../../../data/dataLocal';
-import { getListDeviceApi } from '../../../network/DeviceService';
+import Header from '../../../components/Header';
+import Images from '../../../assets/Images';
 import LoadingIndicator from '../../../components/LoadingIndicator';
+import {String} from '../../../assets/strings/String';
+import { getListDeviceApi } from '../../../network/DeviceService';
+import {styles} from './styles';
 
 export default function DeviceManager({navigation}) {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -74,7 +75,7 @@ export default function DeviceManager({navigation}) {
   }, [devices]);
 
   const getListDevice = async () => {
-    getListDeviceApi(DataLocal.userInfo.id, Consts.pageDefault, 100, {
+    getListDeviceApi(DataLocal.userInfo.id, Consts.pageDefault, 100, '', {
       success: resData => {
         setDevices(resData.data);
         console.log(resData.data);

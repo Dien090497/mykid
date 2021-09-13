@@ -24,6 +24,7 @@ export function getListDeviceApi(
     deviceId: deviceId || '',
     // sort: 'createdAt:ASC',
   };
+  console.log('params', params)
   return get(listDeviceUrl, {
     params,
     success,

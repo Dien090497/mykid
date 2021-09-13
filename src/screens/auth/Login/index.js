@@ -1,26 +1,30 @@
-import React, { useState, useEffect, useRef } from "react";
+import * as Actions from "../../../redux/actions";
+
 import {
-  View,
+  Alert,
+  Image,
+  ImageBackground,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
   Text,
   TouchableOpacity,
-  ImageBackground,
-  Platform,
   TouchableWithoutFeedback,
-  Keyboard,
-  KeyboardAvoidingView, Image, Alert,
+  View,
 } from "react-native";
-import { styles } from "./styles";
-import Images from "../../../assets/Images";
-import { String } from "../../../assets/strings/String";
-import { Colors } from "../../../assets/colors/Colors";
-import { useDispatch, useSelector } from "react-redux";
-import * as Actions from "../../../redux/actions";
-import LoadingIndicator from "../../../components/LoadingIndicator";
-import ComponentInput from "../../../components/CustomInput";
-import Button from "../../../components/buttonGradient";
-import Consts from "../../../functions/Consts";
+import React, { useEffect, useRef, useState } from "react";
 import { emailTest, passwordTest, showAlert } from "../../../functions/utils";
+import { useDispatch, useSelector } from "react-redux";
+
+import Button from "../../../components/buttonGradient";
+import { Colors } from "../../../assets/colors/Colors";
+import ComponentInput from "../../../components/CustomInput";
+import Consts from "../../../functions/Consts";
+import Images from "../../../assets/Images";
+import LoadingIndicator from "../../../components/LoadingIndicator";
+import { String } from "../../../assets/strings/String";
 import { getListDeviceApi } from "../../../network/DeviceService";
+import { styles } from "./styles";
 
 const Login = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -38,7 +42,7 @@ const Login = ({ navigation }) => {
 
   const onLoggedIn = async () => {
     if (loggedInUserInfo.id && checkbox) {
-      getListDeviceApi(loggedInUserInfo.id, Consts.pageDefault, 100, {
+      getListDeviceApi(loggedInUserInfo.id, Consts.pageDefault, 100, '', {
         success: resData => {
           let devices = resData.data.filter(val => val.status === 'ACTIVE');
           if (devices.length === 0) {

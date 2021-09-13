@@ -19,8 +19,11 @@ import {styles} from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 const markerDaughter = {
-  latitude: 21.0152828,
-  longitude: 105.8311229,
+  latitude: 21.0076485,
+  longitude: 105.8236356,
+  title: 'Con gái',
+  battery: 80,
+  lastUpdated: '10-09-2021 21:30:18'
 };
 
 const initialRegion = {
@@ -32,11 +35,13 @@ const initialRegion = {
 
 export default ({navigation, route}) => {
   const refMap = useRef(null);
+  const [currentDevice, setCurrentDevice] = useState(markerDaughter);
 
   useEffect(() => {
     const getLocationDevice = () => {
       getLocationDeviceApi(1, {
         success: res => {
+          setCurrentDevice(res);
           console.log(res, 'getLocationDevice>>>>>>>>>>>');
         },
       });
@@ -53,38 +58,43 @@ export default ({navigation, route}) => {
           ref={refMap}
           style={styles.container}
           provider={PROVIDER_GOOGLE}
-          region={initialRegion}
-        />
+          showsUserLocation={true}
+          region={initialRegion}>
+          <Marker
+            coordinate={markerDaughter}
+            title={currentDevice.title}
+          />
+        </MapView>
 
-        <Marker
-          coordinate={markerDaughter}
-          title={'Con gái'}
-          pinColor={'purple'}
-          description={'Con gái'}
-        />
-
-        <View style={styles.containerDevice}>
+        <TouchableOpacity
+          onPress={() => {
+            refMap.current.animateCamera({
+              center: markerDaughter,
+              zoom: 15,
+            });
+          }}
+          style={styles.containerDevice}>
           <View style={styles.container}>
-            <Text style={styles.txtNameDevice} children={'Con gái'} />
+            <Text style={styles.txtNameDevice} children={currentDevice.title} />
 
             <Text
               style={styles.txtLocation}
-              children={`Toạ độ: 21.0152828, 105.8311229`}
+              children={`Toạ độ: ${currentDevice.latitude}, ${currentDevice.longitude}`}
             />
           </View>
 
           <View style={styles.containerLastTime}>
-            <Text style={styles.txtTime} children={`10-09-2021 21:30:18`} />
+            <Text style={styles.txtTime} children={currentDevice.lastUpdated} />
 
             <View style={styles.containerBattery}>
               <Text
                 style={{fontSize: FontSize.small, color: Colors.gray}}
-                children={`80%`}
+                children={`${currentDevice.battery}%`}
               />
               <Image source={Images.icBattery} style={styles.icBattery} />
             </View>
           </View>
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
