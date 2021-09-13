@@ -9,6 +9,7 @@ import Consts from '../../functions/Consts';
 import {useNavigation} from '@react-navigation/core';
 import {appStatusBar} from '../../components/CommonUIComponents';
 import DataLocal from '../../data/dataLocal';
+import { saveUserDataFromToken } from '../../functions/utils';
 
 export default function SplashScreen() {
   const navigation = useNavigation();
@@ -21,9 +22,12 @@ export default function SplashScreen() {
   }, []);
 
   const loadFromData = async () => {
-    await DataLocal.loadFromData();
-    if (DataLocal.accessToken) {
-      navigation.replace(Consts.ScreenIds.Tabs);
+    const token = await DataLocal.getAccessToken();
+    if (token) {
+      saveUserDataFromToken(token).then(userInfo => {
+        navigation.replace(Consts.ScreenIds.Tabs);
+      });
+      console.log(token);
     } else {
       navigation.replace(Consts.ScreenIds.Auth);
     }

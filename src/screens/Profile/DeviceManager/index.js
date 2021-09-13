@@ -17,7 +17,7 @@ import { getListDeviceApi } from '../../../network/DeviceService';
 import {styles} from './styles';
 
 export default function DeviceManager({navigation}) {
-  const [selectedIndex, setSelectedIndex] = useState(DataLocal.getDeviceIndex());
+  const [selectedIndex, setSelectedIndex] = useState(DataLocal.deviceIndex);
   const [devices, setDevices] = useState([]);
   const refLoading = useRef();
 

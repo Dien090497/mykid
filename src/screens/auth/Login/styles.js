@@ -1,7 +1,9 @@
-import Consts, { FontSize } from '../../../functions/Consts';
+import { FontSize } from '../../../functions/Consts';
 import {Dimensions, StyleSheet} from 'react-native';
 
 import {Colors} from '../../../assets/colors/Colors';
+
+const { width } = Dimensions.get("window");
 
 export const styles = StyleSheet.create({
   btnClose: {
@@ -55,6 +57,8 @@ export const styles = StyleSheet.create({
   },
   txt_Policy: {
     fontSize: FontSize.small,
-    marginLeft: 5,
+    marginTop: 15,
+    marginLeft: -10,
+    width: width - 60
   },
 });

@@ -1,6 +1,6 @@
 import {StyleSheet, Dimensions} from 'react-native';
-import Consts, { FontSize } from '../../../functions/Consts';
-import {Colors} from '../../../assets/colors/Colors';
+import { FontSize } from '../../../functions/Consts';
+const { width } = Dimensions.get("window");
 
 export const styles = StyleSheet.create({
   container: {
@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
   },
   Sty_txtPass: {
     marginLeft: '2%',
-    width: "100%",
+    width: "98%",
     flexDirection: "row",
     marginVertical: 15,
     alignItems: "center",
@@ -64,8 +64,10 @@ export const styles = StyleSheet.create({
     textDecorationLine: "underline",
   },
   txt_Policy: {
-    fontSize: FontSize.medium,
-    marginLeft: 5,
+    fontSize: FontSize.small,
+    marginTop: 15,
+    marginLeft: -10,
+    width: width - 60
   },
   viewButton: {
     width: "96%",
