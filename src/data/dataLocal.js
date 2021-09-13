@@ -10,7 +10,6 @@ let deviceIndex = 0;
 
 async function saveAccessToken(value) {
   try {
-    accessToken = value;
     return AsyncStorage.setItem(accessTokenKey, value);
   } catch(e) {
     console.log(e);
@@ -27,36 +26,9 @@ async function getAccessToken() {
 
 async function removeAccessToken() {
   try {
-    accessToken = null;
+    DataLocal.accessToken = null;
     return AsyncStorage.removeItem(accessTokenKey);
   } catch(e){
-    console.log(e);
-  }
-}
-
-async function saveUserInfo(value) {
-  try {
-    userInfo = value;
-    await loadDeviceIndex();
-    return AsyncStorage.setItem(userInfoKey, JSON.stringify(value));
-  }catch(e) {
-    console.log(e);
-  }
-}
-
-async function getUserInfo() {
-  try {
-    return AsyncStorage.getItem(userInfoKey, null);
-  }catch(e) {
-    console.log(e);
-  }
-}
-
-async function removeUserInfo() {
-  try {
-    userInfo = null;
-    return AsyncStorage.removeItem(userInfoKey);
-  }catch(e) {
     console.log(e);
   }
 }
@@ -81,52 +53,22 @@ async function getDeviceId() {
 
 async function removeAll() {
   await removeAccessToken();
-  await removeUserInfo();
-}
-
-async function loadFromData() {
-  accessToken = await getAccessToken();
-  userInfo = await getUserInfo();
-  await loadDeviceIndex();
-}
-
-function getDeviceIndex() {
-  if (deviceIndex) {
-    return deviceIndex;
-  }
-  try {
-    const index = AsyncStorage.getItem(deviceIndexKey + userInfo.id);
-    
-    if (index) {
-      deviceIndex = 0;
-    } else {
-      deviceIndex = parseInt(index);
-    }
-    return deviceIndex;
-  } catch(e) {
-    console.log(e);
-    return 0;
-  }
 }
 
 async function loadDeviceIndex() {
   try {
-    const index = AsyncStorage.getItem(deviceIndexKey + userInfo.id);
-    
-    if (index) {
-      deviceIndex = 0;
-    } else {
-      deviceIndex = parseInt(index);
-    }
+    const index = await AsyncStorage.getItem(deviceIndexKey + DataLocal.userInfo.id, '');
+    DataLocal.deviceIndex = parseInt(index);
   } catch(e) {
+    DataLocal.deviceIndex = 0;
     console.log(e);
   }
 }
 
 async function saveDeviceIndex(index) {
-  deviceIndex = index;
+  DataLocal.deviceIndex = index;
   try {
-    return AsyncStorage.setItem(deviceIndexKey + userInfo.id, index.toString());
+    return await AsyncStorage.setItem(deviceIndexKey + DataLocal.userInfo.id, index.toString());
   } catch (e) {
     console.log(e);
     return false;
@@ -135,24 +77,20 @@ async function saveDeviceIndex(index) {
 
 const DataLocal = {
   removeAll,
-  loadFromData,
 
   saveAccessToken,
   removeAccessToken,
   getAccessToken,
 
-  saveUserInfo,
-  getUserInfo,
-  removeUserInfo,
-
   saveDeviceId,
   getDeviceId,
 
-  getDeviceIndex,
+  loadDeviceIndex,
   saveDeviceIndex,
 
   accessToken,
-  userInfo
+  userInfo,
+  deviceIndex
 };
 
 export default DataLocal;

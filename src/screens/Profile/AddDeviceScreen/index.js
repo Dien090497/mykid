@@ -167,7 +167,7 @@ const AddDeviceScreen = ({navigation, route}) => {
           <Button
             activeOpacity={submitActive ? 0 : 1}
             onclick={addDevice}
-            title={String.registrationConfirmation}
+            title={String.ok}
             color={
               submitActive ? Colors.GradientColor : Colors.GradientColorGray
             }

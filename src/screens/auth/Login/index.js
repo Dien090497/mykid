@@ -12,7 +12,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import { emailTest, passwordTest, showAlert } from "../../../functions/utils";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -37,7 +37,7 @@ const Login = ({ navigation }) => {
 
   const refLoading = useRef();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     onLoggedIn();
   }, [loggedInUserInfo])
 
