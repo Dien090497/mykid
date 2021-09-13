@@ -1,16 +1,13 @@
 import {
   FlatList,
   Image,
-  Linking,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 
-import Button from '../../../components/customButton';
 import Header from '../../../components/Header';
-import Images from '../../../assets/Images';
 import {String} from '../../../assets/strings/String';
 import styles from './style';
 
@@ -67,9 +64,12 @@ const Relationship = ({ navigation, route }) => {
           }}
         />}
       </View>
-      <View style={styles.Sty_btnView}>
+      <TouchableOpacity style={styles.button} onPress={onChange}>
+        <Text style={styles.buttonText}>{String.ok}</Text>
+      </TouchableOpacity>
+      {/* <View style={styles.Sty_btnView}>
         <Button onChange={onChange} title={String.ok} />
-      </View>
+      </View> */}
     </View>
   );
 };

@@ -1,4 +1,6 @@
 import { StyleSheet, Dimensions } from "react-native";
+import { Colors } from "../../../assets/colors/Colors";
+import { ScaleHeight } from "../../../functions/Consts";
 
 const { width, height } = Dimensions.get("window");
 const styles = StyleSheet.create({
@@ -27,11 +29,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: height*0.05,
   },
-  Sty_btnView: {
-    height: 100,
-    width: '100%',
-    paddingHorizontal: 20,
-    marginTop: height*0.09,
-  }
+  button: {
+    marginTop: 50,
+    height: ScaleHeight.medium,
+    backgroundColor: Colors.blueButton,
+    width: '90%',
+    alignSelf: 'center',
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    fontFamily: 'Roboto-Bold'
+  },
 });
 export default styles;
