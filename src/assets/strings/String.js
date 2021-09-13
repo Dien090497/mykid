@@ -31,6 +31,7 @@ export const String = {
   header_account: 'Tài khoản',
   header_deviceManager: 'Danh sách thiết bị',
   header_findDevice: 'Thiết bị',
+  header_soundSettings: 'Cài đặt chuông',
 
   // Codepush
   codepushChecking: 'Đang kiểm tra bản cập nhật...',

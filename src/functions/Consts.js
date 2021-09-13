@@ -29,6 +29,7 @@ const ScreenIds = {
   HomeMainScreen: 'HomeMainScreen',
   DeviceManager: 'DeviceManager',
   FindDevice: 'FindDevice',
+  SoundSettings: 'SoundSettings',
 
   // Auth
   Login: 'Login',

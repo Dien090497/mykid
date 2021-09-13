@@ -34,6 +34,7 @@ import WS from './WebScoket';
 import {createStackNavigator} from '@react-navigation/stack';
 import DeviceManager from '../screens/Profile/DeviceManager';
 import FindDevice from '../screens/Profile/FindDevice';
+import SoundSettings from '../screens/Profile/SoundSettings';
 
 const Tab = createBottomTabNavigator();
 
@@ -173,6 +174,7 @@ const Routes = () => {
         <Stack.Screen name={Consts.ScreenIds.AddDeviceScreen} component={AddDeviceScreen} />
         <Stack.Screen name={Consts.ScreenIds.DeviceManager} component={DeviceManager} />
         <Stack.Screen name={Consts.ScreenIds.FindDevice} component={FindDevice} />
+        <Stack.Screen name={Consts.ScreenIds.SoundSettings} component={SoundSettings} />
         <Stack.Screen name={Consts.ScreenIds.Relationship} component={Relationship} />
         <Stack.Screen name={Consts.ScreenIds.QRCodeScreen} component={QRCodeScreen} />
         <Stack.Screen

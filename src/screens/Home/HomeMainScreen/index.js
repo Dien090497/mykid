@@ -37,7 +37,7 @@ export default function HomeMainScreen() {
   };
 
   const pressAlarm = () => {
-    //navigation.navigate();
+    navigation.navigate(Consts.ScreenIds.SoundSettings);
   };
 
   const pressFindDevice = () => {
