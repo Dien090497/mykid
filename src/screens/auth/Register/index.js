@@ -21,6 +21,7 @@ import Images from "../../../assets/Images";
 import { String } from "../../../assets/strings/String";
 import { styles } from "./styles";
 import { ErrorMsg } from "../../../assets/strings/ErrorMsg";
+import { CheckBox } from "react-native-elements";
 
 const Register = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -165,22 +166,10 @@ const Register = ({ navigation }) => {
               color={submitActive ? Colors.GradientColor : Colors.GradientColorGray}
             />
           </View>
-          <View style={{ marginTop: 30, flexDirection: "row", width: '96%', marginLeft: '2%' }}>
-            <TouchableOpacity
-              onPress={() => setCheckbox(!checkbox)}
-            >
-              {
-                checkbox ?
-                  <Image
-                    style={styles.Sty_iconCheckbox}
-                    source={Images.iconCheck} />
-                  :
-                  <View
-                    style={{ ...styles.Sty_iconCheckbox, borderRadius: 10, borderColor: "#009900", borderWidth: 1 }} />
-              }
-            </TouchableOpacity>
-            <Text style={styles.txt_Policy}>
-              {String.acceptMy} <Text style={styles.txtPolicy}
+          <View style={{ marginTop: 15, flexDirection: "row", width: '90%' }}>
+            <CheckBox checkedColor='green' uncheckedColor='green' checked={checkbox}
+                onPress={() => setCheckbox(!checkbox)} />
+            <Text style={styles.txt_Policy}>{String.acceptMy} <Text style={styles.txtPolicy}
                                       onPress={() => console.log("hello")}>{String.agreement}</Text>   <Text
               style={styles.txtPolicy} onPress={() => console.log("Chính sách bảo mật")}>{String.privacyPolicy}</Text>
             </Text>

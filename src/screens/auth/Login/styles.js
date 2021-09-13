@@ -55,6 +55,7 @@ export const styles = StyleSheet.create({
   },
   txt_Policy: {
     fontSize: FontSize.small,
-    marginLeft: 5,
+    marginTop: 15,
+    marginLeft: -10
   },
 });

@@ -64,8 +64,9 @@ export const styles = StyleSheet.create({
     textDecorationLine: "underline",
   },
   txt_Policy: {
-    fontSize: FontSize.medium,
-    marginLeft: 5,
+    fontSize: FontSize.small,
+    marginTop: 15,
+    marginLeft: -10,
   },
   viewButton: {
     width: "96%",

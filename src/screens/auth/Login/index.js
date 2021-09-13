@@ -25,6 +25,7 @@ import LoadingIndicator from "../../../components/LoadingIndicator";
 import { String } from "../../../assets/strings/String";
 import { getListDeviceApi } from "../../../network/DeviceService";
 import { styles } from "./styles";
+import { CheckBox } from "react-native-elements";
 
 const Login = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -123,19 +124,11 @@ const Login = ({ navigation }) => {
               txtColor={"#000000"}
             />
           </View>
-          <View style={{ marginTop: 15, flexDirection: "row" }}>
-            <TouchableOpacity onPress={() => setCheckbox(!checkbox)}>
-              {
-                checkbox ?
-                  <Image
-                    style={styles.Sty_iconCheckbox}
-                    source={Images.iconCheck} />
-                  :
-                  <View style={styles.Sty_iconCheckbox} />
-              }
-            </TouchableOpacity>
-            <Text style={styles.txt_Policy}>
-              {String.acceptMy} <Text style={styles.txtPolicy}
+
+          <View style={{ marginTop: 15, flexDirection: "row"}}>
+            <CheckBox checkedColor='green' uncheckedColor='green' checked={checkbox}
+              onPress={() => setCheckbox(!checkbox)} />
+            <Text style={styles.txt_Policy}>{String.acceptMy} <Text style={styles.txtPolicy}
                                       onPress={() => console.log("hello")}>{String.agreement}</Text>    <Text
               style={styles.txtPolicy} onPress={() => console.log("Chính sách bảo mật")}>{String.privacyPolicy}</Text>
             </Text>
