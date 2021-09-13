@@ -14,6 +14,9 @@ import ChangePassword from '../screens/Profile/ChangePassword';
 import {Colors} from '../assets/colors/Colors';
 import ConnectionScreen from '../screens/auth/ConnectionScreen';
 import Contacts from '../screens/Settings/Contacts';
+import DeviceManager from '../screens/Profile/DeviceManager';
+import ElectronicFence from '../screens/Maps/Fence';
+import FindDevice from '../screens/Profile/FindDevice';
 //screen
 import HomeMainScreen from '../screens/Home/HomeMainScreen';
 import Images from '../assets/Images';
@@ -29,12 +32,10 @@ import QRCodeScreen from '../screens/Profile/QRCodeScreen';
 import Register from '../screens/auth/Register';
 import Relationship from '../screens/Profile/Relationship';
 import SettingScreen from '../screens/Settings';
+import SoundSettings from '../screens/Profile/SoundSettings';
 import SplashScreen from '../screens/Splash';
 import WS from './WebScoket';
 import {createStackNavigator} from '@react-navigation/stack';
-import DeviceManager from '../screens/Profile/DeviceManager';
-import FindDevice from '../screens/Profile/FindDevice';
-import SoundSettings from '../screens/Profile/SoundSettings';
 
 const Tab = createBottomTabNavigator();
 
@@ -199,6 +200,10 @@ const Routes = () => {
         <Stack.Screen
           name={Consts.ScreenIds.ListDevice}
           component={ListDeviceScreen}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.ElectronicFence}
+          component={ElectronicFence}
         />
       </Stack.Navigator>
       <OS />

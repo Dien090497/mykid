@@ -51,7 +51,8 @@ const ScreenIds = {
   Maps: 'Maps',
 
   //VideoCall
-  ListDevice: 'ListDevice'
+  ListDevice: 'ListDevice',
+  ElectronicFence: 'ElectronicFence',
 };
 const heights = {};
 for (let index = 0; index < 100; index++) {

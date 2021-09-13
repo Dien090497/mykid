@@ -33,7 +33,7 @@ export default function HomeMainScreen() {
   };
 
   const pressSafeArea = () => {
-    //navigation.navigate();
+    navigation.navigate(Consts.ScreenIds.ElectronicFence);
   };
 
   const pressAlarm = () => {

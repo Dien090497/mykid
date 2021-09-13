@@ -34,6 +34,7 @@ export default {
   icProfileOff: require('./images/main/ic_profile_off.png'),
   icProfileOn: require('./images/main/ic_profile_on.png'),
   icBattery: require('./images/ic_battery.png'),
+  icRightArrow: require('./images/ic_right_arrow.png'),
 
   //homeScreen
   icAlarm: require('./images/home/alarm.png'),
