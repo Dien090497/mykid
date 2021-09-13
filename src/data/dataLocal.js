@@ -3,8 +3,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const accessTokenKey = 'ACCESS_TOKEN';
 const userInfoKey = 'USER_INFO';
 const deviceIdKey = 'DEVICE_ID';
+const deviceIndexKey = 'DEVICE_Active_';
 let accessToken = null;
 let userInfo = null;
+let deviceIndex = 0;
 
 async function saveAccessToken(value) {
   try {
@@ -35,6 +37,7 @@ async function removeAccessToken() {
 async function saveUserInfo(value) {
   try {
     userInfo = value;
+    await loadDeviceIndex();
     return AsyncStorage.setItem(userInfoKey, JSON.stringify(value));
   }catch(e) {
     console.log(e);
@@ -84,6 +87,50 @@ async function removeAll() {
 async function loadFromData() {
   accessToken = await getAccessToken();
   userInfo = await getUserInfo();
+  await loadDeviceIndex();
+}
+
+function getDeviceIndex() {
+  if (deviceIndex) {
+    return deviceIndex;
+  }
+  try {
+    const index = AsyncStorage.getItem(deviceIndexKey + userInfo.id);
+    
+    if (index) {
+      deviceIndex = 0;
+    } else {
+      deviceIndex = parseInt(index);
+    }
+    return deviceIndex;
+  } catch(e) {
+    console.log(e);
+    return 0;
+  }
+}
+
+async function loadDeviceIndex() {
+  try {
+    const index = AsyncStorage.getItem(deviceIndexKey + userInfo.id);
+    
+    if (index) {
+      deviceIndex = 0;
+    } else {
+      deviceIndex = parseInt(index);
+    }
+  } catch(e) {
+    console.log(e);
+  }
+}
+
+async function saveDeviceIndex(index) {
+  deviceIndex = index;
+  try {
+    return AsyncStorage.setItem(deviceIndexKey + userInfo.id, index.toString());
+  } catch (e) {
+    console.log(e);
+    return false;
+  }
 }
 
 const DataLocal = {
@@ -101,8 +148,11 @@ const DataLocal = {
   saveDeviceId,
   getDeviceId,
 
+  getDeviceIndex,
+  saveDeviceIndex,
+
   accessToken,
-  userInfo,
+  userInfo
 };
 
 export default DataLocal;

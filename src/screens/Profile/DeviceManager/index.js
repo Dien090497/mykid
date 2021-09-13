@@ -17,7 +17,7 @@ import { getListDeviceApi } from '../../../network/DeviceService';
 import {styles} from './styles';
 
 export default function DeviceManager({navigation}) {
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(DataLocal.getDeviceIndex());
   const [devices, setDevices] = useState([]);
   const refLoading = useRef();
 
@@ -70,15 +70,10 @@ export default function DeviceManager({navigation}) {
     getListDevice();
   }, []);
 
-  useLayoutEffect(() => {
-    console.log(devices);
-  }, [devices]);
-
   const getListDevice = async () => {
     getListDeviceApi(DataLocal.userInfo.id, Consts.pageDefault, 100, '', {
       success: resData => {
         setDevices(resData.data);
-        console.log(resData.data);
       },
       refLoading,
     });
@@ -87,8 +82,9 @@ export default function DeviceManager({navigation}) {
     navigation.navigate(Consts.ScreenIds.AddDeviceScreen, {onRefresh: getListDevice})
   };
 
-  const handleChange = (index) => {
+  const handleChange = async (index) => {
     setSelectedIndex(index);
+    await DataLocal.saveDeviceIndex(index)
   };
 
   const renderItem  = ({item, index}) => {
