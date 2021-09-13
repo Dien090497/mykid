@@ -115,21 +115,6 @@ const AddDeviceScreen = ({navigation, route}) => {
         
       },
       failure: error => {
-        showAlert(String.addDeviceSuccess, {
-          close: () => {
-            if (route.params && route.params.onRefresh) {
-              route.params.onRefresh();
-              navigation.goBack();
-            } else {
-              navigation.navigate(Consts.ScreenIds.Tabs);
-            }
-          },
-        });
-        // if (error.includes('KWA-4020')) {
-        //   setDeviceCode('');
-        //   setDeviceName('');
-        //   setSelectedIndex(0);
-        // }
       },
       refLoading,
     }).then();
