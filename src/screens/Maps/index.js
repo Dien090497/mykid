@@ -23,7 +23,7 @@ const markerDaughter = {
   longitude: 105.8236356,
   title: 'Con gái',
   battery: 80,
-  lastUpdated: '10-09-2021 21:30:18'
+  lastUpdated: '10-09-2021 21:30:18',
 };
 
 const initialRegion = {
@@ -60,10 +60,7 @@ export default ({navigation, route}) => {
           provider={PROVIDER_GOOGLE}
           showsUserLocation={true}
           region={initialRegion}>
-          <Marker
-            coordinate={markerDaughter}
-            title={currentDevice.title}
-          />
+          <Marker coordinate={markerDaughter} title={currentDevice.title} />
         </MapView>
 
         <TouchableOpacity

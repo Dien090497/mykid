@@ -1,4 +1,5 @@
 import {
+  Alert,
   FlatList,
   Image,
   Switch,
@@ -23,6 +24,7 @@ import {useSelector} from 'react-redux';
 export default ({navigation, route}) => {
   const refLoading = useRef();
   const {dataInfo} = useSelector(state => state.loginReducer);
+  const [allMember, setAllMember] = useState([]);
   const [dataContacts, setDataContacts] = useState([
     {
       key: 'Dad',
@@ -48,19 +50,23 @@ export default ({navigation, route}) => {
       isAdmin: true,
     },
   ]);
+  const getData = () => {
+    getListDeviceApi(dataInfo?.id, 0, 100, 2, {
+      success: res => {
+        setAllMember(res.data);
+      },
+      failure: error => {
+
+      },
+      refLoading: refLoading,
+    });
+  };
 
   useEffect(() => {
     //call API Danh sách thành viên
-    const getData = () => {
-      getListDeviceApi(dataInfo?.id, 0, 100, 2, '', {
-        success: res => {
-          console.log(res);
-        },
-      });
-    };
     getData();
     //setDataContacts
-  });
+  }, []);
 
   const removeContact = item => {
     //call remove Contact
@@ -70,23 +76,27 @@ export default ({navigation, route}) => {
   };
   const pressRefresh = () => {
     //Call API Refresh
+    getData()
   };
 
   const renderMemberItem = item => {
     return (
       <TouchableOpacity
         activeOpacity={0.9}
-        key={item.key}
+        key={item.id}
         style={styles.itemContainer}>
         <View style={styles.itemLeft}>
           <Image style={styles.avatar} source={Images.icUser1} />
           <View style={styles.info}>
-            <Text style={styles.username}>{item.userName}</Text>
-            <Text style={styles.otherInfoText}>Tài khoản: {item.account}</Text>
+            <Text style={styles.username}>{item.deviceCode}</Text>
+            <Text
+              style={styles.otherInfoText}
+              children={`Tài khoản: ${item.deviceName}`}
+            />
             <Text style={styles.otherInfoText}>
               Mối quan hệ với trẻ: {item.relationship}
             </Text>
-            {item.isApproval && (
+            {/* {item.isApproval && (
               <View style={{flexDirection: 'row'}}>
                 <TouchableOpacity
                   style={[styles.smallButton, {marginRight: 10}]}
@@ -104,10 +114,10 @@ export default ({navigation, route}) => {
                   </Text>
                 </TouchableOpacity>
               </View>
-            )}
+            )} */}
           </View>
         </View>
-        {!item.isApproval && !item.isAdmin && (
+        {/* {!item.isApproval && !item.isAdmin && (
           <View style={styles.itemRight}>
             <TouchableOpacity
               style={styles.smallButton}
@@ -117,7 +127,7 @@ export default ({navigation, route}) => {
               </Text>
             </TouchableOpacity>
           </View>
-        )}
+        )} */}
       </TouchableOpacity>
     );
   };
@@ -136,17 +146,18 @@ export default ({navigation, route}) => {
     );
   };
 
+
   return (
     <View
       style={[styles.container, {paddingBottom: useSafeAreaInsets().bottom}]}>
       <Header title={String.header_members} />
       <View style={styles.mainView}>
-        {renderHeader(true)}
-        {renderMemberItem(dataAdmin[0])}
+        {/* {renderHeader(true)} */}
+        {/* {renderMemberItem(dataAdmin[0])} */}
         <FlatList
-          data={dataContacts}
+          data={allMember}
           renderItem={renderItem}
-          keyExtractor={item => item.key}
+          keyExtractor={item => item.id}
           ListHeaderComponent={renderHeader()}
           stickyHeaderIndices={[0]}
         />
