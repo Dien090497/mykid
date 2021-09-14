@@ -80,6 +80,9 @@ export const String = {
   area: 'Area',
   save: 'Lưu',
   back: 'Quay lại',
+  from: 'Từ',
+  to: 'Đến',
+  date: 'Ngày',
 
   //member
   member_refresh: 'Làm mới',

@@ -11,15 +11,16 @@ import {
 } from 'react-native';
 import {Divider, Icon, Slider, Switch} from 'react-native-elements';
 import MapView, {Circle, Marker, PROVIDER_GOOGLE} from 'react-native-maps';
-import React, {memo, useCallback, useRef, useState} from 'react';
+import React, {memo, useCallback, useMemo, useRef, useState} from 'react';
+import {convertDateTimeToString, showAlert} from '../../../functions/utils';
 
 import Button from '../../../components/buttonGradient';
 import {Colors} from '../../../assets/colors/Colors';
+import DatePicker from 'react-native-date-picker';
 import {FontSize} from '../../../functions/Consts';
 import Header from '../../../components/Header';
 import Images from '../../../assets/Images';
 import {String} from '../../../assets/strings/String';
-import {showAlert} from '../../../functions/utils';
 import styles from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
@@ -57,100 +58,41 @@ const headerScreen = () => {
 export default ({}) => {
   const refMap = useRef(null);
   const [listSafeArea, setListSafeArea] = useState(mockData);
-  const [safeArea, setSafeArea] = useState({
-    visible: false,
-    area: null,
-  });
+  const [date, setDate] = useState(new Date());
+  const [visibleDate, setVisibleDate] = useState(false);
+  const [fromDate, setFromDate] = useState('');
+  const [toDate, setToDate] = useState('');
 
-  const onToggleStatus = (index, value) => {
-    const newListSafeArea = JSON.parse(JSON.stringify(listSafeArea));
-    newListSafeArea[index].status = value ? 'on' : 'off';
-    setListSafeArea(newListSafeArea);
-  };
+  const toggleModal = () => setVisibleDate(prev => !prev);
 
-  const onToggleCreateArea = () => {
-    setSafeArea({
-      visible: false,
-      area: null,
-    });
-  };
-
-  const onCreate = data => {
-    const newListSafeArea = JSON.parse(JSON.stringify(listSafeArea));
-    newListSafeArea.push(data);
-    setListSafeArea(newListSafeArea);
-    onToggleCreateArea();
-  };
-
-  const onEdit = data => {
-    const index = listSafeArea.findIndex(val => val.id === data?.id);
-    if (index !== -1) {
-      const newListSafeArea = JSON.parse(JSON.stringify(listSafeArea));
-      newListSafeArea[index] = data;
-      setListSafeArea(newListSafeArea);
-    }
-    onToggleCreateArea();
-  };
-
-  const onRemove = () => {
-    const index = listSafeArea.findIndex(val => val.id === safeArea.area?.id);
-    if (index !== -1) {
-      const newListSafeArea = JSON.parse(JSON.stringify(listSafeArea));
-      newListSafeArea.splice(index, 1);
-      setListSafeArea(newListSafeArea);
-    }
-    onToggleCreateArea();
-  };
-
-  const renderBottomSheet = useCallback(() => {
+  const renderFilter = () => {
     return (
-      <View style={styles.containerBottomSheet}>
-        {!safeArea.visible ? (
-          listSafeArea.map((val, index) => (
-            <View key={val.id}>
-              <TouchableOpacity
-                onPress={() => setSafeArea({visible: true, area: val})}
-                style={styles.rowDirection}>
-                <Text children={val.name} style={styles.txtName} />
-                <Text children={`${val.radius}m`} />
-                <View style={styles.rowDirection}>
-                  <Switch
-                    value={val.status === 'on'}
-                    color={Colors.blueLight}
-                    onValueChange={value => {
-                      onToggleStatus(index, value);
-                    }}
-                  />
-                  <Image source={Images.icRightArrow} style={styles.icArrow} />
-                </View>
-              </TouchableOpacity>
-              <Divider style={styles.line} />
-            </View>
-          ))
-        ) : (
-          <ViewAddOrEditArea
-            area={safeArea.area}
-            toggle={onToggleCreateArea}
-            onCreate={onCreate}
-            onEdit={onEdit}
-            onRemove={onRemove}
+      <View style={styles.containerFilter}>
+        <Image source={Images.icCalendar} style={styles.icCalendar} />
+        <TouchableOpacity style={styles.containerTime} onPress={toggleModal}>
+          <Text
+            children={convertDateTimeToString(date).date}
+            style={styles.txtTime}
           />
-        )}
-        {!safeArea.visible && listSafeArea.length < 3 && (
-          <Button
-            onclick={() => setSafeArea({visible: true, area: null})}
-            title={'Thêm vùng an toàn'}
-            color={Colors.GradientColor}
-            Sty_btn={{
-              borderRadius: 6,
-              paddingVertical: 0,
-            }}
-            containerStyle={{height: 40}}
-          />
-        )}
+        </TouchableOpacity>
+        <FromToDate
+          onClearDate={() => setFromDate('')}
+          onDate={date => setFromDate(date)}
+          title={String.from}
+          value={fromDate}
+          containerStyle={{marginRight: 3}}
+        />
+        <FromToDate
+          onClearDate={() => setToDate('')}
+          onDate={date => setToDate(date)}
+          title={String.to}
+          value={toDate}
+          minValue={fromDate}
+          containerStyle={{marginLeft: 5}}
+        />
       </View>
     );
-  }, [listSafeArea, safeArea]);
+  };
 
   return (
     <KeyboardAvoidingView
@@ -159,7 +101,7 @@ export default ({}) => {
       <View
         style={[styles.container, {paddingBottom: useSafeAreaInsets().bottom}]}>
         <Header title={headerScreen()} />
-
+        {renderFilter()}
         <MapView
           ref={refMap}
           style={styles.container}
@@ -169,7 +111,7 @@ export default ({}) => {
           {listSafeArea
             .filter(val => val.status === 'on')
             .map(val => (
-              <>
+              <View key={val.id}>
                 <Marker coordinate={val} title={val.name} />
                 <Circle
                   fillColor={'rgba(160, 214, 253, 0.5)'}
@@ -178,122 +120,79 @@ export default ({}) => {
                   strokeColor="#4F6D7A"
                   strokeWidth={0.1}
                 />
-              </>
+              </View>
             ))}
         </MapView>
-
-        {renderBottomSheet()}
       </View>
+      <DatePicker
+        modal
+        open={visibleDate}
+        date={date}
+        mode="date"
+        onConfirm={date => {
+          toggleModal();
+          setDate(date);
+        }}
+        onCancel={() => {
+          toggleModal();
+        }}
+        confirmText={String.confirm}
+        cancelText={String.cancel}
+        locale="vi"
+      />
     </KeyboardAvoidingView>
   );
 };
 
-const ViewAddOrEditArea = ({area, toggle, onCreate, onEdit, onRemove}) => {
-  const [name, setName] = useState(area?.name || '');
-  const [range, setRange] = useState(area?.radius / 1000 || 0.5);
-  const renderIncrementOrDecrement = (type = 'increment', onPress) => {
-    return (
-      <TouchableOpacity
-        onPress={onPress}
-        style={[
-          styles.containerAction,
-          {backgroundColor: type === 'increment' ? Colors.orange : Colors.red},
-        ]}>
-        <Text
-          children={type === 'increment' ? '+' : '-'}
-          style={styles.txtAction}
-        />
-      </TouchableOpacity>
-    );
-  };
-
-  const onSave = () => {
-    if (!name.length) {
-      showAlert(String.errorNameArea);
-      return;
-    }
-    if (area) {
-      onEdit({
-        ...area,
-        name,
-        radius: range * 1000,
-      });
-    } else {
-      onCreate({
-        id: 3,
-        name,
-        radius: range * 1000,
-        status: 'on',
-        latitude: 21.000147,
-        longitude: 105.8161342,
-      });
-    }
-  };
-
+const FromToDate = ({
+  title,
+  value,
+  containerStyle,
+  onClearDate,
+  minValue,
+  onDate,
+}) => {
+  const [visible, setVisible] = useState(false);
+  const toggleModal = useCallback(() => {
+    setVisible(prev => !prev);
+  }, []);
+  const formatDateToString = useMemo(() => {
+    if (!value) return convertDateTimeToString(new Date()).time;
+    return convertDateTimeToString(value).time;
+  }, [value, title]);
   return (
-    <View s>
-      <View style={styles.containerTextInput}>
-        <TextInput
-          style={styles.wrap}
-          clearButtonMode="always"
-          placeholder="Tên vùng an toàn"
-          maxLength={32}
-          value={name}
-          onChangeText={text => setName(text)}
-        />
-        <Text children="Vui lòng nhập 1-32 ký tự" style={styles.txtNote} />
-      </View>
-      <Divider style={styles.line} />
-      <View style={styles.containerTextInput}>
-        <Text children={String.area} style={{marginRight: 5}} />
-        {renderIncrementOrDecrement('decrement', () =>
-          setRange(prev => {
-            return parseFloat(prev.toFixed(1)) === 0.1 ? prev : prev - 0.1;
-          }),
-        )}
-        <Slider
-          style={{flex: 1, marginHorizontal: 5}}
-          value={range}
-          onValueChange={value => setRange(value)}
-          thumbStyle={styles.thumb}
-          thumbProps={{
-            children: <View style={styles.thumbCircle} />,
-          }}
-          step={0.1}
-          minimumValue={0.1}
-          maximumValue={1}
-          trackStyle={{paddingHorizontal: 0}}
-          minimumTrackTintColor={Colors.orange}
-          maximumTrackTintColor="#b7b7b7"
-        />
-        {renderIncrementOrDecrement('increment', () =>
-          setRange(prev => {
-            console.log(prev);
-            return parseFloat(prev.toFixed(1)) < 1 ? prev + 0.1 : prev;
-          }),
-        )}
-        <Text children={`${(range * 1000).toFixed(0)} m`} />
-      </View>
-      <Divider style={styles.line} />
-      <View
-        style={[
-          styles.containerTextInput,
-          {justifyContent: 'space-between', marginTop: 4},
-        ]}>
-        <TouchableOpacity style={styles.containerTextAction} onPress={onSave}>
-          <Text children={String.save} style={styles.txtSave} />
-        </TouchableOpacity>
-        {area && (
-          <TouchableOpacity
-            style={styles.containerTextAction}
-            onPress={onRemove}>
-            <Text children={String.member_remove} style={styles.txtBack} />
-          </TouchableOpacity>
-        )}
-        <TouchableOpacity style={styles.containerTextAction} onPress={toggle}>
-          <Text children={String.back} style={styles.txtBack} />
+    <>
+      <View style={[containerStyle, styles.containerHour]}>
+        <Text children={title} />
+        <TouchableOpacity
+          onPress={toggleModal}
+          style={[styles.containerTime, {marginLeft: 3}]}>
+          <Text
+            style={styles.txtTime}
+            children={formatDateToString}
+            marginTop={5}
+          />
         </TouchableOpacity>
       </View>
-    </View>
+      <DatePicker
+        title={title}
+        modal
+        mode="time"
+        is24hourSource="locale"
+        open={visible}
+        date={value ? new Date(value) : new Date()}
+        onConfirm={date => {
+          toggleModal();
+          onDate(date);
+        }}
+        minimumDate={minValue && new Date(minValue)}
+        onCancel={toggleModal}
+        confirmText={String.confirm}
+        cancelText={String.cancel}
+        locale="vi"
+        timeZoneOffsetInMinutes={420}
+        minuteInterval={30}
+      />
+    </>
   );
 };

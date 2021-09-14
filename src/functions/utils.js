@@ -165,3 +165,16 @@ export async function saveUserDataFromToken(token) {
   await DataLocal.saveAccessToken(token);
   return userInfo;
 }
+
+export function convertDateTimeToString(day) {
+  const d = new Date(day);
+  const date = `${`0${d.getDate()}`.slice(-2)}/${`0${d.getMonth() + 1}`.slice(
+    -2,
+  )}/${d.getFullYear()}`;
+  const time = `${d.getHours()}:${`0${d.getMinutes()}`.slice(-2)}`;
+  return {
+    date,
+    time,
+    dateTimeStr: `${time} ${date}`,
+  };
+}

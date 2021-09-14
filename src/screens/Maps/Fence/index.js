@@ -169,7 +169,7 @@ export default ({}) => {
           {listSafeArea
             .filter(val => val.status === 'on')
             .map(val => (
-              <>
+              <View key={val.id}>
                 <Marker coordinate={val} title={val.name} />
                 <Circle
                   fillColor={'rgba(160, 214, 253, 0.5)'}
@@ -178,7 +178,7 @@ export default ({}) => {
                   strokeColor="#4F6D7A"
                   strokeWidth={0.1}
                 />
-              </>
+              </View>
             ))}
         </MapView>
 
