@@ -4,6 +4,7 @@ import DataLocal from '../data/dataLocal';
 import {ErrorMsg} from '../assets/strings/ErrorMsg';
 import KeepAwake from 'react-native-keep-awake';
 import jwt_decode from 'jwt-decode';
+import { String } from '../assets/strings/String';
 
 const addCommas = (num, style) => {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, style);
@@ -52,23 +53,23 @@ export function showAlert(msg, {close, needCheckDuplicate = true} = {}) {
 }
 
 export function showConfirmation(msg, {acceptStr, cancelStr, response} = {}) {
-  // Alert.alert(VersionControl.APP_NAME, msg, [
-  //   {
-  //     text: acceptStr || String.accept,
-  //     onPress: () => {
-  //       if (response) {
-  //         response(true);
-  //       }
-  //     },
-  //   }, {
-  //     text: cancelStr || String.cancel,
-  //     onPress: () => {
-  //       if (response) {
-  //         response(false);
-  //       }
-  //     },
-  //   },
-  // ]);
+  Alert.alert('MyKid', msg, [
+    {
+      text: acceptStr || String.accept,
+      onPress: () => {
+        if (response) {
+          response(true);
+        }
+      },
+    }, {
+      text: cancelStr || String.cancel,
+      onPress: () => {
+        if (response) {
+          response(false);
+        }
+      },
+    },
+  ]);
 }
 
 export function showLoading(ref, msg) {

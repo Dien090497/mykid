@@ -1,4 +1,4 @@
-import {get, post} from './http/HttpClient';
+import {dele, get, path, post} from './http/HttpClient';
 import {listDeviceUrl, locationDeviceUrl} from './http/ApiUrl';
 
 import Consts from '../functions/Consts';
@@ -18,11 +18,11 @@ export function getListDeviceApi(
   {success, failure, autoShowMsg = true, refLoading = null} = {},
 ) {
   let params = {
-    accountId,
+    accountId: accountId || '',
     page,
     size,
     deviceId: deviceId || '',
-    // sort: 'createdAt:ASC',
+    sort: 'createdAt:ASC',
   };
   return get(listDeviceUrl, {
     params,
@@ -60,4 +60,14 @@ export function getLocationDeviceApi(
     autoShowMsg,
     refLoading,
   });
+}
+
+export function acceptContactApi( id, {success, failure, autoShowMsg = true, refLoading = null}) {
+  const url = [listDeviceUrl, id].join('/');
+  return path(url, {success, failure, autoShowMsg, refLoading});
+}
+
+export function rejectContactApi( id, {success, failure, autoShowMsg = true, refLoading = null}) {
+  const url = [listDeviceUrl, id].join('/');
+  return dele(url, {success, failure, autoShowMsg, refLoading});
 }

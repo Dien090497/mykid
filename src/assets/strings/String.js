@@ -77,6 +77,10 @@ export const String = {
   addDeviceSuccess: 'Kết nối thiết bị thành công',
   addDeviceSuccess2: 'Yêu cầu kết nối đã được gửi.\nVui lòng chờ admin xác nhận',
   sendRequestSuccess: 'Gửi thông tin thành công',
+  acceptContactSuccess: 'Duyệt thành viên thành công',
+  rejectContactSuccess: 'Từ chối thành viên thành công',
+  deleteContactSuccess: 'Xóa thành viên thành công',
+  removeContactConfirm: 'Bạn chắc chắn xóa thành viên này khỏi danh sách quản lí?',
 
   //member
   member_refresh: 'Làm mới',

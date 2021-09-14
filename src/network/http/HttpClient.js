@@ -325,8 +325,7 @@ async function handleResp(response, autoShowMsg, success, failure, refLoading) {
 
   if (httpStatusCode < 200 || httpStatusCode > 299) {
     if (httpStatusCode === 403 || httpStatusCode === 401) {
-      await DataLocal.removeAccessToken();
-      await DataLocal.removeUserInfo();
+      // await DataLocal.removeAccessToken();
 
       // anonymousLogin(refLoading);
 

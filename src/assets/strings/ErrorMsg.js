@@ -3,6 +3,7 @@ export const ErrorMsg = {
     kwa4001: 'Tài khoản bạn nhập không đúng (KWA-4001)',
     kwa4002: 'Mật khẩu bạn nhập không đúng (KWA-4002)',
     kwa4003: 'Mã captcha bạn nhập không đúng (KWA-4003)',
+    kwa4005: 'Quyền truy cập của bạn không đủ để thực hiện thao tác này (KWA-4005)',
     kwa4017: 'Mã captcha bạn nhập không đúng (KWA-4017)',
     kwa4018: 'Mã thiết bị bạn nhập đã được kết nối trước đó (KWA-4018)',
     kwa4019: 'Mã thiết bị bạn nhập không tồn tại (KWA-4019)',
