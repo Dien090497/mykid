@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import {
   View,
 } from 'react-native';
@@ -8,23 +8,56 @@ import {String} from '../../../assets/strings/String';
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
 import { Colors } from '../../../assets/colors/Colors';
+import { getSoundModesApi, setSoundModesApi } from '../../../network/UserInfoService';
+import DataLocal from '../../../data/dataLocal';
 
 export default function SoundSettings({navigation}) {
-  const [value3Index, setValue3Index] = useState(0);
+  const [mode, setMode] = useState();
   const refLoading = useRef();
 
   const radio_props = [
-    {label: 'Im lặng', value: 0},
-    {label: 'Rung', value: 1},
-    {label: 'Tiếng lớn', value: 2},
+    {label: 'Rung và chuông', value: 1},
+    {label: 'Chuông', value: 2},
+    {label: 'Rung', value: 3},
+    {label: 'Im lặng', value: 4},
   ];
 
-  const onMethodChanged = (index) => {
-    setValue3Index(index);
-  }
+  useLayoutEffect(() => {
+    getSoundModes();
+  }, []);
 
-  // const handleFindDevice = () => {
-  // };
+  const getSoundModes = async () => {
+    getSoundModesApi(DataLocal.deviceId, {
+      success: resData => {
+        if (resData.data && resData.data.mode) {
+          setMode(resData.data.mode)
+        }
+        console.log(resData.data.mode);
+        if (resData.data.mode === -1) {
+          console.log('unknown mode => set to vibration');
+          setSoundModes(3);
+        }
+      },
+      refLoading,
+    });
+  };
+
+  const setSoundModes = async (index) => {
+    setSoundModesApi(DataLocal.deviceId, index, {
+      success: resData => {
+        if (resData.data && resData.data.mode) {
+          setMode(resData.data.mode)
+        }
+      },
+      refLoading,
+    });
+  };
+
+  const onMethodChanged = (index) => {
+    if (index != mode) {
+      setSoundModes(index);
+    }
+  }
 
   return (
     <View style={styles.contain}>
@@ -37,13 +70,13 @@ export default function SoundSettings({navigation}) {
                 <RadioButtonInput
                   obj={obj}
                   index={i}
-                  isSelected={value3Index === i}
+                  isSelected={mode === obj.value}
                   onPress={ (value) => {
                     onMethodChanged(value);
                   }}
                   borderWidth={1}
                   buttonInnerColor={Colors.red}
-                  buttonOuterColor={value3Index === i ? '#2196f3' : '#000'}
+                  buttonOuterColor={mode === obj.value ? '#2196f3' : '#000'}
                   buttonSize={15}
                   buttonOuterSize={20}
                   buttonStyle={{marginRight: 10}}

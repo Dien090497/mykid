@@ -8,6 +8,7 @@ export const ErrorMsg = {
     kwa4019: 'Mã thiết bị bạn nhập không tồn tại (KWA-4019)',
     kwa4020: 'Mã thiết bị của bạn chưa hoạt động (KWA-4020)',
     kwa4022: 'Tài khoản bạn nhập đã tồn tại (KWA-4022)',
+    kwa4023: 'Thiết bị đã bị tắt (KWA-4023)',
 
     // common
     exceedNicknameLength: 'Vượt quá số lượng ký tự cho phép',

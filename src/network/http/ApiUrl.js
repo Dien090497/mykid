@@ -17,6 +17,9 @@ export const getCaptchaUrl = appUrl + '/captcha';
 export const listDeviceUrl = appUrl + '/account-devices'
 export const locationDeviceUrl = appUrl + '/locations'
 
+// Sound
+export const soundModesUrl = appUrl + '/sound-modes'
+
 // User info
 export const accountDetailUrl = appUrl + '/accounts';
 
