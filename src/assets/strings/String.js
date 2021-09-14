@@ -76,7 +76,7 @@ export const String = {
   ofHe: ' của anh ấy',
   addDeviceSuccess: 'Kết nối thiết bị thành công',
   addDeviceSuccess2: 'Yêu cầu kết nối đã được gửi.\nVui lòng chờ admin xác nhận',
-  sendRequestSuccess: 'Dửi thông tin thành công',
+  sendRequestSuccess: 'Gửi thông tin thành công',
 
   //member
   member_refresh: 'Làm mới',
