@@ -65,6 +65,7 @@ export default ({}) => {
     latitude: null,
     longitude: null,
   });
+  const [newLocationSafeArea, setNewLocation] = useState(null);
 
   useEffect(() => {
     Geolocation.getCurrentPosition(
@@ -74,8 +75,7 @@ export default ({}) => {
           longitude: position.coords.longitude,
         };
         setCurrentLocation(payload);
-        setSafeArea({
-          ...safeArea,
+        setNewLocation({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
         });
@@ -103,6 +103,7 @@ export default ({}) => {
   const onCreate = data => {
     const newListSafeArea = JSON.parse(JSON.stringify(listSafeArea));
     newListSafeArea.push(data);
+    console.log(newListSafeArea);
     setListSafeArea(newListSafeArea);
     onToggleCreateArea();
   };
@@ -159,6 +160,7 @@ export default ({}) => {
             onCreate={onCreate}
             onEdit={onEdit}
             onRemove={onRemove}
+            newLocationSafeArea={newLocationSafeArea}
           />
         )}
         {!safeArea.visible && listSafeArea.length < 3 && (
@@ -175,7 +177,8 @@ export default ({}) => {
         )}
       </View>
     );
-  }, [listSafeArea, safeArea]);
+  }, [listSafeArea, safeArea, newLocationSafeArea]);
+  console.log('safeArea', safeArea);
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -216,12 +219,9 @@ export default ({}) => {
                   console.log(event.nativeEvent.coordinate, 'event');
                   const {latitude, longitude} = event.nativeEvent.coordinate;
                   if (latitude && longitude) {
-                    setSafeArea(prev => {
-                      return {
-                        ...prev,
-                        latitude,
-                        longitude,
-                      };
+                    setNewLocation({
+                      latitude,
+                      longitude,
                     });
                   }
                 }}>
@@ -243,9 +243,17 @@ export default ({}) => {
   );
 };
 
-const ViewAddOrEditArea = ({area, toggle, onCreate, onEdit, onRemove}) => {
+const ViewAddOrEditArea = ({
+  area,
+  toggle,
+  onCreate,
+  onEdit,
+  onRemove,
+  newLocationSafeArea,
+}) => {
   const [name, setName] = useState(area?.name || '');
   const [range, setRange] = useState(area?.radius / 1000 || 0.5);
+  console.log('newLocationSafeArea', newLocationSafeArea);
   const renderIncrementOrDecrement = (type = 'increment', onPress) => {
     return (
       <TouchableOpacity
@@ -279,8 +287,8 @@ const ViewAddOrEditArea = ({area, toggle, onCreate, onEdit, onRemove}) => {
         name,
         radius: range * 1000,
         status: 'on',
-        latitude: 21.000147,
-        longitude: 105.8161342,
+        latitude: newLocationSafeArea.latitude,
+        longitude: newLocationSafeArea.longitude,
       });
     }
   };

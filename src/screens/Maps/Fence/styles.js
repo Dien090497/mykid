@@ -95,12 +95,12 @@ const styles = StyleSheet.create({
     left: 10,
     width: '95%',
     backgroundColor: 'white',
-    alignContent: 'center',
     borderRadius: 10,
     paddingVertical: 5,
-    paddingHorizontal: 10
+    paddingHorizontal: 20,
+    flexDirection: 'row',
   },
-  txtNoteDrag: {textAlign: 'center', fontSize: FontSize.small}
+  txtNoteDrag: {textAlign: 'justify', fontSize: FontSize.small}
 
 });
 
