@@ -169,8 +169,8 @@ export default ({navigation, route}) => {
             <Text style={styles.otherInfoText}>
               Mối quan hệ: {item.relationship}
             </Text>
-            {item.status === 'PENDING' && (
-              <View style={{flexDirection: 'row', marginTop: 5}}>
+            {item.status === 'PENDING' && admin.accountId === DataLocal.userInfo.id && (
+              <View style={styles.rowItem}>
                 <TouchableOpacity
                   style={[styles.smallButton, {marginRight: 10}]}
                   onPress={() => cancelContact(item)}>
@@ -188,19 +188,19 @@ export default ({navigation, route}) => {
                 </TouchableOpacity>
               </View>
             )}
+            {!item.admin && item.status === 'ACTIVE' && admin.accountId === DataLocal.userInfo.id && (
+              <View style={styles.rowItem}>
+                <TouchableOpacity
+                  style={styles.smallButton}
+                  onPress={() => removeContact(item)}>
+                  <Text style={[styles.smallButtonText, {color: Colors.red}]}>
+                    {String.member_remove}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            )}
           </View>
         </View>
-        {!item.admin && item.status === 'ACTIVE' && admin.accountId === DataLocal.userInfo.id && (
-          <View style={styles.itemRight}>
-            <TouchableOpacity
-              style={styles.smallButton}
-              onPress={() => removeContact(item)}>
-              <Text style={[styles.smallButtonText, {color: Colors.red}]}>
-                {String.member_remove}
-              </Text>
-            </TouchableOpacity>
-          </View>
-        )}
       </TouchableOpacity>
     );
   };

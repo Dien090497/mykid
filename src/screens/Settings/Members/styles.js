@@ -77,4 +77,5 @@ export const styles = StyleSheet.create({
   info: {justifyContent: 'center', paddingHorizontal: 5},
   username: {padding: 2, fontWeight: 'bold', fontSize: 16},
   otherInfoText: {padding: 2, fontSize: 16, color: Colors.grayPlaceHolder},
+  rowItem: {flexDirection: 'row', marginTop: 8, alignSelf: 'center'}
 });
