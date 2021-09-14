@@ -55,6 +55,7 @@ export const String = {
   registrationConfirmation: 'Xác nhận đăng ký',
   txtNotification: "Nhập mật khẩu gồm 8-16 ký tự",
   errorGmail: "Lỗi định dạng hộp thư",
+  errorNameArea:'Vui lòng nhập tên vùng',
   placeholderGmail: "Nhập email",
   errorCode: "Lỗi định dạng mã xác minh",
   placeholderCode: "Nhập mã xác minh",
@@ -76,6 +77,9 @@ export const String = {
   ofHe: ' của anh ấy',
   addDeviceSuccess: 'Kết nối thiết bị thành công',
   addDeviceSuccess2: 'Yêu cầu kết nối đã được gửi.\nVui lòng chờ admin xác nhận',
+  area: 'Area',
+  save: 'Lưu',
+  back: 'Quay lại',
 
   //member
   member_refresh: 'Làm mới',

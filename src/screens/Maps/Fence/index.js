@@ -1,13 +1,25 @@
-import {Divider, Switch} from 'react-native-elements';
-import {Image, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Alert,
+  Animated,
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import {Divider, Icon, Slider, Switch} from 'react-native-elements';
 import MapView, {Circle, Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import React, {memo, useCallback, useRef, useState} from 'react';
 
+import Button from '../../../components/buttonGradient';
 import {Colors} from '../../../assets/colors/Colors';
 import {FontSize} from '../../../functions/Consts';
 import Header from '../../../components/Header';
 import Images from '../../../assets/Images';
 import {String} from '../../../assets/strings/String';
+import {showAlert} from '../../../functions/utils';
 import styles from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
@@ -56,16 +68,48 @@ export default ({}) => {
     setListSafeArea(newListSafeArea);
   };
 
+  const onToggleCreateArea = () => {
+    setSafeArea({
+      visible: false,
+      area: null,
+    });
+  };
+
+  const onCreate = data => {
+    const newListSafeArea = JSON.parse(JSON.stringify(listSafeArea));
+    newListSafeArea.push(data);
+    setListSafeArea(newListSafeArea);
+    onToggleCreateArea();
+  };
+
+  const onEdit = data => {
+    const index = listSafeArea.findIndex(val => val.id === data?.id);
+    if (index !== -1) {
+      const newListSafeArea = JSON.parse(JSON.stringify(listSafeArea));
+      newListSafeArea[index] = data;
+      setListSafeArea(newListSafeArea);
+    }
+    onToggleCreateArea();
+  };
+
+  const onRemove = () => {
+    const index = listSafeArea.findIndex(val => val.id === safeArea.area?.id);
+    if (index !== -1) {
+      const newListSafeArea = JSON.parse(JSON.stringify(listSafeArea));
+      newListSafeArea.splice(index, 1);
+      setListSafeArea(newListSafeArea);
+    }
+    onToggleCreateArea();
+  };
+
   const renderBottomSheet = useCallback(() => {
-    console.log(safeArea)
     return (
       <View style={styles.containerBottomSheet}>
         {!safeArea.visible ? (
           listSafeArea.map((val, index) => (
-            <>
+            <View key={val.id}>
               <TouchableOpacity
                 onPress={() => setSafeArea({visible: true, area: val})}
-                key={val.id}
                 style={styles.rowDirection}>
                 <Text children={val.name} style={styles.txtName} />
                 <Text children={`${val.radius}m`} />
@@ -81,47 +125,175 @@ export default ({}) => {
                 </View>
               </TouchableOpacity>
               <Divider style={styles.line} />
-            </>
+            </View>
           ))
         ) : (
-          <ViewAddOrEditArea area={safeArea} />
+          <ViewAddOrEditArea
+            area={safeArea.area}
+            toggle={onToggleCreateArea}
+            onCreate={onCreate}
+            onEdit={onEdit}
+            onRemove={onRemove}
+          />
+        )}
+        {!safeArea.visible && listSafeArea.length < 3 && (
+          <Button
+            onclick={() => setSafeArea({visible: true, area: null})}
+            title={'Thêm vùng an toàn'}
+            color={Colors.GradientColor}
+            Sty_btn={{
+              borderRadius: 6,
+              paddingVertical: 0,
+            }}
+            containerStyle={{height: 40}}
+          />
         )}
       </View>
     );
   }, [listSafeArea, safeArea]);
 
   return (
-    <View
-      style={[styles.container, {paddingBottom: useSafeAreaInsets().bottom}]}>
-      <Header title={headerScreen()} />
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}>
+      <View
+        style={[styles.container, {paddingBottom: useSafeAreaInsets().bottom}]}>
+        <Header title={headerScreen()} />
 
-      <MapView
-        ref={refMap}
-        style={styles.container}
-        // provider={PROVIDER_GOOGLE}
-        showsUserLocation={true}
-        region={initialRegion}>
-        {listSafeArea
-          .filter(val => val.status === 'on')
-          .map(val => (
-            <>
-              <Marker coordinate={val} title={val.name} />
-              <Circle
-                fillColor={'rgba(160, 214, 253, 0.5)'}
-                center={val}
-                radius={(1000 * val.radius) / 1000}
-                strokeColor="#4F6D7A"
-                strokeWidth={0.1}
-              />
-            </>
-          ))}
-      </MapView>
+        <MapView
+          ref={refMap}
+          style={styles.container}
+          // provider={PROVIDER_GOOGLE}
+          showsUserLocation={true}
+          region={initialRegion}>
+          {listSafeArea
+            .filter(val => val.status === 'on')
+            .map(val => (
+              <>
+                <Marker coordinate={val} title={val.name} />
+                <Circle
+                  fillColor={'rgba(160, 214, 253, 0.5)'}
+                  center={val}
+                  radius={(1000 * val.radius) / 1000}
+                  strokeColor="#4F6D7A"
+                  strokeWidth={0.1}
+                />
+              </>
+            ))}
+        </MapView>
 
-      {renderBottomSheet()}
-    </View>
+        {renderBottomSheet()}
+      </View>
+    </KeyboardAvoidingView>
   );
 };
 
-const ViewAddOrEditArea = ({area}) => {
-  return <View></View>;
+const ViewAddOrEditArea = ({area, toggle, onCreate, onEdit, onRemove}) => {
+  const [name, setName] = useState(area?.name || '');
+  const [range, setRange] = useState(area?.radius / 1000 || 0.5);
+  const renderIncrementOrDecrement = (type = 'increment', onPress) => {
+    return (
+      <TouchableOpacity
+        onPress={onPress}
+        style={[
+          styles.containerAction,
+          {backgroundColor: type === 'increment' ? Colors.orange : Colors.red},
+        ]}>
+        <Text
+          children={type === 'increment' ? '+' : '-'}
+          style={styles.txtAction}
+        />
+      </TouchableOpacity>
+    );
+  };
+
+  const onSave = () => {
+    if (!name.length) {
+      showAlert(String.errorNameArea);
+      return;
+    }
+    if (area) {
+      onEdit({
+        ...area,
+        name,
+        radius: range * 1000,
+      });
+    } else {
+      onCreate({
+        id: 3,
+        name,
+        radius: range * 1000,
+        status: 'on',
+        latitude: 21.000147,
+        longitude: 105.8161342,
+      });
+    }
+  };
+
+  return (
+    <View s>
+      <View style={styles.containerTextInput}>
+        <TextInput
+          style={styles.wrap}
+          clearButtonMode="always"
+          placeholder="Tên vùng an toàn"
+          maxLength={32}
+          value={name}
+          onChangeText={text => setName(text)}
+        />
+        <Text children="Vui lòng nhập 1-32 ký tự" style={styles.txtNote} />
+      </View>
+      <Divider style={styles.line} />
+      <View style={styles.containerTextInput}>
+        <Text children={String.area} style={{marginRight: 5}} />
+        {renderIncrementOrDecrement('decrement', () =>
+          setRange(prev => {
+            return parseFloat(prev.toFixed(1)) === 0.1 ? prev : prev - 0.1;
+          }),
+        )}
+        <Slider
+          style={{flex: 1, marginHorizontal: 5}}
+          value={range}
+          onValueChange={value => setRange(value)}
+          thumbStyle={styles.thumb}
+          thumbProps={{
+            children: <View style={styles.thumbCircle} />,
+          }}
+          step={0.1}
+          minimumValue={0.1}
+          maximumValue={1}
+          trackStyle={{paddingHorizontal: 0}}
+          minimumTrackTintColor={Colors.orange}
+          maximumTrackTintColor="#b7b7b7"
+        />
+        {renderIncrementOrDecrement('increment', () =>
+          setRange(prev => {
+            console.log(prev);
+            return parseFloat(prev.toFixed(1)) < 1 ? prev + 0.1 : prev;
+          }),
+        )}
+        <Text children={`${(range * 1000).toFixed(0)} m`} />
+      </View>
+      <Divider style={styles.line} />
+      <View
+        style={[
+          styles.containerTextInput,
+          {justifyContent: 'space-between', marginTop: 4},
+        ]}>
+        <TouchableOpacity style={styles.containerTextAction} onPress={onSave}>
+          <Text children={String.save} style={styles.txtSave} />
+        </TouchableOpacity>
+        {area && (
+          <TouchableOpacity
+            style={styles.containerTextAction}
+            onPress={onRemove}>
+            <Text children={String.member_remove} style={styles.txtBack} />
+          </TouchableOpacity>
+        )}
+        <TouchableOpacity style={styles.containerTextAction} onPress={toggle}>
+          <Text children={String.back} style={styles.txtBack} />
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
 };

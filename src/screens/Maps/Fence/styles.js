@@ -1,4 +1,4 @@
-import { Colors } from '../../../assets/colors/Colors';
+import {Colors} from '../../../assets/colors/Colors';
 import {FontSize} from '../../../functions/Consts';
 import {StyleSheet} from 'react-native';
 
@@ -52,7 +52,42 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     marginLeft: 3,
   },
-  line: {marginVertical: 4}
+  line: {marginVertical: 4},
+  txtNote: {fontSize: FontSize.small, color: Colors.gray},
+  containerTextInput: {
+    flexDirection: 'row',
+    width: '100%',
+    alignItems: 'center',
+  },
+  wrap: {flex: 1},
+  thumbCircle: {
+    width: 20,
+    height: 20,
+    borderRadius: 40,
+    backgroundColor: Colors.orange,
+    position: 'absolute',
+    bottom: 10,
+    right: 10,
+  },
+  thumb: {height: 40, width: 40, backgroundColor: 'transparent'},
+  containerAction: {
+    width: 20,
+    height: 21,
+    borderRadius: 40,
+    marginHorizontal: 3,
+  },
+  txtAction: {
+    fontSize: FontSize.medium,
+    color: 'white',
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
+  containerTextAction: {
+    flex: 1,
+    alignItems: 'center'
+  },
+  txtSave: {color: Colors.blue},
+  txtBack: {color: Colors.red}
 });
 
 export default styles;
