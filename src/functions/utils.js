@@ -3,8 +3,8 @@ import ReactNative, {Alert, UIManager} from 'react-native';
 import DataLocal from '../data/dataLocal';
 import {ErrorMsg} from '../assets/strings/ErrorMsg';
 import KeepAwake from 'react-native-keep-awake';
+import {String} from '../assets/strings/String';
 import jwt_decode from 'jwt-decode';
-import { String } from '../assets/strings/String';
 
 const addCommas = (num, style) => {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, style);
@@ -61,14 +61,12 @@ export function showConfirmation(msg, {acceptStr, cancelStr, response} = {}) {
           response(true);
         }
       },
-    }, {
-      text: cancelStr || String.cancel,
-      onPress: () => {
-        if (response) {
-          response(false);
-        }
-      },
     },
+    {
+      text: cancelStr || String.cancel,
+      style: 'cancel',
+    },
+    {cancelable: false},
   ]);
 }
 

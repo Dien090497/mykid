@@ -47,6 +47,7 @@ async function saveDeviceId(value) {
 async function loadDeviceId() {
   try {
     const id = await AsyncStorage.getItem(deviceIdKey + DataLocal.userInfo.id, '');
+    console.log('loadDeviceId >>>>>>>>>>>', id)
     DataLocal.deviceId = parseInt(id);
   } catch(e) {
     console.log(e);
