@@ -32,12 +32,12 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 export default ({navigation, route}) => {
   const refLoading = useRef();
   const [isBlocking, setIsBlocking] = useState(false);
-  const [dataContacts2, setDataContacts2] = useState(null);
+  const [dataContacts, setDataContacts] = useState(null);
 
   useEffect(() => {
-    getListContactPhoneApi(2, {
+    getListContactPhoneApi(DataLocal.deviceId, {
       success: res => {
-        setDataContacts2(res.data);
+        setDataContacts(res.data);
       },
     });
   }, []);
@@ -45,13 +45,13 @@ export default ({navigation, route}) => {
   const changeSOS = (item, index) => {
     //call API changeSOS
     setSOSApi(
-      2,
+      DataLocal.deviceId,
       {
         phoneNumber: item.phoneNumber,
       },
       {
         success: res => {
-          setDataContacts2(res.data);
+          setDataContacts(res.data);
         },
         refLoading: refLoading,
       },
@@ -65,13 +65,13 @@ export default ({navigation, route}) => {
       cancelStr: String.back,
       response: () => {
         deletePhoneBookApi(
-          2,
+          DataLocal.deviceId,
           {
             phoneNumber: item.phoneNumber,
           },
           {
             success: res => {
-              setDataContacts2(res.data);
+              setDataContacts(res.data);
             },
             refLoading: refLoading,
           },
@@ -99,18 +99,20 @@ export default ({navigation, route}) => {
             <Text style={styles.titleText}>{item.name}</Text>
             <Text style={styles.phoneText}>{item.phoneNumber}</Text>
           </View>
-          <TouchableOpacity
-            style={styles.containerRemove}
-            onPress={() => removeContact(item)}>
-            <Text style={styles.txtRemove}>Xoá</Text>
-          </TouchableOpacity>
+          {!item.sosNumber && (
+            <TouchableOpacity
+              style={styles.containerRemove}
+              onPress={() => removeContact(item)}>
+              <Text style={styles.txtRemove}>Xoá</Text>
+            </TouchableOpacity>
+          )}
         </View>
       </TouchableOpacity>
     );
   };
   const pressAddNew = () => {
     navigation.navigate(Consts.ScreenIds.AddNewContact, {
-      onGoBack: (data) => setDataContacts2(data)
+      onGoBack: data => setDataContacts(data),
     });
   };
 
@@ -123,27 +125,25 @@ export default ({navigation, route}) => {
       style={[styles.container, {paddingBottom: useSafeAreaInsets().bottom}]}>
       <Header title={String.header_contacts} />
       <View style={styles.mainView}>
-        {dataContacts2?.phones && Array.isArray(dataContacts2.phones) && (
-          <FlatList
-            data={dataContacts2?.phones}
-            style={styles.wrapContainer}
-            contentContainerStyle={
-              !dataContacts2?.phones?.length && styles.wrapContainer
-            }
-            renderItem={renderItem}
-            keyExtractor={item => item.key}
-            ListEmptyComponent={
-              <View style={styles.containerEmpty}>
-                <Image
-                  source={Images.icEmptyContact}
-                  style={styles.emptyContact}
-                  resizeMode="contain"
-                />
-                <Text style={styles.txtEmpty} children={String.empty_contact} />
-              </View>
-            }
-          />
-        )}
+        <FlatList
+          data={dataContacts?.phones || []}
+          style={styles.wrapContainer}
+          contentContainerStyle={
+            !dataContacts?.phones?.length && styles.wrapContainer
+          }
+          renderItem={renderItem}
+          keyExtractor={item => item.key}
+          ListEmptyComponent={
+            <View style={styles.containerEmpty}>
+              <Image
+                source={Images.icEmptyContact}
+                style={styles.emptyContact}
+                resizeMode="contain"
+              />
+              <Text style={styles.txtEmpty} children={String.empty_contact} />
+            </View>
+          }
+        />
         <View style={styles.containerViewBottom}>
           <Text style={styles.txtBlockContact}>Chặn số từ người lạ</Text>
           <View style={styles.containerSwitch}>
@@ -152,7 +152,7 @@ export default ({navigation, route}) => {
               // thumbColor={isBlocking ? "#f5dd4b" : "#f4f3f4"}
               ios_backgroundColor="#3e3e3e"
               onValueChange={toggleSwitch}
-              value={dataContacts2?.blockUnknown}
+              value={dataContacts?.blockUnknown}
             />
           </View>
         </View>
