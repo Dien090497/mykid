@@ -233,9 +233,11 @@ export default ({navigation, route}) => {
           ListHeaderComponent={renderHeader()}
           stickyHeaderIndices={[0]}
         />
-        <TouchableOpacity style={styles.button} onPress={pressRefresh}>
-          <Text style={styles.buttonText}>{String.member_refresh}</Text>
-        </TouchableOpacity>
+        {admin && admin.accountId === DataLocal.userInfo.id &&
+          <TouchableOpacity style={styles.button} onPress={pressRefresh}>
+            <Text style={styles.buttonText}>{String.member_refresh}</Text>
+          </TouchableOpacity>
+        }
       </View>
       <LoadingIndicator ref={refLoading} />
     </View>
