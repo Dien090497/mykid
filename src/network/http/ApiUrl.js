@@ -20,6 +20,9 @@ export const locationDeviceUrl = appUrl + '/locations'
 // Sound
 export const soundModesUrl = appUrl + '/sound-modes'
 
+// Watch
+export const watchsUrl = appUrl + '/watchs'
+
 // User info
 export const accountDetailUrl = appUrl + '/accounts';
 

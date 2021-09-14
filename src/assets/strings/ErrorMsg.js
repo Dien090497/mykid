@@ -7,8 +7,9 @@ export const ErrorMsg = {
     kwa4018: 'Mã thiết bị bạn nhập đã được kết nối trước đó (KWA-4018)',
     kwa4019: 'Mã thiết bị bạn nhập không tồn tại (KWA-4019)',
     kwa4020: 'Mã thiết bị của bạn chưa hoạt động (KWA-4020)',
+    kwa4021: 'Thông tin thết bị không đúng (KWA-4021)',
     kwa4022: 'Tài khoản bạn nhập đã tồn tại (KWA-4022)',
-    kwa4023: 'Thiết bị đã bị tắt (KWA-4023)',
+    kwa4023: 'Thiết bị không kết nối internet (KWA-4023)',
 
     // common
     exceedNicknameLength: 'Vượt quá số lượng ký tự cho phép',

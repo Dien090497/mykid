@@ -1,6 +1,6 @@
 import {
   loginUrl,
-  getCaptchaUrl, createAccountUrl, changePasswordUrl, soundModesUrl,
+  getCaptchaUrl, createAccountUrl, changePasswordUrl, soundModesUrl, watchsUrl,
 } from "./http/ApiUrl";
 import { generateRandomId } from "../functions/utils";
 import { post, get, put } from "./http/HttpClient";
@@ -47,4 +47,9 @@ export function setSoundModesApi(deviceId, mode, { success, failure, autoShowMsg
   
   const body = { mode };
   return post(url, { body, success, failure, autoShowMsg });
+}
+
+export function findWatchsApi(deviceId, { success, failure, autoShowMsg = true } = {}) {
+  const url = [watchsUrl, deviceId, 'find'].join('/');
+  return get(url, { success, failure, autoShowMsg });
 }
