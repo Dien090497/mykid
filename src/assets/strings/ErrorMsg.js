@@ -11,6 +11,7 @@ export const ErrorMsg = {
     kwa4021: 'Thông tin thết bị không đúng (KWA-4021)',
     kwa4022: 'Tài khoản bạn nhập đã tồn tại (KWA-4022)',
     kwa4023: 'Thiết bị không kết nối internet (KWA-4023)',
+    kwa4024: 'Không thể định vị thiết bị (KWA-4024)',
 
     // common
     exceedNicknameLength: 'Vượt quá số lượng ký tự cho phép',
