@@ -164,5 +164,6 @@ export const styles = StyleSheet.create({
     height: 16,
     marginLeft: 4,
     tintColor: Colors.greenText,
-  }
+  },
+  icMarker: {width: 30, height: 30, resizeMode: 'contain'},
 });

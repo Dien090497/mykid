@@ -87,7 +87,21 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   txtSave: {color: Colors.blue},
-  txtBack: {color: Colors.red}
+  txtBack: {color: Colors.red},
+  icMarker: {width: 30, height: 30, resizeMode: 'contain'},
+  containerNote: {
+    position: 'absolute',
+    top: 10,
+    left: 10,
+    width: '95%',
+    backgroundColor: 'white',
+    alignContent: 'center',
+    borderRadius: 10,
+    paddingVertical: 5,
+    paddingHorizontal: 10
+  },
+  txtNoteDrag: {textAlign: 'center', fontSize: FontSize.small}
+
 });
 
 export default styles;

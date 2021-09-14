@@ -105,14 +105,19 @@ export default ({}) => {
         <MapView
           ref={refMap}
           style={styles.container}
-          // provider={PROVIDER_GOOGLE}
+          provider={PROVIDER_GOOGLE}
           showsUserLocation={true}
           region={initialRegion}>
           {listSafeArea
             .filter(val => val.status === 'on')
             .map(val => (
               <View key={val.id}>
-                <Marker coordinate={val} title={val.name} />
+                <Marker coordinate={val} title={val.name}>
+                  <Image
+                    source={Images.icWatchMarker}
+                    style={styles.icMarker}
+                  />
+                </Marker>
                 <Circle
                   fillColor={'rgba(160, 214, 253, 0.5)'}
                   center={val}

@@ -11,15 +11,16 @@ import {
 } from 'react-native';
 import {Divider, Icon, Slider, Switch} from 'react-native-elements';
 import MapView, {Circle, Marker, PROVIDER_GOOGLE} from 'react-native-maps';
-import React, {memo, useCallback, useRef, useState} from 'react';
+import React, {memo, useCallback, useEffect, useRef, useState} from 'react';
+import {getCurrentLocation, showAlert} from '../../../functions/utils';
 
 import Button from '../../../components/buttonGradient';
 import {Colors} from '../../../assets/colors/Colors';
 import {FontSize} from '../../../functions/Consts';
+import Geolocation from 'react-native-geolocation-service';
 import Header from '../../../components/Header';
 import Images from '../../../assets/Images';
 import {String} from '../../../assets/strings/String';
-import {showAlert} from '../../../functions/utils';
 import styles from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
@@ -57,10 +58,34 @@ const headerScreen = () => {
 export default ({}) => {
   const refMap = useRef(null);
   const [listSafeArea, setListSafeArea] = useState(mockData);
+  const [currentLocation, setCurrentLocation] = useState(null);
   const [safeArea, setSafeArea] = useState({
     visible: false,
     area: null,
+    latitude: null,
+    longitude: null,
   });
+
+  useEffect(() => {
+    Geolocation.getCurrentPosition(
+      position => {
+        var payload = {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        };
+        setCurrentLocation(payload);
+        setSafeArea({
+          ...safeArea,
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+      },
+      error => {
+        console.log(error, 'error getLocation');
+      },
+      {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
+    );
+  }, []);
 
   const onToggleStatus = (index, value) => {
     const newListSafeArea = JSON.parse(JSON.stringify(listSafeArea));
@@ -151,7 +176,6 @@ export default ({}) => {
       </View>
     );
   }, [listSafeArea, safeArea]);
-
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -164,7 +188,9 @@ export default ({}) => {
           ref={refMap}
           style={styles.container}
           // provider={PROVIDER_GOOGLE}
-          showsUserLocation={true}
+          showsUserLocation={
+            !(safeArea.visible && !safeArea.area && currentLocation)
+          }
           region={initialRegion}>
           {listSafeArea
             .filter(val => val.status === 'on')
@@ -180,6 +206,35 @@ export default ({}) => {
                 />
               </View>
             ))}
+          {safeArea.visible && !safeArea.area && currentLocation && (
+            <>
+              <Marker
+                coordinate={currentLocation}
+                title={'Khu vực an toàn'}
+                draggable
+                onDragEnd={event => {
+                  console.log(event.nativeEvent.coordinate, 'event');
+                  const {latitude, longitude} = event.nativeEvent.coordinate;
+                  if (latitude && longitude) {
+                    setSafeArea(prev => {
+                      return {
+                        ...prev,
+                        latitude,
+                        longitude,
+                      };
+                    });
+                  }
+                }}>
+                <Image source={Images.icWatchMarker} style={styles.icMarker} />
+              </Marker>
+              <View style={styles.containerNote}>
+                <Text
+                  children={String.note_create_area}
+                  style={styles.txtNoteDrag}
+                />
+              </View>
+            </>
+          )}
         </MapView>
 
         {renderBottomSheet()}

@@ -60,7 +60,9 @@ export default ({navigation, route}) => {
           provider={PROVIDER_GOOGLE}
           showsUserLocation={true}
           region={initialRegion}>
-          <Marker coordinate={markerDaughter} title={currentDevice.title} />
+          <Marker coordinate={markerDaughter} title={currentDevice.title}>
+            <Image source={Images.icWatchMarker} style={styles.icMarker} />
+          </Marker>
         </MapView>
 
         <TouchableOpacity

@@ -61,7 +61,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginLeft: 3,
-  }
+  },
+  icMarker: {width: 30, height: 30, resizeMode: 'contain'},
 });
 
 export default styles;

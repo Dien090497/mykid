@@ -83,6 +83,7 @@ export const String = {
   from: 'Từ',
   to: 'Đến',
   date: 'Ngày',
+  note_create_area: 'Vui lòng giữ và kéo thả nơi mà bạn muốn tạo vùng an toàn',
 
   //member
   member_refresh: 'Làm mới',

@@ -36,6 +36,7 @@ export default {
   icBattery: require('./images/ic_battery.png'),
   icRightArrow: require('./images/ic_right_arrow.png'),
   icCalendar: require('./images/ic_calendar.png'),
+  icWatchMarker: require('./images/ic_watch_marker.png'),
 
   //homeScreen
   icAlarm: require('./images/home/alarm.png'),
