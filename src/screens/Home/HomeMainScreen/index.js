@@ -29,7 +29,7 @@ export default function HomeMainScreen() {
   };
 
   const pressJourney = () => {
-    //navigation.navigate();
+    navigation.navigate(Consts.ScreenIds.JourneyHistory);
   };
 
   const pressSafeArea = () => {

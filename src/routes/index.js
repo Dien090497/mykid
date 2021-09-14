@@ -20,6 +20,7 @@ import FindDevice from '../screens/Profile/FindDevice';
 //screen
 import HomeMainScreen from '../screens/Home/HomeMainScreen';
 import Images from '../assets/Images';
+import JourneyHistory from '../screens/Maps/Journey';
 import ListDeviceScreen from '../screens/VideoCall';
 //auth screen
 import Login from '../screens/auth/Login';
@@ -204,6 +205,10 @@ const Routes = () => {
         <Stack.Screen
           name={Consts.ScreenIds.ElectronicFence}
           component={ElectronicFence}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.JourneyHistory}
+          component={JourneyHistory}
         />
       </Stack.Navigator>
       <OS />
