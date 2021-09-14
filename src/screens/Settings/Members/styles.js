@@ -49,7 +49,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 15,
     marginBottom: 1,
-    marginTop: 5
+    // marginTop: 5
   },
   headerText: {padding: 10, fontWeight: 'bold', fontSize: 16},
   button: {
