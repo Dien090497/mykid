@@ -165,6 +165,11 @@ const FromToDate = ({
     if (!value) return convertDateTimeToString(new Date()).time;
     return convertDateTimeToString(value).time;
   }, [value, title]);
+
+  const getMiniumDate = () => {
+    return minValue ? new Date(minValue) : new Date();
+  };
+
   return (
     <>
       <View style={[containerStyle, styles.containerHour]}>
@@ -190,7 +195,7 @@ const FromToDate = ({
           toggleModal();
           onDate(date);
         }}
-        minimumDate={new Date(minValue)}
+        minimumDate={getMiniumDate()}
         onCancel={toggleModal}
         confirmText={String.confirm}
         cancelText={String.cancel}
