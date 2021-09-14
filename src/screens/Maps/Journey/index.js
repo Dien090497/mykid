@@ -190,7 +190,7 @@ const FromToDate = ({
           toggleModal();
           onDate(date);
         }}
-        minimumDate={minValue && new Date(minValue)}
+        minimumDate={new Date(minValue)}
         onCancel={toggleModal}
         confirmText={String.confirm}
         cancelText={String.cancel}
