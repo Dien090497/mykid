@@ -1,59 +1,83 @@
 import {
-  Alert,
   FlatList,
   Image,
-  Switch,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useLayoutEffect, useRef, useState} from 'react';
 
 import {Colors} from '../../../assets/colors/Colors';
-import Consts from '../../../functions/Consts';
-import CustomIcon from '../../../components/VectorIcons';
 import Header from '../../../components/Header';
 import Images from '../../../assets/Images';
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import {String} from '../../../assets/strings/String';
-import {getListDeviceApi} from '../../../network/DeviceService';
+import {acceptContactApi, getListDeviceApi, rejectContactApi} from '../../../network/DeviceService';
 import {styles} from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {useSelector} from 'react-redux';
+import DataLocal from '../../../data/dataLocal';
+import { showAlert, showConfirmation } from '../../../functions/utils';
 
 export default ({navigation, route}) => {
   const refLoading = useRef();
-  const {dataInfo} = useSelector(state => state.loginReducer);
   const [allMember, setAllMember] = useState([]);
-  const [dataContacts, setDataContacts] = useState([
-    {
-      key: 'Dad',
-      userName: 'user234236',
-      phone: '012335236',
-      selected: true,
-    },
-    {
-      key: 'Mom',
-      name: 'Mẹ',
-      phone: '01233523',
-      selected: false,
-      isApproval: true,
-    },
-  ]);
+  const [admin, setAdmin] = useState();
 
-  const [dataAdmin] = useState([
+  const dataMock = [
     {
-      key: 'Dad',
-      userName: 'user234236',
-      phone: '012335236',
-      selected: true,
-      isAdmin: true,
+      id: 1,
+      name: 'Bố',
+      icon: Images.icFather,
+      relationship: 'FATHER'
     },
-  ]);
-  const getData = () => {
-    getListDeviceApi(dataInfo?.id, 0, 100, 2, {
+    {
+      id: 2,
+      name: 'Mẹ',
+      icon: Images.icMother,
+      relationship: 'MOTHER'
+    },
+    {
+      id: 4,
+      name: 'Ông',
+      icon: Images.icGrandfather,
+      relationship: 'GRANDFATHER'
+    },
+    {
+      id: 5,
+      name: 'Bà',
+      icon: Images.icGrandmother,
+      relationship: 'GRANDMOTHER'
+    },
+    {
+      id: 6,
+      name: 'Anh',
+      icon: Images.icBrother,
+      relationship: 'BROTHER'
+    },
+    {
+      id: 7,
+      name: 'Chị',
+      icon: Images.icSister,
+      relationship: 'SISTER'
+    },
+    {
+      id: 8,
+      name: 'Khác',
+      icon: Images.icOther,
+      relationship: 'OTHER'
+    },
+  ];
+
+  useLayoutEffect(() => {
+    getListDevice();
+  }, []);
+
+  const getListDevice = () => {
+    getListDeviceApi(null, 0, 100, DataLocal.deviceId, {
       success: res => {
-        setAllMember(res.data);
+        setAdmin(res.data.filter(val => val.admin === true)[0])
+        const members = res.data.filter(val => val.admin === false);
+        setAllMember(members);
       },
       failure: error => {
 
@@ -62,45 +86,94 @@ export default ({navigation, route}) => {
     });
   };
 
-  useEffect(() => {
-    //call API Danh sách thành viên
-    getData();
-    //setDataContacts
-  }, []);
-
   const removeContact = item => {
-    //call remove Contact
+    showConfirmation(String.removeContactConfirm, {
+      response: accept => {
+        if (accept) {
+          rejectContactApi(item.id, {
+            success: res => {
+              showAlert(String.deleteContactSuccess, {
+                close: () => {
+                  getListDevice();
+                },
+              });
+            },
+            failure: error => {
+      
+            },
+            refLoading: refLoading,
+          });
+        }
+      },
+    });
+    
+  };
+
+  const cancelContact = item => {
+    rejectContactApi(item.id, {
+      success: res => {
+        showAlert(String.rejectContactSuccess, {
+          close: () => {
+            getListDevice();
+          },
+        });
+      },
+      failure: error => {
+
+      },
+      refLoading: refLoading,
+    });
+  };
+
+  const acceptContact = item => {
+    acceptContactApi(item.id, {
+      success: res => {
+        if (res.data && res.data.status === 'ACTIVE') {
+          showAlert(String.acceptContactSuccess, {
+            close: () => {
+              getListDevice();
+            },
+          });
+        }
+      },
+      failure: error => {
+
+      },
+      refLoading: refLoading,
+    });
   };
   const renderItem = ({item}) => {
     return renderMemberItem(item);
   };
   const pressRefresh = () => {
     //Call API Refresh
-    getData()
+    getListDevice()
   };
 
   const renderMemberItem = item => {
+    const relationship = dataMock.filter(val => val.relationship === item.relationship);
+    const icon = relationship.length > 0 ? relationship[0].icon : dataMock[6].icon;
     return (
       <TouchableOpacity
         activeOpacity={0.9}
         key={item.id}
         style={styles.itemContainer}>
         <View style={styles.itemLeft}>
-          <Image style={styles.avatar} source={Images.icUser1} />
+          <Image style={styles.avatar} source={icon} />
           <View style={styles.info}>
-            <Text style={styles.username}>{item.deviceCode}</Text>
+            <Text style={styles.username}>{item.deviceName}</Text>
             <Text
               style={styles.otherInfoText}
-              children={`Tài khoản: ${item.deviceName}`}
+              children={`Tài khoản: ${item.email}`}
             />
             <Text style={styles.otherInfoText}>
-              Mối quan hệ với trẻ: {item.relationship}
+              Mối quan hệ: {item.relationship}
             </Text>
-            {/* {item.isApproval && (
-              <View style={{flexDirection: 'row'}}>
+            {item.status === 'PENDING' && (
+              <View style={{flexDirection: 'row', marginTop: 5}}>
                 <TouchableOpacity
                   style={[styles.smallButton, {marginRight: 10}]}
-                  onPress={() => removeContact(item)}>
+                  onPress={() => cancelContact(item)}>
                   <Text
                     style={[styles.smallButtonText, {color: Colors.orange}]}>
                     {String.member_reject}
@@ -108,16 +181,16 @@ export default ({navigation, route}) => {
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.smallButton}
-                  onPress={() => removeContact(item)}>
+                  onPress={() => acceptContact(item)}>
                   <Text style={[styles.smallButtonText, {color: 'green'}]}>
                     {String.member_approval}
                   </Text>
                 </TouchableOpacity>
               </View>
-            )} */}
+            )}
           </View>
         </View>
-        {/* {!item.isApproval && !item.isAdmin && (
+        {!item.admin && item.status === 'ACTIVE' && admin.accountId === DataLocal.userInfo.id && (
           <View style={styles.itemRight}>
             <TouchableOpacity
               style={styles.smallButton}
@@ -127,7 +200,7 @@ export default ({navigation, route}) => {
               </Text>
             </TouchableOpacity>
           </View>
-        )} */}
+        )}
       </TouchableOpacity>
     );
   };
@@ -146,14 +219,13 @@ export default ({navigation, route}) => {
     );
   };
 
-
   return (
     <View
       style={[styles.container, {paddingBottom: useSafeAreaInsets().bottom}]}>
       <Header title={String.header_members} />
       <View style={styles.mainView}>
-        {/* {renderHeader(true)} */}
-        {/* {renderMemberItem(dataAdmin[0])} */}
+        { admin && renderHeader(true)}
+        { admin && renderMemberItem(admin)}
         <FlatList
           data={allMember}
           renderItem={renderItem}

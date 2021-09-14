@@ -17,7 +17,6 @@ export const String = {
   ok: 'OK',
   change: 'Chuyển',
 
-
   thisFunctionIsNotValid: 'Tính năng này chưa mở',
   header_settings: 'Thiết lập',
   header_contacts: 'Danh bạ',
@@ -53,21 +52,23 @@ export const String = {
   agreement: 'Thỏa thuận của người dùng',
   privacyPolicy: 'Chính sách bảo mật',
   registrationConfirmation: 'Xác nhận đăng ký',
-  txtNotification: "Nhập mật khẩu gồm 8-16 ký tự",
-  errorGmail: "Lỗi định dạng hộp thư",
-  errorNameArea:'Vui lòng nhập tên vùng',
-  placeholderGmail: "Nhập email",
-  errorCode: "Lỗi định dạng mã xác minh",
-  placeholderCode: "Nhập mã xác minh",
+  txtNotification: 'Nhập mật khẩu gồm 8-16 ký tự',
+  errorGmail: 'Lỗi định dạng hộp thư',
+  errorNameArea: 'Vui lòng nhập tên vùng',
+  placeholderGmail: 'Nhập email',
+  errorCode: 'Lỗi định dạng mã xác minh',
+  placeholderCode: 'Nhập mã xác minh',
   notification: 'Thông báo',
-  error_message: "Vui lòng đọc thỏa thuận người dùng và chính sách bảo mật rồi đánh dấu vào đồng ý",
+  error_message:
+    'Vui lòng đọc thỏa thuận người dùng và chính sách bảo mật rồi đánh dấu vào đồng ý',
   registerSuccess: 'Đăng ký thành công',
   genneralInfo: 'Thông tin cơ bản',
-  enterCurrentPassword: "Nhập mật khẩu hiện tại",
-  enterNewPassword: "Nhập mật khẩu mới",
-  reEnterNewPassword: "Nhập lại mật khẩu mới",
+  enterCurrentPassword: 'Nhập mật khẩu hiện tại',
+  enterNewPassword: 'Nhập mật khẩu mới',
+  reEnterNewPassword: 'Nhập lại mật khẩu mới',
   changePasswordSuccess: 'Đổi mật khẩu thành công',
-  currentPasswordInvalid: 'Mật khẩu hiện tại bạn nhập không đúng định dạng (8-16 ký tự)',
+  currentPasswordInvalid:
+    'Mật khẩu hiện tại bạn nhập không đúng định dạng (8-16 ký tự)',
   newPasswordInvalid: 'Mật khẩu mới bạn nhập không đúng định dạng (8-16 ký tự)',
   passwordConfirmInvalid: 'Mật khẩu mới và mật khẩu xác nhận không giống nhau',
   passwordDuplicated: 'Mật khẩu mới và mật khẩu cũ không được trùng nhau',
@@ -76,7 +77,8 @@ export const String = {
   iAm: 'Tôi là ',
   ofHe: ' của anh ấy',
   addDeviceSuccess: 'Kết nối thiết bị thành công',
-  addDeviceSuccess2: 'Yêu cầu kết nối đã được gửi.\nVui lòng chờ admin xác nhận',
+  addDeviceSuccess2:
+    'Yêu cầu kết nối đã được gửi.\nVui lòng chờ admin xác nhận',
   area: 'Area',
   save: 'Lưu',
   back: 'Quay lại',
@@ -84,6 +86,12 @@ export const String = {
   to: 'Đến',
   date: 'Ngày',
   note_create_area: 'Vui lòng giữ và kéo thả nơi mà bạn muốn tạo vùng an toàn',
+  sendRequestSuccess: 'Gửi thông tin thành công',
+  acceptContactSuccess: 'Duyệt thành viên thành công',
+  rejectContactSuccess: 'Từ chối thành viên thành công',
+  deleteContactSuccess: 'Xóa thành viên thành công',
+  removeContactConfirm:
+    'Bạn chắc chắn xóa thành viên này khỏi danh sách quản lí?',
 
   //member
   member_refresh: 'Làm mới',
@@ -107,5 +115,5 @@ export const String = {
   setting_contact: 'Danh bạ',
   setting_member: 'Thành viên',
   video_call: 'Video Call',
-  device_connected_not_found: 'Không tìm thấy thiết bị kết nối'
+  device_connected_not_found: 'Không tìm thấy thiết bị kết nối',
 };

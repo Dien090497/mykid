@@ -84,7 +84,8 @@ export default function DeviceManager({navigation}) {
 
   const handleChange = async (index) => {
     setSelectedIndex(index);
-    await DataLocal.saveDeviceIndex(index)
+    await DataLocal.saveDeviceIndex(index);
+    await DataLocal.saveDeviceId(devices[index].deviceId);
   };
 
   const renderItem  = ({item, index}) => {

@@ -10,11 +10,22 @@ import Header from '../../../components/Header';
 import Images from '../../../assets/Images';
 import {String} from '../../../assets/strings/String';
 import LoadingIndicator from '../../../components/LoadingIndicator';
+import { findWatchsApi } from '../../../network/UserInfoService';
+import DataLocal from '../../../data/dataLocal';
+import { showAlert } from '../../../functions/utils';
 
 export default function FindDevice({navigation}) {
   const refLoading = useRef();
 
-  const handleFindDevice = () => {
+  const handleFindDevice = async () => {
+    await findWatchsApi(DataLocal.deviceId, {
+      success: resData => {
+        if (resData.data) {
+          showAlert(String.sendRequestSuccess);
+        }
+      },
+      refLoading,
+    });
   };
 
   return (

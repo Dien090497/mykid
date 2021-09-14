@@ -1,6 +1,6 @@
 import {
   loginUrl,
-  getCaptchaUrl, createAccountUrl, changePasswordUrl,
+  getCaptchaUrl, createAccountUrl, changePasswordUrl, soundModesUrl, watchsUrl,
 } from "./http/ApiUrl";
 import { generateRandomId } from "../functions/utils";
 import { post, get, put } from "./http/HttpClient";
@@ -21,7 +21,6 @@ export function createAccountApi(data, { success, failure, autoShowMsg = true })
     "X-Captcha-Answer":  parseInt(data.answer),
     "X-Captcha-Id":  data.captchaId,
   };
-  console.log(headers);
 
   return post(createAccountUrl, { body, headers, success, failure, autoShowMsg });
 }
@@ -36,4 +35,21 @@ export function changePasswordApi(currentPassword, newPassword, { success, failu
     newPassword
   };
   return put(changePasswordUrl, { body, success, failure, autoShowMsg });
+}
+
+export function getSoundModesApi(deviceId, { success, failure, autoShowMsg = true } = {}) {
+  const url = [soundModesUrl, deviceId].join('/');
+  return get(url, { success, failure, autoShowMsg });
+}
+
+export function setSoundModesApi(deviceId, mode, { success, failure, autoShowMsg = true } = {}) {
+  const url = [soundModesUrl, deviceId].join('/');
+  
+  const body = { mode };
+  return post(url, { body, success, failure, autoShowMsg });
+}
+
+export function findWatchsApi(deviceId, { success, failure, autoShowMsg = true } = {}) {
+  const url = [watchsUrl, deviceId, 'find'].join('/');
+  return get(url, { success, failure, autoShowMsg });
 }

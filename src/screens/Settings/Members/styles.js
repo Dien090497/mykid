@@ -43,13 +43,13 @@ export const styles = StyleSheet.create({
   itemLeft: {flex: 0.8, flexDirection: 'row'},
   itemRight: {flex: 0.2, justifyContent: 'center', alignItems: 'center'},
   headerContainer: {
-    borderTopRightRadius: 10,
-    borderTopLeftRadius: 10,
-    backgroundColor: Colors.cardHeader,
+    backgroundColor: Colors.grayInput,
     marginHorizontal: 10,
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 15,
+    marginBottom: 1,
+    marginTop: 5
   },
   headerText: {padding: 10, fontWeight: 'bold', fontSize: 16},
   button: {
@@ -66,11 +66,14 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 20,
     borderColor: Colors.grayColorKeyBoard,
-    backgroundColor: Colors.grayBackground,
+    backgroundColor: Colors.grayInput,
     paddingHorizontal: 20,
-    paddingVertical: 5,
+    paddingVertical: 3,
   },
-  smallButtonText: {fontSize: FontSize.small},
+  smallButtonText: {
+    fontFamily: 'Roboto-Bold',
+    fontSize: FontSize.small
+  },
   info: {justifyContent: 'center', paddingHorizontal: 5},
   username: {padding: 2, fontWeight: 'bold', fontSize: 16},
   otherInfoText: {padding: 2, fontSize: 16, color: Colors.grayPlaceHolder},

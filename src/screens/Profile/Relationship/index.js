@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 
 import Header from '../../../components/Header';
 import {String} from '../../../assets/strings/String';
@@ -15,7 +15,7 @@ const Relationship = ({ navigation, route }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [data, setData] = useState([]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setData(route.params.data);
     setSelectedIndex(route.params.selectedIndex);
   }, []);
