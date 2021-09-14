@@ -13,11 +13,6 @@ import {
   getListContactPhoneApi,
   setSOSApi,
 } from '../../../network/ContactService';
-import {
-  hideLoading,
-  showConfirmation,
-  showLoading,
-} from '../../../functions/utils';
 
 import {Colors} from '../../../assets/colors/Colors';
 import CustomIcon from '../../../components/VectorIcons';
@@ -26,6 +21,7 @@ import Header from '../../../components/Header';
 import Images from '../../../assets/Images';
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import {String} from '../../../assets/strings/String';
+import {showConfirmation} from '../../../functions/utils';
 import {styles} from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
@@ -84,7 +80,7 @@ export default ({navigation, route}) => {
       <TouchableOpacity
         activeOpacity={0.9}
         style={styles.containerItemContact}
-        key={item.key}
+        key={item.name}
         onPress={item.onPress}>
         <View style={styles.wrap}>
           <View style={styles.containerSOS}>
@@ -132,7 +128,7 @@ export default ({navigation, route}) => {
             !dataContacts?.phones?.length && styles.wrapContainer
           }
           renderItem={renderItem}
-          keyExtractor={item => item.key}
+          keyExtractor={item => item.name}
           ListEmptyComponent={
             <View style={styles.containerEmpty}>
               <Image
