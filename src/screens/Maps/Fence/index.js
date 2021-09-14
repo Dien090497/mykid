@@ -103,7 +103,6 @@ export default ({}) => {
   const onCreate = data => {
     const newListSafeArea = JSON.parse(JSON.stringify(listSafeArea));
     newListSafeArea.push(data);
-    console.log(newListSafeArea);
     setListSafeArea(newListSafeArea);
     onToggleCreateArea();
   };
@@ -178,7 +177,6 @@ export default ({}) => {
       </View>
     );
   }, [listSafeArea, safeArea, newLocationSafeArea]);
-  console.log('safeArea', safeArea);
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -187,57 +185,64 @@ export default ({}) => {
         style={[styles.container, {paddingBottom: useSafeAreaInsets().bottom}]}>
         <Header title={headerScreen()} />
 
-        <MapView
-          ref={refMap}
-          style={styles.container}
-          // provider={PROVIDER_GOOGLE}
-          showsUserLocation={
-            !(safeArea.visible && !safeArea.area && currentLocation)
-          }
-          region={initialRegion}>
-          {listSafeArea
-            .filter(val => val.status === 'on')
-            .map(val => (
-              <View key={val.id}>
-                <Marker coordinate={val} title={val.name} />
-                <Circle
-                  fillColor={'rgba(160, 214, 253, 0.5)'}
-                  center={val}
-                  radius={(1000 * val.radius) / 1000}
-                  strokeColor="#4F6D7A"
-                  strokeWidth={0.1}
-                />
-              </View>
-            ))}
-          {safeArea.visible && !safeArea.area && currentLocation && (
-            <>
-              <Marker
-                coordinate={currentLocation}
-                title={'Khu vực an toàn'}
-                draggable
-                onDragEnd={event => {
-                  console.log(event.nativeEvent.coordinate, 'event');
-                  const {latitude, longitude} = event.nativeEvent.coordinate;
-                  if (latitude && longitude) {
-                    setNewLocation({
-                      latitude,
-                      longitude,
-                    });
-                  }
-                }}>
-                <Image source={Images.icWatchMarker} style={styles.icMarker} />
-              </Marker>
-              <View style={styles.containerNote}>
-                <Text
-                  children={String.note_create_area}
-                  style={styles.txtNoteDrag}
-                />
-              </View>
-            </>
-          )}
-        </MapView>
+        <View style={styles.container}>
+          <MapView
+            ref={refMap}
+            style={styles.container}
+            // provider={PROVIDER_GOOGLE}
+            showsUserLocation={
+              !(safeArea.visible && !safeArea.area && currentLocation)
+            }
+            region={initialRegion}>
+            {listSafeArea
+              .filter(val => val.status === 'on')
+              .map(val => (
+                <View key={val.id}>
+                  <Marker coordinate={val} title={val.name} />
+                  <Circle
+                    fillColor={'rgba(160, 214, 253, 0.5)'}
+                    center={val}
+                    radius={(1000 * val.radius) / 1000}
+                    strokeColor="#4F6D7A"
+                    strokeWidth={0.1}
+                  />
+                </View>
+              ))}
+            {safeArea.visible && !safeArea.area && currentLocation && (
+              <>
+                <Marker
+                  coordinate={currentLocation}
+                  title={'Khu vực an toàn'}
+                  draggable
+                  onDragEnd={event => {
+                    console.log(event.nativeEvent.coordinate, 'event');
+                    const {latitude, longitude} = event.nativeEvent.coordinate;
+                    if (latitude && longitude) {
+                      setNewLocation({
+                        latitude,
+                        longitude,
+                      });
+                    }
+                  }}>
+                  <Image
+                    source={Images.icWatchMarker}
+                    style={styles.icMarker}
+                  />
+                </Marker>
+              </>
+            )}
+          </MapView>
 
-        {renderBottomSheet()}
+          {renderBottomSheet()}
+          {safeArea.visible && !safeArea.area && (
+            <View style={styles.containerNote}>
+              <Text
+                children={String.note_create_area}
+                style={styles.txtNoteDrag}
+              />
+            </View>
+          )}
+        </View>
       </View>
     </KeyboardAvoidingView>
   );
@@ -253,7 +258,6 @@ const ViewAddOrEditArea = ({
 }) => {
   const [name, setName] = useState(area?.name || '');
   const [range, setRange] = useState(area?.radius / 1000 || 0.5);
-  console.log('newLocationSafeArea', newLocationSafeArea);
   const renderIncrementOrDecrement = (type = 'increment', onPress) => {
     return (
       <TouchableOpacity
@@ -331,7 +335,6 @@ const ViewAddOrEditArea = ({
         />
         {renderIncrementOrDecrement('increment', () =>
           setRange(prev => {
-            console.log(prev);
             return parseFloat(prev.toFixed(1)) < 1 ? prev + 0.1 : prev;
           }),
         )}
