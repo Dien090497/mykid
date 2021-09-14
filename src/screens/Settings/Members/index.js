@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useLayoutEffect, useRef, useState} from 'react';
 
 import {Colors} from '../../../assets/colors/Colors';
 import Header from '../../../components/Header';
@@ -22,7 +22,53 @@ export default ({navigation, route}) => {
   const refLoading = useRef();
   const [allMember, setAllMember] = useState([]);
   const [admin, setAdmin] = useState();
-  useEffect(() => {
+
+  const dataMock = [
+    {
+      id: 1,
+      name: 'Bố',
+      icon: Images.icFather,
+      relationship: 'FATHER'
+    },
+    {
+      id: 2,
+      name: 'Mẹ',
+      icon: Images.icMother,
+      relationship: 'MOTHER'
+    },
+    {
+      id: 4,
+      name: 'Ông',
+      icon: Images.icGrandfather,
+      relationship: 'GRANDFATHER'
+    },
+    {
+      id: 5,
+      name: 'Bà',
+      icon: Images.icGrandmother,
+      relationship: 'GRANDMOTHER'
+    },
+    {
+      id: 6,
+      name: 'Anh',
+      icon: Images.icBrother,
+      relationship: 'BROTHER'
+    },
+    {
+      id: 7,
+      name: 'Chị',
+      icon: Images.icSister,
+      relationship: 'SISTER'
+    },
+    {
+      id: 8,
+      name: 'Khác',
+      icon: Images.icOther,
+      relationship: 'OTHER'
+    },
+  ];
+
+  useLayoutEffect(() => {
     getListDevice();
   }, []);
 
@@ -105,13 +151,15 @@ export default ({navigation, route}) => {
   };
 
   const renderMemberItem = item => {
+    const relationship = dataMock.filter(val => val.relationship === item.relationship);
+    const icon = relationship.length > 0 ? relationship[0].icon : dataMock[6].icon;
     return (
       <TouchableOpacity
         activeOpacity={0.9}
         key={item.id}
         style={styles.itemContainer}>
         <View style={styles.itemLeft}>
-          <Image style={styles.avatar} source={Images.icUser1} />
+          <Image style={styles.avatar} source={icon} />
           <View style={styles.info}>
             <Text style={styles.username}>{item.deviceName}</Text>
             <Text
