@@ -1,7 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const accessTokenKey = 'ACCESS_TOKEN';
-const userInfoKey = 'USER_INFO';
 const deviceIdKey = 'DEVICE_ID_';
 const deviceIndexKey = 'DEVICE_Active_';
 let accessToken = null;
@@ -46,22 +45,26 @@ async function saveDeviceId(value) {
 
 async function loadDeviceId() {
   try {
-    const id = await AsyncStorage.getItem(deviceIdKey + DataLocal.userInfo.id, '');
-    DataLocal.deviceId = parseInt(id);
+    const value = await AsyncStorage.getItem(deviceIdKey + DataLocal.userInfo.id, '');
+    if (value === null || value === undefined) {
+      DataLocal.deviceId = 0;
+    } else {
+      DataLocal.deviceId = parseInt(value);
+    }
   } catch(e) {
     console.log(e);
     DataLocal.deviceId = 0;
   }
 }
 
-async function removeAll() {
-  await removeAccessToken();
-}
-
 async function loadDeviceIndex() {
   try {
-    const index = await AsyncStorage.getItem(deviceIndexKey + DataLocal.userInfo.id, '');
-    DataLocal.deviceIndex = parseInt(index);
+    const value = await AsyncStorage.getItem(deviceIndexKey + DataLocal.userInfo.id, '');
+    if (value === null || value === undefined) {
+      DataLocal.deviceIndex = 0;
+    } else {
+      DataLocal.deviceIndex = parseInt(value);
+    }
   } catch(e) {
     DataLocal.deviceIndex = 0;
     console.log(e);
@@ -76,6 +79,10 @@ async function saveDeviceIndex(index) {
     console.log(e);
     return false;
   }
+}
+
+async function removeAll() {
+  await removeAccessToken();
 }
 
 const DataLocal = {
