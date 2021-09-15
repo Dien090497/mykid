@@ -58,7 +58,7 @@ export default ({navigation, route}) => {
   const removeContact = item => {
     //call remove Contact
     if (item.sosNumber) {
-      showAlert('Bạn không được xoá liên lạc khẩn cấp. Vui lòng thử lại sau.');
+      showAlert(String.message_remove_contact_sos);
       return;
     }
 

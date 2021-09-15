@@ -92,6 +92,7 @@ export const String = {
   deleteContactSuccess: 'Xóa thành viên thành công',
   removeContactConfirm:
     'Bạn chắc chắn xóa thành viên này khỏi danh sách quản lí?',
+  message_remove_contact_sos: 'Bạn không được xoá liên lạc khẩn cấp. Vui lòng thử lại sau.',
 
   //member
   member_refresh: 'Làm mới',
