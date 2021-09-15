@@ -184,7 +184,7 @@ export default ({navigation, route}) => {
             {!item.admin &&
               item.status === 'ACTIVE' &&
               admin.accountId === DataLocal.userInfo.id && (
-                <View style={styles.rowItem}>
+                <View style={styles.rowItem2}>
                   <TouchableOpacity
                     style={styles.smallButton}
                     onPress={() => removeContact(item)}>

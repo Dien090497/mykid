@@ -40,8 +40,8 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  itemLeft: {flex: 0.8, flexDirection: 'row'},
-  itemRight: {flex: 0.2, justifyContent: 'center', alignItems: 'center'},
+  itemLeft: {flex: 1, flexDirection: 'row'},
+  // itemRight: {flex: 0.2, justifyContent: 'center', alignItems: 'center', backgroundColor: 'blue'},
   headerContainer: {
     backgroundColor: Colors.grayInput,
     marginHorizontal: 10,
@@ -74,8 +74,9 @@ export const styles = StyleSheet.create({
     fontFamily: 'Roboto-Bold',
     fontSize: FontSize.small
   },
-  info: {justifyContent: 'center', paddingHorizontal: 5},
+  info: {justifyContent: 'center', paddingHorizontal: 5, width: '80%'},
   username: {padding: 2, fontWeight: 'bold', fontSize: 16},
   otherInfoText: {padding: 2, fontSize: 16, color: Colors.grayPlaceHolder},
-  rowItem: {flexDirection: 'row', marginTop: 8, alignSelf: 'center'}
+  rowItem: {flexDirection: 'row', marginTop: 8, marginLeft: '5%'},
+  rowItem2: {flexDirection: 'row', marginTop: 8, marginLeft: '30%'}
 });
