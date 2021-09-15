@@ -12,6 +12,8 @@ export const ErrorMsg = {
     kwa4022: 'Tài khoản bạn nhập đã tồn tại (KWA-4022)',
     kwa4023: 'Thiết bị không kết nối internet (KWA-4023)',
     kwa4024: 'Không thể định vị thiết bị (KWA-4024)',
+    kwa4026: 'Kích thước danh bạ không được lớn hơn 15 (KWA-4026)',
+    kwa4029: 'Số điện thoại đã tồn tại (KWA-4029)',
 
     // common
     exceedNicknameLength: 'Vượt quá số lượng ký tự cho phép',
