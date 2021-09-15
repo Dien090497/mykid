@@ -9,19 +9,22 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 
 import Header from '../../../components/Header';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import LoadingIndicator from '../../../components/LoadingIndicator';
 import {String} from '../../../assets/strings/String';
+import {addPhoneBookApi} from '../../../network/ContactService';
 import {selectContact} from 'react-native-select-contact';
 import {showAlert} from '../../../functions/utils';
 import {styles} from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
-export default () => {
+export default ({navigation, route}) => {
   const [relationship, setRelationship] = useState('');
   const [phone, setPhone] = useState('');
+  const refLoading = useRef();
   const callContacts = async () => {
     try {
       var permissionAndroid;
@@ -53,6 +56,30 @@ export default () => {
 
   const saveContact = async () => {
     //Thực hiện lưu liên lạc
+    if (!relationship.trim().length) {
+      showAlert(String.enter_relationship);
+      return;
+    }
+    if (!phone.trim().length) {
+      showAlert(String.enter_phone_number);
+      return;
+    }
+    addPhoneBookApi(
+      2,
+      {
+        name: relationship,
+        phoneNumber: phone,
+      },
+      {
+        success: res => {
+          if (route.params.onGoBack) {
+            route.params.onGoBack(res.data);
+            navigation.goBack();
+          }
+        },
+        refLoading: refLoading,
+      },
+    );
   };
   return (
     <View
@@ -124,12 +151,13 @@ export default () => {
             borderRadius: 10,
             justifyContent: 'center',
             alignItems: 'center',
-            paddingVertical: 15
+            paddingVertical: 15,
           }}
           onPress={saveContact}>
           <Text style={{color: 'white', fontSize: 16}}>Lưu</Text>
         </TouchableOpacity>
       </View>
+      <LoadingIndicator ref={refLoading} />
     </View>
   );
 };

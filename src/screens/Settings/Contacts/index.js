@@ -8,118 +8,108 @@ import {
   View,
 } from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
-import {hideLoading, showLoading} from '../../../functions/utils';
+import {
+  deletePhoneBookApi,
+  getListContactPhoneApi,
+  setSOSApi,
+} from '../../../network/ContactService';
 
 import {Colors} from '../../../assets/colors/Colors';
 import CustomIcon from '../../../components/VectorIcons';
+import DataLocal from '../../../data/dataLocal';
 import Header from '../../../components/Header';
+import Images from '../../../assets/Images';
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import {String} from '../../../assets/strings/String';
+import {showConfirmation} from '../../../functions/utils';
 import {styles} from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 export default ({navigation, route}) => {
   const refLoading = useRef();
   const [isBlocking, setIsBlocking] = useState(false);
-  const [dataContacts, setDataContacts] = useState([
-    {
-      key: 'Dad',
-      name: 'Bố',
-      phone: '012335236',
-      selected: true,
-    },
-    {
-      key: 'Mom',
-      name: 'Mẹ',
-      phone: '01233523',
-      selected: false,
-    },
-  ]);
+  const [dataContacts, setDataContacts] = useState(null);
 
-  const changeSOS = item => {
-    //call API changeSOS
-    showLoading(refLoading);
-    dataContacts.map(contact => {
-      if (contact.key == item.key) {
-        contact.selected = true;
-      } else {
-        contact.selected = false;
-      }
+  useEffect(() => {
+    getListContactPhoneApi(DataLocal.deviceId, {
+      success: res => {
+        setDataContacts(res.data);
+      },
     });
-    setDataContacts([...dataContacts]);
+  }, []);
 
-    //demo show loading when change default sos
-    setTimeout(() => {
-      hideLoading(refLoading);
-    }, 300);
+  const changeSOS = (item, index) => {
+    //call API changeSOS
+    setSOSApi(
+      DataLocal.deviceId,
+      {
+        phoneNumber: item.phoneNumber,
+      },
+      {
+        success: res => {
+          setDataContacts(res.data);
+        },
+        refLoading: refLoading,
+      },
+    );
   };
 
   const removeContact = item => {
     //call remove Contact
+    showConfirmation(String.removeContactConfirm, {
+      acceptStr: String.member_approval,
+      cancelStr: String.back,
+      response: () => {
+        deletePhoneBookApi(
+          DataLocal.deviceId,
+          {
+            phoneNumber: item.phoneNumber,
+          },
+          {
+            success: res => {
+              setDataContacts(res.data);
+            },
+            refLoading: refLoading,
+          },
+        );
+      },
+    });
   };
-  const renderItem = ({item}) => {
+  const renderItem = ({item, index}) => {
     return (
       <TouchableOpacity
         activeOpacity={0.9}
-        style={{
-          backgroundColor: Colors.grayInput,
-          borderRadius: 10,
-          marginVertical: 2,
-          padding: 15,
-          marginHorizontal: 10,
-        }}
-        key={item.key}
+        style={styles.containerItemContact}
+        key={item.name}
         onPress={item.onPress}>
-        <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
-          <View
-            style={{flex: 0.2, justifyContent: 'center', alignItems: 'center'}}>
-            <Text style={{fontSize: FontSize.xtraSmall, color: 'red'}}>
-              SOS
-            </Text>
+        <View style={styles.wrap}>
+          <View style={styles.containerSOS}>
+            <Text style={styles.txtSOS}>SOS</Text>
             <TouchableOpacity
-              style={{
-                borderWidth: 1,
-                borderColor: Colors.gray,
-                width: FontSize.medium,
-                height: FontSize.medium,
-                borderRadius: FontSize.medium / 2,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-              onPress={() => changeSOS(item)}>
-              {item.selected && (
-                <View
-                  style={{
-                    backgroundColor: 'red',
-                    width: FontSize.small,
-                    height: FontSize.small,
-                    borderRadius: FontSize.small / 2,
-                  }}></View>
-              )}
+              style={styles.containerChangeSOS}
+              onPress={() => changeSOS(item, index)}>
+              {item.sosNumber && <View style={styles.containerSelected} />}
             </TouchableOpacity>
           </View>
           <View style={{flex: 0.8}}>
             <Text style={styles.titleText}>{item.name}</Text>
-            <Text style={styles.phoneText}>{item.phone}</Text>
+            <Text style={styles.phoneText}>{item.phoneNumber}</Text>
           </View>
-          <TouchableOpacity
-            style={{
-              borderWidth: 1,
-              paddingHorizontal: 20,
-              paddingVertical: 5,
-              borderRadius: 20,
-              borderColor: Colors.grayColorKeyBoard,
-              backgroundColor: Colors.grayBackground,
-            }}
-            onPress={() => removeContact(item)}>
-            <Text style={{fontSize: FontSize.small, color: 'red'}}>Xoá</Text>
-          </TouchableOpacity>
+          {!item.sosNumber && (
+            <TouchableOpacity
+              style={styles.containerRemove}
+              onPress={() => removeContact(item)}>
+              <Text style={styles.txtRemove}>Xoá</Text>
+            </TouchableOpacity>
+          )}
         </View>
       </TouchableOpacity>
     );
   };
   const pressAddNew = () => {
-    navigation.navigate(Consts.ScreenIds.AddNewContact);
+    navigation.navigate(Consts.ScreenIds.AddNewContact, {
+      onGoBack: data => setDataContacts(data),
+    });
   };
 
   const toggleSwitch = () => {
@@ -132,49 +122,38 @@ export default ({navigation, route}) => {
       <Header title={String.header_contacts} />
       <View style={styles.mainView}>
         <FlatList
-          data={dataContacts}
+          data={dataContacts?.phones || []}
+          style={styles.wrapContainer}
+          contentContainerStyle={
+            !dataContacts?.phones?.length && styles.wrapContainer
+          }
           renderItem={renderItem}
-          keyExtractor={item => item.key}
+          keyExtractor={item => item.name}
+          ListEmptyComponent={
+            <View style={styles.containerEmpty}>
+              <Image
+                source={Images.icEmptyContact}
+                style={styles.emptyContact}
+                resizeMode="contain"
+              />
+              <Text style={styles.txtEmpty} children={String.empty_contact} />
+            </View>
+          }
         />
-        <View
-          style={{
-            padding: 10,
-            flexDirection: 'row',
-            width: '90%',
-            alignSelf: 'center',
-            borderRadius: 10,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <Text
-            style={{flex: 0.8, textAlign: 'left', fontSize: FontSize.small}}>
-            Chặn số từ người lạ
-          </Text>
-          <View
-            style={{flex: 0.2, alignItems: 'center', justifyContent: 'center'}}>
+        <View style={styles.containerViewBottom}>
+          <Text style={styles.txtBlockContact}>Chặn số từ người lạ</Text>
+          <View style={styles.containerSwitch}>
             <Switch
               trackColor={{false: Colors.blueTitle, true: '#81b0ff'}}
               // thumbColor={isBlocking ? "#f5dd4b" : "#f4f3f4"}
               ios_backgroundColor="#3e3e3e"
               onValueChange={toggleSwitch}
-              value={isBlocking}
+              value={dataContacts?.blockUnknown}
             />
           </View>
         </View>
-        <TouchableOpacity
-          style={{
-            backgroundColor: '#2fc886',
-            width: '90%',
-            alignSelf: 'center',
-            borderRadius: 10,
-            justifyContent: 'center',
-            alignItems: 'center',
-            paddingVertical: 15,
-          }}
-          onPress={pressAddNew}>
-          <Text style={{color: 'white', fontSize: FontSize.medium}}>
-            Thêm số mới
-          </Text>
+        <TouchableOpacity style={styles.containerAdd} onPress={pressAddNew}>
+          <Text style={styles.txtAdd}>Thêm số mới</Text>
         </TouchableOpacity>
       </View>
 

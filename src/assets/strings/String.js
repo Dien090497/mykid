@@ -98,6 +98,9 @@ export const String = {
   member_remove: 'Xoá',
   member_approval: 'Đồng ý',
   member_reject: 'Từ chối',
+  empty_contact: 'Bạn cần thêm các số điện thoại vào danh bạ',
+  enter_relationship: 'Vui lòng nhập mối quan hệ với trẻ',
+  enter_phone_number: 'Vui lòng nhập số điện thoại',
 
   //home
   home_gps: 'BẢN ĐỒ',

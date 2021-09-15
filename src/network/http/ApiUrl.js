@@ -16,6 +16,7 @@ export const refreshTokenUrl = appUrl + '/auth/refresh';
 export const getCaptchaUrl = appUrl + '/captcha';
 export const listDeviceUrl = appUrl + '/account-devices'
 export const locationDeviceUrl = appUrl + '/locations'
+export const phoneBookUrl = appUrl + '/phone-books'
 
 // Sound
 export const soundModesUrl = appUrl + '/sound-modes'

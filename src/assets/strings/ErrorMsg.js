@@ -24,4 +24,8 @@ export const ErrorMsg = {
     // user
     userNotFound: 'Không tìm thấy thông tin người dùng',
     uploadAvatarFailed: 'Cập nhật ảnh đại diện thất bại',
+
+
+    //device default not found
+    updateDeviceDefault: 'Vui lòng lựa chọn thiết bị mặc định'
 }
