@@ -126,10 +126,7 @@ const ListDeviceScreen = () => {
   };
 
   const renderItem = ({item, index}) => (
-    <View
-      key={item?.deviceName}
-      activeOpacity={0.5}
-      style={styles.containerDeviceItem}>
+    <View key={item?.id} activeOpacity={0.5} style={styles.containerDeviceItem}>
       <Text children={item?.deviceName} style={styles.txtNameDevice} />
 
       <TouchableOpacity
@@ -150,7 +147,7 @@ const ListDeviceScreen = () => {
             style={styles.containerFlatList}
             data={state.data}
             renderItem={renderItem}
-            keyExtractor={item => item.deviceName}
+            keyExtractor={item => item.id}
             onMomentumScrollBegin={onMomentumScrollBegin}
             handleLoadMore={handleLoadMore}
             ListFooterComponent={
