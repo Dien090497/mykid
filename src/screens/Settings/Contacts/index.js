@@ -13,6 +13,7 @@ import {
   getListContactPhoneApi,
   setSOSApi,
 } from '../../../network/ContactService';
+import {showAlert, showConfirmation} from '../../../functions/utils';
 
 import {Colors} from '../../../assets/colors/Colors';
 import CustomIcon from '../../../components/VectorIcons';
@@ -21,7 +22,6 @@ import Header from '../../../components/Header';
 import Images from '../../../assets/Images';
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import {String} from '../../../assets/strings/String';
-import {showConfirmation} from '../../../functions/utils';
 import {styles} from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
@@ -35,6 +35,7 @@ export default ({navigation, route}) => {
       success: res => {
         setDataContacts(res.data);
       },
+      refLoading: refLoading,
     });
   }, []);
 
@@ -56,6 +57,11 @@ export default ({navigation, route}) => {
 
   const removeContact = item => {
     //call remove Contact
+    if (item.sosNumber) {
+      showAlert('Bạn không được xoá liên lạc khẩn cấp. Vui lòng thử lại sau.');
+      return;
+    }
+
     showConfirmation(String.removeContactConfirm, {
       acceptStr: String.member_approval,
       cancelStr: String.back,
@@ -95,13 +101,11 @@ export default ({navigation, route}) => {
             <Text style={styles.titleText}>{item.name}</Text>
             <Text style={styles.phoneText}>{item.phoneNumber}</Text>
           </View>
-          {!item.sosNumber && (
-            <TouchableOpacity
-              style={styles.containerRemove}
-              onPress={() => removeContact(item)}>
-              <Text style={styles.txtRemove}>Xoá</Text>
-            </TouchableOpacity>
-          )}
+          <TouchableOpacity
+            style={styles.containerRemove}
+            onPress={() => removeContact(item)}>
+            <Text style={styles.txtRemove}>Xoá</Text>
+          </TouchableOpacity>
         </View>
       </TouchableOpacity>
     );
