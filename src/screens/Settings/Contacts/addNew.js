@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 
+import { Colors } from '../../../assets/colors/Colors';
 import Header from '../../../components/Header';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LoadingIndicator from '../../../components/LoadingIndicator';
@@ -145,13 +146,13 @@ export default ({navigation, route}) => {
         </TouchableWithoutFeedback>
         <TouchableOpacity
           style={{
-            backgroundColor: '#2fc886',
+            backgroundColor: Colors.blueButton,
             width: '90%',
             alignSelf: 'center',
             borderRadius: 10,
             justifyContent: 'center',
             alignItems: 'center',
-            paddingVertical: 15,
+            paddingVertical: 13,
           }}
           onPress={saveContact}>
           <Text style={{color: 'white', fontSize: 16}}>Lưu</Text>
