@@ -90,8 +90,9 @@ export const String = {
   acceptContactSuccess: 'Duyệt thành viên thành công',
   rejectContactSuccess: 'Từ chối thành viên thành công',
   deleteContactSuccess: 'Xóa thành viên thành công',
-  removeContactConfirm:
-    'Bạn chắc chắn xóa thành viên này khỏi danh sách quản lí?',
+  removeContactConfirm: 'Bạn chắc chắn xóa thành viên này khỏi danh sách quản lí?',
+  message_remove_contact_sos: 'Bạn không được xoá liên lạc khẩn cấp',
+
 
   //member
   member_refresh: 'Làm mới',
