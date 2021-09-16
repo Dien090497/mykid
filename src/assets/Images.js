@@ -38,6 +38,7 @@ export default {
   icCalendar: require('./images/ic_calendar.png'),
   icWatchMarker: require('./images/ic_watch_marker.png'),
   icEmptyContact: require('./images/ic_empty_contacts.png'),
+  icMarkerDefault: require('./images/ic_marker_default.png'),
 
   //homeScreen
   icAlarm: require('./images/home/alarm.png'),

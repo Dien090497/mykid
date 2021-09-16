@@ -254,6 +254,23 @@ export default ({}) => {
     return result;
   };
 
+  const renderCircleMarker = val => {
+    console.log(val.status === 'OFF', val)
+    if (val.status === 'OFF') return <View />;
+    return (
+      <Circle
+        fillColor={'rgba(160, 214, 253, 0.5)'}
+        center={{
+          latitude: val.location.lat,
+          longitude: val.location.lng,
+        }}
+        radius={(1000 * val.radius) / 1000}
+        strokeColor="#4F6D7A"
+        strokeWidth={0.1}
+      />
+    );
+  };
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -282,29 +299,28 @@ export default ({}) => {
             }
             minZoomLevel={10}
             region={getRegion()}>
-            {listSafeArea
-              .filter(val => val.status === 'ON')
-              .map(val => (
-                <View key={val.id}>
-                  <Marker
-                    coordinate={{
-                      latitude: val.location.lat,
-                      longitude: val.location.lng,
-                    }}
-                    title={val.name}
+            {listSafeArea.map(val => (
+              <View key={val.id}>
+                <Marker
+                  coordinate={{
+                    latitude: val.location.lat,
+                    longitude: val.location.lng,
+                  }}
+                  // title={val.name}
+                >
+                  <View style={styles.containerTitleMarker}>
+                    <Text children={val.name} style={styles.txtMarkerName} />
+                  </View>
+
+                  <Image
+                    source={Images.icMarkerDefault}
+                    style={styles.icMarkerDefault}
+                    resizeMode="contain"
                   />
-                  <Circle
-                    fillColor={'rgba(160, 214, 253, 0.5)'}
-                    center={{
-                      latitude: val.location.lat,
-                      longitude: val.location.lng,
-                    }}
-                    radius={(1000 * val.radius) / 1000}
-                    strokeColor="#4F6D7A"
-                    strokeWidth={0.1}
-                  />
-                </View>
-              ))}
+                </Marker>
+                {renderCircleMarker(val)}
+              </View>
+            ))}
             {safeArea.visible && !safeArea.area && newLocationSafeArea && (
               <>
                 <Marker
