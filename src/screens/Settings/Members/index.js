@@ -23,44 +23,30 @@ export default ({navigation, route}) => {
 
   const dataMock = [
     {
-      id: 1,
-      name: 'Bố',
       icon: Images.icFather,
       relationship: 'FATHER',
     },
     {
-      id: 2,
-      name: 'Mẹ',
       icon: Images.icMother,
       relationship: 'MOTHER',
     },
     {
-      id: 4,
-      name: 'Ông',
       icon: Images.icGrandfather,
       relationship: 'GRANDFATHER',
     },
     {
-      id: 5,
-      name: 'Bà',
       icon: Images.icGrandmother,
       relationship: 'GRANDMOTHER',
     },
     {
-      id: 6,
-      name: 'Anh',
       icon: Images.icBrother,
       relationship: 'BROTHER',
     },
     {
-      id: 7,
-      name: 'Chị',
       icon: Images.icSister,
       relationship: 'SISTER',
     },
     {
-      id: 8,
-      name: 'Khác',
       icon: Images.icOther,
       relationship: 'OTHER',
     },
@@ -160,10 +146,10 @@ export default ({navigation, route}) => {
             <Text style={styles.username}>{item.deviceName}</Text>
             <Text
               style={styles.otherInfoText}
-              children={`Tài khoản: ${item.email}`}
+              children={`${String.header_account}: ${item.email}`}
             />
             <Text style={styles.otherInfoText}>
-              Mối quan hệ: {item.relationship}
+              {String.relationship}{item.relationship}
             </Text>
             {item.status === 'PENDING' &&
               admin.accountId === DataLocal.userInfo.id && (

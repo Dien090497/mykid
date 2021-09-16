@@ -17,7 +17,7 @@ export const String = {
   ok: 'OK',
   change: 'Chuyển',
 
-  thisFunctionIsNotValid: 'Tính năng này chưa mở',
+  thisFunctionIsNotValid: 'Tính năng chưa được cập nhật',
   header_settings: 'Thiết lập',
   header_contacts: 'Danh bạ',
   header_addContact: 'Thêm liên lạc',
@@ -85,8 +85,7 @@ export const String = {
   from: 'Từ',
   to: 'Đến',
   date: 'Ngày',
-  note_create_area:
-    'Vui lòng chọn vị trí trên bản đồ mà bạn muốn tạo vùng an toàn',
+  note_create_area: 'Vui lòng đánh dấu nơi mà bạn muốn tạo vùng an toàn',
   sendRequestSuccess: 'Gửi thông tin thành công',
   acceptContactSuccess: 'Duyệt thành viên thành công',
   rejectContactSuccess: 'Từ chối thành viên thành công',
@@ -95,6 +94,10 @@ export const String = {
     'Bạn chắc chắn xóa thành viên này khỏi danh sách quản lí?',
   maxLengthSafeAreaName: 'Vui lòng nhập 1-32 ký tự',
   message_remove_contact_sos: 'Bạn không được xoá liên lạc khẩn cấp',
+  noContactPermission: 'Bạn chưa cấp quyền truy cập danh bạ',
+  blockOther: 'Chặn số từ người lạ',
+  addPhone: 'Thêm số mới',
+  relationship: 'Mối quan hệ: ',
   confirm_remove_safe_zone: 'Bạn có muốn xoá vùng an toàn này?',
   note_max_length_safe_zone: 'Chỉ tạo được tối đa 3 vùng an toàn',
 

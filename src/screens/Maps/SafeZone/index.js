@@ -143,7 +143,6 @@ export default ({}) => {
     const index = listSafeArea.findIndex(val => val.id === safeArea.area?.id);
     if (index !== -1) {
       showConfirmation(String.confirm_remove_safe_zone, {
-        acceptStr: String.member_approval,
         cancelStr: String.back,
         response: () => {
           const newListSafeArea = JSON.parse(JSON.stringify(listSafeArea));
@@ -455,7 +454,7 @@ const ViewAddOrEditArea = ({
             return parseFloat(prev.toFixed(1)) < 1 ? prev + 0.1 : prev;
           }),
         )}
-        <Text children={`${(range * 1000).toFixed(0)} m`} />
+        <Text style={{width: 50}} children={`${(range * 1000).toFixed(0)} m`} />
       </View>
       <Divider style={styles.line} />
       <View

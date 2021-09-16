@@ -66,7 +66,6 @@ export function showConfirmation(msg, {acceptStr, cancelStr, response} = {}) {
       text: cancelStr || String.cancel,
       style: 'cancel',
     },
-    {cancelable: false},
   ]);
 }
 
