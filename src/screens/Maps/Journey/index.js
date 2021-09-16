@@ -17,12 +17,15 @@ import {convertDateTimeToString, showAlert} from '../../../functions/utils';
 import Button from '../../../components/buttonGradient';
 import {Colors} from '../../../assets/colors/Colors';
 import DatePicker from 'react-native-date-picker';
-import {FontSize} from '../../../functions/Consts';
+import Consts, {FontSize} from '../../../functions/Consts';
 import Header from '../../../components/Header';
 import Images from '../../../assets/Images';
 import {String} from '../../../assets/strings/String';
 import styles from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import { getJourneyApi } from '../../../network/DeviceService';
+import DataLocal from '../../../data/dataLocal';
+import LoadingIndicator from '../../../components/LoadingIndicator';
 
 const mockData = [
   {
@@ -62,8 +65,18 @@ export default ({}) => {
   const [visibleDate, setVisibleDate] = useState(false);
   const [fromDate, setFromDate] = useState('');
   const [toDate, setToDate] = useState('');
+  const refLoading = useRef();
 
   const toggleModal = () => setVisibleDate(prev => !prev);
+
+  const toggleJourney = async () => {
+    getJourneyApi(DataLocal.deviceId, '2021-09-14T01:40:55.040058Z', '2021-09-14T09:40:55.040058Z', 1, 100, '', {
+      success: resData => {
+        setListSafeArea(resData.data.content);
+      },
+      refLoading,
+    });
+  }
 
   const renderFilter = () => {
     return (
@@ -102,6 +115,19 @@ export default ({}) => {
         style={[styles.container, {paddingBottom: useSafeAreaInsets().bottom}]}>
         <Header title={headerScreen()} />
         {renderFilter()}
+        <View style={{
+    flexDirection: 'row',
+    paddingVertical: 5,
+    paddingHorizontal: 8,
+    alignSelf: 'flex-end'
+  }}>
+          <TouchableOpacity style={styles.containerTime} onPress={toggleJourney}>
+            <Text
+              children={String.home_journey}
+              style={styles.txtTime}
+            />
+          </TouchableOpacity>
+        </View>
         <MapView
           ref={refMap}
           style={styles.container}
@@ -109,22 +135,14 @@ export default ({}) => {
           showsUserLocation={true}
           region={initialRegion}>
           {listSafeArea
-            .filter(val => val.status === 'on')
             .map(val => (
               <View key={val.id}>
                 <Marker coordinate={val} title={val.name}>
                   <Image
-                    source={Images.icWatchMarker}
+                    source={Images.icMarkerDefault}
                     style={styles.icMarker}
                   />
                 </Marker>
-                <Circle
-                  fillColor={'rgba(160, 214, 253, 0.5)'}
-                  center={val}
-                  radius={(1000 * val.radius) / 1000}
-                  strokeColor="#4F6D7A"
-                  strokeWidth={0.1}
-                />
               </View>
             ))}
         </MapView>
@@ -145,6 +163,7 @@ export default ({}) => {
         cancelText={String.cancel}
         locale="vi"
       />
+      <LoadingIndicator ref={refLoading} />
     </KeyboardAvoidingView>
   );
 };

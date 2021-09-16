@@ -78,3 +78,23 @@ export function rejectContactApi(
   const url = [listDeviceUrl, id].join('/');
   return dele(url, {success, failure, autoShowMsg, refLoading});
 }
+
+export function getJourneyApi(
+  deviceId, fromDate, toDate, page, size,
+  {success, failure, autoShowMsg = true, refLoading = null} = {},
+) {
+  let params = {
+    fromDate,
+    toDate,
+    page,
+    size,
+  };
+  const url = [locationDeviceUrl, deviceId, 'histories'].join('/');
+  return get(url, {
+    params: params,
+    success,
+    failure,
+    autoShowMsg,
+    refLoading,
+  });
+}
