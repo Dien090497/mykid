@@ -72,16 +72,19 @@ const styles = StyleSheet.create({
   },
   thumb: {height: 40, width: 40, backgroundColor: 'transparent'},
   containerAction: {
-    width: 20,
-    height: 21,
     borderRadius: 40,
     marginHorizontal: 3,
   },
   txtAction: {
-    fontSize: FontSize.medium,
+    fontSize: 15,
     color: 'white',
     textAlign: 'center',
+    alignSelf: 'center',
     fontWeight: 'bold',
+    width: 9,
+    marginTop: 1,
+    marginBottom: 3,
+    marginHorizontal: 7,
   },
   containerTextAction: {
     flex: 1,

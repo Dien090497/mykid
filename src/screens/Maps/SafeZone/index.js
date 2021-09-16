@@ -445,7 +445,7 @@ const ViewAddOrEditArea = ({
             return parseFloat(prev.toFixed(1)) < 1 ? prev + 0.1 : prev;
           }),
         )}
-        <Text children={`${(range * 1000).toFixed(0)} m`} />
+        <Text style={{width: 50}} children={`${(range * 1000).toFixed(0)} m`} />
       </View>
       <Divider style={styles.line} />
       <View
