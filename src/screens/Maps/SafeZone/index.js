@@ -143,7 +143,6 @@ export default ({}) => {
     const index = listSafeArea.findIndex(val => val.id === safeArea.area?.id);
     if (index !== -1) {
       showConfirmation(String.confirm_remove_safe_zone, {
-        acceptStr: String.member_approval,
         cancelStr: String.back,
         response: () => {
           const newListSafeArea = JSON.parse(JSON.stringify(listSafeArea));
