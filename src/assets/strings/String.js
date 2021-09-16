@@ -95,6 +95,10 @@ export const String = {
     'Bạn chắc chắn xóa thành viên này khỏi danh sách quản lí?',
   maxLengthSafeAreaName: 'Vui lòng nhập 1-32 ký tự',
   message_remove_contact_sos: 'Bạn không được xoá liên lạc khẩn cấp',
+  noContactPermission: 'Bạn chưa cấp quyền truy cập danh bạ',
+  blockOther: 'Chặn số từ người lạ',
+  addPhone: 'Thêm số mới',
+  relationship: 'Mối quan hệ: ',
 
   //member
   member_refresh: 'Làm mới',

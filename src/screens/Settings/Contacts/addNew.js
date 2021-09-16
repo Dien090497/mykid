@@ -2,14 +2,13 @@ import {
   Keyboard,
   PermissionsAndroid,
   Platform,
-  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useRef, useState} from 'react';
 
 import { Colors } from '../../../assets/colors/Colors';
 import Header from '../../../components/Header';
@@ -36,7 +35,7 @@ export default ({navigation, route}) => {
           PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
         );
         if (permissionAndroid != 'granted') {
-          showAlert('Bạn chưa cấp quyền truy cập danh bạ');
+          showAlert(String.noContactPermission);
           return;
         }
       }

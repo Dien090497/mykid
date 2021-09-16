@@ -1,4 +1,4 @@
-import Consts, {FontSize, ScaleHeight} from '../../../functions/Consts';
+import Consts from '../../../functions/Consts';
 import {
   FlatList,
   Image,
@@ -14,9 +14,7 @@ import {
   setSOSApi,
 } from '../../../network/ContactService';
 import {showAlert, showConfirmation} from '../../../functions/utils';
-
 import {Colors} from '../../../assets/colors/Colors';
-import CustomIcon from '../../../components/VectorIcons';
 import DataLocal from '../../../data/dataLocal';
 import Header from '../../../components/Header';
 import Images from '../../../assets/Images';
@@ -104,7 +102,7 @@ export default ({navigation, route}) => {
           <TouchableOpacity
             style={styles.containerRemove}
             onPress={() => removeContact(item)}>
-            <Text style={styles.txtRemove}>Xoá</Text>
+            <Text style={styles.txtRemove}>{String.delete}</Text>
           </TouchableOpacity>
         </View>
       </TouchableOpacity>
@@ -145,7 +143,7 @@ export default ({navigation, route}) => {
           }
         />
         <View style={styles.containerViewBottom}>
-          <Text style={styles.txtBlockContact}>Chặn số từ người lạ</Text>
+          <Text style={styles.txtBlockContact}>{String.blockOther}</Text>
           <View style={styles.containerSwitch}>
             <Switch
               trackColor={{false: Colors.blueTitle, true: '#81b0ff'}}
@@ -157,7 +155,7 @@ export default ({navigation, route}) => {
           </View>
         </View>
         <TouchableOpacity style={styles.containerAdd} onPress={pressAddNew}>
-          <Text style={styles.txtAdd}>Thêm số mới</Text>
+          <Text style={styles.txtAdd}>{String.addPhone}</Text>
         </TouchableOpacity>
       </View>
 

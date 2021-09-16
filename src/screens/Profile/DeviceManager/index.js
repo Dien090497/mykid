@@ -23,44 +23,30 @@ export default function DeviceManager({navigation}) {
 
   const dataMock = [
     {
-      id: 1,
-      name: 'Bố',
       icon: Images.icFather,
       relationship: 'FATHER'
     },
     {
-      id: 2,
-      name: 'Mẹ',
       icon: Images.icMother,
       relationship: 'MOTHER'
     },
     {
-      id: 3,
-      name: 'Ông',
       icon: Images.icGrandfather,
       relationship: 'GRANDFATHER'
     },
     {
-      id: 4,
-      name: 'Bà',
       icon: Images.icGrandmother,
       relationship: 'GRANDMOTHER'
     },
     {
-      id: 5,
-      name: 'Anh',
       icon: Images.icBrother,
       relationship: 'BROTHER'
     },
     {
-      id: 6,
-      name: 'Chị',
       icon: Images.icSister,
       relationship: 'SISTER'
     },
     {
-      id: 7,
-      name: 'Khác',
       icon: Images.icOther,
       relationship: 'OTHER'
     },

@@ -188,5 +188,5 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  wrapContainer: {flex: 1}
+  wrapContainer: {flex: 1},
 });
