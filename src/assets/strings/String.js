@@ -95,6 +95,8 @@ export const String = {
     'Bạn chắc chắn xóa thành viên này khỏi danh sách quản lí?',
   maxLengthSafeAreaName: 'Vui lòng nhập 1-32 ký tự',
   message_remove_contact_sos: 'Bạn không được xoá liên lạc khẩn cấp',
+  confirm_remove_safe_zone: 'Bạn có muốn xoá vùng an toàn này?',
+  note_max_length_safe_zone: 'Chỉ tạo được tối đa 3 vùng an toàn',
 
   //member
   member_refresh: 'Làm mới',
