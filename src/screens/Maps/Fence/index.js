@@ -190,6 +190,16 @@ export default ({}) => {
             ref={refMap}
             style={styles.container}
             // provider={PROVIDER_GOOGLE}
+            onPress={event => {
+              const {latitude, longitude} = event.nativeEvent.coordinate;
+              if (safeArea.visible && !safeArea.area && latitude && longitude) {
+                setNewLocation({
+                  latitude,
+                  longitude,
+                });
+              }
+            }}
+            moveOnMarkerPress
             showsUserLocation={
               !(safeArea.visible && !safeArea.area && currentLocation)
             }
@@ -208,14 +218,13 @@ export default ({}) => {
                   />
                 </View>
               ))}
-            {safeArea.visible && !safeArea.area && currentLocation && (
+            {safeArea.visible && !safeArea.area && newLocationSafeArea && (
               <>
                 <Marker
-                  coordinate={currentLocation}
+                  coordinate={newLocationSafeArea}
                   title={'Khu vực an toàn'}
                   draggable
                   onDragEnd={event => {
-                    console.log(event.nativeEvent.coordinate, 'event');
                     const {latitude, longitude} = event.nativeEvent.coordinate;
                     if (latitude && longitude) {
                       setNewLocation({
@@ -308,7 +317,7 @@ const ViewAddOrEditArea = ({
           value={name}
           onChangeText={text => setName(text)}
         />
-        <Text children="Vui lòng nhập 1-32 ký tự" style={styles.txtNote} />
+        <Text children={String.maxLengthSafeAreaName} style={styles.txtNote} />
       </View>
       <Divider style={styles.line} />
       <View style={styles.containerTextInput}>
