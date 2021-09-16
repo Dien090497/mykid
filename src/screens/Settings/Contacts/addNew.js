@@ -26,6 +26,7 @@ export default ({navigation, route}) => {
   const [relationship, setRelationship] = useState('');
   const [phone, setPhone] = useState('');
   const refLoading = useRef();
+  const removeNonNumeric = num => num.toString().replace(/[^0-9]/g, '');
   const callContacts = async () => {
     try {
       var permissionAndroid;
@@ -44,7 +45,7 @@ export default ({navigation, route}) => {
         var rsSelected = await selectContact();
         if (rsSelected && rsSelected.phones.length > 0) {
           setRelationship(rsSelected.name);
-          setPhone(rsSelected.phones[0].number);
+          setPhone(removeNonNumeric(rsSelected.phones[0].number));
         }
         //    console.log('rsSelected', rsSelected)
       } catch (e) {
@@ -69,7 +70,7 @@ export default ({navigation, route}) => {
       2,
       {
         name: relationship,
-        phoneNumber: phone,
+        phoneNumber: removeNonNumeric(phone),
       },
       {
         success: res => {
