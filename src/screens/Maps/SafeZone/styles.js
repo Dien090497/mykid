@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
   txtName: {
     fontSize: FontSize.small,
     color: Colors.blue,
+    flex: 1,
   },
   containerPhone: {width: 50, aspectRatio: 1},
   icPhone: {flex: 1, aspectRatio: 1, resizeMode: 'contain'},
@@ -84,7 +85,7 @@ const styles = StyleSheet.create({
   },
   containerTextAction: {
     flex: 1,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   txtSave: {color: Colors.blue},
   txtBack: {color: Colors.red},
@@ -99,9 +100,15 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 20,
     flexDirection: 'row',
+    justifyContent: 'center'
   },
-  txtNoteDrag: {textAlign: 'justify', fontSize: FontSize.small}
-
+  txtNoteDrag: {textAlign: 'center', fontSize: FontSize.small},
+  containerRadius: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
 });
 
 export default styles;
