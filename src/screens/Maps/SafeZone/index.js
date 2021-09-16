@@ -267,7 +267,7 @@ export default ({}) => {
           <MapView
             ref={refMap}
             style={styles.container}
-            // provider={PROVIDER_GOOGLE}
+            provider={PROVIDER_GOOGLE}
             onPress={event => {
               const {latitude, longitude} = event.nativeEvent.coordinate;
               if (safeArea.visible && !safeArea.area && latitude && longitude) {
