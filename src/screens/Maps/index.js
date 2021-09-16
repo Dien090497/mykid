@@ -20,6 +20,7 @@ import DataLocal from '../../data/dataLocal';
 import {ErrorMsg} from '../../assets/strings/ErrorMsg';
 import Header from '../../components/Header';
 import Images from '../../assets/Images';
+import LoadingIndicator from '../../components/LoadingIndicator';
 import {String} from '../../assets/strings/String';
 import {styles} from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -41,27 +42,42 @@ const initialRegion = {
 
 export default ({navigation, route}) => {
   const refMap = useRef(null);
+  const refLoading = useRef(null);
   const [locationDevice, setLocationDevice] = useState(null);
   const [infoDevice, setInfoDevice] = useState(null);
 
+  const getLocationDevice = async () => {
+    try {
+      getListDeviceApi(null, 0, 100, DataLocal.deviceId, {
+        success: res => {
+          const device = res.data.find(
+            val => val.deviceId === DataLocal.deviceId,
+          );
+          setInfoDevice(device);
+        },
+        refLoading: refLoading,
+      });
+      getLocationDeviceApi(DataLocal.deviceId, {
+        success: res => {
+          setLocationDevice(res.data);
+          const {lat, lng} = res.data?.location;
+          console.log(res)
+          if (lat && lng) {
+            refMap.current.animateCamera({
+              center: {
+                latitude: lat,
+                longitude: lng,
+              },
+              zoom: 15,
+            });
+          }
+        },
+        refLoading: refLoading,
+      });
+    } catch (error) {}
+  };
+
   useEffect(() => {
-    const getLocationDevice = async () => {
-      try {
-        getListDeviceApi(null, 0, 100, DataLocal.deviceId, {
-          success: res => {
-            const device = res.data.find(
-              val => val.deviceId === DataLocal.deviceId,
-            );
-            setInfoDevice(device);
-          },
-        });
-        getLocationDeviceApi(DataLocal.deviceId, {
-          success: res => {
-            setLocationDevice(res.data);
-          },
-        });
-      } catch (error) {}
-    };
     if (DataLocal.deviceId) getLocationDevice();
     else {
       showAlert(ErrorMsg.updateDeviceDefault, {
@@ -139,7 +155,14 @@ export default ({navigation, route}) => {
             </View>
           </TouchableOpacity>
         )}
+
+        <TouchableOpacity
+          style={styles.containerGetLocation}
+          onPress={getLocationDevice}>
+          <Image source={Images.icWatchMarker} style={styles.icMarker} />
+        </TouchableOpacity>
       </View>
+      <LoadingIndicator ref={refLoading} />
     </View>
   );
 };
