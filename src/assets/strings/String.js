@@ -85,15 +85,16 @@ export const String = {
   from: 'Từ',
   to: 'Đến',
   date: 'Ngày',
-  note_create_area: 'Vui lòng chọn vị trí trên bản đồ mà bạn muốn tạo vùng an toàn',
+  note_create_area:
+    'Vui lòng chọn vị trí trên bản đồ mà bạn muốn tạo vùng an toàn',
   sendRequestSuccess: 'Gửi thông tin thành công',
   acceptContactSuccess: 'Duyệt thành viên thành công',
   rejectContactSuccess: 'Từ chối thành viên thành công',
   deleteContactSuccess: 'Xóa thành viên thành công',
   removeContactConfirm:
     'Bạn chắc chắn xóa thành viên này khỏi danh sách quản lí?',
-  message_remove_contact_sos: 'Bạn không được xoá liên lạc khẩn cấp. Vui lòng thử lại sau.',
   maxLengthSafeAreaName: 'Vui lòng nhập 1-32 ký tự',
+  message_remove_contact_sos: 'Bạn không được xoá liên lạc khẩn cấp',
 
   //member
   member_refresh: 'Làm mới',

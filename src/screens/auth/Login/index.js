@@ -26,6 +26,7 @@ import { String } from "../../../assets/strings/String";
 import { getListDeviceApi } from "../../../network/DeviceService";
 import { styles } from "./styles";
 import { CheckBox } from "react-native-elements";
+import DataLocal from "../../../data/dataLocal";
 
 const Login = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -45,15 +46,25 @@ const Login = ({ navigation }) => {
     if (loggedInUserInfo.id && checkbox) {
       getListDeviceApi(loggedInUserInfo.id, Consts.pageDefault, 100, '', {
         success: resData => {
-          let devices = resData.data.filter(val => val.status === 'ACTIVE');
-          if (devices.length === 0) {
-            navigation.navigate(Consts.ScreenIds.AddDeviceScreen, {isShowAlert: resData.data.length > 0});
-          } else {
-            navigation.navigate(Consts.ScreenIds.Tabs);
-          }
+          onNavigate(resData);
         },
         refLoading,
       });
+    }
+  };
+
+  const onNavigate = async (resData) => {
+    let devices = resData.data.filter(val => val.status === 'ACTIVE');
+    if (devices.length === 0) {
+      navigation.navigate(Consts.ScreenIds.AddDeviceScreen, {isShowAlert: resData.data.length > 0});
+    } else {
+      if (DataLocal.deviceIndex >= devices.length) {
+        DataLocal.deviceIndex = 0;
+        await DataLocal.saveDeviceId(devices[0].deviceId);
+      } else {
+        await DataLocal.saveDeviceId(devices[DataLocal.deviceIndex].deviceId);
+      }
+      navigation.navigate(Consts.ScreenIds.Tabs);
     }
   };
 
