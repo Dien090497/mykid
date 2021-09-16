@@ -255,8 +255,6 @@ export default ({}) => {
   };
 
   const renderCircleMarker = val => {
-    console.log(val.status === 'OFF', val)
-    if (val.status === 'OFF') return <View />;
     return (
       <Circle
         fillColor={'rgba(160, 214, 253, 0.5)'}
@@ -306,7 +304,6 @@ export default ({}) => {
                     latitude: val.location.lat,
                     longitude: val.location.lng,
                   }}
-                  // title={val.name}
                 >
                   <View style={styles.containerTitleMarker}>
                     <Text children={val.name} style={styles.txtMarkerName} />
@@ -318,6 +315,10 @@ export default ({}) => {
                     resizeMode="contain"
                   />
                 </Marker>
+              </View>
+            ))}
+            {listSafeArea.filter(val => val.status === 'ON').map(val => (
+              <View key={val.id}>
                 {renderCircleMarker(val)}
               </View>
             ))}
