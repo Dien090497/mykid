@@ -12,36 +12,29 @@ import {
 import {Divider, Icon, Slider, Switch} from 'react-native-elements';
 import MapView, {Circle, Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import React, {memo, useCallback, useEffect, useRef, useState} from 'react';
-import {getCurrentLocation, showAlert} from '../../../functions/utils';
+import {
+  createSafeZoneApi,
+  deleteSafeZoneApi,
+  getListSafeZoneApi,
+  updateSafeZoneApi,
+} from '../../../network/SafeZoneService';
+import {
+  getCurrentLocation,
+  showAlert,
+  showConfirmation,
+} from '../../../functions/utils';
 
 import Button from '../../../components/buttonGradient';
 import {Colors} from '../../../assets/colors/Colors';
+import DataLocal from '../../../data/dataLocal';
 import {FontSize} from '../../../functions/Consts';
 import Geolocation from 'react-native-geolocation-service';
 import Header from '../../../components/Header';
 import Images from '../../../assets/Images';
+import LoadingIndicator from '../../../components/LoadingIndicator';
 import {String} from '../../../assets/strings/String';
 import styles from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-
-const mockData = [
-  {
-    id: 1,
-    name: 'Đi học',
-    radius: 1000,
-    status: 'on',
-    latitude: 21.0070253,
-    longitude: 105.843136,
-  },
-  {
-    id: 2,
-    name: 'Đi chơi',
-    radius: 700,
-    status: 'on',
-    latitude: 21.0067305,
-    longitude: 105.8181346,
-  },
-];
 
 const initialRegion = {
   latitude: 21.030653,
@@ -57,7 +50,8 @@ const headerScreen = () => {
 
 export default ({}) => {
   const refMap = useRef(null);
-  const [listSafeArea, setListSafeArea] = useState(mockData);
+  const refLoading = useRef(null);
+  const [listSafeArea, setListSafeArea] = useState([]);
   const [currentLocation, setCurrentLocation] = useState(null);
   const [safeArea, setSafeArea] = useState({
     visible: false,
@@ -67,6 +61,15 @@ export default ({}) => {
   });
   const [newLocationSafeArea, setNewLocation] = useState(null);
 
+  const getListSafeZone = () => {
+    getListSafeZoneApi(DataLocal.deviceId, 1, 30, {
+      success: res => {
+        setListSafeArea(res.data.content);
+      },
+      refLoading: refLoading,
+    });
+  };
+
   useEffect(() => {
     Geolocation.getCurrentPosition(
       position => {
@@ -75,22 +78,30 @@ export default ({}) => {
           longitude: position.coords.longitude,
         };
         setCurrentLocation(payload);
-        setNewLocation({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        });
+        // setNewLocation({
+        //   latitude: position.coords.latitude,
+        //   longitude: position.coords.longitude,
+        // });
       },
       error => {
         console.log(error, 'error getLocation');
       },
       {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
     );
+
+    getListSafeZone();
   }, []);
 
   const onToggleStatus = (index, value) => {
     const newListSafeArea = JSON.parse(JSON.stringify(listSafeArea));
-    newListSafeArea[index].status = value ? 'on' : 'off';
-    setListSafeArea(newListSafeArea);
+    const zone = newListSafeArea[index];
+    newListSafeArea[index].status = value ? 'ON' : 'OFF';
+    updateSafeZoneApi(DataLocal.deviceId, zone.id, zone, {
+      success: res => {
+        setListSafeArea(newListSafeArea);
+      },
+      refLoading: refLoading,
+    });
   };
 
   const onToggleCreateArea = () => {
@@ -102,9 +113,14 @@ export default ({}) => {
 
   const onCreate = data => {
     const newListSafeArea = JSON.parse(JSON.stringify(listSafeArea));
-    newListSafeArea.push(data);
-    setListSafeArea(newListSafeArea);
-    onToggleCreateArea();
+    createSafeZoneApi(DataLocal.deviceId, data, {
+      success: res => {
+        newListSafeArea.push(res.data);
+        setListSafeArea(newListSafeArea);
+        onToggleCreateArea();
+      },
+      refLoading: refLoading,
+    });
   };
 
   const onEdit = data => {
@@ -112,7 +128,13 @@ export default ({}) => {
     if (index !== -1) {
       const newListSafeArea = JSON.parse(JSON.stringify(listSafeArea));
       newListSafeArea[index] = data;
-      setListSafeArea(newListSafeArea);
+      const zone = newListSafeArea[index];
+      updateSafeZoneApi(DataLocal.deviceId, zone.id, zone, {
+        success: res => {
+          setListSafeArea(newListSafeArea);
+        },
+        refLoading: refLoading,
+      });
     }
     onToggleCreateArea();
   };
@@ -120,9 +142,21 @@ export default ({}) => {
   const onRemove = () => {
     const index = listSafeArea.findIndex(val => val.id === safeArea.area?.id);
     if (index !== -1) {
-      const newListSafeArea = JSON.parse(JSON.stringify(listSafeArea));
-      newListSafeArea.splice(index, 1);
-      setListSafeArea(newListSafeArea);
+      showConfirmation(String.confirm_remove_safe_zone, {
+        acceptStr: String.member_approval,
+        cancelStr: String.back,
+        response: () => {
+          const newListSafeArea = JSON.parse(JSON.stringify(listSafeArea));
+          const zone = newListSafeArea[index];
+          deleteSafeZoneApi(DataLocal.deviceId, zone.id, {
+            success: res => {
+              newListSafeArea.splice(index, 1);
+              setListSafeArea(newListSafeArea);
+            },
+            refLoading: refLoading,
+          });
+        },
+      });
     }
     onToggleCreateArea();
   };
@@ -134,19 +168,33 @@ export default ({}) => {
           listSafeArea.map((val, index) => (
             <View key={val.id}>
               <TouchableOpacity
-                onPress={() => setSafeArea({visible: true, area: val})}
+                onPress={() => {
+                  refMap.current.animateCamera({
+                    center: {
+                      latitude: val.location.lat,
+                      longitude: val.location.lng,
+                    },
+                    zoom: 15,
+                  });
+                  setSafeArea({visible: true, area: val});
+                }}
                 style={styles.rowDirection}>
                 <Text children={val.name} style={styles.txtName} />
-                <Text children={`${val.radius}m`} />
-                <View style={styles.rowDirection}>
-                  <Switch
-                    value={val.status === 'on'}
-                    color={Colors.blueLight}
-                    onValueChange={value => {
-                      onToggleStatus(index, value);
-                    }}
-                  />
-                  <Image source={Images.icRightArrow} style={styles.icArrow} />
+                <View style={styles.containerRadius}>
+                  <Text children={`${val.radius}m`} />
+                  <View style={styles.rowDirection}>
+                    <Switch
+                      value={val.status === 'ON'}
+                      color={Colors.blueLight}
+                      onValueChange={value => {
+                        onToggleStatus(index, value);
+                      }}
+                    />
+                    <Image
+                      source={Images.icRightArrow}
+                      style={styles.icArrow}
+                    />
+                  </View>
                 </View>
               </TouchableOpacity>
               <Divider style={styles.line} />
@@ -177,6 +225,36 @@ export default ({}) => {
       </View>
     );
   }, [listSafeArea, safeArea, newLocationSafeArea]);
+
+  useEffect(() => {
+    if (newLocationSafeArea) {
+      refMap.current.animateCamera({
+        center: {
+          latitude: newLocationSafeArea.latitude,
+          longitude: newLocationSafeArea.longitude,
+        },
+        zoom: 15,
+      });
+    }
+  }, [newLocationSafeArea]);
+
+  const getRegion = () => {
+    var result = initialRegion;
+    if (newLocationSafeArea)
+      result = {
+        ...initialRegion,
+        ...newLocationSafeArea,
+      };
+    else if (!!listSafeArea.length) {
+      result = {
+        ...initialRegion,
+        latitude: listSafeArea[0].location.lat,
+        longitude: listSafeArea[0].location.lng,
+      };
+    }
+    return result;
+  };
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -203,15 +281,25 @@ export default ({}) => {
             showsUserLocation={
               !(safeArea.visible && !safeArea.area && currentLocation)
             }
-            region={initialRegion}>
+            minZoomLevel={10}
+            region={getRegion()}>
             {listSafeArea
-              .filter(val => val.status === 'on')
+              .filter(val => val.status === 'ON')
               .map(val => (
                 <View key={val.id}>
-                  <Marker coordinate={val} title={val.name} />
+                  <Marker
+                    coordinate={{
+                      latitude: val.location.lat,
+                      longitude: val.location.lng,
+                    }}
+                    title={val.name}
+                  />
                   <Circle
                     fillColor={'rgba(160, 214, 253, 0.5)'}
-                    center={val}
+                    center={{
+                      latitude: val.location.lat,
+                      longitude: val.location.lng,
+                    }}
                     radius={(1000 * val.radius) / 1000}
                     strokeColor="#4F6D7A"
                     strokeWidth={0.1}
@@ -251,8 +339,17 @@ export default ({}) => {
               />
             </View>
           )}
+          {listSafeArea.length === 3 && (
+            <View style={styles.containerNote}>
+              <Text
+                children={String.note_max_length_safe_zone}
+                style={styles.txtNoteDrag}
+              />
+            </View>
+          )}
         </View>
       </View>
+      <LoadingIndicator ref={refLoading} />
     </KeyboardAvoidingView>
   );
 };
@@ -296,12 +393,13 @@ const ViewAddOrEditArea = ({
       });
     } else {
       onCreate({
-        id: 3,
         name,
         radius: range * 1000,
-        status: 'on',
-        latitude: newLocationSafeArea.latitude,
-        longitude: newLocationSafeArea.longitude,
+        status: 'ON',
+        location: {
+          lat: newLocationSafeArea.latitude,
+          lng: newLocationSafeArea.longitude,
+        },
       });
     }
   };
