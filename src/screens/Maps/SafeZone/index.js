@@ -267,7 +267,7 @@ export default ({}) => {
           <MapView
             ref={refMap}
             style={styles.container}
-            provider={PROVIDER_GOOGLE}
+            // provider={PROVIDER_GOOGLE}
             onPress={event => {
               const {latitude, longitude} = event.nativeEvent.coordinate;
               if (safeArea.visible && !safeArea.area && latitude && longitude) {
@@ -292,8 +292,18 @@ export default ({}) => {
                       latitude: val.location.lat,
                       longitude: val.location.lng,
                     }}
-                    title={val.name}
-                  />
+                    // title={val.name}
+                  >
+                    <View style={styles.containerTitleMarker}>
+                      <Text children={val.name} style = {styles.txtMarkerName} />
+                    </View>
+
+                    <Image
+                      source={Images.icMarkerDefault}
+                      style={styles.icMarkerDefault}
+                      resizeMethod="contain"
+                    />
+                  </Marker>
                   <Circle
                     fillColor={'rgba(160, 214, 253, 0.5)'}
                     center={{

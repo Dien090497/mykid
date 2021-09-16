@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 20,
     flexDirection: 'row',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   txtNoteDrag: {textAlign: 'center', fontSize: FontSize.small},
   containerRadius: {
@@ -109,6 +109,22 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  containerTitleMarker: {
+    paddingHorizontal: 5,
+    backgroundColor: 'white',
+    borderRadius: 5,
+    paddingVertical: 1,
+    marginBottom: 3
+  },
+  icMarkerDefault: {
+    width: 30,
+    height: 30,
+    tintColor: Colors.red,
+    alignSelf: 'center',
+  },
+  txtMarkerName: {
+    fontSize: FontSize.small,
+  }
 });
 
 export default styles;
