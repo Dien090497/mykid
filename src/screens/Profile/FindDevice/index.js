@@ -38,11 +38,11 @@ export default function FindDevice({navigation}) {
             style={styles.iconClock}
           />
         <View>
-          <Text style={styles.textPlus}>{'Luôn biết vị trí thiết bị mọi thời điểm, mọi vị trí'}</Text>
-          <Text style={styles.textPlus}>{'1. Bấm nút để tìm Thiết bị'}</Text>
-          <Text style={styles.textPlus}>{'2. Bấm thành công'}</Text>
-          <Text style={styles.textPlus}>{'3. Gửi thành công'}</Text>
-          <Text style={styles.textPlus}>{'4. Thiết bị sẽ bắt đầu đổ chuông sau khi nhận được yêu cầu'}</Text>
+          <Text style={styles.textPlus}>{String.find_device_note0}</Text>
+          <Text style={styles.textPlus}>{String.find_device_note1}</Text>
+          <Text style={styles.textPlus}>{String.find_device_note2}</Text>
+          <Text style={styles.textPlus}>{String.find_device_note3}</Text>
+          <Text style={styles.textPlus}>{String.find_device_note4}</Text>
           <Text style={styles.textPlus}>{''}</Text>
         </View>
         <TouchableOpacity style={styles.button} onPress={handleFindDevice}>

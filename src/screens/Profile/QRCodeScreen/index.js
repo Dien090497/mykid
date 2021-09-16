@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, Linking, TouchableOpacity, SafeAreaView } from "react-native";
+import React from "react";
+import { View, Text, TouchableOpacity, SafeAreaView } from "react-native";
 import styles from "./style";
 import QRCodeScanner from "react-native-qrcode-scanner";
+import { String } from "../../../assets/strings/String";
 
-const QRCodeScreen = ({ navigation }) => {
-
+const QRCodeScreen = ({ navigation, route }) => {
+  let isSuccess = false;
+  
   const onSuccess = e => {
-    console.log(e.data);
-    Linking.openURL(e.data).catch(err =>
-      console.error("An error occured", err),
-    );
+    if (isSuccess) return;
+    isSuccess = true;
+    if (route.params.onQR) {
+      route.params.onQR(e.data);
+    }
+    navigation.goBack();
   };
 
   return (
@@ -19,18 +23,17 @@ const QRCodeScreen = ({ navigation }) => {
         reactivate={true}
         showMarker={true}
         onRead={onSuccess}
-        // flashMode={RNCamera.Constants.FlashMode.torch}
         bottomContent={
           <View style={styles.bottomView}>
             <View style={styles.noteText}>
-              <Text style={styles.buttonText}> Đặt mã QR vào hộp, n sẽ tự động quét</Text>
+              <Text style={styles.buttonText}>{String.qrNote}</Text>
             </View>
             <View style={styles.bottomContent}>
               <TouchableOpacity style={styles.buttonTouchable} onPress={()=> navigation.goBack()}>
-                <Text style={styles.buttonText}>Hủy</Text>
+                <Text style={styles.buttonText}>{String.cancel}</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.buttonTouchable}>
-                <Text style={styles.buttonText}>Chọn mã QR từ album</Text>
+                <Text style={styles.buttonText}>{String.chooseAlbumQR}</Text>
               </TouchableOpacity>
             </View>
           </View>

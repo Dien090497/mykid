@@ -100,6 +100,8 @@ export const String = {
   relationship: 'Mối quan hệ: ',
   confirm_remove_safe_zone: 'Bạn có muốn xoá vùng an toàn này?',
   note_max_length_safe_zone: 'Chỉ tạo được tối đa 3 vùng an toàn',
+  qrNote: 'Đặt mã QR vào vùng tự động quét',
+  chooseAlbumQR: 'Chọn mã QR từ album',
 
   //member
   member_refresh: 'Làm mới',
@@ -127,4 +129,11 @@ export const String = {
   setting_member: 'Thành viên',
   video_call: 'Video Call',
   device_connected_not_found: 'Không tìm thấy thiết bị kết nối',
+
+  // find device
+  find_device_note0: 'Luôn biết vị trí thiết bị mọi thời điểm, mọi vị trí',
+  find_device_note1: '1. Bấm nút để tìm Thiết bị',
+  find_device_note2: '2. Bấm thành công',
+  find_device_note3: '3. Gửi thành công',
+  find_device_note4: '4. Thiết bị sẽ bắt đầu đổ chuông sau khi nhận được yêu cầu',
 };
