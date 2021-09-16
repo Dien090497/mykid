@@ -36,25 +36,6 @@ import {String} from '../../../assets/strings/String';
 import styles from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
-const mockData = [
-  {
-    id: 1,
-    name: 'Đi học',
-    radius: 1000,
-    status: 'on',
-    latitude: 21.0070253,
-    longitude: 105.843136,
-  },
-  {
-    id: 2,
-    name: 'Đi chơi',
-    radius: 700,
-    status: 'on',
-    latitude: 21.0067305,
-    longitude: 105.8181346,
-  },
-];
-
 const initialRegion = {
   latitude: 21.030653,
   longitude: 105.84713,
@@ -258,13 +239,20 @@ export default ({}) => {
   }, [newLocationSafeArea]);
 
   const getRegion = () => {
-    if (newLocationSafeArea) return newLocationSafeArea;
+    var result = initialRegion;
+    if (newLocationSafeArea)
+      result = {
+        ...initialRegion,
+        ...newLocationSafeArea,
+      };
     else if (!!listSafeArea.length) {
-      return {
+      result = {
+        ...initialRegion,
         latitude: listSafeArea[0].location.lat,
         longitude: listSafeArea[0].location.lng,
       };
-    } else return initialRegion;
+    }
+    return result;
   };
 
   return (
