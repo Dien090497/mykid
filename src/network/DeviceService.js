@@ -80,8 +80,12 @@ export function rejectContactApi(
 }
 
 export function getJourneyApi(
-  deviceId, fromDate, toDate, page, size,
-  {success, failure, autoShowMsg = true, refLoading = null} = {},
+  deviceId,
+  fromDate,
+  toDate,
+  page,
+  size,
+  {success, failure, autoShowMsg = true, refLoading = null},
 ) {
   let params = {
     fromDate,
@@ -91,7 +95,7 @@ export function getJourneyApi(
   };
   const url = [locationDeviceUrl, deviceId, 'histories'].join('/');
   return get(url, {
-    params: params,
+    params,
     success,
     failure,
     autoShowMsg,

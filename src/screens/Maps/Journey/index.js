@@ -9,23 +9,30 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import Consts, {FontSize} from '../../../functions/Consts';
 import {Divider, Icon, Slider, Switch} from 'react-native-elements';
 import MapView, {Circle, Marker, PROVIDER_GOOGLE} from 'react-native-maps';
-import React, {memo, useCallback, useMemo, useRef, useState} from 'react';
+import React, {
+  memo,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import {convertDateTimeToString, showAlert} from '../../../functions/utils';
+import {getJourneyApi, getListDeviceApi} from '../../../network/DeviceService';
 
 import Button from '../../../components/buttonGradient';
 import {Colors} from '../../../assets/colors/Colors';
+import DataLocal from '../../../data/dataLocal';
 import DatePicker from 'react-native-date-picker';
-import Consts, {FontSize} from '../../../functions/Consts';
 import Header from '../../../components/Header';
 import Images from '../../../assets/Images';
+import LoadingIndicator from '../../../components/LoadingIndicator';
 import {String} from '../../../assets/strings/String';
 import styles from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import { getJourneyApi } from '../../../network/DeviceService';
-import DataLocal from '../../../data/dataLocal';
-import LoadingIndicator from '../../../components/LoadingIndicator';
 
 const mockData = [
   {
@@ -58,51 +65,109 @@ const headerScreen = () => {
   return title.charAt(0).toUpperCase() + title.slice(1);
 };
 
+const roundMinutes = (date = new Date()) => {
+  var minute = date.getMinutes();
+  if (minute < 30) date.setMinutes(0);
+  else if (minute > 30) date.setMinutes(30);
+  return date;
+};
+
+const fromDateDefault = () => {
+  var fromDate = new Date();
+  fromDate.setHours(
+    fromDate.getHours() > 1 ? fromDate.getHours() - 1 : fromDate.getHours(),
+  );
+  return roundMinutes(fromDate);
+};
+const toDateDefault = () => {
+  return roundMinutes();
+};
+
 export default ({}) => {
   const refMap = useRef(null);
-  const [listSafeArea, setListSafeArea] = useState(mockData);
+  const [listSafeArea, setListSafeArea] = useState([]);
   const [date, setDate] = useState(new Date());
   const [visibleDate, setVisibleDate] = useState(false);
-  const [fromDate, setFromDate] = useState('');
-  const [toDate, setToDate] = useState('');
+  const [fromDate, setFromDate] = useState(fromDateDefault());
+  const [toDate, setToDate] = useState(toDateDefault());
+  const [deviceInfo, setDeviceInfo] = useState(null);
   const refLoading = useRef();
 
-  const toggleModal = () => setVisibleDate(prev => !prev);
+  const toggleModal = () => {
+    setVisibleDate(prev => !prev);
+  };
 
-  const toggleJourney = async () => {
-    getJourneyApi(DataLocal.deviceId, '2021-09-14T01:40:55.040058Z', '2021-09-14T09:40:55.040058Z', 1, 100, '', {
-      success: resData => {
-        setListSafeArea(resData.data.content);
+  const toggleJourney = () => {
+    getJourneyApi(
+      DataLocal.deviceId,
+      new Date(fromDate).toISOString(),
+      new Date(toDate).toISOString(),
+      1,
+      100,
+      {
+        success: resData => {
+          setListSafeArea(resData.data.content);
+          if (!resData.data.content.length) {
+            showAlert(`${deviceInfo.deviceName} - ${String.history_empty}`);
+          }
+        },
+        refLoading: refLoading,
       },
-      refLoading,
-    });
-  }
+    );
+  };
+
+  useEffect(() => {
+    const getDeviceInfo = () => {
+      getListDeviceApi(null, 0, 100, DataLocal.deviceId, {
+        success: res => {
+          const device = res.data.find(
+            val => val.deviceId === DataLocal.deviceId,
+          );
+          setDeviceInfo(device);
+        },
+        refLoading: refLoading,
+      });
+    };
+    getDeviceInfo();
+  }, []);
+
+  const minValue = () => {
+    var date = new Date();
+    date.setHours(0, 0);
+    return date;
+  };
 
   const renderFilter = () => {
     return (
-      <View style={styles.containerFilter}>
-        <Image source={Images.icCalendar} style={styles.icCalendar} />
-        <TouchableOpacity style={styles.containerTime} onPress={toggleModal}>
-          <Text
-            children={convertDateTimeToString(date).date}
-            style={styles.txtTime}
+      <View style={styles.wrapperFilter}>
+        <View style={styles.containerFilter}>
+          <Image source={Images.icCalendar} style={styles.icCalendar} />
+          <TouchableOpacity style={styles.containerTime} onPress={toggleModal}>
+            <Text
+              children={convertDateTimeToString(date).date}
+              style={styles.txtTime}
+            />
+          </TouchableOpacity>
+          <FromToDate
+            onClearDate={() => setFromDate('')}
+            onDate={date => setFromDate(date)}
+            title={String.from}
+            value={fromDate}
+            minValue={minValue()}
+            containerStyle={{marginRight: 3}}
           />
+          <FromToDate
+            onClearDate={() => setToDate('')}
+            onDate={date => setToDate(date)}
+            title={String.to}
+            value={toDate}
+            minValue={fromDate}
+            containerStyle={{marginLeft: 5}}
+          />
+        </View>
+        <TouchableOpacity style={styles.containerTime} onPress={toggleJourney}>
+          <Text children={String.home_journey} style={styles.txtTime} />
         </TouchableOpacity>
-        <FromToDate
-          onClearDate={() => setFromDate('')}
-          onDate={date => setFromDate(date)}
-          title={String.from}
-          value={fromDate}
-          containerStyle={{marginRight: 3}}
-        />
-        <FromToDate
-          onClearDate={() => setToDate('')}
-          onDate={date => setToDate(date)}
-          title={String.to}
-          value={toDate}
-          minValue={fromDate}
-          containerStyle={{marginLeft: 5}}
-        />
       </View>
     );
   };
@@ -115,36 +180,23 @@ export default ({}) => {
         style={[styles.container, {paddingBottom: useSafeAreaInsets().bottom}]}>
         <Header title={headerScreen()} />
         {renderFilter()}
-        <View style={{
-    flexDirection: 'row',
-    paddingVertical: 5,
-    paddingHorizontal: 8,
-    alignSelf: 'flex-end'
-  }}>
-          <TouchableOpacity style={styles.containerTime} onPress={toggleJourney}>
-            <Text
-              children={String.home_journey}
-              style={styles.txtTime}
-            />
-          </TouchableOpacity>
-        </View>
+
         <MapView
           ref={refMap}
           style={styles.container}
-          provider={PROVIDER_GOOGLE}
+          // provider={PROVIDER_GOOGLE}
           showsUserLocation={true}
           region={initialRegion}>
-          {listSafeArea
-            .map(val => (
-              <View key={val.id}>
-                <Marker coordinate={val} title={val.name}>
-                  <Image
-                    source={Images.icMarkerDefault}
-                    style={styles.icMarker}
-                  />
-                </Marker>
-              </View>
-            ))}
+          {listSafeArea.map(val => (
+            <View key={val.id}>
+              <Marker coordinate={val} title={val.name}>
+                <Image
+                  source={Images.icMarkerDefault}
+                  style={styles.icMarker}
+                />
+              </Marker>
+            </View>
+          ))}
         </MapView>
       </View>
       <DatePicker
@@ -156,9 +208,8 @@ export default ({}) => {
           toggleModal();
           setDate(date);
         }}
-        onCancel={() => {
-          toggleModal();
-        }}
+        onCancel={toggleModal}
+        maximumDate={new Date()}
         confirmText={String.confirm}
         cancelText={String.cancel}
         locale="vi"
@@ -177,20 +228,21 @@ const FromToDate = ({
   onDate,
 }) => {
   const [visible, setVisible] = useState(false);
-  const toggleModal = useCallback(() => {
+  const toggleModal = () => {
     setVisible(prev => !prev);
-  }, []);
+  };
   const formatDateToString = useMemo(() => {
     if (!value) return convertDateTimeToString(new Date()).time;
     return convertDateTimeToString(value).time;
   }, [value, title]);
 
   const getMiniumDate = () => {
-    return minValue ? new Date(minValue) : new Date();
+    return minValue ? minValue : new Date();
   };
 
+  console.log('FromToDate', visible, title);
   return (
-    <>
+    <View key={title}>
       <View style={[containerStyle, styles.containerHour]}>
         <Text children={title} />
         <TouchableOpacity
@@ -222,6 +274,6 @@ const FromToDate = ({
         timeZoneOffsetInMinutes={420}
         minuteInterval={30}
       />
-    </>
+    </View>
   );
 };
