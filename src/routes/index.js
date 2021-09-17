@@ -36,7 +36,10 @@ import SettingScreen from '../screens/Settings';
 import SoundSettings from '../screens/Profile/SoundSettings';
 import SplashScreen from '../screens/Splash';
 import WS from './WebScoket';
+import {appConfig, wsUrl} from '../network/http/ApiUrl';
 import {createStackNavigator} from '@react-navigation/stack';
+import DataLocal from '../data/dataLocal';
+import AppConfig from '../data/AppConfig';
 
 const Tab = createBottomTabNavigator();
 
@@ -222,7 +225,20 @@ const OS = () => {
   const onOpen = () => {
     console.log('Websocket Open!');
     if (ws.current?.send) {
-      ws.current.send('Hello Mykid app'); //send example data test
+      let command = `CONNECT
+                    id:1
+                    accept-version:1.2
+                    host:${appConfig.rootDomain}
+                    authorization:Bearer ${DataLocal.accessToken}
+                    content-length:0\n\n\0`;
+      ws.current.send(command, true);
+
+      command = `SUBSCRIBE
+                id:dmmspring
+                destination:/user/queue/video-calls
+                content-length:0\n\n\0`; 
+      ws.current.send(command, true);
+
     }
   };
 
@@ -240,12 +256,11 @@ const OS = () => {
   return (
     <WS
       ref={ws}
-      url="wss://dragon.firecloud.live/ws"
+      url={wsUrl}
       onOpen={onOpen}
       onMessage={onMessage}
       onError={onError}
       onClose={onClose}
-      subProtocol={'janus-protocol'}
       reconnect // Will try to reconnect onClose
     />
   );

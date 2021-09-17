@@ -5,7 +5,8 @@ export const appConfig = AppConfig.dev;
 //////////////////////////////////////////////////////
 export const hostUrl = 'https://' + appConfig.rootDomain;
 export const appUrl = hostUrl + '/kwapp-core/v1';
-export const wsUrl = 'https://mykid.ttc.software/kwstream-core/v1/streams/ws'
+export const wsUrl = 'wss://mykid.ttc.software/kwstream-core/v1/ws'
+
 
 // Account
 export const loginUrl = appUrl + '/auth/login';
