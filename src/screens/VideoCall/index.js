@@ -117,6 +117,7 @@ const ListDeviceScreen = () => {
   }, [page]);
 
   const onPressCall = item => () => {
+    callAPi;
     //show modal call when connected
     setVisibleCall({visible: true, device: item});
   };

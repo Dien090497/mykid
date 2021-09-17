@@ -17,7 +17,6 @@ Janus.setDependencies({
   RTCIceCandidate,
   MediaStream,
 });
-const server = 'wss://dragon.firecloud.live/ws';
 class JanusVideoRoomScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -31,7 +30,7 @@ class JanusVideoRoomScreen extends React.Component {
   async receivePublisher(publisher) {
     try {
       let videoRoom = new JanusVideoRoomPlugin(this.janus);
-      videoRoom.setRoomID(1234);
+      videoRoom.setRoomID(this.props.roomId);
       videoRoom.setOnStreamListener(stream => {
         this.setState(state => ({
           publishers: [
@@ -75,13 +74,14 @@ class JanusVideoRoomScreen extends React.Component {
         ],
       }));
 
+      this.janus = new Janus(this.props.server);
       this.janus = new Janus('wss://dragon-ball.firecloud.live/ws');
       this.janus.setApiSecret('janusrocks');
       await this.janus.init();
 
       this.videoRoom = new JanusVideoRoomPlugin(this.janus);
-      this.videoRoom.setRoomID(1234);
-      this.videoRoom.setDisplayName('can');
+      this.videoRoom.setRoomID(this.props.roomId);
+      this.videoRoom.setDisplayName('tnt');
       this.videoRoom.setOnPublishersListener(publishers => {
         for (let i = 0; i < publishers.length; i++) {
           this.receivePublisher(publishers[i]);
@@ -138,7 +138,15 @@ class JanusVideoRoomScreen extends React.Component {
     }
   };
 
-  renderView() {}
+  destroyVideoCall() {
+    // if (this.videoRoom) {
+    //   this.videoRoom.detach().then();
+    // }
+    // this.state = {
+    //   stream: null,
+    //   publishers: [],
+    // };
+  }
 
   render() {
     return (
