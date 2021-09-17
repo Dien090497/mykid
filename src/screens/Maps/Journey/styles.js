@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
   txtTime: {
     fontSize: FontSize.small,
     color: Colors.white,
+    textAlign: 'center'
   },
   containerFilter: {
     flexDirection: 'row',
@@ -63,6 +64,7 @@ const styles = StyleSheet.create({
     marginLeft: 3,
   },
   icMarker: {width: 30, height: 30, resizeMode: 'contain'},
+  wrapperFilter: {padding:5}
 });
 
 export default styles;

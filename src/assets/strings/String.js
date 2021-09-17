@@ -102,6 +102,7 @@ export const String = {
   note_max_length_safe_zone: 'Chỉ tạo được tối đa 3 vùng an toàn',
   qrNote: 'Đặt mã QR vào vùng tự động quét',
   chooseAlbumQR: 'Chọn mã QR từ album',
+  history_empty: 'Thiết bị chưa có lịch sử vị trí',
 
   //member
   member_refresh: 'Làm mới',
