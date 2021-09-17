@@ -41,6 +41,7 @@
     "react-native-screens": "~3.4.0",
     "react-native-select-contact": "1.6.3",
     "react-native-simple-radio-button": "^2.7.4",
+    "react-native-stomp-websocket": "^1.0.8",
     "react-native-tab-view": "^2.14.0",
     "react-native-unimodules": "~0.14.5",
     "react-native-vector-icons": "8.1.0",

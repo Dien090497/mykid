@@ -1,10 +1,10 @@
+import {Alert, Image, StyleSheet, Text} from 'react-native';
 import {
   BottomTabBar,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
 //tab bar
 import Consts, {FontSize} from '../functions/Consts';
-import {Image, StyleSheet, Text} from 'react-native';
 import React, {useEffect, useRef} from 'react';
 import {isReadyRef, navigationRef} from './RootNavigation';
 
@@ -14,6 +14,7 @@ import ChangePassword from '../screens/Profile/ChangePassword';
 import {Colors} from '../assets/colors/Colors';
 import ConnectionScreen from '../screens/auth/ConnectionScreen';
 import Contacts from '../screens/Settings/Contacts';
+import DataLocal from '../data/dataLocal';
 import DeviceManager from '../screens/Profile/DeviceManager';
 import FindDevice from '../screens/Profile/FindDevice';
 //screen
@@ -35,8 +36,10 @@ import SafeZone from '../screens/Maps/SafeZone';
 import SettingScreen from '../screens/Settings';
 import SoundSettings from '../screens/Profile/SoundSettings';
 import SplashScreen from '../screens/Splash';
+import StompWS from 'react-native-stomp-websocket';
 import WS from './WebScoket';
 import {createStackNavigator} from '@react-navigation/stack';
+import {useSelector} from 'react-redux';
 
 const Tab = createBottomTabNavigator();
 
@@ -131,8 +134,14 @@ const Auth = () => {
       }}>
       <Stack.Screen name={Consts.ScreenIds.Login} component={Login} />
       <Stack.Screen name={Consts.ScreenIds.Register} component={Register} />
-      <Stack.Screen name={Consts.ScreenIds.ConnectionScreen} component={ConnectionScreen} />
-      <Stack.Screen name={Consts.ScreenIds.AddDeviceScreen} component={AddDeviceScreen} />
+      <Stack.Screen
+        name={Consts.ScreenIds.ConnectionScreen}
+        component={ConnectionScreen}
+      />
+      <Stack.Screen
+        name={Consts.ScreenIds.AddDeviceScreen}
+        component={AddDeviceScreen}
+      />
     </StackAuth.Navigator>
   );
 };
@@ -157,6 +166,7 @@ const Routes = () => {
       isReadyRef.current = false;
     };
   });
+
   return (
     <NavigationContainer
       ref={navigationRef}
@@ -172,13 +182,34 @@ const Routes = () => {
         <Stack.Screen name={Consts.ScreenIds.Tabs} component={TabBarBottom} />
         <Stack.Screen name={Consts.ScreenIds.Auth} component={Auth} />
         <Stack.Screen name={Consts.ScreenIds.Login} component={Login} />
-        <Stack.Screen name={Consts.ScreenIds.ConnectionScreen} component={ConnectionScreen} />
-        <Stack.Screen name={Consts.ScreenIds.AddDeviceScreen} component={AddDeviceScreen} />
-        <Stack.Screen name={Consts.ScreenIds.DeviceManager} component={DeviceManager} />
-        <Stack.Screen name={Consts.ScreenIds.FindDevice} component={FindDevice} />
-        <Stack.Screen name={Consts.ScreenIds.SoundSettings} component={SoundSettings} />
-        <Stack.Screen name={Consts.ScreenIds.Relationship} component={Relationship} />
-        <Stack.Screen name={Consts.ScreenIds.QRCodeScreen} component={QRCodeScreen} />
+        <Stack.Screen
+          name={Consts.ScreenIds.ConnectionScreen}
+          component={ConnectionScreen}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.AddDeviceScreen}
+          component={AddDeviceScreen}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.DeviceManager}
+          component={DeviceManager}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.FindDevice}
+          component={FindDevice}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.SoundSettings}
+          component={SoundSettings}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.Relationship}
+          component={Relationship}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.QRCodeScreen}
+          component={QRCodeScreen}
+        />
         <Stack.Screen
           name={Consts.ScreenIds.Register}
           component={DirectRegister}
@@ -212,6 +243,7 @@ const Routes = () => {
         />
       </Stack.Navigator>
       <OS />
+      <WebsocketStomp />
     </NavigationContainer>
   );
 };
@@ -249,6 +281,35 @@ const OS = () => {
       reconnect // Will try to reconnect onClose
     />
   );
+};
+
+const WebsocketStomp = ({}) => {
+  const token = DataLocal.accessToken;
+  const headers = {
+    Authorization: 'Bearer ' + token,
+  };
+  console.log('token', token, headers);
+
+  const client = StompWS.client('wss://mykid.ttc.software/kwapp-core/v1/ws');
+  client.debug = text => console.log(text);
+  client.connect(
+    headers,
+    () => {
+      client.subscribe(
+        `/topic/device-ids/${DataLocal.deviceId}/locations`,
+        data => {
+          var message = JSON.parse(data);
+          Alert(JSON.stringify(data));
+          console.log('subscribe topic device out safezone')
+        },
+      );
+      console.log('connect success');
+    },
+    function (e) {
+      console.log('connect error', e);
+    },
+  );
+  return null;
 };
 
 export default Routes;
