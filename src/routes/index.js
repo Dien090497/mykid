@@ -6,10 +6,12 @@ import {
 //tab bar
 import Consts, {FontSize} from '../functions/Consts';
 import React, {useEffect, useRef} from 'react';
+import {appConfig, wsUrl} from '../network/http/ApiUrl';
 import {isReadyRef, navigationRef} from './RootNavigation';
 
 import AddDeviceScreen from '../screens/Profile/AddDeviceScreen';
 import AddNewContact from '../screens/Settings/Contacts/addNew';
+import AppConfig from '../data/AppConfig';
 import ChangePassword from '../screens/Profile/ChangePassword';
 import {Colors} from '../assets/colors/Colors';
 import ConnectionScreen from '../screens/auth/ConnectionScreen';
@@ -254,7 +256,20 @@ const OS = () => {
   const onOpen = () => {
     console.log('Websocket Open!');
     if (ws.current?.send) {
-      ws.current.send('Hello Mykid app'); //send example data test
+      let command = `CONNECT
+                    id:1
+                    accept-version:1.2
+                    host:${appConfig.rootDomain}
+                    authorization:Bearer ${DataLocal.accessToken}
+                    content-length:0\n\n\0`;
+      ws.current.send(command, true);
+
+      command = `SUBSCRIBE
+                id:dmmspring
+                destination:/user/queue/video-calls
+                content-length:0\n\n\0`;
+      ws.current.send(command, true);
+
     }
   };
 
@@ -272,12 +287,11 @@ const OS = () => {
   return (
     <WS
       ref={ws}
-      url="wss://dragon.firecloud.live/ws"
+      url={wsUrl}
       onOpen={onOpen}
       onMessage={onMessage}
       onError={onError}
       onClose={onClose}
-      subProtocol={'janus-protocol'}
       reconnect // Will try to reconnect onClose
     />
   );

@@ -2,6 +2,8 @@
 import React, {Component} from 'react';
 
 import PropTypes from 'prop-types';
+import DataLocal from '../data/dataLocal';
+import { wsUrl } from '../network/http/ApiUrl';
 
 class WS extends Component {
   state = {
@@ -40,9 +42,10 @@ class WS extends Component {
 
   _handleWebSocketSetup = () => {
     let ws = null;
-    if (this.props.subProtocol)
-      ws = new WebSocket(this.props.url, this.props.subProtocol.toString());
-    else ws = new WebSocket(this.props.url);
+    // if (this.props.subProtocol)
+    //   ws = new WebSocket(this.props.url, this.props.subProtocol.toString());
+    // else 
+    ws = new WebSocket(this.props.url);
     ws.onopen = () => {
       this.props.onOpen && this.props.onOpen();
     };
