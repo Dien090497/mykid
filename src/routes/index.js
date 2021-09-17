@@ -295,14 +295,11 @@ const WebsocketStomp = ({}) => {
   client.connect(
     headers,
     () => {
-      client.subscribe(
-        `/topic/device-ids/${DataLocal.deviceId}/locations`,
-        data => {
-          var message = JSON.parse(data);
-          Alert(JSON.stringify(data));
-          console.log('subscribe topic device out safezone')
-        },
-      );
+      client.subscribe(`/user/queue/unsafe-locations`, data => {
+        var message = JSON.parse(data);
+        Alert(JSON.stringify(data));
+        console.log('subscribe topic device out safezone');
+      });
       console.log('connect success');
     },
     function (e) {
