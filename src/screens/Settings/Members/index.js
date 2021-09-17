@@ -1,22 +1,20 @@
-import {
-  FlatList,
-  Image,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {FlatList, Image, Text, TouchableOpacity, View} from 'react-native';
 import React, {useLayoutEffect, useRef, useState} from 'react';
+import {
+  acceptContactApi,
+  getListDeviceApi,
+  rejectContactApi,
+} from '../../../network/DeviceService';
+import {showAlert, showConfirmation} from '../../../functions/utils';
 
 import {Colors} from '../../../assets/colors/Colors';
+import DataLocal from '../../../data/dataLocal';
 import Header from '../../../components/Header';
 import Images from '../../../assets/Images';
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import {String} from '../../../assets/strings/String';
-import {acceptContactApi, getListDeviceApi, rejectContactApi} from '../../../network/DeviceService';
 import {styles} from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import DataLocal from '../../../data/dataLocal';
-import { showAlert, showConfirmation } from '../../../functions/utils';
 
 export default ({navigation, route}) => {
   const refLoading = useRef();
@@ -25,46 +23,32 @@ export default ({navigation, route}) => {
 
   const dataMock = [
     {
-      id: 1,
-      name: 'Bố',
       icon: Images.icFather,
-      relationship: 'FATHER'
+      relationship: 'FATHER',
     },
     {
-      id: 2,
-      name: 'Mẹ',
       icon: Images.icMother,
-      relationship: 'MOTHER'
+      relationship: 'MOTHER',
     },
     {
-      id: 4,
-      name: 'Ông',
       icon: Images.icGrandfather,
-      relationship: 'GRANDFATHER'
+      relationship: 'GRANDFATHER',
     },
     {
-      id: 5,
-      name: 'Bà',
       icon: Images.icGrandmother,
-      relationship: 'GRANDMOTHER'
+      relationship: 'GRANDMOTHER',
     },
     {
-      id: 6,
-      name: 'Anh',
       icon: Images.icBrother,
-      relationship: 'BROTHER'
+      relationship: 'BROTHER',
     },
     {
-      id: 7,
-      name: 'Chị',
       icon: Images.icSister,
-      relationship: 'SISTER'
+      relationship: 'SISTER',
     },
     {
-      id: 8,
-      name: 'Khác',
       icon: Images.icOther,
-      relationship: 'OTHER'
+      relationship: 'OTHER',
     },
   ];
 
@@ -75,13 +59,15 @@ export default ({navigation, route}) => {
   const getListDevice = () => {
     getListDeviceApi(null, 0, 100, DataLocal.deviceId, {
       success: res => {
-        setAdmin(res.data.filter(val => val.admin === true)[0])
-        const members = res.data.filter(val => val.admin === false);
+        const adminMem = res.data.filter(val => val.admin === true)[0];
+        setAdmin(adminMem);
+        let members = res.data.filter(val => val.admin === false);
+        if (adminMem.accountId !== DataLocal.userInfo.id) {
+          members = members.filter(val => val.status !== 'PENDING');
+        }
         setAllMember(members);
       },
-      failure: error => {
-
-      },
+      failure: error => {},
       refLoading: refLoading,
     });
   };
@@ -98,15 +84,12 @@ export default ({navigation, route}) => {
                 },
               });
             },
-            failure: error => {
-      
-            },
+            failure: error => {},
             refLoading: refLoading,
           });
         }
       },
     });
-    
   };
 
   const cancelContact = item => {
@@ -118,9 +101,7 @@ export default ({navigation, route}) => {
           },
         });
       },
-      failure: error => {
-
-      },
+      failure: error => {},
       refLoading: refLoading,
     });
   };
@@ -136,9 +117,7 @@ export default ({navigation, route}) => {
           });
         }
       },
-      failure: error => {
-
-      },
+      failure: error => {},
       refLoading: refLoading,
     });
   };
@@ -147,12 +126,15 @@ export default ({navigation, route}) => {
   };
   const pressRefresh = () => {
     //Call API Refresh
-    getListDevice()
+    getListDevice();
   };
 
   const renderMemberItem = item => {
-    const relationship = dataMock.filter(val => val.relationship === item.relationship);
-    const icon = relationship.length > 0 ? relationship[0].icon : dataMock[6].icon;
+    const relationship = dataMock.filter(
+      val => val.relationship === item.relationship,
+    );
+    const icon =
+      relationship.length > 0 ? relationship[0].icon : dataMock[6].icon;
     return (
       <TouchableOpacity
         activeOpacity={0.9}
@@ -164,41 +146,44 @@ export default ({navigation, route}) => {
             <Text style={styles.username}>{item.deviceName}</Text>
             <Text
               style={styles.otherInfoText}
-              children={`Tài khoản: ${item.email}`}
+              children={`${String.header_account}: ${item.email}`}
             />
             <Text style={styles.otherInfoText}>
-              Mối quan hệ: {item.relationship}
+              {String.relationship}{item.relationship}
             </Text>
-            {item.status === 'PENDING' && admin.accountId === DataLocal.userInfo.id && (
-              <View style={styles.rowItem}>
-                <TouchableOpacity
-                  style={[styles.smallButton, {marginRight: 10}]}
-                  onPress={() => cancelContact(item)}>
-                  <Text
-                    style={[styles.smallButtonText, {color: Colors.orange}]}>
-                    {String.member_reject}
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.smallButton}
-                  onPress={() => acceptContact(item)}>
-                  <Text style={[styles.smallButtonText, {color: 'green'}]}>
-                    {String.member_approval}
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            )}
-            {!item.admin && item.status === 'ACTIVE' && admin.accountId === DataLocal.userInfo.id && (
-              <View style={styles.rowItem}>
-                <TouchableOpacity
-                  style={styles.smallButton}
-                  onPress={() => removeContact(item)}>
-                  <Text style={[styles.smallButtonText, {color: Colors.red}]}>
-                    {String.member_remove}
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            )}
+            {item.status === 'PENDING' &&
+              admin.accountId === DataLocal.userInfo.id && (
+                <View style={styles.rowItem}>
+                  <TouchableOpacity
+                    style={[styles.smallButton, {marginRight: 10}]}
+                    onPress={() => cancelContact(item)}>
+                    <Text
+                      style={[styles.smallButtonText, {color: Colors.orange}]}>
+                      {String.member_reject}
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.smallButton}
+                    onPress={() => acceptContact(item)}>
+                    <Text style={[styles.smallButtonText, {color: 'green'}]}>
+                      {String.member_approval}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              )}
+            {!item.admin &&
+              item.status === 'ACTIVE' &&
+              admin.accountId === DataLocal.userInfo.id && (
+                <View style={styles.rowItem2}>
+                  <TouchableOpacity
+                    style={styles.smallButton}
+                    onPress={() => removeContact(item)}>
+                    <Text style={[styles.smallButtonText, {color: Colors.red}]}>
+                      {String.member_remove}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              )}
           </View>
         </View>
       </TouchableOpacity>
@@ -224,8 +209,8 @@ export default ({navigation, route}) => {
       style={[styles.container, {paddingBottom: useSafeAreaInsets().bottom}]}>
       <Header title={String.header_members} />
       <View style={styles.mainView}>
-        { admin && renderHeader(true)}
-        { admin && renderMemberItem(admin)}
+        {admin && renderHeader(true)}
+        {admin && renderMemberItem(admin)}
         <FlatList
           data={allMember}
           renderItem={renderItem}

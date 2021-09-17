@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
   txtName: {
     fontSize: FontSize.small,
     color: Colors.blue,
+    flex: 1,
   },
   containerPhone: {width: 50, aspectRatio: 1},
   icPhone: {flex: 1, aspectRatio: 1, resizeMode: 'contain'},
@@ -71,20 +72,23 @@ const styles = StyleSheet.create({
   },
   thumb: {height: 40, width: 40, backgroundColor: 'transparent'},
   containerAction: {
-    width: 20,
-    height: 21,
     borderRadius: 40,
     marginHorizontal: 3,
   },
   txtAction: {
-    fontSize: FontSize.medium,
+    fontSize: 15,
     color: 'white',
     textAlign: 'center',
+    alignSelf: 'center',
     fontWeight: 'bold',
+    width: 9,
+    marginTop: 1,
+    marginBottom: 3,
+    marginHorizontal: 7,
   },
   containerTextAction: {
     flex: 1,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   txtSave: {color: Colors.blue},
   txtBack: {color: Colors.red},
@@ -99,9 +103,31 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 20,
     flexDirection: 'row',
+    justifyContent: 'center',
   },
-  txtNoteDrag: {textAlign: 'justify', fontSize: FontSize.small}
-
+  txtNoteDrag: {textAlign: 'center', fontSize: FontSize.small},
+  containerRadius: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  containerTitleMarker: {
+    paddingHorizontal: 5,
+    backgroundColor: 'white',
+    borderRadius: 5,
+    paddingVertical: 1,
+    marginBottom: 3
+  },
+  icMarkerDefault: {
+    width: 30,
+    height: 30,
+    tintColor: Colors.red,
+    alignSelf: 'center',
+  },
+  txtMarkerName: {
+    fontSize: FontSize.small,
+  }
 });
 
 export default styles;

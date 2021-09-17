@@ -1,11 +1,10 @@
 import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
-import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
+import React, {useLayoutEffect, useRef, useState} from 'react';
 
 import Button from '../../../components/buttonGradient';
 import {Colors} from '../../../assets/colors/Colors';
 import Consts from '../../../functions/Consts';
 import CustomInput from '../../../components/CustomInput';
-import DataLocal from '../../../data/dataLocal';
 import Header from '../../../components/Header';
 import Images from '../../../assets/Images';
 import LoadingIndicator from '../../../components/LoadingIndicator';
@@ -76,6 +75,11 @@ const AddDeviceScreen = ({navigation, route}) => {
     }
   }, []);
 
+  const onQR = (qr) => {
+    setDeviceCode(qr);
+    console.log(qr);
+  };
+
   const onPlaceChosen = (index) => {
     setSelectedIndex(index);
   };
@@ -131,7 +135,7 @@ const AddDeviceScreen = ({navigation, route}) => {
         <CustomInput
           placeholder={String.enterOrScanCode}
           value={deviceCode}
-          onPress={() => navigation.navigate(Consts.ScreenIds.QRCodeScreen)}
+          onPress={() => navigation.navigate(Consts.ScreenIds.QRCodeScreen, {onQR: onQR})}
           onChangeText={code => setDeviceCode(code)}
           icon={Images.icSmartwatch}
         />

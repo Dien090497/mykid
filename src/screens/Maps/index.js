@@ -1,3 +1,4 @@
+import Consts, {FontSize} from '../../functions/Consts';
 import {
   FlatList,
   Image,
@@ -8,13 +9,19 @@ import {
 } from 'react-native';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import React, {useEffect, useRef, useState} from 'react';
+import {convertDateTimeToString, showAlert} from '../../functions/utils.js';
+import {
+  getListDeviceApi,
+  getLocationDeviceApi,
+} from '../../network/DeviceService';
 
 import {Colors} from '../../assets/colors/Colors';
-import {FontSize} from '../../functions/Consts';
+import DataLocal from '../../data/dataLocal';
+import {ErrorMsg} from '../../assets/strings/ErrorMsg';
 import Header from '../../components/Header';
 import Images from '../../assets/Images';
+import LoadingIndicator from '../../components/LoadingIndicator';
 import {String} from '../../assets/strings/String';
-import {getLocationDeviceApi} from '../../network/DeviceService';
 import {styles} from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
@@ -35,19 +42,59 @@ const initialRegion = {
 
 export default ({navigation, route}) => {
   const refMap = useRef(null);
-  const [currentDevice, setCurrentDevice] = useState(markerDaughter);
+  const refLoading = useRef(null);
+  const [locationDevice, setLocationDevice] = useState(null);
+  const [infoDevice, setInfoDevice] = useState(null);
+
+  const getLocationDevice = async () => {
+    try {
+      getListDeviceApi(null, 0, 100, DataLocal.deviceId, {
+        success: res => {
+          const device = res.data.find(
+            val => val.deviceId === DataLocal.deviceId,
+          );
+          setInfoDevice(device);
+        },
+        refLoading: refLoading,
+      });
+      getLocationDeviceApi(DataLocal.deviceId, {
+        success: res => {
+          setLocationDevice(res.data);
+          const {lat, lng} = res.data?.location;
+          if (lat && lng) {
+            refMap.current.animateCamera({
+              center: {
+                latitude: lat,
+                longitude: lng,
+              },
+              zoom: 15,
+            });
+          }
+        },
+        refLoading: refLoading,
+      });
+    } catch (error) {}
+  };
 
   useEffect(() => {
-    const getLocationDevice = () => {
-      getLocationDeviceApi(1, {
-        success: res => {
-          setCurrentDevice(res);
-          console.log(res, 'getLocationDevice>>>>>>>>>>>');
+    if (DataLocal.deviceId) getLocationDevice();
+    else {
+      showAlert(ErrorMsg.updateDeviceDefault, {
+        close: () => {
+          navigation.replace(Consts.ScreenIds.DeviceManager);
         },
       });
-    };
-    getLocationDevice();
+    }
   }, []);
+
+  const getRegion = () => {
+    if (!locationDevice) return initialRegion;
+    return {
+      ...initialRegion,
+      latitude: locationDevice?.location?.lat,
+      longitude: locationDevice?.location?.lng,
+    };
+  };
 
   return (
     <View
@@ -59,42 +106,71 @@ export default ({navigation, route}) => {
           style={styles.container}
           provider={PROVIDER_GOOGLE}
           showsUserLocation={true}
-          region={initialRegion}>
-          <Marker coordinate={markerDaughter} title={currentDevice.title}>
-            <Image source={Images.icWatchMarker} style={styles.icMarker} />
-          </Marker>
+          region={getRegion()}>
+          {locationDevice && infoDevice && (
+            <Marker
+              coordinate={{
+                latitude: locationDevice?.location?.lat,
+                longitude: locationDevice?.location?.lng,
+              }}
+              title={infoDevice.deviceName}>
+              <Image source={Images.icWatchMarker} style={styles.icMarker} />
+            </Marker>
+          )}
         </MapView>
 
-        <TouchableOpacity
-          onPress={() => {
-            refMap.current.animateCamera({
-              center: markerDaughter,
-              zoom: 15,
-            });
-          }}
-          style={styles.containerDevice}>
-          <View style={styles.container}>
-            <Text style={styles.txtNameDevice} children={currentDevice.title} />
-
-            <Text
-              style={styles.txtLocation}
-              children={`Toạ độ: ${currentDevice.latitude}, ${currentDevice.longitude}`}
-            />
-          </View>
-
-          <View style={styles.containerLastTime}>
-            <Text style={styles.txtTime} children={currentDevice.lastUpdated} />
-
-            <View style={styles.containerBattery}>
+        {locationDevice && infoDevice && (
+          <TouchableOpacity
+            onPress={() => {
+              const {lat, lng} = locationDevice?.location;
+              if (lat && lng)
+                refMap.current.animateCamera({
+                  center: {
+                    latitude: lat,
+                    longitude: lng,
+                  },
+                  zoom: 15,
+                });
+            }}
+            style={styles.containerDevice}>
+            <View style={styles.container}>
               <Text
-                style={{fontSize: FontSize.small, color: Colors.gray}}
-                children={`${currentDevice.battery}%`}
+                style={styles.txtNameDevice}
+                children={infoDevice.deviceName}
               />
-              <Image source={Images.icBattery} style={styles.icBattery} />
+
+              <Text
+                style={styles.txtLocation}
+                children={`Toạ độ: ${locationDevice?.location?.lat}, ${locationDevice?.location?.lng}`}
+              />
             </View>
-          </View>
+
+            <View style={styles.containerLastTime}>
+              <Text
+                style={styles.txtTime}
+                children={
+                  convertDateTimeToString(locationDevice.reportedAt).dateTimeStr
+                }
+              />
+
+              <View style={styles.containerBattery}>
+                <Text
+                  style={{fontSize: FontSize.small, color: Colors.gray}}
+                  children={`${locationDevice.power || 0}%`}
+                />
+                <Image source={Images.icBattery} style={styles.icBattery} />
+              </View>
+            </View>
+          </TouchableOpacity>
+        )}
+
+        <TouchableOpacity
+          style={styles.containerGetLocation}
+          onPress={getLocationDevice}>
+          <Image source={Images.icWatchMarker} style={styles.icMarker} />
         </TouchableOpacity>
       </View>
+      <LoadingIndicator ref={refLoading} />
     </View>
   );
 };

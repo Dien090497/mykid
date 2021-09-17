@@ -15,7 +15,6 @@ import {Colors} from '../assets/colors/Colors';
 import ConnectionScreen from '../screens/auth/ConnectionScreen';
 import Contacts from '../screens/Settings/Contacts';
 import DeviceManager from '../screens/Profile/DeviceManager';
-import ElectronicFence from '../screens/Maps/Fence';
 import FindDevice from '../screens/Profile/FindDevice';
 //screen
 import HomeMainScreen from '../screens/Home/HomeMainScreen';
@@ -32,11 +31,15 @@ import Profile from '../screens/Profile';
 import QRCodeScreen from '../screens/Profile/QRCodeScreen';
 import Register from '../screens/auth/Register';
 import Relationship from '../screens/Profile/Relationship';
+import SafeZone from '../screens/Maps/SafeZone';
 import SettingScreen from '../screens/Settings';
 import SoundSettings from '../screens/Profile/SoundSettings';
 import SplashScreen from '../screens/Splash';
 import WS from './WebScoket';
+import {appConfig, wsUrl} from '../network/http/ApiUrl';
 import {createStackNavigator} from '@react-navigation/stack';
+import DataLocal from '../data/dataLocal';
+import AppConfig from '../data/AppConfig';
 
 const Tab = createBottomTabNavigator();
 
@@ -204,7 +207,7 @@ const Routes = () => {
         />
         <Stack.Screen
           name={Consts.ScreenIds.ElectronicFence}
-          component={ElectronicFence}
+          component={SafeZone}
         />
         <Stack.Screen
           name={Consts.ScreenIds.JourneyHistory}
@@ -222,7 +225,20 @@ const OS = () => {
   const onOpen = () => {
     console.log('Websocket Open!');
     if (ws.current?.send) {
-      ws.current.send('Hello Mykid app'); //send example data test
+      let command = `CONNECT
+                    id:1
+                    accept-version:1.2
+                    host:${appConfig.rootDomain}
+                    authorization:Bearer ${DataLocal.accessToken}
+                    content-length:0\n\n\0`;
+      ws.current.send(command, true);
+
+      command = `SUBSCRIBE
+                id:dmmspring
+                destination:/user/queue/video-calls
+                content-length:0\n\n\0`; 
+      ws.current.send(command, true);
+
     }
   };
 
@@ -240,12 +256,11 @@ const OS = () => {
   return (
     <WS
       ref={ws}
-      url="wss://dragon.firecloud.live/ws"
+      url={wsUrl}
       onOpen={onOpen}
       onMessage={onMessage}
       onError={onError}
       onClose={onClose}
-      subProtocol={'janus-protocol'}
       reconnect // Will try to reconnect onClose
     />
   );

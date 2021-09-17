@@ -17,7 +17,7 @@ export const String = {
   ok: 'OK',
   change: 'Chuyển',
 
-  thisFunctionIsNotValid: 'Tính năng này chưa mở',
+  thisFunctionIsNotValid: 'Tính năng chưa được cập nhật',
   header_settings: 'Thiết lập',
   header_contacts: 'Danh bạ',
   header_addContact: 'Thêm liên lạc',
@@ -85,19 +85,33 @@ export const String = {
   from: 'Từ',
   to: 'Đến',
   date: 'Ngày',
-  note_create_area: 'Vui lòng giữ và kéo thả nơi mà bạn muốn tạo vùng an toàn',
+  note_create_area: 'Vui lòng đánh dấu nơi mà bạn muốn tạo vùng an toàn',
   sendRequestSuccess: 'Gửi thông tin thành công',
   acceptContactSuccess: 'Duyệt thành viên thành công',
   rejectContactSuccess: 'Từ chối thành viên thành công',
   deleteContactSuccess: 'Xóa thành viên thành công',
   removeContactConfirm:
     'Bạn chắc chắn xóa thành viên này khỏi danh sách quản lí?',
+  maxLengthSafeAreaName: 'Vui lòng nhập 1-32 ký tự',
+  message_remove_contact_sos: 'Bạn không được xoá liên lạc khẩn cấp',
+  noContactPermission: 'Bạn chưa cấp quyền truy cập danh bạ',
+  blockOther: 'Chặn số từ người lạ',
+  addPhone: 'Thêm số mới',
+  relationship: 'Mối quan hệ: ',
+  confirm_remove_safe_zone: 'Bạn có muốn xoá vùng an toàn này?',
+  note_max_length_safe_zone: 'Chỉ tạo được tối đa 3 vùng an toàn',
+  qrNote: 'Đặt mã QR vào vùng tự động quét',
+  chooseAlbumQR: 'Chọn mã QR từ album',
+  history_empty: 'Thiết bị chưa có lịch sử vị trí',
 
   //member
   member_refresh: 'Làm mới',
   member_remove: 'Xoá',
   member_approval: 'Đồng ý',
   member_reject: 'Từ chối',
+  empty_contact: 'Bạn cần thêm các số điện thoại vào danh bạ',
+  enter_relationship: 'Vui lòng nhập mối quan hệ với trẻ',
+  enter_phone_number: 'Vui lòng nhập số điện thoại',
 
   //home
   home_gps: 'BẢN ĐỒ',
@@ -116,4 +130,11 @@ export const String = {
   setting_member: 'Thành viên',
   video_call: 'Video Call',
   device_connected_not_found: 'Không tìm thấy thiết bị kết nối',
+
+  // find device
+  find_device_note0: 'Luôn biết vị trí thiết bị mọi thời điểm, mọi vị trí',
+  find_device_note1: '1. Bấm nút để tìm Thiết bị',
+  find_device_note2: '2. Bấm thành công',
+  find_device_note3: '3. Gửi thành công',
+  find_device_note4: '4. Thiết bị sẽ bắt đầu đổ chuông sau khi nhận được yêu cầu',
 };

@@ -2,7 +2,7 @@ export const ErrorMsg = {
     // APP
     kwa4001: 'Tài khoản bạn nhập không đúng (KWA-4001)',
     kwa4002: 'Mật khẩu bạn nhập không đúng (KWA-4002)',
-    kwa4003: 'Mã captcha bạn nhập không đúng (KWA-4003)',
+    kwa4003: 'Thông tin gữ liệu không đúng (KWA-4003)',
     kwa4005: 'Quyền truy cập của bạn không đủ để thực hiện thao tác này (KWA-4005)',
     kwa4017: 'Mã captcha bạn nhập không đúng (KWA-4017)',
     kwa4018: 'Mã thiết bị bạn nhập đã được kết nối trước đó (KWA-4018)',
@@ -12,6 +12,9 @@ export const ErrorMsg = {
     kwa4022: 'Tài khoản bạn nhập đã tồn tại (KWA-4022)',
     kwa4023: 'Thiết bị không kết nối internet (KWA-4023)',
     kwa4024: 'Không thể định vị thiết bị (KWA-4024)',
+    kwa4025: 'Không tìm thấy danh bạ (KWA-4025)',
+    kwa4026: 'Số lượng danh bạ không được lớn hơn 15 (KWA-4026)',
+    kwa4029: 'Số điện thoại đã tồn tại (KWA-4029)',
 
     // common
     exceedNicknameLength: 'Vượt quá số lượng ký tự cho phép',
@@ -24,4 +27,8 @@ export const ErrorMsg = {
     // user
     userNotFound: 'Không tìm thấy thông tin người dùng',
     uploadAvatarFailed: 'Cập nhật ảnh đại diện thất bại',
+
+
+    //device default not found
+    updateDeviceDefault: 'Vui lòng lựa chọn thiết bị mặc định'
 }

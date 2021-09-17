@@ -8,6 +8,7 @@ import {String} from '../../../assets/strings/String';
 import {appStatusBar} from '../../../components/CommonUIComponents';
 import {styles} from './styles';
 import {useNavigation} from '@react-navigation/native';
+import { showAlert } from '../../../functions/utils';
 
 export default function HomeMainScreen() {
   const navigation = useNavigation();
@@ -21,7 +22,7 @@ export default function HomeMainScreen() {
   };
 
   const pressChat = () => {
-    //navigation.navigate(Consts.ScreenIds.Register);
+    showAlert(String.thisFunctionIsNotValid);
   };
 
   const pressVideoCall = () => {
@@ -45,7 +46,7 @@ export default function HomeMainScreen() {
   };
 
   const pressEntertainment = () => {
-    //navigation.navigate();
+    showAlert(String.thisFunctionIsNotValid);
   };
 
   const pressDevices = () => {

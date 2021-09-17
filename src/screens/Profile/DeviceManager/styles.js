@@ -1,11 +1,12 @@
-import {StyleSheet} from 'react-native';
 import Consts, { FontSize } from '../../../functions/Consts';
+
 import {Colors} from '../../../assets/colors/Colors';
+import {StyleSheet} from 'react-native';
 
 const settingHeight = (Consts.screenHeight /
   (Consts.screenHeight < 800 ? Math.floor(Consts.screenHeight / 50) : Math.floor(
     Consts.screenHeight / 70)));
-    
+
 export const styles = StyleSheet.create({
   contain: {
     flex: 1,

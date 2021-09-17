@@ -53,7 +53,8 @@ export function getLocationDeviceApi(
   deviceId,
   {success, failure, autoShowMsg = true, refLoading = null} = {},
 ) {
-  return get(`${locationDeviceUrl}/${deviceId}`, {
+  const url = [locationDeviceUrl, deviceId].join('/');
+  return get(url, {
     params: null,
     success,
     failure,
@@ -62,12 +63,42 @@ export function getLocationDeviceApi(
   });
 }
 
-export function acceptContactApi( id, {success, failure, autoShowMsg = true, refLoading = null}) {
+export function acceptContactApi(
+  id,
+  {success, failure, autoShowMsg = true, refLoading = null},
+) {
   const url = [listDeviceUrl, id].join('/');
   return path(url, {success, failure, autoShowMsg, refLoading});
 }
 
-export function rejectContactApi( id, {success, failure, autoShowMsg = true, refLoading = null}) {
+export function rejectContactApi(
+  id,
+  {success, failure, autoShowMsg = true, refLoading = null},
+) {
   const url = [listDeviceUrl, id].join('/');
   return dele(url, {success, failure, autoShowMsg, refLoading});
+}
+
+export function getJourneyApi(
+  deviceId,
+  fromDate,
+  toDate,
+  page,
+  size,
+  {success, failure, autoShowMsg = true, refLoading = null},
+) {
+  let params = {
+    fromDate,
+    toDate,
+    page,
+    size,
+  };
+  const url = [locationDeviceUrl, deviceId, 'histories'].join('/');
+  return get(url, {
+    params,
+    success,
+    failure,
+    autoShowMsg,
+    refLoading,
+  });
 }

@@ -5,7 +5,8 @@ export const appConfig = AppConfig.dev;
 //////////////////////////////////////////////////////
 export const hostUrl = 'https://' + appConfig.rootDomain;
 export const appUrl = hostUrl + '/kwapp-core/v1';
-export const wsUrl = 'https://mykid.ttc.software/kwstream-core/v1/streams/ws'
+export const wsUrl = 'wss://mykid.ttc.software/kwstream-core/v1/ws'
+
 
 // Account
 export const loginUrl = appUrl + '/auth/login';
@@ -16,6 +17,8 @@ export const refreshTokenUrl = appUrl + '/auth/refresh';
 export const getCaptchaUrl = appUrl + '/captcha';
 export const listDeviceUrl = appUrl + '/account-devices'
 export const locationDeviceUrl = appUrl + '/locations'
+export const phoneBookUrl = appUrl + '/phone-books'
+export const safeZoneUrl = appUrl + '/safe-zones'
 
 // Sound
 export const soundModesUrl = appUrl + '/sound-modes'
