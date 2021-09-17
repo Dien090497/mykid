@@ -6,18 +6,21 @@ import styles from './styles.js';
 import JanusVideoRoomScreen from '../JanusVideoRoomScreen';
 import {navigationRef} from '../../../routes/RootNavigation';
 
-const VideoCallModal = ({visible, device, toggleModal, server, roomId}) => {
+const VideoCallModal = ({visible, device, toggleModal, data}) => {
   const refJanusVideoRoomScreen = useRef();
   const destroyVideoCall = () => {
-    refJanusVideoRoomScreen.current.destroyVideoCall();
-    toggleModal();
+    // refJanusVideoRoomScreen.current.destroyVideoCall();
+    toggleModal(data.id);
   };
   return (
     <Modal visible={visible} animationType="fade" transparent={true}>
       <JanusVideoRoomScreen
         ref={refJanusVideoRoomScreen}
-        server={server}
-        roomId={roomId}
+        server={data.streamUrl}
+        roomId={data.id}
+        password={data.password}
+        accountId={data.caller.accountId}
+        relationship={data.caller.relationship}
       />
       <View style={styles.centeredView}>
         <View style={styles.modalView}>

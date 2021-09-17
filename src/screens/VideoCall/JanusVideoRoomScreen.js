@@ -75,13 +75,14 @@ class JanusVideoRoomScreen extends React.Component {
       }));
 
       this.janus = new Janus(this.props.server);
-      this.janus = new Janus('wss://dragon-ball.firecloud.live/ws');
       this.janus.setApiSecret('janusrocks');
       await this.janus.init();
 
       this.videoRoom = new JanusVideoRoomPlugin(this.janus);
       this.videoRoom.setRoomID(this.props.roomId);
-      this.videoRoom.setDisplayName('tnt');
+      this.videoRoom.setDisplayName(
+        'A' + this.props.accountId + ':' + this.props.relationship,
+      );
       this.videoRoom.setOnPublishersListener(publishers => {
         for (let i = 0; i < publishers.length; i++) {
           this.receivePublisher(publishers[i]);
