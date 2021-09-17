@@ -61,7 +61,6 @@ export default ({navigation, route}) => {
         success: res => {
           setLocationDevice(res.data);
           const {lat, lng} = res.data?.location;
-          console.log(res)
           if (lat && lng) {
             refMap.current.animateCamera({
               center: {
@@ -88,6 +87,15 @@ export default ({navigation, route}) => {
     }
   }, []);
 
+  const getRegion = () => {
+    if (!locationDevice) return initialRegion;
+    return {
+      ...initialRegion,
+      latitude: locationDevice?.location?.lat,
+      longitude: locationDevice?.location?.lng,
+    };
+  };
+
   return (
     <View
       style={[styles.container, {paddingBottom: useSafeAreaInsets().bottom}]}>
@@ -98,7 +106,7 @@ export default ({navigation, route}) => {
           style={styles.container}
           provider={PROVIDER_GOOGLE}
           showsUserLocation={true}
-          region={initialRegion}>
+          region={getRegion()}>
           {locationDevice && infoDevice && (
             <Marker
               coordinate={{
