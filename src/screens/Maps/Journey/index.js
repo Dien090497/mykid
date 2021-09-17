@@ -98,10 +98,14 @@ export default ({}) => {
   };
 
   const toggleJourney = () => {
+    const fromDatePayload = date,
+      toDatePayload = date;
+    fromDatePayload.setHours(fromDate.getHours(), fromDate.getMinutes());
+    toDatePayload.setHours(fromDate.getHours(), fromDate.getMinutes());
     getJourneyApi(
       DataLocal.deviceId,
-      new Date(fromDate).toISOString(),
-      new Date(toDate).toISOString(),
+      fromDatePayload.toISOString(),
+      toDatePayload.toISOString(),
       1,
       100,
       {
@@ -109,6 +113,15 @@ export default ({}) => {
           setListSafeArea(resData.data.content);
           if (!resData.data.content.length) {
             showAlert(`${deviceInfo.deviceName} - ${String.history_empty}`);
+          } else {
+            const {lat, lng} = resData.data.content[0].location;
+            refMap.current.animateCamera({
+              center: {
+                latitude: lat,
+                longitude: lng,
+              },
+              zoom: 15,
+            });
           }
         },
         refLoading: refLoading,
@@ -189,7 +202,21 @@ export default ({}) => {
           region={initialRegion}>
           {listSafeArea.map(val => (
             <View key={val.id}>
-              <Marker coordinate={val} title={val.name}>
+              <Marker
+                coordinate={{
+                  latitude: val.location.lat,
+                  longitude: val.location.lng,
+                }}>
+                <View
+                  style={{
+                    backgroundColor: 'white',
+                    paddingHorizontal: 4,
+                    paddingVertical: 2,
+                    borderRadius: 6,
+                  }}>
+                  <Text children={deviceInfo?.deviceName} />
+                </View>
+
                 <Image
                   source={Images.icMarkerDefault}
                   style={styles.icMarker}
