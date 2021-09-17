@@ -9,12 +9,12 @@ import JanusVideoRoomScreen from '../JanusVideoRoomScreen';
 const VideoCallModal = ({visible, device, toggleModal}) => {
   return (
     <Modal visible={visible} animationType="fade" transparent={true}>
+      <JanusVideoRoomScreen />
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
           <Text style={styles.txtName} children={device.deviceName} />
           <Text children={String.video_call} style={styles.txtVideoCall} />
         </View>
-        <JanusVideoRoomScreen />
         <View style={styles.containerFooter}>
           <TouchableOpacity
             style={styles.containerCancel}

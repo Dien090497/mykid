@@ -5,7 +5,10 @@ import {Colors} from '../../../assets/colors/Colors';
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
-    backgroundColor: '#B3B2B3',
+    height: '100%',
+    width: '100%',
+    backgroundColor: Colors.transparent,
+    position: 'absolute',
   },
   modalView: {
     flex: 1,
@@ -23,21 +26,22 @@ const styles = StyleSheet.create({
     fontSize: FontSize.medium,
   },
   containerFooter: {
-    height: '15%',
+    height: '10%',
     backgroundColor: '#494954',
     justifyContent: 'center',
     alignItems: 'center',
   },
   containerCancel: {
     backgroundColor: Colors.red,
-    width: '15%',
+    width: '10%',
     aspectRatio: 1,
     borderRadius: 200,
     alignItems: 'center',
     justifyContent: 'center',
+    alignContent: 'center',
   },
   txtCancel: {
-    fontSize: FontSize.xxxtraBig + 5,
+    fontSize: FontSize.xxxtraBig,
     color: 'white',
     fontWeight: 'bold',
   },

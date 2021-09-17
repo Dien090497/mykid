@@ -9,6 +9,7 @@ import {
 import React from 'react';
 import {Dimensions, FlatList, StatusBar, View} from 'react-native';
 import {Janus, JanusVideoRoomPlugin} from 'react-native-janus';
+import Consts from '../../functions/Consts';
 
 Janus.setDependencies({
   RTCPeerConnection,
@@ -146,30 +147,40 @@ class JanusVideoRoomScreen extends React.Component {
           flex: 1,
           width: '100%',
           height: '100%',
-          backgroundColor: '#000000',
-          flexDirection: 'row',
+          backgroundColor: '#afef9f',
+          justifyContent: 'flex-end',
+          alignContent: 'flex-end',
+          alignItems: 'flex-end',
         }}>
         <StatusBar translucent={true} barStyle={'light-content'} />
-        <FlatList
-          data={this.state.publishers}
-          numColumns={2}
-          keyExtractor={(item, index) => {
-            if (item.publisher === null) {
-              return 'rtc-default';
+        {this.state.publishers.length > 0 && (
+          <RTCView
+            style={{
+              flex: 1,
+              width: '100%',
+              height: '100%',
+            }}
+            objectFit={'cover'}
+            streamURL={
+              this.state.publishers.length > 1
+                ? this.state.publishers[1].stream.toURL()
+                : this.state.publishers[0].stream.toURL()
             }
-            return `rtc-${item.publisher.id}`;
-          }}
-          renderItem={({item}) => (
-            <RTCView
-              style={{
-                flex: 1,
-                height: Dimensions.get('window').height / 2,
-              }}
-              objectFit={'cover'}
-              streamURL={item.stream.toURL()}
-            />
-          )}
-        />
+          />
+        )}
+        {this.state.publishers.length > 1 && (
+          <RTCView
+            style={{
+              position: 'absolute',
+              width: Consts.windowWidth / 3,
+              height: (Consts.screenHeight * 90) / 100 / 4,
+              right: 5,
+              bottom: (Consts.screenHeight * 10) / 100,
+            }}
+            objectFit={'cover'}
+            streamURL={this.state.publishers[0].stream.toURL()}
+          />
+        )}
       </View>
     );
   }
