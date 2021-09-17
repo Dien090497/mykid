@@ -42,6 +42,7 @@ import StompWS from 'react-native-stomp-websocket';
 import WS from './WebScoket';
 import {createStackNavigator} from '@react-navigation/stack';
 import {useSelector} from 'react-redux';
+import { showAlert } from '../functions/utils';
 
 const Tab = createBottomTabNavigator();
 
@@ -245,7 +246,7 @@ const Routes = () => {
         />
       </Stack.Navigator>
       <OS />
-      <WebsocketStomp />
+      {/* <WebsocketStomp /> */}
     </NavigationContainer>
   );
 };
@@ -253,22 +254,35 @@ const Routes = () => {
 //config and init websocket
 const OS = () => {
   const ws = useRef(null);
-  const onOpen = () => {
+  const onOpen = async () => {
     console.log('Websocket Open!');
     if (ws.current?.send) {
-      let command = `CONNECT
-                    id:1
-                    accept-version:1.2
-                    host:${appConfig.rootDomain}
-                    authorization:Bearer ${DataLocal.accessToken}
-                    content-length:0\n\n\0`;
-      ws.current.send(command, true);
+      let command = "CONNECT\n" +
+                "id:11111\n" +
+                "accept-version:1.2\n" +
+                "host:mykid.ttc.software\n" +
+                "authorization:Bearer " + DataLocal.accessToken + "\n" +
+                "content-length:0\n" +
+                "\n\0";
+      // let command = `CONNECT
+      //               id:111
+      //               accept-version:1.2
+      //               host:${appConfig.rootDomain}
+      //               authorization:Bearer ${DataLocal.accessToken}
+      //               content-length:0\n\n\0`;
+      await ws.current.send(command, true);
 
-      command = `SUBSCRIBE
-                id:dmmspring
-                destination:/user/queue/video-calls
-                content-length:0\n\n\0`;
-      ws.current.send(command, true);
+      // command = `SUBSCRIBE
+      //           id:1111
+      //           destination:/user/queue/video-calls
+      //           content-length:0\n\n\0`;
+        command = "SUBSCRIBE\n" +
+                "id:111111\n" +
+                "destination:/user/queue/video-calls\n" +
+                "content-length:0\n" +
+                "\n\0";
+      await ws.current.send(command, true);
+      
 
     }
   };
@@ -282,7 +296,9 @@ const OS = () => {
   };
 
   const onMessage = message => {
-    console.log(message, 'Websocket Message');
+    // console.log(message);
+    console.log(JSON.stringify(message));
+    // console.log(message, 'Websocket Message');
   };
   return (
     <WS
@@ -300,20 +316,21 @@ const OS = () => {
 const WebsocketStomp = ({}) => {
   const token = DataLocal.accessToken;
   const headers = {
-    Authorization: 'Bearer ' + token,
+    Authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpZCI6MSwiZXhwIjoxNjM1MTE1MzQ5LCJpYXQiOjE2MzE1MTUzNDksImVtYWlsIjoiaHlodW5nQGdtYWlsLmNvbSIsImp0aSI6IjkzZGExY2M4LThhODktNDZlNS04NTM4LThhYWMyMDE3YWYzZiJ9.F5z-iS_5pNGhmCaWL830jYiH5ZYPt4s3gcqm9PHxWP25fgSLTdJ303vajTfQlyB2Rn7lo7sD0Vaafe5vbfqKEF_wVlu4OkTpLa8--YVFZdkSEQoUmImaQrDZr2Zd5alEAx534KGV5Xku1SmVTG8DmBWwTVrXKO5nvbk73rzGupHN89ZyoAvh9u_tiu6bM8jvh7G1aurWkyeIo61toRf-W1bPTiV0HcszvyzZzLbunBFcTy015Le7tfGD1wfwn7iGrSXC5ZGLrfc9VlH3I5q_1d9vljUGM3m6uFG4lkIQsBGXwXv6ycCAFfXD7IWIcJGBdkPXyei-fEtVopbpAZ403tgjrlB0ilRXQRSfg6GXUmCU8i1B1SGrywPKNkC2neHvWtv6pH01QAIC0fQhSL-sx91tVteIXPK4CO99-mXI9XmR_-JH4sATG_KqHNkRmTOINHciilhpMMoL2YsCWqJiFPCGqFGZkZpgCelwwu_vJo6-gxE978E0pPZEKi2PytTXa8uPYxR65GPrtQgg2qsdHNYnSKeDe6rgKKc5vfmyrjlWPqgUWhxnjO9PMnxCzbLLr0NGXWQ38zT993Ehx3OfqipvYA7xrf9Nm3CyXdOhSh87GYSxSx8PZsSXINAtq8bmah8XcRt7Sp1YIc2mNOm05tB0zJEJrx7ltViCmJZpQ6M',
   };
   console.log('token', token, headers);
 
-  const client = StompWS.client('wss://mykid.ttc.software/kwapp-core/v1/ws');
+  const client = StompWS.client(wsUrl);
   client.debug = text => console.log(text);
   client.connect(
     headers,
     () => {
-      client.subscribe(`/user/queue/unsafe-locations`, data => {
+      client.subscribe(`/user/queue/video-calls`, data => {
         var message = JSON.parse(data);
         Alert(JSON.stringify(data));
         console.log('subscribe topic device out safezone');
-      });
+      },
+      headers);
       console.log('connect success');
     },
     function (e) {
