@@ -5,7 +5,7 @@ import {
 import { generateRandomId } from "../functions/utils";
 import { post, get, put } from "./http/HttpClient";
 
-export function loginService(body, autoShowMsg = true) {
+export function loginService(body, autoShowMsg = true, refLoading = null) {
   return post(loginUrl, { body, autoShowMsg, refLoading });
 }
 
