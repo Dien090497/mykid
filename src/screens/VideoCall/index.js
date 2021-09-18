@@ -10,28 +10,28 @@ import {
 } from 'react-native';
 import React, {memo, useEffect, useReducer, useRef, useState} from 'react';
 import {
+  createVideoCalllApi,
+  finishVideoCalllApi,
+} from '../../network/VideoCallService';
+import {
   hideLoading,
   parseTokenToObject,
   showLoading,
 } from '../../functions/utils';
 
 import Consts from '../../functions/Consts';
+import DataLocal from '../../data/dataLocal';
 import Header from '../../components/Header';
 import Images from '../../assets/Images';
+import JanusVideoRoomScreen from './JanusVideoRoomScreen';
 import LoadingIndicator from '../../components/LoadingIndicator';
 import {String} from '../../assets/strings/String';
 import VideoCallModal from './VideoCallModal';
+import VideoCallStateModal from './VideoCallStateModal';
 import {getListDeviceConnected} from '../../network/DeviceService';
 import styles from './styles.js';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useSelector} from 'react-redux';
-import {
-  createVideoCalllApi,
-  finishVideoCalllApi,
-} from '../../network/VideoCallService';
-import DataLocal from '../../data/dataLocal';
-import JanusVideoRoomScreen from './JanusVideoRoomScreen';
-import VideoCallStateModal from './VideoCallStateModal';
 
 const initialState = {
   data: [],
@@ -89,13 +89,13 @@ const ListDeviceScreen = () => {
   });
   const [visibleCallState, setVisibleCallState] = useState({
     visible: false,
-    deviceName: 'demo'
+    deviceName: 'demo',
   });
   var onEndReachedCalledDuringMomentum = true;
 
   const getData = async () => {
     try {
-      const user = parseTokenToObject(token);
+      const user = DataLocal.userInfo;
       showLoading(refLoading);
       const res = await getListDeviceConnected({page, accountId: user?.id});
       dispatch({
@@ -211,7 +211,9 @@ const ListDeviceScreen = () => {
         <VideoCallStateModal
           visible={visibleCallState.visible}
           deviceName={visibleCallState.deviceName}
-          toggleModal={() => {setVisibleCallState({visible: false, deviceName: 'off'});}}
+          toggleModal={() => {
+            setVisibleCallState({visible: false, deviceName: 'off'});
+          }}
         />
       )}
     </View>
