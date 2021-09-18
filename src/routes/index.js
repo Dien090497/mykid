@@ -45,7 +45,8 @@ import reduxStore from '../redux/config/redux';
 import {showAlert} from '../functions/utils';
 import {useSelector} from 'react-redux';
 import videoCallAction from '../redux/actions/videoCallAction';
-
+import * as encoding from 'text-encoding';
+var encoder = new encoding.TextEncoder();
 const Tab = createBottomTabNavigator();
 
 const ONE_SECOND_EACH_TIME = 400;
@@ -283,7 +284,7 @@ const OS = () => {
       //               host:${appConfig.rootDomain}
       //               authorization:Bearer ${DataLocal.accessToken}
       //               content-length:0\n\n\0`;
-      await ws.current.send(command, true);
+      await ws.current.send(encoder.encode(command).buffer, true);
 
       // command = `SUBSCRIBE
       //           id:1111
@@ -295,7 +296,7 @@ const OS = () => {
         'destination:/user/queue/video-calls\n' +
         'content-length:0\n' +
         '\n\0';
-      await ws.current.send(command, true);
+      await ws.current.send(encoder.encode(command).buffer, true);
     }
   };
 
@@ -363,14 +364,14 @@ const WebSocketSafeZone = () => {
         '\n' +
         'content-length:0\n' +
         '\n\0';
-      await ws.current.send(command, true);
+      await ws.current.send(encoder.encode(command).buffer, true);
       command =
         'SUBSCRIBE\n' +
         'id:111112\n' +
         'destination:/user/queue/unsafe-locations\n' +
         'content-length:0\n' +
         '\n\0';
-      await ws.current.send(command, true);
+      await ws.current.send(encoder.encode(command).buffer, true);
     }
   };
 

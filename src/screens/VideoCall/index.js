@@ -138,43 +138,41 @@ const ListDeviceScreen = () => {
     if (!videoCallReducer.connectionData) {
       return;
     }
-    console.log(videoCallReducer.connectionData);
-    console.log(videoCallReducer.connectionState);
     if (videoCallReducer.connectionState === 'INIT') {
-      showAlert('có cuộc gọi tới', {
-        close: () => {
-          setVisibleCallState({
-            visible: true,
-            deviceName: videoCallReducer.connectionData.caller.deviceName,
-            connectionState: videoCallReducer.connectionState,
-            data: videoCallReducer.connectionData,
-          });
-          reduxStore.store.dispatch(videoCallAction.reset());
-        },
+      // showAlert('có cuộc gọi tới', {
+      //   close: () => {
+      setVisibleCallState({
+        visible: true,
+        deviceName: videoCallReducer.connectionData.caller.deviceName,
+        connectionState: videoCallReducer.connectionState,
+        data: videoCallReducer.connectionData,
       });
+      reduxStore.store.dispatch(videoCallAction.reset());
+      //   },
+      // });
     } else if (videoCallReducer.connectionState === 'REJECT') {
-      showAlert('Cuộc gọi bị hủy/ người dùng bận', {
-        close: () => {
-          setVisibleCallState({
-            visible: true,
-            deviceName: videoCallReducer.connectionData.caller.deviceName,
-            connectionState: videoCallReducer.connectionState,
-            data: videoCallReducer.connectionData,
-          });
-          reduxStore.store.dispatch(videoCallAction.reset());
-        },
+      // showAlert('Cuộc gọi bị hủy/ người dùng bận', {
+      //   close: () => {
+      setVisibleCallState({
+        visible: true,
+        deviceName: videoCallReducer.connectionData.caller.deviceName,
+        connectionState: videoCallReducer.connectionState,
+        data: videoCallReducer.connectionData,
       });
+      reduxStore.store.dispatch(videoCallAction.reset());
+      //   },
+      // });
     } else {
-      showAlert('Cuộc gọi kết thúc', {
-        close: () => {
-          // setVisibleCallState({
-          //   visible: true,
-          //   deviceName: 'demo',
-          // });
-          setVisibleCall({visible: false, device: null, data: []});
-          reduxStore.store.dispatch(videoCallAction.reset());
-        },
-      });
+      // showAlert('Cuộc gọi kết thúc', {
+      //   close: () => {
+      // setVisibleCallState({
+      //   visible: true,
+      //   deviceName: 'demo',
+      // });
+      setVisibleCall({visible: false, device: null, data: []});
+      reduxStore.store.dispatch(videoCallAction.reset());
+      //   },
+      // });
     }
 
     setVideoCallData(videoCallReducer.connectionData);
@@ -256,12 +254,12 @@ const ListDeviceScreen = () => {
 
   const renderItem = ({item, index}) => (
     <View key={item?.id} activeOpacity={0.5} style={styles.containerDeviceItem}>
-      <Text children={item?.deviceName} style={styles.txtNameDevice}/>
+      <Text children={item?.deviceName} style={styles.txtNameDevice} />
 
       <TouchableOpacity
         style={styles.containerPhone}
         onPress={onPressCall(item)}>
-        <Image source={Images.icPhone} style={styles.icPhone}/>
+        <Image source={Images.icPhone} style={styles.icPhone} />
       </TouchableOpacity>
     </View>
   );
@@ -269,7 +267,7 @@ const ListDeviceScreen = () => {
   return (
     <View
       style={[styles.container, {paddingBottom: useSafeAreaInsets().bottom}]}>
-      <Header title={String.video_call}/>
+      <Header title={String.video_call} />
       <View style={styles.mainView}>
         {!state.loading && !state.error && (
           <FlatList
@@ -280,7 +278,7 @@ const ListDeviceScreen = () => {
             onMomentumScrollBegin={onMomentumScrollBegin}
             handleLoadMore={handleLoadMore}
             ListFooterComponent={
-              state.isLoadMore && <ActivityIndicator style={styles.loadMore}/>
+              state.isLoadMore && <ActivityIndicator style={styles.loadMore} />
             }
             ListEmptyComponent={
               <Text
@@ -291,7 +289,7 @@ const ListDeviceScreen = () => {
           />
         )}
       </View>
-      <LoadingIndicator ref={refLoading}/>
+      <LoadingIndicator ref={refLoading} />
       {visibleCall.visible && (
         <VideoCallModal
           visible={visibleCall.visible}
