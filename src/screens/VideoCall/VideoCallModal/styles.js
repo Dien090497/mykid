@@ -41,9 +41,9 @@ const styles = StyleSheet.create({
     alignContent: 'center',
   },
   txtCancel: {
-    fontSize: FontSize.xxxtraBig,
-    color: 'white',
-    fontWeight: 'bold',
+    flex: 1,
+    aspectRatio: 1,
+    resizeMode: 'contain',
   },
 });
 

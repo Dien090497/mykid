@@ -56,5 +56,6 @@ export const Colors = {
   blueButton: '#4086f5',
   cardHeader: '#f7f7f7',
   backgroundVideoCall: '#3F87F5',
-  backgroundVideoCallError: '#E5E5E5',
+  buttonCancel: '#E5E5E5',
+  backgroundVideoCallError: '#53535F',
 };

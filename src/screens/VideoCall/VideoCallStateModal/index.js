@@ -50,7 +50,7 @@ const VideoCallStateModal = ({
               backgroundColor:
                 connectionState === 'INIT'
                   ? Colors.backgroundVideoCall
-                  : Colors.backgroundVideoCallError,
+                  : Colors.buttonCancel,
             },
           ]}>
           <TouchableOpacity

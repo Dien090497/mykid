@@ -1,10 +1,18 @@
-import {Modal, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Image,
+  Modal,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, {memo, useRef} from 'react';
 
 import {String} from '../../../assets/strings/String';
 import styles from './styles.js';
 import JanusVideoRoomScreen from '../JanusVideoRoomScreen';
 import {navigationRef} from '../../../routes/RootNavigation';
+import Images from '../../../assets/Images';
 
 const VideoCallModal = ({visible, device, toggleModal, data}) => {
   const refJanusVideoRoomScreen = useRef();
@@ -34,7 +42,7 @@ const VideoCallModal = ({visible, device, toggleModal, data}) => {
           <TouchableOpacity
             style={styles.containerCancel}
             onPress={destroyVideoCall}>
-            <Text children="X" style={styles.txtCancel} />
+            <Image source={Images.icCallReject} style={styles.txtCancel} />
           </TouchableOpacity>
         </View>
       </View>
