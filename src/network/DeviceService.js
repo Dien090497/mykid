@@ -34,14 +34,14 @@ export function getListDeviceApi(
 }
 
 export function addDeviceApi(
-  deviceCode,
+  imeiCode,
   deviceName,
   icon,
   relationship,
   {success, failure, autoShowMsg = true, refLoading = null} = {},
 ) {
   let body = {
-    deviceCode,
+    imeiCode,
     deviceName,
     icon,
     relationship,
