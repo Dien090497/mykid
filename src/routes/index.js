@@ -296,6 +296,7 @@ const OS = () => {
   };
 
   const onMessage = message => {
+    console.log(JSON.stringify(message));
     if (message.data) {
       const split = message.data.split('\n');
       //['MESSAGE', 'event:INCOMING_CALL', 'destination:/user/queue/video-calls', 'content-type:application/json', 'subscription:111111', 'message-id:50952199-de98-32f6-b671-087214694a64-17', 'content-length:423', '', '{"id":213,"key":"ea0b71e8-6d4a-4093-95d5-d33316b6c…829Z","updatedAt":"2021-09-18T02:38:20.033829Z"}\x00']
