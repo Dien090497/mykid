@@ -31,6 +31,7 @@ import {
 } from '../../network/VideoCallService';
 import DataLocal from '../../data/dataLocal';
 import JanusVideoRoomScreen from './JanusVideoRoomScreen';
+import VideoCallStateModal from './VideoCallStateModal';
 
 const initialState = {
   data: [],
@@ -86,6 +87,10 @@ const ListDeviceScreen = () => {
     server: null,
     data: [],
   });
+  const [visibleCallState, setVisibleCallState] = useState({
+    visible: false,
+    deviceName: 'demo'
+  });
   var onEndReachedCalledDuringMomentum = true;
 
   const getData = async () => {
@@ -124,6 +129,11 @@ const ListDeviceScreen = () => {
   }, [page]);
 
   const onPressCall = item => () => {
+    // Demo show
+    // setVisibleCallState({
+    //   visible: true,
+    //   deviceName: 'demo'
+    // });
     createVideoCalllApi(
       // DataLocal.deviceId,
       {deviceId: item.deviceId},
@@ -195,6 +205,13 @@ const ListDeviceScreen = () => {
           device={visibleCall.device}
           toggleModal={toggleModal}
           data={visibleCall.data}
+        />
+      )}
+      {visibleCallState.visible && (
+        <VideoCallStateModal
+          visible={visibleCallState.visible}
+          deviceName={visibleCallState.deviceName}
+          toggleModal={() => {setVisibleCallState({visible: false, deviceName: 'off'});}}
         />
       )}
     </View>

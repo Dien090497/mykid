@@ -292,13 +292,14 @@ const OS = () => {
   };
 
   const onError = error => {
+    console.log(JSON.stringify(error));
     console.log(error, 'Websocket Error!');
   };
 
   const onMessage = message => {
     // console.log(message);
     console.log(JSON.stringify(message));
-    // console.log(message, 'Websocket Message');
+    console.log(message, 'Websocket Message');
   };
   return (
     <WS
@@ -308,7 +309,7 @@ const OS = () => {
       onMessage={onMessage}
       onError={onError}
       onClose={onClose}
-      reconnect // Will try to reconnect onClose
+      reconnect={false} // Will try to reconnect onClose
     />
   );
 };

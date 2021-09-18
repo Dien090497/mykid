@@ -130,6 +130,8 @@ export const String = {
   setting_member: 'Thành viên',
   video_call: 'Video Call',
   device_connected_not_found: 'Không tìm thấy thiết bị kết nối',
+  call_busy: 'Người dùng bận',
+  call_back: 'Gọi lại',
 
   // find device
   find_device_note0: 'Luôn biết vị trí thiết bị mọi thời điểm, mọi vị trí',
