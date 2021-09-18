@@ -25,6 +25,13 @@ import {getListDeviceConnected} from '../../network/DeviceService';
 import styles from './styles.js';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useSelector} from 'react-redux';
+import {
+  createVideoCalllApi,
+  finishVideoCalllApi,
+} from '../../network/VideoCallService';
+import DataLocal from '../../data/dataLocal';
+import JanusVideoRoomScreen from './JanusVideoRoomScreen';
+import VideoCallStateModal from './VideoCallStateModal';
 
 const initialState = {
   data: [],
@@ -77,7 +84,12 @@ const ListDeviceScreen = () => {
   const [page, setPage] = useState(0);
   const [visibleCall, setVisibleCall] = useState({
     visible: false,
-    device: null,
+    server: null,
+    data: [],
+  });
+  const [visibleCallState, setVisibleCallState] = useState({
+    visible: false,
+    deviceName: 'demo'
   });
   var onEndReachedCalledDuringMomentum = true;
 
@@ -117,12 +129,36 @@ const ListDeviceScreen = () => {
   }, [page]);
 
   const onPressCall = item => () => {
-    //show modal call when connected
-    setVisibleCall({visible: true, device: item});
+    // Demo show
+    // setVisibleCallState({
+    //   visible: true,
+    //   deviceName: 'demo'
+    // });
+    createVideoCalllApi(
+      // DataLocal.deviceId,
+      {deviceId: item.deviceId},
+      {
+        success: res => {
+          //show modal call when connected
+          console.log('TNT ', res);
+          setVisibleCall({
+            visible: true,
+            device: item,
+            data: res.data,
+          });
+        },
+        refLoading: refLoading,
+      },
+    );
   };
 
-  const toggleModal = () => {
-    setVisibleCall({visible: false, device: null});
+  const toggleModal = roomId => {
+    finishVideoCalllApi({}, roomId, {
+      success: res => {
+        setVisibleCall({visible: false, device: null, data: []});
+      },
+      refLoading: refLoading,
+    });
   };
 
   const renderItem = ({item, index}) => (
@@ -168,6 +204,14 @@ const ListDeviceScreen = () => {
           visible={visibleCall.visible}
           device={visibleCall.device}
           toggleModal={toggleModal}
+          data={visibleCall.data}
+        />
+      )}
+      {visibleCallState.visible && (
+        <VideoCallStateModal
+          visible={visibleCallState.visible}
+          deviceName={visibleCallState.deviceName}
+          toggleModal={() => {setVisibleCallState({visible: false, deviceName: 'off'});}}
         />
       )}
     </View>
