@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {memo, useEffect, useReducer, useRef, useState} from 'react';
+import React, {useLayoutEffect, useEffect, useReducer, useRef, useState} from 'react';
 import {
   createVideoCalllApi,
   finishVideoCalllApi,
@@ -16,6 +16,7 @@ import {
 import {
   hideLoading,
   parseTokenToObject,
+  showAlert,
   showLoading,
 } from '../../functions/utils';
 
@@ -80,8 +81,10 @@ const reducer = (state, action) => {
 const ListDeviceScreen = () => {
   const refLoading = useRef();
   const {token} = useSelector(state => state.loginReducer).dataInfo;
+  const connectionData = useSelector((state) => state.videoCallReducer.connectionData);
   const [state, dispatch] = useReducer(reducer, initialState);
   const [page, setPage] = useState(0);
+  const [videoCallData, setVideoCallData] = useState();
   const [visibleCall, setVisibleCall] = useState({
     visible: false,
     server: null,
@@ -119,6 +122,43 @@ const ListDeviceScreen = () => {
   const onMomentumScrollBegin = () => {
     onEndReachedCalledDuringMomentum = false;
   };
+
+  useLayoutEffect(() => {
+    console.log('connectionData');
+    if (connectionData.includes('"status":"INIT"')) 
+    {
+      showAlert('có cuộc gọi tới', {
+        close: () => {
+          setVisibleCallState({
+            visible: true,
+            deviceName: 'demo'
+          });
+        },
+      });
+    } else if (connectionData.includes('"status":"REJECT"')) 
+    {
+      showAlert('Cuộc gọi bị hủy/ người dùng bận', {
+        close: () => {
+          setVisibleCallState({
+            visible: true,
+            deviceName: 'demo'
+          });
+        },
+      });
+    } else
+    {
+      showAlert('Cuộc gọi kết thúc', {
+        close: () => {
+          setVisibleCallState({
+            visible: true,
+            deviceName: 'demo'
+          });
+        },
+      });
+    }
+
+    setVideoCallData(connectionData);
+  }, [connectionData])
 
   useEffect(() => {
     getData();
