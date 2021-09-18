@@ -6,6 +6,7 @@ export const VideoCallState = {
   streaming: 'STREAMING',
   rejected: 'REJECTED',
   ended: 'ENDED',
+  reset: 'RESET',
 }
 
 const initData = {
@@ -32,6 +33,12 @@ const videoCallReducer = (state = initData, { type, payload }) => {
         ...state,
         connectionState: VideoCallState.ended,
         connectionData: payload,
+      }
+    case VideoCallActionList.reset:
+      return {
+        ...state,
+        connectionState: VideoCallState.reset,
+        connectionData: null,
       }
     default:
       return state;

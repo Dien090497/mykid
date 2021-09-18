@@ -33,6 +33,8 @@ import {
 import DataLocal from '../../data/dataLocal';
 import JanusVideoRoomScreen from './JanusVideoRoomScreen';
 import VideoCallStateModal from './VideoCallStateModal';
+import videoCallAction from '../../redux/actions/videoCallAction';
+import reduxStore from '../../redux/config/redux';
 
 const initialState = {
   data: [],
@@ -133,6 +135,7 @@ const ListDeviceScreen = () => {
             visible: true,
             deviceName: 'demo'
           });
+          reduxStore.store.dispatch(videoCallAction.reset());
         },
       });
     } else if (connectionData.includes('"status":"REJECT"')) 
@@ -143,6 +146,7 @@ const ListDeviceScreen = () => {
             visible: true,
             deviceName: 'demo'
           });
+          reduxStore.store.dispatch(videoCallAction.reset());
         },
       });
     } else
@@ -153,6 +157,7 @@ const ListDeviceScreen = () => {
             visible: true,
             deviceName: 'demo'
           });
+          reduxStore.store.dispatch(videoCallAction.reset());
         },
       });
     }

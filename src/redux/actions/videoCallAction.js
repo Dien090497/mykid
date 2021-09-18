@@ -12,14 +12,21 @@ export const endedCall = payload => ({
   payload,
 });
 
+export const reset = payload => ({
+  type: VideoCallActionList.reset,
+  payload,
+});
+
 export default {
   incomingCall,
   rejectedCall,
   endedCall,
+  reset
 };
 
 export const VideoCallActionList = {
   incomingCall: 'INCOMING_CALL',
   rejectedCall: 'REJECTED_CALL',
   endedCall: 'ENDED_CALL',
+  reset: 'RESET'
 }
