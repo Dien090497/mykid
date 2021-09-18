@@ -10,6 +10,7 @@ import React from 'react';
 import {Dimensions, FlatList, StatusBar, View} from 'react-native';
 import {Janus, JanusVideoRoomPlugin} from 'react-native-janus';
 import Consts from '../../functions/Consts';
+import {Colors} from '../../assets/colors/Colors';
 
 Janus.setDependencies({
   RTCPeerConnection,
@@ -156,7 +157,7 @@ class JanusVideoRoomScreen extends React.Component {
           flex: 1,
           width: '100%',
           height: '100%',
-          backgroundColor: '#afef9f',
+          backgroundColor: Colors.backgroundVideoCall,
           justifyContent: 'flex-end',
           alignContent: 'flex-end',
           alignItems: 'flex-end',

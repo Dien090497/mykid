@@ -139,5 +139,10 @@ export const String = {
   find_device_note1: '1. Bấm nút để tìm Thiết bị',
   find_device_note2: '2. Bấm thành công',
   find_device_note3: '3. Gửi thành công',
-  find_device_note4: '4. Thiết bị sẽ bắt đầu đổ chuông sau khi nhận được yêu cầu',
+  find_device_note4:
+    '4. Thiết bị sẽ bắt đầu đổ chuông sau khi nhận được yêu cầu',
+  // Videocall
+  reject: 'Từ chối',
+  acceptVideocall: 'Trả lời',
+  requestVideoCall: 'Cuộc gọi đến',
 };

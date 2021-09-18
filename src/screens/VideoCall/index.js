@@ -8,7 +8,13 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useLayoutEffect, useEffect, useReducer, useRef, useState} from 'react';
+import React, {
+  useLayoutEffect,
+  useEffect,
+  useReducer,
+  useRef,
+  useState,
+} from 'react';
 import {
   hideLoading,
   parseTokenToObject,
@@ -29,6 +35,7 @@ import {useSelector} from 'react-redux';
 import {
   createVideoCalllApi,
   finishVideoCalllApi,
+  rejectVideoCalllApi,
 } from '../../network/VideoCallService';
 import DataLocal from '../../data/dataLocal';
 import JanusVideoRoomScreen from './JanusVideoRoomScreen';
@@ -83,7 +90,7 @@ const reducer = (state, action) => {
 const ListDeviceScreen = () => {
   const refLoading = useRef();
   const {token} = useSelector(state => state.loginReducer).dataInfo;
-  const videoCallReducer = useSelector((state) => state.videoCallReducer);
+  const videoCallReducer = useSelector(state => state.videoCallReducer);
   const [state, dispatch] = useReducer(reducer, initialState);
   const [page, setPage] = useState(0);
   const [videoCallData, setVideoCallData] = useState();
@@ -94,7 +101,9 @@ const ListDeviceScreen = () => {
   });
   const [visibleCallState, setVisibleCallState] = useState({
     visible: false,
-    deviceName: 'demo'
+    deviceName: 'demo',
+    connectionState: '',
+    data: [],
   });
   var onEndReachedCalledDuringMomentum = true;
 
@@ -126,45 +135,50 @@ const ListDeviceScreen = () => {
   };
 
   useLayoutEffect(() => {
-    if (!videoCallReducer.connectionData) return;
+    if (!videoCallReducer.connectionData) {
+      return;
+    }
     console.log(videoCallReducer.connectionData);
-    if (videoCallReducer.connectionState === 'INIT') 
-    {
+    console.log(videoCallReducer.connectionState);
+    if (videoCallReducer.connectionState === 'INIT') {
       showAlert('có cuộc gọi tới', {
         close: () => {
           setVisibleCallState({
             visible: true,
-            deviceName: 'demo'
+            deviceName: videoCallReducer.connectionData.caller.deviceName,
+            connectionState: videoCallReducer.connectionState,
+            data: videoCallReducer.connectionData,
           });
           reduxStore.store.dispatch(videoCallAction.reset());
         },
       });
-    } else if (videoCallReducer.connectionState === 'REJECT')
-    {
+    } else if (videoCallReducer.connectionState === 'REJECT') {
       showAlert('Cuộc gọi bị hủy/ người dùng bận', {
         close: () => {
           setVisibleCallState({
             visible: true,
-            deviceName: 'demo'
+            deviceName: videoCallReducer.connectionData.caller.deviceName,
+            connectionState: videoCallReducer.connectionState,
+            data: videoCallReducer.connectionData,
           });
           reduxStore.store.dispatch(videoCallAction.reset());
         },
       });
-    } else
-    {
+    } else {
       showAlert('Cuộc gọi kết thúc', {
         close: () => {
-          setVisibleCallState({
-            visible: true,
-            deviceName: 'demo'
-          });
+          // setVisibleCallState({
+          //   visible: true,
+          //   deviceName: 'demo',
+          // });
+          setVisibleCall({visible: false, device: null, data: []});
           reduxStore.store.dispatch(videoCallAction.reset());
         },
       });
     }
 
     setVideoCallData(videoCallReducer.connectionData);
-  }, [videoCallReducer])
+  }, [videoCallReducer]);
 
   useEffect(() => {
     getData();
@@ -173,7 +187,6 @@ const ListDeviceScreen = () => {
   useEffect(() => {
     dispatch({type: 'loading', payload: {page}});
   }, [page]);
-
   const onPressCall = item => () => {
     // Demo show
     // setVisibleCallState({
@@ -186,7 +199,6 @@ const ListDeviceScreen = () => {
       {
         success: res => {
           //show modal call when connected
-          console.log('TNT ', res);
           setVisibleCall({
             visible: true,
             device: item,
@@ -206,15 +218,50 @@ const ListDeviceScreen = () => {
       refLoading: refLoading,
     });
   };
+  const onCreateVideoCalll = item => () => {
+    setVisibleCallState({
+      visible: false,
+      deviceName: 'off',
+      connectionState: '',
+      data: [],
+    });
+    setVisibleCall({
+      visible: true,
+      device: {deviceName: item.caller.deviceName},
+      data: item,
+    });
+  };
+  const toggleModalState = ({connectionState, roomId}) => {
+    if (connectionState === 'INIT') {
+      rejectVideoCalllApi({}, roomId, {
+        success: res => {
+          setVisibleCallState({
+            visible: false,
+            deviceName: 'off',
+            connectionState: '',
+            data: [],
+          });
+        },
+        refLoading: refLoading,
+      });
+    } else {
+      setVisibleCallState({
+        visible: false,
+        deviceName: 'off',
+        connectionState: '',
+        data: [],
+      });
+    }
+  };
 
   const renderItem = ({item, index}) => (
     <View key={item?.id} activeOpacity={0.5} style={styles.containerDeviceItem}>
-      <Text children={item?.deviceName} style={styles.txtNameDevice} />
+      <Text children={item?.deviceName} style={styles.txtNameDevice}/>
 
       <TouchableOpacity
         style={styles.containerPhone}
         onPress={onPressCall(item)}>
-        <Image source={Images.icPhone} style={styles.icPhone} />
+        <Image source={Images.icPhone} style={styles.icPhone}/>
       </TouchableOpacity>
     </View>
   );
@@ -222,7 +269,7 @@ const ListDeviceScreen = () => {
   return (
     <View
       style={[styles.container, {paddingBottom: useSafeAreaInsets().bottom}]}>
-      <Header title={String.video_call} />
+      <Header title={String.video_call}/>
       <View style={styles.mainView}>
         {!state.loading && !state.error && (
           <FlatList
@@ -233,7 +280,7 @@ const ListDeviceScreen = () => {
             onMomentumScrollBegin={onMomentumScrollBegin}
             handleLoadMore={handleLoadMore}
             ListFooterComponent={
-              state.isLoadMore && <ActivityIndicator style={styles.loadMore} />
+              state.isLoadMore && <ActivityIndicator style={styles.loadMore}/>
             }
             ListEmptyComponent={
               <Text
@@ -244,7 +291,7 @@ const ListDeviceScreen = () => {
           />
         )}
       </View>
-      <LoadingIndicator ref={refLoading} />
+      <LoadingIndicator ref={refLoading}/>
       {visibleCall.visible && (
         <VideoCallModal
           visible={visibleCall.visible}
@@ -255,9 +302,12 @@ const ListDeviceScreen = () => {
       )}
       {visibleCallState.visible && (
         <VideoCallStateModal
+          connectionState={visibleCallState.connectionState}
           visible={visibleCallState.visible}
           deviceName={visibleCallState.deviceName}
-          toggleModal={() => {setVisibleCallState({visible: false, deviceName: 'off'});}}
+          item={visibleCallState.data}
+          toggleModal={toggleModalState}
+          createVideoCall={onCreateVideoCalll}
         />
       )}
     </View>
