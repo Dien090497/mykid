@@ -10,10 +10,6 @@ import {
 } from 'react-native';
 import React, {useLayoutEffect, useEffect, useReducer, useRef, useState} from 'react';
 import {
-  createVideoCalllApi,
-  finishVideoCalllApi,
-} from '../../network/VideoCallService';
-import {
   hideLoading,
   parseTokenToObject,
   showAlert,
@@ -21,18 +17,24 @@ import {
 } from '../../functions/utils';
 
 import Consts from '../../functions/Consts';
-import DataLocal from '../../data/dataLocal';
 import Header from '../../components/Header';
 import Images from '../../assets/Images';
-import JanusVideoRoomScreen from './JanusVideoRoomScreen';
 import LoadingIndicator from '../../components/LoadingIndicator';
 import {String} from '../../assets/strings/String';
 import VideoCallModal from './VideoCallModal';
-import VideoCallStateModal from './VideoCallStateModal';
 import {getListDeviceConnected} from '../../network/DeviceService';
 import styles from './styles.js';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useSelector} from 'react-redux';
+import {
+  createVideoCalllApi,
+  finishVideoCalllApi,
+} from '../../network/VideoCallService';
+import DataLocal from '../../data/dataLocal';
+import JanusVideoRoomScreen from './JanusVideoRoomScreen';
+import VideoCallStateModal from './VideoCallStateModal';
+import videoCallAction from '../../redux/actions/videoCallAction';
+import reduxStore from '../../redux/config/redux';
 
 const initialState = {
   data: [],
@@ -92,13 +94,13 @@ const ListDeviceScreen = () => {
   });
   const [visibleCallState, setVisibleCallState] = useState({
     visible: false,
-    deviceName: 'demo',
+    deviceName: 'demo'
   });
   var onEndReachedCalledDuringMomentum = true;
 
   const getData = async () => {
     try {
-      const user = DataLocal.userInfo;
+      const user = parseTokenToObject(token);
       showLoading(refLoading);
       const res = await getListDeviceConnected({page, accountId: user?.id});
       dispatch({
@@ -124,7 +126,7 @@ const ListDeviceScreen = () => {
   };
 
   useLayoutEffect(() => {
-    console.log('connectionData');
+    if (!connectionData) return;
     if (connectionData.includes('"status":"INIT"')) 
     {
       showAlert('có cuộc gọi tới', {
@@ -133,6 +135,7 @@ const ListDeviceScreen = () => {
             visible: true,
             deviceName: 'demo'
           });
+          reduxStore.store.dispatch(videoCallAction.reset());
         },
       });
     } else if (connectionData.includes('"status":"REJECT"')) 
@@ -143,6 +146,7 @@ const ListDeviceScreen = () => {
             visible: true,
             deviceName: 'demo'
           });
+          reduxStore.store.dispatch(videoCallAction.reset());
         },
       });
     } else
@@ -153,6 +157,7 @@ const ListDeviceScreen = () => {
             visible: true,
             deviceName: 'demo'
           });
+          reduxStore.store.dispatch(videoCallAction.reset());
         },
       });
     }
@@ -251,9 +256,7 @@ const ListDeviceScreen = () => {
         <VideoCallStateModal
           visible={visibleCallState.visible}
           deviceName={visibleCallState.deviceName}
-          toggleModal={() => {
-            setVisibleCallState({visible: false, deviceName: 'off'});
-          }}
+          toggleModal={() => {setVisibleCallState({visible: false, deviceName: 'off'});}}
         />
       )}
     </View>
