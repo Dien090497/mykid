@@ -38,11 +38,8 @@ import SafeZone from '../screens/Maps/SafeZone';
 import SettingScreen from '../screens/Settings';
 import SoundSettings from '../screens/Profile/SoundSettings';
 import SplashScreen from '../screens/Splash';
-import StompWS from 'react-native-stomp-websocket';
 import WS from './WebScoket';
 import {createStackNavigator} from '@react-navigation/stack';
-import {useSelector} from 'react-redux';
-import { showAlert } from '../functions/utils';
 import reduxStore from '../redux/config/redux';
 import videoCallAction from '../redux/actions/videoCallAction';
 
@@ -335,33 +332,6 @@ const OS = () => {
       reconnect={true} // Will try to reconnect onClose
     />
   );
-};
-
-const WebsocketStomp = ({}) => {
-  const token = DataLocal.accessToken;
-  const headers = {
-    Authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpZCI6MSwiZXhwIjoxNjM1MTE1MzQ5LCJpYXQiOjE2MzE1MTUzNDksImVtYWlsIjoiaHlodW5nQGdtYWlsLmNvbSIsImp0aSI6IjkzZGExY2M4LThhODktNDZlNS04NTM4LThhYWMyMDE3YWYzZiJ9.F5z-iS_5pNGhmCaWL830jYiH5ZYPt4s3gcqm9PHxWP25fgSLTdJ303vajTfQlyB2Rn7lo7sD0Vaafe5vbfqKEF_wVlu4OkTpLa8--YVFZdkSEQoUmImaQrDZr2Zd5alEAx534KGV5Xku1SmVTG8DmBWwTVrXKO5nvbk73rzGupHN89ZyoAvh9u_tiu6bM8jvh7G1aurWkyeIo61toRf-W1bPTiV0HcszvyzZzLbunBFcTy015Le7tfGD1wfwn7iGrSXC5ZGLrfc9VlH3I5q_1d9vljUGM3m6uFG4lkIQsBGXwXv6ycCAFfXD7IWIcJGBdkPXyei-fEtVopbpAZ403tgjrlB0ilRXQRSfg6GXUmCU8i1B1SGrywPKNkC2neHvWtv6pH01QAIC0fQhSL-sx91tVteIXPK4CO99-mXI9XmR_-JH4sATG_KqHNkRmTOINHciilhpMMoL2YsCWqJiFPCGqFGZkZpgCelwwu_vJo6-gxE978E0pPZEKi2PytTXa8uPYxR65GPrtQgg2qsdHNYnSKeDe6rgKKc5vfmyrjlWPqgUWhxnjO9PMnxCzbLLr0NGXWQ38zT993Ehx3OfqipvYA7xrf9Nm3CyXdOhSh87GYSxSx8PZsSXINAtq8bmah8XcRt7Sp1YIc2mNOm05tB0zJEJrx7ltViCmJZpQ6M',
-  };
-  console.log('token', token, headers);
-
-  const client = StompWS.client(wsUrl);
-  client.debug = text => console.log(text);
-  client.connect(
-    headers,
-    () => {
-      client.subscribe(`/user/queue/video-calls`, data => {
-        var message = JSON.parse(data);
-        Alert(JSON.stringify(data));
-        console.log('subscribe topic device out safezone');
-      },
-      headers);
-      console.log('connect success');
-    },
-    function (e) {
-      console.log('connect error', e);
-    },
-  );
-  return null;
 };
 
 export default Routes;
