@@ -124,7 +124,7 @@ const ListDeviceScreen = () => {
   };
 
   useLayoutEffect(() => {
-    console.log('connectionData');
+    if (!connectionData) return;
     if (connectionData.includes('"status":"INIT"')) 
     {
       showAlert('có cuộc gọi tới', {
