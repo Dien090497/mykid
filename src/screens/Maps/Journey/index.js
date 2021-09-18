@@ -27,6 +27,7 @@ import Button from '../../../components/buttonGradient';
 import {Colors} from '../../../assets/colors/Colors';
 import DataLocal from '../../../data/dataLocal';
 import DatePicker from 'react-native-date-picker';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import Header from '../../../components/Header';
 import Images from '../../../assets/Images';
 import LoadingIndicator from '../../../components/LoadingIndicator';
@@ -93,9 +94,9 @@ export default ({}) => {
   const [deviceInfo, setDeviceInfo] = useState(null);
   const refLoading = useRef();
 
-  const toggleModal = () => {
+  const toggleModalDate = useCallback(() => {
     setVisibleDate(prev => !prev);
-  };
+  }, []);
 
   const toggleJourney = () => {
     const fromDatePayload = date,
@@ -155,7 +156,9 @@ export default ({}) => {
       <View style={styles.wrapperFilter}>
         <View style={styles.containerFilter}>
           <Image source={Images.icCalendar} style={styles.icCalendar} />
-          <TouchableOpacity style={styles.containerTime} onPress={toggleModal}>
+          <TouchableOpacity
+            style={styles.containerTime}
+            onPress={toggleModalDate}>
             <Text
               children={convertDateTimeToString(date).date}
               style={styles.txtTime}
@@ -165,14 +168,17 @@ export default ({}) => {
             onClearDate={() => setFromDate('')}
             onDate={date => setFromDate(date)}
             title={String.from}
+            key={String.from}
             value={fromDate}
             minValue={minValue()}
+            maxValue={toDate}
             containerStyle={{marginRight: 3}}
           />
           <FromToDate
             onClearDate={() => setToDate('')}
             onDate={date => setToDate(date)}
             title={String.to}
+            key={String.to}
             value={toDate}
             minValue={fromDate}
             containerStyle={{marginLeft: 5}}
@@ -226,19 +232,31 @@ export default ({}) => {
           ))}
         </MapView>
       </View>
-      <DatePicker
+      {/* <DatePicker
         modal
         open={visibleDate}
         date={date}
         mode="date"
         onConfirm={date => {
-          toggleModal();
           setDate(date);
+          setVisibleDate(false);
         }}
-        onCancel={toggleModal}
+        onCancel={toggleModalDate}
         maximumDate={new Date()}
         confirmText={String.confirm}
         cancelText={String.cancel}
+        locale="vi"
+      /> */}
+      <DateTimePickerModal
+        isVisible={visibleDate}
+        mode="date"
+        onConfirm={date => {
+          setDate(date);
+          setVisibleDate(false);
+        }}
+        onCancel={toggleModalDate}
+        confirmTextIOS={String.confirm}
+        cancelTextIOS={String.cancel}
         locale="vi"
       />
       <LoadingIndicator ref={refLoading} />
@@ -252,10 +270,12 @@ const FromToDate = ({
   containerStyle,
   onClearDate,
   minValue,
+  maxValue,
   onDate,
 }) => {
   const [visible, setVisible] = useState(false);
   const toggleModal = () => {
+    // console.log('toggleModal', title, visible);
     setVisible(prev => !prev);
   };
   const formatDateToString = useMemo(() => {
@@ -266,8 +286,10 @@ const FromToDate = ({
   const getMiniumDate = () => {
     return minValue ? minValue : new Date();
   };
+  const getMaxDate = () => {
+    return maxValue ? maxValue : new Date();
+  };
 
-  console.log('FromToDate', visible, title);
   return (
     <View key={title}>
       <View style={[containerStyle, styles.containerHour]}>
@@ -282,7 +304,36 @@ const FromToDate = ({
           />
         </TouchableOpacity>
       </View>
-      <DatePicker
+      <DateTimePickerModal
+        isVisible={visible}
+        mode="time"
+        onConfirm={date => {
+          var maxDate = getMaxDate(),
+            minDate = getMiniumDate();
+
+          if (
+            (maxValue &&
+              minValue &&
+              new Date(date) >= minDate &&
+              new Date(date) <= maxDate) ||
+            (minValue && new Date(date) >= minValue && !maxValue)
+          ) {
+            toggleModal();
+            onDate(date);
+          } else {
+            showAlert(String.time_invalid);
+          }
+        }}
+        date={value ? new Date(value) : new Date()}
+        minimumDate={getMiniumDate()}
+        maximumDate={getMaxDate()}
+        onCancel={toggleModal}
+        confirmTextIOS={String.confirm}
+        cancelTextIOS={String.cancel}
+        locale="vi"
+        is24Hour={true}
+      />
+      {/* <DatePicker
         title={title}
         modal
         mode="time"
@@ -300,7 +351,7 @@ const FromToDate = ({
         locale="vi"
         timeZoneOffsetInMinutes={420}
         minuteInterval={30}
-      />
+      /> */}
     </View>
   );
 };

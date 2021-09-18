@@ -92,7 +92,7 @@ export const String = {
   rejectContactSuccess: 'Từ chối thành viên thành công',
   deleteContactSuccess: 'Xóa thành viên thành công',
   removeContactConfirm:
-    'Bạn chắc chắn xóa thành viên này khỏi danh sách quản lí?',
+    'Bạn chắc chắn xóa thành viên này khỏi danh sách quản lý?',
   maxLengthSafeAreaName: 'Vui lòng nhập 1-32 ký tự',
   message_remove_contact_sos: 'Bạn không được xoá liên lạc khẩn cấp',
   noContactPermission: 'Bạn chưa cấp quyền truy cập danh bạ',
@@ -104,6 +104,7 @@ export const String = {
   qrNote: 'Đặt mã QR vào vùng tự động quét',
   chooseAlbumQR: 'Chọn mã QR từ album',
   history_empty: 'Thiết bị chưa có lịch sử vị trí',
+  time_invalid: 'Thời gian chọn không hợp lệ',
 
   //member
   member_refresh: 'Làm mới',

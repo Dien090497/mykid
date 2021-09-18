@@ -11,6 +11,7 @@ import {
 import React, {useRef, useState} from 'react';
 
 import { Colors } from '../../../assets/colors/Colors';
+import DataLocal from '../../../data/dataLocal';
 import Header from '../../../components/Header';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LoadingIndicator from '../../../components/LoadingIndicator';
@@ -66,7 +67,7 @@ export default ({navigation, route}) => {
       return;
     }
     addPhoneBookApi(
-      2,
+      DataLocal.deviceId,
       {
         name: relationship,
         phoneNumber: removeNonNumeric(phone),

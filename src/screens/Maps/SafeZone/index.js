@@ -437,10 +437,7 @@ const ViewAddOrEditArea = ({
       showAlert(String.errorNameArea);
       return;
     }
-    if (!newLocationSafeArea) {
-      showAlert(String.errorLocationArea);
-      return;
-    }
+
     if (area) {
       onEdit({
         ...area,
@@ -448,6 +445,10 @@ const ViewAddOrEditArea = ({
         radius: range * 1000,
       });
     } else {
+      if (!newLocationSafeArea) {
+        showAlert(String.errorLocationArea);
+        return;
+      }
       onCreate({
         name,
         radius: range * 1000,

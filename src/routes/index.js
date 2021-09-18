@@ -344,7 +344,7 @@ const OS = () => {
       onMessage={onMessage}
       onError={onError}
       onClose={onClose}
-      reconnect={true} // Will try to reconnect onClose
+      // reconnect={true} // Will try to reconnect onClose
     />
   );
 };
@@ -433,7 +433,7 @@ const WebSocketSafeZone = () => {
       onMessage={onMessage}
       onError={onError}
       onClose={onClose}
-      reconnect={true} // Will try to reconnect onClose
+      // reconnect={true} // Will try to reconnect onClose
     />
   );
 };
