@@ -318,18 +318,20 @@ const OS = () => {
         split.length > 4 &&
         split[2] === 'destination:/user/queue/video-calls'
       ) {
-        const data = split.filter(val => val.includes('{'));
-        if (data.length > 0) {
-          if (split[1] === 'event:INCOMING_CALL') {
-            // INCOMING_CALL
-            reduxStore.store.dispatch(videoCallAction.incomingCall(data[0]));
-          } else if (split[1] === 'event:REJECTED_CALL') {
-            // REJECTED_CALL
-            reduxStore.store.dispatch(videoCallAction.rejectedCall(data[0]));
-          } else if (split[1] === 'event:ENDED_CALL') {
-            // ENDED_CALL
-            reduxStore.store.dispatch(videoCallAction.endedCall(data[0]));
-          }
+        const data = JSON.parse(
+          split[split.length - 1]
+            .replace('\u0000', '')
+            .replace('\\u0000', ''),
+        );
+        if (split[1] === 'event:INCOMING_CALL') {
+          // INCOMING_CALL
+          reduxStore.store.dispatch(videoCallAction.incomingCall(data));
+        } else if (split[1] === 'event:REJECTED_CALL') {
+          // REJECTED_CALL
+          reduxStore.store.dispatch(videoCallAction.rejectedCall(data));
+        } else if (split[1] === 'event:ENDED_CALL') {
+          // ENDED_CALL
+          reduxStore.store.dispatch(videoCallAction.endedCall(data));
         }
         navigationRef.current?.navigate(Consts.ScreenIds.ListDevice);
       }
@@ -344,7 +346,7 @@ const OS = () => {
       onMessage={onMessage}
       onError={onError}
       onClose={onClose}
-      reconnect={true} // Will try to reconnect onClose
+      reconnect={false} // Will try to reconnect onClose
     />
   );
 };
@@ -433,7 +435,7 @@ const WebSocketSafeZone = () => {
       onMessage={onMessage}
       onError={onError}
       onClose={onClose}
-      reconnect={true} // Will try to reconnect onClose
+      reconnect={false} // Will try to reconnect onClose
     />
   );
 };

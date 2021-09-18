@@ -83,7 +83,7 @@ const reducer = (state, action) => {
 const ListDeviceScreen = () => {
   const refLoading = useRef();
   const {token} = useSelector(state => state.loginReducer).dataInfo;
-  const connectionData = useSelector((state) => state.videoCallReducer.connectionData);
+  const videoCallReducer = useSelector((state) => state.videoCallReducer);
   const [state, dispatch] = useReducer(reducer, initialState);
   const [page, setPage] = useState(0);
   const [videoCallData, setVideoCallData] = useState();
@@ -126,8 +126,9 @@ const ListDeviceScreen = () => {
   };
 
   useLayoutEffect(() => {
-    if (!connectionData) return;
-    if (connectionData.includes('"status":"INIT"')) 
+    if (!videoCallReducer.connectionData) return;
+    console.log(videoCallReducer.connectionData);
+    if (videoCallReducer.connectionState === 'INIT') 
     {
       showAlert('có cuộc gọi tới', {
         close: () => {
@@ -138,7 +139,7 @@ const ListDeviceScreen = () => {
           reduxStore.store.dispatch(videoCallAction.reset());
         },
       });
-    } else if (connectionData.includes('"status":"REJECT"')) 
+    } else if (videoCallReducer.connectionState === 'REJECT')
     {
       showAlert('Cuộc gọi bị hủy/ người dùng bận', {
         close: () => {
@@ -162,8 +163,8 @@ const ListDeviceScreen = () => {
       });
     }
 
-    setVideoCallData(connectionData);
-  }, [connectionData])
+    setVideoCallData(videoCallReducer.connectionData);
+  }, [videoCallReducer])
 
   useEffect(() => {
     getData();
