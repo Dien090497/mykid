@@ -5,12 +5,14 @@ import {
 } from '@react-navigation/bottom-tabs';
 //tab bar
 import Consts, {FontSize} from '../functions/Consts';
+import {Platform, Vibration} from 'react-native';
 import React, {useEffect, useRef} from 'react';
 import {appConfig, wsUrl} from '../network/http/ApiUrl';
 import {isReadyRef, navigationRef} from './RootNavigation';
 
 import AddDeviceScreen from '../screens/Profile/AddDeviceScreen';
 import AddNewContact from '../screens/Settings/Contacts/addNew';
+import {AlertDropHelper} from '../functions/AlertDropHelper';
 import AppConfig from '../data/AppConfig';
 import ChangePassword from '../screens/Profile/ChangePassword';
 import {Colors} from '../assets/colors/Colors';
@@ -29,7 +31,6 @@ import Login from '../screens/auth/Login';
 import Maps from '../screens/Maps';
 import Members from '../screens/Settings/Members';
 import {NavigationContainer} from '@react-navigation/native';
-import {Platform} from 'react-native';
 import Profile from '../screens/Profile';
 import QRCodeScreen from '../screens/Profile/QRCodeScreen';
 import Register from '../screens/auth/Register';
@@ -44,6 +45,14 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {useSelector} from 'react-redux';
 
 const Tab = createBottomTabNavigator();
+
+const ONE_SECOND_EACH_TIME = 400;
+
+const PATTERN = [
+  1 * ONE_SECOND_EACH_TIME,
+  2 * ONE_SECOND_EACH_TIME,
+  3 * ONE_SECOND_EACH_TIME,
+];
 
 const styles = StyleSheet.create({
   bottomBar: {
@@ -269,7 +278,6 @@ const OS = () => {
                 destination:/user/queue/video-calls
                 content-length:0\n\n\0`;
       ws.current.send(command, true);
-
     }
   };
 
@@ -292,7 +300,7 @@ const OS = () => {
       onMessage={onMessage}
       onError={onError}
       onClose={onClose}
-      reconnect // Will try to reconnect onClose
+      // reconnect // Will try to reconnect onClose
     />
   );
 };
@@ -311,7 +319,16 @@ const WebsocketStomp = ({}) => {
     () => {
       client.subscribe(`/user/queue/unsafe-locations`, data => {
         var message = JSON.parse(data);
-        Alert(JSON.stringify(data));
+        Vibration.vibrate(PATTERN, true);
+        AlertDropHelper.show(
+          Consts.dropdownAlertType.ERROR,
+          'MyKid',
+          'Thiết bị ra khỏi vùng an toàn',
+        );
+        setTimeout(() => {
+          Vibration.cancel();
+        }, 1000 * 15);
+
         console.log('subscribe topic device out safezone');
       });
       console.log('connect success');
@@ -320,6 +337,13 @@ const WebsocketStomp = ({}) => {
       console.log('connect error', e);
     },
   );
+
+  useEffect(() => {
+    AlertDropHelper.setOnClose(() => {
+      Vibration.cancel();
+    });
+  }, []);
+
   return null;
 };
 

@@ -1,9 +1,14 @@
 import {Dimensions, StatusBar} from 'react-native';
-import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import {RFPercentage, RFValue} from 'react-native-responsive-fontsize';
 
 const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height -
-  (((StatusBar.currentHeight || 0) > 24 && ((StatusBar.currentHeight || 0) != 30 || Dimensions.get('screen').height- Dimensions.get('window').height >48)) ? 0 : StatusBar.currentHeight);
+const windowHeight =
+  Dimensions.get('window').height -
+  ((StatusBar.currentHeight || 0) > 24 &&
+  ((StatusBar.currentHeight || 0) != 30 ||
+    Dimensions.get('screen').height - Dimensions.get('window').height > 48)
+    ? 0
+    : StatusBar.currentHeight);
 const screenWidth = Dimensions.get('screen').width;
 const screenHeight = Dimensions.get('screen').height;
 const textSizeApp = 14;
@@ -57,10 +62,10 @@ const ScreenIds = {
 };
 const heights = {};
 for (let index = 0; index < 100; index++) {
-  heights['h'+ index] = RFPercentage(index);
-  heights['h'+ index + '_25'] = RFPercentage(index+0.25);
-  heights['h'+ index + '_5'] = RFPercentage(index+0.5);
-  heights['h'+ index + '_75'] = RFPercentage(index+0.75);
+  heights['h' + index] = RFPercentage(index);
+  heights['h' + index + '_25'] = RFPercentage(index + 0.25);
+  heights['h' + index + '_5'] = RFPercentage(index + 0.5);
+  heights['h' + index + '_75'] = RFPercentage(index + 0.75);
 }
 
 const FontSize = {
@@ -72,7 +77,7 @@ const FontSize = {
   xtraBig: heights.h2_75,
   xxtraBig: heights.h3,
   xxxtraBig: heights.h3_5,
-}
+};
 
 const ScaleHeight = {
   xxtraSmall: heights.h2,
@@ -83,9 +88,16 @@ const ScaleHeight = {
   xtraBig: heights.h10,
   xxtraBig: heights.h13,
   xxxtraBig: heights.h15,
-}
+};
 
-export {FontSize, ScaleHeight}
+const dropdownAlertType = {
+  WARNING: 'warn',
+  SUCCESS: 'success',
+  INFO: 'info',
+  ERROR: 'error',
+};
+
+export {FontSize, ScaleHeight};
 
 export default {
   windowWidth,
@@ -103,5 +115,6 @@ export default {
   minSplashTime,
   heights,
   maxSizeInPage,
-  pageDefault
+  pageDefault,
+  dropdownAlertType,
 };
