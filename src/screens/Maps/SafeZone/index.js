@@ -48,7 +48,7 @@ const headerScreen = () => {
   return title.charAt(0).toUpperCase() + title.slice(1);
 };
 
-export default ({}) => {
+export default ({navigation, route}) => {
   const refMap = useRef(null);
   const refLoading = useRef(null);
   const [listSafeArea, setListSafeArea] = useState([]);
@@ -60,6 +60,9 @@ export default ({}) => {
     longitude: null,
   });
   const [newLocationSafeArea, setNewLocation] = useState(null);
+  const [deviceOutSafeZone, setDeviceOutSafeZone] = useState(
+    route?.params?.data,
+  );
 
   const getListSafeZone = () => {
     getListSafeZoneApi(DataLocal.deviceId, 1, 30, {
@@ -78,6 +81,15 @@ export default ({}) => {
           longitude: position.coords.longitude,
         };
         setCurrentLocation(payload);
+        if (deviceOutSafeZone) {
+          refMap.current.animateCamera({
+            center: {
+              latitude: deviceOutSafeZone.location.lat,
+              longitude: deviceOutSafeZone.location.lng,
+            },
+            zoom: 15,
+          });
+        }
         // setNewLocation({
         //   latitude: position.coords.latitude,
         //   longitude: position.coords.longitude,
@@ -269,6 +281,32 @@ export default ({}) => {
     );
   };
 
+  const renderCustomMarker = val => {
+    return (
+      <Marker
+        coordinate={{
+          latitude: val.location.lat,
+          longitude: val.location.lng,
+        }}>
+        <View style={styles.containerTitleMarker}>
+          <Text
+            children={val.name || val.deviceCode}
+            style={styles.txtMarkerName}
+          />
+        </View>
+
+        <Image
+          source={val.name ? Images.icMarkerDefault : Images.icWatchMarker}
+          style={[
+            styles.icMarkerDefault,
+            val.name ? {tintColor: Colors.red} : {},
+          ]}
+          resizeMode="contain"
+        />
+      </Marker>
+    );
+  };
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -298,30 +336,28 @@ export default ({}) => {
             minZoomLevel={10}
             region={getRegion()}>
             {listSafeArea.map(val => (
-              <View key={val.id}>
-                <Marker
-                  coordinate={{
-                    latitude: val.location.lat,
-                    longitude: val.location.lng,
+              <View key={val.id}>{renderCustomMarker(val)}</View>
+            ))}
+            {listSafeArea
+              .filter(val => val.status === 'ON')
+              .map(val => (
+                <View key={val.id}>{renderCircleMarker(val)}</View>
+              ))}
+            {deviceOutSafeZone && (
+              <>
+                {renderCustomMarker(deviceOutSafeZone)}
+                <Circle
+                  fillColor={'rgba(255, 0, 0, 0.48)'}
+                  center={{
+                    latitude: deviceOutSafeZone.location.lat,
+                    longitude: deviceOutSafeZone.location.lng,
                   }}
-                >
-                  <View style={styles.containerTitleMarker}>
-                    <Text children={val.name} style={styles.txtMarkerName} />
-                  </View>
-
-                  <Image
-                    source={Images.icMarkerDefault}
-                    style={styles.icMarkerDefault}
-                    resizeMode="contain"
-                  />
-                </Marker>
-              </View>
-            ))}
-            {listSafeArea.filter(val => val.status === 'ON').map(val => (
-              <View key={val.id}>
-                {renderCircleMarker(val)}
-              </View>
-            ))}
+                  radius={500}
+                  strokeColor="#4F6D7A"
+                  strokeWidth={0.1}
+                />
+              </>
+            )}
             {safeArea.visible && !safeArea.area && newLocationSafeArea && (
               <>
                 <Marker
@@ -401,6 +437,10 @@ const ViewAddOrEditArea = ({
       showAlert(String.errorNameArea);
       return;
     }
+    if (!newLocationSafeArea) {
+      showAlert(String.errorLocationArea);
+      return;
+    }
     if (area) {
       onEdit({
         ...area,
@@ -421,7 +461,7 @@ const ViewAddOrEditArea = ({
   };
 
   return (
-    <View s>
+    <View>
       <View style={styles.containerTextInput}>
         <TextInput
           style={styles.wrap}

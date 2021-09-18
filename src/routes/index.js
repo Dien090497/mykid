@@ -7,7 +7,7 @@ import {
 import Consts, {FontSize} from '../functions/Consts';
 import {Platform, Vibration} from 'react-native';
 import React, {useEffect, useRef} from 'react';
-import {appConfig, wsUrl} from '../network/http/ApiUrl';
+import {appConfig, wsSafeZoneUrl, wsUrl} from '../network/http/ApiUrl';
 import {isReadyRef, navigationRef} from './RootNavigation';
 
 import AddDeviceScreen from '../screens/Profile/AddDeviceScreen';
@@ -257,7 +257,7 @@ const Routes = () => {
         />
       </Stack.Navigator>
       <OS />
-      {/* <WebsocketStomp /> */}
+      <WebSocketSafeZone />
     </NavigationContainer>
   );
 };
@@ -313,24 +313,25 @@ const OS = () => {
     if (message.data) {
       const split = message.data.split('\n');
       //['MESSAGE', 'event:INCOMING_CALL', 'destination:/user/queue/video-calls', 'content-type:application/json', 'subscription:111111', 'message-id:50952199-de98-32f6-b671-087214694a64-17', 'content-length:423', '', '{"id":213,"key":"ea0b71e8-6d4a-4093-95d5-d33316b6c…829Z","updatedAt":"2021-09-18T02:38:20.033829Z"}\x00']
-      if (split[0] === 'MESSAGE' && split.length > 4 && split[2] === 'destination:/user/queue/video-calls') {
+      if (
+        split[0] === 'MESSAGE' &&
+        split.length > 4 &&
+        split[2] === 'destination:/user/queue/video-calls'
+      ) {
         const data = split.filter(val => val.includes('{'));
         if (data.length > 0) {
           if (split[1] === 'event:INCOMING_CALL') {
             // INCOMING_CALL
             reduxStore.store.dispatch(videoCallAction.incomingCall(data[0]));
-          }
-          else if (split[1] === 'event:REJECTED_CALL') {
+          } else if (split[1] === 'event:REJECTED_CALL') {
             // REJECTED_CALL
             reduxStore.store.dispatch(videoCallAction.rejectedCall(data[0]));
-          }
-          else if (split[1] === 'event:ENDED_CALL') {
+          } else if (split[1] === 'event:ENDED_CALL') {
             // ENDED_CALL
             reduxStore.store.dispatch(videoCallAction.endedCall(data[0]));
           }
         }
         navigationRef.current?.navigate(Consts.ScreenIds.ListDevice);
-
       }
       console.log(message, 'Websocket Message');
     }
@@ -347,44 +348,76 @@ const OS = () => {
     />
   );
 };
-
-const WebsocketStomp = ({}) => {
-  const token = DataLocal.accessToken;
-  const headers = {
-    Authorization:
-      'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpZCI6MSwiZXhwIjoxNjM1MTE1MzQ5LCJpYXQiOjE2MzE1MTUzNDksImVtYWlsIjoiaHlodW5nQGdtYWlsLmNvbSIsImp0aSI6IjkzZGExY2M4LThhODktNDZlNS04NTM4LThhYWMyMDE3YWYzZiJ9.F5z-iS_5pNGhmCaWL830jYiH5ZYPt4s3gcqm9PHxWP25fgSLTdJ303vajTfQlyB2Rn7lo7sD0Vaafe5vbfqKEF_wVlu4OkTpLa8--YVFZdkSEQoUmImaQrDZr2Zd5alEAx534KGV5Xku1SmVTG8DmBWwTVrXKO5nvbk73rzGupHN89ZyoAvh9u_tiu6bM8jvh7G1aurWkyeIo61toRf-W1bPTiV0HcszvyzZzLbunBFcTy015Le7tfGD1wfwn7iGrSXC5ZGLrfc9VlH3I5q_1d9vljUGM3m6uFG4lkIQsBGXwXv6ycCAFfXD7IWIcJGBdkPXyei-fEtVopbpAZ403tgjrlB0ilRXQRSfg6GXUmCU8i1B1SGrywPKNkC2neHvWtv6pH01QAIC0fQhSL-sx91tVteIXPK4CO99-mXI9XmR_-JH4sATG_KqHNkRmTOINHciilhpMMoL2YsCWqJiFPCGqFGZkZpgCelwwu_vJo6-gxE978E0pPZEKi2PytTXa8uPYxR65GPrtQgg2qsdHNYnSKeDe6rgKKc5vfmyrjlWPqgUWhxnjO9PMnxCzbLLr0NGXWQ38zT993Ehx3OfqipvYA7xrf9Nm3CyXdOhSh87GYSxSx8PZsSXINAtq8bmah8XcRt7Sp1YIc2mNOm05tB0zJEJrx7ltViCmJZpQ6M',
+const WebSocketSafeZone = () => {
+  const ws = useRef(null);
+  const onOpen = async () => {
+    console.log('Websocket Open!');
+    if (ws.current?.send) {
+      let command =
+        'CONNECT\n' +
+        // 'id:11111\n' +
+        'accept-version:1.2\n' +
+        'host:mykid.ttc.software\n' +
+        'authorization:Bearer ' +
+        DataLocal.accessToken +
+        '\n' +
+        'content-length:0\n' +
+        '\n\0';
+      await ws.current.send(command, true);
+      command =
+        'SUBSCRIBE\n' +
+        'id:111112\n' +
+        'destination:/user/queue/unsafe-locations\n' +
+        'content-length:0\n' +
+        '\n\0';
+      await ws.current.send(command, true);
+    }
   };
-  console.log('token', token, headers);
 
-  const client = StompWS.client(wsUrl);
-  client.debug = text => console.log(text);
-  client.connect(
-    headers,
-    () => {
-      client.subscribe(
-        `/user/queue/video-calls`,
-        data => {
-          var message = JSON.parse(data);
-          Vibration.vibrate(PATTERN, true);
-          AlertDropHelper.show(
-            Consts.dropdownAlertType.ERROR,
-            'MyKid',
-            'Thiết bị ra khỏi vùng an toàn',
-          );
-          setTimeout(() => {
-            Vibration.cancel();
-          }, 1000 * 15);
+  const onClose = () => {
+    console.log('Websocket Close!');
+  };
 
-          console.log('subscribe topic device out safezone');
-        },
-        headers,
-      );
-      console.log('connect success');
-    },
-    function (e) {
-      console.log('connect error', e);
-    },
-  );
+  const onError = error => {
+    console.log(JSON.stringify(error));
+    console.log(error, 'Websocket Error!');
+  };
+
+  const onMessage = message => {
+    if (message.data) {
+      // Alert.alert(JSON.stringify(message.data));
+      const split = message.data.split('\n');
+      // console.log(JSON.stringify(message.data), message.data, split);
+      if (
+        split[0] === 'MESSAGE' &&
+        split.length > 4 &&
+        split[2] === 'destination:/user/queue/unsafe-locations'
+      ) {
+        const data = split.filter(val => val.includes('{'));
+        if (data.length > 0) {
+          if (split[1] === 'event:UNSAFE_LOCATION') {
+            const infoDevice = JSON.parse(
+              split[split.length - 1]
+                .replace('\u0000', '')
+                .replace('\\u0000', ''),
+            );
+            AlertDropHelper.show(
+              Consts.dropdownAlertType.ERROR,
+              'MyKid',
+              `Thiết bị ${infoDevice.deviceCode} ra khỏi vùng an toàn `,
+            );
+            navigationRef.current?.navigate(Consts.ScreenIds.ElectronicFence, {
+              data: infoDevice,
+            });
+            setTimeout(() => {
+              Vibration.cancel();
+            }, 1000 * 15);
+          }
+        }
+      }
+      console.log(message, 'WebSocketSafeZone Message');
+    }
+  };
 
   useEffect(() => {
     AlertDropHelper.setOnClose(() => {
@@ -392,7 +425,17 @@ const WebsocketStomp = ({}) => {
     });
   }, []);
 
-  return null;
+  return (
+    <WS
+      ref={ws}
+      url={wsSafeZoneUrl}
+      onOpen={onOpen}
+      onMessage={onMessage}
+      onError={onError}
+      onClose={onClose}
+      reconnect={true} // Will try to reconnect onClose
+    />
+  );
 };
 
 export default Routes;

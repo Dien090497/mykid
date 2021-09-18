@@ -122,7 +122,6 @@ const styles = StyleSheet.create({
   icMarkerDefault: {
     width: 30,
     height: 30,
-    tintColor: Colors.red,
     alignSelf: 'center',
   },
   txtMarkerName: {
