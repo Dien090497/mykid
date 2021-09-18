@@ -5,12 +5,14 @@ import {
 } from '@react-navigation/bottom-tabs';
 //tab bar
 import Consts, {FontSize} from '../functions/Consts';
+import {Platform, Vibration} from 'react-native';
 import React, {useEffect, useRef} from 'react';
-import {appConfig, wsUrl} from '../network/http/ApiUrl';
+import {appConfig, wsSafeZoneUrl, wsUrl} from '../network/http/ApiUrl';
 import {isReadyRef, navigationRef} from './RootNavigation';
 
 import AddDeviceScreen from '../screens/Profile/AddDeviceScreen';
 import AddNewContact from '../screens/Settings/Contacts/addNew';
+import {AlertDropHelper} from '../functions/AlertDropHelper';
 import AppConfig from '../data/AppConfig';
 import ChangePassword from '../screens/Profile/ChangePassword';
 import {Colors} from '../assets/colors/Colors';
@@ -29,7 +31,6 @@ import Login from '../screens/auth/Login';
 import Maps from '../screens/Maps';
 import Members from '../screens/Settings/Members';
 import {NavigationContainer} from '@react-navigation/native';
-import {Platform} from 'react-native';
 import Profile from '../screens/Profile';
 import QRCodeScreen from '../screens/Profile/QRCodeScreen';
 import Register from '../screens/auth/Register';
@@ -41,9 +42,19 @@ import SplashScreen from '../screens/Splash';
 import WS from './WebScoket';
 import {createStackNavigator} from '@react-navigation/stack';
 import reduxStore from '../redux/config/redux';
+import {showAlert} from '../functions/utils';
+import {useSelector} from 'react-redux';
 import videoCallAction from '../redux/actions/videoCallAction';
 
 const Tab = createBottomTabNavigator();
+
+const ONE_SECOND_EACH_TIME = 400;
+
+const PATTERN = [
+  1 * ONE_SECOND_EACH_TIME,
+  2 * ONE_SECOND_EACH_TIME,
+  3 * ONE_SECOND_EACH_TIME,
+];
 
 const styles = StyleSheet.create({
   bottomBar: {
@@ -245,7 +256,7 @@ const Routes = () => {
         />
       </Stack.Navigator>
       <OS />
-      {/* <WebsocketStomp /> */}
+      <WebSocketSafeZone />
     </NavigationContainer>
   );
 };
@@ -256,13 +267,16 @@ const OS = () => {
   const onOpen = async () => {
     console.log('Websocket Open!');
     if (ws.current?.send) {
-      let command = "CONNECT\n" +
-                "id:11111\n" +
-                "accept-version:1.2\n" +
-                "host:mykid.ttc.software\n" +
-                "authorization:Bearer " + DataLocal.accessToken + "\n" +
-                "content-length:0\n" +
-                "\n\0";
+      let command =
+        'CONNECT\n' +
+        'id:11111\n' +
+        'accept-version:1.2\n' +
+        'host:mykid.ttc.software\n' +
+        'authorization:Bearer ' +
+        DataLocal.accessToken +
+        '\n' +
+        'content-length:0\n' +
+        '\n\0';
       // let command = `CONNECT
       //               id:111
       //               accept-version:1.2
@@ -275,14 +289,13 @@ const OS = () => {
       //           id:1111
       //           destination:/user/queue/video-calls
       //           content-length:0\n\n\0`;
-        command = "SUBSCRIBE\n" +
-                "id:111111\n" +
-                "destination:/user/queue/video-calls\n" +
-                "content-length:0\n" +
-                "\n\0";
+      command =
+        'SUBSCRIBE\n' +
+        'id:111111\n' +
+        'destination:/user/queue/video-calls\n' +
+        'content-length:0\n' +
+        '\n\0';
       await ws.current.send(command, true);
-      
-
     }
   };
 
@@ -300,24 +313,25 @@ const OS = () => {
     if (message.data) {
       const split = message.data.split('\n');
       //['MESSAGE', 'event:INCOMING_CALL', 'destination:/user/queue/video-calls', 'content-type:application/json', 'subscription:111111', 'message-id:50952199-de98-32f6-b671-087214694a64-17', 'content-length:423', '', '{"id":213,"key":"ea0b71e8-6d4a-4093-95d5-d33316b6c…829Z","updatedAt":"2021-09-18T02:38:20.033829Z"}\x00']
-      if (split[0] === 'MESSAGE' && split.length > 4 && split[2] === 'destination:/user/queue/video-calls') {
+      if (
+        split[0] === 'MESSAGE' &&
+        split.length > 4 &&
+        split[2] === 'destination:/user/queue/video-calls'
+      ) {
         const data = split.filter(val => val.includes('{'));
         if (data.length > 0) {
           if (split[1] === 'event:INCOMING_CALL') {
             // INCOMING_CALL
             reduxStore.store.dispatch(videoCallAction.incomingCall(data[0]));
-          }
-          else if (split[1] === 'event:REJECTED_CALL') {
+          } else if (split[1] === 'event:REJECTED_CALL') {
             // REJECTED_CALL
             reduxStore.store.dispatch(videoCallAction.rejectedCall(data[0]));
-          }
-          else if (split[1] === 'event:ENDED_CALL') {
+          } else if (split[1] === 'event:ENDED_CALL') {
             // ENDED_CALL
             reduxStore.store.dispatch(videoCallAction.endedCall(data[0]));
           }
         }
         navigationRef.current?.navigate(Consts.ScreenIds.ListDevice);
-
       }
       console.log(message, 'Websocket Message');
     }
@@ -326,6 +340,95 @@ const OS = () => {
     <WS
       ref={ws}
       url={wsUrl}
+      onOpen={onOpen}
+      onMessage={onMessage}
+      onError={onError}
+      onClose={onClose}
+      reconnect={true} // Will try to reconnect onClose
+    />
+  );
+};
+const WebSocketSafeZone = () => {
+  const ws = useRef(null);
+  const onOpen = async () => {
+    console.log('Websocket Open!');
+    if (ws.current?.send) {
+      let command =
+        'CONNECT\n' +
+        // 'id:11111\n' +
+        'accept-version:1.2\n' +
+        'host:mykid.ttc.software\n' +
+        'authorization:Bearer ' +
+        DataLocal.accessToken +
+        '\n' +
+        'content-length:0\n' +
+        '\n\0';
+      await ws.current.send(command, true);
+      command =
+        'SUBSCRIBE\n' +
+        'id:111112\n' +
+        'destination:/user/queue/unsafe-locations\n' +
+        'content-length:0\n' +
+        '\n\0';
+      await ws.current.send(command, true);
+    }
+  };
+
+  const onClose = () => {
+    console.log('Websocket Close!');
+  };
+
+  const onError = error => {
+    console.log(JSON.stringify(error));
+    console.log(error, 'Websocket Error!');
+  };
+
+  const onMessage = message => {
+    if (message.data) {
+      // Alert.alert(JSON.stringify(message.data));
+      const split = message.data.split('\n');
+      // console.log(JSON.stringify(message.data), message.data, split);
+      if (
+        split[0] === 'MESSAGE' &&
+        split.length > 4 &&
+        split[2] === 'destination:/user/queue/unsafe-locations'
+      ) {
+        const data = split.filter(val => val.includes('{'));
+        if (data.length > 0) {
+          if (split[1] === 'event:UNSAFE_LOCATION') {
+            const infoDevice = JSON.parse(
+              split[split.length - 1]
+                .replace('\u0000', '')
+                .replace('\\u0000', ''),
+            );
+            AlertDropHelper.show(
+              Consts.dropdownAlertType.ERROR,
+              'MyKid',
+              `Thiết bị ${infoDevice.deviceCode} ra khỏi vùng an toàn `,
+            );
+            navigationRef.current?.navigate(Consts.ScreenIds.ElectronicFence, {
+              data: infoDevice,
+            });
+            setTimeout(() => {
+              Vibration.cancel();
+            }, 1000 * 15);
+          }
+        }
+      }
+      console.log(message, 'WebSocketSafeZone Message');
+    }
+  };
+
+  useEffect(() => {
+    AlertDropHelper.setOnClose(() => {
+      Vibration.cancel();
+    });
+  }, []);
+
+  return (
+    <WS
+      ref={ws}
+      url={wsSafeZoneUrl}
       onOpen={onOpen}
       onMessage={onMessage}
       onError={onError}

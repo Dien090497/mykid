@@ -55,6 +55,7 @@ export const String = {
   txtNotification: 'Nhập mật khẩu gồm 8-16 ký tự',
   errorGmail: 'Lỗi định dạng hộp thư',
   errorNameArea: 'Vui lòng nhập tên vùng',
+  errorLocationArea: 'Vui lòng chọn một vị trí trên bản đồ làm vùng an toàn',
   placeholderGmail: 'Nhập email',
   errorCode: 'Lỗi định dạng mã xác minh',
   placeholderCode: 'Nhập mã xác minh',

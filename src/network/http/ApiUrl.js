@@ -7,6 +7,7 @@ export const hostUrl = 'https://' + appConfig.rootDomain;
 export const appUrl = hostUrl + '/kwapp-core/v1';
 export const streamUrl = hostUrl + '/kwstream-core/v1';
 export const wsUrl = 'wss://mykid.ttc.software/kwstream-core/v1/ws';
+export const wsSafeZoneUrl = 'wss://mykid.ttc.software/kwapp-core/v1/ws';
 
 // Account
 export const loginUrl = appUrl + '/auth/login';
