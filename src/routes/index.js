@@ -319,9 +319,7 @@ const OS = () => {
         split[2] === 'destination:/user/queue/video-calls'
       ) {
         const data = JSON.parse(
-          split[split.length - 1]
-            .replace('\u0000', '')
-            .replace('\\u0000', ''),
+          split[split.length - 1].replace('\u0000', '').replace('\\u0000', ''),
         );
         if (split[1] === 'event:INCOMING_CALL') {
           // INCOMING_CALL
@@ -403,6 +401,7 @@ const WebSocketSafeZone = () => {
                 .replace('\u0000', '')
                 .replace('\\u0000', ''),
             );
+            Vibration.vibrate(PATTERN, true);
             AlertDropHelper.show(
               Consts.dropdownAlertType.ERROR,
               'MyKid',
