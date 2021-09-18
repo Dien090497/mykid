@@ -297,9 +297,25 @@ const OS = () => {
   };
 
   const onMessage = message => {
-    // console.log(message);
-    console.log(JSON.stringify(message));
-    console.log(message, 'Websocket Message');
+    if (message.data) {
+      const split = message.data.split('\n');
+      //['MESSAGE', 'event:INCOMING_CALL', 'destination:/user/queue/video-calls', 'content-type:application/json', 'subscription:111111', 'message-id:50952199-de98-32f6-b671-087214694a64-17', 'content-length:423', '', '{"id":213,"key":"ea0b71e8-6d4a-4093-95d5-d33316b6c…829Z","updatedAt":"2021-09-18T02:38:20.033829Z"}\x00']
+      if (split[0] === 'MESSAGE' && split.length > 4) {
+        console.log(split.filter(val => val.includes('{'))[0]);
+        if (split[1] === 'event:INCOMING_CALL') {
+          // INCOMING_CALL
+        }
+        else if (split[1] === 'event:REJECTED_CALL') {
+          // REJECTED_CALL
+
+        }
+        else if (split[1] === 'event:ENDED_CALL') {
+          // ENDED_CALL
+
+        }
+      }
+      console.log(message, 'Websocket Message');
+    }
   };
   return (
     <WS
@@ -309,7 +325,7 @@ const OS = () => {
       onMessage={onMessage}
       onError={onError}
       onClose={onClose}
-      reconnect={false} // Will try to reconnect onClose
+      reconnect={true} // Will try to reconnect onClose
     />
   );
 };
