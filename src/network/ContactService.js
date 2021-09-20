@@ -59,3 +59,21 @@ export function addPhoneBookApi(
     refLoading,
   });
 }
+
+export function setBlockUnknownApi(
+  deviceId,
+  block,
+  {success, failure, autoShowMsg = true, refLoading = null} = {},
+) {
+  let body = {
+    block
+  };
+  const url = [phoneBookUrl, deviceId, 'block-unknown'].join('/');
+  return post(url, {
+    body,
+    success,
+    failure,
+    autoShowMsg,
+    refLoading,
+  });
+}
