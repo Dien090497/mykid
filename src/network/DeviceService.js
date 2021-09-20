@@ -15,10 +15,12 @@ export function getListDeviceApi(
   page,
   size,
   deviceId,
+  status = null,
   {success, failure, autoShowMsg = true, refLoading = null} = {},
 ) {
   let params = {
     accountId: accountId || '',
+    status: status || '',
     page,
     size,
     deviceId: deviceId || '',

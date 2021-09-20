@@ -1,9 +1,7 @@
 import {
   ActivityIndicator,
-  Alert,
   FlatList,
   Image,
-  SafeAreaView,
   Text,
   TouchableOpacity,
   View,
@@ -15,12 +13,6 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import {
-  hideLoading,
-  parseTokenToObject,
-  showAlert,
-  showLoading,
-} from '../../functions/utils';
 
 import Consts from '../../functions/Consts';
 import Header from '../../components/Header';
@@ -28,7 +20,7 @@ import Images from '../../assets/Images';
 import LoadingIndicator from '../../components/LoadingIndicator';
 import {String} from '../../assets/strings/String';
 import VideoCallModal from './VideoCallModal';
-import {getListDeviceConnected} from '../../network/DeviceService';
+import {getListDeviceApi} from '../../network/DeviceService';
 import styles from './styles.js';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useSelector} from 'react-redux';
@@ -109,17 +101,18 @@ const ListDeviceScreen = () => {
 
   const getData = async () => {
     try {
-      const user = parseTokenToObject(token);
-      showLoading(refLoading);
-      const res = await getListDeviceConnected({page, accountId: user?.id});
-      dispatch({
-        type: 'success',
-        payload: {data: res.success.data},
-        params: {page},
+      getListDeviceApi(DataLocal.userInfo.id, page, 100, '', 'ACTIVE', {
+        success: resData => {
+          dispatch({
+            type: 'success',
+            payload: {data: resData.data},
+            params: {page},
+          });
+        },
+        refLoading,
       });
-      hideLoading(refLoading);
     } catch (error) {
-      hideLoading(refLoading);
+      console.log(error);
     }
   };
 
@@ -139,8 +132,6 @@ const ListDeviceScreen = () => {
       return;
     }
     if (videoCallReducer.connectionState === 'INIT') {
-      // showAlert('có cuộc gọi tới', {
-      //   close: () => {
       setVisibleCallState({
         visible: true,
         deviceName: videoCallReducer.connectionData.caller.deviceName,
@@ -148,11 +139,7 @@ const ListDeviceScreen = () => {
         data: videoCallReducer.connectionData,
       });
       reduxStore.store.dispatch(videoCallAction.reset());
-      //   },
-      // });
     } else if (videoCallReducer.connectionState === 'REJECT') {
-      // showAlert('Cuộc gọi bị hủy/ người dùng bận', {
-      //   close: () => {
       setVisibleCallState({
         visible: true,
         deviceName: videoCallReducer.connectionData.caller.deviceName,
@@ -160,19 +147,9 @@ const ListDeviceScreen = () => {
         data: videoCallReducer.connectionData,
       });
       reduxStore.store.dispatch(videoCallAction.reset());
-      //   },
-      // });
     } else {
-      // showAlert('Cuộc gọi kết thúc', {
-      //   close: () => {
-      // setVisibleCallState({
-      //   visible: true,
-      //   deviceName: 'demo',
-      // });
       setVisibleCall({visible: false, device: null, data: []});
       reduxStore.store.dispatch(videoCallAction.reset());
-      //   },
-      // });
     }
 
     setVideoCallData(videoCallReducer.connectionData);
@@ -186,11 +163,6 @@ const ListDeviceScreen = () => {
     dispatch({type: 'loading', payload: {page}});
   }, [page]);
   const onPressCall = item => () => {
-    // Demo show
-    // setVisibleCallState({
-    //   visible: true,
-    //   deviceName: 'demo'
-    // });
     createVideoCalllApi(
       // DataLocal.deviceId,
       {deviceId: item.deviceId},
