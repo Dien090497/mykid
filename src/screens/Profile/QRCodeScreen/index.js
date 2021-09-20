@@ -1,7 +1,7 @@
 import React from "react";
 import { SafeAreaView } from "react-native";
 import styles from "./style";
-import {CameraScreen} from 'react-native-camera-kit';
+import {CameraKitCameraScreen} from 'react-native-camera-kit';
 
 const QRCodeScreen = ({ navigation, route }) => {
   let isSuccess = false;
@@ -18,7 +18,7 @@ const QRCodeScreen = ({ navigation, route }) => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
-      <CameraScreen
+      <CameraKitCameraScreen
         showFrame={true}
         // Show/hide scan frame
         scanBarcode={true}
