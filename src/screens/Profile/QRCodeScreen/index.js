@@ -1,8 +1,6 @@
 import React from "react";
-import { View, Text, TouchableOpacity, SafeAreaView } from "react-native";
+import { SafeAreaView } from "react-native";
 import styles from "./style";
-import QRCodeScanner from "react-native-qrcode-scanner";
-import { String } from "../../../assets/strings/String";
 
 const QRCodeScreen = ({ navigation, route }) => {
   let isSuccess = false;
@@ -10,6 +8,7 @@ const QRCodeScreen = ({ navigation, route }) => {
   const onSuccess = e => {
     if (isSuccess) return;
     isSuccess = true;
+    console.log(e);
     if (route.params.onQR) {
       route.params.onQR(e.data);
     }
@@ -18,7 +17,16 @@ const QRCodeScreen = ({ navigation, route }) => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
-      <QRCodeScanner
+      {/* <Barcode style={{flex: 1, }} */}
+        {/* onBarCodeRead={onSuccess}/> */}
+      {/* <BarcodeScanner /> */}
+      {/* <BarcodeScanner
+        onBarCodeRead={onSuccess}
+        style={{ flex: 1 }}
+        torchMode={'off'}
+        cameraType={'back'}
+      /> */}
+      {/* <QRCodeScanner
         cameraStyle={{ height: "100%", width: "100%", alignSelf: "center", justifyContent: "center" }}
         reactivate={true}
         showMarker={true}
@@ -35,7 +43,7 @@ const QRCodeScreen = ({ navigation, route }) => {
             </View>
           </View>
         }
-      />
+      /> */}
     </SafeAreaView>
   );
 };

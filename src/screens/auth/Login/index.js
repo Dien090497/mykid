@@ -44,7 +44,7 @@ const Login = ({ navigation }) => {
 
   const onLoggedIn = async () => {
     if (loggedInUserInfo.id && checkbox) {
-      getListDeviceApi(loggedInUserInfo.id, Consts.pageDefault, 100, '', {
+      getListDeviceApi(loggedInUserInfo.id, Consts.pageDefault, 100, '', '', {
         success: resData => {
           onNavigate(resData);
         },

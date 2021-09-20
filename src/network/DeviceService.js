@@ -15,7 +15,7 @@ export function getListDeviceApi(
   page,
   size,
   deviceId,
-  status = null,
+  status,
   {success, failure, autoShowMsg = true, refLoading = null} = {},
 ) {
   let params = {
