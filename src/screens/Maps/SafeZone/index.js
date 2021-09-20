@@ -415,7 +415,7 @@ const ViewAddOrEditArea = ({
   newLocationSafeArea,
 }) => {
   const [name, setName] = useState(area?.name || '');
-  const [range, setRange] = useState(area?.radius / 1000 || 0.5);
+  const [range, setRange] = useState(area?.radius || 200);
   const renderIncrementOrDecrement = (type = 'increment', onPress) => {
     return (
       <TouchableOpacity
@@ -442,7 +442,7 @@ const ViewAddOrEditArea = ({
       onEdit({
         ...area,
         name,
-        radius: range * 1000,
+        radius: Math.floor(range),
       });
     } else {
       if (!newLocationSafeArea) {
@@ -451,7 +451,7 @@ const ViewAddOrEditArea = ({
       }
       onCreate({
         name,
-        radius: range * 1000,
+        radius: Math.floor(range),
         status: 'ON',
         location: {
           lat: newLocationSafeArea.latitude,
@@ -479,7 +479,7 @@ const ViewAddOrEditArea = ({
         <Text children={String.area} style={{marginRight: 5}} />
         {renderIncrementOrDecrement('decrement', () =>
           setRange(prev => {
-            return parseFloat(prev.toFixed(1)) === 0.1 ? prev : prev - 0.1;
+            return prev - 100 < 200 ? 200 : prev - 100;
           }),
         )}
         <Slider
@@ -490,19 +490,19 @@ const ViewAddOrEditArea = ({
           thumbProps={{
             children: <View style={styles.thumbCircle} />,
           }}
-          step={0.1}
-          minimumValue={0.1}
-          maximumValue={1}
+          step={1}
+          minimumValue={200}
+          maximumValue={2000}
           trackStyle={{paddingHorizontal: 0}}
           minimumTrackTintColor={Colors.orange}
           maximumTrackTintColor="#b7b7b7"
         />
         {renderIncrementOrDecrement('increment', () =>
           setRange(prev => {
-            return parseFloat(prev.toFixed(1)) < 1 ? prev + 0.1 : prev;
+            return prev + 100 <= 2000 ? prev + 100 : 2000;
           }),
         )}
-        <Text style={{width: 50}} children={`${(range * 1000).toFixed(0)} m`} />
+        <Text style={{width: 55}} children={`${Math.floor(range).toFixed(0)} m`} />
       </View>
       <Divider style={styles.line} />
       <View
