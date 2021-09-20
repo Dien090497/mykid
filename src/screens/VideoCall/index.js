@@ -182,11 +182,10 @@ const ListDeviceScreen = () => {
 
   const toggleModal = roomId => {
     finishVideoCalllApi({}, roomId, {
-      success: res => {
-        setVisibleCall({visible: false, device: null, data: []});
-      },
+      success: res => {},
       refLoading: refLoading,
     });
+    setVisibleCall({visible: false, device: null, data: []});
   };
   const onCreateVideoCalll = item => () => {
     setVisibleCallState({
