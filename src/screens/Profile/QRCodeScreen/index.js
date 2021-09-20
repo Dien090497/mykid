@@ -32,9 +32,6 @@ const QRCodeScreen = ({ navigation, route }) => {
               <TouchableOpacity style={styles.buttonTouchable} onPress={()=> navigation.goBack()}>
                 <Text style={styles.buttonText}>{String.cancel}</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.buttonTouchable}>
-                <Text style={styles.buttonText}>{String.chooseAlbumQR}</Text>
-              </TouchableOpacity>
             </View>
           </View>
         }
