@@ -57,7 +57,7 @@ export default ({navigation, route}) => {
   }, []);
 
   const getListDevice = () => {
-    getListDeviceApi(null, 0, 100, DataLocal.deviceId, {
+    getListDeviceApi(null, 0, 100, DataLocal.deviceId, '', {
       success: res => {
         const adminMem = res.data.filter(val => val.admin === true)[0];
         setAdmin(adminMem);

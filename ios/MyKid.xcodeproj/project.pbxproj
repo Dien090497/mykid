@@ -555,8 +555,8 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
-				DEVELOPMENT_TEAM = AFY8995RWG;
+				CURRENT_PROJECT_VERSION = 31;
+				DEVELOPMENT_TEAM = 32JVFNZCJ6;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = MyKid/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -568,7 +568,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ttc.mykid;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ttc.mykidavt;
 				PRODUCT_NAME = MyKid;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -585,19 +585,21 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
-				DEVELOPMENT_TEAM = AFY8995RWG;
+				CURRENT_PROJECT_VERSION = 31;
+				DEVELOPMENT_TEAM = 32JVFNZCJ6;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = MyKid/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ttc.mykid;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ttc.mykidavt;
 				PRODUCT_NAME = MyKid;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

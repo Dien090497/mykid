@@ -330,10 +330,10 @@ async function handleResp(response, autoShowMsg, success, failure, refLoading) {
       // anonymousLogin(refLoading);
 
       if (result.meta) {
-        if (result.meta.code === 'LXA-4015') {
-          showAlert(OTHER_LOGIN);
-          return;
-        }
+        // if (result.meta.code === 'LXA-4015') {
+        //   showAlert(OTHER_LOGIN);
+        //   return;
+        // }
       }
 
       if (autoShowMsg) {
@@ -348,7 +348,10 @@ async function handleResp(response, autoShowMsg, success, failure, refLoading) {
 
     const err = checkFailure(result);
 
-    if (autoShowMsg) {
+    if (result.meta && result.meta.code === 'KWS-4001') {
+      console.log('error KWS-4001');
+    }
+    else if (autoShowMsg) {
       // if (err === UNEXPECTED_ERROR_MSG) {
         showAlert(err);
       // }

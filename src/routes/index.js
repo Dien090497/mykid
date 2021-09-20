@@ -276,18 +276,8 @@ const OS = () => {
         '\n' +
         'content-length:0\n' +
         '\n\0';
-      // let command = `CONNECT
-      //               id:111
-      //               accept-version:1.2
-      //               host:${appConfig.rootDomain}
-      //               authorization:Bearer ${DataLocal.accessToken}
-      //               content-length:0\n\n\0`;
       await ws.current.send(encoder.encode(command).buffer, true);
 
-      // command = `SUBSCRIBE
-      //           id:1111
-      //           destination:/user/queue/video-calls
-      //           content-length:0\n\n\0`;
       command =
         'SUBSCRIBE\n' +
         'id:111111\n' +

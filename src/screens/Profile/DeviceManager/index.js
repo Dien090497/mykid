@@ -57,7 +57,7 @@ export default function DeviceManager({navigation}) {
   }, []);
 
   const getListDevice = async () => {
-    getListDeviceApi(DataLocal.userInfo.id, Consts.pageDefault, 100, '', {
+    getListDeviceApi(DataLocal.userInfo.id, Consts.pageDefault, 100, '', '', {
       success: resData => {
         setDevices(resData.data);
       },

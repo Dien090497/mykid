@@ -11,6 +11,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import {
   deletePhoneBookApi,
   getListContactPhoneApi,
+  setBlockUnknownApi,
   setSOSApi,
 } from '../../../network/ContactService';
 import {showAlert, showConfirmation} from '../../../functions/utils';
@@ -31,7 +32,10 @@ export default ({navigation, route}) => {
   useEffect(() => {
     getListContactPhoneApi(DataLocal.deviceId, {
       success: res => {
-        setDataContacts(res.data);
+        if (res.data) {
+          setDataContacts(res.data);
+          setIsBlocking(!!res.data.blockUnknown);
+        }
       },
       refLoading: refLoading,
     });
@@ -115,7 +119,17 @@ export default ({navigation, route}) => {
   };
 
   const toggleSwitch = () => {
-    setIsBlocking(!isBlocking);
+    setBlockUnknownApi(
+      DataLocal.deviceId,
+      !isBlocking,
+      {
+        success: res => {
+          setIsBlocking(!isBlocking);
+        },
+        refLoading: refLoading,
+      },
+    );
+    
   };
 
   return (
@@ -150,7 +164,8 @@ export default ({navigation, route}) => {
               // thumbColor={isBlocking ? "#f5dd4b" : "#f4f3f4"}
               ios_backgroundColor="#3e3e3e"
               onValueChange={toggleSwitch}
-              value={dataContacts?.blockUnknown}
+              value={isBlocking}
+              // value={dataContacts?.blockUnknown}
             />
           </View>
         </View>
