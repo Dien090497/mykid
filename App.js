@@ -15,7 +15,7 @@ class App extends React.Component {
         <Provider store={redux.store}>
           <Routes />
           <DropdownAlert
-            closeInterval={10000}
+            closeInterval={15000}
             updateStatusBar={false}
             warnColor={Colors.yellow}
             defaultContainer={{

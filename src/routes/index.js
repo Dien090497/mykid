@@ -37,6 +37,7 @@ import Register from '../screens/auth/Register';
 import Relationship from '../screens/Profile/Relationship';
 import SafeZone from '../screens/Maps/SafeZone';
 import SettingScreen from '../screens/Settings';
+import Sound from 'react-native-sound';
 import SoundSettings from '../screens/Profile/SoundSettings';
 import SplashScreen from '../screens/Splash';
 import WS from './WebScoket';
@@ -49,12 +50,9 @@ import * as encoding from 'text-encoding';
 var encoder = new encoding.TextEncoder();
 const Tab = createBottomTabNavigator();
 
-const ONE_SECOND_EACH_TIME = 400;
-
 const PATTERN = [
-  1 * ONE_SECOND_EACH_TIME,
-  2 * ONE_SECOND_EACH_TIME,
-  3 * ONE_SECOND_EACH_TIME,
+  0, 500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170,
+  40, 500,
 ];
 
 const styles = StyleSheet.create({
@@ -351,6 +349,7 @@ const OS = () => {
 };
 const WebSocketSafeZone = () => {
   const ws = useRef(null);
+  const ringtone = useRef(null);
   const onOpen = async () => {
     console.log('Websocket Open!');
     if (ws.current?.send) {
@@ -408,11 +407,22 @@ const WebSocketSafeZone = () => {
               'MyKid',
               `Thiết bị ${infoDevice.deviceCode} ra khỏi vùng an toàn `,
             );
+            Sound.setCategory('Playback');
+            ringtone.current = new Sound(
+              'nof_default.mp3',
+              Sound.MAIN_BUNDLE,
+              error => {
+                console.log('error', error);
+                ringtone.current.play(() => {});
+                ringtone.current.setNumberOfLoops(5);
+              },
+            );
             navigationRef.current?.navigate(Consts.ScreenIds.ElectronicFence, {
               data: infoDevice,
             });
             setTimeout(() => {
               Vibration.cancel();
+              if (ringtone.current) ringtone.current.stop();
             }, 1000 * 15);
           }
         }
@@ -424,6 +434,7 @@ const WebSocketSafeZone = () => {
   useEffect(() => {
     AlertDropHelper.setOnClose(() => {
       Vibration.cancel();
+      if (ringtone.current) ringtone.current.stop();
     });
   }, []);
 
