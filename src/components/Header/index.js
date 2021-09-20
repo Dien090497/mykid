@@ -25,7 +25,11 @@ export default Header = props => {
   const [back] = useState(props.back !== undefined ? props.back : true);
 
   const handleGoBack = () => {
-    navigation.goBack();
+    if (index > 0 && routes[index - 1].name === Consts.ScreenIds.Splash) {
+      navigation.replace(Consts.ScreenIds.Auth);
+    } else {
+      navigation.goBack();
+    }
   };
 
   return (

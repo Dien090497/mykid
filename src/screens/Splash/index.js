@@ -10,6 +10,7 @@ import {useNavigation} from '@react-navigation/core';
 import {appStatusBar} from '../../components/CommonUIComponents';
 import DataLocal from '../../data/dataLocal';
 import { saveUserDataFromToken } from '../../functions/utils';
+import { getListDeviceApi } from '../../network/DeviceService';
 
 export default function SplashScreen() {
   const navigation = useNavigation();
@@ -25,11 +26,30 @@ export default function SplashScreen() {
     const token = await DataLocal.getAccessToken();
     if (token) {
       saveUserDataFromToken(token).then(userInfo => {
-        navigation.replace(Consts.ScreenIds.Tabs);
+        getListDeviceApi(userInfo.id, Consts.pageDefault, 100, '', '', {
+          success: resData => {
+            onNavigate(resData);
+          },
+        });
       });
       console.log(token);
     } else {
       navigation.replace(Consts.ScreenIds.Auth);
+    }
+  };
+
+  const onNavigate = async (resData) => {
+    let devices = resData.data.filter(val => val.status === 'ACTIVE');
+    if (devices.length === 0) {
+      navigation.navigate(Consts.ScreenIds.AddDeviceScreen, {isShowAlert: resData.data.length > 0});
+    } else {
+      if (DataLocal.deviceIndex >= devices.length) {
+        DataLocal.deviceIndex = 0;
+        await DataLocal.saveDeviceId(devices[0].deviceId);
+      } else {
+        await DataLocal.saveDeviceId(devices[DataLocal.deviceIndex].deviceId);
+      }
+      navigation.navigate(Consts.ScreenIds.Tabs);
     }
   };
 
