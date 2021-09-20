@@ -156,7 +156,7 @@ class JanusVideoRoomScreen extends React.Component {
           flex: 1,
           width: '100%',
           height: '100%',
-          backgroundColor: '#afef9f',
+          backgroundColor: '#53535F',
           justifyContent: 'flex-end',
           alignContent: 'flex-end',
           alignItems: 'flex-end',

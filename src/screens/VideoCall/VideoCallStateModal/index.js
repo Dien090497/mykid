@@ -4,33 +4,85 @@ import React from 'react';
 import {String} from '../../../assets/strings/String';
 import styles from './styles.js';
 import Images from '../../../assets/Images';
+import {Colors} from '../../../assets/colors/Colors';
 
-const VideoCallStateModal = ({visible, deviceName, toggleModal}) => {
+const VideoCallStateModal = ({
+  connectionState,
+  visible,
+  deviceName,
+  item,
+  toggleModal,
+  createVideoCall,
+}) => {
   const destroyVideoCall = () => {
-    toggleModal();
+    toggleModal({connectionState: connectionState, roomId: item.id});
   };
   return (
     <Modal visible={visible} animationType="fade" transparent={true}>
-      <View style={styles.centeredView}>
+      <View
+        style={[
+          styles.centeredView,
+          {
+            backgroundColor:
+              connectionState === 'INIT'
+                ? Colors.backgroundVideoCall
+                : Colors.backgroundVideoCallError,
+          },
+        ]}>
         <View style={styles.modalView}>
           <Text
             style={styles.txtName}
             children={deviceName ? deviceName : ''}
           />
-          <Text children={String.call_busy} style={styles.txtVideoCall} />
+          <Text
+            children={
+              connectionState === 'INIT'
+                ? String.requestVideoCall
+                : String.call_busy
+            }
+            style={styles.txtVideoCall}
+          />
         </View>
-        <View style={styles.containerFooter}>
+        <View
+          style={[
+            styles.containerFooter,
+            {
+              backgroundColor:
+                connectionState === 'INIT'
+                  ? Colors.backgroundVideoCall
+                  : Colors.buttonCancel,
+            },
+          ]}>
           <TouchableOpacity
             style={styles.containerCancel}
             onPress={destroyVideoCall}>
-            <Image source={Images.icCallCancel} style={styles.icPhone} />
-            <Text children={String.cancel} style={styles.txtVideoCall} />
+            <Image
+              source={
+                connectionState === 'INIT'
+                  ? Images.icCallReject
+                  : Images.icCallCancel
+              }
+              style={styles.icPhone}
+            />
+            <Text
+              children={
+                connectionState === 'INIT' ? String.reject : String.cancel
+              }
+              style={styles.txtVideoCall}
+            />
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.containerCancel}
-            onPress={destroyVideoCall}>
+            onPress={createVideoCall(item)}>
             <Image source={Images.icCall} style={styles.icPhone} />
-            <Text children={String.call_back} style={styles.txtVideoCall} />
+            <Text
+              children={
+                connectionState === 'INIT'
+                  ? String.acceptVideocall
+                  : String.call_back
+              }
+              style={styles.txtVideoCall}
+            />
           </TouchableOpacity>
         </View>
       </View>

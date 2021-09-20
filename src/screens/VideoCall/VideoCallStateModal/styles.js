@@ -6,7 +6,6 @@ const styles = StyleSheet.create({
     flex: 1,
     height: '100%',
     width: '100%',
-    backgroundColor: '#494954',
     position: 'absolute',
   },
   modalView: {
@@ -27,7 +26,6 @@ const styles = StyleSheet.create({
   },
   containerFooter: {
     height: '20%',
-    backgroundColor: '#494954',
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row'
