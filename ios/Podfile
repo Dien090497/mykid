@@ -22,6 +22,8 @@ pod 'react-native-google-maps', :path => rn_maps_path
 
   pod 'react-native-maps', :path => '../node_modules/react-native-maps'
 
+  pod 'ReactNativeIncallManager', :path => '../node_modules/react-native-incall-manager'
+  rtcAudioSession
   target 'MyKidTests' do
     inherit! :complete
     # Pods for testing
