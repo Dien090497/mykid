@@ -43,7 +43,7 @@ import SplashScreen from '../screens/Splash';
 import WS from './WebScoket';
 import {createStackNavigator} from '@react-navigation/stack';
 import reduxStore from '../redux/config/redux';
-import {showAlert} from '../functions/utils';
+import {generateRandomId, showAlert} from '../functions/utils';
 import {useSelector} from 'react-redux';
 import videoCallAction from '../redux/actions/videoCallAction';
 import * as encoding from 'text-encoding';
@@ -268,7 +268,6 @@ const OS = () => {
     if (ws.current?.send) {
       let command =
         'CONNECT\n' +
-        'id:11111\n' +
         'accept-version:1.2\n' +
         'host:mykid.ttc.software\n' +
         'authorization:Bearer ' +
@@ -280,7 +279,7 @@ const OS = () => {
 
       command =
         'SUBSCRIBE\n' +
-        'id:111111\n' +
+        'id:' + generateRandomId(10) + '\n' +
         'destination:/user/queue/video-calls\n' +
         'content-length:0\n' +
         '\n\0';
@@ -299,7 +298,7 @@ const OS = () => {
 
   const onMessage = message => {
     console.log(JSON.stringify(message));
-    if (message.data) {
+    if (DataLocal.accessToken !== null && message.data) {
       const split = message.data.split('\n');
       //['MESSAGE', 'event:INCOMING_CALL', 'destination:/user/queue/video-calls', 'content-type:application/json', 'subscription:111111', 'message-id:50952199-de98-32f6-b671-087214694a64-17', 'content-length:423', '', '{"id":213,"key":"ea0b71e8-6d4a-4093-95d5-d33316b6c…829Z","updatedAt":"2021-09-18T02:38:20.033829Z"}\x00']
       if (
@@ -345,7 +344,6 @@ const WebSocketSafeZone = () => {
     if (ws.current?.send) {
       let command =
         'CONNECT\n' +
-        // 'id:11111\n' +
         'accept-version:1.2\n' +
         'host:mykid.ttc.software\n' +
         'authorization:Bearer ' +
@@ -356,7 +354,7 @@ const WebSocketSafeZone = () => {
       await ws.current.send(encoder.encode(command).buffer, true);
       command =
         'SUBSCRIBE\n' +
-        'id:111112\n' +
+        'id:' + generateRandomId(10) + '\n' +
         'destination:/user/queue/unsafe-locations\n' +
         'content-length:0\n' +
         '\n\0';
@@ -374,10 +372,8 @@ const WebSocketSafeZone = () => {
   };
 
   const onMessage = message => {
-    if (message.data) {
-      // Alert.alert(JSON.stringify(message.data));
+    if (DataLocal.accessToken !== null && message.data) {
       const split = message.data.split('\n');
-      // console.log(JSON.stringify(message.data), message.data, split);
       if (
         split[0] === 'MESSAGE' &&
         split.length > 4 &&
