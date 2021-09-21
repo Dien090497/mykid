@@ -160,7 +160,7 @@ export default ({navigation, route}) => {
           <Text style={styles.txtBlockContact}>{String.blockOther}</Text>
           <View style={styles.containerSwitch}>
             <Switch
-              trackColor={{false: Colors.blueTitle, true: '#81b0ff'}}
+              trackColor={{false: Colors.gray, true: '#81b0ff'}}
               // thumbColor={isBlocking ? "#f5dd4b" : "#f4f3f4"}
               ios_backgroundColor="#3e3e3e"
               onValueChange={toggleSwitch}
