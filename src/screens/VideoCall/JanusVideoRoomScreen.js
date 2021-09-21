@@ -10,6 +10,7 @@ import React from 'react';
 import {Dimensions, FlatList, StatusBar, View} from 'react-native';
 import {Janus, JanusVideoRoomPlugin} from 'react-native-janus';
 import Consts from '../../functions/Consts';
+import InCallManager from 'react-native-incall-manager';
 
 Janus.setDependencies({
   RTCPeerConnection,
@@ -130,10 +131,12 @@ class JanusVideoRoomScreen extends React.Component {
   };
 
   async componentDidMount() {
+    InCallManager.setSpeakerphoneOn(true);
     this.getMediaStream();
   }
 
   componentWillUnmount = async () => {
+    InCallManager.setSpeakerphoneOn(true);
     if (this.janus) {
       await this.janus.destroy();
     }

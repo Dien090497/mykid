@@ -59,10 +59,12 @@ export default ({navigation, route}) => {
   const getListDevice = () => {
     getListDeviceApi(null, 0, 100, DataLocal.deviceId, '', {
       success: res => {
-        const adminMem = res.data.filter(val => val.admin === true)[0];
-        setAdmin(adminMem);
+        const adminMem = res.data.filter(val => val.admin === true);
+        if (adminMem.length > 0) {
+          setAdmin(adminMem[0]);
+        }
         let members = res.data.filter(val => val.admin === false);
-        if (adminMem.accountId !== DataLocal.userInfo.id) {
+        if (adminMem.length ===  0 || (adminMem.length > 0 && adminMem.accountId !== DataLocal.userInfo.id)) {
           members = members.filter(val => val.status !== 'PENDING');
         }
         setAllMember(members);

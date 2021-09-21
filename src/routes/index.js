@@ -313,6 +313,7 @@ const OS = () => {
         if (split[1] === 'event:INCOMING_CALL') {
           // INCOMING_CALL
           reduxStore.store.dispatch(videoCallAction.incomingCall(data));
+          navigationRef.current?.navigate(Consts.ScreenIds.ListDevice);
         } else if (split[1] === 'event:REJECTED_CALL') {
           // REJECTED_CALL
           reduxStore.store.dispatch(videoCallAction.rejectedCall(data));
@@ -320,7 +321,6 @@ const OS = () => {
           // ENDED_CALL
           reduxStore.store.dispatch(videoCallAction.endedCall(data));
         }
-        navigationRef.current?.navigate(Consts.ScreenIds.ListDevice);
       }
       console.log(message, 'Websocket Message');
     }
