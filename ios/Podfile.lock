@@ -380,8 +380,6 @@ PODS:
     - React-perflogger (= 0.65.1)
   - ReactNativeCameraKit (1.0.0):
     - React
-  - ReactNativeIncallManager (3.3.0):
-    - React
   - RNCAsyncStorage (1.15.8):
     - React-Core
   - RNDateTimePicker (3.5.2):
@@ -467,7 +465,6 @@ DEPENDENCIES:
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - ReactNativeCameraKit (from `../node_modules/react-native-camera-kit`)
-  - ReactNativeIncallManager (from `../node_modules/react-native-incall-manager`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
@@ -576,8 +573,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   ReactNativeCameraKit:
     :path: "../node_modules/react-native-camera-kit"
-  ReactNativeIncallManager:
-    :path: "../node_modules/react-native-incall-manager"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
   RNDateTimePicker:
@@ -651,7 +646,6 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: 85187f19dd9c47a7c102f9994f9d14e4dc2110de
   ReactCommon: eafed38eec7b591c31751bfa7494801618460459
   ReactNativeCameraKit: 89ed1f2470b56e18e15dd0e1a37bebca3f2da2de
-  ReactNativeIncallManager: db7d5f5ae281a43d7179ba24875ff477dc47f229
   RNCAsyncStorage: 0f655864a81214d1c5a9bf0faf79d86dc25c383e
   RNDateTimePicker: c9911be59b1f8670b9f244b85af3a7c295e175ed
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
@@ -662,6 +656,6 @@ SPEC CHECKSUMS:
   Yoga: aa0cb45287ebe1004c02a13f279c55a95f1572f4
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 36203d1e4cb9c7e8ecbeaf817f45f97a72240f70
+PODFILE CHECKSUM: 3652c0269c1dc4b8c3363ef7b5e20c58bc8be3b1
 
 COCOAPODS: 1.10.1
