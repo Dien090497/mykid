@@ -7,10 +7,9 @@ import {
   RTCView,
 } from 'react-native-webrtc';
 import React from 'react';
-import {Dimensions, FlatList, StatusBar, View} from 'react-native';
+import {StatusBar, View} from 'react-native';
 import {Janus, JanusVideoRoomPlugin} from 'react-native-janus';
 import Consts from '../../functions/Consts';
-import InCallManager from 'react-native-incall-manager';
 
 Janus.setDependencies({
   RTCPeerConnection,

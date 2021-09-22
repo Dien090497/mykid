@@ -48,15 +48,17 @@ export default ({navigation, route}) => {
 
   const getLocationDevice = async () => {
     try {
-      getListDeviceApi(null, 0, 100, DataLocal.deviceId, '', {
-        success: res => {
-          const device = res.data.find(
-            val => val.deviceId === DataLocal.deviceId,
-          );
-          setInfoDevice(device);
-        },
-        // refLoading: refLoading,
-      });
+      if (!infoDevice) {
+        getListDeviceApi(null, 0, 100, DataLocal.deviceId, '', {
+          success: res => {
+            const device = res.data.find(
+              val => val.deviceId === DataLocal.deviceId,
+            );
+            setInfoDevice(device);
+          },
+          // refLoading: refLoading,
+        });
+      }
       getLocationDeviceApi(DataLocal.deviceId, {
         success: res => {
           setLocationDevice(res.data);
