@@ -8,7 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* MyKidTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* MyKidTests.m */; };
-		0612984726FAC64D00259F6A /* reng.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0612984626FAC64D00259F6A /* reng.mp3 */; };
+		061298DF26FADA4A00259F6A /* love.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 061298DC26FADA4A00259F6A /* love.mp3 */; };
+		061298E026FADA4A00259F6A /* reng.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 061298DD26FADA4A00259F6A /* reng.mp3 */; };
+		061298E126FADA4A00259F6A /* nof_default.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 061298DE26FADA4A00259F6A /* nof_default.mp3 */; };
 		08C74E270C6F420FBAF916F6 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D9BE0AE89F1D4C33B00DD2F6 /* Roboto-Regular.ttf */; };
 		107656D6DAF4B388C191F197 /* libPods-MyKid.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B6C34F403B18B6F878F202D /* libPods-MyKid.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
@@ -18,10 +20,6 @@
 		4C1C5BD22FC94CDE93C9AFF9 /* Roboto-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 899C6E4EA0084568BA546B6C /* Roboto-MediumItalic.ttf */; };
 		512AF3733B0A417FBC0679D0 /* Roboto-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 88899476362B47D095A061A3 /* Roboto-ThinItalic.ttf */; };
 		69ABA06CA4D64958862F1522 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C12B295606A043C3930BA418 /* Roboto-Light.ttf */; };
-		723B7C7C26F61911002D1434 /* nof_default.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 723B7C7A26F61911002D1434 /* nof_default.mp3 */; };
-		723B7C7D26F61911002D1434 /* love.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 723B7C7B26F61911002D1434 /* love.mp3 */; };
-		723B7C8226F61A1D002D1434 /* nof_default.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 723B7C8026F61A1D002D1434 /* nof_default.mp3 */; };
-		723B7C8326F61A1D002D1434 /* love.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 723B7C8126F61A1D002D1434 /* love.mp3 */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		92BDA5A7FB70424B9890AA7C /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D318D7A914ED4EBCA4A1656D /* Roboto-Medium.ttf */; };
 		ADB1C95872734880950A0CC3 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8845B96E6AE44863A5CEB179 /* Roboto-Thin.ttf */; };
@@ -46,7 +44,9 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* MyKidTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyKidTests.m; sourceTree = "<group>"; };
 		0189AE59E8AF41319770AE00 /* Roboto-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Italic.ttf"; path = "../assets/fonts/Roboto-Italic.ttf"; sourceTree = "<group>"; };
-		0612984626FAC64D00259F6A /* reng.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = reng.mp3; path = ../src/assets/sound/reng.mp3; sourceTree = "<group>"; };
+		061298DC26FADA4A00259F6A /* love.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = love.mp3; path = ../assets/sound/love.mp3; sourceTree = "<group>"; };
+		061298DD26FADA4A00259F6A /* reng.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = reng.mp3; path = ../assets/sound/reng.mp3; sourceTree = "<group>"; };
+		061298DE26FADA4A00259F6A /* nof_default.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = nof_default.mp3; path = ../assets/sound/nof_default.mp3; sourceTree = "<group>"; };
 		0847797F238D635DA8322F7F /* Pods-MyKid.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyKid.debug.xcconfig"; path = "Target Support Files/Pods-MyKid/Pods-MyKid.debug.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* MyKid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyKid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = MyKid/AppDelegate.h; sourceTree = "<group>"; };
@@ -58,10 +58,6 @@
 		2E29ADADECE8438CA393F318 /* Roboto-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-BoldItalic.ttf"; path = "../assets/fonts/Roboto-BoldItalic.ttf"; sourceTree = "<group>"; };
 		33B164216A554078BCFB2EDF /* Roboto-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-LightItalic.ttf"; path = "../assets/fonts/Roboto-LightItalic.ttf"; sourceTree = "<group>"; };
 		5A910B593FED47ACB8EFA055 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Bold.ttf"; path = "../assets/fonts/Roboto-Bold.ttf"; sourceTree = "<group>"; };
-		723B7C7A26F61911002D1434 /* nof_default.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = nof_default.mp3; path = ../src/assets/sound/nof_default.mp3; sourceTree = "<group>"; };
-		723B7C7B26F61911002D1434 /* love.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = love.mp3; path = ../src/assets/sound/love.mp3; sourceTree = "<group>"; };
-		723B7C8026F61A1D002D1434 /* nof_default.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = nof_default.mp3; path = ../src/assets/sound/nof_default.mp3; sourceTree = "<group>"; };
-		723B7C8126F61A1D002D1434 /* love.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = love.mp3; path = ../src/assets/sound/love.mp3; sourceTree = "<group>"; };
 		7E3E8DAC3A1983E0A3CE869F /* Pods-MyKid.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyKid.release.xcconfig"; path = "Target Support Files/Pods-MyKid/Pods-MyKid.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = MyKid/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8845B96E6AE44863A5CEB179 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Thin.ttf"; path = "../assets/fonts/Roboto-Thin.ttf"; sourceTree = "<group>"; };
@@ -130,8 +126,6 @@
 		13B07FAE1A68108700A75B9A /* MyKid */ = {
 			isa = PBXGroup;
 			children = (
-				723B7C7B26F61911002D1434 /* love.mp3 */,
-				723B7C7A26F61911002D1434 /* nof_default.mp3 */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -187,9 +181,9 @@
 		D106FF9E60164E82A736E0FA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				0612984626FAC64D00259F6A /* reng.mp3 */,
-				723B7C8126F61A1D002D1434 /* love.mp3 */,
-				723B7C8026F61A1D002D1434 /* nof_default.mp3 */,
+				061298DC26FADA4A00259F6A /* love.mp3 */,
+				061298DE26FADA4A00259F6A /* nof_default.mp3 */,
+				061298DD26FADA4A00259F6A /* reng.mp3 */,
 				5A910B593FED47ACB8EFA055 /* Roboto-Bold.ttf */,
 				2E29ADADECE8438CA393F318 /* Roboto-BoldItalic.ttf */,
 				0189AE59E8AF41319770AE00 /* Roboto-Italic.ttf */,
@@ -301,7 +295,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0612984726FAC64D00259F6A /* reng.mp3 in Resources */,
+				061298DF26FADA4A00259F6A /* love.mp3 in Resources */,
+				061298E026FADA4A00259F6A /* reng.mp3 in Resources */,
+				061298E126FADA4A00259F6A /* nof_default.mp3 in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				C055AE26645049ECA4DA2DA0 /* Roboto-Bold.ttf in Resources */,
@@ -310,13 +306,9 @@
 				69ABA06CA4D64958862F1522 /* Roboto-Light.ttf in Resources */,
 				2948954B67C940F0A2C7E725 /* Roboto-LightItalic.ttf in Resources */,
 				92BDA5A7FB70424B9890AA7C /* Roboto-Medium.ttf in Resources */,
-				723B7C7D26F61911002D1434 /* love.mp3 in Resources */,
 				4C1C5BD22FC94CDE93C9AFF9 /* Roboto-MediumItalic.ttf in Resources */,
-				723B7C7C26F61911002D1434 /* nof_default.mp3 in Resources */,
 				08C74E270C6F420FBAF916F6 /* Roboto-Regular.ttf in Resources */,
-				723B7C8326F61A1D002D1434 /* love.mp3 in Resources */,
 				ADB1C95872734880950A0CC3 /* Roboto-Thin.ttf in Resources */,
-				723B7C8226F61A1D002D1434 /* nof_default.mp3 in Resources */,
 				512AF3733B0A417FBC0679D0 /* Roboto-ThinItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

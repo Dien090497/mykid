@@ -138,6 +138,7 @@ const ListDeviceScreen = () => {
     if (!videoCallReducer.connectionData) {
       return;
     }
+    setVideoCallData(videoCallReducer.connectionData);
     if (videoCallReducer.connectionState === 'INIT') {
       Vibration.vibrate(PATTERN, true);
       Sound.setCategory('Playback');
@@ -173,8 +174,6 @@ const ListDeviceScreen = () => {
       setVisibleCall({visible: false, device: null, data: []});
       reduxStore.store.dispatch(videoCallAction.reset());
     }
-
-    setVideoCallData(videoCallReducer.connectionData);
   }, [videoCallReducer]);
 
   useEffect(() => {
