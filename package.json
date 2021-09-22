@@ -48,7 +48,7 @@
     "react-native-tab-view": "^2.14.0",
     "react-native-unimodules": "^0.14.5",
     "react-native-vector-icons": "8.1.0",
-    "react-native-webrtc": "git+https://github.com/tnt9ft/react-native-webrtc.git",
+    "react-native-webrtc": "github:tnt9ft/react-native-webrtc",
     "react-native-webview": "11.6.2",
     "react-redux": "^7.2.3",
     "redux-saga": "^1.1.3",
