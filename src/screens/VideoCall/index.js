@@ -35,6 +35,8 @@ import VideoCallStateModal from './VideoCallStateModal';
 import videoCallAction from '../../redux/actions/videoCallAction';
 import reduxStore from '../../redux/config/redux';
 import Sound from 'react-native-sound';
+import {useIsFocused} from '@react-navigation/native';
+import { keepScreenAwake } from '../../functions/utils';
 
 const initialState = {
   data: [],
@@ -98,13 +100,20 @@ const ListDeviceScreen = () => {
     connectionState: '',
     data: [],
   });
-
+  const isFocused = useIsFocused();
   const ringtone = useRef(null);
   const PATTERN = [
     0, 500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170,
     40, 500,
   ];
   var onEndReachedCalledDuringMomentum = true;
+  useEffect(() => {
+    if (isFocused) {
+      keepScreenAwake();
+    } else {
+      keepScreenAwake(false);
+    }
+  }, [isFocused]);
 
   const getData = async () => {
     try {
