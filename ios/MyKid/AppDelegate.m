@@ -3,6 +3,7 @@
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import <WebRTC/RTCAudioSessionConfiguration.h>
 
 #ifdef FB_SONARKIT_ENABLED
 #import <FlipperKit/FlipperClient.h>
@@ -37,6 +38,13 @@ static void InitializeFlipper(UIApplication *application) {
                                                    moduleName:@"MyKid"
                                             initialProperties:nil];
 
+  RTCAudioSessionConfiguration *webRTCConfiguration = [RTCAudioSessionConfiguration webRTCConfiguration];
+
+  webRTCConfiguration.categoryOptions = (
+     AVAudioSessionCategoryOptionAllowBluetooth |
+    AVAudioSessionCategoryOptionDefaultToSpeaker | AVAudioSessionPortOverrideSpeaker
+  );
+  
   if (@available(iOS 13.0, *)) {
       rootView.backgroundColor = [UIColor systemBackgroundColor];
   } else {

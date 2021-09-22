@@ -21,8 +21,6 @@ pod 'react-native-google-maps', :path => rn_maps_path
   pod 'Permission-Camera', :path => "../node_modules/react-native-permissions/ios/Camera"
 
   pod 'react-native-maps', :path => '../node_modules/react-native-maps'
-
-  pod 'ReactNativeIncallManager', :path => '../node_modules/react-native-incall-manager'
   
   target 'MyKidTests' do
     inherit! :complete
