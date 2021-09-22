@@ -4,6 +4,7 @@ import {
   Image,
   Text,
   TouchableOpacity,
+  Vibration,
   View,
 } from 'react-native';
 import React, {
@@ -30,10 +31,10 @@ import {
   rejectVideoCalllApi,
 } from '../../network/VideoCallService';
 import DataLocal from '../../data/dataLocal';
-import JanusVideoRoomScreen from './JanusVideoRoomScreen';
 import VideoCallStateModal from './VideoCallStateModal';
 import videoCallAction from '../../redux/actions/videoCallAction';
 import reduxStore from '../../redux/config/redux';
+import Sound from 'react-native-sound';
 
 const initialState = {
   data: [],
@@ -97,6 +98,12 @@ const ListDeviceScreen = () => {
     connectionState: '',
     data: [],
   });
+
+  const ringtone = useRef(null);
+  const PATTERN = [
+    0, 500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170,
+    40, 500,
+  ];
   var onEndReachedCalledDuringMomentum = true;
 
   const getData = async () => {
@@ -132,6 +139,21 @@ const ListDeviceScreen = () => {
       return;
     }
     if (videoCallReducer.connectionState === 'INIT') {
+      Vibration.vibrate(PATTERN, true);
+      Sound.setCategory('Playback');
+      ringtone.current = new Sound(
+        'reng.mp3',
+        Sound.MAIN_BUNDLE,
+        error => {
+          console.log('error', error);
+          ringtone.current.play(() => {});
+          ringtone.current.setNumberOfLoops(5);
+        },
+      );
+      setTimeout(() => {
+        Vibration.cancel();
+        if (ringtone.current) ringtone.current.stop();
+      }, 1000 * 32);
       setVisibleCallState({
         visible: true,
         deviceName: videoCallReducer.connectionData.caller.deviceName,
@@ -188,6 +210,8 @@ const ListDeviceScreen = () => {
     setVisibleCall({visible: false, device: null, data: []});
   };
   const onCreateVideoCalll = item => () => {
+    Vibration.cancel();
+    if (ringtone.current) ringtone.current.stop();
     setVisibleCallState({
       visible: false,
       deviceName: 'off',
@@ -201,6 +225,8 @@ const ListDeviceScreen = () => {
     });
   };
   const toggleModalState = ({connectionState, roomId}) => {
+    Vibration.cancel();
+    if (ringtone.current) ringtone.current.stop();
     if (connectionState === 'INIT') {
       rejectVideoCalllApi({}, roomId, {
         success: res => {
