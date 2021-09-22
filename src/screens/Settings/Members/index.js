@@ -64,7 +64,7 @@ export default ({navigation, route}) => {
           setAdmin(adminMem[0]);
         }
         let members = res.data.filter(val => val.admin === false);
-        if (adminMem.length ===  0 || (adminMem.length > 0 && adminMem.accountId !== DataLocal.userInfo.id)) {
+        if (adminMem.length ===  0 || (adminMem.length > 0 && adminMem[0].accountId !== DataLocal.userInfo.id)) {
           members = members.filter(val => val.status !== 'PENDING');
         }
         setAllMember(members);
