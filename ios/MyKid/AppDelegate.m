@@ -11,6 +11,7 @@
 #import <FlipperKitNetworkPlugin/FlipperKitNetworkPlugin.h>
 #import <SKIOSNetworkPlugin/SKIOSNetworkAdapter.h>
 #import <FlipperKitReactPlugin/FlipperKitReactPlugin.h>
+#import <WebRTC/RTCAudioSessionConfiguration.h>
 
 static void InitializeFlipper(UIApplication *application) {
   FlipperClient *client = [FlipperClient sharedClient];
@@ -37,6 +38,13 @@ static void InitializeFlipper(UIApplication *application) {
                                                    moduleName:@"MyKid"
                                             initialProperties:nil];
 
+  RTCAudioSessionConfiguration *webRTCConfiguration = [RTCAudioSessionConfiguration webRTCConfiguration];
+
+  webRTCConfiguration.categoryOptions = (
+     AVAudioSessionCategoryOptionAllowBluetooth |
+    AVAudioSessionCategoryOptionDefaultToSpeaker | AVAudioSessionPortOverrideSpeaker
+  );
+  
   if (@available(iOS 13.0, *)) {
       rootView.backgroundColor = [UIColor systemBackgroundColor];
   } else {

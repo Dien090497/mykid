@@ -131,12 +131,10 @@ class JanusVideoRoomScreen extends React.Component {
   };
 
   async componentDidMount() {
-    InCallManager.setSpeakerphoneOn(true);
     this.getMediaStream();
   }
 
   componentWillUnmount = async () => {
-    InCallManager.setSpeakerphoneOn(true);
     if (this.janus) {
       await this.janus.destroy();
     }
