@@ -1,4 +1,4 @@
-import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {Image, PermissionsAndroid, Platform, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import React, {useLayoutEffect, useRef, useState} from 'react';
 
 import Button from '../../../components/buttonGradient';
@@ -123,6 +123,25 @@ const AddDeviceScreen = ({navigation, route}) => {
       refLoading,
     }).then();
   };
+  const onScan = async () => {
+    try {
+      var permissionAndroid;
+      //Nếu là nền tảng android thì sẽ yêu cầu cấp quyền trước
+      if (Platform.OS == 'android') {
+        permissionAndroid = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.CAMERA,
+        );
+        if (permissionAndroid != 'granted') {
+          showAlert(String.noCameraPermission);
+          return;
+        }
+      }
+
+      navigation.navigate(Consts.ScreenIds.QRCodeScreen, {onQR: onQR})
+    } catch (error) {
+      alert(error.message);
+    }
+  };
   
   return (
     <View style={styles.contain}>
@@ -135,7 +154,7 @@ const AddDeviceScreen = ({navigation, route}) => {
         <CustomInput
           placeholder={String.enterOrScanCode}
           value={deviceCode}
-          onPress={() => navigation.navigate(Consts.ScreenIds.QRCodeScreen, {onQR: onQR})}
+          onPress={() => {onScan()}}
           onChangeText={code => setDeviceCode(code)}
           icon={Images.icSmartwatch}
         />

@@ -96,6 +96,7 @@ export const String = {
   maxLengthSafeAreaName: 'Vui lòng nhập 1-32 ký tự',
   message_remove_contact_sos: 'Bạn không được xoá liên lạc khẩn cấp',
   noContactPermission: 'Bạn chưa cấp quyền truy cập danh bạ',
+  noCameraPermission: 'Bạn chưa cấp quyền truy cập máy ảnh',
   blockOther: 'Chặn số từ người lạ',
   addPhone: 'Thêm số mới',
   relationship: 'Mối quan hệ: ',
