@@ -16,6 +16,10 @@ export const String = {
   splashMsg: 'Đang tải dữ liệu...',
   ok: 'OK',
   change: 'Chuyển',
+  repeat: 'Lặp lại',
+  once: 'Một lần',
+  everyday: 'Hàng ngày',
+  custom: 'Tùy chỉnh',
 
   thisFunctionIsNotValid: 'Tính năng chưa được cập nhật',
   header_settings: 'Thiết lập',
@@ -31,6 +35,7 @@ export const String = {
   header_deviceManager: 'Danh sách thiết bị',
   header_findDevice: 'Thiết bị',
   header_soundSettings: 'Cài đặt chuông',
+  header_alarmClock: 'Báo thức',
 
   // Codepush
   codepushChecking: 'Đang kiểm tra bản cập nhật...',

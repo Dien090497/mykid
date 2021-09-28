@@ -35,6 +35,8 @@ const ScreenIds = {
   DeviceManager: 'DeviceManager',
   FindDevice: 'FindDevice',
   SoundSettings: 'SoundSettings',
+  AlarmClock: 'AlarmClock',
+  AlarmSetting: 'AlarmSetting',
 
   // Auth
   Login: 'Login',

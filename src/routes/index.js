@@ -39,6 +39,8 @@ import SafeZone from '../screens/Maps/SafeZone';
 import SettingScreen from '../screens/Settings';
 import Sound from 'react-native-sound';
 import SoundSettings from '../screens/Profile/SoundSettings';
+import AlarmClock from '../screens/Profile/AlarmClock';
+import AlarmSetting from '../screens/Profile/AlarmClock/AlarmSetting';
 import SplashScreen from '../screens/Splash';
 import WS from './WebScoket';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -213,6 +215,14 @@ const Routes = () => {
         <Stack.Screen
           name={Consts.ScreenIds.SoundSettings}
           component={SoundSettings}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.AlarmClock}
+          component={AlarmClock}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.AlarmSetting}
+          component={AlarmSetting}
         />
         <Stack.Screen
           name={Consts.ScreenIds.Relationship}
