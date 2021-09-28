@@ -212,7 +212,7 @@ const ListDeviceScreen = () => {
           });
           setPresentRoomId(res.data.id);
           setTimeout(() => {
-            if (isAcceptVideoCall) {
+            if (!isPickUp) {
               rejectVideoCalllApi({}, res.data.id, {
                 success: res => {},
                 refLoading: refLoading,
