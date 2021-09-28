@@ -14,7 +14,7 @@ import JanusVideoRoomScreen from '../JanusVideoRoomScreen';
 import {navigationRef} from '../../../routes/RootNavigation';
 import Images from '../../../assets/Images';
 
-const VideoCallModal = ({visible, device, toggleModal, data}) => {
+const VideoCallModal = ({visible, device, toggleModal, pickUp, data}) => {
   const refJanusVideoRoomScreen = useRef();
   const destroyVideoCall = () => {
     // refJanusVideoRoomScreen.current.destroyVideoCall();
@@ -24,6 +24,7 @@ const VideoCallModal = ({visible, device, toggleModal, data}) => {
     <Modal visible={visible} animationType="fade" transparent={true}>
       <JanusVideoRoomScreen
         ref={refJanusVideoRoomScreen}
+        pickUp={pickUp}
         server={data.streamUrl}
         roomId={data.id}
         password={data.password}
