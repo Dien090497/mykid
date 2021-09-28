@@ -90,9 +90,11 @@ class JanusVideoRoomScreen extends React.Component {
       });
       this.videoRoom.setOnPublisherJoinedListener(publisher => {
         this.receivePublisher(publisher);
+        this.props.pickUp(true);
       });
       this.videoRoom.setOnPublisherLeftListener(publisherID => {
         this.removePublisher(publisherID);
+        this.props.pickUp(false);
       });
       this.videoRoom.setOnWebRTCUpListener(async () => {});
 
@@ -123,6 +125,8 @@ class JanusVideoRoomScreen extends React.Component {
     let stream = await mediaDevices.getUserMedia({
       audio: true,
       video: {
+        width: 240,
+        height: 240,
         facingMode: isFront ? 'user' : 'environment',
       },
     });
