@@ -46,7 +46,8 @@ export default function HomeMainScreen() {
   };
 
   const pressEntertainment = () => {
-    showAlert(String.thisFunctionIsNotValid);
+    // showAlert(String.thisFunctionIsNotValid);
+    navigation.navigate(Consts.ScreenIds.AlarmClock);
   };
 
   const pressDevices = () => {
