@@ -16,10 +16,11 @@ export const styles = StyleSheet.create({
     height: 60
   },
   viewTime: {
-    width: '100%',
     alignSelf: 'center',
-    marginVertical: 10,
+    marginLeft: '2%',
     backgroundColor: Colors.white,
+    width: '96%',
+    height: 210,
   },
   viewItem: {
     padding: 10,

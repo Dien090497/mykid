@@ -36,6 +36,7 @@ export const String = {
   header_findDevice: 'Thiết bị',
   header_soundSettings: 'Cài đặt chuông',
   header_alarmClock: 'Báo thức',
+  header_alarmSetting: 'Cài đặt báo thức',
 
   // Codepush
   codepushChecking: 'Đang kiểm tra bản cập nhật...',

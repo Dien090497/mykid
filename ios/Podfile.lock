@@ -382,6 +382,8 @@ PODS:
     - React
   - RNCAsyncStorage (1.15.8):
     - React-Core
+  - RNCPicker (2.1.0):
+    - React-Core
   - RNDateTimePicker (3.5.2):
     - React-Core
   - RNGestureHandler (1.10.3):
@@ -466,6 +468,7 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - ReactNativeCameraKit (from `../node_modules/react-native-camera-kit`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
+  - "RNCPicker (from `../node_modules/@react-native-picker/picker`)"
   - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNPermissions (from `../node_modules/react-native-permissions`)
@@ -575,6 +578,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-camera-kit"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
+  RNCPicker:
+    :path: "../node_modules/@react-native-picker/picker"
   RNDateTimePicker:
     :path: "../node_modules/@react-native-community/datetimepicker"
   RNGestureHandler:
@@ -647,6 +652,7 @@ SPEC CHECKSUMS:
   ReactCommon: eafed38eec7b591c31751bfa7494801618460459
   ReactNativeCameraKit: 89ed1f2470b56e18e15dd0e1a37bebca3f2da2de
   RNCAsyncStorage: 0f655864a81214d1c5a9bf0faf79d86dc25c383e
+  RNCPicker: f7a40b21b915b7a187624d52f52b7bc2f73ea413
   RNDateTimePicker: c9911be59b1f8670b9f244b85af3a7c295e175ed
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNPermissions: 3e5bb8afd93c787681bbacbf54d586a6272ecc92

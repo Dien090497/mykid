@@ -44,6 +44,21 @@ export default ({navigation, route}) => {
         />
       ),
     },
+    {
+      key: 'AlarmClock',
+      title: String.header_alarmClock,
+      onPress: () => {
+        navigation.navigate(Consts.ScreenIds.AlarmClock);
+      },
+      icon: (
+        <CustomIcon
+          name={'people-alt'}
+          iconFamily={'MaterialIcons'}
+          size={ScaleHeight.small}
+          color={'#15d4a1'}
+        />
+      ),
+    },
   ];
   const renderItem = ({item}) => {
     return (
