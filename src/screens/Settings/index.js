@@ -59,6 +59,21 @@ export default ({navigation, route}) => {
         />
       ),
     },
+    {
+      key: 'DoNotDisturb',
+      title: String.header_doNotDisturb,
+      onPress: () => {
+        navigation.navigate(Consts.ScreenIds.DoNotDisturb);
+      },
+      icon: (
+        <CustomIcon
+          name={'people-alt'}
+          iconFamily={'MaterialIcons'}
+          size={ScaleHeight.small}
+          color={'#15d4a1'}
+        />
+      ),
+    },
   ];
   const renderItem = ({item}) => {
     return (

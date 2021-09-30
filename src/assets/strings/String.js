@@ -37,6 +37,7 @@ export const String = {
   header_soundSettings: 'Cài đặt chuông',
   header_alarmClock: 'Báo thức',
   header_alarmSetting: 'Cài đặt báo thức',
+  header_doNotDisturb: 'Chế độ lớp học',
 
   // Codepush
   codepushChecking: 'Đang kiểm tra bản cập nhật...',
@@ -112,6 +113,7 @@ export const String = {
   chooseAlbumQR: 'Chọn mã QR từ album',
   history_empty: 'Thiết bị chưa có lịch sử vị trí',
   time_invalid: 'Thời gian chọn không hợp lệ',
+  timeInvalidNote: 'Thời gian bắt đầu phải nhỏ hơn thời gian kết thúc',
 
   //member
   member_refresh: 'Làm mới',

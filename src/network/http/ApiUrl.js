@@ -24,6 +24,10 @@ export const safeZoneUrl = appUrl + '/safe-zones';
 // Alarm 
 export const alarmUrl = appUrl + '/alarms';
 
+// Class mode
+export const classModesUrl = appUrl + '/class-modes';
+
+
 // Sound
 export const soundModesUrl = appUrl + '/sound-modes';
 
