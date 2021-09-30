@@ -28,7 +28,7 @@ import {useSelector} from 'react-redux';
 import {
   createVideoCalllApi,
   finishVideoCalllApi,
-  rejectVideoCalllApi,
+  rejectVideoCallApi,
 } from '../../network/VideoCallService';
 import DataLocal from '../../data/dataLocal';
 import VideoCallStateModal from './VideoCallStateModal';
@@ -155,6 +155,7 @@ const ListDeviceScreen = () => {
       videoCallReducer.connectionData.id === presentRoomId
     ) {
       if (videoCallReducer.connectionState === 'INIT') {
+        setPresentRoomId(videoCallReducer.connectionData.id);
         Vibration.vibrate(PATTERN, true);
         Sound.setCategory('Playback');
         ringtone.current = new Sound('reng.mp3', Sound.MAIN_BUNDLE, error => {
@@ -176,6 +177,7 @@ const ListDeviceScreen = () => {
         });
         reduxStore.store.dispatch(videoCallAction.reset());
       } else if (videoCallReducer.connectionState === 'REJECTED') {
+        setPresentRoomId(-1);
         setVisibleCall({visible: false, device: null, data: []});
         setVisibleCallState({
           visible: true,
@@ -185,6 +187,7 @@ const ListDeviceScreen = () => {
         });
         reduxStore.store.dispatch(videoCallAction.reset());
       } else {
+        setPresentRoomId(-1);
         setVisibleCall({visible: false, device: null, data: []});
         reduxStore.store.dispatch(videoCallAction.reset());
       }
@@ -213,8 +216,10 @@ const ListDeviceScreen = () => {
           setPresentRoomId(res.data.id);
           setTimeout(() => {
             if (!isPickUp) {
-              rejectVideoCalllApi({}, res.data.id, {
-                success: res => {},
+              rejectVideoCallApi({}, res.data.id, {
+                success: res => {
+                  setPresentRoomId(-1);
+                },
                 refLoading: refLoading,
               });
             }
@@ -237,37 +242,36 @@ const ListDeviceScreen = () => {
     });
     setVisibleCall({visible: false, device: null, data: []});
   };
-  const onCreateVideoCalll =
-    ({connectionState, item}) =>
-    () => {
-      Vibration.cancel();
-      if (ringtone.current) {
-        ringtone.current.stop();
-      }
-      if (connectionState === 'INIT') {
-        setVisibleCallState({
-          visible: false,
-          deviceName: 'off',
-          connectionState: '',
-          data: [],
-        });
-        setVisibleCall({
-          visible: true,
-          device: {deviceName: item.caller.deviceName},
-          data: item,
-        });
-      } else {
-        onPressCall(item);
-      }
-    };
+  const onCreateVideoCall = item => {
+    Vibration.cancel();
+    if (ringtone.current) {
+      ringtone.current.stop();
+    }
+    // if (videoCallReducer.connectionState === 'INIT') {
+    setVisibleCallState({
+      visible: false,
+      deviceName: 'off',
+      connectionState: '',
+      data: [],
+    });
+    setVisibleCall({
+      visible: true,
+      device: {deviceName: item.caller.deviceName},
+      data: item,
+    });
+    // } else {
+    //   onPressCall(item);
+    // }
+  };
   const toggleModalState = ({connectionState, roomId}) => {
     Vibration.cancel();
     if (ringtone.current) {
       ringtone.current.stop();
     }
     if (connectionState === 'INIT') {
-      rejectVideoCalllApi({}, roomId, {
+      rejectVideoCallApi({}, roomId, {
         success: res => {
+          setPresentRoomId(-1);
           setVisibleCallState({
             visible: false,
             deviceName: 'off',
@@ -341,7 +345,7 @@ const ListDeviceScreen = () => {
           deviceName={visibleCallState.deviceName}
           item={visibleCallState.data}
           toggleModal={toggleModalState}
-          createVideoCall={onCreateVideoCalll}
+          createVideoCall={onCreateVideoCall}
         />
       )}
     </View>
