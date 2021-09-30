@@ -21,6 +21,9 @@ export const locationDeviceUrl = appUrl + '/locations';
 export const phoneBookUrl = appUrl + '/phone-books';
 export const safeZoneUrl = appUrl + '/safe-zones';
 
+// Alarm 
+export const alarmUrl = appUrl + '/alarms';
+
 // Sound
 export const soundModesUrl = appUrl + '/sound-modes';
 

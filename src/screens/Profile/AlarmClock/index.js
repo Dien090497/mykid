@@ -10,70 +10,73 @@ import Header from '../../../components/Header';
 import {String} from '../../../assets/strings/String';
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import { Colors } from '../../../assets/colors/Colors';
-import { getSoundModesApi, setSoundModesApi } from '../../../network/UserInfoService';
 import DataLocal from '../../../data/dataLocal';
 import { Image } from 'react-native';
 import Images from '../../../assets/Images';
-import { showAlert } from '../../../functions/utils';
 import Consts from '../../../functions/Consts';
+import { getAlarmsApi, setAlarmApi } from '../../../network/AlarmService';
 
 export default function AlarmClock({navigation}) {
-  const [mode, setMode] = useState();
   const refLoading = useRef();
-  const [alarmConfig, setAlarmConfig] = useState([
-    {time: '00:00', value: 1, isOn: true, mode: 'Một lần'},
-    {time: '00:00', value: 2, isOn: true, mode: 'Một lần'},
-    {time: '00:00', value: 3, isOn: false, mode: 'Một lần'},
-  ]);
+  const [alarmConfig, setAlarmConfig] = useState();
+  const dayOfWeeks = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
 
   useLayoutEffect(() => {
-    // getSoundModes();
+    getAlarms();
   }, []);
 
-  const getSoundModes = async () => {
-    // getSoundModesApi(DataLocal.deviceId, {
-    //   success: resData => {
-    //     if (resData.data && resData.data.mode) {
-    //       setMode(resData.data.mode)
-    //     }
-    //     console.log(resData.data.mode);
-    //     if (resData.data.mode === -1) {
-    //       console.log('unknown mode => set to vibration');
-    //       setSoundModes(3);
-    //     }
-    //   },
-    //   refLoading,
-    // });
+  const getAlarms = async () => {
+    getAlarmsApi(DataLocal.deviceId, {
+      success: resData => {
+        setAlarmConfig(resData.data);
+      },
+      refLoading,
+    });
   };
-
-  const setSoundModes = async (index) => {
-    // setSoundModesApi(DataLocal.deviceId, index, {
-    //   success: resData => {
-    //     if (resData.data && resData.data.mode) {
-    //       setMode(resData.data.mode)
-    //     }
-    //   },
-    //   refLoading,
-    // });
-  };
-
-  const onMethodChanged = (index) => {
-    if (index != mode) {
-      setSoundModes(index);
-    }
-  }
 
   const toggleSwitch = (obj, i) => {
+    if (!alarmConfig[i].title) {
+      toggleAlarmSetting(obj, i);
+      return;
+    }
     const config = Object.assign([], alarmConfig);
-    config[i].isOn = !config[i].isOn;
+    if (config[i].status === 'ON')
+      config[i].status = 'OFF';
+    else config[i].status = 'ON';
     setAlarmConfig(config);
-    console.log(obj);
-    console.log(i);
+    setAlarmApi(DataLocal.deviceId, config[i], {
+      success: resData => {
+      },
+      refLoading,
+    });
   };
 
   const toggleAlarmSetting = (obj, i) => {
-    navigation.navigate(Consts.ScreenIds.AlarmSetting);
+    navigation.navigate(Consts.ScreenIds.AlarmSetting, {config: obj, saveConfig: onSaveConfig});
   };
+
+  const onSaveConfig = (config) => {
+    const configs = Object.assign([], alarmConfig);
+    const index = configs.findIndex((element) => { return element.number === config.number } );
+    configs[index] = config;
+    setAlarmConfig(configs);
+  }
+
+  const getTextFrequency = (obj) => {
+    if (obj.frequency === 'ONCE') {
+      return String.once;
+    } else if (obj.frequency === 'EVERY_DAY') {
+      return String.everyday;
+    } else if (obj.custom) {
+      let custom = '';
+      for (let index = 0; index < dayOfWeeks.length; index++) {
+        if (obj.custom.charAt(index) === '1') {
+          custom = custom + dayOfWeeks[index]  + ' ';
+        }
+      }
+      return custom
+    }
+  }
 
   return (
     <View style={styles.contain}>
@@ -82,22 +85,22 @@ export default function AlarmClock({navigation}) {
         <View style={styles.viewImg}>
           <Image source={Images.icAlarmClock} resizeMode={'stretch'} style={styles.iconClock}/>
         </View>
-        {alarmConfig.map((obj, i) => (
-          <View style={styles.viewItem}>
+        {alarmConfig && alarmConfig.map((obj, i) => (
+          <View key={i} style={styles.viewItem}>
             <TouchableOpacity style={styles.viewText} onPress={() => {
                 toggleAlarmSetting(obj, i);
               }}>
               <View style={styles.rowDirection}>
-                <Text style={styles.txtTime}>{obj.time}</Text>
+                <Text style={styles.txtTime}>{obj.time.substring(0, 5)}</Text>
                 <Image source={Images.icRightArrow} style={styles.icArrow}/>
               </View>
-              <Text style={styles.txtMode}>{obj.mode}</Text>
+              <Text style={styles.txtMode}>{getTextFrequency(obj)}</Text>
             </TouchableOpacity>
             <View style={styles.viewSwitch}>
               <Switch
                 trackColor={{false: Colors.gray, true: '#81b0ff'}}
                 onValueChange={() => {toggleSwitch(obj, i)}}
-                value={obj.isOn}
+                value={obj.status === 'ON'}
               />
             </View>
           </View>
