@@ -218,12 +218,13 @@ const ListDeviceScreen = () => {
             if (!isPickUp) {
               rejectVideoCallApi({}, res.data.id, {
                 success: res => {
+                  setVisibleCall({visible: false, device: null, data: []});
                   setPresentRoomId(-1);
                 },
                 refLoading: refLoading,
               });
             }
-          }, 1000 * 59);
+          }, 1000 * 20);
         },
         refLoading: refLoading,
       },
