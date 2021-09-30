@@ -12,13 +12,11 @@ const VideoCallStateModal = ({
   deviceName,
   item,
   toggleModal,
+  pickUp,
   createVideoCall,
 }) => {
   const destroyVideoCall = () => {
     toggleModal({connectionState: connectionState, roomId: item.id});
-  };
-  const call = item => {
-    createVideoCall(item);
   };
   return (
     <Modal visible={visible} animationType="fade" transparent={true}>
@@ -74,7 +72,9 @@ const VideoCallStateModal = ({
               style={styles.txtVideoCall}
             />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.containerCancel} onPress={call(item)}>
+          <TouchableOpacity
+            style={styles.containerCancel}
+            onPress={() => createVideoCall(item)}>
             <Image source={Images.icCall} style={styles.icPhone} />
             <Text
               children={
