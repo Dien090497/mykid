@@ -20,6 +20,8 @@ export const String = {
   once: 'Một lần',
   everyday: 'Hàng ngày',
   custom: 'Tùy chỉnh',
+  home: 'Trang chủ',
+  profile: 'Cá nhân',
 
   thisFunctionIsNotValid: 'Tính năng chưa được cập nhật',
   header_settings: 'Thiết lập',
@@ -133,7 +135,7 @@ export const String = {
   home_safeArea: 'KHU VỰC AN TOÀN',
   home_alarm: 'CÀI ĐẶT CHUÔNG',
   home_findDevice: 'TÌM ĐỒNG HỒ',
-  home_entertainment: 'GIẢI TRÍ',
+  home_alarmClock: 'BÁO THỨC',
   home_device: 'THIẾT BỊ',
   home_setting: 'THIẾT LẬP',
 

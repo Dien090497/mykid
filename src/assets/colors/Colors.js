@@ -58,4 +58,5 @@ export const Colors = {
   backgroundVideoCall: '#3F87F5',
   buttonCancel: '#E5E5E5',
   backgroundVideoCallError: '#53535F',
+  grayBgBtnHome: '#F0F0F0'
 };
