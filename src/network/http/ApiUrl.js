@@ -32,7 +32,8 @@ export const watchsUrl = appUrl + '/watchs';
 
 // User info
 export const accountDetailUrl = appUrl + '/accounts';
-
+//EacesDrop
+export const eacesDropUrl = appUrl + '/monitors';
 // Videocall
 export const createVideoCalllUrl = streamUrl + '/video-calls';
 

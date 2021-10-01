@@ -12,6 +12,7 @@ import {isReadyRef, navigationRef} from './RootNavigation';
 
 import AddDeviceScreen from '../screens/Profile/AddDeviceScreen';
 import AddNewContact from '../screens/Settings/Contacts/addNew';
+
 import {AlertDropHelper} from '../functions/AlertDropHelper';
 import AppConfig from '../data/AppConfig';
 import ChangePassword from '../screens/Profile/ChangePassword';
@@ -40,6 +41,7 @@ import SettingScreen from '../screens/Settings';
 import Sound from 'react-native-sound';
 import SoundSettings from '../screens/Profile/SoundSettings';
 import AlarmClock from '../screens/Profile/AlarmClock';
+import EacesDroping from "../screens/Settings/EacesDroping";
 import AlarmSetting from '../screens/Profile/AlarmClock/AlarmSetting';
 import SplashScreen from '../screens/Splash';
 import WS from './WebScoket';
@@ -219,6 +221,10 @@ const Routes = () => {
         <Stack.Screen
           name={Consts.ScreenIds.AlarmClock}
           component={AlarmClock}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.EacesDroping}
+          component={EacesDroping}
         />
         <Stack.Screen
           name={Consts.ScreenIds.AlarmSetting}

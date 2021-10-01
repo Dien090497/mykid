@@ -68,10 +68,12 @@ export default ({navigation, route}) => {
           members = members.filter(val => val.status !== 'PENDING');
         }
         setAllMember(members);
+        console.log("members",members)
       },
       failure: error => {},
       refLoading: refLoading,
     });
+
   };
 
   const removeContact = item => {

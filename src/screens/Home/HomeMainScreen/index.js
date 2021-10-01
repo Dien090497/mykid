@@ -8,7 +8,7 @@ import {String} from '../../../assets/strings/String';
 import {appStatusBar} from '../../../components/CommonUIComponents';
 import {styles} from './styles';
 import {useNavigation} from '@react-navigation/native';
-import { showAlert } from '../../../functions/utils';
+import {showAlert} from '../../../functions/utils';
 
 export default function HomeMainScreen() {
   const navigation = useNavigation();
@@ -58,7 +58,7 @@ export default function HomeMainScreen() {
   };
   const buttonProps = {activeOpacity: 0.8};
   return (
-    <View style={styles.container}>
+    <View style={styles.container }>
       {appStatusBar()}
       <View style={{backgroundColor: '#00FFFF', paddingTop: 30}}>
         <Image

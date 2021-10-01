@@ -49,7 +49,7 @@ export default Header = props => {
         )
       }
       centerComponent={
-        <Text style={styles.title}>
+        <Text style={styles.title} numberOfLines={1}>
           {props.title !== undefined ? props.title : String.bangSepHang}
         </Text>
       }

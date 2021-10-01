@@ -4,7 +4,7 @@ import { FontSize } from '../../functions/Consts';
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.blueTitle,
+    backgroundColor: '#EE0033',
   },
   title: {
     fontSize: FontSize.xtraBig,
