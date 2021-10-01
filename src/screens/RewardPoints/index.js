@@ -8,12 +8,21 @@ import { String } from "../../assets/strings/String";
 import Images from "../../assets/Images";
 import { styles } from "./styles";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { setRewardsApi } from '../../network/RewardsService.js';
+import { setRewardsApi, getRewardsApi } from '../../network/RewardsService.js';
 import DataLocal from '../../data/dataLocal';
 
 export default ({ navigation }) => {
   const [point, setPoint] = useState(0);
   const refLoading = useRef();
+
+  useEffect(() => {
+    getRewardsApi(DataLocal.deviceId,{
+      success: resData => {
+        setPoint(resData.data.heart);
+      },
+      refLoading,
+    })
+  },[]);
 
   const addPoint = () => {
     point < 100 ? setPoint(point + 1) : null;
@@ -28,10 +37,6 @@ export default ({ navigation }) => {
     setRewardsApi(DataLocal.deviceId,heart,{
       success: resData => {
         showAlert("Tặng thành công!")
-        setPoint(0);
-      },
-      failure: error =>{
-        console.log("ERROR",error)
       },
       refLoading,
     })
