@@ -41,6 +41,7 @@ import RewardPoints from '../screens/RewardPoints';
 import Sound from 'react-native-sound';
 import SoundSettings from '../screens/Profile/SoundSettings';
 import AlarmClock from '../screens/Profile/AlarmClock';
+import DoNotDisturb from '../screens/Profile/DoNotDisturb';
 import AlarmSetting from '../screens/Profile/AlarmClock/AlarmSetting';
 import SplashScreen from '../screens/Splash';
 import WS from './WebScoket';
@@ -50,6 +51,7 @@ import {generateRandomId, showAlert} from '../functions/utils';
 import {useSelector} from 'react-redux';
 import videoCallAction from '../redux/actions/videoCallAction';
 import * as encoding from 'text-encoding';
+import LanguageTimeZone from "../screens/Profile/LanguageTimeZone";
 var encoder = new encoding.TextEncoder();
 const Tab = createBottomTabNavigator();
 
@@ -83,7 +85,7 @@ const TabBarName = {
 
 const renderTabBarIcon = (focused, route) => {
   const sizeIcon = focused ? 25 : 20;
-  const tintColor = focused ? Colors.blueTitle : Colors.gray;
+  const tintColor = focused ? Colors.red : Colors.gray;
   return (
     <Image
       source={TabBarIcon[route.name]}
@@ -99,7 +101,7 @@ const renderTabBarIcon = (focused, route) => {
 
 const renderTabBarLabel = (focused, route) => {
   const styleLabel = {
-    color: focused ? Colors.blueTitle : Colors.gray,
+    color: focused ? Colors.red : Colors.gray,
     fontWeight: focused ? 'bold' : 'normal',
   };
   return (
@@ -220,6 +222,14 @@ const Routes = () => {
         <Stack.Screen
           name={Consts.ScreenIds.AlarmClock}
           component={AlarmClock}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.LanguageTimeZone}
+          component={LanguageTimeZone}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.DoNotDisturb}
+          component={DoNotDisturb}
         />
         <Stack.Screen
           name={Consts.ScreenIds.AlarmSetting}

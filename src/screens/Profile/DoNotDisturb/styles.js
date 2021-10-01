@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
-import { FontSize, ScaleHeight } from '../../../../functions/Consts';
-import {Colors} from '../../../../assets/colors/Colors';
+import { FontSize, ScaleHeight } from '../../../functions/Consts';
+import {Colors} from '../../../assets/colors/Colors';
 
 export const styles = StyleSheet.create({
   contain: {
@@ -15,12 +15,15 @@ export const styles = StyleSheet.create({
     width: 60,
     height: 60
   },
-  viewTime: {
-    alignSelf: 'center',
-    marginLeft: '2%',
-    backgroundColor: Colors.white,
+  viewImg: {
     width: '96%',
-    height: 210,
+    alignSelf: 'center',
+    paddingVertical: 50,
+    borderRadius: 10,
+    marginHorizontal: 5,
+    marginVertical: 5,
+    alignItems: 'center',
+    backgroundColor: '#e4e4e4',
   },
   viewItem: {
     padding: 10,
@@ -35,7 +38,7 @@ export const styles = StyleSheet.create({
   },
   viewSwitch: {
     flex: 0.2,
-    alignItems: 'flex-end',
+    alignItems: 'center',
     justifyContent: 'center'
   },
   viewText: {
@@ -43,50 +46,26 @@ export const styles = StyleSheet.create({
     textAlign: 'left',
     paddingVertical: 15,
   },
+  txtTime: {
+    fontSize: FontSize.xtraBig,
+    fontFamily: 'Roboto-Bold',
+    color: Colors.gray
+  },
   txtMode: {
-    fontSize: FontSize.medium,
-    fontFamily: 'Roboto-Medium',
-    color: Colors.black
+    fontSize: FontSize.small,
+    fontFamily: 'Roboto-Light',
   },
   icArrow: {
-    width: 25,
-    height: 25,
-    // tintColor: Colors.gray,
+    width: 14,
+    height: 14,
+    tintColor: Colors.gray,
     resizeMode: 'contain',
-    marginRight: 10,
+    marginLeft: 3,
   },
   rowDirection: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 3
-  },
-  txtTitle: {
-    width: '96%',
-    alignSelf: 'center',
-    fontSize: FontSize.medium,
-    fontFamily: 'Roboto-Medium',
-    color: '#a9a9a9',
-    marginTop: 20
-  },
-  viewMode: {
-    width: '100%',
-    alignSelf: 'center',
-    marginVertical: 10,
-    backgroundColor: Colors.white,
-  },
-  viewDay: {
-    backgroundColor: '#d8d8d8',
-    width: '12.2%',
-    marginHorizontal: '1%',
-    aspectRatio: 1,
-    justifyContent: 'center',
-    borderRadius: 5
-  },
-  txtDay: {
-    alignSelf: 'center',
-    fontSize: FontSize.medium,
-    fontFamily: 'Roboto-Medium',
-    color: Colors.white,
   },
   button: {
     marginTop: 40,

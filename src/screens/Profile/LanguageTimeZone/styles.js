@@ -1,10 +1,9 @@
-import Consts, {FontSize} from '../../../functions/Consts';
-
 import {Colors} from '../../../assets/colors/Colors';
 import {StyleSheet} from 'react-native';
+import Consts, {FontSize, ScaleHeight} from '../../../functions/Consts';
 
 const searchHeight = Consts.screenHeight / 24;
-const screenWidth = Consts.screenWidth
+const screenWidth = Consts.screenWidth;
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -109,6 +108,7 @@ export const styles = StyleSheet.create({
     color: Colors.gray,
   },
   containerAdd: {
+    height: ScaleHeight.medium,
     backgroundColor: Colors.red,
     width: '90%',
     alignSelf: 'center',
@@ -181,7 +181,7 @@ export const styles = StyleSheet.create({
     fontSize: FontSize.small,
     color: Colors.gray,
     marginTop: 10,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   containerEmpty: {
     flex: 1,
@@ -189,4 +189,13 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   wrapContainer: {flex: 1},
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  scrollView: {
+    backgroundColor: Colors.lighter,
+    marginBottom: 5,
+  },
 });

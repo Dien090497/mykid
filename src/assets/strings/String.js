@@ -38,6 +38,8 @@ export const String = {
   header_alarmClock: 'Báo thức',
   header_alarmSetting: 'Cài đặt báo thức',
   header_reward_points: 'Thưởng',
+  header_doNotDisturb: 'Chế độ lớp học',
+  header_language_timezone: 'Ngôn ngữ và múi giờ',
 
   // Codepush
   codepushChecking: 'Đang kiểm tra bản cập nhật...',
@@ -134,7 +136,6 @@ export const String = {
   home_entertainment: 'GIẢI TRÍ',
   home_device: 'THIẾT BỊ',
   home_setting: 'THIẾT LẬP',
-  reward_points: 'ĐIỂM THƯỞNG',
 
   //setting
   setting_contact: 'Danh bạ',

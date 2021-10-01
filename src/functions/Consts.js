@@ -38,6 +38,8 @@ const ScreenIds = {
   AlarmClock: 'AlarmClock',
   AlarmSetting: 'AlarmSetting',
   RewardPoints: 'RewardPoints',
+  LanguageTimeZone: 'LanguageTimeZone',
+  DoNotDisturb: 'DoNotDisturb',
 
   // Auth
   Login: 'Login',

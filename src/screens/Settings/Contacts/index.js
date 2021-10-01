@@ -119,17 +119,12 @@ export default ({navigation, route}) => {
   };
 
   const toggleSwitch = () => {
-    setBlockUnknownApi(
-      DataLocal.deviceId,
-      !isBlocking,
-      {
-        success: res => {
-          setIsBlocking(!isBlocking);
-        },
-        refLoading: refLoading,
+    setBlockUnknownApi(DataLocal.deviceId, !isBlocking, {
+      success: res => {
+        setIsBlocking(!isBlocking);
       },
-    );
-    
+      refLoading: refLoading,
+    });
   };
 
   return (
