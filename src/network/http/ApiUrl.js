@@ -43,6 +43,9 @@ export const accountDetailUrl = appUrl + '/accounts';
 // Videocall
 export const createVideoCalllUrl = streamUrl + '/video-calls';
 
+// Rewards
+export const rewardsUrl = appUrl + '/rewards';
+
 /// url: string, obj: object
 export function assignUrlParams(url, obj) {
   if (!obj) {

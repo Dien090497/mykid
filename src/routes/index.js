@@ -37,6 +37,7 @@ import Register from '../screens/auth/Register';
 import Relationship from '../screens/Profile/Relationship';
 import SafeZone from '../screens/Maps/SafeZone';
 import SettingScreen from '../screens/Settings';
+import RewardPoints from '../screens/RewardPoints';
 import Sound from 'react-native-sound';
 import SoundSettings from '../screens/Profile/SoundSettings';
 import AlarmClock from '../screens/Profile/AlarmClock';
@@ -252,6 +253,10 @@ const Routes = () => {
         <Stack.Screen
           name={Consts.ScreenIds.Settings}
           component={SettingScreen}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.RewardPoints}
+          component={RewardPoints}
         />
         <Stack.Screen
           name={Consts.ScreenIds.ChangePassword}
