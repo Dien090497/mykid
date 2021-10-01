@@ -24,6 +24,10 @@ export const safeZoneUrl = appUrl + '/safe-zones';
 // Alarm
 export const alarmUrl = appUrl + '/alarms';
 
+// Class mode
+export const classModesUrl = appUrl + '/class-modes';
+
+
 // LanguageTimeZone
 export const languageTimeZoneUrl = appUrl + '/language-timezones';
 

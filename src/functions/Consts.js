@@ -38,6 +38,7 @@ const ScreenIds = {
   AlarmClock: 'AlarmClock',
   AlarmSetting: 'AlarmSetting',
   LanguageTimeZone: 'LanguageTimeZone',
+  DoNotDisturb: 'DoNotDisturb',
 
   // Auth
   Login: 'Login',

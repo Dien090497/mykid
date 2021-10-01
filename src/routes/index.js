@@ -40,6 +40,7 @@ import SettingScreen from '../screens/Settings';
 import Sound from 'react-native-sound';
 import SoundSettings from '../screens/Profile/SoundSettings';
 import AlarmClock from '../screens/Profile/AlarmClock';
+import DoNotDisturb from '../screens/Profile/DoNotDisturb';
 import AlarmSetting from '../screens/Profile/AlarmClock/AlarmSetting';
 import SplashScreen from '../screens/Splash';
 import WS from './WebScoket';
@@ -224,6 +225,10 @@ const Routes = () => {
         <Stack.Screen
           name={Consts.ScreenIds.LanguageTimeZone}
           component={LanguageTimeZone}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.DoNotDisturb}
+          component={DoNotDisturb}
         />
         <Stack.Screen
           name={Consts.ScreenIds.AlarmSetting}
