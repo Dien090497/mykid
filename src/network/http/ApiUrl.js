@@ -21,7 +21,7 @@ export const locationDeviceUrl = appUrl + '/locations';
 export const phoneBookUrl = appUrl + '/phone-books';
 export const safeZoneUrl = appUrl + '/safe-zones';
 
-// Alarm 
+// Alarm
 export const alarmUrl = appUrl + '/alarms';
 
 // Sound
@@ -35,6 +35,9 @@ export const accountDetailUrl = appUrl + '/accounts';
 
 // Videocall
 export const createVideoCalllUrl = streamUrl + '/video-calls';
+
+// Rewards
+export const rewardsUrl = appUrl + '/rewards';
 
 /// url: string, obj: object
 export function assignUrlParams(url, obj) {

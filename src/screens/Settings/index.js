@@ -59,6 +59,21 @@ export default ({navigation, route}) => {
         />
       ),
     },
+    {
+      key: 'RewardPoints',
+      title: String.header_reward_points,
+      onPress: () => {
+        navigation.navigate(Consts.ScreenIds.RewardPoints);
+      },
+      icon: (
+        <CustomIcon
+          name={'people-alt'}
+          iconFamily={'MaterialIcons'}
+          size={ScaleHeight.small}
+          color={'#15d4a1'}
+        />
+      ),
+    },
   ];
   const renderItem = ({item}) => {
     return (
