@@ -45,7 +45,7 @@ export default ({ navigation }) => {
           <View style={styles.imgHeart}>
             <Image source={Images.icHeart} style={[styles.iconHeart]} />
           </View>
-          <Text style={styles.text}>Bé làm 1 việc tốt,hãy thưởng bé 1 điểm</Text>
+          <Text style={styles.text}>{String.rewardPoints_text}</Text>
           <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
             <TouchableOpacity
               onPress={minusPoint}

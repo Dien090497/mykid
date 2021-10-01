@@ -37,7 +37,7 @@ export const String = {
   header_soundSettings: 'Cài đặt chuông',
   header_alarmClock: 'Báo thức',
   header_alarmSetting: 'Cài đặt báo thức',
-  header_reward_points: 'Thưởng',
+  header_reward_points: 'Tặng phần thưởng',
   header_doNotDisturb: 'Chế độ lớp học',
   header_language_timezone: 'Ngôn ngữ và múi giờ',
 
@@ -156,4 +156,7 @@ export const String = {
   reject: 'Từ chối',
   acceptVideocall: 'Trả lời',
   requestVideoCall: 'Cuộc gọi đến',
+
+  //RewardPoints
+  rewardPoints_text: 'Bé làm 1 việc tốt,hãy thưởng bé 1 điểm',
 };
