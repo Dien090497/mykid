@@ -1,6 +1,6 @@
 import {Colors} from '../../../assets/colors/Colors';
 import {StyleSheet} from 'react-native';
-import Consts, {FontSize} from '../../../functions/Consts';
+import Consts, {FontSize, ScaleHeight} from '../../../functions/Consts';
 
 const searchHeight = Consts.screenHeight / 24;
 const screenWidth = Consts.screenWidth;
@@ -108,7 +108,8 @@ export const styles = StyleSheet.create({
     color: Colors.gray,
   },
   containerAdd: {
-    backgroundColor: Colors.blueButton,
+    height: ScaleHeight.medium,
+    backgroundColor: Colors.red,
     width: '90%',
     alignSelf: 'center',
     borderRadius: 10,
