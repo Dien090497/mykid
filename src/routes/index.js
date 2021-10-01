@@ -84,7 +84,7 @@ const TabBarName = {
 
 const renderTabBarIcon = (focused, route) => {
   const sizeIcon = focused ? 25 : 20;
-  const tintColor = focused ? Colors.blueTitle : Colors.gray;
+  const tintColor = focused ? Colors.red : Colors.gray;
   return (
     <Image
       source={TabBarIcon[route.name]}
@@ -100,7 +100,7 @@ const renderTabBarIcon = (focused, route) => {
 
 const renderTabBarLabel = (focused, route) => {
   const styleLabel = {
-    color: focused ? Colors.blueTitle : Colors.gray,
+    color: focused ? Colors.red : Colors.gray,
     fontWeight: focused ? 'bold' : 'normal',
   };
   return (
