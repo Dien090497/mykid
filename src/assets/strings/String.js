@@ -37,6 +37,7 @@ export const String = {
   header_soundSettings: 'Cài đặt chuông',
   header_alarmClock: 'Báo thức',
   header_alarmSetting: 'Cài đặt báo thức',
+  header_reward_points: 'Thưởng',
 
   // Codepush
   codepushChecking: 'Đang kiểm tra bản cập nhật...',
@@ -133,6 +134,7 @@ export const String = {
   home_entertainment: 'GIẢI TRÍ',
   home_device: 'THIẾT BỊ',
   home_setting: 'THIẾT LẬP',
+  reward_points: 'ĐIỂM THƯỞNG',
 
   //setting
   setting_contact: 'Danh bạ',

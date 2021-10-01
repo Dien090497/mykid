@@ -49,6 +49,7 @@ export const Colors = {
   blueTitle: '#1877F2FF',
   grayBackground: '#F8F8F8FF',
   orange: '#FF6D0F',
+  colorMain: '#EE0033',
   //
   gradient: ['#FFFF00', '#FFFF00', '#FFFF00'],
   GradientColor: ['#FFCC00', '#FF9900', '#FF6600'],

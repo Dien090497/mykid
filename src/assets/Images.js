@@ -55,5 +55,10 @@ export default {
   icJourney: require('./images/home/journey.png'),
   icSetting: require('./images/home/setting.png'),
   icVideoCall: require('./images/home/videoCall.png'),
-  icBanner: require('./images/home/banner.jpg')
+  icBanner: require('./images/home/banner.jpg'),
+
+  //RewardPoints
+  icAdd: require('./images/rewardoints/ic_add.png'),
+  icMinus: require('./images/rewardoints/ic_minus.png'),
+  icHeart: require('./images/rewardoints/ic_heart.png'),
 }
