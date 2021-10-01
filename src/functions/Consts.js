@@ -37,6 +37,7 @@ const ScreenIds = {
   SoundSettings: 'SoundSettings',
   AlarmClock: 'AlarmClock',
   AlarmSetting: 'AlarmSetting',
+  LanguageTimeZone: 'LanguageTimeZone',
 
   // Auth
   Login: 'Login',

@@ -49,6 +49,7 @@ import {generateRandomId, showAlert} from '../functions/utils';
 import {useSelector} from 'react-redux';
 import videoCallAction from '../redux/actions/videoCallAction';
 import * as encoding from 'text-encoding';
+import LanguageTimeZone from "../screens/Profile/LanguageTimeZone";
 var encoder = new encoding.TextEncoder();
 const Tab = createBottomTabNavigator();
 
@@ -219,6 +220,10 @@ const Routes = () => {
         <Stack.Screen
           name={Consts.ScreenIds.AlarmClock}
           component={AlarmClock}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.LanguageTimeZone}
+          component={LanguageTimeZone}
         />
         <Stack.Screen
           name={Consts.ScreenIds.AlarmSetting}

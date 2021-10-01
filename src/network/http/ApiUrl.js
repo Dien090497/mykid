@@ -21,8 +21,11 @@ export const locationDeviceUrl = appUrl + '/locations';
 export const phoneBookUrl = appUrl + '/phone-books';
 export const safeZoneUrl = appUrl + '/safe-zones';
 
-// Alarm 
+// Alarm
 export const alarmUrl = appUrl + '/alarms';
+
+// LanguageTimeZone
+export const languageTimeZoneUrl = appUrl + '/language-timezones';
 
 // Sound
 export const soundModesUrl = appUrl + '/sound-modes';
@@ -50,7 +53,6 @@ export function assignUrlParams(url, obj) {
   let newUrl = url;
   for (let i = 0; i < keys.length; i++) {
     const k = keys[i];
-    // newUrl = newUrl.replace(`{${k}}`, obj[k]);
     newUrl = newUrl.split(`{${k}}`).join(obj[k]);
   }
 

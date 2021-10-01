@@ -37,6 +37,7 @@ export const String = {
   header_soundSettings: 'Cài đặt chuông',
   header_alarmClock: 'Báo thức',
   header_alarmSetting: 'Cài đặt báo thức',
+  header_language_timezone: 'Ngôn ngữ và múi giờ',
 
   // Codepush
   codepushChecking: 'Đang kiểm tra bản cập nhật...',
