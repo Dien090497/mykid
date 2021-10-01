@@ -45,10 +45,10 @@ export default ({navigation, route}) => {
       ),
     },
     {
-      key: 'AlarmClock',
-      title: String.header_alarmClock,
+      key: 'DeviceManager',
+      title: String.header_connectDevice,
       onPress: () => {
-        navigation.navigate(Consts.ScreenIds.AlarmClock);
+        navigation.navigate(Consts.ScreenIds.DeviceManager);
       },
       icon: (
         <CustomIcon

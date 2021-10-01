@@ -33,10 +33,6 @@ export default {
   icCallCancel: require('./images/ic_call_cancel.png'),
   icCallReject: require('./images/ic_call_reject.png'),
 
-  icHomeOff: require('./images/main/ic_home_off.png'),
-  icHomeOn: require('./images/main/ic_home_on.png'),
-  icProfileOff: require('./images/main/ic_profile_off.png'),
-  icProfileOn: require('./images/main/ic_profile_on.png'),
   icBattery: require('./images/ic_battery.png'),
   icRightArrow: require('./images/ic_right_arrow.png'),
   icCalendar: require('./images/ic_calendar.png'),
@@ -45,20 +41,24 @@ export default {
   icMarkerDefault: require('./images/ic_marker_default.png'),
 
   //homeScreen
-  icAlarm: require('./images/home/alarm.png'),
-  icChat: require('./images/home/chat.png'),
-  icDevice: require('./images/home/device.png'),
-  icElectricFence: require('./images/home/electricFence.png'),
-  icEntertainment: require('./images/home/entertainment.png'),
-  icFindDevice: require('./images/home/findDevice.png'),
-  icGps: require('./images/home/gps.png'),
-  icJourney: require('./images/home/journey.png'),
-  icSetting: require('./images/home/setting.png'),
-  icVideoCall: require('./images/home/videoCall.png'),
-  icBanner: require('./images/home/banner.jpg'),
+  icHomeOff: require('./images/main/ic_home_off.png'),
+  icHomeOn: require('./images/main/ic_home_on.png'),
+  icProfileOff: require('./images/main/ic_profile_off.png'),
+  icProfileOn: require('./images/main/ic_profile_on.png'),
+  icAlarm: require('./images/home/ic_alarm.png'),
+  icChat: require('./images/home/ic_chat.png'),
+  icFindDevice: require('./images/home/ic_find_device.png'),
+  icJourney: require('./images/home/ic_journey.png'),
+  icSetting: require('./images/home/ic_setting.png'),
+  icVideoCall: require('./images/home/ic_video_call.png'),
+  icSoundSetting: require('./images/home/ic_sound_setting.png'),
+  icSafeZone: require('./images/home/ic_safe_zone.png'),
+  icMap: require('./images/home/ic_map.png'),
+  bgHome: require('./images/home/bg_home.png'),
 
   //RewardPoints
   icAdd: require('./images/rewardoints/ic_add.png'),
   icMinus: require('./images/rewardoints/ic_minus.png'),
   icHeart: require('./images/rewardoints/ic_heart.png'),
+
 }
