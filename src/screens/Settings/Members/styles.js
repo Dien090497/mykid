@@ -54,7 +54,7 @@ export const styles = StyleSheet.create({
   headerText: {padding: 10, fontWeight: 'bold', fontSize: 16},
   button: {
     height: ScaleHeight.medium,
-    backgroundColor: Colors.blueButton,
+    backgroundColor: Colors.red,
     width: '90%',
     alignSelf: 'center',
     borderRadius: 10,
