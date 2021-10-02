@@ -15,7 +15,7 @@ export const ErrorMsg = {
     kwa4025: 'Không tìm thấy danh bạ (KWA-4025)',
     kwa4026: 'Số lượng danh bạ không được lớn hơn 15 (KWA-4026)',
     kwa4029: 'Số điện thoại đã tồn tại (KWA-4029)',
-
+    kwa5000:'Thiết bị chưa có kết nối (KWA-5000)',
     // common
     exceedNicknameLength: 'Vượt quá số lượng ký tự cho phép',
     downloadFailed: 'Tải dữ liệu không thành công',

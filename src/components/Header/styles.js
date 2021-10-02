@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
     backgroundColor: '#EE0033',
   },
   title: {
-    fontSize: FontSize.xtraBig,
+    fontSize: FontSize.big*0.8,
     fontFamily: 'Roboto-Bold',
     color: Colors.white,
     marginTop: 3
