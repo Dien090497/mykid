@@ -20,7 +20,6 @@ export const styles = StyleSheet.create({
   image: {
     flex: 1,
     height:height,
-    resizeMode: 'contain',
     paddingHorizontal: 20,
     alignItems: "center"
   },
