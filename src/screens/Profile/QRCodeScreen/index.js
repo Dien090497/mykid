@@ -1,7 +1,9 @@
 import React from "react";
-import { SafeAreaView } from "react-native";
+import { View } from "react-native";
 import styles from "./style";
 import {CameraKitCameraScreen} from 'react-native-camera-kit';
+import Header from "../../../components/Header";
+import { String } from "../../../assets/strings/String";
 
 const QRCodeScreen = ({ navigation, route }) => {
   let isSuccess = false;
@@ -17,7 +19,8 @@ const QRCodeScreen = ({ navigation, route }) => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
+    <View style={styles.container}>
+      <Header title={String.header_addDevice} />
       <CameraKitCameraScreen
         showFrame={true}
         // Show/hide scan frame
@@ -33,7 +36,7 @@ const QRCodeScreen = ({ navigation, route }) => {
           onSuccess(event.nativeEvent.codeStringValue)
         }
       />
-    </SafeAreaView>
+    </View>
   );
 };
 export default QRCodeScreen;
