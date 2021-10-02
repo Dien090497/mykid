@@ -41,9 +41,7 @@ export default {
   icMarkerDefault: require('./images/ic_marker_default.png'),
 
   //homeScreen
-  icHomeOff: require('./images/main/ic_home_off.png'),
   icHomeOn: require('./images/main/ic_home_on.png'),
-  icProfileOff: require('./images/main/ic_profile_off.png'),
   icProfileOn: require('./images/main/ic_profile_on.png'),
   icAlarm: require('./images/home/ic_alarm.png'),
   icChat: require('./images/home/ic_chat.png'),

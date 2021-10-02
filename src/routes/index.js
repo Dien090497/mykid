@@ -82,7 +82,7 @@ const TabBarIcon = {
 };
 
 const TabBarName = {
-  [Consts.ScreenIds.HomeMainScreen]: String.accept,
+  [Consts.ScreenIds.HomeMainScreen]: String.home,
   [Consts.ScreenIds.Profile]: String.profile,
 };
 

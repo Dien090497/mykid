@@ -135,7 +135,7 @@ export const String = {
   home_chat: 'CHAT',
   home_safeArea: 'KHU VỰC AN TOÀN',
   home_alarm: 'CÀI ĐẶT CHUÔNG',
-  home_findDevice: 'TÌM ĐỒNG HỒ',
+  home_findDevice: 'TÌM THIẾT BỊ',
   home_alarmClock: 'BÁO THỨC',
   home_device: 'THIẾT BỊ',
   home_setting: 'THIẾT LẬP',
