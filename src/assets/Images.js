@@ -20,6 +20,8 @@ export default {
   icView: require('./images/ic_view.png'),
   icLock: require('./images/ic_lock.png'),
   icSmartwatch: require('./images/ic_smartwatch.png'),
+  icSmartwatch3: require('./images/ic_smartwatch3.png'),
+  icQRCode: require('./images/ic_qrcode.png'),
   icWatch: require('./images/ic_watch.png'),
   icLogout: require('./images/ic_logout.png'),
   icSmartwatch1: require('./images/ic_smartwatch1.png'),
@@ -61,5 +63,8 @@ export default {
 
   //Login
   bannerLogin: require('./images/banner_login.png'),
+
+  //Login
+  icRegister: require('./images/ic_success.png'),
 
 }

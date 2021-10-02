@@ -30,6 +30,7 @@ export const String = {
   header_members: 'Danh sách thành viên',
   header_maps: 'Bản đồ',
   header_addDevice: 'Thêm thiết bị',
+  header_QRCode: 'Quét mã',
   header_relationship: 'Lựa chọn mối quan hệ',
   header_connectDevice: 'Kết nối thiết bị',
   header_profile: 'Cá nhân',
@@ -118,6 +119,7 @@ export const String = {
   history_empty: 'Thiết bị chưa có lịch sử vị trí',
   time_invalid: 'Thời gian chọn không hợp lệ',
   timeInvalidNote: 'Thời gian bắt đầu phải nhỏ hơn thời gian kết thúc',
+  setNameAndSetRelationship:'Đặt tên mối quan hệ',
 
   //member
   member_refresh: 'Làm mới',
