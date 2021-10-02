@@ -60,7 +60,7 @@ export const String = {
   settings: 'Cài đặt',
   connection: 'Kết nối thiết bị',
   acceptMy: 'Tôi đã đọc và đồng ý',
-  agreement: 'Thỏa thuận của người dùng',
+  agreement: 'Thỏa thuận của người dùng.',
   privacyPolicy: 'Chính sách bảo mật',
   registrationConfirmation: 'Xác nhận đăng ký',
   txtNotification: 'Nhập mật khẩu gồm 8-16 ký tự',

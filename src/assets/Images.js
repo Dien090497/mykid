@@ -59,4 +59,7 @@ export default {
   icMinus: require('./images/rewardoints/ic_minus.png'),
   icHeart: require('./images/rewardoints/ic_heart.png'),
 
+  //Login
+  bannerLogin: require('./images/banner_login.png'),
+
 }
