@@ -22,19 +22,20 @@ class RadioGroup extends Component {
   }
   render() {
     return (
-      <View>
+      <View style={{flex:1,flexDirection:'column',justifyContent:'center',alignItems:'center',width:'84%'}}>
         {this.state.radioBtnsData.map((data, key) => {
           return (
-            <View key={key}>
+            <View key={key}  style={{width:'84%',height:'auto',borderBottomColor:'#707070', borderBottomWidth:0.5}}>
               {this.state.checked == key ? (
                 <TouchableOpacity style={styles.btn}>
-                  <Text
-                    style={{
-                      marginLeft: 10,
-                      width: Consts.windowWidth - 50,
-                    }}>
-                    {data.text}
-                  </Text>
+                 <View style={{width:'108%'}}>
+                   <Text
+                     style={{
+
+                     }}>
+                     {data.text}
+                   </Text>
+                 </View>
                   <Image style={styles.img} source={Images.icCheck} />
                 </TouchableOpacity>
               ) : (
@@ -44,13 +45,13 @@ class RadioGroup extends Component {
                     this.props.updateTimeZoneSelect(data.value);
                   }}
                   style={styles.btn}>
-                  <Text
-                    style={{
-                      marginLeft: 10,
-                      width: Consts.windowWidth - 50,
-                    }}>
-                    {data.text}
-                  </Text>
+                 <View style={{width:'108%'}}>
+                   <Text
+                     style={{
+                     }}>
+                     {data.text}
+                   </Text>
+                 </View>
                   <Image style={styles.img} source={Images.icCallCancel} />
                 </TouchableOpacity>
               )}

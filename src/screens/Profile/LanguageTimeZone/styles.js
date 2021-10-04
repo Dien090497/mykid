@@ -43,9 +43,12 @@ export const styles = StyleSheet.create({
   mainView: {
     flex: 1,
     flexDirection: 'column',
-    width: '100%',
+    width: '86%',
     alignContent: 'center',
-    paddingVertical: 10,
+    height:'40%',
+    justifyContent:'center',
+    alignItems:'center',
+    marginHorizontal:'7%'
   },
   rowItem: {
     backgroundColor: Colors.white,
@@ -107,17 +110,31 @@ export const styles = StyleSheet.create({
     width: '100%',
     color: Colors.gray,
   },
-  containerAdd: {
-    height: ScaleHeight.medium,
+  containerAdd :{
+    height: ScaleHeight.medium*1.2,
     backgroundColor: Colors.red,
-    width: '90%',
+    width:"100%",
     alignSelf: 'center',
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: 13,
+    marginTop:13
   },
-  txtAdd: {color: 'white', fontSize: FontSize.medium},
+  containerAdd1:{
+    height: ScaleHeight.medium*1.2,
+    backgroundColor: Colors.white,
+    width: '100%',
+    alignSelf: 'center',
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 13,
+    marginTop:13,
+    borderColor:Colors.red,
+    borderWidth:1
+  },
+  txtAdd: { fontSize: FontSize.medium,fontWeight:'600'},
   containerSwitch: {flex: 0.2, alignItems: 'center', justifyContent: 'center'},
   containerBottom: {
     padding: 10,
@@ -197,5 +214,6 @@ export const styles = StyleSheet.create({
   scrollView: {
     backgroundColor: Colors.lighter,
     marginBottom: 5,
+    marginTop:15
   },
 });

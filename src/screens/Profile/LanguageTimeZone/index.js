@@ -13,6 +13,7 @@ import Header from '../../../components/Header';
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import {String} from '../../../assets/strings/String';
 import {styles} from './styles';
+import {Colors} from '../../../assets/colors/Colors';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {
   getLanguageTimeZoneApi,
@@ -33,6 +34,7 @@ export default function LanguageTimeZone({navigation, route}) {
       success: res => {
         if (res.data) {
           setDataLanguageTimeZones(res.data);
+          console.log("getLanguageTimeZoneApi res.data.timeZone",res.data.timeZone )
           refRadioGroup.current.updateView(res.data.timeZone);
         }
       },
@@ -66,8 +68,15 @@ export default function LanguageTimeZone({navigation, route}) {
         <TouchableOpacity
           style={styles.containerAdd}
           onPress={setLanguageTimeZones}>
-          <Text style={styles.txtAdd}>{String.confirm}</Text>
+          <Text style={[styles.txtAdd,{color:Colors.white}]}>{String.confirm}</Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.containerAdd1}
+          // onPress={{}}
+          >
+          <Text style={[styles.txtAdd,{color:Colors.red}]}>{String.language}</Text>
+        </TouchableOpacity>
+
       </View>
       <ScrollView
         howsHorizontalScrollIndicator={false}
@@ -75,7 +84,7 @@ export default function LanguageTimeZone({navigation, route}) {
         contentInsetAdjustmentBehavior="automatic"
         style={[
           styles.scrollView,
-          {height: (Consts.windowHeight * 70) / 100, width: Consts.windowWidth},
+          {height: (Consts.windowHeight * 55) / 100, width: Consts.windowWidth},
         ]}>
         <View style={[styles.row, {width: Consts.windowWidth}]}>
           <RadioGroup
