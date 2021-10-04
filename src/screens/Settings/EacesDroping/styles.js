@@ -11,7 +11,7 @@ export  const styles =StyleSheet.create({
   tob:{
     width:'auto',
     height:height/15,
-    backgroundColor:Colors.tobConfirm,
+    backgroundColor:Colors.redTitle,
     borderRadius:width*0.02,
     marginTop:height*0.03,
     justifyContent:'center',
@@ -47,5 +47,5 @@ export  const styles =StyleSheet.create({
     height:'20%',
     marginHorizontal:width*0.06,
     marginTop:height*0.02,
-    backgroundColor:'white'}
+    backgroundColor:Colors.white}
 })

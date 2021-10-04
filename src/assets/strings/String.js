@@ -70,6 +70,7 @@ export const String = {
   error_message:
     'Vui lòng đọc thỏa thuận người dùng và chính sách bảo mật rồi đánh dấu vào đồng ý',
   registerSuccess: 'Đăng ký thành công',
+  errorPhone:'Độ dài từ 10-11 số',
   genneralInfo: 'Thông tin cơ bản',
   enterCurrentPassword: 'Nhập mật khẩu hiện tại',
   enterNewPassword: 'Nhập mật khẩu mới',

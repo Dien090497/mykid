@@ -12,7 +12,6 @@ import {isReadyRef, navigationRef} from './RootNavigation';
 
 import AddDeviceScreen from '../screens/Profile/AddDeviceScreen';
 import AddNewContact from '../screens/Settings/Contacts/addNew';
-
 import {AlertDropHelper} from '../functions/AlertDropHelper';
 import AppConfig from '../data/AppConfig';
 import ChangePassword from '../screens/Profile/ChangePassword';

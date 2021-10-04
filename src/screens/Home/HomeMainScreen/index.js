@@ -58,7 +58,7 @@ export default function HomeMainScreen() {
   };
   const buttonProps = {activeOpacity: 0.8};
   return (
-    <View style={styles.container }>
+    <View style={styles.container}>
       {appStatusBar()}
       <View style={{backgroundColor: '#00FFFF', paddingTop: 30}}>
         <Image

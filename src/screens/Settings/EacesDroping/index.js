@@ -28,7 +28,7 @@ export  default function EacesDroping(){
   }, []);
   const checkNumber = (number)=> {
     if (number.length <= 9 || number.length >= 12) {
-      showAlert('Độ dài từ 10-11 số')
+      showAlert(String.errorPhone)
     }
     else {
       eacesDropingApi();
