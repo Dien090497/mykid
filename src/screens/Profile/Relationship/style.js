@@ -94,8 +94,8 @@ const styles = StyleSheet.create({
     borderRadius: width/6,
     borderWidth:1,
     borderColor: '#00000040',
-    height: width/6,
-    width: width/6,
+    height: width/7,
+    width: width/7,
   },
   Sty_Item: {
     width: '25%',

@@ -18,6 +18,7 @@ export const Colors = {
   grayPlaceHolder: '#A5A5A5FF',
   grayRecharge: '#F3F4F8FF',
   grayInput: '#ECECECFF',
+  grayTxt:'#5F5F5F',
   red: '#EE0033',
   blueLight: '#28a5f5',
   blueLightTextMention: '#6ac4ff',

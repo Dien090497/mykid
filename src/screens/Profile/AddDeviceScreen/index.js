@@ -188,15 +188,14 @@ const AddDeviceScreen = ({ navigation, route }) => {
             placeholderTextColor="#B5B4B4"
             onChangeText={code => setDeviceCode(code)}
             style={styles.textInput} />
-          <TouchableOpacity style={{ padding: "1%" }}
-                            onPress={onScan}>
-            <Image style={styles.iconInput} source={Images.icQRCode} resizeMode="center" />
+          <TouchableOpacity onPress={onScan}>
+            <Image style={[styles.iconInput,{height:'60%'}]} source={Images.icQRCode} resizeMode="contain" />
           </TouchableOpacity>
         </View>
 
         <Text style={styles.txtInformation}>{String.genneralInfo}</Text>
         <View style={[styles.input,{marginBottom:20}]}>
-          <Image style={styles.iconInput} source={Images.icUser2} resizeMode="center" />
+            <Image style={[styles.iconInput,{height:'60%'}]} source={Images.icUser2} resizeMode="contain" />
           <TextInput
             placeholder={String.deviceNickname}
             onChangeText={name => setDeviceName(name)}
@@ -204,7 +203,7 @@ const AddDeviceScreen = ({ navigation, route }) => {
             style={styles.textInput} />
         </View>
         <TouchableOpacity style={styles.input} onPress={() => onRelationship()}>
-          <Image style={styles.iconInput} source={dataMock[selectedIndex].icon} resizeMode="center" />
+          <Image style={[styles.iconInput,{height:'60%'}]} source={dataMock[selectedIndex].icon} resizeMode="contain" />
           <Text style={styles.textInput}>{String.iAm}{dataMock[selectedIndex].name}{String.ofHe}</Text>
           <TouchableOpacity style={{ paddingVertical: "3%" }}>
             <Image style={styles.iconInput} source={Images.icDetail} resizeMode="center" />
