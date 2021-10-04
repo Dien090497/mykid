@@ -41,11 +41,8 @@ import RewardPoints from '../screens/RewardPoints';
 import Sound from 'react-native-sound';
 import SoundSettings from '../screens/Profile/SoundSettings';
 import AlarmClock from '../screens/Profile/AlarmClock';
-<<<<<<< HEAD
 import EacesDroping from "../screens/Settings/EacesDroping";
-=======
 import DoNotDisturb from '../screens/Profile/DoNotDisturb';
->>>>>>> dev
 import AlarmSetting from '../screens/Profile/AlarmClock/AlarmSetting';
 import SplashScreen from '../screens/Splash';
 import WS from './WebScoket';
