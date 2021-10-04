@@ -30,15 +30,17 @@ const Relationship = ({ navigation, route }) => {
     data[index].relationship ==='OTHER' ? setShowModal(true) : setSelectedIndex(index);
   };
   const confirmAddRelationship = () => {
-    data.unshift({
-      id: data.length+1,
-      name: newRelationship,
-      icon: Images.icFather,
-      relationship: "OTHER"+data.length,
-    })
-    setData(data)
-    setSelectedIndex(data.length-1)
-    setShowModal(false)
+    if (newRelationship){
+      data.unshift({
+        id: data.length+1,
+        name: newRelationship,
+        icon: Images.icFather,
+        relationship: "OTHER"+data.length,
+      })
+      setData(data)
+      setSelectedIndex(data.length-1)
+      setShowModal(false)
+    }
   }
 
   const addRelationship = () =>{
@@ -92,6 +94,7 @@ const Relationship = ({ navigation, route }) => {
           flexDirection={'column'}
           flexWrap={'wrap'}
           data={data}
+          style={{paddingHorizontal:'5%'}}
           renderItem={(data) => {
             const item = data.item;
             return (
