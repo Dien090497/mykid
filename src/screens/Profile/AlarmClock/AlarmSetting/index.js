@@ -1,6 +1,7 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import {
   Platform,
+  ScrollView,
   Text,
   TouchableOpacity,
   View,
@@ -50,7 +51,7 @@ export default function AlarmSetting({navigation, route}) {
       setTime(date);
     }
   }, []);
-  
+
   const resetDay = () => {
     const days = Object.assign([], dayOfWeeks);
     days.forEach(day => day.isOn = false);
@@ -99,74 +100,82 @@ export default function AlarmSetting({navigation, route}) {
   return (
     <View style={styles.contain}>
       <Header title={String.header_alarmSetting} />
-      <View style={styles.container}>
-        <View style={styles.viewItem}>
+      <ScrollView style={styles.container}>
+        <View style={styles.chooseClock}>
           <View style={[styles.viewTime, Platform.OS !== 'ios' ? {height: 150, paddingTop: 20} : {}]}>
-              {time && <TimePicker initDate={time} onTimeSelected={onTimeSelected} format24 />}
+              {time && <TimePicker
+                initDate={time}
+                onTimeSelected={onTimeSelected}
+                format24
+              />}
             </View>
         </View>
-        <Text style={styles.txtTitle}>{String.repeat}</Text>
-        { config &&
-        <View style={styles.viewItem}>
-          <TouchableOpacity style={styles.viewText} onPress={() => {
+        <View style={{flex:1, marginHorizontal:20}}>
+          <Text style={styles.txtTitle}>{String.repeat}</Text>
+          { config &&
+          <View style={styles.viewItem}>
+            <TouchableOpacity style={styles.viewText} onPress={() => {
               const obj = Object.assign([], config);
               obj.frequency = 'ONCE';
               obj.custom = null;
               setConfig(obj);
               resetDay();
             }}>
-            <Text style={[styles.txtMode, config.frequency !== 'ONCE' ? {color: '#a9a9a9'} : {}]}>{String.once}</Text>
-          </TouchableOpacity>
-          <View style={styles.viewSwitch}>
-            { config.frequency === 'ONCE' &&
-            <Image source={Images.icCheck} style={styles.icArrow}/>
-            }
+              <Text style={[styles.txtTitle, config.frequency !== 'ONCE' ? {color: '#a9a9a9'} : {}]}>{String.once}</Text>
+            </TouchableOpacity>
+            <View style={styles.viewSwitch}>
+              { config.frequency === 'ONCE' &&
+              <Image source={Images.icCheck} style={styles.icArrow}/>
+              }
+            </View>
           </View>
-        </View>
-        }
-        { config &&
-        <View style={styles.viewItem}>
-          <TouchableOpacity style={styles.viewText} onPress={() => {
+          }
+          { config &&
+          <View style={styles.viewItem}>
+            <TouchableOpacity style={styles.viewText} onPress={() => {
               const obj = Object.assign([], config);
               obj.frequency = 'EVERY_DAY';
               obj.custom = null;
               setConfig(obj);
               resetDay();
             }}>
-            <Text style={[styles.txtMode, config.frequency !== 'EVERY_DAY' ? {color: '#a9a9a9'} : {}]}>{String.everyday}</Text>
+              <Text style={[styles.txtTitle, config.frequency !== 'EVERY_DAY' ? {color: '#a9a9a9'} : {}]}>{String.everyday}</Text>
+            </TouchableOpacity>
+            <View style={styles.viewSwitch}>
+              { config.frequency === 'EVERY_DAY' &&
+              <Image source={Images.icCheck} style={styles.icArrow}/>
+              }
+            </View>
+          </View>
+          }
+          { config &&
+          <View style={styles.customView}>
+            <View style={{flexDirection:'row', marginVertical:10}}>
+              <View style={styles.viewText}>
+                <Text style={[styles.txtMode, config.frequency !== 'CUSTOM' ? {color: '#a9a9a9'} : {}]}>{String.custom}</Text>
+              </View>
+              <View style={styles.viewSwitch}>
+                { config.frequency === 'CUSTOM' &&
+                <Image source={Images.icCheck} style={styles.icArrow}/>
+                }
+              </View>
+            </View>
+            <View style={{flexDirection:'row',marginVertical:5,marginHorizontal:15}}>
+              {dayOfWeeks.map((day, i) => (
+                <TouchableOpacity key={day.day} style={[styles.viewDay, day.isOn ? {backgroundColor: Colors.colorMain} : {}]} onPress={() => {
+                  toggleDay(day, i);
+                }}>
+                  <Text style={styles.txtDay}>{day.day}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+          </View>
+          }
+          <TouchableOpacity style={styles.button} onPress={handleSave}>
+            <Text style={styles.buttonText}>{String.save}</Text>
           </TouchableOpacity>
-          <View style={styles.viewSwitch}>
-            { config.frequency === 'EVERY_DAY' &&
-            <Image source={Images.icCheck} style={styles.icArrow}/>
-            }
-          </View>
         </View>
-        }
-        { config &&
-        <View style={styles.viewItem}>
-          <View style={styles.viewText}>
-            <Text style={[styles.txtMode, config.frequency !== 'CUSTOM' ? {color: '#a9a9a9'} : {}]}>{String.custom}</Text>
-          </View>
-          <View style={styles.viewSwitch}>
-            { config.frequency === 'CUSTOM' &&
-            <Image source={Images.icCheck} style={styles.icArrow}/>
-            }
-          </View>
-        </View>
-        }
-        <View style={[styles.viewItem, {marginTop: -20, paddingVertical: 10}]}>
-        {dayOfWeeks.map((day, i) => (
-          <TouchableOpacity key={day.day} style={[styles.viewDay, day.isOn ? {backgroundColor: Colors.blueTitle} : {}]} onPress={() => {
-            toggleDay(day, i);
-            }}>
-            <Text style={styles.txtDay}>{day.day}</Text>
-          </TouchableOpacity>
-        ))}
-        </View>
-        <TouchableOpacity style={styles.button} onPress={handleSave}>
-          <Text style={styles.buttonText}>{String.save}</Text>
-        </TouchableOpacity>
-      </View>
+      </ScrollView>
       <LoadingIndicator ref={refLoading} />
     </View>
   );
