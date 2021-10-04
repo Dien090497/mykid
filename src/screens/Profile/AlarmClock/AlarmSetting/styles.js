@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
   viewTime: {
     alignSelf: 'center',
     width: '96%',
-    height: '100%',
+    height: 210,
   },
   chooseClock: {
     flexDirection: 'row',
