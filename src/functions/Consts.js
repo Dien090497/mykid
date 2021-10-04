@@ -40,6 +40,8 @@ const ScreenIds = {
   RewardPoints: 'RewardPoints',
   LanguageTimeZone: 'LanguageTimeZone',
   DoNotDisturb: 'DoNotDisturb',
+  Chat: 'Chat',
+  RoomChat: 'RoomChat',
 
   // Auth
   Login: 'Login',

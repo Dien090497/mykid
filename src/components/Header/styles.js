@@ -9,10 +9,11 @@ export const styles = StyleSheet.create({
     borderBottomStartRadius:10,
   },
   title: {
-    fontSize: FontSize.xtraBig,
+    fontSize: FontSize.big,
     fontFamily: 'Roboto-Bold',
     color: Colors.white,
-    marginTop: 3
+    width: '110%',
+    marginTop: 3,
   },
   back: {
   },

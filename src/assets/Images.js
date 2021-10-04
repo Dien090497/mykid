@@ -59,4 +59,12 @@ export default {
   icMinus: require('./images/rewardoints/ic_minus.png'),
   icHeart: require('./images/rewardoints/ic_heart.png'),
 
+  // Chat
+  icAvatar: require('./images/chat/ic_avatar.png'),
+  icCamera: require('./images/chat/ic_camera.png'),
+  icCancelRecord: require('./images/chat/ic_cancel_record.png'),
+  icGroup: require('./images/chat/ic_group.png'),
+  icKeyboard: require('./images/chat/ic_keyboard.png'),
+  icMicrophone: require('./images/chat/ic_microphone.png'),
+  icRecord: require('./images/chat/ic_record.png'),
 }

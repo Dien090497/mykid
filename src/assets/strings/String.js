@@ -42,6 +42,7 @@ export const String = {
   header_reward_points: 'Tặng phần thưởng',
   header_doNotDisturb: 'Chế độ lớp học',
   header_language_timezone: 'Ngôn ngữ và múi giờ',
+  header_chat: 'Tin nhắn thoại',
 
   // Codepush
   codepushChecking: 'Đang kiểm tra bản cập nhật...',
