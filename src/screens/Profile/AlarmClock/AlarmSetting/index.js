@@ -65,7 +65,7 @@ export default function AlarmSetting({navigation, route}) {
     days.forEach(element => {
       custom += element.isOn ? '1' : '0';
     });
-    const obj = Object.assign([], config);
+    const obj = Object.assign({}, config);
     obj.frequency = 'CUSTOM';
     obj.custom = custom;
     setConfig(obj);
@@ -90,7 +90,7 @@ export default function AlarmSetting({navigation, route}) {
   const onTimeSelected = (timeSelect) => {
     const split = timeSelect.toString().split(' ');
     if (split.length > 4) {
-      const obj = Object.assign([], config);
+      const obj = Object.assign({}, config);
       obj.time = split[4];
       setConfig(obj);
     }

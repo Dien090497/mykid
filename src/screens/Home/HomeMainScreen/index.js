@@ -49,8 +49,8 @@ export default function HomeMainScreen() {
     showAlert(String.thisFunctionIsNotValid);
   };
 
-  const pressDevices = () => {
-    navigation.navigate(Consts.ScreenIds.DeviceManager);
+  const pressAlarmClock = () => {
+    navigation.navigate(Consts.ScreenIds.AlarmClock);
   };
 
   const pressSettings = () => {
@@ -60,30 +60,44 @@ export default function HomeMainScreen() {
   return (
     <View style={styles.container}>
       {appStatusBar()}
-      <View style={{backgroundColor: '#00FFFF', paddingTop: 30}}>
+      <View style={styles.statusBar}>
         <Image
-          source={Images.icBanner}
+          source={Images.bgHome}
           resizeMode={'stretch'}
           style={styles.banner}
         />
+        <Text style={styles.txtTitle}>V-KID PRO</Text>
       </View>
 
-      <View style={{flex: 1, flexDirection: 'row', flexWrap: 'wrap'}}>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            {...buttonProps}
-            style={[styles.button, {backgroundColor: '#4896ff'}]}
-            onPress={pressMap}>
-            <View style={styles.bgIcon}>
-              <Image source={Images.icGps} style={styles.icon} />
-            </View>
-            <Text style={styles.buttonText}>{String.home_gps}</Text>
-          </TouchableOpacity>
+      <View style={styles.body}>
+        <View style={[{minHeight: '39%', width: '50%'}]}>
+          <View style={[styles.buttonContainerL, {width: '100%'}]}>
+            <TouchableOpacity
+              {...buttonProps}
+              style={styles.button}
+              onPress={pressMap}>
+              <View style={styles.bgIcon}>
+                <Image source={Images.icMap} style={styles.icon} />
+              </View>
+              <Text style={styles.buttonText}>{String.home_gps}</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={[styles.buttonContainerL, {width: '100%'}]}>
+            <TouchableOpacity
+              {...buttonProps}
+              style={styles.button}
+              onPress={pressJourney}>
+              <View style={styles.bgIcon}>
+                <Image source={Images.icJourney} style={styles.icon} />
+              </View>
+              <Text style={styles.buttonText}>{String.home_journey}</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <View style={styles.buttonContainer}>
+        <View style={[styles.buttonContainerR, {minHeight: '39%'}]}>
           <TouchableOpacity
             {...buttonProps}
-            style={[styles.button, {backgroundColor: '#fb909f'}]}
+            style={styles.button}
             onPress={pressVideoCall}>
             <View style={styles.bgIcon}>
               <Image source={Images.icVideoCall} style={styles.icon} />
@@ -91,21 +105,43 @@ export default function HomeMainScreen() {
             <Text style={styles.buttonText}>{String.home_videoCall}</Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.buttonContainer}>
+        <View style={styles.buttonContainerL}>
           <TouchableOpacity
             {...buttonProps}
-            style={[styles.button, {backgroundColor: '#008dff'}]}
-            onPress={pressJourney}>
+            style={styles.button}
+            onPress={pressSafeArea}>
             <View style={styles.bgIcon}>
-              <Image source={Images.icJourney} style={styles.icon} />
+              <Image source={Images.icSafeZone} style={styles.icon} />
             </View>
-            <Text style={styles.buttonText}>{String.home_journey}</Text>
+            <Text style={styles.buttonText}>{String.home_safeArea}</Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.buttonContainer}>
+        <View style={styles.buttonContainerR}>
           <TouchableOpacity
             {...buttonProps}
-            style={[styles.button, {backgroundColor: '#ffc24b'}]}
+            style={styles.button}
+            onPress={pressAlarm}>
+            <View style={styles.bgIcon}>
+              <Image source={Images.icSoundSetting} style={styles.icon} />
+            </View>
+            <Text style={styles.buttonText}>{String.home_alarm}</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.buttonContainerL}>
+          <TouchableOpacity
+            {...buttonProps}
+            style={styles.button}
+            onPress={pressAlarmClock}>
+            <View style={styles.bgIcon}>
+              <Image source={Images.icAlarm} style={styles.icon} />
+            </View>
+            <Text style={styles.buttonText}>{String.home_alarmClock}</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.buttonContainerR}>
+          <TouchableOpacity
+            {...buttonProps}
+            style={styles.button}
             onPress={pressChat}>
             <View style={styles.bgIcon}>
               <Image source={Images.icChat} style={styles.icon} />
@@ -113,32 +149,10 @@ export default function HomeMainScreen() {
             <Text style={styles.buttonText}>{String.home_chat}</Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.buttonContainer}>
+        <View style={styles.buttonContainerL}>
           <TouchableOpacity
             {...buttonProps}
-            style={[styles.button, {backgroundColor: '#2b64c6'}]}
-            onPress={pressSafeArea}>
-            <View style={styles.bgIcon}>
-              <Image source={Images.icElectricFence} style={styles.icon} />
-            </View>
-            <Text style={styles.buttonText}>{String.home_safeArea}</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            {...buttonProps}
-            style={[styles.button, {backgroundColor: '#f19204'}]}
-            onPress={pressAlarm}>
-            <View style={styles.bgIcon}>
-              <Image source={Images.icAlarm} style={styles.icon} />
-            </View>
-            <Text style={styles.buttonText}>{String.home_alarm}</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            {...buttonProps}
-            style={[styles.button, {backgroundColor: '#13b96a'}]}
+            style={styles.button}
             onPress={pressFindDevice}>
             <View style={styles.bgIcon}>
               <Image source={Images.icFindDevice} style={styles.icon} />
@@ -146,33 +160,10 @@ export default function HomeMainScreen() {
             <Text style={styles.buttonText}>{String.home_findDevice}</Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.buttonContainer}>
+        <View style={styles.buttonContainerR}>
           <TouchableOpacity
             {...buttonProps}
-            style={[styles.button, {backgroundColor: '#e17c3f'}]}
-            onPress={pressEntertainment}>
-            <View style={styles.bgIcon}>
-              <Image source={Images.icEntertainment} style={styles.icon} />
-            </View>
-            <Text style={styles.buttonText}>{String.home_entertainment}</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            {...buttonProps}
-            style={[styles.button, {backgroundColor: '#3db900'}]}
-            onPress={pressDevices}>
-            <View style={styles.bgIcon}>
-              <Image source={Images.icDevice} style={styles.icon} />
-            </View>
-            <Text style={styles.buttonText}>{String.home_device}</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            {...buttonProps}
-            style={[styles.button, {backgroundColor: '#b16f21'}]}
+            style={styles.button}
             onPress={pressSettings}>
             <View style={styles.bgIcon}>
               <Image source={Images.icSetting} style={styles.icon} />

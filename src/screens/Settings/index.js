@@ -45,10 +45,55 @@ export default ({navigation, route}) => {
       ),
     },
     {
-      key: 'AlarmClock',
-      title: String.header_alarmClock,
+      key: 'DeviceManager',
+      title: String.header_connectDevice,
       onPress: () => {
-        navigation.navigate(Consts.ScreenIds.AlarmClock);
+        navigation.navigate(Consts.ScreenIds.DeviceManager);
+      },
+      icon: (
+        <CustomIcon
+          name={'people-alt'}
+          iconFamily={'MaterialIcons'}
+          size={ScaleHeight.small}
+          color={'#15d4a1'}
+        />
+      ),
+    },
+    {
+      key: 'RewardPoints',
+      title: String.header_reward_points,
+      onPress: () => {
+        navigation.navigate(Consts.ScreenIds.RewardPoints);
+      },
+      icon: (
+        <CustomIcon
+          name={'people-alt'}
+          iconFamily={'MaterialIcons'}
+          size={ScaleHeight.small}
+          color={'#15d4a1'}
+        />
+      ),
+    },
+    {
+      key: 'DoNotDisturb',
+      title: String.header_doNotDisturb,
+      onPress: () => {
+        navigation.navigate(Consts.ScreenIds.DoNotDisturb);
+      },
+      icon: (
+        <CustomIcon
+          name={'people-alt'}
+          iconFamily={'MaterialIcons'}
+          size={ScaleHeight.small}
+          color={'#15d4a1'}
+        />
+      ),
+    },
+    {
+      key: 'LanguageTimeZone',
+      title: String.header_language_timezone,
+      onPress: () => {
+        navigation.navigate(Consts.ScreenIds.LanguageTimeZone);
       },
       icon: (
         <CustomIcon

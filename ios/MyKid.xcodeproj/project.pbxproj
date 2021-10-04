@@ -11,6 +11,7 @@
 		061298DF26FADA4A00259F6A /* love.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 061298DC26FADA4A00259F6A /* love.mp3 */; };
 		061298E026FADA4A00259F6A /* reng.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 061298DD26FADA4A00259F6A /* reng.mp3 */; };
 		061298E126FADA4A00259F6A /* nof_default.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 061298DE26FADA4A00259F6A /* nof_default.mp3 */; };
+		066E2AD12708034A0068053A /* UTM Cookies.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 066E2AD02708034A0068053A /* UTM Cookies.ttf */; };
 		08C74E270C6F420FBAF916F6 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D9BE0AE89F1D4C33B00DD2F6 /* Roboto-Regular.ttf */; };
 		107656D6DAF4B388C191F197 /* libPods-MyKid.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B6C34F403B18B6F878F202D /* libPods-MyKid.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
@@ -47,6 +48,7 @@
 		061298DC26FADA4A00259F6A /* love.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = love.mp3; path = ../assets/sound/love.mp3; sourceTree = "<group>"; };
 		061298DD26FADA4A00259F6A /* reng.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = reng.mp3; path = ../assets/sound/reng.mp3; sourceTree = "<group>"; };
 		061298DE26FADA4A00259F6A /* nof_default.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = nof_default.mp3; path = ../assets/sound/nof_default.mp3; sourceTree = "<group>"; };
+		066E2AD02708034A0068053A /* UTM Cookies.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "UTM Cookies.ttf"; path = "../assets/fonts/UTM Cookies.ttf"; sourceTree = "<group>"; };
 		0847797F238D635DA8322F7F /* Pods-MyKid.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyKid.debug.xcconfig"; path = "Target Support Files/Pods-MyKid/Pods-MyKid.debug.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* MyKid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyKid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = MyKid/AppDelegate.h; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 		D106FF9E60164E82A736E0FA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				066E2AD02708034A0068053A /* UTM Cookies.ttf */,
 				061298DC26FADA4A00259F6A /* love.mp3 */,
 				061298DE26FADA4A00259F6A /* nof_default.mp3 */,
 				061298DD26FADA4A00259F6A /* reng.mp3 */,
@@ -295,6 +298,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				066E2AD12708034A0068053A /* UTM Cookies.ttf in Resources */,
 				061298DF26FADA4A00259F6A /* love.mp3 in Resources */,
 				061298E026FADA4A00259F6A /* reng.mp3 in Resources */,
 				061298E126FADA4A00259F6A /* nof_default.mp3 in Resources */,
@@ -551,7 +555,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 46;
 				DEVELOPMENT_TEAM = 9M46AU3YMQ;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = MyKid/Info.plist;
@@ -581,7 +585,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 46;
 				DEVELOPMENT_TEAM = 9M46AU3YMQ;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = MyKid/Info.plist;

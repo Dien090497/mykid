@@ -109,7 +109,7 @@ export const styles = StyleSheet.create({
     color: Colors.gray,
   },
   containerAdd: {
-    backgroundColor: Colors.blueButton,
+    backgroundColor: Colors.red,
     width: '90%',
     alignSelf: 'center',
     borderRadius: 10,

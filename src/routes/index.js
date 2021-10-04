@@ -4,7 +4,7 @@ import {
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
 //tab bar
-import Consts, {FontSize} from '../functions/Consts';
+import Consts, {FontSize, ScaleHeight} from '../functions/Consts';
 import {Platform, Vibration} from 'react-native';
 import React, {useEffect, useRef} from 'react';
 import {appConfig, wsSafeZoneUrl, wsUrl} from '../network/http/ApiUrl';
@@ -37,10 +37,15 @@ import Register from '../screens/auth/Register';
 import Relationship from '../screens/Profile/Relationship';
 import SafeZone from '../screens/Maps/SafeZone';
 import SettingScreen from '../screens/Settings';
+import RewardPoints from '../screens/RewardPoints';
 import Sound from 'react-native-sound';
 import SoundSettings from '../screens/Profile/SoundSettings';
 import AlarmClock from '../screens/Profile/AlarmClock';
+<<<<<<< HEAD
 import EacesDroping from "../screens/Settings/EacesDroping";
+=======
+import DoNotDisturb from '../screens/Profile/DoNotDisturb';
+>>>>>>> dev
 import AlarmSetting from '../screens/Profile/AlarmClock/AlarmSetting';
 import SplashScreen from '../screens/Splash';
 import WS from './WebScoket';
@@ -50,6 +55,8 @@ import {generateRandomId, showAlert} from '../functions/utils';
 import {useSelector} from 'react-redux';
 import videoCallAction from '../redux/actions/videoCallAction';
 import * as encoding from 'text-encoding';
+import LanguageTimeZone from "../screens/Profile/LanguageTimeZone";
+import { String } from '../assets/strings/String';
 var encoder = new encoding.TextEncoder();
 const Tab = createBottomTabNavigator();
 
@@ -60,14 +67,16 @@ const PATTERN = [
 
 const styles = StyleSheet.create({
   bottomBar: {
+    height: ScaleHeight.xxtraBig,
     backgroundColor: Colors.white,
     paddingTop: 2,
   },
   tabLabel: {
     fontSize: FontSize.medium,
+    marginBottom: 50 - ((ScaleHeight.small - 15) * 3)
   },
   bottomHeightAndroid: {
-    height: 60,
+    height: ScaleHeight.xxtraBig - 10,
   },
 });
 
@@ -77,13 +86,13 @@ const TabBarIcon = {
 };
 
 const TabBarName = {
-  [Consts.ScreenIds.HomeMainScreen]: 'HOME',
-  [Consts.ScreenIds.Profile]: 'MY',
+  [Consts.ScreenIds.HomeMainScreen]: String.home,
+  [Consts.ScreenIds.Profile]: String.profile,
 };
 
 const renderTabBarIcon = (focused, route) => {
-  const sizeIcon = focused ? 25 : 20;
-  const tintColor = focused ? Colors.blueTitle : Colors.gray;
+  const sizeIcon = focused ? ScaleHeight.small : ScaleHeight.small - 3;
+  const tintColor = focused ? Colors.red : Colors.gray;
   return (
     <Image
       source={TabBarIcon[route.name]}
@@ -99,7 +108,7 @@ const renderTabBarIcon = (focused, route) => {
 
 const renderTabBarLabel = (focused, route) => {
   const styleLabel = {
-    color: focused ? Colors.blueTitle : Colors.gray,
+    color: focused ? Colors.red : Colors.gray,
     fontWeight: focused ? 'bold' : 'normal',
   };
   return (
@@ -224,6 +233,12 @@ const Routes = () => {
         <Stack.Screen
           name={Consts.ScreenIds.EacesDroping}
           component={EacesDroping}
+          name={Consts.ScreenIds.LanguageTimeZone}
+          component={LanguageTimeZone}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.DoNotDisturb}
+          component={DoNotDisturb}
         />
         <Stack.Screen
           name={Consts.ScreenIds.AlarmSetting}
@@ -244,6 +259,10 @@ const Routes = () => {
         <Stack.Screen
           name={Consts.ScreenIds.Settings}
           component={SettingScreen}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.RewardPoints}
+          component={RewardPoints}
         />
         <Stack.Screen
           name={Consts.ScreenIds.ChangePassword}

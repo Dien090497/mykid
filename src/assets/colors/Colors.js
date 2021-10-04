@@ -18,7 +18,7 @@ export const Colors = {
   grayPlaceHolder: '#A5A5A5FF',
   grayRecharge: '#F3F4F8FF',
   grayInput: '#ECECECFF',
-  red: '#FF0000',
+  red: '#EE0033',
   blueLight: '#28a5f5',
   blueLightTextMention: '#6ac4ff',
   blue: '#0000FF',
@@ -50,6 +50,7 @@ export const Colors = {
   grayBackground: '#F8F8F8FF',
   orange: '#FF6D0F',
   borderInputText:'#E7E7E7',
+  colorMain: '#EE0033',
   //
   gradient: ['#FFFF00', '#FFFF00', '#FFFF00'],
   GradientColor: ['#FFCC00', '#FF9900', '#FF6600'],
@@ -59,4 +60,5 @@ export const Colors = {
   backgroundVideoCall: '#3F87F5',
   buttonCancel: '#E5E5E5',
   backgroundVideoCallError: '#53535F',
+  grayBgBtnHome: '#F0F0F0'
 };

@@ -1,4 +1,6 @@
 import { StyleSheet, Dimensions } from "react-native";
+import { FontSize, ScaleHeight } from "../../../functions/Consts";
+import { Colors } from "../../../assets/colors/Colors";
 
 const { width, height } = Dimensions.get("window");
 const styles = StyleSheet.create({
@@ -11,18 +13,80 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   Sty_Images: {
-    marginVertical: 20,
+    marginVertical: 35,
     height: height * 0.2,
     width: height * 0.2,
   },
+  input:{
+    width:'100%',
+    height: ScaleHeight.medium,
+    borderRadius:10,
+    borderColor: '#E7E7E7',
+    borderWidth:1,
+    flexDirection:'row',
+    alignItems:'center',
+    justifyContent:'space-between'
+  },
+  iconInput:{
+    height:'80%',
+    width:ScaleHeight.medium,
+
+  },
+  textInput:{
+    flex:1,
+    color: Colors.black
+  },
+
+  modalContainer:{
+    flex: 1,
+    backgroundColor:'rgba(0, 0, 0, 0.3)',
+    alignItems:'center',
+    justifyContent:'center'
+  },
+  modal:{
+    width:'85%',
+    backgroundColor: Colors.white,
+    alignItems:'center',
+    borderRadius:10
+  },
+  titleModal:{
+    color: Colors.colorMain,
+    marginVertical:20,
+    fontFamily:'Roboto-Medium',
+    fontSize: FontSize.xtraBig
+  },
+  contentModal:{
+    fontFamily:'Roboto',
+    fontSize: FontSize.xtraSmall,
+    color:'#5F5F5F'
+  },
+  btnConfirm:{
+    backgroundColor:Colors.colorMain,
+    borderRadius:10,
+    height:ScaleHeight.medium,
+    width:'70%',
+    alignItems:'center',
+    justifyContent:'center',
+    marginVertical:20
+  },
+  textConfirm:{
+    color: Colors.white,
+    fontFamily:'Roboto-Medium',
+    fontSize: FontSize.small
+  },
+
+
+
   Sty_information: {
     marginVertical: 10,
     width: "100%",
   },
   txtInformation: {
-    marginVertical: 10,
-    fontSize: width * 0.045,
-    color: "#00000060",
+    fontSize: FontSize.small,
+    color: Colors.colorMain,
+    marginTop:20,
+    marginBottom: 10,
+    fontFamily:'Roboto-Medium'
   },
   Sty_select: {
     backgroundColor: '#DCDCDC40',
@@ -51,13 +115,22 @@ const styles = StyleSheet.create({
   txtRelationship: {
     marginLeft: 10,
     fontSize: 16,
-    color: '#00000060'
+    color: '#B5B4B4'
   },
   viewButton: {
-    marginLeft: '5%',
-    width: "90%",
+    backgroundColor: Colors.colorMain,
+    height: ScaleHeight.medium,
+    width: "100%",
     marginTop: 40,
     justifyContent: "center",
+    alignItems:'center',
+    borderRadius:10,
+    marginBottom:40
+  },
+  textSubmit:{
+    color: Colors.white,
+    fontFamily:'Roboto-Medium',
+    fontSize: FontSize.small
   }
 });
 export default styles;

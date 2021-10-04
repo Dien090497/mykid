@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
-import {useNavigation, useNavigationState} from '@react-navigation/native';
+import React, {useState} from 'react';
+import {Text, TouchableOpacity} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 import {Colors} from '../../assets/colors/Colors';
 import Consts, { FontSize } from '../../functions/Consts';
@@ -8,17 +8,8 @@ import {Header as HeaderE} from 'react-native-elements';
 import Icons from '../../components/VectorIcons';
 import {String} from '../../assets/strings/String';
 import {styles} from './styles';
-import {useSafeArea} from 'react-native-safe-area-context';
-
-// import Orientation from 'react-native-orientation';
-const STT_BAR_STYLE: StatusBarProps = {
-  barStyle: 'dark-content',
-  translucent: true,
-  backgroundColor: 'transparent',
-};
 
 export default Header = props => {
-  const insets = useSafeArea();
   const navigation = useNavigation();
   const {dangerouslyGetState} = useNavigation();
   const {index, routes} = dangerouslyGetState();
@@ -53,7 +44,11 @@ export default Header = props => {
           {props.title !== undefined ? props.title : String.bangSepHang}
         </Text>
       }
-      statusBarProps={STT_BAR_STYLE}
+      statusBarProps={{
+        barStyle: 'dark-content',
+        translucent: true,
+        backgroundColor: 'transparent',
+      }}
     />
   );
 };

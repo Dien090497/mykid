@@ -20,6 +20,8 @@ export const String = {
   once: 'Một lần',
   everyday: 'Hàng ngày',
   custom: 'Tùy chỉnh',
+  home: 'Trang chủ',
+  profile: 'Cá nhân',
 
   thisFunctionIsNotValid: 'Tính năng chưa được cập nhật',
   header_settings: 'Thiết lập',
@@ -28,6 +30,7 @@ export const String = {
   header_members: 'Danh sách thành viên',
   header_maps: 'Bản đồ',
   header_addDevice: 'Thêm thiết bị',
+  header_QRCode: 'Quét mã',
   header_relationship: 'Lựa chọn mối quan hệ',
   header_connectDevice: 'Kết nối thiết bị',
   header_profile: 'Cá nhân',
@@ -38,6 +41,9 @@ export const String = {
   header_alarmClock: 'Báo thức',
   header_alarmSetting: 'Cài đặt báo thức',
   hender_eacesDroping:'Nghe lén( Giám sát từ xa )',
+  header_reward_points: 'Tặng phần thưởng',
+  header_doNotDisturb: 'Chế độ lớp học',
+  header_language_timezone: 'Ngôn ngữ và múi giờ',
 
   // Codepush
   codepushChecking: 'Đang kiểm tra bản cập nhật...',
@@ -56,7 +62,7 @@ export const String = {
   settings: 'Cài đặt',
   connection: 'Kết nối thiết bị',
   acceptMy: 'Tôi đã đọc và đồng ý',
-  agreement: 'Thỏa thuận của người dùng',
+  agreement: 'Thỏa thuận của người dùng.',
   privacyPolicy: 'Chính sách bảo mật',
   registrationConfirmation: 'Xác nhận đăng ký',
   txtNotification: 'Nhập mật khẩu gồm 8-16 ký tự',
@@ -114,6 +120,8 @@ export const String = {
   chooseAlbumQR: 'Chọn mã QR từ album',
   history_empty: 'Thiết bị chưa có lịch sử vị trí',
   time_invalid: 'Thời gian chọn không hợp lệ',
+  timeInvalidNote: 'Thời gian bắt đầu phải nhỏ hơn thời gian kết thúc',
+  setNameAndSetRelationship:'Đặt tên mối quan hệ',
 
   //member
   member_refresh: 'Làm mới',
@@ -131,8 +139,8 @@ export const String = {
   home_chat: 'CHAT',
   home_safeArea: 'KHU VỰC AN TOÀN',
   home_alarm: 'CÀI ĐẶT CHUÔNG',
-  home_findDevice: 'TÌM ĐỒNG HỒ',
-  home_entertainment: 'GIẢI TRÍ',
+  home_findDevice: 'TÌM THIẾT BỊ',
+  home_alarmClock: 'BÁO THỨC',
   home_device: 'THIẾT BỊ',
   home_setting: 'THIẾT LẬP',
 
@@ -155,4 +163,7 @@ export const String = {
   reject: 'Từ chối',
   acceptVideocall: 'Trả lời',
   requestVideoCall: 'Cuộc gọi đến',
+
+  //RewardPoints
+  rewardPoints_text: 'Bé làm 1 việc tốt,hãy thưởng bé 1 điểm',
 };

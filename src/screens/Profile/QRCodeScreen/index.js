@@ -1,11 +1,13 @@
 import React from "react";
-import { SafeAreaView } from "react-native";
+import { View } from "react-native";
 import styles from "./style";
 import {CameraKitCameraScreen} from 'react-native-camera-kit';
+import Header from "../../../components/Header";
+import { String } from "../../../assets/strings/String";
 
 const QRCodeScreen = ({ navigation, route }) => {
   let isSuccess = false;
-  
+
   const onSuccess = e => {
     if (isSuccess) return;
     isSuccess = true;
@@ -17,15 +19,16 @@ const QRCodeScreen = ({ navigation, route }) => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
+    <View style={styles.container}>
+      <Header title={String.header_addDevice} />
       <CameraKitCameraScreen
         showFrame={true}
         // Show/hide scan frame
         scanBarcode={true}
         // Can restrict for the QR Code only
-        laserColor={'blue'}
+        laserColor={'red'}
         // Color can be of your choice
-        frameColor={'yellow'}
+        frameColor={'white'}
         // If frame is visible then frame color
         colorForScannerFrame={'black'}
         // Scanner Frame color
@@ -33,7 +36,7 @@ const QRCodeScreen = ({ navigation, route }) => {
           onSuccess(event.nativeEvent.codeStringValue)
         }
       />
-    </SafeAreaView>
+    </View>
   );
 };
 export default QRCodeScreen;
