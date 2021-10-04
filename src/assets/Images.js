@@ -3,6 +3,7 @@ export default {
   icAdmin: require('./images/ic_admin.png'),
   icSW: require('./images/ic_sw.png'),
   icAlarmClock: require('./images/ic_alarm_clock.png'),
+  icAlarmClock2: require('./images/ic_alarm_clock2.png'),
   icOther: require('./images/ic_other.png'),
   icTwoUsers: require('./images/ic_two_users.png'),
   icBrother: require('./images/ic_brother.png'),

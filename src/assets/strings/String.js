@@ -16,10 +16,10 @@ export const String = {
   splashMsg: 'Đang tải dữ liệu...',
   ok: 'OK',
   change: 'Chuyển',
-  repeat: 'Lặp lại',
+  repeat: 'Chọn chế độ lặp lại',
   once: 'Một lần',
   everyday: 'Hàng ngày',
-  custom: 'Tùy chỉnh',
+  custom: 'Tự chỉnh',
   home: 'Trang chủ',
   profile: 'Cá nhân',
 
