@@ -230,6 +230,8 @@ const Routes = () => {
         <Stack.Screen
           name={Consts.ScreenIds.EacesDroping}
           component={EacesDroping}
+        />
+        <Stack.Screen
           name={Consts.ScreenIds.LanguageTimeZone}
           component={LanguageTimeZone}
         />
