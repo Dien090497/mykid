@@ -143,8 +143,6 @@ export async function post(
   const headersGet = getHeaders(headers);
   let response = await doRequest(url, headersGet, body, requestType.post);
   hideLoading(refLoading);
-  console.log()
-
   return handleResp(response, autoShowMsg, success, failure, refLoading);
 }
 

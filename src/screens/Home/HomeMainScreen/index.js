@@ -8,7 +8,7 @@ import {String} from '../../../assets/strings/String';
 import {appStatusBar} from '../../../components/CommonUIComponents';
 import {styles} from './styles';
 import {useNavigation} from '@react-navigation/native';
-import { showAlert } from '../../../functions/utils';
+import {showAlert} from '../../../functions/utils';
 
 export default function HomeMainScreen() {
   const navigation = useNavigation();

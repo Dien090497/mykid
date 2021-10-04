@@ -46,9 +46,10 @@ export const Colors = {
   bgBettingTitle: '#B5D5FFFF',
   graySearch: '#F0EFF4FF',
   blueNotification: '#0087B3FF',
-  blueTitle: '#1877F2FF',
+  redTitle: '#EE0033',
   grayBackground: '#F8F8F8FF',
   orange: '#FF6D0F',
+  borderInputText:'#E7E7E7',
   colorMain: '#EE0033',
   //
   gradient: ['#FFFF00', '#FFFF00', '#FFFF00'],
