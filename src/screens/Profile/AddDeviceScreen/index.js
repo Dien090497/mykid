@@ -1,67 +1,69 @@
-import {Image, PermissionsAndroid, Platform, ScrollView, Text, TouchableOpacity, View} from 'react-native';
-import React, {useLayoutEffect, useRef, useState} from 'react';
+import { Image, Modal, PermissionsAndroid, Platform, ScrollView, Text, TextInput, TouchableOpacity, View, } from "react-native";
+import React, { useLayoutEffect, useRef, useState } from "react";
 
-import Button from '../../../components/buttonGradient';
-import {Colors} from '../../../assets/colors/Colors';
-import Consts from '../../../functions/Consts';
-import CustomInput from '../../../components/CustomInput';
-import Header from '../../../components/Header';
-import Images from '../../../assets/Images';
-import LoadingIndicator from '../../../components/LoadingIndicator';
-import {String} from '../../../assets/strings/String';
-import {addDeviceApi} from '../../../network/DeviceService';
+import Button from "../../../components/buttonGradient";
+import { Colors } from "../../../assets/colors/Colors";
+import Consts from "../../../functions/Consts";
+import CustomInput from "../../../components/CustomInput";
+import Header from "../../../components/Header";
+import Images from "../../../assets/Images";
+import LoadingIndicator from "../../../components/LoadingIndicator";
+import { String } from "../../../assets/strings/String";
+import { addDeviceApi } from "../../../network/DeviceService";
 import styles from "./style";
-import { showAlert } from '../../../functions/utils';
+import { showAlert } from "../../../functions/utils";
 
-const AddDeviceScreen = ({navigation, route}) => {
-  const [deviceCode, setDeviceCode] = useState('');
-  const [deviceName, setDeviceName] = useState('');
+const AddDeviceScreen = ({ navigation, route }) => {
+  const [deviceCode, setDeviceCode] = useState("");
+  const [deviceName, setDeviceName] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [submitActive, setSubmitActive] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [contentModal, setContentModal] = useState('');
   const refLoading = useRef();
 
   const dataMock = [
     {
       id: 1,
-      name: 'Bố',
+      name: "Bố",
       icon: Images.icFather,
-      relationship: 'FATHER'
+      relationship: "FATHER",
     },
     {
       id: 2,
-      name: 'Mẹ',
+      name: "Mẹ",
       icon: Images.icMother,
-      relationship: 'MOTHER'
+      relationship: "MOTHER",
+    },
+    {
+      id: 3,
+      name: "Ông",
+      icon: Images.icGrandfather,
+      relationship: "GRANDFATHER",
     },
     {
       id: 4,
-      name: 'Ông',
-      icon: Images.icGrandfather,
-      relationship: 'GRANDFATHER'
+      name: "Bà",
+      icon: Images.icGrandmother,
+      relationship: "GRANDMOTHER",
     },
     {
       id: 5,
-      name: 'Bà',
-      icon: Images.icGrandmother,
-      relationship: 'GRANDMOTHER'
+      name: "Anh",
+      icon: Images.icBrother,
+      relationship: "BROTHER",
     },
     {
       id: 6,
-      name: 'Anh',
-      icon: Images.icBrother,
-      relationship: 'BROTHER'
+      name: "Chị",
+      icon: Images.icSister,
+      relationship: "SISTER",
     },
     {
       id: 7,
-      name: 'Chị',
-      icon: Images.icSister,
-      relationship: 'SISTER'
-    },
-    {
-      id: 8,
-      name: 'Khác',
+      name: "Khác",
       icon: Images.icOther,
-      relationship: 'OTHER'
+      relationship: "OTHER",
     },
   ];
 
@@ -71,7 +73,8 @@ const AddDeviceScreen = ({navigation, route}) => {
 
   useLayoutEffect(() => {
     if (route.params && route.params.isShowAlert) {
-      showAlert(String.addDeviceSuccess2);
+      setContentModal(String.addDeviceSuccess2)
+      setShowModal(true)
     }
   }, []);
 
@@ -87,7 +90,7 @@ const AddDeviceScreen = ({navigation, route}) => {
     navigation.navigate(Consts.ScreenIds.Relationship, {
       selectedIndex: selectedIndex,
       data: dataMock,
-      onChooseed: onPlaceChosen
+      onChooseed: onPlaceChosen,
     });
   };
   const addDevice = () => {
@@ -95,15 +98,20 @@ const AddDeviceScreen = ({navigation, route}) => {
     addDeviceApi(deviceCode, deviceName, dataMock[selectedIndex].icon, dataMock[selectedIndex].relationship, {
       success: resp => {
         if (resp.data) {
-          if (resp.data.status === 'PENDING') {
-            showAlert(String.addDeviceSuccess2, {
-              close: () => {
-                setDeviceCode('');
-                setDeviceName('');
-                setSelectedIndex(0);
-              },
-            });
-          } else if (resp.data.status === 'ACTIVE') {
+          if (resp.data.status === "PENDING") {
+            setContentModal(String.addDeviceSuccess2)
+            setShowModal(true)
+            setDeviceCode("");
+            setDeviceName("");
+            setSelectedIndex(0);
+          } else if (resp.data.status === "ACTIVE") {
+
+            if (route.params && route.params.onRefresh) {
+              route.params.onRefresh();
+              navigation.goBack();
+            } else {
+              navigation.navigate(Consts.ScreenIds.Tabs);
+            }
             showAlert(String.addDeviceSuccess, {
               close: () => {
                 if (route.params && route.params.onRefresh) {
@@ -116,7 +124,7 @@ const AddDeviceScreen = ({navigation, route}) => {
             });
           }
         }
-        
+
       },
       failure: error => {
       },
@@ -127,76 +135,87 @@ const AddDeviceScreen = ({navigation, route}) => {
     try {
       var permissionAndroid;
       //Nếu là nền tảng android thì sẽ yêu cầu cấp quyền trước
-      if (Platform.OS == 'android') {
+      if (Platform.OS == "android") {
         permissionAndroid = await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.CAMERA,
         );
-        if (permissionAndroid != 'granted') {
+        if (permissionAndroid != "granted") {
           showAlert(String.noCameraPermission);
           return;
         }
       }
 
-      navigation.navigate(Consts.ScreenIds.QRCodeScreen, {onQR: onQR})
+      navigation.navigate(Consts.ScreenIds.QRCodeScreen, { onQR: onQR });
     } catch (error) {
       alert(error.message);
     }
   };
-  
+
+  const showModalMes = () =>{
+    return(
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={showModal}>
+        <View style={styles.modalContainer}>
+          <View style={styles.modal}>
+            <Text style={styles.titleModal}>{String.notification}</Text>
+            <Text style={styles.contentModal}>{contentModal}</Text>
+            <TouchableOpacity
+              onPress={() =>{setShowModal(false)}}
+              style={styles.btnConfirm}>
+              <Text style={styles.textConfirm}>{String.confirm}</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+    );
+  }
+
   return (
     <View style={styles.contain}>
       <Header title={String.header_addDevice} />
-      <ScrollView style={{paddingHorizontal: 10}}>
+      <ScrollView style={{ paddingHorizontal: 30 }}>
         <View style={styles.viewImage}>
-          <Image style={styles.Sty_Images} source={Images.icSmartwatch} />
+          <Image style={styles.Sty_Images} source={Images.icSmartwatch} resizeMode="contain" />
         </View>
 
-        <CustomInput
-          placeholder={String.enterOrScanCode}
-          value={deviceCode}
-          onPress={() => {onScan()}}
-          onChangeText={code => setDeviceCode(code)}
-          icon={Images.icSmartwatch}
-        />
-        <View style={styles.Sty_information}>
-          <Text style={styles.txtInformation}>{String.genneralInfo}</Text>
-          <CustomInput
+        <View style={styles.input}>
+          <Image style={styles.iconInput} source={Images.icSmartwatch3} resizeMode="center" />
+          <TextInput
+            value={deviceCode}
+            placeholder={String.enterOrScanCode}
+            placeholderTextColor="#B5B4B4"
+            onChangeText={code => setDeviceCode(code)}
+            style={styles.textInput} />
+          <TouchableOpacity onPress={onScan}>
+            <Image style={[styles.iconInput,{height:'60%'}]} source={Images.icQRCode} resizeMode="contain" />
+          </TouchableOpacity>
+        </View>
+
+        <Text style={styles.txtInformation}>{String.genneralInfo}</Text>
+        <View style={[styles.input,{marginBottom:20}]}>
+            <Image style={[styles.iconInput,{height:'60%'}]} source={Images.icUser2} resizeMode="contain" />
+          <TextInput
             placeholder={String.deviceNickname}
-            value={deviceName}
             onChangeText={name => setDeviceName(name)}
-            icon={Images.icUser2}
-          />
+            placeholderTextColor="#B5B4B4"
+            style={styles.textInput} />
         </View>
-        <TouchableOpacity
-          onPress={() => onRelationship()}
-          style={styles.Sty_select}>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Image style={styles.Sty_iconUser} source={dataMock[selectedIndex].icon} />
-            <Text style={styles.txtRelationship}>
-              {String.iAm}
-              <Text
-                style={{color: '#000000', fontSize: 16, fontWeight: 'bold'}}>
-                {dataMock[selectedIndex].name}
-              </Text>{String.ofHe}
-            </Text>
-          </View>
-          <Image
-            style={[{...styles.Sty_icon, right: 0}]}
-            source={Images.icon_arrow_up}
-          />
+        <TouchableOpacity style={styles.input} onPress={() => onRelationship()}>
+          <Image style={[styles.iconInput,{height:'60%'}]} source={dataMock[selectedIndex].icon} resizeMode="contain" />
+          <Text style={styles.textInput}>{String.iAm}{dataMock[selectedIndex].name}{String.ofHe}</Text>
+          <TouchableOpacity style={{ paddingVertical: "3%" }}>
+            <Image style={styles.iconInput} source={Images.icDetail} resizeMode="center" />
+          </TouchableOpacity>
         </TouchableOpacity>
-
-        <View style={styles.viewButton}>
-          <Button
-            activeOpacity={submitActive ? 0 : 1}
-            onclick={addDevice}
-            title={String.ok}
-            color={
-              submitActive ? Colors.GradientColor : Colors.GradientColorGray
-            }
-          />
-        </View>
+        <TouchableOpacity
+          onPress={addDevice}
+          style={styles.viewButton}>
+          <Text style={styles.textSubmit}>{String.confirm}</Text>
+        </TouchableOpacity>
       </ScrollView>
+      {showModalMes()}
       <LoadingIndicator ref={refLoading} />
     </View>
   );

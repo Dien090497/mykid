@@ -83,7 +83,7 @@ export default function AlarmClock({navigation}) {
       <Header title={String.header_alarmClock} />
       <View style={styles.container}>
         <View style={styles.viewImg}>
-          <Image source={Images.icAlarmClock} resizeMode={'stretch'} style={styles.iconClock}/>
+          <Image source={Images.icAlarmClock2} resizeMode={'contain'} style={styles.iconClock}/>
         </View>
         {alarmConfig && alarmConfig.map((obj, i) => (
           <View key={i} style={styles.viewItem}>
@@ -98,7 +98,8 @@ export default function AlarmClock({navigation}) {
             </TouchableOpacity>
             <View style={styles.viewSwitch}>
               <Switch
-                trackColor={{false: Colors.gray, true: '#81b0ff'}}
+                trackColor={{false: Colors.gray, true: Colors.colorMain}}
+                thumbColor={Colors.white}
                 onValueChange={() => {toggleSwitch(obj, i)}}
                 value={obj.status === 'ON'}
               />

@@ -7,6 +7,7 @@ import Consts from "../../../functions/Consts";
 import Header from '../../../components/Header'
 import { String } from "../../../assets/strings/String";
 import styles from "./style";
+import Images from "../../../assets/Images";
 
 const ConnectionScreen = ({navigation}) => {
   const onclick = ()=>{
@@ -14,14 +15,15 @@ const ConnectionScreen = ({navigation}) => {
   };
   return (
     <View style={styles.contain}>
-      <Header title={String.header_connectDevice} />
+      <Header title={String.register} />
       <View style={styles.container}>
         <Text style={styles.txtRegister}>{String.registerSuccess}</Text>
-        <Button
-          onclick={onclick}
-          title={String.connection}
-          color={Colors.GradientColor}
-        />
+        <Image source={Images.icRegister} style={styles.icon} resizeMode='stretch'/>
+        <TouchableOpacity
+          style={styles.btnRegister}
+          onPress={onclick}>
+          <Text style={styles.textRegister}>{String.connection}</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );

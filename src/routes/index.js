@@ -43,6 +43,7 @@ import RoomChat from '../screens/Chat/RoomChat';
 import Sound from 'react-native-sound';
 import SoundSettings from '../screens/Profile/SoundSettings';
 import AlarmClock from '../screens/Profile/AlarmClock';
+import EacesDroping from "../screens/Settings/EacesDroping";
 import DoNotDisturb from '../screens/Profile/DoNotDisturb';
 import AlarmSetting from '../screens/Profile/AlarmClock/AlarmSetting';
 import SplashScreen from '../screens/Splash';
@@ -227,6 +228,10 @@ const Routes = () => {
         <Stack.Screen
           name={Consts.ScreenIds.AlarmClock}
           component={AlarmClock}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.EacesDroping}
+          component={EacesDroping}
         />
         <Stack.Screen
           name={Consts.ScreenIds.LanguageTimeZone}

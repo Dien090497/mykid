@@ -87,5 +87,14 @@ export const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 10,
     alignSelf: 'center',
-  }
+  },
+  modal: {
+    flex: 1,
+    justifyContent: "flex-end",
+  },
+  containerModal: {
+    width: "100%",
+    height: 100,
+    backgroundColor: Colors.opacityMedium,
+  },
 });

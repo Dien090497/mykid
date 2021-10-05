@@ -14,6 +14,7 @@ export const styles = StyleSheet.create({
     color: Colors.white,
     width: '110%',
     marginTop: 3,
+    textAlign: 'center'
   },
   back: {
   },

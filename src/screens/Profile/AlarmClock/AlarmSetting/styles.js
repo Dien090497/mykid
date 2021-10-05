@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: '#eeeeee',
+    width:'100%'
   },
   iconClock: {
     width: 60,
@@ -17,21 +17,50 @@ export const styles = StyleSheet.create({
   },
   viewTime: {
     alignSelf: 'center',
-    marginLeft: '2%',
-    backgroundColor: Colors.white,
     width: '96%',
     height: 210,
   },
-  viewItem: {
-    padding: 10,
+  chooseClock: {
     flexDirection: 'row',
-    width: '96%',
+    width: '100%',
     alignSelf: 'center',
     paddingVertical: 5,
+    marginVertical: 15,
+    backgroundColor: '#f3f3f3',
+    alignItems:'center',
+    justifyContent:'center'
+  },
+  viewItem: {
+    height: ScaleHeight.big,
+    flexDirection: 'row',
+    width: '100%',
+    alignSelf: 'center',
     borderRadius: 10,
-    marginHorizontal: 5,
-    marginVertical: 5,
+    marginVertical: 10,
     backgroundColor: Colors.white,
+    shadowColor: 'rgba(0,0,0, 0.5)',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
+  },
+  customView: {
+    width: '100%',
+    paddingBottom:15,
+    borderRadius: 10,
+    marginVertical: 10,
+    backgroundColor: Colors.white,
+    shadowColor: 'rgba(0,0,0, 0.5)',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
   },
   viewSwitch: {
     flex: 0.2,
@@ -39,13 +68,14 @@ export const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   viewText: {
-    flex: 0.8,
+    flex:1,
     textAlign: 'left',
-    paddingVertical: 15,
+    justifyContent:'center',
+    paddingLeft:15,
   },
   txtMode: {
-    fontSize: FontSize.medium,
-    fontFamily: 'Roboto-Medium',
+    fontSize: FontSize.small,
+    fontFamily: 'Roboto',
     color: Colors.black
   },
   icArrow: {
@@ -61,12 +91,10 @@ export const styles = StyleSheet.create({
     marginBottom: 3
   },
   txtTitle: {
-    width: '96%',
-    alignSelf: 'center',
-    fontSize: FontSize.medium,
-    fontFamily: 'Roboto-Medium',
-    color: '#a9a9a9',
-    marginTop: 20
+    fontSize: FontSize.small,
+    fontFamily: 'Roboto',
+    color: '#B5B4B4',
+    marginVertical:15
   },
   viewMode: {
     width: '100%',
@@ -75,8 +103,8 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.white,
   },
   viewDay: {
-    backgroundColor: '#d8d8d8',
-    width: '12.2%',
+    flex:1,
+    backgroundColor: '#8E8E93',
     marginHorizontal: '1%',
     aspectRatio: 1,
     justifyContent: 'center',
@@ -84,15 +112,15 @@ export const styles = StyleSheet.create({
   },
   txtDay: {
     alignSelf: 'center',
-    fontSize: FontSize.medium,
-    fontFamily: 'Roboto-Medium',
+    fontSize: FontSize.small,
+    fontFamily: 'Roboto',
     color: Colors.white,
   },
   button: {
-    marginTop: 40,
+    marginTop: 30,
     height: ScaleHeight.medium,
-    backgroundColor: Colors.red,
-    width: '90%',
+    backgroundColor: Colors.colorMain,
+    width: '100%',
     alignSelf: 'center',
     borderRadius: 10,
     justifyContent: 'center',
@@ -100,7 +128,7 @@ export const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
-    fontSize: FontSize.big,
-    fontFamily: 'Roboto-Bold'
+    fontSize: FontSize.small,
+    fontFamily: 'Roboto-Medium'
   },
 });

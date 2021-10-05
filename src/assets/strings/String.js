@@ -16,10 +16,10 @@ export const String = {
   splashMsg: 'Đang tải dữ liệu...',
   ok: 'OK',
   change: 'Chuyển',
-  repeat: 'Lặp lại',
+  repeat: 'Chọn chế độ lặp lại',
   once: 'Một lần',
   everyday: 'Hàng ngày',
-  custom: 'Tùy chỉnh',
+  custom: 'Tự chỉnh',
   home: 'Trang chủ',
   profile: 'Cá nhân',
 
@@ -30,6 +30,7 @@ export const String = {
   header_members: 'Danh sách thành viên',
   header_maps: 'Bản đồ',
   header_addDevice: 'Thêm thiết bị',
+  header_QRCode: 'Quét mã',
   header_relationship: 'Lựa chọn mối quan hệ',
   header_connectDevice: 'Kết nối thiết bị',
   header_profile: 'Cá nhân',
@@ -39,6 +40,7 @@ export const String = {
   header_soundSettings: 'Cài đặt chuông',
   header_alarmClock: 'Báo thức',
   header_alarmSetting: 'Cài đặt báo thức',
+  hender_eacesDroping:'Nghe lén( Giám sát từ xa )',
   header_reward_points: 'Tặng phần thưởng',
   header_doNotDisturb: 'Chế độ lớp học',
   header_language_timezone: 'Ngôn ngữ và múi giờ',
@@ -61,7 +63,7 @@ export const String = {
   settings: 'Cài đặt',
   connection: 'Kết nối thiết bị',
   acceptMy: 'Tôi đã đọc và đồng ý',
-  agreement: 'Thỏa thuận của người dùng',
+  agreement: 'Thỏa thuận của người dùng.',
   privacyPolicy: 'Chính sách bảo mật',
   registrationConfirmation: 'Xác nhận đăng ký',
   txtNotification: 'Nhập mật khẩu gồm 8-16 ký tự',
@@ -75,6 +77,7 @@ export const String = {
   error_message:
     'Vui lòng đọc thỏa thuận người dùng và chính sách bảo mật rồi đánh dấu vào đồng ý',
   registerSuccess: 'Đăng ký thành công',
+  errorPhone:'Độ dài từ 10-11 số',
   genneralInfo: 'Thông tin cơ bản',
   enterCurrentPassword: 'Nhập mật khẩu hiện tại',
   enterNewPassword: 'Nhập mật khẩu mới',
@@ -119,6 +122,7 @@ export const String = {
   history_empty: 'Thiết bị chưa có lịch sử vị trí',
   time_invalid: 'Thời gian chọn không hợp lệ',
   timeInvalidNote: 'Thời gian bắt đầu phải nhỏ hơn thời gian kết thúc',
+  setNameAndSetRelationship:'Đặt tên mối quan hệ',
 
   //member
   member_refresh: 'Làm mới',

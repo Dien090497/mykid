@@ -16,16 +16,27 @@ import { Image } from 'react-native';
 import Images from '../../../assets/Images';
 import Consts from '../../../functions/Consts';
 import { getListDeviceApi } from '../../../network/DeviceService';
+import { Modal } from 'react-native';
+import KeyboardComponent from '../../../components/KeyboardComponent';
 
 export default function RoomChat({navigation}) {
   const refLoading = useRef();
   const [isRecord, setIsRecord] = useState(true);
   const [devices, setDevices] = useState();
   const [text, setText] = useState();
+  const [modalVisible, setModalVisible] = useState(true);
 
   useLayoutEffect(() => {
     getListDevice();
   }, []);
+
+  const openModal = () => {
+    setModalVisible(true);
+  };
+
+  const hideModal = () => {
+    setModalVisible(false);
+  };
 
   const getListDevice = async () => {
     getListDeviceApi(DataLocal.userInfo.id, Consts.pageDefault, 100, '', '', {
@@ -39,12 +50,22 @@ export default function RoomChat({navigation}) {
   const toggleChat = (obj, i) => {
   };
 
+  const toggleRecord = (state) => {
+    setIsRecord(false);
+    setModalVisible(true);
+  };
+
+  const sendMessage = () => {
+    setMessageText('');
+    props.closeKeyBoard();
+  };
+
   return (
     <KeyboardAvoidingView style={styles.contain}
       behavior={Platform.OS === "ios" ? "padding" : ""}>
       <Header title={'Server TQ nhóm gia đình (3)'}/>
-      <ScrollView style={styles.container}>
-        {/* <ScrollView style={styles.container}> */}
+      <View style={styles.container}>
+        <ScrollView style={styles.container}>
           {devices && devices.map((obj, i) => (
             <View key={i} style={[styles.viewItem, i % 2 === 0 ? {flexDirection: 'row'} : {flexDirection: 'row-reverse'}]}>
               <View style={styles.viewImg}>
@@ -67,9 +88,9 @@ export default function RoomChat({navigation}) {
               </View>
             </View>
           ))}
-        {/* </ScrollView> */}
+        </ScrollView>
         <View style={styles.viewBottom}>
-          <TouchableOpacity style={styles.viewImg} onPress={() => {setIsRecord(!isRecord);}}>
+          <TouchableOpacity style={styles.viewImg} onPress={() => {toggleRecord(!isRecord)}}>
             <Image source={isRecord ? Images.icKeyboard: Images.icRecord} style={isRecord ? styles.icKeyboard : styles.icRecord}/>
           </TouchableOpacity>
           <View style={styles.viewContent}>
@@ -89,9 +110,16 @@ export default function RoomChat({navigation}) {
                 style={styles.textInput}
                 disableFullscreenUI
                 value={text}
-                placeholder={'Mối quan hệ với trẻ...'}
+                placeholder={'...'}
                 onChangeText={txt => setText(txt)}
               />
+              {/* <Modal animationType="fade" transparent={true} visible={modalVisible}>
+                <TouchableOpacity style={styles.modal} onPress={hideModal}>
+                  <TouchableOpacity style={styles.containerModal}>
+                    <KeyboardComponent sendMessage={sendMessage} closeKeyBoard={hideModal}/>
+                  </TouchableOpacity>
+                </TouchableOpacity>
+              </Modal> */}
             </View>
             }
           </View>
@@ -99,7 +127,7 @@ export default function RoomChat({navigation}) {
             <Image source={Images.icCamera} style={styles.icCamera}/>
           </TouchableOpacity>
         </View>
-      </ScrollView>
+      </View>
       <LoadingIndicator ref={refLoading} />
     </KeyboardAvoidingView>
   );

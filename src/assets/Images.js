@@ -3,6 +3,7 @@ export default {
   icAdmin: require('./images/ic_admin.png'),
   icSW: require('./images/ic_sw.png'),
   icAlarmClock: require('./images/ic_alarm_clock.png'),
+  icAlarmClock2: require('./images/ic_alarm_clock2.png'),
   icOther: require('./images/ic_other.png'),
   icTwoUsers: require('./images/ic_two_users.png'),
   icBrother: require('./images/ic_brother.png'),
@@ -20,6 +21,8 @@ export default {
   icView: require('./images/ic_view.png'),
   icLock: require('./images/ic_lock.png'),
   icSmartwatch: require('./images/ic_smartwatch.png'),
+  icSmartwatch3: require('./images/ic_smartwatch3.png'),
+  icQRCode: require('./images/ic_qrcode.png'),
   icWatch: require('./images/ic_watch.png'),
   icLogout: require('./images/ic_logout.png'),
   icSmartwatch1: require('./images/ic_smartwatch1.png'),
@@ -67,4 +70,10 @@ export default {
   icKeyboard: require('./images/chat/ic_keyboard.png'),
   icMicrophone: require('./images/chat/ic_microphone.png'),
   icRecord: require('./images/chat/ic_record.png'),
+  //Login
+  bannerLogin: require('./images/banner_login.png'),
+
+  //Login
+  icRegister: require('./images/ic_success.png'),
+
 }

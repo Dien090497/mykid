@@ -37,6 +37,7 @@ const ScreenIds = {
   SoundSettings: 'SoundSettings',
   AlarmClock: 'AlarmClock',
   AlarmSetting: 'AlarmSetting',
+  EacesDroping:'EacesDroping',
   RewardPoints: 'RewardPoints',
   LanguageTimeZone: 'LanguageTimeZone',
   DoNotDisturb: 'DoNotDisturb',

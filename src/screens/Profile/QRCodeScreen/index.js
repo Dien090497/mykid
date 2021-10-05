@@ -7,7 +7,7 @@ import { String } from "../../../assets/strings/String";
 
 const QRCodeScreen = ({ navigation, route }) => {
   let isSuccess = false;
-  
+
   const onSuccess = e => {
     if (isSuccess) return;
     isSuccess = true;
@@ -26,9 +26,9 @@ const QRCodeScreen = ({ navigation, route }) => {
         // Show/hide scan frame
         scanBarcode={true}
         // Can restrict for the QR Code only
-        laserColor={'blue'}
+        laserColor={'red'}
         // Color can be of your choice
-        frameColor={'yellow'}
+        frameColor={'white'}
         // If frame is visible then frame color
         colorForScannerFrame={'black'}
         // Scanner Frame color

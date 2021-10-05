@@ -9,32 +9,38 @@ export const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: '#eeeeee',
+    backgroundColor: Colors.white,
   },
   iconClock: {
-    width: 60,
-    height: 60
+    width: 90,
+    height: 90
   },
   viewImg: {
-    width: '96%',
+    width: '100%',
+    height:"25%",
     alignSelf: 'center',
-    paddingVertical: 20,
-    borderRadius: 10,
-    marginHorizontal: 5,
-    marginVertical: 5,
+    marginVertical: 15,
     alignItems: 'center',
+    justifyContent:'center',
     backgroundColor: '#e4e4e4',
   },
   viewItem: {
     padding: 10,
     flexDirection: 'row',
-    width: '96%',
     alignSelf: 'center',
     paddingVertical: 5,
     borderRadius: 10,
-    marginHorizontal: 5,
-    marginVertical: 5,
+    marginHorizontal: 20,
+    marginVertical: 10,
     backgroundColor: Colors.white,
+    shadowColor: 'rgba(0,0,0, 0.5)',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
   },
   viewSwitch: {
     flex: 0.2,
@@ -49,17 +55,19 @@ export const styles = StyleSheet.create({
   txtTime: {
     fontSize: FontSize.xtraBig,
     fontFamily: 'Roboto-Bold',
+    color: Colors.grayTxt
   },
   txtMode: {
     fontSize: FontSize.small,
-    fontFamily: 'Roboto-Light',
+    fontFamily: 'Roboto',
+    color: Colors.grayTxt
   },
   icArrow: {
     width: 14,
     height: 14,
-    tintColor: Colors.gray,
+    tintColor: '#B2B2B0',
     resizeMode: 'contain',
-    marginLeft: 3,
+    marginLeft: 15,
   },
   rowDirection: {
     flexDirection: 'row',
