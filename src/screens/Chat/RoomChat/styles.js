@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     alignSelf: 'center',
-    height: 80,
+    height: 70,
     backgroundColor: 'rgba(238, 0, 51, 0.06)',
   },
   viewImg: {

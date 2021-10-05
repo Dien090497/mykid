@@ -25,10 +25,28 @@ export default function RoomChat({navigation}) {
   const [devices, setDevices] = useState();
   const [text, setText] = useState();
   const [modalVisible, setModalVisible] = useState(true);
+  const refTextInput = useRef();
+
+  useLayoutEffect(() => {
+    focusTextInput();
+  }, [refTextInput]);
+
+  useLayoutEffect(() => {
+    if (!isRecord)
+      focusTextInput();
+  }, [isRecord]);
 
   useLayoutEffect(() => {
     getListDevice();
   }, []);
+
+  const focusTextInput = () => {
+    if (refTextInput && refTextInput.current) {
+      Platform.OS === 'ios'
+        ? refTextInput.current.focus()
+        : setTimeout(() => refTextInput.current.focus(), 30);
+    }
+  };
 
   const openModal = () => {
     setModalVisible(true);
@@ -47,12 +65,9 @@ export default function RoomChat({navigation}) {
     });
   };
 
-  const toggleChat = (obj, i) => {
-  };
-
   const toggleRecord = (state) => {
-    setIsRecord(false);
-    setModalVisible(true);
+    setIsRecord(state);
+    // setModalVisible(true);
   };
 
   const sendMessage = () => {
@@ -112,14 +127,8 @@ export default function RoomChat({navigation}) {
                 value={text}
                 placeholder={'...'}
                 onChangeText={txt => setText(txt)}
+                ref={refTextInput}
               />
-              {/* <Modal animationType="fade" transparent={true} visible={modalVisible}>
-                <TouchableOpacity style={styles.modal} onPress={hideModal}>
-                  <TouchableOpacity style={styles.containerModal}>
-                    <KeyboardComponent sendMessage={sendMessage} closeKeyBoard={hideModal}/>
-                  </TouchableOpacity>
-                </TouchableOpacity>
-              </Modal> */}
             </View>
             }
           </View>
