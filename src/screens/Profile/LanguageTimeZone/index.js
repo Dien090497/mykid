@@ -34,19 +34,17 @@ export default function LanguageTimeZone({navigation, route}) {
   const [check,setCheck]=useState(false);
   const refRadioGroup = useRef();
   useEffect(() => {
+    getLanguageTimeZone();
+    getLanguages();
+  }, []);
+  const  getLanguageTimeZone = () =>{
     getLanguageTimeZoneApi(DataLocal.deviceId, {
       success: res => {
         setLanguageConfirm(res.data.language);
-        setTimeZoneSelect(res.data.time);
+        setTimeZoneSelect(res.data.timeZone);
       },
     });
-    getLanguages();
-  }, []);
-
-  useEffect(() => {
-    setLanguageTimeZones();
-  }, []);
-
+  }
   const getLanguages =() =>{
     getLanguageApi( {
       success: res => {
@@ -55,7 +53,6 @@ export default function LanguageTimeZone({navigation, route}) {
       refLoading: refLoading,
     });
   }
-
   const updateTimeZoneSelect = timeZoneSelect => {
     setTimeZoneSelect(timeZoneSelect);
   };
