@@ -52,6 +52,8 @@ export const Colors = {
   orange: '#FF6D0F',
   borderInputText:'#E7E7E7',
   colorMain: '#EE0033',
+  colorConfirmPicker:'#F3F3F3',
+  colorListRadioGroup:'#707070',
   //
   gradient: ['#FFFF00', '#FFFF00', '#FFFF00'],
   GradientColor: ['#FFCC00', '#FF9900', '#FF6600'],
