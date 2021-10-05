@@ -38,7 +38,7 @@ class RadioGroup extends Component {
                      {data.text}
                    </Text>
                  </View>
-                  <Image style={styles.img} source={Images.icCallCancel} />
+                  <Image style={styles.img} source={Images.icClickCancel} />
                 </TouchableOpacity>
               )}
             </View>
