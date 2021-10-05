@@ -8,8 +8,16 @@ class RadioGroup extends Component {
     super(props);
     this.state = {
       radioBtnsData: TimeZoneDatas,
-      checked: this.props.checker,
+      checked: 0,
     };
+  }
+  updateView(timeZone) {
+    for (let i = 0; i <= this.state.radioBtnsData.length; i++) {
+      if (timeZone === this.state.radioBtnsData[i].value) {
+        this.setState({checked: i, timeZoneSelect: timeZone});
+        return;
+      }
+    }
   }
   render() {
     return (
