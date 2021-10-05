@@ -30,7 +30,7 @@ export const classModesUrl = appUrl + '/class-modes';
 
 // LanguageTimeZone
 export const languageTimeZoneUrl = appUrl + '/language-timezones';
-
+export const languageUrl = appUrl+'/language-timezones/languages';
 // Sound
 export const soundModesUrl = appUrl + '/sound-modes';
 

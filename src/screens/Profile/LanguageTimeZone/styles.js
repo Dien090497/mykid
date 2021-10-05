@@ -1,20 +1,19 @@
 import {Colors} from '../../../assets/colors/Colors';
-import {StyleSheet} from 'react-native';
+import {StyleSheet,Dimensions} from 'react-native';
 import Consts, {FontSize, ScaleHeight} from '../../../functions/Consts';
-
 const searchHeight = Consts.screenHeight / 24;
 const screenWidth = Consts.screenWidth;
+const {width,height} =Dimensions.get('window');
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FFF',
+    flexDirection:'column'
   },
   header: {
     width: '95%',
-    height: searchHeight,
     flexDirection: 'row',
     alignItems: 'center',
-    // paddingVertical: '5%'
   },
   titleText: {
     fontSize: FontSize.medium,
@@ -45,10 +44,10 @@ export const styles = StyleSheet.create({
     flexDirection: 'column',
     width: '86%',
     alignContent: 'center',
-    height:'40%',
+    height:height/4.5,
     justifyContent:'center',
     alignItems:'center',
-    marginHorizontal:'7%'
+    marginHorizontal:'7%',
   },
   rowItem: {
     backgroundColor: Colors.white,
@@ -78,7 +77,6 @@ export const styles = StyleSheet.create({
     marginTop: '5%',
     backgroundColor: Colors.white,
     height: 'auto',
-    // justifyContent: 'center',
     alignItems: 'center',
   },
   textLogout: {
@@ -212,8 +210,33 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   scrollView: {
-    backgroundColor: Colors.lighter,
-    marginBottom: 5,
-    marginTop:15
+    marginBottom: height*0.02,
+    marginTop:height*0.02
   },
+  view1:{width:'100%',height:height/4.5},
+  modalViewTob:{
+    width:'100%',
+    height:height/1.5,
+    backgroundColor:'rgba(1, 1, 1, 0.3)'
+  },
+  wheelPickkerView:{
+    backgroundColor:'white',
+    width:'100%',
+    height:height-height/1.5,
+    flexDirection:'column'},
+  confirmView:{
+    width:'100%',
+    height:height/15,
+    backgroundColor:Colors.colorConfirmPicker,
+    alignItems:'flex-end',
+    justifyContent:'center'
+  },
+    textConfirm:{
+      color:Colors.colorMain,
+      fontSize:FontSize.medium,position:'absolute',
+      right:width*0.03,
+      fontWeight:'600',
+      fontStyle:'normal',
+  },
+
 });

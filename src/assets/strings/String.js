@@ -81,6 +81,7 @@ export const String = {
   enterNewPassword: 'Nhập mật khẩu mới',
   reEnterNewPassword: 'Nhập lại mật khẩu mới',
   changePasswordSuccess: 'Đổi mật khẩu thành công',
+  changeLangguageAndTimezone:'Cập nhật thành công',
   currentPasswordInvalid:
     'Mật khẩu hiện tại bạn nhập không đúng định dạng (8-16 ký tự)',
   newPasswordInvalid: 'Mật khẩu mới bạn nhập không đúng định dạng (8-16 ký tự)',
