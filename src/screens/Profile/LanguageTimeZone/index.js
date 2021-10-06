@@ -136,7 +136,7 @@ export default function LanguageTimeZone({navigation, route}) {
 
           <TouchableOpacity style={styles.modalViewTob} onPress={outConfirm}/>
           <View style={styles.wheelPickkerView}>
-            <View style={{width:'100%',height:height-height/1.5-height/4}}>
+            <View style={styles.tobWheel}>
                <TouchableOpacity style={styles.confirmView}
                   onPress={onCornfirm}
                >
@@ -145,7 +145,7 @@ export default function LanguageTimeZone({navigation, route}) {
             </View>
             <WheelPicker
                     data={listLangguages}
-                    style={{width:"100%",height:height/4}}
+                    style={styles.wheel}
                     selectedItemTextSize={20}
                     initPosition={wheelLanguageConfirm}
                     selectedItemTextFontFamily={'Roboto'}

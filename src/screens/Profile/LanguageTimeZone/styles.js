@@ -238,5 +238,9 @@ export const styles = StyleSheet.create({
       fontWeight:'600',
       fontStyle:'normal',
   },
-
+  tobWheel:{
+    width:'100%',
+    height:height-height/1.5-height/4
+  },
+  wheel:{width:"100%",height:height/4}
 });
