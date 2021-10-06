@@ -23,7 +23,6 @@ export default function RoomChat({navigation}) {
   const [isRecord, setIsRecord] = useState(true);
   const [devices, setDevices] = useState();
   const [text, setText] = useState();
-  const [modalVisible, setModalVisible] = useState(true);
   const refTextInput = useRef();
 
   useLayoutEffect(() => {
