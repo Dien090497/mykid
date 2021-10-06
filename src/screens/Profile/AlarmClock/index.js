@@ -83,7 +83,7 @@ export default function AlarmClock({navigation}) {
       <Header title={String.header_alarmClock} />
       <View style={styles.container}>
         <View style={styles.viewImg}>
-          <Image source={Images.icAlarmClock2} resizeMode={'contain'} style={styles.iconClock}/>
+          <Image source={Images.icAlarmClock} resizeMode={'contain'} style={styles.iconClock}/>
         </View>
         {alarmConfig && alarmConfig.map((obj, i) => (
           <View key={i} style={styles.viewItem}>
