@@ -23,30 +23,28 @@ import RadioGroup from '../../../components/RadioGroup';
 import Consts from '../../../functions/Consts';
 import {WheelPicker} from "react-native-wheel-picker-android";
 import {showAlert} from "../../../functions/utils";
-
 export default function LanguageTimeZone({navigation, route}) {
   const {width,height} =Dimensions.get('window');
   const refLoading = useRef();
   const [timeZoneSelect, setTimeZoneSelect] = useState(0);
   const [numberLangguages,setNumberLanguage]=useState(0);
-  const [languageConfirm,setLanguageConfirm]=useState(0);
+  const [languageConfirm,setLanguageConfirm]=useState('');
   const [listLangguages,setListLanguage]=useState([]);
   const [check,setCheck]=useState(false);
   const refRadioGroup = useRef();
   useEffect(() => {
+    getLanguageTimeZone();
+    getLanguages();
+  }, []);
+  const  getLanguageTimeZone = () =>{
     getLanguageTimeZoneApi(DataLocal.deviceId, {
       success: res => {
         setLanguageConfirm(res.data.language);
-        setTimeZoneSelect(res.data.time);
+        setTimeZoneSelect(res.data.timeZone);
+        refRadioGroup.current.updateView(res.data.timeZone);
       },
     });
-    getLanguages();
-  }, []);
-
-  useEffect(() => {
-    setLanguageTimeZones();
-  }, []);
-
+  }
   const getLanguages =() =>{
     getLanguageApi( {
       success: res => {
@@ -55,7 +53,6 @@ export default function LanguageTimeZone({navigation, route}) {
       refLoading: refLoading,
     });
   }
-
   const updateTimeZoneSelect = timeZoneSelect => {
     setTimeZoneSelect(timeZoneSelect);
   };
@@ -113,7 +110,6 @@ export default function LanguageTimeZone({navigation, route}) {
            <View style={[styles.row, {width: Consts.windowWidth}]}>
              <RadioGroup
                ref={refRadioGroup}
-               checker={timeZoneSelect}
                updateTimeZoneSelect={updateTimeZoneSelect}
              />
            </View>
