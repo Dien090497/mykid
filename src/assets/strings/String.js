@@ -123,6 +123,7 @@ export const String = {
   time_invalid: 'Thời gian chọn không hợp lệ',
   timeInvalidNote: 'Thời gian bắt đầu phải nhỏ hơn thời gian kết thúc',
   setNameAndSetRelationship:'Đặt tên mối quan hệ',
+  holdAndTalk: 'Giữ và nói',
 
   //member
   member_refresh: 'Làm mới',

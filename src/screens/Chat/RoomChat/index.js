@@ -9,15 +9,14 @@ import {
 } from 'react-native';
 import {styles} from './styles';
 import Header from '../../../components/Header';
-import {String} from '../../../assets/strings/String';
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import DataLocal from '../../../data/dataLocal';
 import { Image } from 'react-native';
 import Images from '../../../assets/Images';
 import Consts from '../../../functions/Consts';
 import { getListDeviceApi } from '../../../network/DeviceService';
-import { Modal } from 'react-native';
-import KeyboardComponent from '../../../components/KeyboardComponent';
+import { showAlert } from '../../../functions/utils';
+import { String } from '../../../assets/strings/String';
 
 export default function RoomChat({navigation}) {
   const refLoading = useRef();
@@ -48,14 +47,6 @@ export default function RoomChat({navigation}) {
     }
   };
 
-  const openModal = () => {
-    setModalVisible(true);
-  };
-
-  const hideModal = () => {
-    setModalVisible(false);
-  };
-
   const getListDevice = async () => {
     getListDeviceApi(DataLocal.userInfo.id, Consts.pageDefault, 100, '', '', {
       success: resData => {
@@ -75,10 +66,14 @@ export default function RoomChat({navigation}) {
     props.closeKeyBoard();
   };
 
+  const toggleGroup = () => {
+    showAlert('toggleGroup');
+  };
+
   return (
     <KeyboardAvoidingView style={styles.contain}
       behavior={Platform.OS === "ios" ? "padding" : ""}>
-      <Header title={'Server TQ nhóm gia đình (3)'}/>
+      <Header title={'Server TQ nhóm gia đình (3)'} right rightIcon={Images.icGroup} rightAction={() => {toggleGroup()}}/>
       <View style={styles.container}>
         <ScrollView style={styles.container}>
           {devices && devices.map((obj, i) => (
@@ -111,7 +106,7 @@ export default function RoomChat({navigation}) {
           <View style={styles.viewContent}>
             {isRecord ?
             <TouchableOpacity style={styles.toInput}>
-              <Text style={styles.txtInput}>{'Giữ và nói'}</Text>
+              <Text style={styles.txtInput}>{String.holdAndTalk}</Text>
             </TouchableOpacity>
             :
             <View style={styles.toInput}>

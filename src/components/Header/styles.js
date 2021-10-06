@@ -18,4 +18,8 @@ export const styles = StyleSheet.create({
   },
   back: {
   },
+  iconRight: {
+    height: 24,
+    width: 30
+  },
 });
