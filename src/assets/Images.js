@@ -28,6 +28,7 @@ export default {
   icSmartwatch1: require('./images/ic_smartwatch1.png'),
   materialIcons: require('./images/materialIcons.png'),
   icCheck: require('./images/ic_check.png'),
+  icClickCancel: require('./images/ic_click_cancel.png'),
   icUncheck: require('./images/ic_uncheck.png'),
   icon_arrow_up: require('./images/icon_arrow_up.png'),
   icPhone: require('./images/ic_phone.png'),

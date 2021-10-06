@@ -22,7 +22,6 @@ export const String = {
   custom: 'Tự chỉnh',
   home: 'Trang chủ',
   profile: 'Cá nhân',
-
   thisFunctionIsNotValid: 'Tính năng chưa được cập nhật',
   header_settings: 'Thiết lập',
   header_contacts: 'Danh bạ',
@@ -83,6 +82,7 @@ export const String = {
   enterNewPassword: 'Nhập mật khẩu mới',
   reEnterNewPassword: 'Nhập lại mật khẩu mới',
   changePasswordSuccess: 'Đổi mật khẩu thành công',
+  changeLangguageAndTimezone:'Cập nhật thành công',
   currentPasswordInvalid:
     'Mật khẩu hiện tại bạn nhập không đúng định dạng (8-16 ký tự)',
   newPasswordInvalid: 'Mật khẩu mới bạn nhập không đúng định dạng (8-16 ký tự)',
@@ -124,6 +124,7 @@ export const String = {
   timeInvalidNote: 'Thời gian bắt đầu phải nhỏ hơn thời gian kết thúc',
   setNameAndSetRelationship:'Đặt tên mối quan hệ',
   holdAndTalk: 'Giữ và nói',
+  language:'Chọn ngôn ngữ',
 
   //member
   member_refresh: 'Làm mới',
