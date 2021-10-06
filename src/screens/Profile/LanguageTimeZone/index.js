@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
 import DataLocal from '../../../data/dataLocal';
 import Header from '../../../components/Header';
 import LoadingIndicator from '../../../components/LoadingIndicator';
@@ -28,20 +28,29 @@ export default function LanguageTimeZone({navigation, route}) {
   const {width,height} =Dimensions.get('window');
   const refLoading = useRef();
   const [timeZoneSelect, setTimeZoneSelect] = useState(0);
-  const [numberLangguages,setNumberLanguage]=useState(0);
-  const [languageConfirm,setLanguageConfirm]=useState(0);
+  const [numberLangguages,setNumberLanguage]=useState();
+  const [languageConfirm,setLanguageConfirm]=useState();
+  const [wheelLanguageConfirm,setWheelLanguageConfirm]=useState();
   const [listLangguages,setListLanguage]=useState([]);
   const [check,setCheck]=useState(false);
   const refRadioGroup = useRef();
-  useEffect(() => {
+  useLayoutEffect(() => {
     getLanguageTimeZone();
     getLanguages();
   }, []);
+  useEffect(() => {
+    for(let i=0;i<listLangguages.length;i++){
+      if(languageConfirm===listLangguages[i]){
+        setWheelLanguageConfirm(i);
+      }
+    }
+  }, [languageConfirm,listLangguages]);
   const  getLanguageTimeZone = () =>{
     getLanguageTimeZoneApi(DataLocal.deviceId, {
       success: res => {
         setLanguageConfirm(res.data.language);
         setTimeZoneSelect(res.data.timeZone);
+        refRadioGroup.current.updateView(res.data.timeZone);
       },
     });
   }
@@ -72,11 +81,14 @@ export default function LanguageTimeZone({navigation, route}) {
     );
   };
   const onCornfirm = () =>{
-    setLanguageConfirm(listLangguages[numberLangguages]);
+    if(numberLangguages!==undefined){
+      setLanguageConfirm(listLangguages[numberLangguages]);
+    }
+    console.log(listLangguages);
     setCheck(false);
   }
   const onItemSelected=(selectedItem) =>{
-    setNumberLanguage(selectedItem);
+      setNumberLanguage(selectedItem);
   }
   const  outConfirm = () =>{
     setCheck(false);
@@ -134,8 +146,8 @@ export default function LanguageTimeZone({navigation, route}) {
             <WheelPicker
                     data={listLangguages}
                     style={{width:"100%",height:height/4}}
-                    selectedItem={numberLangguages}
                     selectedItemTextSize={20}
+                    initPosition={wheelLanguageConfirm}
                     selectedItemTextFontFamily={'Roboto'}
                     itemTextFontFamily={'Roboto'}
                     onItemSelected={onItemSelected}
