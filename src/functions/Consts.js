@@ -41,6 +41,7 @@ const ScreenIds = {
   RewardPoints: 'RewardPoints',
   LanguageTimeZone: 'LanguageTimeZone',
   DoNotDisturb: 'DoNotDisturb',
+  DisturbSetting: 'DisturbSetting',
   Chat: 'Chat',
   RoomChat: 'RoomChat',
 
