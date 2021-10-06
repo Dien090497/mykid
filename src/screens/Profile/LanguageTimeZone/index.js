@@ -25,7 +25,6 @@ import {WheelPicker} from "react-native-wheel-picker-android";
 import {showAlert} from "../../../functions/utils";
 
 export default function LanguageTimeZone({navigation, route}) {
-  const {width,height} =Dimensions.get('window');
   const refLoading = useRef();
   const [timeZoneSelect, setTimeZoneSelect] = useState(0);
   const [numberLangguages,setNumberLanguage]=useState();
@@ -39,13 +38,13 @@ export default function LanguageTimeZone({navigation, route}) {
     getLanguages();
   }, []);
   useEffect(() => {
-    for(let i=0;i<listLangguages.length;i++){
-      if(languageConfirm===listLangguages[i]){
-        setWheelLanguageConfirm(i);
+    for(let i=0;i<listLangguages.length;i++) {
+      if (languageConfirm===listLangguages[i]) {
+          setWheelLanguageConfirm(i);
       }
     }
   }, [languageConfirm,listLangguages]);
-  const  getLanguageTimeZone = () =>{
+  const  getLanguageTimeZone = () => {
     getLanguageTimeZoneApi(DataLocal.deviceId, {
       success: res => {
         setLanguageConfirm(res.data.language);
@@ -54,7 +53,7 @@ export default function LanguageTimeZone({navigation, route}) {
       },
     });
   }
-  const getLanguages =() =>{
+  const getLanguages = () => {
     getLanguageApi( {
       success: res => {
         setListLanguage(res.data);
@@ -80,23 +79,23 @@ export default function LanguageTimeZone({navigation, route}) {
       },
     );
   };
-  const onCornfirm = () =>{
-    if(numberLangguages!==undefined){
+  const onCornfirm = () => {
+    if (numberLangguages !== undefined) {
       setLanguageConfirm(listLangguages[numberLangguages]);
     }
-    console.log(listLangguages);
     setCheck(false);
   }
-  const onItemSelected=(selectedItem) =>{
+  const onItemSelected = (selectedItem) => {
       setNumberLanguage(selectedItem);
   }
-  const  outConfirm = () =>{
+  const  outConfirm = () => {
     setCheck(false);
   }
   return (
     <View style={[styles.container, {paddingBottom: useSafeAreaInsets().bottom}]}>
       <Header title={String.header_language_timezone} />
-     <View style={styles.view1}>
+
+     <View style={styles.TobView}>
        <View style={styles.mainView}>
          <TouchableOpacity
            style={styles.containerAdd}
@@ -111,14 +110,12 @@ export default function LanguageTimeZone({navigation, route}) {
          </TouchableOpacity>
        </View>
      </View>
+
       <ScrollView
            howsHorizontalScrollIndicator={false}
            showsVerticalScrollIndicator={false}
            contentInsetAdjustmentBehavior="automatic"
-           style={[
-             styles.scrollView,
-             {height: (Consts.windowHeight * 55) / 100, width: Consts.windowWidth}
-           ]}>
+           style={styles.scrollView}>
            <View style={[styles.row, {width: Consts.windowWidth}]}>
              <RadioGroup
                ref={refRadioGroup}
@@ -127,13 +124,13 @@ export default function LanguageTimeZone({navigation, route}) {
              />
            </View>
       </ScrollView>
+
       <Modal
           visible={check}
           transparent={true}
           animationType="slide"
       >
-        <View style={{flex:1,flexDirection:'column'}}>
-
+        <View style={styles.modalView}>
           <TouchableOpacity style={styles.modalViewTob} onPress={outConfirm}/>
           <View style={styles.wheelPickkerView}>
             <View style={styles.tobWheel}>
@@ -155,6 +152,7 @@ export default function LanguageTimeZone({navigation, route}) {
           </View>
         </View>
       </Modal>
+
       <LoadingIndicator ref={refLoading} />
     </View>
   );
