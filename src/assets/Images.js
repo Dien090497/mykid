@@ -1,9 +1,11 @@
+import DoNotDisturb from "../screens/Profile/DoNotDisturb";
+
 export default {
   bgLogin: require('./images/bg_login.png'),
   icAdmin: require('./images/ic_admin.png'),
   icSW: require('./images/ic_sw.png'),
+  icDoNotDisturb: require('./images/ic_disturb.png'),
   icAlarmClock: require('./images/ic_alarm_clock.png'),
-  icAlarmClock2: require('./images/ic_alarm_clock2.png'),
   icOther: require('./images/ic_other.png'),
   icTwoUsers: require('./images/ic_two_users.png'),
   icBrother: require('./images/ic_brother.png'),

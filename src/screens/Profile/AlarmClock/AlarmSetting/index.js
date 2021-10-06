@@ -26,7 +26,7 @@ export default function AlarmSetting({navigation, route}) {
   // const [state, setState] = useState({selectedItem: 1});
   const [dayOfWeeks, setdayOfWeeks] = useState([
     {day: 'CN', value: 1, isOn: false},
-    {day: 'T2', value: 2, isOn: false,},
+    {day: 'T2', value: 2, isOn: false},
     {day: 'T3', value: 3, isOn: false},
     {day: 'T4', value: 4, isOn: false},
     {day: 'T5', value: 5, isOn: false},
@@ -88,14 +88,14 @@ export default function AlarmSetting({navigation, route}) {
     });
   };
 
-  const onTimeSelected = (timeSelect) => {
-    const split = timeSelect.toString().split(' ');
-    if (split.length > 4) {
-      const obj = Object.assign({}, config);
-      obj.time = split[4];
-      setConfig(obj);
+    const onTimeSelected = (timeSelect) => {
+      const split = timeSelect.toString().split(' ');
+      if (split.length > 4) {
+        const obj = Object.assign({}, config);
+        obj.time = split[4];
+        setConfig(obj);
+      }
     }
-  }
 
   return (
     <View style={styles.contain}>

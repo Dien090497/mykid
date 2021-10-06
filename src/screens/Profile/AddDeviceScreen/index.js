@@ -177,7 +177,7 @@ const AddDeviceScreen = ({ navigation, route }) => {
       <Header title={String.header_addDevice} />
       <ScrollView style={{ paddingHorizontal: 30 }}>
         <View style={styles.viewImage}>
-          <Image style={styles.Sty_Images} source={Images.icSmartwatch} resizeMode="contain" />
+          <Image style={styles.Sty_Images} source={Images.icSmartwatch} resizeMode="center" />
         </View>
 
         <View style={styles.input}>
@@ -189,13 +189,13 @@ const AddDeviceScreen = ({ navigation, route }) => {
             onChangeText={code => setDeviceCode(code)}
             style={styles.textInput} />
           <TouchableOpacity onPress={onScan}>
-            <Image style={[styles.iconInput,{height:'60%'}]} source={Images.icQRCode} resizeMode="contain" />
+            <Image style={[styles.iconInput,{height:'60%'}]} source={Images.icQRCode} resizeMode="center" />
           </TouchableOpacity>
         </View>
 
         <Text style={styles.txtInformation}>{String.genneralInfo}</Text>
         <View style={[styles.input,{marginBottom:20}]}>
-            <Image style={[styles.iconInput,{height:'60%'}]} source={Images.icUser2} resizeMode="contain" />
+            <Image style={[styles.iconInput,{height:'60%'}]} source={Images.icUser2} resizeMode="center" />
           <TextInput
             placeholder={String.deviceNickname}
             onChangeText={name => setDeviceName(name)}

@@ -43,6 +43,7 @@ import SoundSettings from '../screens/Profile/SoundSettings';
 import AlarmClock from '../screens/Profile/AlarmClock';
 import EacesDroping from "../screens/Settings/EacesDroping";
 import DoNotDisturb from '../screens/Profile/DoNotDisturb';
+import DisturbSetting from '../screens/Profile/DoNotDisturb/DisturbSetting';
 import AlarmSetting from '../screens/Profile/AlarmClock/AlarmSetting';
 import SplashScreen from '../screens/Splash';
 import WS from './WebScoket';
@@ -238,6 +239,10 @@ const Routes = () => {
         <Stack.Screen
           name={Consts.ScreenIds.DoNotDisturb}
           component={DoNotDisturb}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.DisturbSetting}
+          component={DisturbSetting}
         />
         <Stack.Screen
           name={Consts.ScreenIds.AlarmSetting}

@@ -33,9 +33,10 @@ export const styles = StyleSheet.create({
   },
   viewSub: {
     width: '16%',
-    height: 210,
-    justifyContent: 'center', 
-    alignItems: 'center'
+    height: 40,
+    backgroundColor: Colors.colorMain,
+    alignSelf:'center'
+
   },
   txtSub: {
     fontSize: 60,
