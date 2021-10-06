@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
 import DataLocal from '../../../data/dataLocal';
 import Header from '../../../components/Header';
 import LoadingIndicator from '../../../components/LoadingIndicator';
@@ -23,19 +23,28 @@ import RadioGroup from '../../../components/RadioGroup';
 import Consts from '../../../functions/Consts';
 import {WheelPicker} from "react-native-wheel-picker-android";
 import {showAlert} from "../../../functions/utils";
+
 export default function LanguageTimeZone({navigation, route}) {
   const {width,height} =Dimensions.get('window');
   const refLoading = useRef();
   const [timeZoneSelect, setTimeZoneSelect] = useState(0);
-  const [numberLangguages,setNumberLanguage]=useState(0);
-  const [languageConfirm,setLanguageConfirm]=useState('');
+  const [numberLangguages,setNumberLanguage]=useState();
+  const [languageConfirm,setLanguageConfirm]=useState();
+  const [wheelLanguageConfirm,setWheelLanguageConfirm]=useState();
   const [listLangguages,setListLanguage]=useState([]);
   const [check,setCheck]=useState(false);
   const refRadioGroup = useRef();
-  useEffect(() => {
+  useLayoutEffect(() => {
     getLanguageTimeZone();
     getLanguages();
   }, []);
+  useEffect(() => {
+    for(let i=0;i<listLangguages.length;i++){
+      if(languageConfirm===listLangguages[i]){
+        setWheelLanguageConfirm(i);
+      }
+    }
+  }, [languageConfirm,listLangguages]);
   const  getLanguageTimeZone = () =>{
     getLanguageTimeZoneApi(DataLocal.deviceId, {
       success: res => {
@@ -72,11 +81,14 @@ export default function LanguageTimeZone({navigation, route}) {
     );
   };
   const onCornfirm = () =>{
-    setLanguageConfirm(listLangguages[numberLangguages]);
+    if(numberLangguages!==undefined){
+      setLanguageConfirm(listLangguages[numberLangguages]);
+    }
+    console.log(listLangguages);
     setCheck(false);
   }
   const onItemSelected=(selectedItem) =>{
-    setNumberLanguage(selectedItem);
+      setNumberLanguage(selectedItem);
   }
   const  outConfirm = () =>{
     setCheck(false);
@@ -110,6 +122,7 @@ export default function LanguageTimeZone({navigation, route}) {
            <View style={[styles.row, {width: Consts.windowWidth}]}>
              <RadioGroup
                ref={refRadioGroup}
+               checker={timeZoneSelect}
                updateTimeZoneSelect={updateTimeZoneSelect}
              />
            </View>
@@ -123,7 +136,7 @@ export default function LanguageTimeZone({navigation, route}) {
 
           <TouchableOpacity style={styles.modalViewTob} onPress={outConfirm}/>
           <View style={styles.wheelPickkerView}>
-            <View style={{width:'100%',height:height-height/1.5-height/4}}>
+            <View style={styles.tobWheel}>
                <TouchableOpacity style={styles.confirmView}
                   onPress={onCornfirm}
                >
@@ -132,9 +145,9 @@ export default function LanguageTimeZone({navigation, route}) {
             </View>
             <WheelPicker
                     data={listLangguages}
-                    style={{width:"100%",height:height/4}}
-                    selectedItem={numberLangguages}
+                    style={styles.wheel}
                     selectedItemTextSize={20}
+                    initPosition={wheelLanguageConfirm}
                     selectedItemTextFontFamily={'Roboto'}
                     itemTextFontFamily={'Roboto'}
                     onItemSelected={onItemSelected}
