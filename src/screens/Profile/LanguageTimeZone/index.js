@@ -148,6 +148,7 @@ export default function LanguageTimeZone({navigation, route}) {
                     style={styles.wheel}
                     selectedItemTextSize={20}
                     initPosition={wheelLanguageConfirm}
+                    selectedItem={wheelLanguageConfirm}
                     selectedItemTextFontFamily={'Roboto'}
                     itemTextFontFamily={'Roboto'}
                     onItemSelected={onItemSelected}
