@@ -1,20 +1,19 @@
 import {Colors} from '../../../assets/colors/Colors';
-import {StyleSheet} from 'react-native';
+import {StyleSheet,Dimensions} from 'react-native';
 import Consts, {FontSize, ScaleHeight} from '../../../functions/Consts';
-
 const searchHeight = Consts.screenHeight / 24;
 const screenWidth = Consts.screenWidth;
+const {width,height} =Dimensions.get('window');
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FFF',
+    flexDirection:'column'
   },
   header: {
     width: '95%',
-    height: searchHeight,
     flexDirection: 'row',
     alignItems: 'center',
-    // paddingVertical: '5%'
   },
   titleText: {
     fontSize: FontSize.medium,
@@ -43,9 +42,12 @@ export const styles = StyleSheet.create({
   mainView: {
     flex: 1,
     flexDirection: 'column',
-    width: '100%',
+    width: '86%',
     alignContent: 'center',
-    paddingVertical: 10,
+    height:height/4.5,
+    justifyContent:'center',
+    alignItems:'center',
+    marginHorizontal:'7%',
   },
   rowItem: {
     backgroundColor: Colors.white,
@@ -75,7 +77,6 @@ export const styles = StyleSheet.create({
     marginTop: '5%',
     backgroundColor: Colors.white,
     height: 'auto',
-    // justifyContent: 'center',
     alignItems: 'center',
   },
   textLogout: {
@@ -107,17 +108,31 @@ export const styles = StyleSheet.create({
     width: '100%',
     color: Colors.gray,
   },
-  containerAdd: {
-    height: ScaleHeight.medium,
+  containerAdd :{
+    height: ScaleHeight.medium*1.2,
     backgroundColor: Colors.red,
-    width: '90%',
+    width:"100%",
     alignSelf: 'center',
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: 13,
+    marginTop:13
   },
-  txtAdd: {color: 'white', fontSize: FontSize.medium},
+  containerAdd1:{
+    height: ScaleHeight.medium*1.2,
+    backgroundColor: Colors.white,
+    width: '100%',
+    alignSelf: 'center',
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 13,
+    marginTop:13,
+    borderColor:Colors.red,
+    borderWidth:1
+  },
+  txtAdd: { fontSize: FontSize.medium,fontWeight:'600'},
   containerSwitch: {flex: 0.2, alignItems: 'center', justifyContent: 'center'},
   containerBottom: {
     padding: 10,
@@ -195,7 +210,37 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   scrollView: {
-    backgroundColor: Colors.lighter,
-    marginBottom: 5,
+    marginBottom: height*0.02,
+    marginTop:height*0.02
   },
+  view1:{width:'100%',height:height/4.5},
+  modalViewTob:{
+    width:'100%',
+    height:height/1.5,
+    backgroundColor:'rgba(1, 1, 1, 0.3)'
+  },
+  wheelPickkerView:{
+    backgroundColor:'white',
+    width:'100%',
+    height:height-height/1.5,
+    flexDirection:'column'},
+  confirmView:{
+    width:'100%',
+    height:height/15,
+    backgroundColor:Colors.colorConfirmPicker,
+    alignItems:'flex-end',
+    justifyContent:'center'
+  },
+    textConfirm:{
+      color:Colors.colorMain,
+      fontSize:FontSize.medium,position:'absolute',
+      right:width*0.03,
+      fontWeight:'600',
+      fontStyle:'normal',
+  },
+  tobWheel:{
+    width:'100%',
+    height:height-height/1.5-height/4
+  },
+  wheel:{width:"100%",height:height/4}
 });

@@ -30,6 +30,7 @@ export default {
   icSmartwatch1: require('./images/ic_smartwatch1.png'),
   materialIcons: require('./images/materialIcons.png'),
   icCheck: require('./images/ic_check.png'),
+  icClickCancel: require('./images/ic_click_cancel.png'),
   icUncheck: require('./images/ic_uncheck.png'),
   icon_arrow_up: require('./images/icon_arrow_up.png'),
   icPhone: require('./images/ic_phone.png'),
@@ -64,6 +65,14 @@ export default {
   icMinus: require('./images/rewardoints/ic_minus.png'),
   icHeart: require('./images/rewardoints/ic_heart.png'),
 
+  // Chat
+  icAvatar: require('./images/chat/ic_avatar.png'),
+  icCamera: require('./images/chat/ic_camera.png'),
+  icCancelRecord: require('./images/chat/ic_cancel_record.png'),
+  icGroup: require('./images/chat/ic_group.png'),
+  icKeyboard: require('./images/chat/ic_keyboard.png'),
+  icMicrophone: require('./images/chat/ic_microphone.png'),
+  icRecord: require('./images/chat/ic_record.png'),
   //Login
   bannerLogin: require('./images/banner_login.png'),
 

@@ -22,7 +22,7 @@ export default function HomeMainScreen() {
   };
 
   const pressChat = () => {
-    showAlert(String.thisFunctionIsNotValid);
+    navigation.navigate(Consts.ScreenIds.Chat);
   };
 
   const pressVideoCall = () => {
