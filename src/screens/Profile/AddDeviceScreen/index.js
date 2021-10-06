@@ -177,11 +177,11 @@ const AddDeviceScreen = ({ navigation, route }) => {
       <Header title={String.header_addDevice} />
       <ScrollView style={{ paddingHorizontal: 30 }}>
         <View style={styles.viewImage}>
-          <Image style={styles.Sty_Images} source={Images.icSmartwatch} resizeMode="center" />
+          <Image style={styles.Sty_Images} source={Images.icSmartwatch} resizeMode="contain" />
         </View>
 
         <View style={styles.input}>
-          <Image style={styles.iconInput} source={Images.icSmartwatch3} resizeMode="center" />
+          <Image style={styles.iconInput} source={Images.icSmartwatch3} resizeMode="contain" />
           <TextInput
             value={deviceCode}
             placeholder={String.enterOrScanCode}
@@ -189,13 +189,13 @@ const AddDeviceScreen = ({ navigation, route }) => {
             onChangeText={code => setDeviceCode(code)}
             style={styles.textInput} />
           <TouchableOpacity onPress={onScan}>
-            <Image style={[styles.iconInput,{height:'60%'}]} source={Images.icQRCode} resizeMode="center" />
+            <Image style={[styles.iconInput,{height:'60%'}]} source={Images.icQRCode} resizeMode="contain" />
           </TouchableOpacity>
         </View>
 
         <Text style={styles.txtInformation}>{String.genneralInfo}</Text>
         <View style={[styles.input,{marginBottom:20}]}>
-            <Image style={[styles.iconInput,{height:'60%'}]} source={Images.icUser2} resizeMode="center" />
+            <Image style={[styles.iconInput,{height:'60%'}]} source={Images.icUser2} resizeMode="contain" />
           <TextInput
             placeholder={String.deviceNickname}
             onChangeText={name => setDeviceName(name)}
@@ -206,7 +206,7 @@ const AddDeviceScreen = ({ navigation, route }) => {
           <Image style={[styles.iconInput,{height:'60%'}]} source={dataMock[selectedIndex].icon} resizeMode="contain" />
           <Text style={styles.textInput}>{String.iAm}{dataMock[selectedIndex].name}{String.ofHe}</Text>
           <TouchableOpacity style={{ paddingVertical: "3%" }}>
-            <Image style={styles.iconInput} source={Images.icDetail} resizeMode="center" />
+            <Image style={styles.iconInput} source={Images.icDetail} resizeMode="contain" />
           </TouchableOpacity>
         </TouchableOpacity>
         <TouchableOpacity
