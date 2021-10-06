@@ -38,7 +38,7 @@ const Relationship = ({ navigation, route }) => {
         relationship: "OTHER"+data.length,
       })
       setData(data)
-      setSelectedIndex(data.length-1)
+      setSelectedIndex(0)
       setShowModal(false)
     }
   }
@@ -106,6 +106,7 @@ const Relationship = ({ navigation, route }) => {
                   style={{
                     ...styles.Sty_iconUser,
                     opacity: selectedIndex == data.index ? 1 : 0.4,
+                    resizeMode:'stretch'
                   }}
                   source={item.icon}
                 />

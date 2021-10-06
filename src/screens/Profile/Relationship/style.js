@@ -91,9 +91,6 @@ const styles = StyleSheet.create({
 
 
   Sty_iconUser: {
-    borderRadius: width/6,
-    borderWidth:1,
-    borderColor: '#00000040',
     height: width/7,
     width: width/7,
   },
