@@ -27,7 +27,6 @@ export default function LanguageTimeZone({navigation, route}) {
   const [timeZoneSelect, setTimeZoneSelect] = useState(0);
   const [numberLangguages, setNumberLanguage] = useState();
   const [languageConfirm, setLanguageConfirm] = useState();
-  const [wheelLanguageConfirm, setWheelLanguageConfirm] = useState();
   const [listLangguages, setListLanguage] = useState([]);
   const [check, setCheck] = useState(false);
   const refRadioGroup = useRef();
@@ -38,10 +37,9 @@ export default function LanguageTimeZone({navigation, route}) {
   }, []);
 
   useEffect(() => {
-    for (let i = 0; i < listLangguages.length; i++) {
-      if (languageConfirm === listLangguages[i]) {
-          setWheelLanguageConfirm(i);
-      }
+    if (languageConfirm && listLangguages) {
+      const index = listLangguages.findIndex(val => val === languageConfirm);
+      setNumberLanguage(index);
     }
   }, [languageConfirm, listLangguages]);
 
@@ -92,7 +90,7 @@ export default function LanguageTimeZone({navigation, route}) {
   }
 
   const onItemSelected = (selectedItem) => {
-      setNumberLanguage(selectedItem);
+    setNumberLanguage(selectedItem);
   }
 
   const outConfirm = () => {
@@ -149,8 +147,8 @@ export default function LanguageTimeZone({navigation, route}) {
                     data={listLangguages}
                     style={styles.wheel}
                     selectedItemTextSize={20}
-                    initPosition={wheelLanguageConfirm}
-                    selectedItem={wheelLanguageConfirm}
+                    initPosition={numberLangguages}
+                    selectedItem={numberLangguages}
                     selectedItemTextFontFamily={'Roboto'}
                     itemTextFontFamily={'Roboto'}
                     onItemSelected={onItemSelected}
