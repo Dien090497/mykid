@@ -34,6 +34,8 @@ export const String = {
   header_connectDevice: 'Kết nối thiết bị',
   header_profile: 'Cá nhân',
   header_account: 'Tài khoản',
+  header_account_admin:'Administrator',
+  header_account_member:'Family Members',
   header_deviceManager: 'Danh sách thiết bị',
   header_findDevice: 'Thiết bị',
   header_soundSettings: 'Cài đặt chuông',
@@ -107,7 +109,7 @@ export const String = {
   rejectContactSuccess: 'Từ chối thành viên thành công',
   deleteContactSuccess: 'Xóa thành viên thành công',
   removeContactConfirm:
-    'Bạn chắc chắn xóa thành viên này khỏi danh sách quản lý?',
+    'Bạn chắc chắn huỷ liên kết tài khoản này không ?',
   maxLengthSafeAreaName: 'Vui lòng nhập 1-32 ký tự',
   message_remove_contact_sos: 'Bạn không được xoá liên lạc khẩn cấp',
   noContactPermission: 'Bạn chưa cấp quyền truy cập danh bạ',
@@ -123,7 +125,6 @@ export const String = {
   time_invalid: 'Thời gian chọn không hợp lệ',
   timeInvalidNote: 'Thời gian bắt đầu phải nhỏ hơn thời gian kết thúc',
   setNameAndSetRelationship:'Đặt tên mối quan hệ',
-
   //member
   member_refresh: 'Làm mới',
   member_remove: 'Xoá',

@@ -1,4 +1,4 @@
-import {FlatList, Image, Text, TouchableOpacity, View} from 'react-native';
+import {FlatList, Image, Text, TouchableOpacity, View, Modal, RefreshControl,ScrollView} from 'react-native';
 import React, {useLayoutEffect, useRef, useState} from 'react';
 import {
   acceptContactApi,
@@ -15,42 +15,20 @@ import LoadingIndicator from '../../../components/LoadingIndicator';
 import {String} from '../../../assets/strings/String';
 import {styles} from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-
+import {ScaleHeight} from "../../../functions/Consts";
 export default ({navigation, route}) => {
   const refLoading = useRef();
   const [allMember, setAllMember] = useState([]);
   const [admin, setAdmin] = useState();
+  const [onModal,setOnModal] =useState(false)
+  const [idCancel,setIdCancel] =useState();
+  const [loading, setLoading] = useState(false);
 
-  const dataMock = [
-    {
-      icon: Images.icFather,
-      relationship: 'FATHER',
-    },
-    {
-      icon: Images.icMother,
-      relationship: 'MOTHER',
-    },
-    {
-      icon: Images.icGrandfather,
-      relationship: 'GRANDFATHER',
-    },
-    {
-      icon: Images.icGrandmother,
-      relationship: 'GRANDMOTHER',
-    },
-    {
-      icon: Images.icBrother,
-      relationship: 'BROTHER',
-    },
-    {
-      icon: Images.icSister,
-      relationship: 'SISTER',
-    },
-    {
-      icon: Images.icOther,
-      relationship: 'OTHER',
-    },
-  ];
+  const loadMore = React.useCallback(async () => {
+    setLoading(true);
+    getListDevice();
+    setLoading(false);
+  }, []);
 
   useLayoutEffect(() => {
     getListDevice();
@@ -74,12 +52,10 @@ export default ({navigation, route}) => {
     });
   };
 
-  const removeContact = item => {
-    showConfirmation(String.removeContactConfirm, {
-      response: accept => {
-        if (accept) {
-          rejectContactApi(item.id, {
+  const removeContact = () => {
+          rejectContactApi(idCancel, {
             success: res => {
+              setOnModal(false);
               showAlert(String.deleteContactSuccess, {
                 close: () => {
                   getListDevice();
@@ -89,9 +65,6 @@ export default ({navigation, route}) => {
             failure: error => {},
             refLoading: refLoading,
           });
-        }
-      },
-    });
   };
 
   const cancelContact = item => {
@@ -126,67 +99,81 @@ export default ({navigation, route}) => {
   const renderItem = ({item}) => {
     return renderMemberItem(item);
   };
-  const pressRefresh = () => {
-    //Call API Refresh
-    getListDevice();
-  };
+
+  const OnModal = item => {
+     setOnModal(true);
+     setIdCancel(item.id);
+  }
 
   const renderMemberItem = item => {
-    const relationship = dataMock.filter(
-      val => val.relationship === item.relationship,
-    );
-    const icon =
-      relationship.length > 0 ? relationship[0].icon : dataMock[6].icon;
     return (
       <TouchableOpacity
         activeOpacity={0.9}
         key={item.id}
         style={styles.itemContainer}>
-        <View style={styles.itemLeft}>
-          <Image style={styles.avatar} source={icon} />
-          <View style={styles.info}>
-            <Text style={styles.username}>{item.deviceName}</Text>
-            <Text
-              style={styles.otherInfoText}
-              children={`${String.header_account}: ${item.email}`}
-            />
-            <Text style={styles.otherInfoText}>
-              {String.relationship}{item.relationship}
-            </Text>
-            {item.status === 'PENDING' &&
-              admin.accountId === DataLocal.userInfo.id && (
-                <View style={styles.rowItem}>
-                  <TouchableOpacity
-                    style={[styles.smallButton, {marginRight: 10}]}
-                    onPress={() => cancelContact(item)}>
-                    <Text
-                      style={[styles.smallButtonText, {color: Colors.orange}]}>
-                      {String.member_reject}
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={styles.smallButton}
-                    onPress={() => acceptContact(item)}>
-                    <Text style={[styles.smallButtonText, {color: 'green'}]}>
-                      {String.member_approval}
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              )}
-            {!item.admin &&
-              item.status === 'ACTIVE' &&
-              admin.accountId === DataLocal.userInfo.id && (
-                <View style={styles.rowItem2}>
-                  <TouchableOpacity
-                    style={styles.smallButton}
-                    onPress={() => removeContact(item)}>
-                    <Text style={[styles.smallButtonText, {color: Colors.red}]}>
-                      {String.member_remove}
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              )}
-          </View>
+        <View style={
+          [styles.itemLeft, ( item.status === 'PENDING' &&
+          admin.accountId === DataLocal.userInfo.id  &&
+          {height:ScaleHeight.xxtraBig*1.6}: {height:ScaleHeight.xxtraBig})]
+        }>
+         <View style={styles.containerView}>
+           <View style={styles.imageView}>
+             <Image style={styles.avatar} source={Images.icUser2} />
+           </View>
+           <View style={styles.info}>
+             <View style={styles.textView}>
+               <Text style={styles.username}>{item.deviceName}</Text>
+               { item.accountId===DataLocal.userInfo.id? (
+                 <Text style={[styles.username, {color: Colors.red}]}>me</Text>
+               ): null}
+             </View>
+             <Text
+               style={styles.otherInfoText}
+               children={`${String.header_account}: ${item.email}`}
+             />
+             <Text style={styles.otherInfoText}>
+               {String.relationship}{item.relationship}
+             </Text>
+           </View>
+           {!item.admin && item.status === 'ACTIVE' &&
+            admin.accountId === DataLocal.userInfo.id ? (
+             <View style={styles.rowItem2}>
+               <TouchableOpacity
+                 onPress={ () => OnModal(item)}>
+                 <Image
+                   style={styles.iconCancel}
+                   source={Images.icCancelMember}
+                 />
+               </TouchableOpacity>
+             </View>
+           ):(
+             <View style={styles.rowItem2}></View>
+           )}
+         </View>
+          {item.status === 'PENDING' &&
+          admin.accountId === DataLocal.userInfo.id && (
+            <View style={styles.rowItem}>
+              <View style={styles.tob}>
+                <TouchableOpacity
+                  style={[styles.smallButton]}
+                  onPress={() => cancelContact(item)}>
+                  <Text
+                    style={[styles.smallButtonText, {color: Colors.red}]}>
+                    {String.member_reject}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.tob}>
+                <TouchableOpacity
+                  style={[styles.smallButton,{backgroundColor:Colors.red}]}
+                  onPress={() => acceptContact(item)}>
+                  <Text style={[styles.smallButtonText, {color: Colors.white}]}>
+                    {String.member_approval}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          )}
         </View>
       </TouchableOpacity>
     );
@@ -195,12 +182,19 @@ export default ({navigation, route}) => {
   const renderHeader = isAdmin => {
     return (
       <View style={styles.headerContainer}>
-        <Image
-          style={styles.iconHeader}
-          source={isAdmin ? Images.icAdmin : Images.icTwoUsers}
-        />
+        { isAdmin? (
+          <Image
+            style={[styles.iconHeader, { tintColor:Colors.colorImageAdmin}]}
+            source={ Images.icUser2 }
+          />
+        ):(
+          <Image
+            style={styles.iconHeader}
+            source={ Images.icFamily }
+          />
+        )}
         <Text style={styles.headerText}>
-          {isAdmin ? 'Administrator' : 'Family Members'}
+          {isAdmin ? String.header_account_admin : String.header_account_member}
         </Text>
       </View>
     );
@@ -210,7 +204,15 @@ export default ({navigation, route}) => {
     <View
       style={[styles.container, {paddingBottom: useSafeAreaInsets().bottom}]}>
       <Header title={String.header_members} />
-      <View style={styles.mainView}>
+      <ScrollView
+        style={styles.mainView}
+        refreshControl={
+          <RefreshControl
+            refreshing={loading}
+            onRefresh={loadMore}
+          />
+        }
+      >
         {admin && renderHeader(true)}
         {admin && renderMemberItem(admin)}
         <FlatList
@@ -220,12 +222,46 @@ export default ({navigation, route}) => {
           ListHeaderComponent={renderHeader()}
           stickyHeaderIndices={[0]}
         />
-        {admin && admin.accountId === DataLocal.userInfo.id &&
-          <TouchableOpacity style={styles.button} onPress={pressRefresh}>
-            <Text style={styles.buttonText}>{String.member_refresh}</Text>
-          </TouchableOpacity>
-        }
-      </View>
+      </ScrollView>
+      <Modal
+        visible={onModal}
+        transparent={true}
+        animationType={'none'}
+      >
+         <View style={styles.itemLeft}>
+           <TouchableOpacity style={styles.modal} onPress={ () => setOnModal(false)}>
+             <View style={styles.tobModal}>
+                   <View style={[styles.tobView, {marginTop: ScaleHeight.small}]}>
+                     <Text style={styles.textModel}>{String.removeContactConfirm}</Text>
+                   </View>
+                   <View style={[styles.tobView , {width: '86%'}]}>
+                     <View style={styles.tob}>
+                       <TouchableOpacity
+                         style={[styles.smallButton, {backgroundColor: Colors.white}]}
+                         onPress={ () => setOnModal(false)}
+                       >
+                         <Text
+                           style={[styles.smallButtonText, {color: Colors.red}]}>
+                           {String.cancel}
+                         </Text>
+                       </TouchableOpacity>
+                     </View>
+                   <View style={styles.tob}>
+                     <TouchableOpacity
+                       style={[styles.smallButton, {backgroundColor: Colors.red}]}
+                       onPress={ () => removeContact(idCancel)}
+                     >
+                       <Text
+                         style={[styles.smallButtonText, {color: Colors.white}]}>
+                         {String.confirm}
+                       </Text>
+                     </TouchableOpacity>
+                   </View>
+                   </View>
+             </View>
+           </TouchableOpacity>
+         </View>
+      </Modal>
       <LoadingIndicator ref={refLoading} />
     </View>
   );
