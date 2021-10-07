@@ -1,12 +1,11 @@
 import {
-  Dimensions,
   Modal,
   ScrollView,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
 import DataLocal from '../../../data/dataLocal';
 import Header from '../../../components/Header';
 import LoadingIndicator from '../../../components/LoadingIndicator';
@@ -20,32 +19,43 @@ import {
   setLanguageTimeZoneApi,
 } from '../../../network/LanguageTimeZoneService';
 import RadioGroup from '../../../components/RadioGroup';
-import Consts from '../../../functions/Consts';
 import {WheelPicker} from "react-native-wheel-picker-android";
 import {showAlert} from "../../../functions/utils";
 
 export default function LanguageTimeZone({navigation, route}) {
-  const {width,height} =Dimensions.get('window');
   const refLoading = useRef();
   const [timeZoneSelect, setTimeZoneSelect] = useState(0);
-  const [numberLangguages,setNumberLanguage]=useState(0);
-  const [languageConfirm,setLanguageConfirm]=useState(0);
-  const [listLangguages,setListLanguage]=useState([]);
-  const [check,setCheck]=useState(false);
+  const [numberLangguages, setNumberLanguage] = useState();
+  const [languageConfirm, setLanguageConfirm] = useState();
+  const [wheelLanguageConfirm, setWheelLanguageConfirm] = useState();
+  const [listLangguages, setListLanguage] = useState([]);
+  const [check, setCheck] = useState(false);
   const refRadioGroup = useRef();
-  useEffect(() => {
+
+  useLayoutEffect(() => {
     getLanguageTimeZone();
     getLanguages();
   }, []);
-  const  getLanguageTimeZone = () =>{
+
+  useEffect(() => {
+    for (let i = 0; i < listLangguages.length; i++) {
+      if (languageConfirm === listLangguages[i]) {
+          setWheelLanguageConfirm(i);
+      }
+    }
+  }, [languageConfirm, listLangguages]);
+
+  const  getLanguageTimeZone = () => {
     getLanguageTimeZoneApi(DataLocal.deviceId, {
       success: res => {
         setLanguageConfirm(res.data.language);
         setTimeZoneSelect(res.data.timeZone);
+        refRadioGroup.current.updateView(res.data.timeZone);
       },
     });
   }
-  const getLanguages =() =>{
+
+  const getLanguages = () => {
     getLanguageApi( {
       success: res => {
         setListLanguage(res.data);
@@ -53,9 +63,11 @@ export default function LanguageTimeZone({navigation, route}) {
       refLoading: refLoading,
     });
   }
+
   const updateTimeZoneSelect = timeZoneSelect => {
     setTimeZoneSelect(timeZoneSelect);
   };
+
   const setLanguageTimeZones = () => {
     setLanguageTimeZoneApi(
       DataLocal.deviceId,
@@ -71,31 +83,37 @@ export default function LanguageTimeZone({navigation, route}) {
       },
     );
   };
-  const onCornfirm = () =>{
-    setLanguageConfirm(listLangguages[numberLangguages]);
+
+  const onCornfirm = () => {
+    if (numberLangguages !== undefined) {
+      setLanguageConfirm(listLangguages[numberLangguages]);
+    }
     setCheck(false);
   }
-  const onItemSelected=(selectedItem) =>{
-    setNumberLanguage(selectedItem);
+
+  const onItemSelected = (selectedItem) => {
+      setNumberLanguage(selectedItem);
   }
-  const  outConfirm = () =>{
+
+  const outConfirm = () => {
     setCheck(false);
   }
+
   return (
     <View style={[styles.container, {paddingBottom: useSafeAreaInsets().bottom}]}>
       <Header title={String.header_language_timezone} />
-     <View style={styles.view1}>
+      <View style={styles.TobView}>
        <View style={styles.mainView}>
          <TouchableOpacity
            style={styles.containerAdd}
            onPress={setLanguageTimeZones}>
-           <Text style={[styles.txtAdd,{color:Colors.white}]}>{String.confirm}</Text>
+           <Text style={[styles.txtAdd, {color: Colors.white}]}>{String.confirm}</Text>
          </TouchableOpacity>
          <TouchableOpacity
            style={styles.containerAdd1}
-           onPress={()=>{setCheck(true)}}
+           onPress={ () => {setCheck(true)}}
          >
-           <Text style={[styles.txtAdd,{color:Colors.red}]}>{languageConfirm}</Text>
+           <Text style={[styles.txtAdd, {color: Colors.red}]}>{languageConfirm}</Text>
          </TouchableOpacity>
        </View>
      </View>
@@ -103,11 +121,8 @@ export default function LanguageTimeZone({navigation, route}) {
            howsHorizontalScrollIndicator={false}
            showsVerticalScrollIndicator={false}
            contentInsetAdjustmentBehavior="automatic"
-           style={[
-             styles.scrollView,
-             {height: (Consts.windowHeight * 55) / 100, width: Consts.windowWidth}
-           ]}>
-           <View style={[styles.row, {width: Consts.windowWidth}]}>
+           style={styles.scrollView}>
+           <View style={styles.row}>
              <RadioGroup
                ref={refRadioGroup}
                checker={timeZoneSelect}
@@ -120,11 +135,10 @@ export default function LanguageTimeZone({navigation, route}) {
           transparent={true}
           animationType="slide"
       >
-        <View style={{flex:1,flexDirection:'column'}}>
-
+        <View style={styles.modalView}>
           <TouchableOpacity style={styles.modalViewTob} onPress={outConfirm}/>
           <View style={styles.wheelPickkerView}>
-            <View style={{width:'100%',height:height-height/1.5-height/4}}>
+            <View style={styles.tobWheel}>
                <TouchableOpacity style={styles.confirmView}
                   onPress={onCornfirm}
                >
@@ -133,9 +147,10 @@ export default function LanguageTimeZone({navigation, route}) {
             </View>
             <WheelPicker
                     data={listLangguages}
-                    style={{width:"100%",height:height/4}}
-                    selectedItem={numberLangguages}
+                    style={styles.wheel}
                     selectedItemTextSize={20}
+                    initPosition={wheelLanguageConfirm}
+                    selectedItem={wheelLanguageConfirm}
                     selectedItemTextFontFamily={'Roboto'}
                     itemTextFontFamily={'Roboto'}
                     onItemSelected={onItemSelected}

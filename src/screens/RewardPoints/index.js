@@ -25,7 +25,7 @@ export default ({ navigation }) => {
   },[]);
 
   const addPoint = () => {
-    point < 100 ? setPoint(point + 1) : null;
+    point < 99 ? setPoint(point + 1) : null;
   };
   const minusPoint = () => {
     point > 0 ? setPoint(point - 1) : null;

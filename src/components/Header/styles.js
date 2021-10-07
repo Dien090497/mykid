@@ -9,11 +9,17 @@ export const styles = StyleSheet.create({
     borderBottomStartRadius:10,
   },
   title: {
-    fontSize: FontSize.big*0.8,
+    fontSize: FontSize.big,
     fontFamily: 'Roboto-Bold',
     color: Colors.white,
-    marginTop: 3
+    width: '110%',
+    marginTop: 3,
+    textAlign: 'center'
   },
   back: {
+  },
+  iconRight: {
+    height: 24,
+    width: 30
   },
 });

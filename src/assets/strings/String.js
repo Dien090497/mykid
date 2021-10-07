@@ -36,6 +36,7 @@ export const String = {
   header_account: 'Tài khoản',
   header_account_admin:'Administrator',
   header_account_member:'Family Members',
+  header_password: 'Mật khẩu',
   header_deviceManager: 'Danh sách thiết bị',
   header_findDevice: 'Thiết bị',
   header_soundSettings: 'Cài đặt chuông',
@@ -45,7 +46,7 @@ export const String = {
   header_reward_points: 'Tặng phần thưởng',
   header_doNotDisturb: 'Chế độ lớp học',
   header_language_timezone: 'Ngôn ngữ và múi giờ',
-  language:'Chọn ngôn ngữ',
+  header_chat: 'Tin nhắn thoại',
 
   // Codepush
   codepushChecking: 'Đang kiểm tra bản cập nhật...',
@@ -125,6 +126,10 @@ export const String = {
   time_invalid: 'Thời gian chọn không hợp lệ',
   timeInvalidNote: 'Thời gian bắt đầu phải nhỏ hơn thời gian kết thúc',
   setNameAndSetRelationship:'Đặt tên mối quan hệ',
+  holdAndTalk: 'Giữ và nói',
+  language:'Chọn ngôn ngữ',
+  selectAtLeastOneDay: 'Vui lòng chọn ít nhất một ngày',
+
   //member
   member_refresh: 'Làm mới',
   member_remove: 'Xoá',

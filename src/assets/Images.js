@@ -1,9 +1,11 @@
+import DoNotDisturb from "../screens/Profile/DoNotDisturb";
+
 export default {
   bgLogin: require('./images/bg_login.png'),
   icAdmin: require('./images/ic_admin.png'),
   icSW: require('./images/ic_sw.png'),
+  icDoNotDisturb: require('./images/ic_disturb.png'),
   icAlarmClock: require('./images/ic_alarm_clock.png'),
-  icAlarmClock2: require('./images/ic_alarm_clock2.png'),
   icOther: require('./images/ic_other.png'),
   icTwoUsers: require('./images/ic_two_users.png'),
   icBrother: require('./images/ic_brother.png'),
@@ -64,6 +66,14 @@ export default {
   icMinus: require('./images/rewardoints/ic_minus.png'),
   icHeart: require('./images/rewardoints/ic_heart.png'),
 
+  // Chat
+  icAvatar: require('./images/chat/ic_avatar.png'),
+  icCamera: require('./images/chat/ic_camera.png'),
+  icCancelRecord: require('./images/chat/ic_cancel_record.png'),
+  icGroup: require('./images/chat/ic_group.png'),
+  icKeyboard: require('./images/chat/ic_keyboard.png'),
+  icMicrophone: require('./images/chat/ic_microphone.png'),
+  icRecord: require('./images/chat/ic_record.png'),
   //Login
   bannerLogin: require('./images/banner_login.png'),
 

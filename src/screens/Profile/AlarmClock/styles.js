@@ -12,8 +12,7 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.white,
   },
   iconClock: {
-    width: 90,
-    height: 90
+    height: '50%'
   },
   viewImg: {
     width: '100%',

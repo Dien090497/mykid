@@ -181,7 +181,7 @@ const AddDeviceScreen = ({ navigation, route }) => {
         </View>
 
         <View style={styles.input}>
-          <Image style={styles.iconInput} source={Images.icSmartwatch3} resizeMode="center" />
+          <Image style={styles.iconInput} source={Images.icSmartwatch3} resizeMode="contain" />
           <TextInput
             value={deviceCode}
             placeholder={String.enterOrScanCode}
@@ -206,7 +206,7 @@ const AddDeviceScreen = ({ navigation, route }) => {
           <Image style={[styles.iconInput,{height:'60%'}]} source={dataMock[selectedIndex].icon} resizeMode="contain" />
           <Text style={styles.textInput}>{String.iAm}{dataMock[selectedIndex].name}{String.ofHe}</Text>
           <TouchableOpacity style={{ paddingVertical: "3%" }}>
-            <Image style={styles.iconInput} source={Images.icDetail} resizeMode="center" />
+            <Image style={styles.iconInput} source={Images.icDetail} resizeMode="contain" />
           </TouchableOpacity>
         </TouchableOpacity>
         <TouchableOpacity

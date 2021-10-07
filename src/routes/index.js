@@ -38,11 +38,14 @@ import Relationship from '../screens/Profile/Relationship';
 import SafeZone from '../screens/Maps/SafeZone';
 import SettingScreen from '../screens/Settings';
 import RewardPoints from '../screens/RewardPoints';
+import Chat from '../screens/Chat';
+import RoomChat from '../screens/Chat/RoomChat';
 import Sound from 'react-native-sound';
 import SoundSettings from '../screens/Profile/SoundSettings';
 import AlarmClock from '../screens/Profile/AlarmClock';
 import EacesDroping from "../screens/Settings/EacesDroping";
 import DoNotDisturb from '../screens/Profile/DoNotDisturb';
+import DisturbSetting from '../screens/Profile/DoNotDisturb/DisturbSetting';
 import AlarmSetting from '../screens/Profile/AlarmClock/AlarmSetting';
 import SplashScreen from '../screens/Splash';
 import WS from './WebScoket';
@@ -240,6 +243,10 @@ const Routes = () => {
           component={DoNotDisturb}
         />
         <Stack.Screen
+          name={Consts.ScreenIds.DisturbSetting}
+          component={DisturbSetting}
+        />
+        <Stack.Screen
           name={Consts.ScreenIds.AlarmSetting}
           component={AlarmSetting}
         />
@@ -270,6 +277,14 @@ const Routes = () => {
         <Stack.Screen
           name={Consts.ScreenIds.AddNewContact}
           component={AddNewContact}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.Chat}
+          component={Chat}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.RoomChat}
+          component={RoomChat}
         />
         <Stack.Screen name={Consts.ScreenIds.Contacts} component={Contacts} />
         <Stack.Screen name={Consts.ScreenIds.Members} component={Members} />
