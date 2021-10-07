@@ -40,6 +40,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     shadowColor: Colors.gray,
     shadowOpacity: 1,
+    shadowOffset: { width: 2, height: 2 },
     elevation:4,
     borderRadius:width*0.02
   },
@@ -127,8 +128,8 @@ export const styles = StyleSheet.create({
     alignItems: 'flex-end'
   },
   iconCancel: {
-    width: width*0.07,
-    height: width*0.07
+    width: 26,
+    height: 26
   },
   tob: {
     width: '50%',

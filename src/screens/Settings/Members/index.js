@@ -229,32 +229,32 @@ export default ({navigation, route}) => {
          <View style={styles.itemLeft}>
            <TouchableOpacity style={styles.modal} onPress={ () => setOnModal(false)}>
              <View style={styles.tobModal}>
-                   <View style={[styles.tobView, {marginTop: ScaleHeight.small}]}>
-                     <Text style={styles.textModel}>{String.removeContactConfirm}</Text>
-                   </View>
-                   <View style={[styles.tobView , {width: '86%'}]}>
-                     <View style={styles.tob}>
-                       <TouchableOpacity
-                         style={[styles.smallButton, {backgroundColor: Colors.white}]}
-                         onPress={ () => setOnModal(false)}
-                       >
-                         <Text
-                           style={[styles.smallButtonText, {color: Colors.red}]}>
-                           {String.cancel}
-                         </Text>
-                       </TouchableOpacity>
-                     </View>
-                   <View style={styles.tob}>
-                     <TouchableOpacity
-                       style={[styles.smallButton, {backgroundColor: Colors.red}]}
-                       onPress={ () => removeContact(idCancel)}
-                     >
-                       <Text
-                         style={[styles.smallButtonText, {color: Colors.white}]}>
-                         {String.confirm}
-                       </Text>
-                     </TouchableOpacity>
-                   </View>
+                <View style={[styles.tobView, {marginTop: ScaleHeight.small}]}>
+                  <Text style={styles.textModel}>{String.removeContactConfirm}</Text>
+                </View>
+                <View style={[styles.tobView , {width: '86%'}]}>
+                  <View style={styles.tob}>
+                    <TouchableOpacity
+                      style={[styles.smallButton, {backgroundColor: Colors.white}]}
+                      onPress={ () => setOnModal(false)}
+                    >
+                      <Text
+                        style={[styles.smallButtonText, {color: Colors.red}]}>
+                        {String.cancel}
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                <View style={styles.tob}>
+                  <TouchableOpacity
+                    style={[styles.smallButton, {backgroundColor: Colors.red}]}
+                    onPress={ () => removeContact(idCancel)}
+                  >
+                    <Text
+                      style={[styles.smallButtonText, {color: Colors.white}]}>
+                      {String.confirm}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
                    </View>
              </View>
            </TouchableOpacity>
