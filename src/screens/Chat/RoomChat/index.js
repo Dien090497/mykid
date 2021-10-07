@@ -7,15 +7,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import AudioRecorderPlayer, {
-  AVEncoderAudioQualityIOSType,
-  AVEncodingOption,
-  AudioEncoderAndroidType,
-  AudioSet,
-  AudioSourceAndroidType,
-  PlayBackType,
-  RecordBackType,
-} from 'react-native-audio-recorder-player';
 import {styles} from './styles';
 import Header from '../../../components/Header';
 import LoadingIndicator from '../../../components/LoadingIndicator';
@@ -26,33 +17,19 @@ import Consts from '../../../functions/Consts';
 import { getListDeviceApi } from '../../../network/DeviceService';
 import { showAlert } from '../../../functions/utils';
 import { String } from '../../../assets/strings/String';
+import RecorderComponent from '../../../components/RecorderComponent';
 
 export default function RoomChat({navigation}) {
   const refLoading = useRef();
+  const refRecorder = useRef();
+  const refScrollView = useRef();
   const [isRecord, setIsRecord] = useState(true);
   const [isRecording, setIsRecording] = useState(false);
   const [isCancelRecording, setIsCancelRecording] = useState(false);
   const [devices, setDevices] = useState();
   const [text, setText] = useState();
-  const [audioState, setAudioState] = useState({audioRecorderPlayer: new AudioRecorderPlayer()});
   const refTextInput = useRef();
-  // const audioRecorderPlayer = new AudioRecorderPlayer();
-  const audioRecorderPlayer = new AudioRecorderPlayer();
-
-  const onStartRecord1 = async () => {
-    const result = await this.audioRecorderPlayer.startRecorder();
-    this.audioRecorderPlayer.addRecordBackListener((e) => {
-      this.setState({
-        recordSecs: e.currentPosition,
-        recordTime: this.audioRecorderPlayer.mmssss(
-          Math.floor(e.currentPosition),
-        ),
-      });
-      return;
-    });
-    console.log(result);
-  };
-
+  
   useLayoutEffect(() => {
     focusTextInput();
   }, [refTextInput]);
@@ -64,12 +41,6 @@ export default function RoomChat({navigation}) {
 
   useLayoutEffect(() => {
     getListDevice();
-    console.log(audioState);
-    console.log(audioState.audioRecorderPlayer);
-    // if (!audioState.audioRecorderPlayer) {
-    //   audioState.audioRecorderPlayer = new AudioRecorderPlayer();
-    // }
-    // AudioRecorderPlayer.setSubscriptionDuration(0.1); // optional. Default is 0.5
   }, []);
 
   const focusTextInput = () => {
@@ -90,82 +61,22 @@ export default function RoomChat({navigation}) {
   };
 
   const toggleRecord = (state) => {
-    onStartRecord1();
+    // onStartRecord1();
     setIsRecord(state);
     // setModalVisible(true);
-  };
-
-  const sendMessage = () => {
-    setMessageText('');
-    props.closeKeyBoard();
+    // setTimeout(() => refScrollView.current.scrollToEnd({animated: true}), 100);
+    
   };
 
   const toggleGroup = () => {
     showAlert('toggleGroup');
   };
 
-  const onStartRecord = async () => {
-    if (Platform.OS === 'android') {
-      try {
-        const grants = await PermissionsAndroid.requestMultiple([
-          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-          PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-          PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
-        ]);
-
-        console.log('write external stroage', grants);
-
-        if (
-          grants['android.permission.WRITE_EXTERNAL_STORAGE'] ===
-            PermissionsAndroid.RESULTS.GRANTED &&
-          grants['android.permission.READ_EXTERNAL_STORAGE'] ===
-            PermissionsAndroid.RESULTS.GRANTED &&
-          grants['android.permission.RECORD_AUDIO'] ===
-            PermissionsAndroid.RESULTS.GRANTED
-        ) {
-          console.log('permissions granted');
-        } else {
-          console.log('All required permissions not granted');
-          return;
-        }
-      } catch (err) {
-        console.warn(err);
-        return;
-      }
-    }
-
-    const audioSet = {
-      AudioEncoderAndroid: AudioEncoderAndroidType.AAC,
-      AudioSourceAndroid: AudioSourceAndroidType.MIC,
-      AVEncoderAudioQualityKeyIOS: AVEncoderAudioQualityIOSType.high,
-      AVNumberOfChannelsKeyIOS: 2,
-      AVFormatIDKeyIOS: AVEncodingOption.aac,
-    };
-
-    console.log('audioSet', audioSet);
-
-    //? Default path
-    const uri = await audioState.audioRecorderPlayer.startRecorder(
-      '',
-      audioSet,
-    );
-
-    audioState.audioRecorderPlayer.addRecordBackListener((e) => {
-      console.log('record-back', e);
-      // setAudioState({
-      //   recordSecs: e.currentPosition,
-      //   recordTime: audioRecorderPlayer.mmssss(
-      //     Math.floor(e.currentPosition),
-      //   ),
-      // });
-    });
-    console.log(`uri: ${uri}`);
-  };
-
   const onResponderStart = async (e) => {
     console.log('onResponderStart', e.nativeEvent);
-    onStartRecord();
+    // onStartRecord();
     setIsRecording(true);
+    await refRecorder.current.onStartRecord();
   }
 
   const onResponderMove = async (e) => {
@@ -175,17 +86,26 @@ export default function RoomChat({navigation}) {
 
   const onResponderRelease = async (e) => {
     console.log('onResponderRelease', e.nativeEvent);
-    setIsRecording(false); console.log(audioState);
-    const result = await audioState.audioRecorderPlayer.stopRecorder();
-    audioState.audioRecorderPlayer.removeRecordBackListener();
+    setIsRecording(false);
+    await refRecorder.current.onStopRecord();
   }
+
+  const onStopRecord = (url) => {
+    setIsRecording(false);
+    refRecorder.current.onStartPlay(url);
+    console.log('onStopRecord: ', url);
+  };
+
+  const recordBackListener = (e) => {
+    console.log('recordBackListener: ', e);
+  };
 
   return (
     <KeyboardAvoidingView style={styles.contain}
       behavior={Platform.OS === "ios" ? "padding" : ""}>
       <Header title={'Server TQ nhóm gia đình (3)'} right rightIcon={Images.icGroup} rightAction={() => {toggleGroup()}}/>
       <View style={styles.container}>
-        <ScrollView style={styles.container}>
+        <ScrollView ref={refScrollView} style={styles.container}>
           {devices && devices.map((obj, i) => (
             <View key={i} style={[styles.viewItem, i % 2 === 0 ? {flexDirection: 'row'} : {flexDirection: 'row-reverse'}]}>
               <View style={styles.viewImg}>
@@ -215,17 +135,12 @@ export default function RoomChat({navigation}) {
           </TouchableOpacity>
           <View style={styles.viewContent}>
             {isRecord ?
-            // <TouchableOpacity style={styles.toInput}
-            //   onPressIn={(e) => {console.log('onPressIn'); console.log(e.nativeEvent)}}
-            //   onLongPress={(e) => {console.log('onLongPress'); console.log(e.nativeEvent)}}
-            //   onLayout={(e) => {console.log('onLayout'); console.log(e.nativeEvent)}}
-            //   onPress={(e) => {console.log('onPress'); console.log(e.nativeEvent)}}
-            //   onPressOut={(e) => {console.log('onPressOut'); console.log(e.nativeEvent)}}>
             <View style={styles.toInput} 
               onStartShouldSetResponder={() => {return true;}}
               onResponderStart={(e) => {onResponderStart(e)}}
               onResponderMove={(e) => {onResponderMove(e)}}
-              onResponderRelease={(e) => {onResponderRelease(e)}}>
+              onResponderRelease={(e) => {onResponderRelease(e)}}
+              onResponderTerminate={(e) => {onResponderRelease(e)}}>
               <Text style={styles.txtInput}>{String.holdAndTalk}</Text>
             </View>
             :
@@ -243,6 +158,7 @@ export default function RoomChat({navigation}) {
                 placeholder={'...'}
                 onChangeText={txt => setText(txt)}
                 ref={refTextInput}
+                // onFocus={() => setTimeout(() => refScrollView.current.scrollToEnd({animated: true}), 500)}
               />
             </View>
             }
@@ -252,7 +168,6 @@ export default function RoomChat({navigation}) {
           </TouchableOpacity>
         </View>
       </View>
-      <LoadingIndicator ref={refLoading} />
       { isRecording &&
       <View style={{
         position: 'absolute',
@@ -275,6 +190,8 @@ export default function RoomChat({navigation}) {
             style={isCancelRecording ? styles.icCancelRecord : styles.icMicrophone}/>
         </View>
       </View>}
+      <LoadingIndicator ref={refLoading}/>
+      <RecorderComponent ref={refRecorder} onStopRecord={onStopRecord} recordBackListener={recordBackListener}/>
     </KeyboardAvoidingView>
   );
 }
