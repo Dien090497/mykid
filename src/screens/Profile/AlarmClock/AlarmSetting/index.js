@@ -18,6 +18,7 @@ import {
   TimePicker
 } from 'react-native-wheel-picker-android';
 import { setAlarmApi } from '../../../../network/AlarmService';
+import { showAlert } from "../../../../functions/utils";
 
 export default function AlarmSetting({navigation, route}) {
   const refLoading = useRef();
@@ -57,6 +58,11 @@ export default function AlarmSetting({navigation, route}) {
     days.forEach(day => day.isOn = false);
     setdayOfWeeks(days);
   };
+  const chooseAllDay = () => {
+    const days = Object.assign([], dayOfWeeks);
+    days.forEach(day => day.isOn = true);
+    setdayOfWeeks(days);
+  };
 
   const toggleDay = (day, i) => {
     const days = Object.assign([], dayOfWeeks);
@@ -76,6 +82,15 @@ export default function AlarmSetting({navigation, route}) {
     const obj = Object.assign({}, config);
     obj.title = 'test';
     obj.status = 'ON';
+    obj.custom='';
+    dayOfWeeks.forEach(element => {
+      obj.custom += element.isOn ? '1' : '0';
+    });
+    if (obj.custom ==='0000000') {
+      showAlert('Vui lòng chọn ít nhất một ngày')
+      return;
+    }
+    console.log(obj)
     setConfig(obj);
     setAlarmApi(DataLocal.deviceId, obj, {
       success: resData => {
@@ -100,7 +115,7 @@ export default function AlarmSetting({navigation, route}) {
   return (
     <View style={styles.contain}>
       <Header title={String.header_alarmSetting} />
-      <ScrollView style={styles.container}>
+      <ScrollView>
         <View style={styles.chooseClock}>
           <View style={[styles.viewTime, Platform.OS !== 'ios' ? {height: 150, paddingTop: 20} : {}]}>
               {time && <TimePicker
@@ -113,44 +128,51 @@ export default function AlarmSetting({navigation, route}) {
         <View style={{flex:1, marginHorizontal:20}}>
           <Text style={styles.txtTitle}>{String.repeat}</Text>
           { config &&
-          <View style={styles.viewItem}>
-            <TouchableOpacity style={styles.viewText} onPress={() => {
-              const obj = Object.assign([], config);
-              obj.frequency = 'ONCE';
-              obj.custom = null;
-              setConfig(obj);
-              resetDay();
-            }}>
-              <Text style={[styles.txtTitle, config.frequency !== 'ONCE' ? {color: '#a9a9a9'} : {}]}>{String.once}</Text>
-            </TouchableOpacity>
+          <TouchableOpacity style={styles.viewItem} onPress={() => {
+            const obj = Object.assign([], config);
+            obj.frequency = 'ONCE';
+            obj.custom = null;
+            setConfig(obj);
+            resetDay();
+          }}>
+            <View style={styles.viewText}>
+              <Text style={[styles.txtTitle, config.frequency !== 'ONCE' ? {color: '#a9a9a9'} : {color:Colors.black}]}>{String.once}</Text>
+            </View>
             <View style={styles.viewSwitch}>
               { config.frequency === 'ONCE' &&
               <Image source={Images.icCheck} style={styles.icArrow}/>
               }
             </View>
-          </View>
+          </TouchableOpacity>
           }
           { config &&
-          <View style={styles.viewItem}>
-            <TouchableOpacity style={styles.viewText} onPress={() => {
-              const obj = Object.assign([], config);
-              obj.frequency = 'EVERY_DAY';
-              obj.custom = null;
-              setConfig(obj);
-              resetDay();
-            }}>
-              <Text style={[styles.txtTitle, config.frequency !== 'EVERY_DAY' ? {color: '#a9a9a9'} : {}]}>{String.everyday}</Text>
-            </TouchableOpacity>
+          <TouchableOpacity style={styles.viewItem} onPress={() => {
+            const obj = Object.assign([], config);
+            obj.frequency = 'EVERY_DAY';
+            obj.custom = null;
+            setConfig(obj);
+            resetDay();
+          }}>
+            <View style={styles.viewText} >
+              <Text style={[styles.txtTitle, config.frequency !== 'EVERY_DAY' ? {color: '#a9a9a9'} : {color:Colors.black}]}>{String.everyday}</Text>
+            </View>
             <View style={styles.viewSwitch}>
               { config.frequency === 'EVERY_DAY' &&
               <Image source={Images.icCheck} style={styles.icArrow}/>
               }
             </View>
-          </View>
+          </TouchableOpacity>
           }
           { config &&
           <View style={styles.customView}>
-            <View style={{flexDirection:'row', marginVertical:10}}>
+            <TouchableOpacity style={styles.customTitle} onPress={()=>{
+              const obj = Object.assign([], config);
+              obj.frequency = 'CUSTOM';
+              obj.custom = null;
+              setConfig(obj);
+              chooseAllDay();
+            }
+            }>
               <View style={styles.viewText}>
                 <Text style={[styles.txtMode, config.frequency !== 'CUSTOM' ? {color: '#a9a9a9'} : {}]}>{String.custom}</Text>
               </View>
@@ -159,7 +181,7 @@ export default function AlarmSetting({navigation, route}) {
                 <Image source={Images.icCheck} style={styles.icArrow}/>
                 }
               </View>
-            </View>
+            </TouchableOpacity>
             <View style={{flexDirection:'row',marginVertical:5,marginHorizontal:15}}>
               {dayOfWeeks.map((day, i) => (
                 <TouchableOpacity key={day.day} style={[styles.viewDay, day.isOn ? {backgroundColor: Colors.colorMain} : {}]} onPress={() => {

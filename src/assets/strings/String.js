@@ -34,6 +34,7 @@ export const String = {
   header_connectDevice: 'Kết nối thiết bị',
   header_profile: 'Cá nhân',
   header_account: 'Tài khoản',
+  header_password: 'Mật khẩu',
   header_deviceManager: 'Danh sách thiết bị',
   header_findDevice: 'Thiết bị',
   header_soundSettings: 'Cài đặt chuông',

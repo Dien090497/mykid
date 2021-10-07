@@ -62,6 +62,11 @@ export const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5
   },
+  customTitle:{
+    flexDirection:'row',
+    marginVertical:10,
+    height:ScaleHeight.small
+  },
   viewSwitch: {
     flex: 0.2,
     alignItems: 'flex-end',
@@ -117,7 +122,7 @@ export const styles = StyleSheet.create({
     color: Colors.white,
   },
   button: {
-    marginTop: 30,
+    marginVertical: 30,
     height: ScaleHeight.medium,
     backgroundColor: Colors.colorMain,
     width: '100%',
