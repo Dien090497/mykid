@@ -98,22 +98,23 @@ const Login = ({ navigation }) => {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <ScrollView style={{ flex: 1 }}>
+        <ScrollView>
           <ImageBackground source={Images.bgLogin} style={styles.image} resizeMode="stretch">
             <Image source={Images.bannerLogin} style={styles.banner} />
-            <Text style={styles.title}>Đăng nhập</Text>
+            <Text style={styles.title}>{String.login}</Text>
             <TextInput
-              placeholder="Tài khoản:"
+              placeholder={String.header_account + ":"}
               placeholderTextColor="#B5B4B4"
               onChangeText={onChangeGmail}
               value={email}
               style={styles.textInput}
             />
             <TextInput
-              placeholder="Mật khẩu:"
+              placeholder={String.header_password + ":"}
               placeholderTextColor="#B5B4B4"
               onChangeText={onChangePassword}
               value={password}
+              secureTextEntry={true}
               style={styles.textInput}
             />
             <View style={styles.ViewResetPass}>
@@ -133,14 +134,15 @@ const Login = ({ navigation }) => {
               </TouchableOpacity>
             </View>
 
-            <View style={{ marginTop: 15, flexDirection: "row" }}>
+            <View style={{ marginTop: 15, flexDirection: "row", marginBottom: 40 }}>
               <CheckBox checkedColor={Colors.colorMain} uncheckedColor={Colors.colorMain} checked={checkbox}
                         onPress={() => setCheckbox(!checkbox)} />
               <Text style={styles.txt_Policy}>{String.acceptMy}
                 <Text> </Text>
                 <Text style={styles.txtPolicy} onPress={() => console.log("hello")}>{String.agreement}</Text>
                 <Text> </Text>
-                <Text style={styles.txtPolicy} onPress={() => console.log("Chính sách bảo mật")}>{String.privacyPolicy}</Text>
+                <Text style={styles.txtPolicy}
+                      onPress={() => console.log("Chính sách bảo mật")}>{String.privacyPolicy}</Text>
               </Text>
             </View>
           </ImageBackground>

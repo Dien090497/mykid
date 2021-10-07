@@ -34,6 +34,7 @@ export const String = {
   header_connectDevice: 'Kết nối thiết bị',
   header_profile: 'Cá nhân',
   header_account: 'Tài khoản',
+  header_password: 'Mật khẩu',
   header_deviceManager: 'Danh sách thiết bị',
   header_findDevice: 'Thiết bị',
   header_soundSettings: 'Cài đặt chuông',
@@ -125,6 +126,7 @@ export const String = {
   setNameAndSetRelationship:'Đặt tên mối quan hệ',
   holdAndTalk: 'Giữ và nói',
   language:'Chọn ngôn ngữ',
+  selectAtLeastOneDay: 'Vui lòng chọn ít nhất một ngày',
 
   //member
   member_refresh: 'Làm mới',

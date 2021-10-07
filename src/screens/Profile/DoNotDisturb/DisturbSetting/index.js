@@ -11,16 +11,8 @@ import Header from "../../../../components/Header";
 import { String } from "../../../../assets/strings/String";
 import LoadingIndicator from "../../../../components/LoadingIndicator";
 import { TimePicker } from "react-native-wheel-picker-android";
-import Images from "../../../../assets/Images";
 import { Colors } from "../../../../assets/colors/Colors";
 import { showAlert } from "../../../../functions/utils";
-// import { Colors } from '../../../../assets/colors/Colors';
-// import DataLocal from '../../../data/dataLocal';
-// import { Image } from 'react-native';
-// import Images from '../../../../assets/Images';
-// import PeriodModal from '../../../components/PeriodModal';
-// import { getClassModesApi, setClassModesApi } from '../../../network/ClassModesService';
-// import Consts from "../../../../functions/Consts";
 
 export default function DoNotDisturb({ navigation, route }) {
   const refLoading = useRef();
@@ -125,7 +117,7 @@ export default function DoNotDisturb({ navigation, route }) {
       item.isOn ? data.period = data.period + "1" : data.period = data.period + "0";
     });
     if (data.period === "0000000") {
-      showAlert("ABC");
+      showAlert(String.selectAtLeastOneDay);
       return;
     }
     route.params.saveConfig(data);
@@ -143,7 +135,7 @@ export default function DoNotDisturb({ navigation, route }) {
               <TimePicker format24
                           initDate={config.from}
                           minutes={getMinutes()}
-                          indicatorColor={"#d8d8d8"}
+                          indicatorColor={Colors.indicatorColor}
                           onTimeSelected={onFromSelected} />}
             </View>
             <View style={[styles.viewSub, Platform.OS !== "ios" ? { height: "100%" } : {}]}>
@@ -155,7 +147,7 @@ export default function DoNotDisturb({ navigation, route }) {
                           initDate={config.to}
                           minutes={getMinutes()}
                           onTimeSelected={onToSelected}
-                          indicatorColor={"#d8d8d8"} />}
+                          indicatorColor={Colors.indicatorColor} />}
             </View>
           </View>
           <View style={styles.customView}>
