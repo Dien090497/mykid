@@ -54,6 +54,8 @@ export const Colors = {
   colorMain: '#EE0033',
   colorConfirmPicker:'#F3F3F3',
   colorListRadioGroup:'#707070',
+  colorImageAdmin:'#B2B2B0',
+  colorHeader:'#B5B4B4',
   //
   gradient: ['#FFFF00', '#FFFF00', '#FFFF00'],
   GradientColor: ['#FFCC00', '#FF9900', '#FF6600'],

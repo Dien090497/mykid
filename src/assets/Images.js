@@ -38,13 +38,14 @@ export default {
   icCall: require('./images/ic_call.png'),
   icCallCancel: require('./images/ic_call_cancel.png'),
   icCallReject: require('./images/ic_call_reject.png'),
-
+  icFamily: require('./images/ic_family.png'),
   icBattery: require('./images/ic_battery.png'),
   icRightArrow: require('./images/ic_right_arrow.png'),
   icCalendar: require('./images/ic_calendar.png'),
   icWatchMarker: require('./images/ic_watch_marker.png'),
   icEmptyContact: require('./images/ic_empty_contacts.png'),
   icMarkerDefault: require('./images/ic_marker_default.png'),
+  icCancelMember: require('./images/ic_cancel_member.png'),
 
   //homeScreen
   icHomeOn: require('./images/main/ic_home_on.png'),

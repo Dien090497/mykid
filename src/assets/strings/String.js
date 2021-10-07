@@ -34,6 +34,8 @@ export const String = {
   header_connectDevice: 'Kết nối thiết bị',
   header_profile: 'Cá nhân',
   header_account: 'Tài khoản',
+  header_account_admin:'Administrator',
+  header_account_member:'Family Members',
   header_password: 'Mật khẩu',
   header_deviceManager: 'Danh sách thiết bị',
   header_findDevice: 'Thiết bị',
@@ -108,7 +110,7 @@ export const String = {
   rejectContactSuccess: 'Từ chối thành viên thành công',
   deleteContactSuccess: 'Xóa thành viên thành công',
   removeContactConfirm:
-    'Bạn chắc chắn xóa thành viên này khỏi danh sách quản lý?',
+    'Bạn chắc chắn huỷ liên kết tài khoản này không ?',
   maxLengthSafeAreaName: 'Vui lòng nhập 1-32 ký tự',
   message_remove_contact_sos: 'Bạn không được xoá liên lạc khẩn cấp',
   noContactPermission: 'Bạn chưa cấp quyền truy cập danh bạ',
