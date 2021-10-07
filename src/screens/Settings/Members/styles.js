@@ -38,11 +38,10 @@ export const styles = StyleSheet.create({
     padding: 10,
     flexDirection: 'row',
     alignItems: 'center',
-    shadowColor: Colors.white,
+    shadowColor: Colors.gray,
     shadowOpacity: 1,
-    shadowRadius: width*0.02,
-    elevation:2,
-    borderRadius: width*0.02
+    elevation:4,
+    borderRadius:width*0.02
   },
   itemLeft: {
     flex: 1,
