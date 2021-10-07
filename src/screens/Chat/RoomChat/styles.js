@@ -97,4 +97,14 @@ export const styles = StyleSheet.create({
     height: 100,
     backgroundColor: Colors.opacityMedium,
   },
+  icCancelRecord: {
+    width: 81,
+    height: 89,
+    alignSelf: 'center',
+  },
+  icMicrophone: {
+    width: 100,
+    height: 100,
+    alignSelf: 'center',
+  }
 });
