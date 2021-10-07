@@ -20,8 +20,8 @@ export default ({navigation, route}) => {
   const refLoading = useRef();
   const [allMember, setAllMember] = useState([]);
   const [admin, setAdmin] = useState();
-  const [onModal,setOnModal] =useState(false)
-  const [idCancel,setIdCancel] =useState();
+  const [onModal, setOnModal] = useState(false)
+  const [idCancel, setIdCancel] = useState();
   const [loading, setLoading] = useState(false);
 
   const loadMore = React.useCallback(async () => {
@@ -113,7 +113,7 @@ export default ({navigation, route}) => {
         style={styles.itemContainer}>
         <View style={
           [styles.itemLeft, ( item.status === 'PENDING' &&
-          admin.accountId === DataLocal.userInfo.id  &&
+          admin.accountId === DataLocal.userInfo.id  ?
           {height:ScaleHeight.xxtraBig*1.6}: {height:ScaleHeight.xxtraBig})]
         }>
          <View style={styles.containerView}>
@@ -204,15 +204,7 @@ export default ({navigation, route}) => {
     <View
       style={[styles.container, {paddingBottom: useSafeAreaInsets().bottom}]}>
       <Header title={String.header_members} />
-      <ScrollView
-        style={styles.mainView}
-        refreshControl={
-          <RefreshControl
-            refreshing={loading}
-            onRefresh={loadMore}
-          />
-        }
-      >
+      <View style={styles.mainView}>
         {admin && renderHeader(true)}
         {admin && renderMemberItem(admin)}
         <FlatList
@@ -221,8 +213,14 @@ export default ({navigation, route}) => {
           keyExtractor={item => item.id}
           ListHeaderComponent={renderHeader()}
           stickyHeaderIndices={[0]}
+          refreshControl={
+            <RefreshControl
+              refreshing={loading}
+              onRefresh={loadMore}
+            />
+          }
         />
-      </ScrollView>
+      </View>
       <Modal
         visible={onModal}
         transparent={true}
