@@ -126,6 +126,7 @@ export const String = {
   setNameAndSetRelationship:'Đặt tên mối quan hệ',
   holdAndTalk: 'Giữ và nói',
   language:'Chọn ngôn ngữ',
+  selectAtLeastOneDay: 'Vui lòng chọn ít nhất một ngày',
 
   //member
   member_refresh: 'Làm mới',

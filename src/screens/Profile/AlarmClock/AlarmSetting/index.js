@@ -6,17 +6,15 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {styles} from './styles';
+import { styles } from './styles';
 import Header from '../../../../components/Header';
-import {String} from '../../../../assets/strings/String';
+import { String } from '../../../../assets/strings/String';
 import LoadingIndicator from '../../../../components/LoadingIndicator';
 import { Colors } from '../../../../assets/colors/Colors';
 import DataLocal from '../../../../data/dataLocal';
 import { Image } from 'react-native';
 import Images from '../../../../assets/Images';
-import {
-  TimePicker
-} from 'react-native-wheel-picker-android';
+import { TimePicker } from 'react-native-wheel-picker-android';
 import { setAlarmApi } from '../../../../network/AlarmService';
 import { showAlert } from "../../../../functions/utils";
 
@@ -24,7 +22,6 @@ export default function AlarmSetting({navigation, route}) {
   const refLoading = useRef();
   const [config, setConfig] = useState();
   const [time, setTime] = useState();
-  // const [state, setState] = useState({selectedItem: 1});
   const [dayOfWeeks, setdayOfWeeks] = useState([
     {day: 'CN', value: 1, isOn: false},
     {day: 'T2', value: 2, isOn: false},
@@ -82,15 +79,17 @@ export default function AlarmSetting({navigation, route}) {
     const obj = Object.assign({}, config);
     obj.title = 'test';
     obj.status = 'ON';
-    obj.custom='';
-    dayOfWeeks.forEach(element => {
-      obj.custom += element.isOn ? '1' : '0';
-    });
-    if (obj.custom ==='0000000') {
-      showAlert('Vui lòng chọn ít nhất một ngày')
-      return;
+    if (obj.frequency === 'CUSTOM') {
+      obj.custom = '';
+      dayOfWeeks.forEach(element => {
+        obj.custom += element.isOn ? '1' : '0';
+      });
+      if (obj.custom === '0000000') {
+        showAlert(String.selectAtLeastOneDay)
+        return;
+      }
     }
-    console.log(obj)
+    
     setConfig(obj);
     setAlarmApi(DataLocal.deviceId, obj, {
       success: resData => {
@@ -103,14 +102,14 @@ export default function AlarmSetting({navigation, route}) {
     });
   };
 
-    const onTimeSelected = (timeSelect) => {
-      const split = timeSelect.toString().split(' ');
-      if (split.length > 4) {
-        const obj = Object.assign({}, config);
-        obj.time = split[4];
-        setConfig(obj);
-      }
+  const onTimeSelected = (timeSelect) => {
+    const split = timeSelect.toString().split(' ');
+    if (split.length > 4) {
+      const obj = Object.assign({}, config);
+      obj.time = split[4];
+      setConfig(obj);
     }
+  }
 
   return (
     <View style={styles.contain}>
@@ -136,7 +135,7 @@ export default function AlarmSetting({navigation, route}) {
             resetDay();
           }}>
             <View style={styles.viewText}>
-              <Text style={[styles.txtTitle, config.frequency !== 'ONCE' ? {color: '#a9a9a9'} : {color:Colors.black}]}>{String.once}</Text>
+              <Text style={[styles.txtTitle, config.frequency !== 'ONCE' ? {color: Colors.titleTxt} : {color: Colors.black}]}>{String.once}</Text>
             </View>
             <View style={styles.viewSwitch}>
               { config.frequency === 'ONCE' &&
@@ -154,7 +153,7 @@ export default function AlarmSetting({navigation, route}) {
             resetDay();
           }}>
             <View style={styles.viewText} >
-              <Text style={[styles.txtTitle, config.frequency !== 'EVERY_DAY' ? {color: '#a9a9a9'} : {color:Colors.black}]}>{String.everyday}</Text>
+              <Text style={[styles.txtTitle, config.frequency !== 'EVERY_DAY' ? {color: Colors.titleTxt} : {color:Colors.black}]}>{String.everyday}</Text>
             </View>
             <View style={styles.viewSwitch}>
               { config.frequency === 'EVERY_DAY' &&
@@ -174,7 +173,7 @@ export default function AlarmSetting({navigation, route}) {
             }
             }>
               <View style={styles.viewText}>
-                <Text style={[styles.txtMode, config.frequency !== 'CUSTOM' ? {color: '#a9a9a9'} : {}]}>{String.custom}</Text>
+                <Text style={[styles.txtMode, config.frequency !== 'CUSTOM' ? {color: Colors.titleTxt} : {}]}>{String.custom}</Text>
               </View>
               <View style={styles.viewSwitch}>
                 { config.frequency === 'CUSTOM' &&
