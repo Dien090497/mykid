@@ -94,7 +94,7 @@ export const String = {
   enterOrScanCode: 'Mã đăng ký nhập/quét',
   deviceNickname: 'Biệt danh thiết bị',
   iAm: 'Tôi là ',
-  ofHe: ' của anh ấy',
+  ofHe: ' của bạn ấy',
   addDeviceSuccess: 'Kết nối thiết bị thành công',
   addDeviceSuccess2:
     'Yêu cầu kết nối đã được gửi.\nVui lòng chờ admin xác nhận',
