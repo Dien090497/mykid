@@ -150,7 +150,7 @@ export default ({navigation, route}) => {
              <View style={styles.rowItem2}></View>
            )}
          </View>
-          {item.status === 'PENDING' &&
+          {item.status === 'PENDING' && admin &&
           admin.accountId === DataLocal.userInfo.id && (
             <View style={styles.rowItem}>
               <View style={styles.tob}>
