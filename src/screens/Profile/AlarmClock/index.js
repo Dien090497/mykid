@@ -36,16 +36,12 @@ export default function AlarmClock({navigation}) {
   };
 
   const toggleSwitch = (obj, i) => {
-    if (!alarmConfig[i].title) {
-      toggleAlarmSetting(obj, i);
-      return;
-    }
     const config = Object.assign([], alarmConfig);
+    if (config[i].status === 'ON')
+      config[i].status = 'OFF';
+    else config[i].status = 'ON';
     setAlarmApi(DataLocal.deviceId, config[i], {
       success: resData => {
-        if (config[i].status === 'ON')
-          config[i].status = 'OFF';
-        else config[i].status = 'ON';
         setAlarmConfig(config);
       },
       refLoading,
