@@ -18,17 +18,18 @@ import { getListDeviceApi } from '../../../network/DeviceService';
 import { showAlert } from '../../../functions/utils';
 import { String } from '../../../assets/strings/String';
 import RecorderComponent from '../../../components/RecorderComponent';
+import Spinner from 'react-native-spinkit';
 
 export default function RoomChat({navigation}) {
   const refLoading = useRef();
   const refRecorder = useRef();
   const refScrollView = useRef();
+  const refTextInput = useRef();
   const [isRecord, setIsRecord] = useState(true);
   const [isRecording, setIsRecording] = useState(false);
   const [isCancelRecording, setIsCancelRecording] = useState(false);
   const [devices, setDevices] = useState();
   const [text, setText] = useState();
-  const refTextInput = useRef();
   
   useLayoutEffect(() => {
     focusTextInput();
@@ -113,7 +114,8 @@ export default function RoomChat({navigation}) {
               </View>
               <View style={styles.viewContent}>
                 {i % 2 === 0 && <Text style={styles.txtTitle}>{obj.deviceName}</Text>}
-                <View style={styles.viewContentDetail}></View>
+                <View style={styles.viewContentDetail}>
+                </View>
               </View>
             </View>
           ))}
@@ -178,7 +180,7 @@ export default function RoomChat({navigation}) {
       }}>
         <View style={{
           padding: 10,
-          paddingTop: 12,
+          paddingTop: 150,
           paddingLeft: 12,
           borderRadius: 5,
           width: 150,
@@ -188,6 +190,8 @@ export default function RoomChat({navigation}) {
         }}>
           <Image source={isCancelRecording ? Images.icCancelRecord : Images.icMicrophone} 
             style={isCancelRecording ? styles.icCancelRecord : styles.icMicrophone}/>
+          {isCancelRecording ? <View style={{marginBottom: 160, marginTop: -10, height: 30}}/> :
+          <Spinner style={{marginBottom: 160, marginTop: -10, height: 30, marginLeft: 30}} isVisible={true} size={60} type={'ThreeBounce'} color={'white'}/>}
         </View>
       </View>}
       <LoadingIndicator ref={refLoading}/>

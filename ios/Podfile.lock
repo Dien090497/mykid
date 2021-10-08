@@ -310,6 +310,8 @@ PODS:
     - React-Core
   - react-native-select-contact (1.6.3):
     - React-Core
+  - react-native-spinkit (1.4.1):
+    - React
   - react-native-webrtc (1.92.1):
     - React-Core
   - react-native-webview (11.6.2):
@@ -454,6 +456,7 @@ DEPENDENCIES:
   - react-native-maps (from `../node_modules/react-native-maps`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-select-contact (from `../node_modules/react-native-select-contact`)
+  - react-native-spinkit (from `../node_modules/react-native-spinkit`)
   - react-native-webrtc (from `../node_modules/react-native-webrtc`)
   - react-native-webview (from `../node_modules/react-native-webview`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
@@ -549,6 +552,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-select-contact:
     :path: "../node_modules/react-native-select-contact"
+  react-native-spinkit:
+    :path: "../node_modules/react-native-spinkit"
   react-native-webrtc:
     :path: "../node_modules/react-native-webrtc"
   react-native-webview:
@@ -641,6 +646,7 @@ SPEC CHECKSUMS:
   react-native-maps: 41d01d8e0afcebe32bec9eea3bd945adc1b18f7a
   react-native-safe-area-context: e471852c5ed67eea4b10c5d9d43c1cebae3b231d
   react-native-select-contact: 7ed15ace95f78491ed058932c3556a63a54f3133
+  react-native-spinkit: da294fd828216ad211fe36a5c14c1e09f09e62db
   react-native-webrtc: 77b969fe6bc5b7c93b455f93a13698812fb8bb4e
   react-native-webview: 1f56115845c98f0a59dfbbac685797c014a821be
   React-perflogger: fd28ee1f2b5b150b00043f0301d96bd417fdc339
@@ -668,6 +674,6 @@ SPEC CHECKSUMS:
   Yoga: aa0cb45287ebe1004c02a13f279c55a95f1572f4
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: e93bc0d280dd137324a9d9ab16329fac31a0b052
+PODFILE CHECKSUM: b2df4c1efa0879fffbee0256cb336adf52bff940
 
 COCOAPODS: 1.10.1
