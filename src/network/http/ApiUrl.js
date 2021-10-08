@@ -8,6 +8,7 @@ export const appUrl = hostUrl + '/kwapp-core/v1';
 export const streamUrl = hostUrl + '/kwstream-core/v1';
 export const wsUrl = 'wss://mykid.ttc.software/kwstream-core/v1/ws';
 export const wsSafeZoneUrl = 'wss://mykid.ttc.software/kwapp-core/v1/ws';
+export const wssXmppUrl = 'wss://' + appConfig.xmppServer + '/ws';
 
 // Account
 export const loginUrl = appUrl + '/auth/login';
@@ -26,7 +27,6 @@ export const alarmUrl = appUrl + '/alarms';
 
 // Class mode
 export const classModesUrl = appUrl + '/class-modes';
-
 
 // LanguageTimeZone
 export const languageTimeZoneUrl = appUrl + '/language-timezones';

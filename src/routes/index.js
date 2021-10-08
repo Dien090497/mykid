@@ -51,6 +51,7 @@ import {useSelector} from 'react-redux';
 import videoCallAction from '../redux/actions/videoCallAction';
 import * as encoding from 'text-encoding';
 import LanguageTimeZone from "../screens/Profile/LanguageTimeZone";
+import ChatClient from "../components/XmppChat/ChatClient";
 var encoder = new encoding.TextEncoder();
 const Tab = createBottomTabNavigator();
 
@@ -276,6 +277,7 @@ const Routes = () => {
       </Stack.Navigator>
       <OS />
       <WebSocketSafeZone />
+      <ChatClient />
     </NavigationContainer>
   );
 };
