@@ -28,8 +28,9 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Colors.white,
-    height: ScaleHeight.small,
-    width: ScaleHeight.small,
+    height: 50,
+    width: 50,
+    resizeMode: 'stretch'
   },
   itemContainer: {
     backgroundColor: Colors.white,
@@ -114,14 +115,10 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   imageView: {
-    height: ScaleHeight.medium*1.2,
-    width: ScaleHeight.medium*1.2,
+    height: ScaleHeight.medium* 1.2,
+    width: ScaleHeight.medium* 1.2,
     justifyContent:  'center',
-    alignItems: 'center',
-    borderRadius: ScaleHeight.medium*1.2/2,
-    borderWidth: 0.8,
-    borderColor: Colors.grayTxt,
-    marginTop: -height*0.04
+    marginTop: -height*0.04,
   },
   textView: {
     flexDirection: 'row',
@@ -129,7 +126,8 @@ export const styles = StyleSheet.create({
   },
   iconCancel: {
     width: 26,
-    height: 26
+    height: 26,
+    resizeMode: 'stretch'
   },
   tob: {
     width: '50%',
