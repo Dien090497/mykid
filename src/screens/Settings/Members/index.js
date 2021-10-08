@@ -112,7 +112,7 @@ export default ({navigation, route}) => {
         key={item.id}
         style={styles.itemContainer}>
         <View style={
-          [styles.itemLeft, ( item.status === 'PENDING' &&
+          [styles.itemLeft, ( item.status === 'PENDING' && admin &&
           admin.accountId === DataLocal.userInfo.id  ?
           {height:ScaleHeight.xxtraBig*1.6}: {height:ScaleHeight.xxtraBig})]
         }>
@@ -135,7 +135,7 @@ export default ({navigation, route}) => {
                {String.relationship}{item.relationship}
              </Text>
            </View>
-           {!item.admin && item.status === 'ACTIVE' &&
+           {!item.admin && item.status === 'ACTIVE' && admin &&
             admin.accountId === DataLocal.userInfo.id ? (
              <View style={styles.rowItem2}>
                <TouchableOpacity
