@@ -16,56 +16,18 @@ import { showAlert } from "../../../functions/utils";
 const AddDeviceScreen = ({ navigation, route }) => {
   const [deviceCode, setDeviceCode] = useState("");
   const [deviceName, setDeviceName] = useState("");
-  const [selectedIndex, setSelectedIndex] = useState(0);
   const [submitActive, setSubmitActive] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [contentModal, setContentModal] = useState('');
-  const refLoading = useRef();
-
-  const dataMock = [
+  const [contentModal, setContentModal] = useState("");
+  const [data, setData] = useState(
     {
       id: 1,
       name: "Bố",
       icon: Images.icFather,
       relationship: "FATHER",
-    },
-    {
-      id: 2,
-      name: "Mẹ",
-      icon: Images.icMother,
-      relationship: "MOTHER",
-    },
-    {
-      id: 3,
-      name: "Ông",
-      icon: Images.icGrandfather,
-      relationship: "GRANDFATHER",
-    },
-    {
-      id: 4,
-      name: "Bà",
-      icon: Images.icGrandmother,
-      relationship: "GRANDMOTHER",
-    },
-    {
-      id: 5,
-      name: "Anh",
-      icon: Images.icBrother,
-      relationship: "BROTHER",
-    },
-    {
-      id: 6,
-      name: "Chị",
-      icon: Images.icSister,
-      relationship: "SISTER",
-    },
-    {
-      id: 7,
-      name: "Khác",
-      icon: Images.icOther,
-      relationship: "OTHER",
-    },
-  ];
+    });
+  const refLoading = useRef();
+
 
   useLayoutEffect(() => {
     setSubmitActive(deviceCode && deviceName);
@@ -73,8 +35,8 @@ const AddDeviceScreen = ({ navigation, route }) => {
 
   useLayoutEffect(() => {
     if (route.params && route.params.isShowAlert) {
-      setContentModal(String.addDeviceSuccess2)
-      setShowModal(true)
+      setContentModal(String.addDeviceSuccess2);
+      setShowModal(true);
     }
   }, []);
 
@@ -83,29 +45,26 @@ const AddDeviceScreen = ({ navigation, route }) => {
     console.log(qr);
   };
 
-  const onPlaceChosen = (index) => {
-    setSelectedIndex(index);
+  const onPlaceChosen = (data) => {
+    setData(data)
   };
   const onRelationship = () => {
     navigation.navigate(Consts.ScreenIds.Relationship, {
-      selectedIndex: selectedIndex,
-      data: dataMock,
+      data: data,
       onChooseed: onPlaceChosen,
     });
   };
   const addDevice = () => {
     if (!submitActive) return;
-    addDeviceApi(deviceCode, deviceName, dataMock[selectedIndex].icon, dataMock[selectedIndex].relationship, {
+    addDeviceApi(deviceCode, deviceName, data.icon, data.relationship, data.relationshipName ,{
       success: resp => {
         if (resp.data) {
           if (resp.data.status === "PENDING") {
-            setContentModal(String.addDeviceSuccess2)
-            setShowModal(true)
+            setContentModal(String.addDeviceSuccess2);
+            setShowModal(true);
             setDeviceCode("");
             setDeviceName("");
-            setSelectedIndex(0);
           } else if (resp.data.status === "ACTIVE") {
-
             if (route.params && route.params.onRefresh) {
               route.params.onRefresh();
               navigation.goBack();
@@ -164,7 +123,7 @@ const AddDeviceScreen = ({ navigation, route }) => {
             <TouchableOpacity
               onPress={() =>{setShowModal(false)}}
               style={styles.btnConfirm}>
-              <Text style={styles.textConfirm}>{String.confirm}</Text>
+              <Text style={styles.textConfirm}>{String.accept}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -203,8 +162,8 @@ const AddDeviceScreen = ({ navigation, route }) => {
             style={styles.textInput} />
         </View>
         <TouchableOpacity style={styles.input} onPress={() => onRelationship()}>
-          <Image style={[styles.iconInput,{height:'60%'}]} source={dataMock[selectedIndex].icon} resizeMode="contain" />
-          <Text style={styles.textInput}>{String.iAm}{dataMock[selectedIndex].name}{String.ofHe}</Text>
+          <Image style={[styles.iconInput,{height:'60%'}]} source={data.icon} resizeMode="contain" />
+          <Text style={styles.textInput}>{String.iAm}{data.name}{String.ofHe}</Text>
           <TouchableOpacity style={{ paddingVertical: "3%" }}>
             <Image style={styles.iconInput} source={Images.icDetail} resizeMode="contain" />
           </TouchableOpacity>
