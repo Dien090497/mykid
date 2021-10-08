@@ -34,6 +34,37 @@ export default ({navigation, route}) => {
     getListDevice();
   }, []);
 
+  const dataMock = [
+    {
+      icon: Images.icFather,
+      relationship: 'FATHER'
+    },
+    {
+      icon: Images.icMother,
+      relationship: 'MOTHER'
+    },
+    {
+      icon: Images.icGrandfather,
+      relationship: 'GRANDFATHER'
+    },
+    {
+      icon: Images.icGrandmother,
+      relationship: 'GRANDMOTHER'
+    },
+    {
+      icon: Images.icBrother,
+      relationship: 'BROTHER'
+    },
+    {
+      icon: Images.icSister,
+      relationship: 'SISTER'
+    },
+    {
+      icon: Images.icOther,
+      relationship: 'OTHER'
+    },
+  ];
+
   const getListDevice = () => {
     getListDeviceApi(null, 0, 100, DataLocal.deviceId, '', {
       success: res => {
@@ -106,6 +137,8 @@ export default ({navigation, route}) => {
   }
 
   const renderMemberItem = item => {
+    const relationship = dataMock.filter(val => val.relationship === item.relationship);
+    const icon = relationship.length > 0 ? relationship[0].icon : dataMock[6].icon;
     return (
       <TouchableOpacity
         activeOpacity={0.9}
@@ -118,13 +151,13 @@ export default ({navigation, route}) => {
         }>
          <View style={styles.containerView}>
            <View style={styles.imageView}>
-             <Image style={styles.avatar} source={Images.icUser2} />
+             <Image style={styles.avatar} source={icon} />
            </View>
            <View style={styles.info}>
              <View style={styles.textView}>
                <Text style={styles.username}>{item.deviceName}</Text>
                { item.accountId===DataLocal.userInfo.id? (
-                 <Text style={[styles.username, {color: Colors.red}]}>me</Text>
+                 <Text style={[styles.username, {color: Colors.red}]}>(me)</Text>
                ): null}
              </View>
              <Text
