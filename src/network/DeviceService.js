@@ -40,6 +40,7 @@ export function addDeviceApi(
   deviceName,
   icon,
   relationship,
+  relationshipName,
   {success, failure, autoShowMsg = true, refLoading = null} = {},
 ) {
   let body = {
@@ -47,6 +48,7 @@ export function addDeviceApi(
     deviceName,
     icon,
     relationship,
+    relationshipName,
   };
   return post(listDeviceUrl, {body, success, failure, autoShowMsg, refLoading});
 }

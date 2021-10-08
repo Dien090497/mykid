@@ -17,31 +17,75 @@ import { Colors } from "../../../assets/colors/Colors";
 
 const Relationship = ({ navigation, route }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [data, setData] = useState([]);
-  const [newRelationship, setNewRelationship] = useState(false);
+  const [data, setData] = useState( [
+    {
+      id: 1,
+      name: "Bố",
+      icon: Images.icFather,
+      relationship: "FATHER",
+    },
+    {
+      id: 2,
+      name: "Mẹ",
+      icon: Images.icMother,
+      relationship: "MOTHER",
+    },
+    {
+      id: 3,
+      name: "Ông",
+      icon: Images.icGrandfather,
+      relationship: "GRANDFATHER",
+    },
+    {
+      id: 4,
+      name: "Bà",
+      icon: Images.icGrandmother,
+      relationship: "GRANDMOTHER",
+    },
+    {
+      id: 5,
+      name: "Anh",
+      icon: Images.icBrother,
+      relationship: "BROTHER",
+    },
+    {
+      id: 6,
+      name: "Chị",
+      icon: Images.icSister,
+      relationship: "SISTER",
+    },
+    {
+      id: 7,
+      name: "Khác",
+      icon: Images.icOther,
+      relationship: "OTHER",
+    },
+  ]);
+  const [ newRelationship, setNewRelationship] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
   useLayoutEffect(() => {
-    setData(route.params.data);
-    setSelectedIndex(route.params.selectedIndex);
+    const dataInfo = route.params.data;
+    data.map((item,i) =>{
+      if (item.id === dataInfo.id){
+        setSelectedIndex(i)
+      }else setSelectedIndex(0)
+    })
   }, []);
 
   const onchangeItem = index => {
     data[index].relationship ==='OTHER' ? setShowModal(true) : setSelectedIndex(index);
   };
   const confirmAddRelationship = () => {
+    const config = Object.assign([],data);
     if (newRelationship){
-      data.unshift({
-        id: data.length+1,
-        name: newRelationship,
-        icon: Images.icFather,
-        relationship: "OTHER"+data.length,
-      })
-      setData(data)
-      setSelectedIndex(0)
+        config[config.length-1].name = newRelationship;
+      config[config.length-1].relationshipName = newRelationship;
+      }
+      setData(config)
+      setSelectedIndex(config.length-1)
       setShowModal(false)
     }
-  }
 
   const addRelationship = () =>{
     return(
@@ -75,7 +119,7 @@ const Relationship = ({ navigation, route }) => {
   }
 
   const onChange = () => {
-    route.params.onChooseed(selectedIndex);
+    route.params.onChooseed(data[selectedIndex]);
     navigation.goBack();
   };
   return (
