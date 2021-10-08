@@ -77,7 +77,6 @@ export default function AlarmSetting({navigation, route}) {
 
   const handleSave = () => {
     const obj = Object.assign({}, config);
-    obj.title = 'test';
     obj.status = 'ON';
     if (obj.frequency === 'CUSTOM') {
       obj.custom = '';
