@@ -114,7 +114,7 @@ export default function DoNotDisturb({navigation}) {
           ))}
         </View>
         <TouchableOpacity style={styles.button} onPress={handleSave}>
-          <Text style={styles.buttonText}>{String.save}</Text>
+          <Text style={styles.buttonText}>{String.confirm}</Text>
         </TouchableOpacity>
       </ScrollView>
       <PeriodModal ref={refPeriodModal}/>
