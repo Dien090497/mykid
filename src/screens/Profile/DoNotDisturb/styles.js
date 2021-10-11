@@ -99,7 +99,7 @@ export const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
-    fontSize: FontSize.big,
-    fontFamily: 'Roboto-Bold'
+    fontSize: FontSize.small,
+    fontFamily: 'Roboto-Medium'
   },
 });

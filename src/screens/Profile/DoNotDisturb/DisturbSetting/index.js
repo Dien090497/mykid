@@ -168,7 +168,7 @@ export default function DoNotDisturb({ navigation, route }) {
             </View>
           </View>
           <TouchableOpacity style={styles.button} onPress={onSubmit}>
-            <Text style={styles.buttonText}>{String.save}</Text>
+            <Text style={styles.buttonText}>{String.confirm}</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
