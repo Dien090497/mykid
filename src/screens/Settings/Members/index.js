@@ -90,6 +90,9 @@ export default ({navigation, route}) => {
               showAlert(String.deleteContactSuccess, {
                 close: () => {
                   getListDevice();
+                  if (route.params && route.params.Delete) {
+                    route.params.Delete();
+                  }
                 },
               });
             },

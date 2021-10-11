@@ -40,6 +40,7 @@ import SettingScreen from '../screens/Settings';
 import RewardPoints from '../screens/RewardPoints';
 import Chat from '../screens/Chat';
 import RoomChat from '../screens/Chat/RoomChat';
+import DeleteMessage from "../screens/Chat/DeleteMessage";
 import Sound from 'react-native-sound';
 import SoundSettings from '../screens/Profile/SoundSettings';
 import AlarmClock from '../screens/Profile/AlarmClock';
@@ -285,6 +286,10 @@ const Routes = () => {
         <Stack.Screen
           name={Consts.ScreenIds.RoomChat}
           component={RoomChat}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.DeleteMessage}
+          component={DeleteMessage}
         />
         <Stack.Screen name={Consts.ScreenIds.Contacts} component={Contacts} />
         <Stack.Screen name={Consts.ScreenIds.Members} component={Members} />
