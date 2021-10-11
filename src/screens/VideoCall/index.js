@@ -92,7 +92,6 @@ const ListDeviceScreen = () => {
   const [videoCallData, setVideoCallData] = useState();
 
   let isPickUp = false;
-  let inCalling = false;
   const [visibleCall, setVisibleCall] = useState({
     visible: false,
     server: null,
@@ -180,7 +179,6 @@ const ListDeviceScreen = () => {
         // reduxStore.store.dispatch(videoCallAction.reset());
       } else if (videoCallReducer.connectionState === 'REJECTED') {
         setPresentRoomId(-1);
-        inCalling = false;
         setVisibleCall({visible: false, device: null, data: []});
         setVisibleCallState({
           visible: true,
@@ -191,7 +189,7 @@ const ListDeviceScreen = () => {
         reduxStore.store.dispatch(videoCallAction.reset());
       } else {
         setPresentRoomId(-1);
-        if (!inCalling) {
+        if (!isPickUp && videoCallReducer.connectionState === 'INIT') {
           setVisibleCallState({
             visible: true,
             deviceName: videoCallReducer.connectionData.caller.deviceName,
@@ -199,7 +197,6 @@ const ListDeviceScreen = () => {
             data: videoCallReducer.connectionData,
           });
         }
-        inCalling = false;
         setVisibleCall({visible: false, device: null, data: []});
         reduxStore.store.dispatch(videoCallAction.reset());
       }
@@ -220,7 +217,6 @@ const ListDeviceScreen = () => {
       {
         success: res => {
           //show modal call when connected
-          inCalling = true;
           setVisibleCall({
             visible: true,
             device: item,
@@ -257,7 +253,6 @@ const ListDeviceScreen = () => {
       },
       refLoading: refLoading,
     });
-    inCalling = false;
     setVisibleCall({visible: false, device: null, data: []});
   };
   const onCreateVideoCall = item => {
@@ -272,7 +267,6 @@ const ListDeviceScreen = () => {
         connectionState: '',
         data: [],
       });
-      inCalling = true;
       setVisibleCall({
         visible: true,
         device: {deviceName: item.caller.deviceName},
@@ -285,7 +279,6 @@ const ListDeviceScreen = () => {
         {
           success: res => {
             //show modal call when connected
-            inCalling = true;
             setVisibleCall({
               visible: true,
               device: {
