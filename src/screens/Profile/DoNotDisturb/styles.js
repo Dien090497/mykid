@@ -42,20 +42,28 @@ export const styles = StyleSheet.create({
     elevation: 5
   },
   viewSwitch: {
-    flex: 0.2,
-    alignItems: 'center',
+    flex: 1,
+    alignItems: 'flex-end',
     justifyContent: 'center'
   },
   viewText: {
     marginLeft:10,
-    flex: 0.8,
+    flex: 1,
     textAlign: 'left',
     paddingVertical: 10,
+    height: ScaleHeight.big,
+    justifyContent:'center',
+    alignContent:'space-between'
   },
   txtTime: {
     fontSize: FontSize.big,
     fontFamily: 'Roboto-Medium',
     color: Colors.grayTxt
+  },
+  txtAddTime: {
+    fontSize: FontSize.big,
+    fontFamily: 'Roboto',
+    color: Colors.colorHeader
   },
   txtDay: {
     fontSize: FontSize.small,
@@ -72,6 +80,7 @@ export const styles = StyleSheet.create({
     tintColor: '#B2B2B0',
     resizeMode: 'contain',
     marginLeft: 30,
+    flex:1,
   },
   rowDirection: {
     flexDirection: 'row',
