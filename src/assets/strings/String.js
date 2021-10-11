@@ -173,4 +173,7 @@ export const String = {
 
   //RewardPoints
   rewardPoints_text: 'Bé làm 1 việc tốt,hãy thưởng bé 1 điểm',
+
+  //DoNotDisturb
+  textAddTime: 'Thêm khoảng thời gian'
 };

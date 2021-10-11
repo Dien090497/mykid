@@ -31,7 +31,13 @@ export default function DoNotDisturb({navigation}) {
   const getClassModes = async () => {
     getClassModesApi(DataLocal.deviceId, {
       success: resData => {
-        setClassConfig(resData.data);
+        const data = Object.assign([],resData.data)
+        data.map((item,i)=>{
+          if (item.period ===null || item.period === undefined){
+            item.period ='0000000'
+          }
+        })
+        setClassConfig(data);
       },
       refLoading,
     });
@@ -82,24 +88,28 @@ export default function DoNotDisturb({navigation}) {
           {classConfig && classConfig.map((obj, i) => (
             <View key={i} style={styles.viewItem}>
               <TouchableOpacity style={styles.viewText} onPress={() => {
-                toggleClassSetting(obj, i);
-              }}>
+                toggleClassSetting(obj, i)}}>
                 <View style={styles.rowDirection}>
-                  <View>
-                    <Text style={styles.txtTime}>{obj.from.substring(0, 5)} - {obj.to.substring(0, 5)}</Text>
-                    <Text style={styles.txtDay}>{dayOfWeek(obj.period)}</Text>
-                  </View>
+                  {obj.from === obj.to ?
+                    <View style={{flex:9}}>
+                      <Text style={styles.txtAddTime}>{String.textAddTime}</Text>
+                    </View> :
+                    <View style={{flex:9}}>
+                      <Text style={styles.txtTime}>{obj.from.substring(0, 5)} - {obj.to.substring(0, 5)}</Text>
+                      <Text style={styles.txtDay}>{dayOfWeek(obj.period)}</Text>
+                    </View>}
                   <Image source={Images.icRightArrow} style={styles.icArrow}/>
                 </View>
               </TouchableOpacity>
-              <View style={styles.viewSwitch}>
-                <Switch
-                  trackColor={{false: '#8E8E93', true: Colors.colorMain}}
-                  thumbColor={Colors.white}
-                  onValueChange={() => {toggleSwitch(obj, i)}}
-                  value={obj.status === 'ON'}
-                />
-              </View>
+              {obj.from === obj.to ? null :
+                <View style={styles.viewSwitch}>
+                  <Switch
+                    trackColor={{false: '#8E8E93', true: Colors.colorMain}}
+                    thumbColor={Colors.white}
+                    onValueChange={() => {toggleSwitch(obj, i)}}
+                    value={obj.status === 'ON'}
+                  />
+                </View>}
             </View>
           ))}
         </View>
