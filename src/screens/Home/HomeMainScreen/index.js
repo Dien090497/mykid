@@ -1,11 +1,10 @@
-import {Image, Text, TouchableOpacity, View} from 'react-native';
+import {Image, StatusBar, Text, TouchableOpacity, View} from 'react-native';
 import React, {useLayoutEffect, useRef} from 'react';
 
 import Consts from '../../../functions/Consts';
 import Images from '../../../assets/Images';
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import {String} from '../../../assets/strings/String';
-import {appStatusBar} from '../../../components/CommonUIComponents';
 import {styles} from './styles';
 import {useNavigation} from '@react-navigation/native';
 import {showAlert} from '../../../functions/utils';
@@ -59,7 +58,7 @@ export default function HomeMainScreen() {
   const buttonProps = {activeOpacity: 0.8};
   return (
     <View style={styles.container}>
-      {appStatusBar()}
+      <StatusBar translucent backgroundColor="transparent"/>
       <View style={styles.statusBar}>
         <Image
           source={Images.bgHome}

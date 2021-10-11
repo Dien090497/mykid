@@ -11,7 +11,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
-  TextInput,
+  TextInput, StatusBar,
 } from "react-native";
 import React, { useLayoutEffect, useRef, useState } from "react";
 import { emailTest, passwordTest, showAlert } from "../../../functions/utils";
@@ -97,6 +97,7 @@ const Login = ({ navigation }) => {
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}>
+      <StatusBar backgroundColor={Colors.white} barStyle='dark-content' animated={true}/>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <ScrollView>
           <ImageBackground source={Images.bgLogin} style={styles.image} resizeMode="stretch">
