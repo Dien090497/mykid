@@ -44,6 +44,7 @@ const ScreenIds = {
   DisturbSetting: 'DisturbSetting',
   Chat: 'Chat',
   RoomChat: 'RoomChat',
+  DeleteMessage: 'DeleteMessage',
 
   // Auth
   Login: 'Login',

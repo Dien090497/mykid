@@ -68,8 +68,8 @@ export default function RoomChat({navigation}) {
     
   };
 
-  const toggleGroup = () => {
-    showAlert('toggleGroup');
+  const gotoDeleteMessage = () => {
+    navigation.navigate(Consts.ScreenIds.DeleteMessage);
   };
 
   const onResponderStart = async (e) => {
@@ -103,7 +103,7 @@ export default function RoomChat({navigation}) {
   return (
     <KeyboardAvoidingView style={styles.contain}
       behavior={Platform.OS === "ios" ? "padding" : ""}>
-      <Header title={'Server TQ nhóm gia đình (3)'} right rightIcon={Images.icGroup} rightAction={() => {toggleGroup()}}/>
+      <Header title={'Server TQ nhóm gia đình (3)'} right rightIcon={Images.icGroup} rightAction={() => {gotoDeleteMessage()}}/>
       <View style={styles.container}>
         <ScrollView ref={refScrollView} style={styles.container}>
           {devices && devices.map((obj, i) => (

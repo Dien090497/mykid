@@ -79,5 +79,6 @@ export default {
 
   //Login
   icRegister: require('./images/ic_success.png'),
+  icDeleteMessage: require('./images/ic_delete_message.png')
 
 }

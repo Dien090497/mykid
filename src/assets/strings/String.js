@@ -109,6 +109,8 @@ export const String = {
   acceptContactSuccess: 'Duyệt thành viên thành công',
   rejectContactSuccess: 'Từ chối thành viên thành công',
   deleteContactSuccess: 'Xóa thành viên thành công',
+  deleteMessage: 'Xóa lịch sử tin nhắn',
+  arleftDeleteMessage: 'Bạn có chắc chắn xóa cuộc trò chuyện này không ?',
   removeContactConfirm:
     'Bạn chắc chắn huỷ liên kết tài khoản này không ?',
   maxLengthSafeAreaName: 'Vui lòng nhập 1-32 ký tự',
