@@ -165,7 +165,7 @@ export default ({navigation, route}) => {
                children={`${String.header_account}: ${item.email}`}
              />
              <Text style={styles.otherInfoText}>
-               {String.relationship}{item.relationship}
+               {String.relationship}{(item.relationship === 'OTHER') ? item.relationshipName : item.relationship}
              </Text>
            </View>
            {!item.admin && item.status === 'ACTIVE' && admin &&
