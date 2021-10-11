@@ -33,8 +33,8 @@ export default function DoNotDisturb({navigation}) {
       success: resData => {
         const data = Object.assign([],resData.data)
         data.map((item,i)=>{
-          if (item.period ===null || item.period === undefined){
-            item.period ='0000000'
+          if (item.period === null || item.period === undefined){
+            item.period = '0000000'
           }
         })
         setClassConfig(data);
