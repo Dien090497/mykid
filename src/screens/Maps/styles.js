@@ -136,28 +136,35 @@ export const styles = StyleSheet.create({
   },
   containerDevice: {
     position: 'absolute',
-    bottom: 0,
+    bottom: 10,
     backgroundColor: 'white',
-    width: '90%',
-    height: 100,
+    width: '95%',
     alignSelf: 'center',
-    borderRadius: 6,
+    borderRadius: 10,
     paddingVertical: 10,
     paddingHorizontal: 12,
   },
   txtNameDevice: {
     fontSize: FontSize.small,
-    color: Colors.lightSalmon,
-    fontWeight: '700',
-    marginBottom: 4,
+    color: Colors.colorMain,
+    fontFamily:'Roboto-Medium',
+    marginBottom: 6,
   },
-  txtLocation: {fontSize: FontSize.small},
+  txtLocation: {
+    fontSize: FontSize.small,
+    fontFamily:'Roboto-Medium',
+    color: Colors.grayTxt,
+  },
   containerLastTime: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginTop:15
   },
-  txtTime: {fontSize: FontSize.small, color: Colors.gray},
+  txtTime: {
+    fontSize: FontSize.small,
+    color: Colors.grayTxt
+  },
   containerBattery: {flexDirection: 'row', alignItems: 'center'},
   icBattery: {
     width: 20,
