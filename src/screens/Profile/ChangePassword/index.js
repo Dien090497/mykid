@@ -4,6 +4,8 @@ import {
   Platform,
   TouchableWithoutFeedback,
   View,
+  TouchableOpacity,
+  Text
 } from "react-native";
 import React, { useLayoutEffect, useState } from "react";
 import { changePasswordApi } from "../../../network/UserInfoService";
@@ -14,6 +16,7 @@ import { Colors } from "../../../assets/colors/Colors";
 import CustomInput from "../../../components/inputRegister";
 import { String } from "../../../assets/strings/String";
 import { styles } from "./styles";
+import {ScaleHeight} from "../../../functions/Consts";
 
 const ChangePassword = ({ navigation }) => {
   const [currentPassword, setCurrentPassword] = useState('');
@@ -66,18 +69,19 @@ const ChangePassword = ({ navigation }) => {
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : ""}
       style={styles.container}>
+      <Header title={String.changePassword} />
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={styles.container}>
-          <Header title={String.changePassword} />
+        <View style={[styles.container, {marginTop: ScaleHeight.small}]}>
           <View style={styles.Sty_txtPass}>
             <CustomInput
               placeholder={String.enterCurrentPassword}
               onChangeText={(text) => { setCurrentPassword(text) }}
               value={currentPassword}
               notification={false}
+              show={false}
               secureTextEntry={showCurrentPassword}
               txtnotification={String.enterCurrentPassword}
-              onChange={() => { setShowCurrentPassword(!showCurrentPassword) }}
+              onChange={() => { setShowCurrentPassword(!showNewPassword) }}
               icon
               maxLength={16}
             />
@@ -88,6 +92,7 @@ const ChangePassword = ({ navigation }) => {
               onChangeText={(text) => { setNewPassword(text) }}
               value={newPassword}
               notification={false}
+              show={true}
               secureTextEntry={showNewPassword}
               txtnotification={String.enterNewPassword}
               onChange={() => { setShowNewPassword(!showNewPassword) }}
@@ -101,6 +106,7 @@ const ChangePassword = ({ navigation }) => {
               onChangeText={(text) => { setNewPasswordConfirm(text) }}
               value={newPasswordConfirm}
               notification={false}
+              show={true}
               secureTextEntry={showNewPasswordConfirm}
               txtnotification={String.reEnterNewPassword}
               onChange={() => { setShowNewPasswordConfirm(!showNewPasswordConfirm) }}
@@ -109,12 +115,12 @@ const ChangePassword = ({ navigation }) => {
             />
           </View>
           <View style={styles.viewButton}>
-            <Button
-              activeOpacity={submitActive ? 0 : 1}
-              onclick={onSubmit}
-              title={String.ok}
-              color={submitActive ? Colors.GradientColor : Colors.GradientColorGray}
-            />
+            <TouchableOpacity
+              onPress={onSubmit}
+              style={{backgroundColor: Colors.red, width: '88%', height: ScaleHeight.medium* 1.2, justifyContent: 'center', alignItems: 'center', borderRadius: 10}}
+            >
+              <Text style={{color: Colors.white}}>{String.confirm}</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </TouchableWithoutFeedback>

@@ -1,7 +1,8 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 import { FontSize } from '../../../functions/Consts';
 import {Colors} from '../../../assets/colors/Colors';
 
+const {width, height} = Dimensions.get('window');
 export const styles = StyleSheet.create({
   contain: {
     flex: 1,
@@ -12,16 +13,22 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.white,
   },
   radioForm: {
-    width: '96%',
+    width: '90%',
     alignSelf: 'center',
-    marginBottom: 10,
-    paddingVertical: 15,
+    paddingVertical: height* 0.02,
     borderRadius: 10,
-    backgroundColor: Colors.grayButton,
+    backgroundColor: Colors.white,
     flexDirection: 'row',
+    shadowColor: Colors.gray,
+    shadowOpacity: 1,
+    shadowOffset: { width: 2, height: 2 },
+    elevation: 4,
+    marginTop: height* 0.02
   },
   labelStyle: {
-    fontFamily: 'Roboto-Medium',
     fontSize: FontSize.big,
+    color: Colors.colorTextPlus,
+    fontWeight: '700',
+    fontStyle: 'normal'
   }
 });

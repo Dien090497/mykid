@@ -37,7 +37,7 @@ export const String = {
   header_account_admin:'Administrator',
   header_account_member:'Family Members',
   header_password: 'Mật khẩu',
-  header_findDevice: 'Tìm kiếm thiết bị',
+  header_findDevice: 'Tìm kiếm bị',
   header_soundSettings: 'Cài đặt chuông',
   header_alarmClock: 'Báo thức',
   header_alarmSetting: 'Cài đặt báo thức',
@@ -159,7 +159,7 @@ export const String = {
   home_chat: 'CHAT',
   home_safeArea: 'KHU VỰC AN TOÀN',
   home_alarm: 'CÀI ĐẶT CHUÔNG',
-  home_findDevice: 'TÌM THIẾT BỊ',
+  home_findDevice: 'TÌM THIẾT BỊ ',
   home_alarmClock: 'BÁO THỨC',
   home_device: 'THIẾT BỊ',
   home_setting: 'THIẾT LẬP',
@@ -173,7 +173,7 @@ export const String = {
   call_back: 'Gọi lại',
 
   // find device
-  find_device_note0: 'Kiểm tra thiết bị mọi lúc, mọi nơi.',
+  find_device_note0: 'Kiểm tra vị trí thiết bị mọi lúc, mọi nơi.',
   find_device_note1: '1. Bấm nút để tìm Thiết bị',
   find_device_note2: '2. Bấm thành công',
   find_device_note3: '3. Gửi thành công',
