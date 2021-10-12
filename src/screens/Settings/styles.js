@@ -32,12 +32,11 @@ export const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: FontSize.medium,
-    textAlignVertical: 'center',
     textAlign: 'left',
     color: Colors.grayTxt,
     flex: 0.8,
     paddingHorizontal: 10,
-    fontWeight: '500'
+    fontWeight: '500',
   },
   mainView: {
     flex: 1,

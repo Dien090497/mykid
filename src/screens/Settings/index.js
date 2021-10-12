@@ -101,9 +101,7 @@ export default ({navigation, route}) => {
         onPress={item.onPress}>
         <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
           <View style={styles.icon}>{item.icon}</View>
-          <View style={{flex: 0.8, justifyContent: 'center'}}>
-            <Text style={styles.titleText}>{item.title}</Text>
-          </View>
+          <Text style={styles.titleText}>{item.title}</Text>
           <View style={{flex:0.1,position: 'absolute', right: width* 0.006}}>
             <CustomIcon
               name={'arrow-forward-ios'}

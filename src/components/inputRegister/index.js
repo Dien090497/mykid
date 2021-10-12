@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { View, TouchableOpacity, Text, TextInput, Image } from "react-native";
+import React, {useEffect, useState} from "react";
+import {View, TouchableOpacity, Text, TextInput, Image} from "react-native";
 import styles from "./style";
 import Images from "../../assets/Images";
+import {Colors} from "../../assets/colors/Colors";
 
 const CustomInput = (navigation) => {
   const {
@@ -14,14 +15,15 @@ const CustomInput = (navigation) => {
     txtnotification,
     icon,
     onChange,
-    maxLength
+    maxLength,
+    show
   } = navigation;
   return (
     <View style={styles.Sty_ViewInput}>
-      <View style={{ width: "100%", flexDirection: "row" }}>
+      <View style={{width: "88%", flexDirection: "row", justifyContent: 'center', alignItems: 'center'}}>
         <TextInput
           placeholder={placeholder}
-          placeholderTextColor={"#9D9D9D"}
+          placeholderTextColor={Colors.grayTextTitleColor}
           secureTextEntry={secureTextEntry ? secureTextEntry : false}
           keyboardType={number ? "numeric" : "default"}
           onChangeText={(text) => onChangeText(text)}
@@ -30,18 +32,21 @@ const CustomInput = (navigation) => {
           style={{
             ...styles.Sty_input,
             color: "#000000",
-            width: icon ? "90%" : "100%",
             paddingVertical: !notification ? 4 : 0,
           }}
           disableFullscreenUI
           value={value || ""}
         />
         {
-          icon && <TouchableOpacity onPress={onChange}>
-            <Image
-              style={{ ...styles.Sty_iconShow }}
-              source={secureTextEntry ? Images.icView : Images.icPrivate} />
-          </TouchableOpacity>
+          icon && show !== false ?
+            (
+              <TouchableOpacity onPress={onChange} style={{justifyContent: 'flex-end', position: 'absolute', right: -10}}>
+              <Image
+                style={{...styles.Sty_iconShow}}
+                source={Images.icView}
+              />
+            </TouchableOpacity>
+            ) : null
         }
       </View>
       {
