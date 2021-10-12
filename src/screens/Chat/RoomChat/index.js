@@ -74,7 +74,13 @@ export default function RoomChat({navigation}) {
     
   };
 
-  function selectPhoto() {
+  const sendMsg = () => {
+    Keyboard.dismiss();
+    console.log(text);
+    setText('');
+  }
+
+  const selectPhoto = () => {
     Keyboard.dismiss();
     sheet.show();
   }
@@ -105,6 +111,13 @@ export default function RoomChat({navigation}) {
     setIsRecording(false);
     refRecorder.current.onStartPlay(url);
     console.log('onStopRecord: ', url);
+
+    console.log(url);
+    const lst = Object.assign([], devices);
+    const item = Object.assign({}, lst[0]);
+    item.audio = url;
+    lst.push(item);
+    setDevices(lst);
   };
 
   const recordBackListener = (e) => {
@@ -117,6 +130,12 @@ export default function RoomChat({navigation}) {
       resizeImage(imagePickerResponse).then(uri => {
         hideLoading(refLoading);
         if (uri) {
+          console.log(uri);
+          const lst = Object.assign([], devices);
+          const item = Object.assign({}, lst[0]);
+          item.img = uri;
+          lst.push(item);
+          setDevices(lst);
           // setSelectedAvatarUri(uri);
         }
       });
@@ -165,18 +184,13 @@ export default function RoomChat({navigation}) {
               <View style={styles.viewContent}>
                 {i % 2 === 0 && <Text style={styles.txtTitle}>{obj.deviceName}</Text>}
                 <View style={styles.viewContentDetail}>
+                  {obj.img &&
+                  <Image source={{uri: obj.img}} style={styles.icPhoto}/>
+                  }
+                  {obj.audio &&
+                  <Text>{obj.audio}</Text>
+                  }
                 </View>
-              </View>
-            </View>
-          ))}
-          {devices && devices.map((obj, i) => (
-            <View key={i} style={[styles.viewItem, i % 2 === 0 ? {flexDirection: 'row'} : {flexDirection: 'row-reverse'}]}>
-              <View style={styles.viewImg}>
-                <Image source={Images.icAvatar} style={styles.icAvatar}/>
-              </View>
-              <View style={styles.viewContent}>
-                {i % 2 === 0 && <Text style={styles.txtTitle}>{obj.deviceName}</Text>}
-                <View style={styles.viewContentDetail}></View>
               </View>
             </View>
           ))}
@@ -214,8 +228,8 @@ export default function RoomChat({navigation}) {
             </View>
             }
           </View>
-          <TouchableOpacity style={styles.viewImg} onPress={() => {selectPhoto()}}>
-            <Image source={Images.icCamera} style={styles.icCamera}/>
+          <TouchableOpacity style={styles.viewImg} onPress={isRecord ? selectPhoto : sendMsg}>
+            <Image source={isRecord ? Images.icCamera : Images.icSend} style={isRecord ? styles.icCamera : styles.icSend}/>
           </TouchableOpacity>
         </View>
       </View>

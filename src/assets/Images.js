@@ -74,6 +74,8 @@ export default {
   icKeyboard: require('./images/chat/ic_keyboard.png'),
   icMicrophone: require('./images/chat/ic_microphone.png'),
   icRecord: require('./images/chat/ic_record.png'),
+  icSend: require('./images/chat/ic_send.png'),
+
   //Login
   bannerLogin: require('./images/banner_login.png'),
 

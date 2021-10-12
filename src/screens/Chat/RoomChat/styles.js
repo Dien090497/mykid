@@ -36,7 +36,8 @@ export const styles = StyleSheet.create({
   viewContentDetail: {
     height: 150,
     borderRadius: 10,
-    backgroundColor: Colors.grayBgMsg
+    backgroundColor: Colors.grayBgMsg,
+    justifyContent: 'center'
   },
   txtTitle: {
     fontSize: FontSize.big,
@@ -46,6 +47,11 @@ export const styles = StyleSheet.create({
   icAvatar: {
     width: 40,
     height: 40,
+    alignSelf: 'center',
+  },
+  icPhoto: {
+    width: 140,
+    height: 140,
     alignSelf: 'center',
   },
   icKeyboard: {
@@ -63,6 +69,12 @@ export const styles = StyleSheet.create({
     marginTop: 12,
     width: 40,
     height: 40,
+    alignSelf: 'center',
+  },
+  icSend: {
+    marginTop: 21,
+    width: 28,
+    height: 24,
     alignSelf: 'center',
   },
   toInput: {

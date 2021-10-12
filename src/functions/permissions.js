@@ -107,13 +107,3 @@ async function handlePermissionResp(result, permission, listMsg = []) {
 
   return false;
 }
-
-// checkCameraPermission().then(granted => {
-//     if (granted) {
-//         checkMicrophonePermission().then(microGranted => {
-//         if (microGranted) {
-//             navigation.navigate(route.name);
-//         }
-//         })
-//     }
-// });
