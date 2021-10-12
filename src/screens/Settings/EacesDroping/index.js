@@ -57,7 +57,7 @@ export  default function EacesDroping(){
                  value={number}
                  keyboardType={"number-pad"}
                  placeholder={'Nhập số điện thoại'}
-                 placeholderTextColor='#777777'
+                 placeholderTextColor='#B5B4B4'
                  disableFullscreenUI
                  onChangeText={(text => setNumber(text))}
                />

@@ -42,7 +42,7 @@ export const String = {
   header_soundSettings: 'Cài đặt chuông',
   header_alarmClock: 'Báo thức',
   header_alarmSetting: 'Cài đặt báo thức',
-  hender_eacesDroping:'Nghe lén( Giám sát từ xa )',
+  hender_eacesDroping:'Nghe lén (Giám sát từ xa)',
   header_reward_points: 'Tặng phần thưởng',
   header_doNotDisturb: 'Chế độ lớp học',
   header_language_timezone: 'Ngôn ngữ và múi giờ',
