@@ -132,6 +132,8 @@ export const String = {
   language:'Chọn ngôn ngữ',
   selectAtLeastOneDay: 'Vui lòng chọn ít nhất một ngày',
 
+  palaceHolderSafeZone:'Thêm vùng an toàn',
+
   //member
   member_refresh: 'Làm mới',
   member_remove: 'Xoá',
