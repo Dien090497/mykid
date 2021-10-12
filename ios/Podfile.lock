@@ -36,6 +36,22 @@ PODS:
     - GoogleMaps/Base
   - Permission-Camera (3.0.5):
     - RNPermissions
+  - Permission-Contacts (3.0.5):
+    - RNPermissions
+  - Permission-LocationAccuracy (3.0.5):
+    - RNPermissions
+  - Permission-LocationAlways (3.0.5):
+    - RNPermissions
+  - Permission-LocationWhenInUse (3.0.5):
+    - RNPermissions
+  - Permission-MediaLibrary (3.0.5):
+    - RNPermissions
+  - Permission-Microphone (3.0.5):
+    - RNPermissions
+  - Permission-PhotoLibrary (3.0.5):
+    - RNPermissions
+  - Permission-PhotoLibraryAddOnly (3.0.5):
+    - RNPermissions
   - RCT-Folly (2021.04.26.00):
     - boost-for-react-native
     - DoubleConversion
@@ -239,6 +255,10 @@ PODS:
     - Google-Maps-iOS-Utils (= 2.1.0)
     - GoogleMaps (= 3.5.0)
     - React-Core
+  - react-native-image-picker (3.8.1):
+    - React-Core
+  - react-native-image-resizer (1.4.5):
+    - React-Core
   - react-native-keep-awake (4.0.0):
     - React
   - react-native-maps (0.29.3):
@@ -350,6 +370,14 @@ DEPENDENCIES:
   - FBReactNativeSpec (from `../node_modules/react-native/React/FBReactNativeSpec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - Permission-Camera (from `../node_modules/react-native-permissions/ios/Camera`)
+  - Permission-Contacts (from `../node_modules/react-native-permissions/ios/Contacts`)
+  - Permission-LocationAccuracy (from `../node_modules/react-native-permissions/ios/LocationAccuracy`)
+  - Permission-LocationAlways (from `../node_modules/react-native-permissions/ios/LocationAlways`)
+  - Permission-LocationWhenInUse (from `../node_modules/react-native-permissions/ios/LocationWhenInUse`)
+  - Permission-MediaLibrary (from `../node_modules/react-native-permissions/ios/MediaLibrary`)
+  - Permission-Microphone (from `../node_modules/react-native-permissions/ios/Microphone`)
+  - Permission-PhotoLibrary (from `../node_modules/react-native-permissions/ios/PhotoLibrary`)
+  - Permission-PhotoLibraryAddOnly (from `../node_modules/react-native-permissions/ios/PhotoLibraryAddOnly`)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
@@ -366,6 +394,8 @@ DEPENDENCIES:
   - react-native-date-picker (from `../node_modules/react-native-date-picker`)
   - react-native-geolocation-service (from `../node_modules/react-native-geolocation-service`)
   - react-native-google-maps (from `../node_modules/react-native-maps`)
+  - react-native-image-picker (from `../node_modules/react-native-image-picker`)
+  - react-native-image-resizer (from `../node_modules/react-native-image-resizer`)
   - react-native-keep-awake (from `../node_modules/react-native-keep-awake`)
   - react-native-maps (from `../node_modules/react-native-maps`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
@@ -417,6 +447,22 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
   Permission-Camera:
     :path: "../node_modules/react-native-permissions/ios/Camera"
+  Permission-Contacts:
+    :path: "../node_modules/react-native-permissions/ios/Contacts"
+  Permission-LocationAccuracy:
+    :path: "../node_modules/react-native-permissions/ios/LocationAccuracy"
+  Permission-LocationAlways:
+    :path: "../node_modules/react-native-permissions/ios/LocationAlways"
+  Permission-LocationWhenInUse:
+    :path: "../node_modules/react-native-permissions/ios/LocationWhenInUse"
+  Permission-MediaLibrary:
+    :path: "../node_modules/react-native-permissions/ios/MediaLibrary"
+  Permission-Microphone:
+    :path: "../node_modules/react-native-permissions/ios/Microphone"
+  Permission-PhotoLibrary:
+    :path: "../node_modules/react-native-permissions/ios/PhotoLibrary"
+  Permission-PhotoLibraryAddOnly:
+    :path: "../node_modules/react-native-permissions/ios/PhotoLibraryAddOnly"
   RCT-Folly:
     :podspec: "../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec"
   RCTRequired:
@@ -445,6 +491,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-geolocation-service"
   react-native-google-maps:
     :path: "../node_modules/react-native-maps"
+  react-native-image-picker:
+    :path: "../node_modules/react-native-image-picker"
+  react-native-image-resizer:
+    :path: "../node_modules/react-native-image-resizer"
   react-native-keep-awake:
     :path: "../node_modules/react-native-keep-awake"
   react-native-maps:
@@ -517,6 +567,14 @@ SPEC CHECKSUMS:
   Google-Maps-iOS-Utils: c32891ff472eaaa1fca032beedafa1a013af7875
   GoogleMaps: 32ca02de09de357a10ac773f2c70f1986751392d
   Permission-Camera: 24c37a846ff69e0eb7fd4264346550850d5b707a
+  Permission-Contacts: 8e964a7bc2e71b8377af9d007699344294d3f333
+  Permission-LocationAccuracy: bdcb49d8a0112f5e09cb9860a28f69cbfa65fbbe
+  Permission-LocationAlways: 92bf7638da5852ddba7c29fda18ecd0ac246c813
+  Permission-LocationWhenInUse: 1c1f3c5dc7e33029c0a4a0846b97b4bf89d3244b
+  Permission-MediaLibrary: 01085a7e58d0ffc5a6ecba2ba7874404e8ac10db
+  Permission-Microphone: 4667fe94d91ca063175966062186ade404ed57d1
+  Permission-PhotoLibrary: 48e58291bd650b4f197cf542dad53f41dea4e84f
+  Permission-PhotoLibraryAddOnly: 90b427e4a2acd37d1128618704b53364d73826c2
   RCT-Folly: 0dd9e1eb86348ecab5ba76f910b56f4b5fef3c46
   RCTRequired: 6cf071ab2adfd769014b3d94373744ee6e789530
   RCTTypeSafety: b829c59453478bb5b02487b8de3336386ab93ab1
@@ -531,6 +589,8 @@ SPEC CHECKSUMS:
   react-native-date-picker: da6c4f85945a2c087c569c7ac52851819ed24218
   react-native-geolocation-service: 94c7d2ffdbbf4dd431241e0c8e37d491ebd41430
   react-native-google-maps: d6a30377b40a338bd09d6ad36ce48dc5d12b5792
+  react-native-image-picker: 5a7dd93d4f9dd0d910da5dde3707fd96f70d03b3
+  react-native-image-resizer: 506412a2bdd70dde64a61e13505ce10f61a04369
   react-native-keep-awake: eba3137546b10003361b37c761f6c429b59814ae
   react-native-maps: 41d01d8e0afcebe32bec9eea3bd945adc1b18f7a
   react-native-safe-area-context: e471852c5ed67eea4b10c5d9d43c1cebae3b231d
@@ -562,6 +622,6 @@ SPEC CHECKSUMS:
   RNVectorIcons: 31cebfcf94e8cf8686eb5303ae0357da64d7a5a4
   Yoga: aa0cb45287ebe1004c02a13f279c55a95f1572f4
 
-PODFILE CHECKSUM: 0a92155f80e81ff20406d12c210a364465f2dc38
+PODFILE CHECKSUM: 2fe10dc02f69aaf9379e759383c628ba9fd1d576
 
 COCOAPODS: 1.10.1

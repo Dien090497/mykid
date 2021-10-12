@@ -131,6 +131,10 @@ export const String = {
   holdAndTalk: 'Giữ và nói',
   language:'Chọn ngôn ngữ',
   selectAtLeastOneDay: 'Vui lòng chọn ít nhất một ngày',
+  msgInvalidImage: 'Ảnh không hợp lệ',
+  selectPhotoLibrary: 'Chọn ảnh từ thư viện',
+  takePhoto: 'Chụp ảnh',
+  selectPhoto: 'Chọn ảnh',
 
   //member
   member_refresh: 'Làm mới',
@@ -177,5 +181,18 @@ export const String = {
   rewardPoints_text: 'Bé làm 1 việc tốt,hãy thưởng bé 1 điểm',
 
   //DoNotDisturb
-  textAddTime: 'Thêm khoảng thời gian'
+  textAddTime: 'Thêm khoảng thời gian',
+
+  // permissions
+  cameraUnavailable: 'Máy ảnh không khả dụng trên thiết bị của bạn',
+  photoLibraryUnavailable: 'Thư viện ảnh không khả dụng trên thiết bị của bạn',
+  microphoneUnavailable: 'Mic không khả dụng trên thiết bị của bạn',
+  cameraDenied: 'Quyền truy cập máy ảnh bị từ chối.\nVui lòng vào cài đặt để cấp quyền truy cập',
+  photoLibraryReadDenied: 'Quyền truy cập thư viện ảnh bị từ chối.\nVui lòng mở cài đặt để cấp quyền truy cập',
+  photoLibraryReadLimit: 'Quyền truy cập thư viện ảnh bị giới hạn.\nVui lòng mở cài đặt để cấp quyền truy cập "Tất cả ảnh"',
+  photoLibraryWriteDenied: 'Quyền ghi ảnh bị từ chối.\nVui lòng mở cài đặt để cấp quyền',
+  microphoneDenied: 'Quyền truy cập mic bị từ chối.\nVui lòng vào cài đặt để cấp quyền truy cập',
+  writeExternalStorageAndroidUnavailable: 'Quyền ghi dữ liệu vào bộ nhớ không khả dụng trên thiết bị của bạn',
+  writeExternalStorageAndroidDenied: 'Quyền ghi dữ liệu vào bộ nhớ bị từ chối.\nVui lòng vào cài đặt để cấp quyền',
+
 };

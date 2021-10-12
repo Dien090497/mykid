@@ -1,5 +1,6 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import {
+  Keyboard,
   KeyboardAvoidingView,
   ScrollView,
   Text,
@@ -8,6 +9,7 @@ import {
   View,
 } from 'react-native';
 import {styles} from './styles';
+import ActionSheet from '@alessiocancian/react-native-actionsheet';
 import Header from '../../../components/Header';
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import DataLocal from '../../../data/dataLocal';
@@ -15,10 +17,12 @@ import { Image } from 'react-native';
 import Images from '../../../assets/Images';
 import Consts from '../../../functions/Consts';
 import { getListDeviceApi } from '../../../network/DeviceService';
-import { showAlert } from '../../../functions/utils';
+import { hideLoading, resizeImage, showAlert, showLoading } from '../../../functions/utils';
 import { String } from '../../../assets/strings/String';
 import RecorderComponent from '../../../components/RecorderComponent';
 import Spinner from 'react-native-spinkit';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import { checkCameraPermission, checkPhotoLibraryReadPermission, checkPhotoLibraryWritePermission } from '../../../functions/permissions';
 
 export default function RoomChat({navigation}) {
   const refLoading = useRef();
@@ -30,6 +34,7 @@ export default function RoomChat({navigation}) {
   const [isCancelRecording, setIsCancelRecording] = useState(false);
   const [devices, setDevices] = useState();
   const [text, setText] = useState();
+  let sheet = null;
   
   useLayoutEffect(() => {
     focusTextInput();
@@ -69,6 +74,11 @@ export default function RoomChat({navigation}) {
     
   };
 
+  function selectPhoto() {
+    Keyboard.dismiss();
+    sheet.show();
+  }
+
   const gotoDeleteMessage = () => {
     navigation.navigate(Consts.ScreenIds.DeleteMessage);
   };
@@ -100,6 +110,46 @@ export default function RoomChat({navigation}) {
   const recordBackListener = (e) => {
     console.log('recordBackListener: ', e);
   };
+
+  const resizeImg = (imagePickerResponse) => {
+    if (imagePickerResponse.uri) {
+      showLoading(refLoading);
+      resizeImage(imagePickerResponse).then(uri => {
+        hideLoading(refLoading);
+        if (uri) {
+          // setSelectedAvatarUri(uri);
+        }
+      });
+    }
+  };
+
+  const handleImageAction = async (index) => {
+    switch (index) {
+      case 0:
+        const granted = await checkPhotoLibraryReadPermission();
+        if (granted) {
+          launchImageLibrary({
+            mediaType: 'photo',
+          }, resp => {
+            resizeImg(resp);
+          });
+        }
+        break;
+      case 1:
+        const cameraGranted = await checkCameraPermission();
+        const photosGranted = await checkPhotoLibraryWritePermission();
+        if (cameraGranted && photosGranted) {
+          launchCamera({
+            mediaType: 'photo',
+            cameraType: 'front',
+            saveToPhotos: true,
+          }, resp => {
+            resizeImg(resp);
+          });
+        }
+        break;
+    }
+  }
 
   return (
     <KeyboardAvoidingView style={styles.contain}
@@ -160,12 +210,11 @@ export default function RoomChat({navigation}) {
                 placeholder={'...'}
                 onChangeText={txt => setText(txt)}
                 ref={refTextInput}
-                // onFocus={() => setTimeout(() => refScrollView.current.scrollToEnd({animated: true}), 500)}
               />
             </View>
             }
           </View>
-          <TouchableOpacity style={styles.viewImg}>
+          <TouchableOpacity style={styles.viewImg} onPress={() => {selectPhoto()}}>
             <Image source={Images.icCamera} style={styles.icCamera}/>
           </TouchableOpacity>
         </View>
@@ -196,6 +245,17 @@ export default function RoomChat({navigation}) {
       </View>}
       <LoadingIndicator ref={refLoading}/>
       <RecorderComponent ref={refRecorder} onStopRecord={onStopRecord} recordBackListener={recordBackListener}/>
+      <ActionSheet
+        ref={o => sheet = o}
+        title={String.selectPhoto}
+        options={[
+          String.selectPhotoLibrary,
+          String.takePhoto,
+          String.cancel,
+        ]}
+        cancelButtonIndex={2}
+        onPress={handleImageAction}
+      />
     </KeyboardAvoidingView>
   );
 }

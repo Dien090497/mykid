@@ -5,6 +5,8 @@ import {ErrorMsg} from '../assets/strings/ErrorMsg';
 import KeepAwake from 'react-native-keep-awake';
 import {String} from '../assets/strings/String';
 import jwt_decode from 'jwt-decode';
+import AppConfig from '../data/AppConfig';
+import ImageResizer from 'react-native-image-resizer';
 
 const addCommas = (num, style) => {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, style);
@@ -78,6 +80,22 @@ export function showLoading(ref, msg) {
   } else {
     ref.show(msg);
   }
+}
+
+export async function resizeImage(imgPickerResp) {
+  if (imgPickerResp.height <= AppConfig.maxThumbnailSize && imgPickerResp.width <=
+    AppConfig.maxThumbnailSize) {
+    return imgPickerResp.uri;
+  }
+
+  return ImageResizer.createResizedImage(imgPickerResp.uri, AppConfig.maxThumbnailSize,
+    AppConfig.maxThumbnailSize, 'JPEG', 100).then(response => {
+    return response.uri;
+  }).catch(err => {
+    console.log('Compress error:', err);
+    showAlert(String.msgInvalidImage);
+    return null;
+  });
 }
 
 export function hideLoading(ref) {
