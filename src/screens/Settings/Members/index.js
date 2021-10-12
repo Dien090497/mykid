@@ -36,26 +36,32 @@ export default ({navigation, route}) => {
 
   const dataMock = [
     {
+      name: 'Bố',
       icon: Images.icFather,
       relationship: 'FATHER'
     },
     {
+      name: 'Mẹ',
       icon: Images.icMother,
       relationship: 'MOTHER'
     },
     {
+      name: 'Ông',
       icon: Images.icGrandfather,
       relationship: 'GRANDFATHER'
     },
     {
+      name: 'Bà',
       icon: Images.icGrandmother,
       relationship: 'GRANDMOTHER'
     },
     {
+      name: 'Anh',
       icon: Images.icBrother,
       relationship: 'BROTHER'
     },
     {
+      name: 'Chị',
       icon: Images.icSister,
       relationship: 'SISTER'
     },
@@ -142,6 +148,11 @@ export default ({navigation, route}) => {
   const renderMemberItem = item => {
     const relationship = dataMock.filter(val => val.relationship === item.relationship);
     const icon = relationship.length > 0 ? relationship[0].icon : dataMock[6].icon;
+    for (let i = 0; i < dataMock.length; i++) {
+       if (item.relationship === dataMock[i].relationship && item.relationship !== 'OTHER') {
+         item.relationshipName = dataMock[i].name;
+       }
+    }
     return (
       <TouchableOpacity
         activeOpacity={0.9}
@@ -160,7 +171,7 @@ export default ({navigation, route}) => {
              <View style={styles.textView}>
                <Text style={styles.username}>{item.deviceName}</Text>
                { item.accountId===DataLocal.userInfo.id? (
-                 <Text style={[styles.username, {color: Colors.red}]}>(me)</Text>
+                 <Text style={[styles.username, {color: Colors.red}]}>(tôi)</Text>
                ): null}
              </View>
              <Text
@@ -168,7 +179,7 @@ export default ({navigation, route}) => {
                children={`${String.header_account}: ${item.email}`}
              />
              <Text style={styles.otherInfoText}>
-               {String.relationship}{(item.relationship === 'OTHER') ? item.relationshipName : item.relationship}
+               {String.relationship}{item.relationshipName}
              </Text>
            </View>
            {!item.admin && item.status === 'ACTIVE' && admin &&
