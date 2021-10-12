@@ -45,6 +45,7 @@ const ScreenIds = {
   Chat: 'Chat',
   RoomChat: 'RoomChat',
   DeleteMessage: 'DeleteMessage',
+  SecretPhotoShoot: 'SecretPhotoShoot',
 
   // Auth
   Login: 'Login',

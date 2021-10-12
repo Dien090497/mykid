@@ -47,6 +47,7 @@ export const String = {
   header_doNotDisturb: 'Chế độ lớp học',
   header_language_timezone: 'Ngôn ngữ và múi giờ',
   header_chat: 'Tin nhắn thoại',
+  header_secret_shoot: 'Chụp ảnh từ xa',
 
   // Codepush
   codepushChecking: 'Đang kiểm tra bản cập nhật...',
@@ -177,5 +178,8 @@ export const String = {
   rewardPoints_text: 'Bé làm 1 việc tốt,hãy thưởng bé 1 điểm',
 
   //DoNotDisturb
-  textAddTime: 'Thêm khoảng thời gian'
+  textAddTime: 'Thêm khoảng thời gian',
+
+  //SecretShoot
+  textShot: 'Chụp hình',
 };

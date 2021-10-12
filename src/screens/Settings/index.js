@@ -9,6 +9,7 @@ import LoadingIndicator from '../../components/LoadingIndicator';
 import {String} from '../../assets/strings/String';
 import {styles} from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import SecretPhotoShoot from "../SecretPhotoShoot";
 
 export default ({navigation, route}) => {
   const refLoading = useRef();
@@ -109,6 +110,21 @@ export default ({navigation, route}) => {
       title: String.hender_eacesDroping,
       onPress: () => {
         navigation.navigate(Consts.ScreenIds.EacesDroping);
+      },
+      icon: (
+        <CustomIcon
+          name={'people-alt'}
+          iconFamily={'MaterialIcons'}
+          size={ScaleHeight.small}
+          color={'#15d4a1'}
+        />
+      ),
+    },
+    {
+      key: 'SecretPhotoShoot',
+      title: String.header_secret_shoot,
+      onPress: () => {
+        navigation.navigate(Consts.ScreenIds.SecretPhotoShoot);
       },
       icon: (
         <CustomIcon
