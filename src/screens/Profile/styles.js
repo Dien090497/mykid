@@ -1,56 +1,56 @@
-import {StyleSheet, Platform, StatusBar} from 'react-native';
 import Consts, { FontSize } from '../../functions/Consts';
-import {Colors} from '../../assets/colors/Colors';
+import {Colors} from "../../assets/colors/Colors";
+import {Dimensions, StyleSheet} from 'react-native';
 
-const settingHeight = (Consts.screenHeight /
-  (Consts.screenHeight < 800 ? Math.floor(Consts.screenHeight / 50) : Math.floor(
-    Consts.screenHeight / 70)));
-    
+const {width,height} = Dimensions.get('window');
+const searchHeight = (Consts.screenHeight / 24);
+
 export const styles = StyleSheet.create({
-  contain: {
-    flex: 1,
-    backgroundColor: Colors.white,
-  },
   container: {
     flex: 1,
-    backgroundColor: Colors.whiteDark,
-  },
-  rowSettings: {
-    paddingVertical: '1%',
-    height: settingHeight,
-    flexDirection: 'row',
-    width: '100%',
-    borderBottomColor: Colors.graySearch,
-    borderBottomWidth: 1,
-    alignSelf: 'center',
     backgroundColor: Colors.white,
-    justifyContent: "center",
-    alignItems: "center"
   },
-  iconSetting: {
-    marginLeft: '2%',
-    height: '80%',
-    width: '8%',
-    aspectRatio: 1,
-  },
-  textSettings: {
-    fontSize: 15,
-    width: '75%',
-    marginLeft: '5%',
-    marginTop: '1%',
-    fontFamily: 'Roboto-Medium',
-  },
-  textSettings1: {
-    fontSize: 15,
-    width: '80%',
-    marginLeft: '5%',
-    marginTop: '1%',
-    fontFamily: 'Roboto-Medium',
-  },
-  iconDetail: {
-    height: '60%',
-    width: '5%',
-    aspectRatio: 1,
+  tobMain: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: width* 0.012,
+    marginHorizontal: width* 0.04,
+    height: height* 0.08,
+    marginVertical: height* 0.01,
+    shadowColor: Colors.gray,
+    shadowOpacity: 1,
+    shadowOffset: { width: 2, height: 2 },
+    elevation: 4,
     justifyContent: 'center',
+  },
+  header: {
+    width: '95%',
+    height: searchHeight,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  titleText: {
+    fontSize: FontSize.medium,
+    textAlignVertical: 'center',
+    textAlign: 'left',
+    color: Colors.grayTxt,
+    flex: 0.8,
+    paddingHorizontal: 10,
+    fontWeight: '500'
+  },
+  mainView: {
+    flex: 1,
+    backgroundColor: Colors.white,
+    flexDirection: 'column',
+    width: '100%',
+    height: '100%',
+    alignContent: 'center',
+    marginTop: width* 0.02
+  },
+  icon: {
+    flex: 0.1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: width* 0.015
   },
 });

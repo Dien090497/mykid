@@ -1,11 +1,12 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 import Consts, { FontSize, ScaleHeight } from '../../../functions/Consts';
 import {Colors} from '../../../assets/colors/Colors';
 
 const settingHeight = (Consts.screenHeight /
   (Consts.screenHeight < 800 ? Math.floor(Consts.screenHeight / 50) : Math.floor(
     Consts.screenHeight / 70)));
-    
+const {width,height} = Dimensions.get('window');
+
 export const styles = StyleSheet.create({
   contain: {
     flex: 1,
@@ -13,7 +14,7 @@ export const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: Colors.whiteDark,
+    backgroundColor: Colors.white,
   },
   txtPlus: {
     width: '7%',
@@ -25,12 +26,12 @@ export const styles = StyleSheet.create({
   textPlus: {
     alignSelf: 'center',
     width: '90%',
-    fontSize: FontSize.big,
-    fontFamily: 'Roboto-Bold',
-    color: Colors.gray
+    fontSize: FontSize.medium,
+    fontWeight: '400',
+    color: Colors.colorTextPlus,
+    marginBottom: height* 0.015
   },
   button: {
-    marginTop: 40,
     height: ScaleHeight.medium,
     backgroundColor: Colors.red,
     width: '90%',
@@ -45,9 +46,20 @@ export const styles = StyleSheet.create({
     fontFamily: 'Roboto-Bold'
   },
   iconClock: {
-    marginLeft: 40,
-    marginVertical: 30,
-    width: 80,
-    height: 80
+    width: 102,
+    height: 100,
+    marginTop: -height* 0.02
+  },
+  imageView: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: Colors.grayBgBtnHome,
+    height: '30%',
+    width: '100%',
+    marginVertical: height* 0.04,
+  },
+  viewText: {
+    marginHorizontal: width* 0.02,
+    height: '30%'
   }
 });

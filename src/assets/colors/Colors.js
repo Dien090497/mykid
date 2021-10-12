@@ -71,5 +71,7 @@ export const Colors = {
   grayTextTitleColor: '#B5B4B4',
   grayBgMsg: '#F3F3F3',
   titleTxt: '#a9a9a9',
-  indicatorColor: '#d8d8d8'
+  indicatorColor: '#d8d8d8',
+  colorTextPlus: '#5F5F5F'
+
 };

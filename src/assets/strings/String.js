@@ -37,8 +37,7 @@ export const String = {
   header_account_admin:'Administrator',
   header_account_member:'Family Members',
   header_password: 'Mật khẩu',
-  header_deviceManager: 'Danh sách thiết bị',
-  header_findDevice: 'Thiết bị',
+  header_findDevice: 'Tìm kiếm thiết bị',
   header_soundSettings: 'Cài đặt chuông',
   header_alarmClock: 'Báo thức',
   header_alarmSetting: 'Cài đặt báo thức',
@@ -47,6 +46,8 @@ export const String = {
   header_doNotDisturb: 'Chế độ lớp học',
   header_language_timezone: 'Ngôn ngữ và múi giờ',
   header_chat: 'Tin nhắn thoại',
+  header_remoteDevices: 'Tắt thiết bị từ xa',
+  header_remoteStart: 'Khởi động lại từ xa',
 
   // Codepush
   codepushChecking: 'Đang kiểm tra bản cập nhật...',
@@ -57,11 +58,15 @@ export const String = {
   codepushUpToDate: 'Không có bản cập nhật mới',
   updateConfirmation: 'Có phiên bản mới. Bạn có chắc chắc muốn cập nhật?',
 
+  //personal
+  logout: 'Đăng xuất tài khoản',
+  changePassword: 'Đổi mật khẩu',
+  header_deviceManager: 'Quản lý thiết bị',
+  personalData: 'Dữ liệu cá nhân',
+
   //
   login: 'Đăng nhập',
   register: 'Đăng ký',
-  logout: 'Đăng xuất',
-  changePassword: 'Đổi mật khẩu',
   settings: 'Cài đặt',
   connection: 'Kết nối thiết bị',
   acceptMy: 'Tôi đã đọc và đồng ý',
@@ -168,12 +173,12 @@ export const String = {
   call_back: 'Gọi lại',
 
   // find device
-  find_device_note0: 'Luôn biết vị trí thiết bị mọi thời điểm, mọi vị trí',
+  find_device_note0: 'Kiểm tra thiết bị mọi lúc, mọi nơi.',
   find_device_note1: '1. Bấm nút để tìm Thiết bị',
   find_device_note2: '2. Bấm thành công',
   find_device_note3: '3. Gửi thành công',
   find_device_note4:
-    '4. Thiết bị sẽ bắt đầu đổ chuông sau khi nhận được yêu cầu',
+    '4. Thiết bị đổ chuông sau khi nhận được yêu cầu',
   // Videocall
   reject: 'Từ chối',
   acceptVideocall: 'Trả lời',

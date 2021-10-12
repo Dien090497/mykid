@@ -81,6 +81,23 @@ export default {
 
   //Login
   icRegister: require('./images/ic_success.png'),
-  icDeleteMessage: require('./images/ic_delete_message.png')
+  icDeleteMessage: require('./images/ic_delete_message.png'),
 
+  //Setting
+  icChieldFill: require('./images/ic_chield_fill.png'),
+  icPhoneBook: require('./images/ic_phone_book.png'),
+  icRemoteStart: require('./images/ic_remote_start.png'),
+  icReward: require('./images/ic_reward.png'),
+  icSoundMute: require('./images/ic_sound_mute_fill.png'),
+  icSubtract: require('./images/ic_subtract.png'),
+  icUserFill: require('./images/ic_user_fill.png'),
+  icWorldFill: require('./images/ic_world_fill.png'),
+
+  //personal
+  icPersonal: require('./images/ic_personal.png'),
+  icChangePass: require('./images/ic_change_pass.png'),
+  icDevices: require('./images/ic_devices.png'),
+
+ //
+  icAlarmClocks: require('./images/ic_alarm_clooks.png'),
 }
