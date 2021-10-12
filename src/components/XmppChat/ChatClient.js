@@ -29,6 +29,7 @@ export default class ChatClient extends Component {
 
       await clientXmpp.send(xml('presence'));
       const message = xml('presence', {
+        type :'subscribed',
         to: 'test@conference.mykid.ttc.software',
       });
       await clientXmpp.send(message);
