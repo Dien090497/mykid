@@ -136,6 +136,8 @@ export const String = {
   takePhoto: 'Chụp ảnh',
   selectPhoto: 'Chọn ảnh',
 
+  palaceHolderSafeZone:'Thêm vùng an toàn',
+
   //member
   member_refresh: 'Làm mới',
   member_remove: 'Xoá',
