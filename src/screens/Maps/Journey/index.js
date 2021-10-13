@@ -5,29 +5,22 @@ import {
   KeyboardAvoidingView,
   Platform,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
-} from 'react-native';
-import Consts, {FontSize} from '../../../functions/Consts';
-import {Divider, Icon, Slider, Switch} from 'react-native-elements';
+} from "react-native";
 import MapView, {Circle, Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import React, {
-  memo,
   useCallback,
   useEffect,
-  useMemo,
   useRef,
   useState,
 } from 'react';
 import {convertDateTimeToString, showAlert} from '../../../functions/utils';
 import {getJourneyApi, getListDeviceApi} from '../../../network/DeviceService';
 
-import Button from '../../../components/buttonGradient';
 import {Colors} from '../../../assets/colors/Colors';
 import DataLocal from '../../../data/dataLocal';
 import DatePicker from 'react-native-date-picker';
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import Header from '../../../components/Header';
 import Images from '../../../assets/Images';
 import LoadingIndicator from '../../../components/LoadingIndicator';
@@ -35,6 +28,7 @@ import {String} from '../../../assets/strings/String';
 import styles from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Moment from 'moment';
+import TimePickerModal from "../../../components/TimePickerModal";
 
 const mockData = [
   {
@@ -87,31 +81,33 @@ const toDateDefault = () => {
 
 export default ({}) => {
   const refMap = useRef(null);
+  const refTime = useRef();
   const [listSafeArea, setListSafeArea] = useState([]);
   const [date, setDate] = useState(new Date());
-  const [dateModal, setDateModal] = useState(new Date());
   const [fromDate, setFromDate] = useState(fromDateDefault());
   const [toDate, setToDate] = useState(toDateDefault());
   const [deviceInfo, setDeviceInfo] = useState(null);
   const refLoading = useRef();
 
   const [openDatePicker, setOpenDatePicker] = useState(false)
-  const [typeModal, setTypeModal] = useState(0)
 
   const toggleModalDate = useCallback(() => {
     setOpenDatePicker(prev => !prev);
   }, []);
-  // console.log('FROM',fromDate);
-  // console.log('TO',toDate);
+
   const toggleJourney = () => {
-    const fromDatePayload = date,
-      toDatePayload = date;
-    fromDatePayload.setHours(fromDate.getHours(), fromDate.getMinutes());
-    toDatePayload.setHours(toDate.getHours(), toDate.getMinutes());
+    if (fromDate.getHours() >= toDate.getHours()){
+      showAlert(String.timeInvalidNote);
+      return
+    }
+    fromDate.setSeconds(0, 0)
+    toDate.setSeconds(0, 0)
+    console.log('FROM', fromDate);
+    console.log('TO', toDate);
     getJourneyApi(
       DataLocal.deviceId,
-      Moment(fromDatePayload).format('yyyy-MM-DDTHH:mm:00.000Z'),
-      Moment(toDatePayload).format('yyyy-MM-DDTHH:mm:00.000Z'),
+      fromDate.toISOString(),
+      toDate.toISOString(),
       1,
       100,
       {
@@ -153,20 +149,13 @@ export default ({}) => {
   const datePicker = () => {
     return(
       <DatePicker
-        mode={typeModal === 0 ? 'date': 'time'}
+        mode={'date'}
         modal
         open={openDatePicker}
-        date={typeModal === 0 ? date : typeModal === 1 ? fromDate : toDate}
+        date={date}
         onConfirm={(time) => {
-          console.log('onConfirm: ', typeModal);
           setOpenDatePicker(false)
-          if (typeModal === 0) {
-            setDate(time);
-          } else if (typeModal === 1) {
-            setFromDate(time);
-          } else {
-            setToDate(time);
-          }
+          setDate(time);
         }}
         onCancel={() => {
           setOpenDatePicker(false)
@@ -174,27 +163,8 @@ export default ({}) => {
         title={'Chọn ngày'}
         cancelText={String.cancel}
         confirmText={String.confirm}
-      /> 
+      />
     );
-  }
-
-  const setTime = (time,type) =>{
-    console.log(type);
-    // if (typeModal ===0) setDate(date)
-    if (typeModal ===0) console.log(typeModal);
-    if (typeModal === 1){
-      console.log(typeModal);
-      // const from = date;
-      // from.setHours(date.getHours())
-      // from.setMinutes(date.getMinutes())
-      // setFromDate(from)
-    }
-    if (typeModal === 2){
-      // const to = date;
-      // to.setHours(date.getHours())
-      // to.setMinutes(date.getMinutes())
-      // setToDate(to)
-    }
   }
 
   const renderFilter = () => {
@@ -205,7 +175,6 @@ export default ({}) => {
           <TouchableOpacity
             style={styles.containerTime}
             onPress={()=>{
-              setTypeModal(0);
               toggleModalDate();
             }}>
             <Text
@@ -217,13 +186,17 @@ export default ({}) => {
             <Text style={{fontFamily:'Roboto-Medium', marginRight:10}} children={'Từ'} />
             <TouchableOpacity
               onPress={()=>{
-                setTypeModal(1);
-                toggleModalDate();
+                refTime.current.openModal(
+                  fromDate,
+                  (date)=>{
+                    console.log(date)
+                    setFromDate(date);
+                  })
               }}
               style={[styles.containerTime]}>
               <Text
                 style={styles.txtTime}
-                  children={fromDate.getHours()+':'+(fromDate.getMinutes()<10 ? '0'+fromDate.getMinutes() : fromDate.getMinutes())}
+                children={(fromDate.getHours()<10? '0'+fromDate.getHours() : fromDate.getHours())+':'+(fromDate.getMinutes()<10 ? '0'+fromDate.getMinutes() : fromDate.getMinutes())}
                 marginTop={5}
               />
             </TouchableOpacity>
@@ -232,13 +205,17 @@ export default ({}) => {
             <Text style={{fontFamily:'Roboto-Medium', marginRight:10}} children={'Đến'} />
             <TouchableOpacity
               onPress={()=>{
-                setTypeModal(2);
-                toggleModalDate();
+                refTime.current.openModal(
+                  toDate,
+                  (date)=>{
+                    console.log(date)
+                    setToDate(date);
+                  })
               }}
               style={[styles.containerTime]}>
               <Text
                 style={styles.txtTime}
-                children={toDate.getHours()+':'+(toDate.getMinutes()<10 ? '0'+toDate.getMinutes() : toDate.getMinutes())}
+                children={(toDate.getHours() < 10 ? '0'+toDate.getHours() : toDate.getHours())+':'+(toDate.getMinutes()<10 ? '0'+toDate.getMinutes() : toDate.getMinutes())}
                 marginTop={5}
               />
             </TouchableOpacity>
@@ -292,6 +269,7 @@ export default ({}) => {
         </MapView>
       </View>
       {datePicker()}
+      <TimePickerModal ref={refTime}/>
       <LoadingIndicator ref={refLoading} />
     </KeyboardAvoidingView>
   );

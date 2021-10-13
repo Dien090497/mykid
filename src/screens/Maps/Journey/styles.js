@@ -87,6 +87,48 @@ const styles = StyleSheet.create({
     padding:5,
     backgroundColor: Colors.white,
     paddingHorizontal:16
+  },
+  modal:{
+    flex:1,
+    backgroundColor: Colors.blackTransparent,
+    justifyContent:'center'
+  },
+  modalContain:{
+    backgroundColor: Colors.white,
+    marginHorizontal:20,
+    paddingHorizontal:40,
+    borderRadius:10,
+    paddingTop:20
+  },
+  btnConfirm:{
+    backgroundColor: Colors.colorMain,
+    paddingVertical: 8,
+    paddingHorizontal: 10,
+    borderRadius: 10,
+    flex:1,
+    marginLeft:10,
+  },
+  txtConfirm:{
+    color: Colors.white,
+    fontSize: FontSize.small,
+    textAlign: 'center',
+    fontFamily:'Roboto-Medium'
+  },
+  btnCancel:{
+    backgroundColor: Colors.white,
+    paddingVertical: 8,
+    paddingHorizontal: 10,
+    borderRadius: 10,
+    borderColor: Colors.colorMain,
+    borderWidth:1,
+    flex:1,
+    marginRight:10,
+  },
+  txtCancel:{
+    color: Colors.colorMain,
+    fontSize: FontSize.small,
+    textAlign: 'center',
+    fontFamily:'Roboto-Medium'
   }
 });
 
