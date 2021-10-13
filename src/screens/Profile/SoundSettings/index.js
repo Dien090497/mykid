@@ -1,5 +1,6 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import {
+  Dimensions,
   View,
 } from 'react-native';
 import {styles} from './styles';
@@ -11,6 +12,7 @@ import { Colors } from '../../../assets/colors/Colors';
 import { getSoundModesApi, setSoundModesApi } from '../../../network/UserInfoService';
 import DataLocal from '../../../data/dataLocal';
 
+const {width, height} = Dimensions.get('window');
 export default function SoundSettings({navigation}) {
   const [mode, setMode] = useState();
   const refLoading = useRef();
@@ -63,7 +65,7 @@ export default function SoundSettings({navigation}) {
     <View style={styles.contain}>
       <Header title={String.header_soundSettings} />
       <View style={styles.container}>
-        <RadioForm formHorizontal={false} animation={true} style={{ marginTop: 20 }}>
+        <RadioForm formHorizontal={false} animation={true} style={{marginTop: height* 0.008}}>
           {
             radio_props.map((obj, i) => (
               <RadioButton labelHorizontal={true} key={i} style={styles.radioForm}>
@@ -76,11 +78,11 @@ export default function SoundSettings({navigation}) {
                   }}
                   borderWidth={1}
                   buttonInnerColor={Colors.red}
-                  buttonOuterColor={mode === obj.value ? '#2196f3' : '#000'}
-                  buttonSize={15}
-                  buttonOuterSize={20}
-                  buttonStyle={{marginRight: 10}}
-                  buttonWrapStyle={{marginLeft: 10}}
+                  buttonOuterColor={Colors.red}
+                  buttonSize={20}
+                  buttonOuterSize={30}
+                  buttonStyle={{marginRight: width* 0.03}}
+                  buttonWrapStyle={{marginLeft: width* 0.03}}
                 />
                 <RadioButtonLabel
                   obj={obj}

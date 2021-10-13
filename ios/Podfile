@@ -33,6 +33,8 @@ pod 'react-native-google-maps', :path => rn_maps_path
 
   pod 'react-native-spinkit', :path => '../node_modules/react-native-spinkit'
 
+  pod 'react-native-cameraroll', :path => '../node_modules/@react-native-community/cameraroll'
+
   target 'MyKidTests' do
     inherit! :complete
     # Pods for testing

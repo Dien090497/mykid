@@ -143,8 +143,7 @@ export default ({navigation, route}) => {
 
               <Text
                 style={styles.txtLocation}
-                children={`Toạ độ: ${locationDevice?.location?.lat}, ${locationDevice?.location?.lng}`}
-              />
+                children={`Toạ độ: ${locationDevice?.location?.lat}, ${locationDevice?.location?.lng}`} />
             </View>
 
             <View style={styles.containerLastTime}>

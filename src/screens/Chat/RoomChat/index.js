@@ -23,10 +23,15 @@ import RecorderComponent from '../../../components/RecorderComponent';
 import Spinner from 'react-native-spinkit';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import { checkCameraPermission, checkPhotoLibraryReadPermission, checkPhotoLibraryWritePermission } from '../../../functions/permissions';
+import AudioPlayerComponent from '../../../components/AudioPlayerComponent';
+import CameraRoll from '@react-native-community/cameraroll';
+import { Tooltip } from 'react-native-elements';
+import { Colors } from '../../../assets/colors/Colors';
 
 export default function RoomChat({navigation}) {
   const refLoading = useRef();
   const refRecorder = useRef();
+  const refAudioPlayer = useRef();
   const refScrollView = useRef();
   const refTextInput = useRef();
   const [isRecord, setIsRecord] = useState(true);
@@ -67,14 +72,20 @@ export default function RoomChat({navigation}) {
   };
 
   const toggleRecord = (state) => {
-    // onStartRecord1();
     setIsRecord(state);
-    // setModalVisible(true);
-    // setTimeout(() => refScrollView.current.scrollToEnd({animated: true}), 100);
-    
   };
 
-  function selectPhoto() {
+  const togglePlay = (url) => {
+    refAudioPlayer.current.onStartPlay(url);
+  };
+
+  const sendMsg = () => {
+    Keyboard.dismiss();
+    console.log(text);
+    setText('');
+  }
+
+  const selectPhoto = () => {
     Keyboard.dismiss();
     sheet.show();
   }
@@ -85,7 +96,6 @@ export default function RoomChat({navigation}) {
 
   const onResponderStart = async (e) => {
     console.log('onResponderStart', e.nativeEvent);
-    // onStartRecord();
     setIsRecording(true);
     await refRecorder.current.onStartRecord();
   }
@@ -96,15 +106,19 @@ export default function RoomChat({navigation}) {
   }
 
   const onResponderRelease = async (e) => {
-    console.log('onResponderRelease', e.nativeEvent);
     setIsRecording(false);
     await refRecorder.current.onStopRecord();
   }
 
   const onStopRecord = (url) => {
     setIsRecording(false);
-    refRecorder.current.onStartPlay(url);
     console.log('onStopRecord: ', url);
+
+    const lst = Object.assign([], devices);
+    const item = Object.assign({}, lst[0]);
+    item.audio = url;
+    lst.push(item);
+    setDevices(lst);
   };
 
   const recordBackListener = (e) => {
@@ -117,7 +131,12 @@ export default function RoomChat({navigation}) {
       resizeImage(imagePickerResponse).then(uri => {
         hideLoading(refLoading);
         if (uri) {
-          // setSelectedAvatarUri(uri);
+          console.log(uri);
+          const lst = Object.assign([], devices);
+          const item = Object.assign({}, lst[0]);
+          item.img = uri;
+          lst.push(item);
+          setDevices(lst);
         }
       });
     }
@@ -142,7 +161,7 @@ export default function RoomChat({navigation}) {
           launchCamera({
             mediaType: 'photo',
             cameraType: 'front',
-            saveToPhotos: true,
+            saveToPhotos: false,
           }, resp => {
             resizeImg(resp);
           });
@@ -163,20 +182,35 @@ export default function RoomChat({navigation}) {
                 <Image source={Images.icAvatar} style={styles.icAvatar}/>
               </View>
               <View style={styles.viewContent}>
-                {i % 2 === 0 && <Text style={styles.txtTitle}>{obj.deviceName}</Text>}
-                <View style={styles.viewContentDetail}>
-                </View>
-              </View>
-            </View>
-          ))}
-          {devices && devices.map((obj, i) => (
-            <View key={i} style={[styles.viewItem, i % 2 === 0 ? {flexDirection: 'row'} : {flexDirection: 'row-reverse'}]}>
-              <View style={styles.viewImg}>
-                <Image source={Images.icAvatar} style={styles.icAvatar}/>
-              </View>
-              <View style={styles.viewContent}>
-                {i % 2 === 0 && <Text style={styles.txtTitle}>{obj.deviceName}</Text>}
-                <View style={styles.viewContentDetail}></View>
+                {i % 2 === 0 && 
+                  <Text style={styles.txtTitle}>{obj.deviceName}</Text>
+                }
+                <Tooltip toggleAction={'onLongPress'} popover={
+                  <View style={styles.viewTooltip}
+                  onStartShouldSetResponder={(e) => {
+                      CameraRoll.save('https://www.dungplus.com/wp-content/uploads/2019/12/girl-xinh-1-480x600.jpg')
+                      .then(console.log('Photo added to camera roll!')) 
+                      .catch(err => console.log('err:', err))
+                      return false;
+                    }}>
+                    <Text>Lưu ảnh</Text>
+                  </View>
+                }>
+                  <View style={{flexDirection: i % 2 === 0 ? 'row' : 'row-reverse'}}>
+                  <View style={[styles.viewContentDetail, i % 2 === 0 ? {} : {backgroundColor: Colors.pinkBgMsg}]}>
+                    {!obj.img ?
+                    <Text>sdfdsfdsf sf dsf dsf dsf sdf sdfdsfdsf sf d</Text>
+                    :
+                    <Image source={{uri: 'https://www.dungplus.com/wp-content/uploads/2019/12/girl-xinh-1-480x600.jpg'}} style={styles.icPhoto}/>
+                    }
+                    {obj.audio &&
+                    <TouchableOpacity onPress={() => {togglePlay(obj.audio)}}>
+                      <Image source={Images.icRecord} style={styles.icRecord}/>
+                    </TouchableOpacity>
+                    }
+                  </View>
+                  </View>
+                </Tooltip>
               </View>
             </View>
           ))}
@@ -214,8 +248,8 @@ export default function RoomChat({navigation}) {
             </View>
             }
           </View>
-          <TouchableOpacity style={styles.viewImg} onPress={() => {selectPhoto()}}>
-            <Image source={Images.icCamera} style={styles.icCamera}/>
+          <TouchableOpacity style={styles.viewImg} onPress={isRecord ? selectPhoto : sendMsg}>
+            <Image source={isRecord ? Images.icCamera : Images.icSend} style={isRecord ? styles.icCamera : styles.icSend}/>
           </TouchableOpacity>
         </View>
       </View>
@@ -245,6 +279,7 @@ export default function RoomChat({navigation}) {
       </View>}
       <LoadingIndicator ref={refLoading}/>
       <RecorderComponent ref={refRecorder} onStopRecord={onStopRecord} recordBackListener={recordBackListener}/>
+      <AudioPlayerComponent ref={refAudioPlayer}/>
       <ActionSheet
         ref={o => sheet = o}
         title={String.selectPhoto}

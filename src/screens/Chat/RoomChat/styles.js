@@ -20,6 +20,12 @@ export const styles = StyleSheet.create({
     marginVertical: 5,
     backgroundColor: Colors.white,
   },
+  viewTooltip: {
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   viewBottom: {
     flexDirection: 'row',
     width: '100%',
@@ -34,9 +40,12 @@ export const styles = StyleSheet.create({
     flex: 0.7,
   },
   viewContentDetail: {
-    height: 150,
+    // height: 150,
+    // width: 100,
+    padding: 10,
     borderRadius: 10,
-    backgroundColor: Colors.grayBgMsg
+    backgroundColor: Colors.grayBgMsg,
+    justifyContent: 'center'
   },
   txtTitle: {
     fontSize: FontSize.big,
@@ -47,6 +56,12 @@ export const styles = StyleSheet.create({
     width: 40,
     height: 40,
     alignSelf: 'center',
+  },
+  icPhoto: {
+    width: 140,
+    height: 140,
+    alignSelf: 'center',
+    borderRadius: 10
   },
   icKeyboard: {
     marginTop: 12,
@@ -63,6 +78,12 @@ export const styles = StyleSheet.create({
     marginTop: 12,
     width: 40,
     height: 40,
+    alignSelf: 'center',
+  },
+  icSend: {
+    marginTop: 21,
+    width: 28,
+    height: 24,
     alignSelf: 'center',
   },
   toInput: {
