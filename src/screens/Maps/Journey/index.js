@@ -27,7 +27,6 @@ import LoadingIndicator from '../../../components/LoadingIndicator';
 import {String} from '../../../assets/strings/String';
 import styles from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import Moment from 'moment';
 import TimePickerModal from "../../../components/TimePickerModal";
 
 const mockData = [
