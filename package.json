@@ -12,6 +12,7 @@
   "dependencies": {
     "@alessiocancian/react-native-actionsheet": "^2.4.11",
     "@react-native-async-storage/async-storage": "~1.15.0",
+    "@react-native-community/cameraroll": "^4.1.2",
     "@react-native-community/datetimepicker": "^3.5.2",
     "@react-native-picker/picker": "^2.1.0",
     "@react-navigation/bottom-tabs": "^5.11.15",
