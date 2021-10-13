@@ -71,16 +71,16 @@ export default class RecorderComponent extends Component {
     }
 
     const audioSet = {
-      AudioEncoderAndroid: AudioEncoderAndroidType.AAC,
+      AudioEncoderAndroid: AudioEncoderAndroidType.AMR_NB,
       AudioSourceAndroid: AudioSourceAndroidType.MIC,
-      AVEncoderAudioQualityKeyIOS: AVEncoderAudioQualityIOSType.high,
+      AVEncoderAudioQualityKeyIOS: AVEncoderAudioQualityIOSType.medium,
       AVNumberOfChannelsKeyIOS: 2,
       AVFormatIDKeyIOS: AVEncodingOption.aac,
     };
 
     //? Default path
     const uri = await this.audioRecorderPlayer.startRecorder(
-      undefined,
+      null,
       audioSet,
     );
 
