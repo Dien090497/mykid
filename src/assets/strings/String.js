@@ -78,6 +78,9 @@ export const String = {
   errorNameArea: 'Vui lòng nhập tên vùng',
   errorLocationArea: 'Vui lòng chọn một vị trí trên bản đồ làm vùng an toàn',
   placeholderGmail: 'Nhập email',
+  placeholderPhone: 'Số điện thoại',
+  passwordUser: 'Nhập mật khẩu của bạn',
+  userVerification: 'Xác nhận mật khẩu',
   errorCode: 'Lỗi định dạng mã xác minh',
   placeholderCode: 'Nhập mã xác minh',
   notification: 'Thông báo',
@@ -116,6 +119,7 @@ export const String = {
   deleteContactSuccess: 'Xóa thành viên thành công',
   deleteMessage: 'Xóa lịch sử tin nhắn',
   arleftDeleteMessage: 'Bạn có chắc chắn xóa cuộc trò chuyện này không ?',
+  arleftDeleteDevices: 'Bạn có chắc chắn muốn xóa thiết bị (Sever TQ) không ?',
   removeContactConfirm:
     'Bạn chắc chắn huỷ liên kết tài khoản này không ?',
   maxLengthSafeAreaName: 'Vui lòng nhập 1-32 ký tự',

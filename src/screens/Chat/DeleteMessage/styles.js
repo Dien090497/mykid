@@ -130,4 +130,9 @@ export const styles = StyleSheet.create({
     fontFamily: 'Roboto-Bold',
     fontSize: FontSize.small
   },
+  tob: {
+    width: '50%',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
 })

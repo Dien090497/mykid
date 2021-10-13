@@ -20,7 +20,7 @@ const CustomInput = (navigation) => {
   } = navigation;
   return (
     <View style={styles.Sty_ViewInput}>
-      <View style={{width: "88%", flexDirection: "row", justifyContent: 'center', alignItems: 'center'}}>
+      <View style={{width: "90%", flexDirection: "row", justifyContent: 'center', alignItems: 'center'}}>
         <TextInput
           placeholder={placeholder}
           placeholderTextColor={Colors.grayTextTitleColor}

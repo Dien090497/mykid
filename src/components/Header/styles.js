@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
   back: {
   },
   iconRight: {
-    height: 24,
-    width: 30
+    height: 28,
+    width: 28
   },
 });
