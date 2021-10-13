@@ -39,11 +39,15 @@ export const styles = StyleSheet.create({
     padding: 10,
     flexDirection: 'row',
     alignItems: 'center',
-    shadowColor: Colors.gray,
-    shadowOpacity: 1,
-    shadowOffset: { width: 2, height: 2 },
-    elevation:4,
-    borderRadius:width*0.02
+    borderRadius:width*0.02,
+    shadowColor: 'rgba(25,25,25, 0.5)',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
   },
   itemLeft: {
     flex: 1,
