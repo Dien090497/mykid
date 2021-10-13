@@ -34,6 +34,7 @@ import LoadingIndicator from '../../../components/LoadingIndicator';
 import {String} from '../../../assets/strings/String';
 import styles from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import Moment from 'moment';
 
 const mockData = [
   {
@@ -88,25 +89,29 @@ export default ({}) => {
   const refMap = useRef(null);
   const [listSafeArea, setListSafeArea] = useState([]);
   const [date, setDate] = useState(new Date());
-  const [visibleDate, setVisibleDate] = useState(false);
+  const [dateModal, setDateModal] = useState(new Date());
   const [fromDate, setFromDate] = useState(fromDateDefault());
   const [toDate, setToDate] = useState(toDateDefault());
   const [deviceInfo, setDeviceInfo] = useState(null);
   const refLoading = useRef();
 
-  const toggleModalDate = useCallback(() => {
-    setVisibleDate(prev => !prev);
-  }, []);
+  const [openDatePicker, setOpenDatePicker] = useState(false)
+  const [typeModal, setTypeModal] = useState(0)
 
+  const toggleModalDate = useCallback(() => {
+    setOpenDatePicker(prev => !prev);
+  }, []);
+  // console.log('FROM',fromDate);
+  // console.log('TO',toDate);
   const toggleJourney = () => {
     const fromDatePayload = date,
       toDatePayload = date;
     fromDatePayload.setHours(fromDate.getHours(), fromDate.getMinutes());
-    toDatePayload.setHours(fromDate.getHours(), fromDate.getMinutes());
+    toDatePayload.setHours(toDate.getHours(), toDate.getMinutes());
     getJourneyApi(
       DataLocal.deviceId,
-      fromDatePayload.toISOString(),
-      toDatePayload.toISOString(),
+      Moment(fromDatePayload).format('yyyy-MM-DDTHH:mm:00.000Z'),
+      Moment(toDatePayload).format('yyyy-MM-DDTHH:mm:00.000Z'),
       1,
       100,
       {
@@ -145,11 +150,77 @@ export default ({}) => {
     getDeviceInfo();
   }, []);
 
-  const minValue = () => {
-    var date = new Date();
-    date.setHours(0, 0);
-    return date;
-  };
+  const datePicker = () => {
+    return(
+      typeModal === 0 ? <DatePicker
+        mode={typeModal === 0 ? 'date': 'time'}
+        modal
+        open={openDatePicker}
+        date={typeModal === 0 ? date : typeModal === 1 ? fromDate : toDate}
+        onConfirm={(time) => {
+          setDate(time)
+          setOpenDatePicker(false)
+        }}
+        onCancel={() => {
+          setOpenDatePicker(false)
+        }}
+        title={'Chọn ngày'}
+        cancelText={String.cancel}
+        confirmText={String.confirm}
+      /> :
+        typeModal === 1 ? <DatePicker
+          mode={typeModal === 0 ? 'date': 'time'}
+          modal
+          open={openDatePicker}
+          date={typeModal === 0 ? date : typeModal === 1 ? fromDate : toDate}
+          onConfirm={(time) => {
+            setDateModal(time)
+            setOpenDatePicker(false)
+          }}
+          onCancel={() => {
+            setOpenDatePicker(false)
+          }}
+          title={'Chọn ngày'}
+          cancelText={String.cancel}
+          confirmText={String.confirm}
+        /> :
+          <DatePicker
+            mode={typeModal === 0 ? 'date': 'time'}
+            modal
+            open={openDatePicker}
+            date={typeModal === 0 ? date : typeModal === 1 ? fromDate : toDate}
+            onConfirm={(time) => {
+              setDateModal(time)
+              setOpenDatePicker(false)
+            }}
+            onCancel={() => {
+              setOpenDatePicker(false)
+            }}
+            title={'Chọn ngày'}
+            cancelText={String.cancel}
+            confirmText={String.confirm}
+          />
+    );
+  }
+
+  const setTime = (time,type) =>{
+    console.log(type);
+    // if (typeModal ===0) setDate(date)
+    if (typeModal ===0) console.log(typeModal);
+    if (typeModal === 1){
+      console.log(typeModal);
+      // const from = date;
+      // from.setHours(date.getHours())
+      // from.setMinutes(date.getMinutes())
+      // setFromDate(from)
+    }
+    if (typeModal === 2){
+      // const to = date;
+      // to.setHours(date.getHours())
+      // to.setMinutes(date.getMinutes())
+      // setToDate(to)
+    }
+  }
 
   const renderFilter = () => {
     return (
@@ -158,39 +229,52 @@ export default ({}) => {
           <Image source={Images.icCalendar} style={styles.icCalendar} />
           <TouchableOpacity
             style={styles.containerTime}
-            onPress={toggleModalDate}>
+            onPress={()=>{
+              setTypeModal(0);
+              toggleModalDate();
+            }}>
             <Text
               children={convertDateTimeToString(date).date}
               style={styles.txtTime}
             />
           </TouchableOpacity>
-          <FromToDate
-            onClearDate={() => setFromDate('')}
-            onDate={date => setFromDate(date)}
-            title={String.from}
-            key={String.from}
-            value={fromDate}
-            minValue={minValue()}
-            maxValue={toDate}
-            containerStyle={{marginRight: 3}}
-          />
-          <FromToDate
-            onClearDate={() => setToDate('')}
-            onDate={date => setToDate(date)}
-            title={String.to}
-            key={String.to}
-            value={toDate}
-            minValue={fromDate}
-            containerStyle={{marginLeft: 5}}
-          />
+          <View style={styles.containerHour}>
+            <Text style={{fontFamily:'Roboto-Medium', marginRight:10}} children={'Từ'} />
+            <TouchableOpacity
+              onPress={()=>{
+                setTypeModal(1);
+                toggleModalDate();
+              }}
+              style={[styles.containerTime]}>
+              <Text
+                style={styles.txtTime}
+                  children={fromDate.getHours()+':'+(fromDate.getMinutes()<10 ? '0'+fromDate.getMinutes() : fromDate.getMinutes())}
+                marginTop={5}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.containerHour}>
+            <Text style={{fontFamily:'Roboto-Medium', marginRight:10}} children={'Đến'} />
+            <TouchableOpacity
+              onPress={()=>{
+                setTypeModal(2);
+                toggleModalDate();
+              }}
+              style={[styles.containerTime]}>
+              <Text
+                style={styles.txtTime}
+                children={toDate.getHours()+':'+(toDate.getMinutes()<10 ? '0'+toDate.getMinutes() : toDate.getMinutes())}
+                marginTop={5}
+              />
+            </TouchableOpacity>
+          </View>
         </View>
-        <TouchableOpacity style={styles.containerTime} onPress={toggleJourney}>
-          <Text children={String.home_journey} style={styles.txtTime} />
+        <TouchableOpacity style={[styles.containerTime,{backgroundColor: Colors.colorMain,marginVertical: 10}]} onPress={toggleJourney}>
+          <Text children={String.journey} style={styles.txtBtn} />
         </TouchableOpacity>
       </View>
     );
   };
-
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -232,126 +316,8 @@ export default ({}) => {
           ))}
         </MapView>
       </View>
-      {/* <DatePicker
-        modal
-        open={visibleDate}
-        date={date}
-        mode="date"
-        onConfirm={date => {
-          setDate(date);
-          setVisibleDate(false);
-        }}
-        onCancel={toggleModalDate}
-        maximumDate={new Date()}
-        confirmText={String.confirm}
-        cancelText={String.cancel}
-        locale="vi"
-      /> */}
-      <DateTimePickerModal
-        isVisible={visibleDate}
-        mode="date"
-        onConfirm={date => {
-          setDate(date);
-          setVisibleDate(false);
-        }}
-        onCancel={toggleModalDate}
-        confirmTextIOS={String.confirm}
-        cancelTextIOS={String.cancel}
-        locale="vi"
-      />
+      {datePicker()}
       <LoadingIndicator ref={refLoading} />
     </KeyboardAvoidingView>
-  );
-};
-
-const FromToDate = ({
-  title,
-  value,
-  containerStyle,
-  onClearDate,
-  minValue,
-  maxValue,
-  onDate,
-}) => {
-  const [visible, setVisible] = useState(false);
-  const toggleModal = () => {
-    // console.log('toggleModal', title, visible);
-    setVisible(prev => !prev);
-  };
-  const formatDateToString = useMemo(() => {
-    if (!value) return convertDateTimeToString(new Date()).time;
-    return convertDateTimeToString(value).time;
-  }, [value, title]);
-
-  const getMiniumDate = () => {
-    return minValue ? minValue : new Date();
-  };
-  const getMaxDate = () => {
-    return maxValue ? maxValue : new Date();
-  };
-
-  return (
-    <View key={title}>
-      <View style={[containerStyle, styles.containerHour]}>
-        <Text children={title} />
-        <TouchableOpacity
-          onPress={toggleModal}
-          style={[styles.containerTime, {marginLeft: 3}]}>
-          <Text
-            style={styles.txtTime}
-            children={formatDateToString}
-            marginTop={5}
-          />
-        </TouchableOpacity>
-      </View>
-      <DateTimePickerModal
-        isVisible={visible}
-        mode="time"
-        onConfirm={date => {
-          var maxDate = getMaxDate(),
-            minDate = getMiniumDate();
-
-          if (
-            (maxValue &&
-              minValue &&
-              new Date(date) >= minDate &&
-              new Date(date) <= maxDate) ||
-            (minValue && new Date(date) >= minValue && !maxValue)
-          ) {
-            toggleModal();
-            onDate(date);
-          } else {
-            showAlert(String.time_invalid);
-          }
-        }}
-        date={value ? new Date(value) : new Date()}
-        minimumDate={getMiniumDate()}
-        maximumDate={getMaxDate()}
-        onCancel={toggleModal}
-        confirmTextIOS={String.confirm}
-        cancelTextIOS={String.cancel}
-        locale="vi"
-        is24Hour={true}
-      />
-      {/* <DatePicker
-        title={title}
-        modal
-        mode="time"
-        is24hourSource="locale"
-        open={visible}
-        date={value ? new Date(value) : new Date()}
-        onConfirm={date => {
-          toggleModal();
-          onDate(date);
-        }}
-        minimumDate={getMiniumDate()}
-        onCancel={toggleModal}
-        confirmText={String.confirm}
-        cancelText={String.cancel}
-        locale="vi"
-        timeZoneOffsetInMinutes={420}
-        minuteInterval={30}
-      /> */}
-    </View>
   );
 };
