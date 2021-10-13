@@ -75,6 +75,10 @@ export default {
   icMicrophone: require('./images/chat/ic_microphone.png'),
   icRecord: require('./images/chat/ic_record.png'),
   icSend: require('./images/chat/ic_send.png'),
+  icAudioLeft: require('./images/chat/ic_audio_left.png'),
+  icAudioRight: require('./images/chat/ic_audio_right.png'),
+  aAudioLeft: require('./images/chat/a_audio_left.gif'),
+  aAudioRight: require('./images/chat/a_audio_right.gif'),
 
   //Login
   bannerLogin: require('./images/banner_login.png'),

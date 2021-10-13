@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import {styles} from './styles';
 import ActionSheet from '@alessiocancian/react-native-actionsheet';
+import FastImage from 'react-native-fast-image';
 import Header from '../../../components/Header';
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import DataLocal from '../../../data/dataLocal';
@@ -39,6 +40,7 @@ export default function RoomChat({navigation}) {
   const [isCancelRecording, setIsCancelRecording] = useState(false);
   const [devices, setDevices] = useState();
   const [text, setText] = useState();
+  const [locationY, setLocationY] = useState();
   let sheet = null;
   
   useLayoutEffect(() => {
@@ -95,14 +97,13 @@ export default function RoomChat({navigation}) {
   };
 
   const onResponderStart = async (e) => {
-    console.log('onResponderStart', e.nativeEvent);
+    setLocationY(e.nativeEvent.pageY);
     setIsRecording(true);
     await refRecorder.current.onStartRecord();
   }
 
   const onResponderMove = async (e) => {
-    setIsCancelRecording(e.nativeEvent.locationX < 20 || e.nativeEvent.locationX > 250
-      || e.nativeEvent.locationY < -20 || e.nativeEvent.locationY > 25);
+    setIsCancelRecording(locationY - e.nativeEvent.pageY > 80);
   }
 
   const onResponderRelease = async (e) => {
@@ -112,7 +113,6 @@ export default function RoomChat({navigation}) {
 
   const onStopRecord = (url) => {
     setIsRecording(false);
-    console.log('onStopRecord: ', url);
 
     const lst = Object.assign([], devices);
     const item = Object.assign({}, lst[0]);
@@ -198,14 +198,16 @@ export default function RoomChat({navigation}) {
                 }>
                   <View style={{flexDirection: i % 2 === 0 ? 'row' : 'row-reverse'}}>
                   <View style={[styles.viewContentDetail, i % 2 === 0 ? {} : {backgroundColor: Colors.pinkBgMsg}]}>
-                    {!obj.img ?
-                    <Text>sdfdsfdsf sf dsf dsf dsf sdf sdfdsfdsf sf d</Text>
-                    :
+                    {!obj.img && !obj.audio &&
                     <Image source={{uri: 'https://www.dungplus.com/wp-content/uploads/2019/12/girl-xinh-1-480x600.jpg'}} style={styles.icPhoto}/>
                     }
                     {obj.audio &&
                     <TouchableOpacity onPress={() => {togglePlay(obj.audio)}}>
-                      <Image source={Images.icRecord} style={styles.icRecord}/>
+                      <FastImage
+                        source={i % 2 === 0 ? Images.aAudioLeft : Images.aAudioRight}
+                        resizeMode={FastImage.resizeMode.contain}
+                        style={styles.icRecord}
+                      />
                     </TouchableOpacity>
                     }
                   </View>
@@ -263,7 +265,7 @@ export default function RoomChat({navigation}) {
       }}>
         <View style={{
           padding: 10,
-          paddingTop: 150,
+          paddingTop: Platform.OS === "ios" ? 150 : 180,
           paddingLeft: 12,
           borderRadius: 5,
           width: 150,
@@ -273,8 +275,8 @@ export default function RoomChat({navigation}) {
         }}>
           <Image source={isCancelRecording ? Images.icCancelRecord : Images.icMicrophone} 
             style={isCancelRecording ? styles.icCancelRecord : styles.icMicrophone}/>
-          {isCancelRecording ? <View style={{marginBottom: 160, marginTop: -10, height: 30}}/> :
-          <Spinner style={{marginBottom: 160, marginTop: -10, height: 30, marginLeft: 30}} isVisible={true} size={60} type={'ThreeBounce'} color={'white'}/>}
+          {isCancelRecording ? <View style={{marginBottom: 120, marginTop: -10, height: 70}}/> :
+          <Spinner style={{marginBottom: 120, marginTop: Platform.OS === "ios" ? -20 : -10, height: 70, marginLeft: Platform.OS === "ios" ? 30 : 35}} isVisible={true} size={60} type={'ThreeBounce'} color={'white'}/>}
         </View>
       </View>}
       <LoadingIndicator ref={refLoading}/>
