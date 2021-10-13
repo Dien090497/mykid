@@ -152,14 +152,21 @@ export default ({}) => {
 
   const datePicker = () => {
     return(
-      typeModal === 0 ? <DatePicker
+      <DatePicker
         mode={typeModal === 0 ? 'date': 'time'}
         modal
         open={openDatePicker}
         date={typeModal === 0 ? date : typeModal === 1 ? fromDate : toDate}
         onConfirm={(time) => {
-          setDate(time)
+          console.log('onConfirm: ', typeModal);
           setOpenDatePicker(false)
+          if (typeModal === 0) {
+            setDate(time);
+          } else if (typeModal === 1) {
+            setFromDate(time);
+          } else {
+            setToDate(time);
+          }
         }}
         onCancel={() => {
           setOpenDatePicker(false)
@@ -167,39 +174,7 @@ export default ({}) => {
         title={'Chọn ngày'}
         cancelText={String.cancel}
         confirmText={String.confirm}
-      /> :
-        typeModal === 1 ? <DatePicker
-          mode={typeModal === 0 ? 'date': 'time'}
-          modal
-          open={openDatePicker}
-          date={typeModal === 0 ? date : typeModal === 1 ? fromDate : toDate}
-          onConfirm={(time) => {
-            setDateModal(time)
-            setOpenDatePicker(false)
-          }}
-          onCancel={() => {
-            setOpenDatePicker(false)
-          }}
-          title={'Chọn ngày'}
-          cancelText={String.cancel}
-          confirmText={String.confirm}
-        /> :
-          <DatePicker
-            mode={typeModal === 0 ? 'date': 'time'}
-            modal
-            open={openDatePicker}
-            date={typeModal === 0 ? date : typeModal === 1 ? fromDate : toDate}
-            onConfirm={(time) => {
-              setDateModal(time)
-              setOpenDatePicker(false)
-            }}
-            onCancel={() => {
-              setOpenDatePicker(false)
-            }}
-            title={'Chọn ngày'}
-            cancelText={String.cancel}
-            confirmText={String.confirm}
-          />
+      /> 
     );
   }
 
