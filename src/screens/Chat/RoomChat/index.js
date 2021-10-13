@@ -24,6 +24,8 @@ import Spinner from 'react-native-spinkit';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import { checkCameraPermission, checkPhotoLibraryReadPermission, checkPhotoLibraryWritePermission } from '../../../functions/permissions';
 import AudioPlayerComponent from '../../../components/AudioPlayerComponent';
+import CameraRoll from '@react-native-community/cameraroll';
+import { Tooltip } from 'react-native-elements';
 
 export default function RoomChat({navigation}) {
   const refLoading = useRef();
@@ -69,11 +71,7 @@ export default function RoomChat({navigation}) {
   };
 
   const toggleRecord = (state) => {
-    // onStartRecord1();
     setIsRecord(state);
-    // setModalVisible(true);
-    // setTimeout(() => refScrollView.current.scrollToEnd({animated: true}), 100);
-    
   };
 
   const togglePlay = (url) => {
@@ -97,7 +95,6 @@ export default function RoomChat({navigation}) {
 
   const onResponderStart = async (e) => {
     console.log('onResponderStart', e.nativeEvent);
-    // onStartRecord();
     setIsRecording(true);
     await refRecorder.current.onStartRecord();
   }
@@ -108,7 +105,6 @@ export default function RoomChat({navigation}) {
   }
 
   const onResponderRelease = async (e) => {
-    console.log('onResponderRelease', e.nativeEvent);
     setIsRecording(false);
     await refRecorder.current.onStopRecord();
   }
@@ -140,7 +136,6 @@ export default function RoomChat({navigation}) {
           item.img = uri;
           lst.push(item);
           setDevices(lst);
-          // setSelectedAvatarUri(uri);
         }
       });
     }
@@ -165,7 +160,7 @@ export default function RoomChat({navigation}) {
           launchCamera({
             mediaType: 'photo',
             cameraType: 'front',
-            saveToPhotos: true,
+            saveToPhotos: false,
           }, resp => {
             resizeImg(resp);
           });
@@ -186,17 +181,33 @@ export default function RoomChat({navigation}) {
                 <Image source={Images.icAvatar} style={styles.icAvatar}/>
               </View>
               <View style={styles.viewContent}>
-                {i % 2 === 0 && <Text style={styles.txtTitle}>{obj.deviceName}</Text>}
-                <View style={styles.viewContentDetail}>
-                  {obj.img &&
-                  <Image source={{uri: obj.img}} style={styles.icPhoto}/>
-                  }
-                  {obj.audio &&
-                  <TouchableOpacity onPress={() => {togglePlay(obj.audio)}}>
-                    <Image source={Images.icRecord} style={styles.icRecord}/>
-                  </TouchableOpacity>
-                  }
-                </View>
+                {i % 2 === 0 && 
+                  <Text style={styles.txtTitle}>{obj.deviceName}</Text>
+                }
+                <Tooltip toggleAction={'onLongPress'} popover={
+                  <View style={{width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center'}}
+                  onStartShouldSetResponder={(e) => {
+                      CameraRoll.save('https://www.dungplus.com/wp-content/uploads/2019/12/girl-xinh-1-480x600.jpg')
+                      .then(console.log('Photo added to camera roll!')) 
+                      .catch(err => console.log('err:', err))
+                      return false;
+                    }}>
+                    <Text>Lưu ảnh</Text>
+                  </View>
+                }>
+                  <View style={styles.viewContentDetail}>
+                    {obj.img ?
+                    <Image source={{uri: obj.img}} style={styles.icPhoto}/>
+                    :
+                    <Image source={{uri: 'https://www.dungplus.com/wp-content/uploads/2019/12/girl-xinh-1-480x600.jpg'}} style={styles.icPhoto}/>
+                    }
+                    {obj.audio &&
+                    <TouchableOpacity onPress={() => {togglePlay(obj.audio)}}>
+                      <Image source={Images.icRecord} style={styles.icRecord}/>
+                    </TouchableOpacity>
+                    }
+                  </View>
+                </Tooltip>
               </View>
             </View>
           ))}
