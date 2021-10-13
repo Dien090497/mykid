@@ -19,10 +19,14 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: Colors.white,
     flexDirection: 'row',
-    shadowColor: Colors.gray,
-    shadowOpacity: 1,
-    shadowOffset: { width: 2, height: 2 },
-    elevation: 4,
+    shadowColor: 'rgba(25,25,25, 0.5)',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
     marginTop: height* 0.02
   },
   labelStyle: {

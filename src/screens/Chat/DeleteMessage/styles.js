@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
   },
   flatListContainer: {
     flexDirection: 'column',
-    width: '94%',
+    width: '90%',
     alignContent: 'center',
     paddingVertical: 10,
     height: 'auto',
@@ -20,10 +20,15 @@ export const styles = StyleSheet.create({
     marginHorizontal: width* 0.02,
     borderRadius: 10,
     marginTop: height* 0.02,
-    shadowColor: Colors.gray,
-    shadowOpacity: 1,
-    shadowOffset: { width: 2, height: 2 },
-    elevation: 4,
+    backgroundColor: Colors.white,
+    shadowColor: 'rgba(25,25,25, 0.5)',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
   },
   flatlistView: {
     width: '90%',
@@ -34,25 +39,32 @@ export const styles = StyleSheet.create({
   tobDelete: {
     width: '90%',
     height: '7%',
-    shadowOpacity: 1,
-    shadowOffset: { width: 2, height: 2 },
-    elevation: 4,
     borderRadius: 10,
     marginTop: height* 0.03,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: Colors.white
+    backgroundColor: Colors.white,
+    shadowColor: 'rgba(25,25,25, 0.5)',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
   },
   textDelete: {
+    textAlign: 'center',
     color: Colors.red,
-    fontSize: 14
+    fontSize: 14,
+    fontWeight: '500'
   },
   itemView: {
     flex: 1,
     flexDirection: 'column',
-    marginLeft: width* 0.05,
+    marginHorizontal: width* 0.02,
     marginTop: width* 0.04,
-    maxWidth: '18%',
+    maxWidth: '20%',
     alignItems: 'center',
   },
   icon: {
