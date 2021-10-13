@@ -101,8 +101,6 @@ export default ({}) => {
     }
     fromDate.setSeconds(0, 0)
     toDate.setSeconds(0, 0)
-    console.log('FROM', fromDate);
-    console.log('TO', toDate);
     getJourneyApi(
       DataLocal.deviceId,
       fromDate.toISOString(),
