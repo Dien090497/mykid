@@ -18,11 +18,15 @@ export const styles = StyleSheet.create({
     marginHorizontal: width* 0.04,
     height: height* 0.08,
     marginVertical: height* 0.01,
-    shadowColor: Colors.gray,
-    shadowOpacity: 1,
-    shadowOffset: { width: 2, height: 2 },
-    elevation: 4,
     justifyContent: 'center',
+    shadowColor: 'rgba(25,25,25, 0.5)',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
   },
   header: {
     width: '95%',

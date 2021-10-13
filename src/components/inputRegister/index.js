@@ -43,7 +43,7 @@ const CustomInput = (navigation) => {
               <TouchableOpacity onPress={onChange} style={{justifyContent: 'flex-end', position: 'absolute', right: -10}}>
               <Image
                 style={{...styles.Sty_iconShow}}
-                source={Images.icView}
+                source={secureTextEntry ? Images.icView : Images.icPrivate}
               />
             </TouchableOpacity>
             ) : null
