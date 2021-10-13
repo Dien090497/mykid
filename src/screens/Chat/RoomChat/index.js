@@ -26,6 +26,7 @@ import { checkCameraPermission, checkPhotoLibraryReadPermission, checkPhotoLibra
 import AudioPlayerComponent from '../../../components/AudioPlayerComponent';
 import CameraRoll from '@react-native-community/cameraroll';
 import { Tooltip } from 'react-native-elements';
+import { Colors } from '../../../assets/colors/Colors';
 
 export default function RoomChat({navigation}) {
   const refLoading = useRef();
@@ -185,7 +186,7 @@ export default function RoomChat({navigation}) {
                   <Text style={styles.txtTitle}>{obj.deviceName}</Text>
                 }
                 <Tooltip toggleAction={'onLongPress'} popover={
-                  <View style={{width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center'}}
+                  <View style={styles.viewTooltip}
                   onStartShouldSetResponder={(e) => {
                       CameraRoll.save('https://www.dungplus.com/wp-content/uploads/2019/12/girl-xinh-1-480x600.jpg')
                       .then(console.log('Photo added to camera roll!')) 
@@ -195,9 +196,10 @@ export default function RoomChat({navigation}) {
                     <Text>Lưu ảnh</Text>
                   </View>
                 }>
-                  <View style={styles.viewContentDetail}>
-                    {obj.img ?
-                    <Image source={{uri: obj.img}} style={styles.icPhoto}/>
+                  <View style={{flexDirection: i % 2 === 0 ? 'row' : 'row-reverse'}}>
+                  <View style={[styles.viewContentDetail, i % 2 === 0 ? {} : {backgroundColor: Colors.pinkBgMsg}]}>
+                    {!obj.img ?
+                    <Text>sdfdsfdsf sf dsf dsf dsf sdf sdfdsfdsf sf d</Text>
                     :
                     <Image source={{uri: 'https://www.dungplus.com/wp-content/uploads/2019/12/girl-xinh-1-480x600.jpg'}} style={styles.icPhoto}/>
                     }
@@ -206,6 +208,7 @@ export default function RoomChat({navigation}) {
                       <Image source={Images.icRecord} style={styles.icRecord}/>
                     </TouchableOpacity>
                     }
+                  </View>
                   </View>
                 </Tooltip>
               </View>
