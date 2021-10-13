@@ -23,10 +23,12 @@ import RecorderComponent from '../../../components/RecorderComponent';
 import Spinner from 'react-native-spinkit';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import { checkCameraPermission, checkPhotoLibraryReadPermission, checkPhotoLibraryWritePermission } from '../../../functions/permissions';
+import AudioPlayerComponent from '../../../components/AudioPlayerComponent';
 
 export default function RoomChat({navigation}) {
   const refLoading = useRef();
   const refRecorder = useRef();
+  const refAudioPlayer = useRef();
   const refScrollView = useRef();
   const refTextInput = useRef();
   const [isRecord, setIsRecord] = useState(true);
@@ -74,6 +76,10 @@ export default function RoomChat({navigation}) {
     
   };
 
+  const togglePlay = (url) => {
+    refAudioPlayer.current.onStartPlay(url);
+  };
+
   const sendMsg = () => {
     Keyboard.dismiss();
     console.log(text);
@@ -109,10 +115,8 @@ export default function RoomChat({navigation}) {
 
   const onStopRecord = (url) => {
     setIsRecording(false);
-    refRecorder.current.onStartPlay(url);
     console.log('onStopRecord: ', url);
 
-    console.log(url);
     const lst = Object.assign([], devices);
     const item = Object.assign({}, lst[0]);
     item.audio = url;
@@ -188,7 +192,9 @@ export default function RoomChat({navigation}) {
                   <Image source={{uri: obj.img}} style={styles.icPhoto}/>
                   }
                   {obj.audio &&
-                  <Text>{obj.audio}</Text>
+                  <TouchableOpacity onPress={() => {togglePlay(obj.audio)}}>
+                    <Image source={Images.icRecord} style={styles.icRecord}/>
+                  </TouchableOpacity>
                   }
                 </View>
               </View>
@@ -259,6 +265,7 @@ export default function RoomChat({navigation}) {
       </View>}
       <LoadingIndicator ref={refLoading}/>
       <RecorderComponent ref={refRecorder} onStopRecord={onStopRecord} recordBackListener={recordBackListener}/>
+      <AudioPlayerComponent ref={refAudioPlayer}/>
       <ActionSheet
         ref={o => sheet = o}
         title={String.selectPhoto}

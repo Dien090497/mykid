@@ -37,8 +37,14 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Apple Music Usage</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Camera Usage</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Contacts Usage</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Location Always And When In Use Usage</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Location When In Use</string>
 	<key>NSMicrophoneUsageDescription</key>
