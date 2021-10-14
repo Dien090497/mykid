@@ -20,7 +20,7 @@ const QRCodeScreen = ({ navigation, route }) => {
 
   return (
     <View style={styles.container}>
-      <Header title={String.header_addDevice} />
+      <Header title={String.header_QRCode} />
       <CameraKitCameraScreen
         showFrame={true}
         // Show/hide scan frame

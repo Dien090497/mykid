@@ -140,6 +140,7 @@ export const String = {
   selectPhotoLibrary: 'Chọn ảnh từ thư viện',
   takePhoto: 'Chụp ảnh',
   selectPhoto: 'Chọn ảnh',
+  journey: 'Hành trình',
 
   palaceHolderSafeZone:'Thêm vùng an toàn',
 
@@ -156,7 +157,7 @@ export const String = {
   home_gps: 'BẢN ĐỒ',
   home_videoCall: 'VIDEO CALL',
   home_journey: 'HÀNH TRÌNH',
-  home_chat: 'CHAT',
+  home_chat: 'TIN NHẮN',
   home_safeArea: 'KHU VỰC AN TOÀN',
   home_alarm: 'CÀI ĐẶT CHUÔNG',
   home_findDevice: 'TÌM THIẾT BỊ ',

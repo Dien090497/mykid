@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
     color: Colors.colorMain,
     fontFamily: "Roboto-Medium",
     flex: 1,
+    paddingRight:20
   },
   containerPhone: {
     width: 50,
