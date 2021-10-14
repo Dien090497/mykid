@@ -189,6 +189,9 @@ export const String = {
   acceptVideocall: 'Trả lời',
   requestVideoCall: 'Cuộc gọi đến',
 
+  // Chat
+  talkWithFamily: 'Trò chuyện nhóm gia đình',
+
   //RewardPoints
   rewardPoints_text: 'Bé làm 1 việc tốt,hãy thưởng bé 1 điểm',
 

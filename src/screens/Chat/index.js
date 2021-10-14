@@ -26,8 +26,7 @@ export default function Chat({navigation}) {
   const getRooms = async () => {
     getRoomsApi({
       success: resData => {
-        console.log(resData);
-        // setDevices(resData.data);
+        setDevices(resData.data);
       },
       refLoading,
     });
@@ -48,7 +47,7 @@ export default function Chat({navigation}) {
         {devices && devices.map((obj, i) => (
           <View key={i}>
             <View style={styles.viewTitleRoom}>
-              <Text style={styles.txtTitleRoom}>{obj.deviceName}</Text>
+              <Text style={styles.txtTitleRoom}>{obj.deviceName ? obj.deviceName : ''}</Text>
             </View>
             <TouchableOpacity style={styles.viewItem} onPress={() => {toggleChat(obj, i);}}>
               <View style={styles.viewImg}>
@@ -56,9 +55,9 @@ export default function Chat({navigation}) {
               </View>
               <View style={styles.viewText}>
                 <View style={styles.rowDirection}>
-                  <Text style={styles.txtTitle}>{'Trò chuyện nhóm gia đình'}</Text>
+                  <Text style={styles.txtTitle}>{obj.roomName ? obj.roomName : String.talkWithFamily}</Text>
                 </View>
-                <Text style={styles.txtContent}>{'[Hình ảnh]'}</Text>
+                <Text style={styles.txtContent}>{obj.updatedAt ? obj.updatedAt : ''}</Text>
               </View>
               <View style={styles.viewArrow}>
                 <Image source={Images.icRightArrow} style={styles.icArrow}/>
