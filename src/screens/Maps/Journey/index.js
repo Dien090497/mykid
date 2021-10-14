@@ -99,8 +99,10 @@ export default ({}) => {
       showAlert(String.timeInvalidNote);
       return
     }
-    fromDate.setSeconds(0, 0)
-    toDate.setSeconds(0, 0)
+    fromDate.setMonth(date.getMonth(), date.getDate())
+    fromDate.setSeconds(0,0)
+    toDate.setMonth(date.getMonth(), date.getDate())
+    toDate.setSeconds(0,0)
     getJourneyApi(
       DataLocal.deviceId,
       fromDate.toISOString(),
