@@ -1,8 +1,7 @@
-import React, {useEffect, useState} from "react";
-import {View, TouchableOpacity, Text, TextInput, Image} from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, TouchableOpacity, Text, TextInput, Image } from "react-native";
 import styles from "./style";
 import Images from "../../assets/Images";
-import {Colors} from "../../assets/colors/Colors";
 
 const CustomInput = (navigation) => {
   const {
@@ -15,15 +14,14 @@ const CustomInput = (navigation) => {
     txtnotification,
     icon,
     onChange,
-    maxLength,
-    show
+    maxLength
   } = navigation;
   return (
     <View style={styles.Sty_ViewInput}>
-      <View style={{width: "90%", flexDirection: "row", justifyContent: 'center', alignItems: 'center'}}>
+      <View style={{width: "88%", flexDirection: "row", justifyContent: 'center', alignItems: 'center'}}>
         <TextInput
           placeholder={placeholder}
-          placeholderTextColor={Colors.grayTextTitleColor}
+          placeholderTextColor={"#9D9D9D"}
           secureTextEntry={secureTextEntry ? secureTextEntry : false}
           keyboardType={number ? "numeric" : "default"}
           onChangeText={(text) => onChangeText(text)}
@@ -32,21 +30,18 @@ const CustomInput = (navigation) => {
           style={{
             ...styles.Sty_input,
             color: "#000000",
+            width: icon ? "90%" : "100%",
             paddingVertical: !notification ? 4 : 0,
           }}
           disableFullscreenUI
           value={value || ""}
         />
         {
-          icon && show !== false ?
-            (
-              <TouchableOpacity onPress={onChange} style={{justifyContent: 'flex-end', position: 'absolute', right: -10}}>
-              <Image
-                style={{...styles.Sty_iconShow}}
-                source={secureTextEntry ? Images.icView : Images.icPrivate}
-              />
-            </TouchableOpacity>
-            ) : null
+          icon && <TouchableOpacity onPress={onChange}>
+            <Image
+              style={{ ...styles.Sty_iconShow }}
+              source={secureTextEntry ? Images.icView : Images.icPrivate} />
+          </TouchableOpacity>
         }
       </View>
       {
