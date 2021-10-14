@@ -41,6 +41,7 @@ export default function RoomChat({navigation}) {
   const [devices, setDevices] = useState();
   const [text, setText] = useState();
   const [locationY, setLocationY] = useState();
+  const [isPlaying, setIsPlaying] = useState(false);
   let sheet = null;
   
   useLayoutEffect(() => {
@@ -78,7 +79,14 @@ export default function RoomChat({navigation}) {
   };
 
   const togglePlay = (url) => {
-    refAudioPlayer.current.onStartPlay(url);
+    try {
+      setIsPlaying(true);
+      refAudioPlayer.current.onStartPlay(url);
+    } catch (e) {
+      console.log(e);
+      setIsPlaying(false);
+    }
+    
   };
 
   const sendMsg = () => {
@@ -119,6 +127,10 @@ export default function RoomChat({navigation}) {
     item.audio = url;
     lst.push(item);
     setDevices(lst);
+  };
+
+  const onStopPlayer = () => {
+    setIsPlaying(false);
   };
 
   const recordBackListener = (e) => {
@@ -204,7 +216,7 @@ export default function RoomChat({navigation}) {
                     {obj.audio &&
                     <TouchableOpacity onPress={() => {togglePlay(obj.audio)}}>
                       <FastImage
-                        source={i % 2 === 0 ? Images.aAudioLeft : Images.aAudioRight}
+                        source={i % 2 === 0 ? (isPlaying ? Images.aAudioLeft : Images.icAudioLeft) : (isPlaying ? Images.aAudioRight : Images.icAudioRight)}
                         resizeMode={FastImage.resizeMode.contain}
                         style={styles.icRecord}
                       />
@@ -281,7 +293,7 @@ export default function RoomChat({navigation}) {
       </View>}
       <LoadingIndicator ref={refLoading}/>
       <RecorderComponent ref={refRecorder} onStopRecord={onStopRecord} recordBackListener={recordBackListener}/>
-      <AudioPlayerComponent ref={refAudioPlayer}/>
+      <AudioPlayerComponent ref={refAudioPlayer} onStopPlayer={onStopPlayer}/>
       <ActionSheet
         ref={o => sheet = o}
         title={String.selectPhoto}

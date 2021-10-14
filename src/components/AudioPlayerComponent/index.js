@@ -33,6 +33,9 @@ export default class AudioPlayerComponent extends Component {
   onStartPlay = async (url) => {
     if (this.state.isPlaying) {
       await this.onStopPlay();
+      if (this.props.onStopPlayer) {
+        this.props.onStopPlayer();
+      }
       this._isMounted && this.setState({
         isPlaying: false
       });
@@ -46,6 +49,9 @@ export default class AudioPlayerComponent extends Component {
     console.log(`file: ${msg}`, `volume: ${volume}`);
 
     this.audioRecorderPlayer.addPlayBackListener((e) => {
+      if (this.props.onStopPlayer && e.currentPosition === e.duration) {
+        this.props.onStopPlayer();
+      }
       this._isMounted && this.setState({
         currentPositionSec: e.currentPosition,
         currentDurationSec: e.duration,

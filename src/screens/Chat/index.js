@@ -12,21 +12,22 @@ import DataLocal from '../../data/dataLocal';
 import { Image } from 'react-native';
 import Images from '../../assets/Images';
 import Consts from '../../functions/Consts';
-import { getListDeviceApi } from '../../network/DeviceService';
 import { checkMicrophonePermission } from '../../functions/permissions';
+import { getRoomsApi } from '../../network/ChatService';
 
 export default function Chat({navigation}) {
   const refLoading = useRef();
-  const [devices, setDevices] = useState();
+  const [devices, setDevices] = useState([]);
 
   useLayoutEffect(() => {
-    getListDevice();
+    getRooms();
   }, []);
 
-  const getListDevice = async () => {
-    getListDeviceApi(DataLocal.userInfo.id, Consts.pageDefault, 100, '', '', {
+  const getRooms = async () => {
+    getRoomsApi({
       success: resData => {
-        setDevices(resData.data);
+        console.log(resData);
+        // setDevices(resData.data);
       },
       refLoading,
     });

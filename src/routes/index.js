@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     paddingTop: 2,
   },
   tabLabel: {
-    fontSize: FontSize.medium,
+    fontSize: FontSize.small,
     marginBottom: 50 - ((ScaleHeight.small - 15) * 3)
   },
   bottomHeightAndroid: {
@@ -92,7 +92,7 @@ const TabBarName = {
 };
 
 const renderTabBarIcon = (focused, route) => {
-  const sizeIcon = focused ? ScaleHeight.small : ScaleHeight.small - 3;
+  const sizeIcon = focused ? ScaleHeight.xtraSmall : ScaleHeight.xtraSmall - 3;
   const tintColor = focused ? Colors.red : Colors.gray;
   return (
     <Image
