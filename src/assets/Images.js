@@ -101,6 +101,9 @@ export default {
   icPersonal: require('./images/ic_personal.png'),
   icChangePass: require('./images/ic_change_pass.png'),
   icDevices: require('./images/ic_devices.png'),
+  icChoose: require('./images/choose.png'),
+  icDelete: require('./images/ic_delete.png'),
+  icConfirms: require('./images/ic_confirms.png'),
 
  //
   icAlarmClocks: require('./images/ic_alarm_clooks.png'),

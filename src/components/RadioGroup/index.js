@@ -32,7 +32,7 @@ class RadioGroup extends Component {
                      {data.text}
                    </Text>
                  </View>
-                  <Image style={styles.img} source={Images.icCheck} />
+                  <Image style={styles.img} source={Images.icUncheck} resizeMode={'stretch'}/>
                 </TouchableOpacity>
               ) : (
                 <TouchableOpacity
@@ -46,7 +46,7 @@ class RadioGroup extends Component {
                      {data.text}
                    </Text>
                  </View>
-                  <Image style={styles.img} source={Images.icClickCancel} />
+                  <Image style={styles.img} source={Images.icClickCancel} resizeMode={'stretch'}/>
                 </TouchableOpacity>
               )}
             </View>

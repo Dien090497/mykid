@@ -1,5 +1,6 @@
 import {StyleSheet, Dimensions} from 'react-native';
-import { FontSize } from '../../../functions/Consts';
+import {FontSize, ScaleHeight} from '../../../functions/Consts';
+import {Colors} from "../../../assets/colors/Colors";
 const { width } = Dimensions.get("window");
 
 export const styles = StyleSheet.create({
@@ -13,10 +14,9 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  Sty_txtEmail: {
-    marginLeft: '2%',
+  Sty_txt: {
     marginTop: 25,
-    width: "96%",
+    width: 'auto',
     flexDirection: "row",
     marginVertical: 15,
     alignItems: "center",
@@ -58,21 +58,36 @@ export const styles = StyleSheet.create({
     width: 20,
   },
   txtPolicy: {
-    fontWeight: "700",
-    fontSize: FontSize.medium,
-    color: "#00CCCC",
+    fontWeight: "500",
+    fontSize: FontSize.xtraSmall,
+    color: Colors.red,
     textDecorationLine: "underline",
   },
   txt_Policy: {
-    fontSize: FontSize.small,
+    fontSize: FontSize.xtraSmall,
     marginTop: 15,
     marginLeft: -10,
-    width: width - 60
+    width: width - 60,
+    color: '#808080'
   },
   viewButton: {
     width: "96%",
     marginTop: 50,
     justifyContent: "center",
     marginLeft: '2%'
-  }
+  },
+  btnSubmit:{
+    backgroundColor: Colors.colorMain,
+    borderRadius:10,
+    alignItems:'center',
+    justifyContent:'center',
+    height: ScaleHeight.medium* 1.2,
+    width: '90%',
+    marginTop: ScaleHeight.small* 1.5
+  },
+  textSubmit:{
+    fontFamily:'Roboto-Medium',
+    fontSize:FontSize.small,
+    color: Colors.white
+  },
 });
