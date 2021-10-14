@@ -3,8 +3,8 @@ import {Colors} from "../../assets/colors/Colors";
 const {width,height}=Dimensions.get('window');
 export const styles = StyleSheet.create({
   img: {
-    height:width*0.05,
-    width: width*0.05,
+    height: 21,
+    width: 21,
   },
   btn: {
     flex:1,

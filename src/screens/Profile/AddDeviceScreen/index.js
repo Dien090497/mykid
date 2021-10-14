@@ -12,6 +12,7 @@ import { String } from "../../../assets/strings/String";
 import { addDeviceApi } from "../../../network/DeviceService";
 import styles from "./style";
 import { showAlert } from "../../../functions/utils";
+import { checkCameraPermission } from "../../../functions/permissions";
 
 const AddDeviceScreen = ({ navigation, route }) => {
   const [deviceCode, setDeviceCode] = useState("");
@@ -92,19 +93,11 @@ const AddDeviceScreen = ({ navigation, route }) => {
   };
   const onScan = async () => {
     try {
-      var permissionAndroid;
-      //Nếu là nền tảng android thì sẽ yêu cầu cấp quyền trước
-      if (Platform.OS == "android") {
-        permissionAndroid = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.CAMERA,
-        );
-        if (permissionAndroid != "granted") {
-          showAlert(String.noCameraPermission);
-          return;
+      checkCameraPermission().then(granted => {
+        if (granted) {
+          navigation.navigate(Consts.ScreenIds.QRCodeScreen, { onQR: onQR });
         }
-      }
-
-      navigation.navigate(Consts.ScreenIds.QRCodeScreen, { onQR: onQR });
+      })
     } catch (error) {
       alert(error.message);
     }

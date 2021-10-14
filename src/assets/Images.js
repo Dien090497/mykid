@@ -74,11 +74,37 @@ export default {
   icKeyboard: require('./images/chat/ic_keyboard.png'),
   icMicrophone: require('./images/chat/ic_microphone.png'),
   icRecord: require('./images/chat/ic_record.png'),
+  icSend: require('./images/chat/ic_send.png'),
+  icAudioLeft: require('./images/chat/ic_audio_left.png'),
+  icAudioRight: require('./images/chat/ic_audio_right.png'),
+  aAudioLeft: require('./images/chat/a_audio_left.gif'),
+  aAudioRight: require('./images/chat/a_audio_right.gif'),
+
   //Login
   bannerLogin: require('./images/banner_login.png'),
 
   //Login
   icRegister: require('./images/ic_success.png'),
-  icDeleteMessage: require('./images/ic_delete_message.png')
+  icDeleteMessage: require('./images/ic_delete_message.png'),
 
+  //Setting
+  icChieldFill: require('./images/ic_chield_fill.png'),
+  icPhoneBook: require('./images/ic_phone_book.png'),
+  icRemoteStart: require('./images/ic_remote_start.png'),
+  icReward: require('./images/ic_reward.png'),
+  icSoundMute: require('./images/ic_sound_mute_fill.png'),
+  icSubtract: require('./images/ic_subtract.png'),
+  icUserFill: require('./images/ic_user_fill.png'),
+  icWorldFill: require('./images/ic_world_fill.png'),
+
+  //personal
+  icPersonal: require('./images/ic_personal.png'),
+  icChangePass: require('./images/ic_change_pass.png'),
+  icDevices: require('./images/ic_devices.png'),
+  icChoose: require('./images/choose.png'),
+  icDelete: require('./images/ic_delete.png'),
+  icConfirms: require('./images/ic_confirms.png'),
+
+ //
+  icAlarmClocks: require('./images/ic_alarm_clooks.png'),
 }

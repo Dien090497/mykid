@@ -2,13 +2,13 @@ import {
   Alert,
   Animated,
   Image,
-  KeyboardAvoidingView,
+  KeyboardAvoidingView, Modal,
   Platform,
   Text,
   TextInput,
   TouchableOpacity,
   View,
-} from 'react-native';
+} from "react-native";
 import {Divider, Icon, Slider, Switch} from 'react-native-elements';
 import MapView, {Circle, Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import React, {memo, useCallback, useEffect, useRef, useState} from 'react';
@@ -63,6 +63,7 @@ export default ({navigation, route}) => {
   const [deviceOutSafeZone, setDeviceOutSafeZone] = useState(
     route?.params?.data,
   );
+  const [showModal,setShowModal] = useState(false);
 
   const getListSafeZone = () => {
     getListSafeZoneApi(DataLocal.deviceId, 1, 30, {
@@ -154,23 +155,41 @@ export default ({navigation, route}) => {
   const onRemove = () => {
     const index = listSafeArea.findIndex(val => val.id === safeArea.area?.id);
     if (index !== -1) {
-      showConfirmation(String.confirm_remove_safe_zone, {
-        cancelStr: String.back,
-        response: () => {
-          const newListSafeArea = JSON.parse(JSON.stringify(listSafeArea));
-          const zone = newListSafeArea[index];
-          deleteSafeZoneApi(DataLocal.deviceId, zone.id, {
-            success: res => {
-              newListSafeArea.splice(index, 1);
-              setListSafeArea(newListSafeArea);
-            },
-            refLoading: refLoading,
-          });
+      const newListSafeArea = JSON.parse(JSON.stringify(listSafeArea));
+      const zone = newListSafeArea[index];
+      deleteSafeZoneApi(DataLocal.deviceId, zone.id, {
+        success: res => {
+          newListSafeArea.splice(index, 1);
+          setListSafeArea(newListSafeArea);
         },
+        refLoading: refLoading,
       });
     }
+    setShowModal(false)
     onToggleCreateArea();
   };
+  const removeModal =() =>{
+    return(
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={showModal}>
+        <View style={styles.modal}>
+          <View style={styles.modalContain}>
+            <Text style={styles.modalTitle}>{String.confirm_remove_safe_zone}</Text>
+            <View style={{flexDirection:'row', alignItems:"center"}}>
+              <TouchableOpacity style={[styles.containerTextAction,{borderWidth:1, borderColor: Colors.grayTextColor,marginRight:10}]} onPress={()=>{setShowModal(false)}}>
+                <Text children={String.back} style={[styles.txtBack,{color:Colors.black}]} />
+              </TouchableOpacity>
+              <TouchableOpacity style={[styles.containerTextAction,{backgroundColor:Colors.colorMain,marginLeft:10}]} onPress={onRemove}>
+                <Text children={String.member_approval} style={styles.txtSave} />
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
+    )
+  }
 
   const renderBottomSheet = useCallback(() => {
     return (
@@ -192,10 +211,12 @@ export default ({navigation, route}) => {
                 style={styles.rowDirection}>
                 <Text children={val.name} style={styles.txtName} />
                 <View style={styles.containerRadius}>
-                  <Text children={`${val.radius}m`} />
-                  <View style={styles.rowDirection}>
+                  <Text children={`${val.radius}m`}  style={{fontFamily:'Roboto-Medium'}}/>
+                  <View style={{ flexDirection:'row', justifyContent:'center',alignItems:'center'}}>
                     <Switch
                       value={val.status === 'ON'}
+                      thumbColor={Colors.white}
+                      trackColor={{false: Colors.gray, true: Colors.colorMain}}
                       color={Colors.blueLight}
                       onValueChange={value => {
                         onToggleStatus(index, value);
@@ -208,7 +229,6 @@ export default ({navigation, route}) => {
                   </View>
                 </View>
               </TouchableOpacity>
-              <Divider style={styles.line} />
             </View>
           ))
         ) : (
@@ -217,21 +237,14 @@ export default ({navigation, route}) => {
             toggle={onToggleCreateArea}
             onCreate={onCreate}
             onEdit={onEdit}
-            onRemove={onRemove}
+            onRemove={()=>setShowModal(true)}
             newLocationSafeArea={newLocationSafeArea}
           />
         )}
         {!safeArea.visible && listSafeArea.length < 3 && (
-          <Button
-            onclick={() => setSafeArea({visible: true, area: null})}
-            title={'Thêm vùng an toàn'}
-            color={Colors.GradientColor}
-            Sty_btn={{
-              borderRadius: 6,
-              paddingVertical: 0,
-            }}
-            containerStyle={{height: 40}}
-          />
+          <TouchableOpacity style={styles.btn} onPress={() => setSafeArea({visible: true, area: null})}>
+              <Text style={styles.textBtn}>{String.palaceHolderSafeZone}</Text>
+          </TouchableOpacity>
         )}
       </View>
     );
@@ -401,6 +414,7 @@ export default ({navigation, route}) => {
           )}
         </View>
       </View>
+      {removeModal()}
       <LoadingIndicator ref={refLoading} />
     </KeyboardAvoidingView>
   );
@@ -420,10 +434,7 @@ const ViewAddOrEditArea = ({
     return (
       <TouchableOpacity
         onPress={onPress}
-        style={[
-          styles.containerAction,
-          {backgroundColor: type === 'increment' ? Colors.orange : Colors.red},
-        ]}>
+        style={styles.containerAction}>
         <Text
           children={type === 'increment' ? '+' : '-'}
           style={styles.txtAction}
@@ -463,20 +474,18 @@ const ViewAddOrEditArea = ({
 
   return (
     <View>
-      <View style={styles.containerTextInput}>
+      <View style={styles.textInput}>
         <TextInput
           style={styles.wrap}
           clearButtonMode="always"
-          placeholder="Tên vùng an toàn"
           maxLength={32}
           value={name}
           onChangeText={text => setName(text)}
         />
         <Text children={String.maxLengthSafeAreaName} style={styles.txtNote} />
       </View>
-      <Divider style={styles.line} />
-      <View style={styles.containerTextInput}>
-        <Text children={String.area} style={{marginRight: 5}} />
+      <View style={styles.slide}>
+        <Text children={String.area} style={{marginRight: 5, color:Colors.colorMain, fontFamily:'Roboto-Medium', fontSize: FontSize.small}} />
         {renderIncrementOrDecrement('decrement', () =>
           setRange(prev => {
             return prev - 100 < 200 ? 200 : prev - 100;
@@ -494,7 +503,7 @@ const ViewAddOrEditArea = ({
           minimumValue={200}
           maximumValue={2000}
           trackStyle={{paddingHorizontal: 0}}
-          minimumTrackTintColor={Colors.orange}
+          minimumTrackTintColor={Colors.colorMain}
           maximumTrackTintColor="#b7b7b7"
         />
         {renderIncrementOrDecrement('increment', () =>
@@ -502,26 +511,22 @@ const ViewAddOrEditArea = ({
             return prev + 100 <= 2000 ? prev + 100 : 2000;
           }),
         )}
-        <Text style={{width: 55}} children={`${Math.floor(range).toFixed(0)} m`} />
+        <Text style={{width: 55, fontFamily:'Roboto-Medium',color:Colors.grayTextColor}} children={`${Math.floor(range).toFixed(0)} m`} />
       </View>
-      <Divider style={styles.line} />
       <View
-        style={[
-          styles.containerTextInput,
-          {justifyContent: 'space-between', marginTop: 4},
-        ]}>
-        <TouchableOpacity style={styles.containerTextAction} onPress={onSave}>
+        style={styles.containerTextInput}>
+        <TouchableOpacity style={[styles.containerTextAction,{backgroundColor:Colors.colorMain,marginRight:10}]} onPress={onSave}>
           <Text children={String.save} style={styles.txtSave} />
         </TouchableOpacity>
         {area && (
           <TouchableOpacity
-            style={styles.containerTextAction}
+            style={[styles.containerTextAction,{borderWidth:1, borderColor: Colors.colorMain}]}
             onPress={onRemove}>
             <Text children={String.member_remove} style={styles.txtBack} />
           </TouchableOpacity>
         )}
-        <TouchableOpacity style={styles.containerTextAction} onPress={toggle}>
-          <Text children={String.back} style={styles.txtBack} />
+        <TouchableOpacity style={[styles.containerTextAction,{borderWidth:1, borderColor: Colors.grayTextColor,marginLeft:10}]} onPress={toggle}>
+          <Text children={String.back} style={[styles.txtBack,{color:Colors.black}]} />
         </TouchableOpacity>
       </View>
     </View>

@@ -13,6 +13,7 @@ import { Image } from 'react-native';
 import Images from '../../assets/Images';
 import Consts from '../../functions/Consts';
 import { getListDeviceApi } from '../../network/DeviceService';
+import { checkMicrophonePermission } from '../../functions/permissions';
 
 export default function Chat({navigation}) {
   const refLoading = useRef();
@@ -32,7 +33,11 @@ export default function Chat({navigation}) {
   };
 
   const toggleChat = (obj, i) => {
-    navigation.navigate(Consts.ScreenIds.RoomChat);
+    checkMicrophonePermission().then(microGranted => {
+      if (microGranted) {
+        navigation.navigate(Consts.ScreenIds.RoomChat);
+      }
+    })
   };
 
   return (

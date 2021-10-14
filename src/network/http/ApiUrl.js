@@ -20,6 +20,7 @@ export const listDeviceUrl = appUrl + '/account-devices';
 export const locationDeviceUrl = appUrl + '/locations';
 export const phoneBookUrl = appUrl + '/phone-books';
 export const safeZoneUrl = appUrl + '/safe-zones';
+export const deleteDeviceUrl = appUrl + '/account-devices/devices';
 
 // Alarm
 export const alarmUrl = appUrl + '/alarms';
