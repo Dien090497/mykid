@@ -52,5 +52,11 @@ export const styles = StyleSheet.create({
     color: Colors.white,
     fontFamily:'Roboto-Bold',
     fontSize:14,
-  }
+  },
+  viewTooltip: {
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
 });

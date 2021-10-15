@@ -7,7 +7,10 @@ import { String } from "../../assets/strings/String";
 import { styles } from "./styles";
 import Images from "../../assets/Images";
 import FastImage from "react-native-fast-image";
-import PreViewImage  from './PreviewImage'
+import PreViewImage from "./PreviewImage";
+import { DoSecretShoot } from "../../network/SecretPhotoShootService";
+import DataLocal from "../../data/dataLocal";
+import { Tooltip } from "react-native-elements";
 
 export default ({ navigation }) => {
   const refLoading = useRef();
@@ -147,31 +150,45 @@ export default ({ navigation }) => {
     }
   };
 
-  const deleteImage = () =>{
+  const deleteImage = () => {
     console.log(imageMook);
-  }
+  };
 
-  const shootImage = () =>{
-    console.log('Chụpppp');
-  }
+  const shootImage = () => {
+    DoSecretShoot(
+      DataLocal.deviceId,{
+        success: data =>{
+          console.log(data)
+        },
+        refLoading
+      }
+    )
+  };
 
   const renderItem = (item) => {
     return (
       <View style={styles.itemList}>
-        <TouchableOpacity style={styles.imageList} onPress={() => {
-          touchImage(item);
-        }}>
-          <FastImage
-            source={item.item.src}
-            resizeMode={FastImage.resizeMode.stretch}
-            style={{ width: "100%", height: "100%" }}
-          />
+        <View style={styles.imageList}>
+          <Tooltip toggleAction={'onLongPress' } popover={
+            <View style={{flexDirection:'row'}}>
+              <TouchableOpacity><Text>Lưu ảnh</Text></TouchableOpacity>
+              <Text>     </Text>
+              <TouchableOpacity><Text>Xóa ảnh</Text></TouchableOpacity>
+            </View>
+          }>
+            <FastImage
+              source={item.item.src}
+              resizeMode={FastImage.resizeMode.stretch}
+              style={{ width: 100, height: 100 }}
+              onTouchEndCapture={() =>{touchImage(item)}}
+            />
+          </Tooltip>
           {isSetting ? <FastImage
             source={item.item.isChoose ? Images.icRedConfirms : Images.icUnConfirms}
             resizeMode={FastImage.resizeMode.stretch}
             style={styles.iconCheck}
           /> : null}
-        </TouchableOpacity>
+        </View>
         <View>
           <Text style={styles.txtItemList}>{item.item.date.toISOString()}</Text>
         </View>
@@ -191,7 +208,7 @@ export default ({ navigation }) => {
       />
       <View style={styles.mainView}>
         <FlatList
-          style={{ width: "100%" }}
+          style={{ width: "100%", flex:1 }}
           data={imageMook}
           renderItem={renderItem}
           keyExtractor={item => item.id}

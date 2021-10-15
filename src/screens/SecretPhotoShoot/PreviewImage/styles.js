@@ -19,12 +19,15 @@ export const styles = StyleSheet.create({
     alignItems:'center',
     justifyContent: 'space-evenly',
     marginBottom: 20,
-    padding:15,
-    backgroundColor: Colors.white
+    paddingHorizontal:35,
+    paddingVertical:10,
+    backgroundColor: Colors.white,
+    borderRadius:10
   },
   image:{
     height: Consts.windowWidth*0.7,
-    width: Consts.windowWidth*0.7
+    width: Consts.windowWidth*0.7,
+    backgroundColor: Colors.black
   },
   txtDate:{
     paddingVertical:5,
@@ -49,5 +52,10 @@ export const styles = StyleSheet.create({
   icTouch:{
     width: ScaleHeight.small,
     height: ScaleHeight.small
+  },
+  icClose:{
+    alignSelf: 'flex-end',
+    width: ScaleHeight.xtraSmall,
+    height: ScaleHeight.xtraSmall,
   }
 });

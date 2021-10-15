@@ -127,8 +127,11 @@ export default class PreviewImage extends Component {
         animationType="slide"
         transparent={true}
         visible={this.state.modalVisible}>
-        <TouchableOpacity style={styles.bottomView} onPress={this.hideModal}>
+        <View style={styles.bottomView}>
           <View style={styles.body}>
+            <TouchableOpacity onPress={this.hideModal} style={{alignSelf:'flex-end', marginRight:-25, marginBottom: 5}}>
+              <Image source={Images.icClose} style={styles.icClose} resizeMode="contain" />
+            </TouchableOpacity>
             <FastImage source={this.state.src} style={[styles.image,{transform: [{ rotate: this.state.rotate+'deg' }]}]} resizeMode={FastImage.resizeMode.stretch} />
             <Text style={styles.txtDate}>{this.state.time}</Text>
             <Text style={styles.txtDes}>Cảnh chụp: chụp từ xa</Text>
@@ -150,7 +153,7 @@ export default class PreviewImage extends Component {
               </TouchableOpacity>
             </View>
           </View>
-        </TouchableOpacity>
+        </View>
         <StatusBar backgroundColor={Colors.transparent} />
       </Modal>
     );
