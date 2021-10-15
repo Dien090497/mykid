@@ -17,15 +17,13 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.white,
-    marginHorizontal: width* 0.04
   },
   rowSettings: {
-    paddingVertical: '1%',
+    width: '88%',
     marginVertical: height* 0.015,
     borderRadius: 10,
     height: ScaleHeight.medium* 1.2,
     flexDirection: 'row',
-    width: '100%',
     alignSelf: 'center',
     backgroundColor: Colors.white,
     justifyContent: "center",
@@ -43,8 +41,6 @@ export const styles = StyleSheet.create({
     paddingVertical: '1%',
     height: ScaleHeight.medium,
     borderRadius: 10,
-    flexDirection: 'row',
-    width: '100%',
     alignSelf: 'center',
     backgroundColor: Colors.white,
     justifyContent: "center",
@@ -52,7 +48,8 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     borderWidth: 1,
     borderColor: Colors.redTitle,
-    marginVertical: height* 0.02
+    marginVertical: height* 0.02,
+    width: '88%'
   },
   textPlus: {
     fontSize: FontSize.medium,

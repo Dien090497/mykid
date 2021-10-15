@@ -41,6 +41,7 @@ export default function RoomChat({navigation}) {
   const [devices, setDevices] = useState();
   const [text, setText] = useState();
   const [locationY, setLocationY] = useState();
+  const [indexPlaying, setIndexPlaying] = useState(-1);
   let sheet = null;
   
   useLayoutEffect(() => {
@@ -77,8 +78,15 @@ export default function RoomChat({navigation}) {
     setIsRecord(state);
   };
 
-  const togglePlay = (url) => {
-    refAudioPlayer.current.onStartPlay(url);
+  const togglePlay = (url, index) => {
+    try {
+      setIndexPlaying(index);
+      refAudioPlayer.current.onStartPlay(url);
+    } catch (e) {
+      console.log(e);
+      setIndexPlaying(-1);
+    }
+    
   };
 
   const sendMsg = () => {
@@ -119,6 +127,10 @@ export default function RoomChat({navigation}) {
     item.audio = url;
     lst.push(item);
     setDevices(lst);
+  };
+
+  const onStopPlayer = () => {
+    setIndexPlaying(-1);
   };
 
   const recordBackListener = (e) => {
@@ -199,13 +211,16 @@ export default function RoomChat({navigation}) {
                   <View style={{flexDirection: i % 2 === 0 ? 'row' : 'row-reverse'}}>
                   <View style={[styles.viewContentDetail, i % 2 === 0 ? {} : {backgroundColor: Colors.pinkBgMsg}]}>
                     {!obj.img && !obj.audio &&
-                    <Image source={{uri: 'https://www.dungplus.com/wp-content/uploads/2019/12/girl-xinh-1-480x600.jpg'}} style={styles.icPhoto}/>
+                    <FastImage resizeMode={FastImage.resizeMode.cover} source={{uri: 'https://www.dungplus.com/wp-content/uploads/2019/12/girl-xinh-1-480x600.jpg'}} style={styles.icPhoto}/>
+                    }
+                    {obj.img && !obj.audio &&
+                    <FastImage resizeMode={FastImage.resizeMode.cover} source={{uri: obj.img}} style={styles.icPhoto}/>
                     }
                     {obj.audio &&
-                    <TouchableOpacity onPress={() => {togglePlay(obj.audio)}}>
+                    <TouchableOpacity onPress={() => {togglePlay(obj.audio, i)}}>
                       <FastImage
-                        source={i % 2 === 0 ? Images.aAudioLeft : Images.aAudioRight}
-                        resizeMode={FastImage.resizeMode.contain}
+                        source={i % 2 === 0 ? (indexPlaying === i ? Images.aAudioLeft : Images.icAudioLeft) : (indexPlaying === i ? Images.aAudioRight : Images.icAudioRight)}
+                        resizeMode={FastImage.resizeMode.cover}
                         style={styles.icRecord}
                       />
                     </TouchableOpacity>
@@ -281,7 +296,7 @@ export default function RoomChat({navigation}) {
       </View>}
       <LoadingIndicator ref={refLoading}/>
       <RecorderComponent ref={refRecorder} onStopRecord={onStopRecord} recordBackListener={recordBackListener}/>
-      <AudioPlayerComponent ref={refAudioPlayer}/>
+      <AudioPlayerComponent ref={refAudioPlayer} onStopPlayer={onStopPlayer}/>
       <ActionSheet
         ref={o => sheet = o}
         title={String.selectPhoto}

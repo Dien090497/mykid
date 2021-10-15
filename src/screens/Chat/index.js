@@ -12,19 +12,19 @@ import DataLocal from '../../data/dataLocal';
 import { Image } from 'react-native';
 import Images from '../../assets/Images';
 import Consts from '../../functions/Consts';
-import { getListDeviceApi } from '../../network/DeviceService';
 import { checkMicrophonePermission } from '../../functions/permissions';
+import { getRoomsApi } from '../../network/ChatService';
 
 export default function Chat({navigation}) {
   const refLoading = useRef();
-  const [devices, setDevices] = useState();
+  const [devices, setDevices] = useState([]);
 
   useLayoutEffect(() => {
-    getListDevice();
+    getRooms();
   }, []);
 
-  const getListDevice = async () => {
-    getListDeviceApi(DataLocal.userInfo.id, Consts.pageDefault, 100, '', '', {
+  const getRooms = async () => {
+    getRoomsApi({
       success: resData => {
         setDevices(resData.data);
       },
@@ -47,7 +47,7 @@ export default function Chat({navigation}) {
         {devices && devices.map((obj, i) => (
           <View key={i}>
             <View style={styles.viewTitleRoom}>
-              <Text style={styles.txtTitleRoom}>{obj.deviceName}</Text>
+              <Text style={styles.txtTitleRoom}>{obj.deviceName ? obj.deviceName : ''}</Text>
             </View>
             <TouchableOpacity style={styles.viewItem} onPress={() => {toggleChat(obj, i);}}>
               <View style={styles.viewImg}>
@@ -55,9 +55,9 @@ export default function Chat({navigation}) {
               </View>
               <View style={styles.viewText}>
                 <View style={styles.rowDirection}>
-                  <Text style={styles.txtTitle}>{'Trò chuyện nhóm gia đình'}</Text>
+                  <Text style={styles.txtTitle}>{obj.roomName ? obj.roomName : String.talkWithFamily}</Text>
                 </View>
-                <Text style={styles.txtContent}>{'[Hình ảnh]'}</Text>
+                <Text style={styles.txtContent}>{obj.updatedAt ? obj.updatedAt : ''}</Text>
               </View>
               <View style={styles.viewArrow}>
                 <Image source={Images.icRightArrow} style={styles.icArrow}/>
