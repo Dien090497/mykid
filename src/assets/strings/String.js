@@ -196,6 +196,9 @@ export const String = {
   //DoNotDisturb
   textAddTime: 'Thêm khoảng thời gian',
 
+  //SecretPhotoShoot
+  textShoot: 'Chụp hình',
+
   // permissions
   cameraUnavailable: 'Máy ảnh không khả dụng trên thiết bị của bạn',
   photoLibraryUnavailable: 'Thư viện ảnh không khả dụng trên thiết bị của bạn',

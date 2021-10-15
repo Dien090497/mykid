@@ -1,6 +1,6 @@
 import { Colors } from "../../assets/colors/Colors";
 import { StyleSheet } from "react-native";
-import Consts from "../../functions/Consts";
+import Consts, { FontSize, ScaleHeight } from "../../functions/Consts";
 
 export const styles = StyleSheet.create({
   container: {
@@ -10,64 +10,43 @@ export const styles = StyleSheet.create({
   mainView: {
     flex:1,
     alignItems:'center',
+    paddingHorizontal:15
   },
-  scroll:{
-    flex: 1,
-    backgroundColor: Colors.white,
-  },
-  imgHeart: {
-    marginTop:30,
+  itemList:{
+    flex:1,
+    paddingHorizontal:0,
+    marginVertical:10,
     alignItems:'center',
     justifyContent:'center',
-    width: "80%",
-    height: 300,
-    padding:'5%',
   },
-  zoneEnd:{
-    borderRadius:150,
-    alignItems:'center',
-    justifyContent:'center'
-  },
-  text: {
-    textAlign:'center',
-    fontFamily:'Roboto-Bold',
-    fontSize:16,
+  imageList:{
+    width:Consts.screenWidth/3-17,
+    height: Consts.screenWidth/3-17,
     marginVertical:10,
-    color:'#5F5F5F'
-  },
-  btn: {
-    width:60,
-    height:60,
     alignItems:'center',
-    justifyContent:'center'
+    justifyContent:'center',
   },
-  iconBtn: {
-    width:'50%',
-    height:'50%',
-    padding: 16,
-    resizeMode:'contain'
+  iconCheck:{
+    width:'15%',
+    height:'15%',
+    position:'absolute',
+    top: 5,
+    right:5,
   },
-  iconHeart: {
-    width:'100%',
-    height:'100%',
-    padding: 16,
-    resizeMode:'contain'
-  },
-  textPoint: {
-    marginHorizontal:30,
-    textAlign:'center',
-    fontSize:80,
+  txtItemList:{
+    paddingVertical:5,
     fontFamily:'Roboto',
-    color:'#EE0033'
+    fontSize: FontSize.xxtraSmall,
+    color: Colors.grayTextTitleColor
   },
   btnSubmit:{
     backgroundColor:'#EE0033',
-    marginTop:30,
-    width:'90%',
+    marginVertical:10,
+    width:'100%',
     borderRadius: 10,
     alignItems:'center',
     justifyContent:'center',
-    height:40
+    height:ScaleHeight.medium,
   },
   textSubmit:{
     color: Colors.white,
