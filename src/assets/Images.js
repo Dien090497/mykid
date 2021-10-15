@@ -60,6 +60,8 @@ export default {
   icSafeZone: require('./images/home/ic_safe_zone.png'),
   icMap: require('./images/home/ic_map.png'),
   bgHome: require('./images/home/bg_home.png'),
+  icWarning:  require('./images/home/ic_warning.png'),
+  icGame:  require('./images/home/ic_game.png'),
 
   //RewardPoints
   icAdd: require('./images/rewardoints/ic_add.png'),
@@ -92,7 +94,8 @@ export default {
   icSubtract: require('./images/ic_subtract.png'),
   icUserFill: require('./images/ic_user_fill.png'),
   icWorldFill: require('./images/ic_world_fill.png'),
-
+  icTurnOff: require('./images/ic_turn_off.png'),
+  icRestart: require('./images/ic_restart.png'),
   //personal
   icPersonal: require('./images/ic_personal.png'),
   icChangePass: require('./images/ic_change_pass.png'),

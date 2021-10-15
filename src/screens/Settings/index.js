@@ -78,7 +78,9 @@ export default ({navigation, route}) => {
     {
       key: 'RemoteDevices',
       title: String.header_remoteDevices,
-      onPress: () => {},
+      onPress: () => {
+        navigation.navigate(Consts.ScreenIds.OffDevice);
+      },
       icon: (
         <Image source={Images.icSubtract} style={{width: 26, height: 26}} resizeMode={'stretch'}/>
       ),
@@ -86,7 +88,9 @@ export default ({navigation, route}) => {
     {
       key: 'RemoteStart',
       title: String.header_remoteStart,
-      onPress: () => {},
+      onPress: () => {
+        navigation.navigate(Consts.ScreenIds.RestartDevice);
+      },
       icon: (
         <Image source={Images.icRemoteStart} style={{width: 40, height: 40}} resizeMode={'stretch'}/>
       ),
