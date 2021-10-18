@@ -60,8 +60,6 @@ export default {
   icSafeZone: require('./images/home/ic_safe_zone.png'),
   icMap: require('./images/home/ic_map.png'),
   bgHome: require('./images/home/bg_home.png'),
-  icWarning:  require('./images/home/ic_warning.png'),
-  icGame:  require('./images/home/ic_game.png'),
 
   //RewardPoints
   icAdd: require('./images/rewardoints/ic_add.png'),
