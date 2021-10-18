@@ -73,4 +73,19 @@ export const styles = StyleSheet.create({
     height: "80%",
     width: ScaleHeight.medium,
   },
+  button: {
+    marginTop: 40,
+    height: ScaleHeight.medium,
+    backgroundColor: Colors.colorMain,
+    width: '100%',
+    alignSelf: 'center',
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    fontFamily: 'Roboto-Bold'
+  },
 });

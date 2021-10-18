@@ -116,6 +116,10 @@ export default function EditDevice({ navigation, route }) {
             <Image style={styles.iconInput} source={Images.icDetail} resizeMode="contain" />
           </TouchableOpacity>
         </TouchableOpacity>
+
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>{String.confirm}</Text>
+        </TouchableOpacity>
       </View>
       <LoadingIndicator ref={refLoading} />
       <ActionSheet
