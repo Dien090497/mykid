@@ -16,7 +16,7 @@ import React, {
   useState,
 } from 'react';
 import {convertDateTimeToString, showAlert} from '../../../functions/utils';
-import {getJourneyApi, getListDeviceApi} from '../../../network/DeviceService';
+import { getJourneyApi, getListDeviceApi, getLocationDeviceApi } from "../../../network/DeviceService";
 
 import {Colors} from '../../../assets/colors/Colors';
 import DataLocal from '../../../data/dataLocal';
@@ -95,7 +95,10 @@ export default ({}) => {
   }, []);
 
   const toggleJourney = () => {
-    if (fromDate.getHours() >= toDate.getHours()){
+    if (fromDate.getHours() > toDate.getHours()){
+      showAlert(String.timeInvalidNote);
+      return
+    }else if (fromDate.getHours() > toDate.getHours() && fromDate.getMinutes() > toDate.getMinutes()){
       showAlert(String.timeInvalidNote);
       return
     }
@@ -131,18 +134,34 @@ export default ({}) => {
   };
 
   useEffect(() => {
-    const getDeviceInfo = () => {
-      getListDeviceApi(null, 0, 100, DataLocal.deviceId, '',  {
-        success: res => {
-          const device = res.data.find(
-            val => val.deviceId === DataLocal.deviceId,
-          );
-          setDeviceInfo(device);
-        },
-        refLoading: refLoading,
-      });
-    };
-    getDeviceInfo();
+    // const getDeviceInfo = () => {
+    //   getListDeviceApi(null, 0, 100, DataLocal.deviceId, '',  {
+    //     success: res => {
+    //       const device = res.data.find(
+    //         val => val.deviceId === DataLocal.deviceId,
+    //       );
+    //       setDeviceInfo(device);
+    //     },
+    //     refLoading: refLoading,
+    //   });
+    // };
+    // getDeviceInfo();
+    getLocationDeviceApi(DataLocal.deviceId, {
+      success: res => {
+        setDeviceInfo(res.data);
+        const {lat, lng} = res.data?.location;
+        if (lat && lng) {
+          refMap.current.animateCamera({
+            center: {
+              latitude: lat,
+              longitude: lng,
+            },
+            zoom: 15,
+          });
+        }
+      },
+      refLoading: refLoading,
+    });
   }, []);
 
   const datePicker = () => {
@@ -226,6 +245,7 @@ export default ({}) => {
       </View>
     );
   };
+ console.log(deviceInfo)
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -241,6 +261,13 @@ export default ({}) => {
           // provider={PROVIDER_GOOGLE}
           showsUserLocation={true}
           region={initialRegion}>
+          <Marker
+            coordinate={{
+              latitude: 24,
+              longitude: 105,
+            }}>
+            <Image source={Images.icWatchMarker} style={{ width: 30, height: 30, resizeMode: 'contain' }} />
+          </Marker>
           {listSafeArea.map(val => (
             <View key={val.id}>
               <Marker
@@ -248,16 +275,6 @@ export default ({}) => {
                   latitude: val.location.lat,
                   longitude: val.location.lng,
                 }}>
-                <View
-                  style={{
-                    backgroundColor: 'white',
-                    paddingHorizontal: 4,
-                    paddingVertical: 2,
-                    borderRadius: 6,
-                  }}>
-                  <Text children={deviceInfo?.deviceName} />
-                </View>
-
                 <Image
                   source={Images.icMarkerDefault}
                   style={styles.icMarker}
