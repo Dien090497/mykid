@@ -58,6 +58,8 @@ import {useSelector} from 'react-redux';
 import videoCallAction from '../redux/actions/videoCallAction';
 import * as encoding from 'text-encoding';
 import LanguageTimeZone from "../screens/Profile/LanguageTimeZone";
+import OffDevice from '../screens/Settings/OffDevice';
+import StartDevice from '../screens/Settings/RestartDevice';
 import { String } from '../assets/strings/String';
 var encoder = new encoding.TextEncoder();
 const Tab = createBottomTabNavigator();
@@ -239,6 +241,14 @@ const Routes = () => {
         <Stack.Screen
           name={Consts.ScreenIds.LanguageTimeZone}
           component={LanguageTimeZone}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.OffDevice}
+          component={OffDevice}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.RestartDevice}
+          component={StartDevice}
         />
         <Stack.Screen
           name={Consts.ScreenIds.DoNotDisturb}
