@@ -62,14 +62,6 @@ export default ({}) => {
   const [deviceInfo, setDeviceInfo] = useState({location: {lat: 26.013197, lng: 105.78073}});
   const refLoading = useRef();
 
-  const [initData, setInitData] = useState({
-    latitude: 21.030653,
-    longitude: 105.84713,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
-  });
-
-
   const [openDatePicker, setOpenDatePicker] = useState(false)
 
   const toggleModalDate = useCallback(() => {
@@ -101,12 +93,13 @@ export default ({}) => {
           } else {
             setListSafeArea(resData.data.content);
             const {lat, lng} = resData.data.content[0].location;
-            setInitData({
-              latitude: lat,
-              longitude: lng,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
-            })
+            refMap.current.animateCamera({
+              center: {
+                latitude: lat,
+                longitude: lng,
+              },
+              zoom: 15,
+            });
           }
         },
         refLoading: refLoading,
@@ -229,7 +222,7 @@ export default ({}) => {
           style={styles.container}
           // provider={PROVIDER_GOOGLE}
           showsUserLocation={true}
-          region={initData}>
+          >
           <Marker
             coordinate={{
               latitude: deviceInfo.location.lat,
