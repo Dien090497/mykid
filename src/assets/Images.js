@@ -104,6 +104,14 @@ export default {
   icChoose: require('./images/choose.png'),
   icDelete: require('./images/ic_delete.png'),
   icConfirms: require('./images/ic_confirms.png'),
+  icRedConfirms: require('./images/ic_red_confirms.png'),
+  icUnConfirms: require('./images/ic_uncheck_image.png'),
+  icEdit: require('./images/ic_edit.png'),
+
+  //ShootImage
+  icRotateRight: require('./images/ic_rotate_right.png'),
+  icRotateLeft: require('./images/ic_rotate_left.png'),
+  icClose: require('./images/ic_close.png'),
 
  //
   icAlarmClocks: require('./images/ic_alarm_clooks.png'),

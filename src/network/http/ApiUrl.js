@@ -50,6 +50,9 @@ export const rewardsUrl = appUrl + '/rewards';
 // Rooms
 export const roomsUrl = appUrl + '/rooms';
 
+//PhotoShoot
+export const PhotoShootUrl = appUrl + '/commands';
+
 /// url: string, obj: object
 export function assignUrlParams(url, obj) {
   if (!obj) {

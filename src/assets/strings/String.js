@@ -46,6 +46,7 @@ export const String = {
   header_doNotDisturb: 'Chế độ lớp học',
   header_language_timezone: 'Ngôn ngữ và múi giờ',
   header_chat: 'Tin nhắn thoại',
+  header_secret_shoot: 'Chụp ảnh từ xa',
   header_remoteDevices: 'Tắt thiết bị từ xa',
   header_remoteStart: 'Khởi động lại từ xa',
 
@@ -197,6 +198,9 @@ export const String = {
 
   //DoNotDisturb
   textAddTime: 'Thêm khoảng thời gian',
+
+  //SecretPhotoShoot
+  textShoot: 'Chụp hình',
 
   // permissions
   cameraUnavailable: 'Máy ảnh không khả dụng trên thiết bị của bạn',

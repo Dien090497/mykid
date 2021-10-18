@@ -38,6 +38,7 @@ import Relationship from '../screens/Profile/Relationship';
 import SafeZone from '../screens/Maps/SafeZone';
 import SettingScreen from '../screens/Settings';
 import RewardPoints from '../screens/RewardPoints';
+import SecretPhotoShoot from '../screens/SecretPhotoShoot';
 import Chat from '../screens/Chat';
 import RoomChat from '../screens/Chat/RoomChat';
 import DeleteMessage from "../screens/Chat/DeleteMessage";
@@ -290,6 +291,10 @@ const Routes = () => {
         <Stack.Screen
           name={Consts.ScreenIds.DeleteMessage}
           component={DeleteMessage}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.SecretPhotoShoot}
+          component={SecretPhotoShoot}
         />
         <Stack.Screen name={Consts.ScreenIds.Contacts} component={Contacts} />
         <Stack.Screen name={Consts.ScreenIds.Members} component={Members} />
