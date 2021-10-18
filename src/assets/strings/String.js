@@ -121,7 +121,8 @@ export const String = {
   deleteContactSuccess: 'Xóa thành viên thành công',
   deleteMessage: 'Xóa lịch sử tin nhắn',
   arleftDeleteMessage: 'Bạn có chắc chắn xóa cuộc trò chuyện này không ?',
-  arleftDeleteDevices: 'Bạn có chắc chắn muốn xóa thiết bị (Sever TQ) không ?',
+  arleftDeleteDevices1: 'Bạn có chắc chắn muốn xóa thiết bị (',
+  arleftDeleteDevices2: ') không ?',
   removeContactConfirm:
     'Bạn chắc chắn huỷ liên kết tài khoản này không ?',
   maxLengthSafeAreaName: 'Vui lòng nhập 1-32 ký tự',

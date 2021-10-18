@@ -14,6 +14,7 @@ import { Colors } from "../../../../assets/colors/Colors";
 import LoadingIndicator from "../../../../components/LoadingIndicator";
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import ActionSheet from '@alessiocancian/react-native-actionsheet';
+import ModalConfirm from "../../../../components/ModalConfirm";
 import {
   checkCameraPermission,
   checkPhotoLibraryReadPermission,
@@ -22,10 +23,10 @@ import {
 import { launchCamera, launchImageLibrary } from "react-native-image-picker";
 import { hideLoading, resizeImage, showLoading } from "../../../../functions/utils";
 
-
 export default function EditDevice({ navigation, route }) {
 
   const refLoading = useRef();
+  const refConfirm = useRef();
   const [data, setData] = useState(null);
   let sheet = null;
 
@@ -87,12 +88,15 @@ export default function EditDevice({ navigation, route }) {
     }
   };
 
-  console.log(data)
-
   const selectPhoto = () => {
     Keyboard.dismiss();
     sheet.show();
   }
+
+  const deleteConfirm = () => {
+    console.log("DELETE")
+  }
+
 
   return (
     <View style={styles.contain}>
@@ -116,12 +120,12 @@ export default function EditDevice({ navigation, route }) {
             <Image style={styles.iconInput} source={Images.icDetail} resizeMode="contain" />
           </TouchableOpacity>
         </TouchableOpacity>
-
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={()=>{refConfirm.current.open(String.arleftDeleteDevices1+ data.deviceName + String.arleftDeleteDevices2, deleteConfirm)}}>
           <Text style={styles.buttonText}>{String.confirm}</Text>
         </TouchableOpacity>
       </View>
       <LoadingIndicator ref={refLoading} />
+      <ModalConfirm ref={refConfirm} />
       <ActionSheet
         ref={o => sheet = o}
         title={String.selectPhoto}
