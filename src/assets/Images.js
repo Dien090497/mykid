@@ -77,6 +77,10 @@ export default {
   icMicrophone: require('./images/chat/ic_microphone.png'),
   icRecord: require('./images/chat/ic_record.png'),
   icSend: require('./images/chat/ic_send.png'),
+  icAudioLeft: require('./images/chat/ic_audio_left.png'),
+  icAudioRight: require('./images/chat/ic_audio_right.png'),
+  aAudioLeft: require('./images/chat/a_audio_left.gif'),
+  aAudioRight: require('./images/chat/a_audio_right.gif'),
 
   //Login
   bannerLogin: require('./images/banner_login.png'),
@@ -103,6 +107,14 @@ export default {
   icChoose: require('./images/choose.png'),
   icDelete: require('./images/ic_delete.png'),
   icConfirms: require('./images/ic_confirms.png'),
+  icRedConfirms: require('./images/ic_red_confirms.png'),
+  icUnConfirms: require('./images/ic_uncheck_image.png'),
+  icEdit: require('./images/ic_edit.png'),
+
+  //ShootImage
+  icRotateRight: require('./images/ic_rotate_right.png'),
+  icRotateLeft: require('./images/ic_rotate_left.png'),
+  icClose: require('./images/ic_close.png'),
 
  //
   icAlarmClocks: require('./images/ic_alarm_clooks.png'),

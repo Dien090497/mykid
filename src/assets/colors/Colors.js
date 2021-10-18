@@ -70,6 +70,7 @@ export const Colors = {
   grayTextColor: '#5F5F5F',
   grayTextTitleColor: '#B5B4B4',
   grayBgMsg: '#F3F3F3',
+  pinkBgMsg: '#FEF0F3',
   titleTxt: '#a9a9a9',
   indicatorColor: '#d8d8d8',
   colorTextPlus: '#5F5F5F'

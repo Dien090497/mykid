@@ -46,6 +46,7 @@ export const String = {
   header_doNotDisturb: 'Chế độ lớp học',
   header_language_timezone: 'Ngôn ngữ và múi giờ',
   header_chat: 'Tin nhắn thoại',
+  header_secret_shoot: 'Chụp ảnh từ xa',
   header_remoteDevices: 'Tắt thiết bị từ xa',
   header_remoteStart: 'Khởi động lại từ xa',
 
@@ -144,6 +145,7 @@ export const String = {
   selectPhotoLibrary: 'Chọn ảnh từ thư viện',
   takePhoto: 'Chụp ảnh',
   selectPhoto: 'Chọn ảnh',
+  journey: 'Hành trình',
 
   palaceHolderSafeZone:'Thêm vùng an toàn',
 
@@ -160,7 +162,7 @@ export const String = {
   home_gps: 'BẢN ĐỒ',
   home_videoCall: 'VIDEO CALL',
   home_journey: 'HÀNH TRÌNH',
-  home_chat: 'CHAT',
+  home_chat: 'TIN NHẮN',
   home_safeArea: 'KHU VỰC AN TOÀN',
   home_alarm: 'CÀI ĐẶT CHUÔNG',
   home_findDevice: 'TÌM THIẾT BỊ ',
@@ -193,11 +195,17 @@ export const String = {
   acceptVideocall: 'Trả lời',
   requestVideoCall: 'Cuộc gọi đến',
 
+  // Chat
+  talkWithFamily: 'Trò chuyện nhóm gia đình',
+
   //RewardPoints
   rewardPoints_text: 'Bé làm 1 việc tốt,hãy thưởng bé 1 điểm',
 
   //DoNotDisturb
   textAddTime: 'Thêm khoảng thời gian',
+
+  //SecretPhotoShoot
+  textShoot: 'Chụp hình',
 
   // permissions
   cameraUnavailable: 'Máy ảnh không khả dụng trên thiết bị của bạn',

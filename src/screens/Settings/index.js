@@ -9,6 +9,7 @@ import {String} from '../../assets/strings/String';
 import {styles} from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Images from "../../assets/Images";
+import SecretPhotoShoot from "../SecretPhotoShoot";
 
 const {width,height} = Dimensions.get('window');
 export default ({navigation, route}) => {
@@ -73,6 +74,21 @@ export default ({navigation, route}) => {
       },
       icon: (
         <Image source={Images.icChieldFill} style={{width: 40, height: 40}} resizeMode={'stretch'}/>
+      ),
+    },
+    {
+      key: 'SecretPhotoShoot',
+      title: String.header_secret_shoot,
+      onPress: () => {
+        navigation.navigate(Consts.ScreenIds.SecretPhotoShoot);
+      },
+      icon: (
+        <CustomIcon
+          name={'people-alt'}
+          iconFamily={'MaterialIcons'}
+          size={ScaleHeight.small}
+          color={'#15d4a1'}
+        />
       ),
     },
     {

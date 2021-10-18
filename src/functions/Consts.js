@@ -47,6 +47,7 @@ const ScreenIds = {
   DeleteMessage: 'DeleteMessage',
   OffDevice: 'Offdevice',
   RestartDevice: 'RestartDevice',
+  SecretPhotoShoot: 'SecretPhotoShoot',
 
   // Auth
   Login: 'Login',

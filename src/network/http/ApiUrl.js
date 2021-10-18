@@ -28,7 +28,6 @@ export const alarmUrl = appUrl + '/alarms';
 // Class mode
 export const classModesUrl = appUrl + '/class-modes';
 
-
 // LanguageTimeZone
 export const languageTimeZoneUrl = appUrl + '/language-timezones';
 export const languageUrl = appUrl+'/language-timezones/languages';
@@ -50,6 +49,11 @@ export const rewardsUrl = appUrl + '/rewards';
 
 // Device
 export const  deviceUrl = appUrl + '/commands';
+// Rooms
+export const roomsUrl = appUrl + '/rooms';
+
+//PhotoShoot
+export const PhotoShootUrl = appUrl + '/commands';
 
 /// url: string, obj: object
 export function assignUrlParams(url, obj) {

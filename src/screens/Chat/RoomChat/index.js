@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import {styles} from './styles';
 import ActionSheet from '@alessiocancian/react-native-actionsheet';
+import FastImage from 'react-native-fast-image';
 import Header from '../../../components/Header';
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import DataLocal from '../../../data/dataLocal';
@@ -26,6 +27,7 @@ import { checkCameraPermission, checkPhotoLibraryReadPermission, checkPhotoLibra
 import AudioPlayerComponent from '../../../components/AudioPlayerComponent';
 import CameraRoll from '@react-native-community/cameraroll';
 import { Tooltip } from 'react-native-elements';
+import { Colors } from '../../../assets/colors/Colors';
 
 export default function RoomChat({navigation}) {
   const refLoading = useRef();
@@ -38,6 +40,8 @@ export default function RoomChat({navigation}) {
   const [isCancelRecording, setIsCancelRecording] = useState(false);
   const [devices, setDevices] = useState();
   const [text, setText] = useState();
+  const [locationY, setLocationY] = useState();
+  const [indexPlaying, setIndexPlaying] = useState(-1);
   let sheet = null;
   
   useLayoutEffect(() => {
@@ -74,8 +78,15 @@ export default function RoomChat({navigation}) {
     setIsRecord(state);
   };
 
-  const togglePlay = (url) => {
-    refAudioPlayer.current.onStartPlay(url);
+  const togglePlay = (url, index) => {
+    try {
+      setIndexPlaying(index);
+      refAudioPlayer.current.onStartPlay(url);
+    } catch (e) {
+      console.log(e);
+      setIndexPlaying(-1);
+    }
+    
   };
 
   const sendMsg = () => {
@@ -94,14 +105,13 @@ export default function RoomChat({navigation}) {
   };
 
   const onResponderStart = async (e) => {
-    console.log('onResponderStart', e.nativeEvent);
+    setLocationY(e.nativeEvent.pageY);
     setIsRecording(true);
     await refRecorder.current.onStartRecord();
   }
 
   const onResponderMove = async (e) => {
-    setIsCancelRecording(e.nativeEvent.locationX < 20 || e.nativeEvent.locationX > 250
-      || e.nativeEvent.locationY < -20 || e.nativeEvent.locationY > 25);
+    setIsCancelRecording(locationY - e.nativeEvent.pageY > 80);
   }
 
   const onResponderRelease = async (e) => {
@@ -111,13 +121,16 @@ export default function RoomChat({navigation}) {
 
   const onStopRecord = (url) => {
     setIsRecording(false);
-    console.log('onStopRecord: ', url);
 
     const lst = Object.assign([], devices);
     const item = Object.assign({}, lst[0]);
     item.audio = url;
     lst.push(item);
     setDevices(lst);
+  };
+
+  const onStopPlayer = () => {
+    setIndexPlaying(-1);
   };
 
   const recordBackListener = (e) => {
@@ -185,7 +198,7 @@ export default function RoomChat({navigation}) {
                   <Text style={styles.txtTitle}>{obj.deviceName}</Text>
                 }
                 <Tooltip toggleAction={'onLongPress'} popover={
-                  <View style={{width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center'}}
+                  <View style={styles.viewTooltip}
                   onStartShouldSetResponder={(e) => {
                       CameraRoll.save('https://www.dungplus.com/wp-content/uploads/2019/12/girl-xinh-1-480x600.jpg')
                       .then(console.log('Photo added to camera roll!')) 
@@ -195,17 +208,24 @@ export default function RoomChat({navigation}) {
                     <Text>Lưu ảnh</Text>
                   </View>
                 }>
-                  <View style={styles.viewContentDetail}>
-                    {obj.img ?
-                    <Image source={{uri: obj.img}} style={styles.icPhoto}/>
-                    :
-                    <Image source={{uri: 'https://www.dungplus.com/wp-content/uploads/2019/12/girl-xinh-1-480x600.jpg'}} style={styles.icPhoto}/>
+                  <View style={{flexDirection: i % 2 === 0 ? 'row' : 'row-reverse'}}>
+                  <View style={[styles.viewContentDetail, i % 2 === 0 ? {} : {backgroundColor: Colors.pinkBgMsg}]}>
+                    {!obj.img && !obj.audio &&
+                    <FastImage resizeMode={FastImage.resizeMode.cover} source={{uri: 'https://www.dungplus.com/wp-content/uploads/2019/12/girl-xinh-1-480x600.jpg'}} style={styles.icPhoto}/>
+                    }
+                    {obj.img && !obj.audio &&
+                    <FastImage resizeMode={FastImage.resizeMode.cover} source={{uri: obj.img}} style={styles.icPhoto}/>
                     }
                     {obj.audio &&
-                    <TouchableOpacity onPress={() => {togglePlay(obj.audio)}}>
-                      <Image source={Images.icRecord} style={styles.icRecord}/>
+                    <TouchableOpacity onPress={() => {togglePlay(obj.audio, i)}}>
+                      <FastImage
+                        source={i % 2 === 0 ? (indexPlaying === i ? Images.aAudioLeft : Images.icAudioLeft) : (indexPlaying === i ? Images.aAudioRight : Images.icAudioRight)}
+                        resizeMode={FastImage.resizeMode.cover}
+                        style={styles.icRecord}
+                      />
                     </TouchableOpacity>
                     }
+                  </View>
                   </View>
                 </Tooltip>
               </View>
@@ -260,7 +280,7 @@ export default function RoomChat({navigation}) {
       }}>
         <View style={{
           padding: 10,
-          paddingTop: 150,
+          paddingTop: Platform.OS === "ios" ? 150 : 180,
           paddingLeft: 12,
           borderRadius: 5,
           width: 150,
@@ -270,13 +290,13 @@ export default function RoomChat({navigation}) {
         }}>
           <Image source={isCancelRecording ? Images.icCancelRecord : Images.icMicrophone} 
             style={isCancelRecording ? styles.icCancelRecord : styles.icMicrophone}/>
-          {isCancelRecording ? <View style={{marginBottom: 160, marginTop: -10, height: 30}}/> :
-          <Spinner style={{marginBottom: 160, marginTop: -10, height: 30, marginLeft: 30}} isVisible={true} size={60} type={'ThreeBounce'} color={'white'}/>}
+          {isCancelRecording ? <View style={{marginBottom: 120, marginTop: -10, height: 70}}/> :
+          <Spinner style={{marginBottom: 120, marginTop: Platform.OS === "ios" ? -20 : -10, height: 70, marginLeft: Platform.OS === "ios" ? 30 : 35}} isVisible={true} size={60} type={'ThreeBounce'} color={'white'}/>}
         </View>
       </View>}
       <LoadingIndicator ref={refLoading}/>
       <RecorderComponent ref={refRecorder} onStopRecord={onStopRecord} recordBackListener={recordBackListener}/>
-      <AudioPlayerComponent ref={refAudioPlayer}/>
+      <AudioPlayerComponent ref={refAudioPlayer} onStopPlayer={onStopPlayer}/>
       <ActionSheet
         ref={o => sheet = o}
         title={String.selectPhoto}
