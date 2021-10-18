@@ -38,6 +38,7 @@ import Relationship from '../screens/Profile/Relationship';
 import SafeZone from '../screens/Maps/SafeZone';
 import SettingScreen from '../screens/Settings';
 import RewardPoints from '../screens/RewardPoints';
+import SecretPhotoShoot from '../screens/SecretPhotoShoot';
 import Chat from '../screens/Chat';
 import RoomChat from '../screens/Chat/RoomChat';
 import DeleteMessage from "../screens/Chat/DeleteMessage";
@@ -57,6 +58,8 @@ import {useSelector} from 'react-redux';
 import videoCallAction from '../redux/actions/videoCallAction';
 import * as encoding from 'text-encoding';
 import LanguageTimeZone from "../screens/Profile/LanguageTimeZone";
+import OffDevice from '../screens/Settings/OffDevice';
+import StartDevice from '../screens/Settings/RestartDevice';
 import { String } from '../assets/strings/String';
 var encoder = new encoding.TextEncoder();
 const Tab = createBottomTabNavigator();
@@ -240,6 +243,14 @@ const Routes = () => {
           component={LanguageTimeZone}
         />
         <Stack.Screen
+          name={Consts.ScreenIds.OffDevice}
+          component={OffDevice}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.RestartDevice}
+          component={StartDevice}
+        />
+        <Stack.Screen
           name={Consts.ScreenIds.DoNotDisturb}
           component={DoNotDisturb}
         />
@@ -290,6 +301,10 @@ const Routes = () => {
         <Stack.Screen
           name={Consts.ScreenIds.DeleteMessage}
           component={DeleteMessage}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.SecretPhotoShoot}
+          component={SecretPhotoShoot}
         />
         <Stack.Screen name={Consts.ScreenIds.Contacts} component={Contacts} />
         <Stack.Screen name={Consts.ScreenIds.Members} component={Members} />
