@@ -29,6 +29,7 @@ export const String = {
   header_members: 'Danh sách thành viên',
   header_maps: 'Bản đồ',
   header_addDevice: 'Thêm thiết bị',
+  header_editDevice: 'Chỉnh sửa thông tin thiết bị',
   header_QRCode: 'Quét mã',
   header_relationship: 'Lựa chọn mối quan hệ',
   header_connectDevice: 'Kết nối thiết bị',
