@@ -1,8 +1,6 @@
 import {
-  FlatList,
-  Image,
+  Modal,
   ScrollView,
-  Switch,
   Text,
   TouchableOpacity,
   View,
@@ -13,79 +11,153 @@ import Header from '../../../components/Header';
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import {String} from '../../../assets/strings/String';
 import {styles} from './styles';
+import {Colors} from '../../../assets/colors/Colors';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {
+  getLanguageApi,
   getLanguageTimeZoneApi,
   setLanguageTimeZoneApi,
 } from '../../../network/LanguageTimeZoneService';
 import RadioGroup from '../../../components/RadioGroup';
-import Consts from '../../../functions/Consts';
+import {WheelPicker} from "react-native-wheel-picker-android";
+import {showAlert} from "../../../functions/utils";
 
 export default function LanguageTimeZone({navigation, route}) {
   const refLoading = useRef();
   const [timeZoneSelect, setTimeZoneSelect] = useState(0);
-  const [dataLanguageTimeZones, setDataLanguageTimeZones] = useState({
-    timeZone: 0,
-  });
+  const [numberLangguages, setNumberLanguage] = useState();
+  const [languageConfirm, setLanguageConfirm] = useState();
+  const [listLangguages, setListLanguage] = useState([]);
+  const [check, setCheck] = useState(false);
   const refRadioGroup = useRef();
+
+  useLayoutEffect(() => {
+    getLanguageTimeZone();
+    getLanguages();
+  }, []);
+
   useEffect(() => {
+    if (languageConfirm && listLangguages) {
+      const index = listLangguages.findIndex(val => val === languageConfirm);
+      setNumberLanguage(index);
+    }
+  }, [languageConfirm, listLangguages]);
+
+  const  getLanguageTimeZone = () => {
     getLanguageTimeZoneApi(DataLocal.deviceId, {
       success: res => {
-        if (res.data) {
-          setDataLanguageTimeZones(res.data);
-          refRadioGroup.current.updateView(res.data.timeZone);
-        }
+        setLanguageConfirm(res.data.language);
+        setTimeZoneSelect(res.data.timeZone);
+        refRadioGroup.current.updateView(res.data.timeZone);
+      },
+    });
+  }
+
+  const getLanguages = () => {
+    getLanguageApi( {
+      success: res => {
+        setListLanguage(res.data);
       },
       refLoading: refLoading,
     });
-  }, []);
+  }
 
   const updateTimeZoneSelect = timeZoneSelect => {
     setTimeZoneSelect(timeZoneSelect);
   };
+
   const setLanguageTimeZones = () => {
     setLanguageTimeZoneApi(
       DataLocal.deviceId,
       {
-        language: dataLanguageTimeZones.language,
+        language: languageConfirm,
         timeZone: timeZoneSelect,
       },
       {
         success: res => {
-          alert('Cập nhật múi giờ thành công');
+          showAlert(String.changeLangguageAndTimezone);
         },
         refLoading: refLoading,
       },
     );
   };
-  return (
-    <View
-      style={[styles.container, {paddingBottom: useSafeAreaInsets().bottom}]}>
-      <Header title={String.header_language_timezone} />
-      <View style={styles.mainView}>
-        <TouchableOpacity
-          style={styles.containerAdd}
-          onPress={setLanguageTimeZones}>
-          <Text style={styles.txtAdd}>{String.confirm}</Text>
-        </TouchableOpacity>
-      </View>
-      <ScrollView
-        howsHorizontalScrollIndicator={false}
-        showsVerticalScrollIndicator={false}
-        contentInsetAdjustmentBehavior="automatic"
-        style={[
-          styles.scrollView,
-          {height: (Consts.windowHeight * 70) / 100, width: Consts.windowWidth},
-        ]}>
-        <View style={[styles.row, {width: Consts.windowWidth}]}>
-          <RadioGroup
-            ref={refRadioGroup}
-            updateTimeZoneSelect={updateTimeZoneSelect}
-          />
-        </View>
-      </ScrollView>
 
+  const onCornfirm = () => {
+    if (numberLangguages !== undefined) {
+      setLanguageConfirm(listLangguages[numberLangguages]);
+    }
+    setCheck(false);
+  }
+
+  const onItemSelected = (selectedItem) => {
+    setNumberLanguage(selectedItem);
+  }
+
+  const outConfirm = () => {
+    setCheck(false);
+  }
+
+  return (
+    <View style={[styles.container, {paddingBottom: useSafeAreaInsets().bottom}]}>
+      <Header title={String.header_language_timezone} />
+      <View style={styles.TobView}>
+       <View style={styles.mainView}>
+         <TouchableOpacity
+           style={styles.containerAdd}
+           onPress={setLanguageTimeZones}>
+           <Text style={[styles.txtAdd, {color: Colors.white}]}>{String.confirm}</Text>
+         </TouchableOpacity>
+         <TouchableOpacity
+           style={styles.containerAdd1}
+           onPress={ () => {setCheck(true)}}
+         >
+           <Text style={[styles.txtAdd, {color: Colors.red}]}>{languageConfirm}</Text>
+         </TouchableOpacity>
+       </View>
+     </View>
+      <ScrollView
+           howsHorizontalScrollIndicator={false}
+           showsVerticalScrollIndicator={false}
+           contentInsetAdjustmentBehavior="automatic"
+           style={styles.scrollView}>
+           <View style={styles.row}>
+             <RadioGroup
+               ref={refRadioGroup}
+               checker={timeZoneSelect}
+               updateTimeZoneSelect={updateTimeZoneSelect}
+             />
+           </View>
+      </ScrollView>
+      <Modal
+          visible={check}
+          transparent={true}
+          animationType="slide"
+      >
+        <View style={styles.modalView}>
+          <TouchableOpacity style={styles.modalViewTob} onPress={outConfirm}/>
+          <View style={styles.wheelPickkerView}>
+            <View style={styles.tobWheel}>
+               <TouchableOpacity style={styles.confirmView}
+                  onPress={onCornfirm}
+               >
+                    <Text style={styles.textConfirm}>{String.confirm}</Text>
+               </TouchableOpacity>
+            </View>
+            <WheelPicker
+                    data={listLangguages}
+                    style={styles.wheel}
+                    selectedItemTextSize={20}
+                    initPosition={numberLangguages}
+                    selectedItem={numberLangguages}
+                    selectedItemTextFontFamily={'Roboto'}
+                    itemTextFontFamily={'Roboto'}
+                    onItemSelected={onItemSelected}
+                  />
+          </View>
+        </View>
+      </Modal>
       <LoadingIndicator ref={refLoading} />
     </View>
   );
 }
+

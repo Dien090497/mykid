@@ -37,8 +37,14 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Apple Music Usage</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Camera Usage</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Contacts Usage</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Location Always And When In Use Usage</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Location When In Use</string>
 	<key>NSMicrophoneUsageDescription</key>
@@ -57,6 +63,7 @@
 		<string>Roboto-Regular.ttf</string>
 		<string>Roboto-Thin.ttf</string>
 		<string>Roboto-ThinItalic.ttf</string>
+		<string>UTM Cookies.ttf</string>
 		<string>AntDesign.ttf</string>
 		<string>Entypo.ttf</string>
 		<string>EvilIcons.ttf</string>

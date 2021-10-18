@@ -3,7 +3,6 @@ import {styles} from './styles';
 import Images from '../../assets/Images';
 import React, {Component} from 'react';
 import TimeZoneDatas from '../../assets/strings/TimeZoneDatas';
-import Consts from '../../functions/Consts';
 class RadioGroup extends Component {
   constructor(props) {
     super(props);
@@ -22,20 +21,18 @@ class RadioGroup extends Component {
   }
   render() {
     return (
-      <View>
+      <View style={styles.containerView}>
         {this.state.radioBtnsData.map((data, key) => {
           return (
-            <View key={key}>
+            <View key={key}  style={styles.listView}>
               {this.state.checked == key ? (
                 <TouchableOpacity style={styles.btn}>
-                  <Text
-                    style={{
-                      marginLeft: 10,
-                      width: Consts.windowWidth - 50,
-                    }}>
-                    {data.text}
-                  </Text>
-                  <Image style={styles.img} source={Images.icCheck} />
+                 <View style={{width:'108%'}}>
+                   <Text style={styles.textView}>
+                     {data.text}
+                   </Text>
+                 </View>
+                  <Image style={styles.img} source={Images.icUncheck} resizeMode={'stretch'}/>
                 </TouchableOpacity>
               ) : (
                 <TouchableOpacity
@@ -44,14 +41,12 @@ class RadioGroup extends Component {
                     this.props.updateTimeZoneSelect(data.value);
                   }}
                   style={styles.btn}>
-                  <Text
-                    style={{
-                      marginLeft: 10,
-                      width: Consts.windowWidth - 50,
-                    }}>
-                    {data.text}
-                  </Text>
-                  <Image style={styles.img} source={Images.icCallCancel} />
+                 <View style={{width:'108%'}}>
+                   <Text>
+                     {data.text}
+                   </Text>
+                 </View>
+                  <Image style={styles.img} source={Images.icClickCancel} resizeMode={'stretch'}/>
                 </TouchableOpacity>
               )}
             </View>

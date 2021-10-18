@@ -10,9 +10,10 @@ const marginT = Consts.screenHeight / 15;
 const marginLive = -Consts.screenHeight / 35 - 18;
 export const styles = StyleSheet.create({
   container: {
+
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: Colors.grayBackground,
+    backgroundColor: Colors.red,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,

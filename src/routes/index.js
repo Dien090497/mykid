@@ -4,7 +4,7 @@ import {
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
 //tab bar
-import Consts, {FontSize} from '../functions/Consts';
+import Consts, {FontSize, ScaleHeight} from '../functions/Consts';
 import {Platform, Vibration} from 'react-native';
 import React, {useEffect, useRef} from 'react';
 import {appConfig, wsSafeZoneUrl, wsUrl} from '../network/http/ApiUrl';
@@ -37,10 +37,16 @@ import Register from '../screens/auth/Register';
 import Relationship from '../screens/Profile/Relationship';
 import SafeZone from '../screens/Maps/SafeZone';
 import SettingScreen from '../screens/Settings';
+import RewardPoints from '../screens/RewardPoints';
+import Chat from '../screens/Chat';
+import RoomChat from '../screens/Chat/RoomChat';
+import DeleteMessage from "../screens/Chat/DeleteMessage";
 import Sound from 'react-native-sound';
 import SoundSettings from '../screens/Profile/SoundSettings';
 import AlarmClock from '../screens/Profile/AlarmClock';
+import EacesDroping from "../screens/Settings/EacesDroping";
 import DoNotDisturb from '../screens/Profile/DoNotDisturb';
+import DisturbSetting from '../screens/Profile/DoNotDisturb/DisturbSetting';
 import AlarmSetting from '../screens/Profile/AlarmClock/AlarmSetting';
 import SplashScreen from '../screens/Splash';
 import WS from './WebScoket';
@@ -52,6 +58,7 @@ import videoCallAction from '../redux/actions/videoCallAction';
 import * as encoding from 'text-encoding';
 import LanguageTimeZone from "../screens/Profile/LanguageTimeZone";
 import ChatClient from "../components/XmppChat/ChatClient";
+import { String } from '../assets/strings/String';
 var encoder = new encoding.TextEncoder();
 const Tab = createBottomTabNavigator();
 
@@ -62,14 +69,16 @@ const PATTERN = [
 
 const styles = StyleSheet.create({
   bottomBar: {
+    height: ScaleHeight.xxtraBig,
     backgroundColor: Colors.white,
     paddingTop: 2,
   },
   tabLabel: {
-    fontSize: FontSize.medium,
+    fontSize: FontSize.small,
+    marginBottom: 50 - ((ScaleHeight.small - 15) * 3)
   },
   bottomHeightAndroid: {
-    height: 60,
+    height: ScaleHeight.xxtraBig - 10,
   },
 });
 
@@ -79,12 +88,12 @@ const TabBarIcon = {
 };
 
 const TabBarName = {
-  [Consts.ScreenIds.HomeMainScreen]: 'HOME',
-  [Consts.ScreenIds.Profile]: 'MY',
+  [Consts.ScreenIds.HomeMainScreen]: String.home,
+  [Consts.ScreenIds.Profile]: String.profile,
 };
 
 const renderTabBarIcon = (focused, route) => {
-  const sizeIcon = focused ? 25 : 20;
+  const sizeIcon = focused ? ScaleHeight.xtraSmall : ScaleHeight.xtraSmall - 3;
   const tintColor = focused ? Colors.red : Colors.gray;
   return (
     <Image
@@ -224,12 +233,20 @@ const Routes = () => {
           component={AlarmClock}
         />
         <Stack.Screen
+          name={Consts.ScreenIds.EacesDroping}
+          component={EacesDroping}
+        />
+        <Stack.Screen
           name={Consts.ScreenIds.LanguageTimeZone}
           component={LanguageTimeZone}
         />
         <Stack.Screen
           name={Consts.ScreenIds.DoNotDisturb}
           component={DoNotDisturb}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.DisturbSetting}
+          component={DisturbSetting}
         />
         <Stack.Screen
           name={Consts.ScreenIds.AlarmSetting}
@@ -252,12 +269,28 @@ const Routes = () => {
           component={SettingScreen}
         />
         <Stack.Screen
+          name={Consts.ScreenIds.RewardPoints}
+          component={RewardPoints}
+        />
+        <Stack.Screen
           name={Consts.ScreenIds.ChangePassword}
           component={ChangePassword}
         />
         <Stack.Screen
           name={Consts.ScreenIds.AddNewContact}
           component={AddNewContact}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.Chat}
+          component={Chat}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.RoomChat}
+          component={RoomChat}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.DeleteMessage}
+          component={DeleteMessage}
         />
         <Stack.Screen name={Consts.ScreenIds.Contacts} component={Contacts} />
         <Stack.Screen name={Consts.ScreenIds.Members} component={Members} />

@@ -4,16 +4,22 @@ import { FontSize } from '../../functions/Consts';
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.red,
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
+    backgroundColor: Colors.colorMain,
+    borderBottomEndRadius:10,
+    borderBottomStartRadius:10,
   },
   title: {
-    fontSize: FontSize.xtraBig,
+    fontSize: FontSize.big,
     fontFamily: 'Roboto-Bold',
     color: Colors.white,
-    marginTop: 3
+    width: '110%',
+    marginTop: 3,
+    textAlign: 'center'
   },
   back: {
+  },
+  iconRight: {
+    height: 28,
+    width: 28
   },
 });

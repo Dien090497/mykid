@@ -1,12 +1,11 @@
 import React, {useState} from 'react';
-import {Text, TouchableOpacity} from 'react-native';
+import {Image, Text, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 import {Colors} from '../../assets/colors/Colors';
 import Consts, { FontSize } from '../../functions/Consts';
 import {Header as HeaderE} from 'react-native-elements';
 import Icons from '../../components/VectorIcons';
-import {String} from '../../assets/strings/String';
 import {styles} from './styles';
 
 export default Header = props => {
@@ -14,6 +13,7 @@ export default Header = props => {
   const {dangerouslyGetState} = useNavigation();
   const {index, routes} = dangerouslyGetState();
   const [back] = useState(props.back !== undefined ? props.back : true);
+  const [right] = useState(props.right !== undefined ? props.right : false);
 
   const handleGoBack = () => {
     if (index > 0 && routes[index - 1].name === Consts.ScreenIds.Splash) {
@@ -21,6 +21,10 @@ export default Header = props => {
     } else {
       navigation.goBack();
     }
+  };
+
+  const handleRightAction = () => {
+    props.rightAction();
   };
 
   return (
@@ -39,9 +43,18 @@ export default Header = props => {
           </TouchableOpacity>
         )
       }
+      rightComponent={
+        right && (
+          <TouchableOpacity style={styles.back} onPress={handleRightAction}>
+            { props.rightIcon &&
+            <Image style={styles.iconRight} source={props.rightIcon}/>
+            }
+          </TouchableOpacity>
+        )
+      }
       centerComponent={
-        <Text style={styles.title}>
-          {props.title !== undefined ? props.title : String.bangSepHang}
+        <Text style={styles.title} numberOfLines={1}>
+          {props.title}
         </Text>
       }
       statusBarProps={{

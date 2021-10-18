@@ -18,6 +18,7 @@ const dev = {
 
 export const RETRY_HTTP_REQUEST_NUMBER = 0;
 export default {
+  maxThumbnailSize: 600,
   dev,
   staging,
   production,

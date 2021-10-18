@@ -32,18 +32,19 @@ export default function FindDevice({navigation}) {
     <View style={styles.contain}>
       <Header title={String.header_findDevice} />
       <View style={styles.container}>
-        <Image
-            source={Images.icAlarmClock}
-            resizeMode={'stretch'}
-            style={styles.iconClock}
-          />
-        <View>
+        <View style={styles.imageView}>
+         <Image
+           source={Images.icAlarmClocks}
+           resizeMode={'stretch'}
+           style={styles.iconClock}
+         />
+       </View>
+        <View style={styles.viewText}>
           <Text style={styles.textPlus}>{String.find_device_note0}</Text>
           <Text style={styles.textPlus}>{String.find_device_note1}</Text>
           <Text style={styles.textPlus}>{String.find_device_note2}</Text>
           <Text style={styles.textPlus}>{String.find_device_note3}</Text>
           <Text style={styles.textPlus}>{String.find_device_note4}</Text>
-          <Text style={styles.textPlus}>{''}</Text>
         </View>
         <TouchableOpacity style={styles.button} onPress={handleFindDevice}>
           <Text style={styles.buttonText}>{String.header_findDevice}</Text>

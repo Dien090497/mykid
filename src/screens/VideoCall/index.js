@@ -90,7 +90,8 @@ const ListDeviceScreen = () => {
   const [page, setPage] = useState(0);
   const [presentRoomId, setPresentRoomId] = useState(-1);
   const [videoCallData, setVideoCallData] = useState();
-  const [isPickUp, setPickUp] = useState(false);
+
+  let isPickUp = false;
   const [visibleCall, setVisibleCall] = useState({
     visible: false,
     server: null,
@@ -175,7 +176,7 @@ const ListDeviceScreen = () => {
           connectionState: videoCallReducer.connectionState,
           data: videoCallReducer.connectionData,
         });
-        reduxStore.store.dispatch(videoCallAction.reset());
+        // reduxStore.store.dispatch(videoCallAction.reset());
       } else if (videoCallReducer.connectionState === 'REJECTED') {
         setPresentRoomId(-1);
         setVisibleCall({visible: false, device: null, data: []});
@@ -188,6 +189,14 @@ const ListDeviceScreen = () => {
         reduxStore.store.dispatch(videoCallAction.reset());
       } else {
         setPresentRoomId(-1);
+        if (!isPickUp && videoCallReducer.connectionState === 'INIT') {
+          setVisibleCallState({
+            visible: true,
+            deviceName: videoCallReducer.connectionData.caller.deviceName,
+            connectionState: videoCallReducer.connectionState,
+            data: videoCallReducer.connectionData,
+          });
+        }
         setVisibleCall({visible: false, device: null, data: []});
         reduxStore.store.dispatch(videoCallAction.reset());
       }
@@ -216,15 +225,12 @@ const ListDeviceScreen = () => {
           setPresentRoomId(res.data.id);
           setTimeout(() => {
             if (!isPickUp) {
-              rejectVideoCallApi({}, res.data.id, {
-                success: res => {
-                  setVisibleCall({visible: false, device: null, data: []});
-                  setPresentRoomId(-1);
-                },
+              finishVideoCalllApi({}, res.data.id, {
+                success: res => {},
                 refLoading: refLoading,
               });
             }
-          }, 1000 * 20);
+          }, 1000 * 59);
         },
         refLoading: refLoading,
       },
@@ -232,12 +238,18 @@ const ListDeviceScreen = () => {
   };
 
   const pickUp = isAccept => {
-    setPickUp(isAccept);
+    isPickUp = isAccept;
   };
   const toggleModal = roomId => {
     finishVideoCalllApi({}, roomId, {
       success: res => {
         setPresentRoomId(-1);
+        setVisibleCallState({
+          visible: false,
+          deviceName: 'off',
+          connectionState: '',
+          data: [],
+        });
       },
       refLoading: refLoading,
     });
@@ -248,21 +260,47 @@ const ListDeviceScreen = () => {
     if (ringtone.current) {
       ringtone.current.stop();
     }
-    // if (videoCallReducer.connectionState === 'INIT') {
-    setVisibleCallState({
-      visible: false,
-      deviceName: 'off',
-      connectionState: '',
-      data: [],
-    });
-    setVisibleCall({
-      visible: true,
-      device: {deviceName: item.caller.deviceName},
-      data: item,
-    });
-    // } else {
-    //   onPressCall(item);
-    // }
+    if (videoCallReducer.connectionState === 'INIT') {
+      setVisibleCallState({
+        visible: false,
+        deviceName: 'off',
+        connectionState: '',
+        data: [],
+      });
+      setVisibleCall({
+        visible: true,
+        device: {deviceName: item.caller.deviceName},
+        data: item,
+      });
+    } else {
+      createVideoCalllApi(
+        // DataLocal.deviceId,
+        {deviceId: item.caller.deviceId},
+        {
+          success: res => {
+            //show modal call when connected
+            setVisibleCall({
+              visible: true,
+              device: {
+                deviceId: item.caller.deviceId,
+                deviceName: item.caller.deviceName,
+              },
+              data: res.data,
+            });
+            setPresentRoomId(res.data.id);
+            setTimeout(() => {
+              if (!isPickUp) {
+                finishVideoCalllApi({}, res.data.id, {
+                  success: res => {},
+                  refLoading: refLoading,
+                });
+              }
+            }, 1000 * 20);
+          },
+          refLoading: refLoading,
+        },
+      );
+    }
   };
   const toggleModalState = ({connectionState, roomId}) => {
     Vibration.cancel();

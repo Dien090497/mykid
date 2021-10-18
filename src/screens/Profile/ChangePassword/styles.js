@@ -21,11 +21,12 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   Sty_txtPass: {
-    marginLeft: '2%',
-    width: "98%",
+    width: "100%",
     flexDirection: "row",
-    marginVertical: 15,
+    marginVertical: 10,
     alignItems: "center",
+    justifyContent: 'center',
+
   },
   Sty_txtCode: {
     marginLeft: '2%',
@@ -67,9 +68,9 @@ export const styles = StyleSheet.create({
     marginLeft: 5,
   },
   viewButton: {
-    width: "96%",
-    marginLeft: '2%',
-    marginTop: 50,
+    width: "100%",
+    marginTop: 40,
     justifyContent: "center",
+    alignItems: 'center'
   }
 });

@@ -143,8 +143,6 @@ export async function post(
   const headersGet = getHeaders(headers);
   let response = await doRequest(url, headersGet, body, requestType.post);
   hideLoading(refLoading);
-  console.log()
-
   return handleResp(response, autoShowMsg, success, failure, refLoading);
 }
 
@@ -220,6 +218,34 @@ export async function upload(
       headers,
       timeout: TIMEOUT_CONNECT,
       responseType: 'json',
+    });
+  } catch (error) {
+    console.log('[API] [ERROR] call API upload ' + url, error);
+    response = await error.response;
+  }
+  console.log('[API] [response] upload ' + url, response);
+
+  hideLoading(refLoading);
+
+  return handleResp(response, autoShowMsg, success, failure, refLoading);
+}
+
+export async function uploadFile(
+  url, {
+    body,
+    headers,
+    success,
+    failure,
+    autoShowMsg = true,
+    refLoading = null,
+  } = {}) {
+  showLoading(refLoading);
+
+  let response;
+  try {
+    response = await client.put(url, body, {
+      headers,
+      timeout: TIMEOUT_CONNECT,
     });
   } catch (error) {
     console.log('[API] [ERROR] call API upload ' + url, error);

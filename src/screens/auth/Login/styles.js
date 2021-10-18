@@ -1,9 +1,10 @@
-import { FontSize } from '../../../functions/Consts';
+import Consts ,{ FontSize,ScaleHeight } from '../../../functions/Consts';
 import {Dimensions, StyleSheet} from 'react-native';
 
 import {Colors} from '../../../assets/colors/Colors';
 
-const { width } = Dimensions.get("window");
+const { width} = Dimensions.get("window");
+const height = Consts.windowHeight;
 
 export const styles = StyleSheet.create({
   btnClose: {
@@ -18,19 +19,58 @@ export const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    resizeMode: 'cover',
+    height:height,
     paddingHorizontal: 20,
-    justifyContent: "center",
     alignItems: "center"
+  },
+  banner:{
+    width:'100%',
+    height:height*0.25,
+    resizeMode:'stretch',
+    marginHorizontal:16,
+    marginVertical:30,
+  },
+  title:{
+    fontFamily:'Roboto-Medium',
+    fontSize: FontSize.xxtraBig,
+    color: '#5F5F5F',
+  },
+  textInput:{
+    width:'100%',
+    backgroundColor: "#FFF",
+    borderRadius: 10,
+    borderWidth:1,
+    color:Colors.black,
+    borderColor:'#E7E7E7',
+    paddingHorizontal:10,
+    marginTop:20,
+    fontSize: FontSize.xtraSmall,
+    height: ScaleHeight.medium
   },
   ViewResetPass: {
     flexDirection: 'row',
     width: '100%',
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    marginVertical:15
   },
   txtRegister: {
-    color: '#4169E1',
-    marginRight: 5
+    color: '#EE0033',
+    marginRight: 5,
+    textDecorationLine: "underline",
+    textDecorationStyle: 'solid',
+    fontSize:FontSize.small,
+  },
+  btnSubmit:{
+    backgroundColor: Colors.colorMain,
+    borderRadius:10,
+    alignItems:'center',
+    justifyContent:'center',
+    height: ScaleHeight.medium
+  },
+  textSubmit:{
+    fontFamily:'Roboto-Medium',
+    fontSize:FontSize.small,
+    color: Colors.white
   },
   Sty_iconCheckbox: {
     justifyContent: 'center',
@@ -50,15 +90,16 @@ export const styles = StyleSheet.create({
     borderColor: '#FFFFFF',
   },
   txtPolicy: {
-    fontWeight: "700",
-    fontSize: FontSize.medium,
-    color: Colors.red,
+    fontFamily:'Roboto-Medium',
+    fontSize: FontSize.xtraSmall,
+    color: Colors.colorMain,
     textDecorationLine: "underline",
   },
   txt_Policy: {
-    fontSize: FontSize.small,
+    fontSize: FontSize.xtraSmall,
     marginTop: 15,
     marginLeft: -10,
-    width: width - 60
+    width: width - 60,
+    color:'#808080'
   },
 });

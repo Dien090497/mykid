@@ -6,19 +6,18 @@ import {
   ImageBackground,
   Keyboard,
   KeyboardAvoidingView,
-  Platform,
+  Platform, ScrollView,
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
+  TextInput, StatusBar,
 } from "react-native";
 import React, { useLayoutEffect, useRef, useState } from "react";
 import { emailTest, passwordTest, showAlert } from "../../../functions/utils";
 import { useDispatch, useSelector } from "react-redux";
 
-import Button from "../../../components/buttonGradient";
 import { Colors } from "../../../assets/colors/Colors";
-import ComponentInput from "../../../components/CustomInput";
 import Consts from "../../../functions/Consts";
 import Images from "../../../assets/Images";
 import LoadingIndicator from "../../../components/LoadingIndicator";
@@ -42,11 +41,11 @@ const Login = ({ navigation }) => {
 
   useLayoutEffect(() => {
     onLoggedIn();
-  }, [loggedInUserInfo])
+  }, [loggedInUserInfo]);
 
   const onLoggedIn = async () => {
     if (loggedInUserInfo.id && checkbox) {
-      getListDeviceApi(loggedInUserInfo.id, Consts.pageDefault, 100, '', '', {
+      getListDeviceApi(loggedInUserInfo.id, Consts.pageDefault, 100, "", "", {
         success: resData => {
           onNavigate(resData);
         },
@@ -58,7 +57,7 @@ const Login = ({ navigation }) => {
   const onNavigate = async (resData) => {
     let devices = resData.data.filter(val => val.status === 'ACTIVE');
     if (devices.length === 0) {
-      navigation.navigate(Consts.ScreenIds.AddDeviceScreen, {isShowAlert: resData.data.length > 0});
+      navigation.navigate(Consts.ScreenIds.AddDeviceScreen, { isShowAlert: resData.data.length > 0 });
     } else {
       if (DataLocal.deviceIndex >= devices.length) {
         DataLocal.deviceIndex = 0;
@@ -79,7 +78,7 @@ const Login = ({ navigation }) => {
   };
 
   const onSubmit = () => {
-    if(checkbox){
+    if (checkbox) {
       if (!emailTest(email)) {
         showAlert(String.errorGmail);
         return;
@@ -88,8 +87,8 @@ const Login = ({ navigation }) => {
         showAlert(String.txtNotification);
         return;
       }
-      dispatch(Actions.actionLogin({email, password, refLoading}));
-    }else {
+      dispatch(Actions.actionLogin({ email, password, refLoading }));
+    } else {
       Alert.alert(String.notification, String.error_message);
     }
   };
@@ -98,55 +97,57 @@ const Login = ({ navigation }) => {
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}>
+      <StatusBar backgroundColor={Colors.white} barStyle='dark-content' animated={true}/>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <ImageBackground source={Images.bgLogin} style={styles.image}>
-          <View style={styles.ViewResetPass}>
-            <View/>
-            <TouchableOpacity onPress={() => navigation.navigate(Consts.ScreenIds.Register)}>
-              <Text
-                style={styles.txtRegister}>{String.register}</Text>
-            </TouchableOpacity>
-          </View>
-          <ComponentInput
-            placeholder={"Hộp thư"}
-            value={email}
-            onChangeText={onChangeGmail}
-            Sty_input={{ backgroundColor: "#FFF", borderRadius: 100 }}
-            title={"Tài khoản: "}
-          />
-          <ComponentInput
-            placeholder={'Nhập 8-16 ký tự'}
-            value={password}
-            secureTextEntry
-            onChangeText={onChangePassword}
-            Sty_input={{ backgroundColor: "#FFF", borderRadius: 100 }}
-            title={"Mật khẩu: "}
-          />
-          <View
-            style={{
+        <ScrollView>
+          <ImageBackground source={Images.bgLogin} style={styles.image} resizeMode="stretch">
+            <Image source={Images.bannerLogin} style={styles.banner} />
+            <Text style={styles.title}>{String.login}</Text>
+            <TextInput
+              placeholder={String.header_account + ":"}
+              placeholderTextColor="#B5B4B4"
+              onChangeText={onChangeGmail}
+              value={email}
+              style={styles.textInput}
+            />
+            <TextInput
+              placeholder={String.header_password + ":"}
+              placeholderTextColor="#B5B4B4"
+              onChangeText={onChangePassword}
+              value={password}
+              secureTextEntry={true}
+              style={styles.textInput}
+            />
+            <View style={styles.ViewResetPass}>
+              <View />
+              <TouchableOpacity onPress={() => navigation.navigate(Consts.ScreenIds.Register)}>
+                <Text
+                  style={styles.txtRegister}>{String.register}</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={{
               width: "100%",
               marginTop: 10,
               justifyContent: "center",
-            }}
-          >
-            <Button
-              onclick={onSubmit}
-              title={String.login}
-              color={Colors.gradient}
-              Sty_btn={{ borderWidth: 4, borderColor: "#D71921" }}
-              txtColor={"#000000"}
-            />
-          </View>
+            }}>
+              <TouchableOpacity onPress={onSubmit} style={styles.btnSubmit}>
+                <Text style={styles.textSubmit}>{String.login}</Text>
+              </TouchableOpacity>
+            </View>
 
-          <View style={{ marginTop: 15, flexDirection: "row"}}>
-            <CheckBox checkedColor='green' uncheckedColor='green' checked={checkbox}
-              onPress={() => setCheckbox(!checkbox)} />
-            <Text style={styles.txt_Policy}>{String.acceptMy} <Text style={styles.txtPolicy}
-                                      onPress={() => console.log("hello")}>{String.agreement}</Text>    <Text
-              style={styles.txtPolicy} onPress={() => console.log("Chính sách bảo mật")}>{String.privacyPolicy}</Text>
-            </Text>
-          </View>
-        </ImageBackground>
+            <View style={{ marginTop: 15, flexDirection: "row", marginBottom: 40 }}>
+              <CheckBox checkedColor={Colors.colorMain} uncheckedColor={Colors.colorMain} checked={checkbox}
+                        onPress={() => setCheckbox(!checkbox)} />
+              <Text style={styles.txt_Policy}>{String.acceptMy}
+                <Text> </Text>
+                <Text style={styles.txtPolicy} onPress={() => console.log("hello")}>{String.agreement}</Text>
+                <Text> </Text>
+                <Text style={styles.txtPolicy}
+                      onPress={() => console.log("Chính sách bảo mật")}>{String.privacyPolicy}</Text>
+              </Text>
+            </View>
+          </ImageBackground>
+        </ScrollView>
       </TouchableWithoutFeedback>
       <LoadingIndicator ref={refLoading} />
     </KeyboardAvoidingView>

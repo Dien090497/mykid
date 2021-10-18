@@ -118,7 +118,7 @@ const Register = ({ navigation }) => {
               value={email}
               notification={checkGmail}
               txtnotification={String.errorGmail}
-           />
+            />
           </View>
           <View style={styles.Sty_txtCode}>
             <View style={{ width: "100%" }}>
@@ -168,9 +168,9 @@ const Register = ({ navigation }) => {
           </View>
           <View style={{ marginTop: 15, flexDirection: "row", width: '90%' }}>
             <CheckBox checkedColor='green' uncheckedColor='green' checked={checkbox}
-                onPress={() => setCheckbox(!checkbox)} />
+                      onPress={() => setCheckbox(!checkbox)} />
             <Text style={styles.txt_Policy}>{String.acceptMy} <Text style={styles.txtPolicy}
-                                      onPress={() => console.log("hello")}>{String.agreement}</Text>   <Text
+                                                                    onPress={() => console.log("hello")}>{String.agreement}</Text>   <Text
               style={styles.txtPolicy} onPress={() => console.log("Chính sách bảo mật")}>{String.privacyPolicy}</Text>
             </Text>
           </View>

@@ -1,10 +1,11 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import {
+  ScrollView,
   Switch,
   Text,
   TouchableOpacity,
   View,
-} from 'react-native';
+} from "react-native";
 import {styles} from './styles';
 import Header from '../../../components/Header';
 import {String} from '../../../assets/strings/String';
@@ -35,17 +36,13 @@ export default function AlarmClock({navigation}) {
   };
 
   const toggleSwitch = (obj, i) => {
-    if (!alarmConfig[i].title) {
-      toggleAlarmSetting(obj, i);
-      return;
-    }
     const config = Object.assign([], alarmConfig);
     if (config[i].status === 'ON')
       config[i].status = 'OFF';
     else config[i].status = 'ON';
-    setAlarmConfig(config);
     setAlarmApi(DataLocal.deviceId, config[i], {
       success: resData => {
+        setAlarmConfig(config);
       },
       refLoading,
     });
@@ -83,28 +80,31 @@ export default function AlarmClock({navigation}) {
       <Header title={String.header_alarmClock} />
       <View style={styles.container}>
         <View style={styles.viewImg}>
-          <Image source={Images.icAlarmClock} resizeMode={'stretch'} style={styles.iconClock}/>
+          <Image source={Images.icAlarmClock} resizeMode={'contain'} style={styles.iconClock}/>
         </View>
-        {alarmConfig && alarmConfig.map((obj, i) => (
-          <View key={i} style={styles.viewItem}>
-            <TouchableOpacity style={styles.viewText} onPress={() => {
+        <ScrollView>
+          {alarmConfig && alarmConfig.map((obj, i) => (
+            <View key={i} style={styles.viewItem}>
+              <TouchableOpacity style={styles.viewText} onPress={() => {
                 toggleAlarmSetting(obj, i);
               }}>
-              <View style={styles.rowDirection}>
-                <Text style={styles.txtTime}>{obj.time.substring(0, 5)}</Text>
-                <Image source={Images.icRightArrow} style={styles.icArrow}/>
+                <View style={styles.rowDirection}>
+                  <Text style={styles.txtTime}>{obj.time.substring(0, 5)}</Text>
+                  <Image source={Images.icRightArrow} style={styles.icArrow}/>
+                </View>
+                <Text style={styles.txtMode}>{getTextFrequency(obj)}</Text>
+              </TouchableOpacity>
+              <View style={styles.viewSwitch}>
+                <Switch
+                  trackColor={{false: Colors.gray, true: Colors.colorMain}}
+                  thumbColor={Colors.white}
+                  onValueChange={() => {toggleSwitch(obj, i)}}
+                  value={obj.status === 'ON'}
+                />
               </View>
-              <Text style={styles.txtMode}>{getTextFrequency(obj)}</Text>
-            </TouchableOpacity>
-            <View style={styles.viewSwitch}>
-              <Switch
-                trackColor={{false: Colors.gray, true: '#81b0ff'}}
-                onValueChange={() => {toggleSwitch(obj, i)}}
-                value={obj.status === 'ON'}
-              />
             </View>
-          </View>
-        ))}
+          ))}
+        </ScrollView>
       </View>
       <LoadingIndicator ref={refLoading} />
     </View>

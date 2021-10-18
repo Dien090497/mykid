@@ -21,6 +21,7 @@ export const listDeviceUrl = appUrl + '/account-devices';
 export const locationDeviceUrl = appUrl + '/locations';
 export const phoneBookUrl = appUrl + '/phone-books';
 export const safeZoneUrl = appUrl + '/safe-zones';
+export const deleteDeviceUrl = appUrl + '/account-devices/devices';
 
 // Alarm
 export const alarmUrl = appUrl + '/alarms';
@@ -30,7 +31,7 @@ export const classModesUrl = appUrl + '/class-modes';
 
 // LanguageTimeZone
 export const languageTimeZoneUrl = appUrl + '/language-timezones';
-
+export const languageUrl = appUrl+'/language-timezones/languages';
 // Sound
 export const soundModesUrl = appUrl + '/sound-modes';
 
@@ -39,9 +40,16 @@ export const watchsUrl = appUrl + '/watchs';
 
 // User info
 export const accountDetailUrl = appUrl + '/accounts';
-
+//EacesDrop
+export const eacesDropUrl = appUrl + '/monitors';
 // Videocall
 export const createVideoCalllUrl = streamUrl + '/video-calls';
+
+// Rewards
+export const rewardsUrl = appUrl + '/rewards';
+
+// Rooms
+export const roomsUrl = appUrl + '/rooms';
 
 /// url: string, obj: object
 export function assignUrlParams(url, obj) {

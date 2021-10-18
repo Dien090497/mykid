@@ -1,23 +1,39 @@
-import { StyleSheet, Dimensions } from "react-native";
-import { FontSize } from "../../../functions/Consts";
+import { StyleSheet } from "react-native";
+import { FontSize,ScaleHeight } from "../../../functions/Consts";
+import { Colors } from "../../../assets/colors/Colors";
 
-const { width, height } = Dimensions.get("window");
 const styles = StyleSheet.create({
   contain: {
     flex: 1,
     backgroundColor: "#FFFFFF",
   },
   container: {
-    flex: 1,
-    paddingTop: 10,
     paddingHorizontal: 20,
     backgroundColor: "#FFF",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+  },
+  icon: {
+    width:85,
+    height:85,
+    marginVertical:50
+  },
+  btnRegister:{
+    width:'100%',
+    height: ScaleHeight.medium,
+    backgroundColor: Colors.colorMain,
+    borderRadius:10,
+    alignItems:'center',
+    justifyContent:'center',
+  },
+  textRegister:{
+    color: Colors.white,
+    fontFamily:'Roboto-Medium',
+    fontSize: FontSize.small
   },
   txtRegister: {
-    marginTop: -100,
-    marginBottom: 100,
+    marginTop:60,
+    color:Colors.colorMain,
     fontSize: FontSize.xxxtraBig,
     fontFamily: "Roboto-Bold",
   }

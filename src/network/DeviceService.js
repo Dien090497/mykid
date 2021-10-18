@@ -1,5 +1,5 @@
 import {dele, get, path, post} from './http/HttpClient';
-import {listDeviceUrl, locationDeviceUrl} from './http/ApiUrl';
+import {deleteDeviceUrl, listDeviceUrl, locationDeviceUrl} from './http/ApiUrl';
 
 import Consts from '../functions/Consts';
 
@@ -40,6 +40,7 @@ export function addDeviceApi(
   deviceName,
   icon,
   relationship,
+  relationshipName,
   {success, failure, autoShowMsg = true, refLoading = null} = {},
 ) {
   let body = {
@@ -47,6 +48,7 @@ export function addDeviceApi(
     deviceName,
     icon,
     relationship,
+    relationshipName,
   };
   return post(listDeviceUrl, {body, success, failure, autoShowMsg, refLoading});
 }
@@ -103,4 +105,16 @@ export function getJourneyApi(
     autoShowMsg,
     refLoading,
   });
+}
+export function deleteDevicesApi (
+  deviceId,
+  {success, failure, autoShowMsg = true, refLoading = null},
+) {
+  const url = [deleteDeviceUrl, deviceId].join('/');
+  return dele(url, {
+    autoShowMsg,
+    success,
+    failure,
+    refLoading
+  })
 }
