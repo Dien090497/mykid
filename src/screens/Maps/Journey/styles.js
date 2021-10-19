@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     resizeMode: 'contain',
-    tintColor: Colors.yellow
+    tintColor: Colors.colorMain
   },
   wrapperFilter: {
     padding:5,
