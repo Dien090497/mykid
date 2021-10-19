@@ -52,9 +52,9 @@ export const styles = StyleSheet.create ({
   },
   textModel: {
     fontSize: 18,
-    fontStyle: 'normal',
+    fontFamily:'Roboto-Medium',
     textAlign: 'center',
-    fontWeight: '500'
+    color: Colors.grayTextColor
   },
   TobOpacity: {
     width: '50%',

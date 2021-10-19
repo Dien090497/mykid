@@ -61,6 +61,7 @@ import LanguageTimeZone from "../screens/Profile/LanguageTimeZone";
 import OffDevice from '../screens/Settings/OffDevice';
 import StartDevice from '../screens/Settings/RestartDevice';
 import { String } from '../assets/strings/String';
+import EditDevice from "../screens/Profile/DeviceManager/EditDevice";
 var encoder = new encoding.TextEncoder();
 const Tab = createBottomTabNavigator();
 
@@ -221,6 +222,10 @@ const Routes = () => {
         <Stack.Screen
           name={Consts.ScreenIds.DeviceManager}
           component={DeviceManager}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.EditDevice}
+          component={EditDevice}
         />
         <Stack.Screen
           name={Consts.ScreenIds.FindDevice}

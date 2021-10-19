@@ -28,26 +28,32 @@ export default function DeviceManager({navigation}) {
 
   const dataMock = [
     {
+      name: 'Bố',
       icon: Images.icFather,
       relationship: 'FATHER'
     },
     {
+      name: 'Mẹ',
       icon: Images.icMother,
       relationship: 'MOTHER'
     },
     {
+      name: 'Ông',
       icon: Images.icGrandfather,
       relationship: 'GRANDFATHER'
     },
     {
+      name: 'Bà',
       icon: Images.icGrandmother,
       relationship: 'GRANDMOTHER'
     },
     {
+      name: 'Anh',
       icon: Images.icBrother,
       relationship: 'BROTHER'
     },
     {
+      name: 'Chị',
       icon: Images.icSister,
       relationship: 'SISTER'
     },
@@ -105,17 +111,30 @@ export default function DeviceManager({navigation}) {
     });
   }
 
+  const editDevice = (item)=>{
+    navigation.navigate(Consts.ScreenIds.EditDevice, {data: item ,onRefresh: editDeviceFinal})
+  }
+
+  const editDeviceFinal = () =>{
+    console.log("!@#")
+  }
+  console.log(devices)
+
   const renderItem  = ({item, index}) => {
     const relationship = dataMock.filter(val => val.relationship === item.relationship);
     const icon = relationship.length > 0 ? relationship[0].icon : dataMock[6].icon;
+    relationship[0].name ? item.relationshipName = relationship[0].name: null;
+    item.icon = icon;
     if (checkDelete) {
       return (
         <View style={styles.rowSettings}>
-          <Image source={icon} resizeMode={'contain'} style={styles.iconSetting}/>
-          <View style={{flexDirection: 'column', justifyContent: 'center'}}>
-            <Text style={styles.textSettings}>{item.deviceName}</Text>
-            <Text style={[styles.textSettings, {color: Colors.grayTextTitleColor, fontSize: 12}]}>{item.deviceCode}</Text>
-          </View>
+          <TouchableOpacity style={{flexDirection: 'row'}} onPress={()=>{editDevice(item)}}>
+            <Image source={item.icon} resizeMode={'contain'} style={styles.iconSetting}/>
+            <View style={{flexDirection: 'column', justifyContent: 'center'}}>
+              <Text style={styles.textSettings}>{item.deviceName}</Text>
+              <Text style={[styles.textSettings, {color: Colors.grayTextTitleColor, fontSize: 12}]}>{item.deviceCode}</Text>
+            </View>
+          </TouchableOpacity>
           {selectedIndex !== index ?
             <TouchableOpacity onPress={() => {handleChange(index)}} style={styles.btnChange}>
               <Text style={styles.textCheck}>{String.change}</Text>

@@ -33,6 +33,7 @@ const ScreenIds = {
   ChangePassword: 'ChangePassword',
   HomeMainScreen: 'HomeMainScreen',
   DeviceManager: 'DeviceManager',
+  EditDevice: 'EditDevice',
   FindDevice: 'FindDevice',
   SoundSettings: 'SoundSettings',
   AlarmClock: 'AlarmClock',
