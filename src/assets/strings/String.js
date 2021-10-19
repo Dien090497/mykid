@@ -46,6 +46,7 @@ export const String = {
   header_doNotDisturb: 'Chế độ lớp học',
   header_language_timezone: 'Ngôn ngữ và múi giờ',
   header_chat: 'Tin nhắn thoại',
+  header_secret_shoot: 'Chụp ảnh từ xa',
   header_remoteDevices: 'Tắt thiết bị từ xa',
   header_remoteStart: 'Khởi động lại từ xa',
 
@@ -168,6 +169,8 @@ export const String = {
   home_alarmClock: 'BÁO THỨC',
   home_device: 'THIẾT BỊ',
   home_setting: 'THIẾT LẬP',
+  home_game: 'GIẢI TRÍ',
+  home_warning: 'CẢNH BÁO',
 
   //setting
   setting_contact: 'Danh bạ',
@@ -176,6 +179,9 @@ export const String = {
   device_connected_not_found: 'Không tìm thấy thiết bị kết nối',
   call_busy: 'Người dùng bận',
   call_back: 'Gọi lại',
+  alerfTurnOffDevice: 'Bạn thực sự muốn tắt thiết bị này ?',
+  alerfRestartDevice: 'Bạn có chắc chắn muốn khởi động thiết bị của mình không ?',
+  submitSuccess: 'Gửi thành công ',
 
   // find device
   find_device_note0: 'Kiểm tra vị trí thiết bị mọi lúc, mọi nơi.',
@@ -197,6 +203,9 @@ export const String = {
 
   //DoNotDisturb
   textAddTime: 'Thêm khoảng thời gian',
+
+  //SecretPhotoShoot
+  textShoot: 'Chụp hình',
 
   // permissions
   cameraUnavailable: 'Máy ảnh không khả dụng trên thiết bị của bạn',

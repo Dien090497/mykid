@@ -48,8 +48,13 @@ export const createVideoCalllUrl = streamUrl + '/video-calls';
 // Rewards
 export const rewardsUrl = appUrl + '/rewards';
 
+// Device
+export const  deviceUrl = appUrl + '/commands';
 // Rooms
 export const roomsUrl = appUrl + '/rooms';
+
+//PhotoShoot
+export const PhotoShootUrl = appUrl + '/commands';
 
 /// url: string, obj: object
 export function assignUrlParams(url, obj) {

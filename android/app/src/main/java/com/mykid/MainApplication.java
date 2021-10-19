@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import ez.react.binary.RNBinaryFilePackage;
+import com.RNFetchBlob.RNFetchBlobPackage;
 import com.rnfs.RNFSPackage;
 import com.reactnativecommunity.cameraroll.CameraRollPackage;
 import com.react.rnspinkit.RNSpinkitPackage;

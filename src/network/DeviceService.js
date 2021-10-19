@@ -1,6 +1,5 @@
 import {dele, get, path, post} from './http/HttpClient';
-import {deleteDeviceUrl, listDeviceUrl, locationDeviceUrl} from './http/ApiUrl';
-
+import {alarmUrl, deleteDeviceUrl, deviceUrl, listDeviceUrl, locationDeviceUrl} from './http/ApiUrl';
 import Consts from '../functions/Consts';
 
 export function getListDeviceConnected(payload) {
@@ -117,4 +116,28 @@ export function deleteDevicesApi (
     failure,
     refLoading
   })
+}
+export function offDeviceApi (
+  deviceId,
+  {success, failure, autoShowMsg = true, refLoading = null} = {},
+) {
+  const url = [deviceUrl, deviceId, 'power-off'].join('/');
+  return post(url, {
+    success,
+    failure,
+    autoShowMsg,
+    refLoading,
+  });
+}
+export function restartDeviceApi (
+  deviceId,
+  {success, failure, autoShowMsg = true, refLoading = null} = {},
+) {
+  const url = [deviceUrl, deviceId, 'restart'].join('/');
+  return post(url, {
+    success,
+    failure,
+    autoShowMsg,
+    refLoading,
+  });
 }
