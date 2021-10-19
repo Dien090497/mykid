@@ -30,6 +30,7 @@ const ScreenIds = {
   Tabs: 'Tabs',
   Auth: 'Auth',
   Profile: 'Profile',
+  PersonalData: 'PersonalData',
   ChangePassword: 'ChangePassword',
   HomeMainScreen: 'HomeMainScreen',
   DeviceManager: 'DeviceManager',

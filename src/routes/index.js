@@ -50,6 +50,7 @@ import DoNotDisturb from '../screens/Profile/DoNotDisturb';
 import DisturbSetting from '../screens/Profile/DoNotDisturb/DisturbSetting';
 import AlarmSetting from '../screens/Profile/AlarmClock/AlarmSetting';
 import SplashScreen from '../screens/Splash';
+import PersonalData from '../screens/Profile/PersonalData';
 import WS from './WebScoket';
 import {createStackNavigator} from '@react-navigation/stack';
 import reduxStore from '../redux/config/redux';
@@ -218,6 +219,10 @@ const Routes = () => {
         <Stack.Screen
           name={Consts.ScreenIds.AddDeviceScreen}
           component={AddDeviceScreen}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.PersonalData}
+          component={PersonalData}
         />
         <Stack.Screen
           name={Consts.ScreenIds.DeviceManager}

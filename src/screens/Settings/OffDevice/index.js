@@ -28,14 +28,13 @@ export default function OffDevice() {
       <Header title={String.header_remoteDevices}/>
      <View style={{flex:1, alignItems: 'center', justifyContent: 'center'}}>
        <TouchableOpacity
-         onPress={() => {refModel.current.open(); }}
+         onPress={() => {refModel.current.open(String.alerfTurnOffDevice); }}
        >
          <Image source={Images.icTurnOff} resizeMode={'stretch'} style={{width: 190, height: 190}}/>
        </TouchableOpacity>
      </View>
       <ModalConfirm
          ref={refModel}
-         title={String.alerfTurnOffDevice}
          onPressYes={turnOffDevice}
       />
       <LoadingIndicator  ref={refLoading} />

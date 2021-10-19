@@ -22,7 +22,9 @@ export default function Profile({navigation}) {
     {
       key: 'Personal',
       title: String.personalData,
-      onPress: () => {},
+      onPress: () => {
+        navigation.navigate(Consts.ScreenIds.PersonalData)
+      },
       icon: (
         <Image source={Images.icPersonal} style={{width: 40, height: 40}}/>
       ),
