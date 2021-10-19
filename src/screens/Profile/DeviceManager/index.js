@@ -16,6 +16,8 @@ import {String} from '../../../assets/strings/String';
 import {deleteDevicesApi, getListDeviceApi} from '../../../network/DeviceService';
 import {styles} from './styles';
 import {Colors} from "../../../assets/colors/Colors";
+import reduxStore from '../../../redux/config/redux'
+import commonInfoAction from "../../../redux/actions/commonInfoAction";
 
 export default function DeviceManager({navigation}) {
   const [selectedIndex, setSelectedIndex] = useState(DataLocal.deviceIndex);
@@ -88,6 +90,7 @@ export default function DeviceManager({navigation}) {
 
   const handleChange = async (index) => {
     setSelectedIndex(index);
+    reduxStore.store.dispatch(commonInfoAction.selectDevice(index));
     await DataLocal.saveDeviceIndex(index);
     await DataLocal.saveDeviceId(devices[index].deviceId);
   };
