@@ -69,9 +69,7 @@ export default function DeviceManager({navigation}) {
   }, []);
 
   const refesh = React.useCallback(async () => {
-    setLoading(true);
     getListDevice();
-    setLoading(false);
   }, []);
 
   const getListDevice = async () => {
@@ -112,13 +110,8 @@ export default function DeviceManager({navigation}) {
   }
 
   const editDevice = (item)=>{
-    navigation.navigate(Consts.ScreenIds.EditDevice, {data: item ,onRefresh: editDeviceFinal})
+    navigation.navigate(Consts.ScreenIds.EditDevice, {data: item ,onRefresh: refesh()})
   }
-
-  const editDeviceFinal = () =>{
-    console.log("!@#")
-  }
-  console.log(devices)
 
   const renderItem  = ({item, index}) => {
     const relationship = dataMock.filter(val => val.relationship === item.relationship);
