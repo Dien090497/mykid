@@ -31,10 +31,10 @@ const Login = ({ navigation }) => {
   const dispatch = useDispatch();
   const loggedInUserInfo = useSelector((state) => state.loginReducer.dataInfo);
 
-  const [email, setEmail] = useState("Anhvt@gmail.com");
-  // const [email, setEmail] = useState("hyhung@gmail.com");
-  // const [password, setPassword] = useState("hung12345");
-  const [password, setPassword] = useState("12345678");
+  // const [email, setEmail] = useState("Anhvt@gmail.com");
+  const [email, setEmail] = useState("hyhung@gmail.com");
+  const [password, setPassword] = useState("hung12345");
+  // const [password, setPassword] = useState("anh12345");
   const [checkbox, setCheckbox] = useState(false);
 
   const refLoading = useRef();

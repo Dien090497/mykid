@@ -8,7 +8,6 @@ import {styles} from './styles';
 import Header from '../../components/Header';
 import {String} from '../../assets/strings/String';
 import LoadingIndicator from '../../components/LoadingIndicator';
-import DataLocal from '../../data/dataLocal';
 import { Image } from 'react-native';
 import Images from '../../assets/Images';
 import Consts from '../../functions/Consts';

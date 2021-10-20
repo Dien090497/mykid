@@ -68,7 +68,7 @@ export default function RoomChat({navigation, route}) {
     if (route.params && route.params.roomInfo) {
       const roomAddress = route.params.roomInfo.roomAddress;
       XmppClient.joinRoom(roomAddress);
-      XmppClient.getHistory(50);
+      XmppClient.getHistory(150);
     }
     
   }, []);
