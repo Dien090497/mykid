@@ -13,8 +13,8 @@ export default class ModalConfirm extends Component  {
     };
   }
 
-  open = () => {
-    this.setState({modalVisible: true});
+  open = (title, confirm) => {
+    this.setState({modalVisible: true,title: title, confirm: confirm});
   };
 
   close = (callback) => {
@@ -30,6 +30,7 @@ export default class ModalConfirm extends Component  {
   };
 
   actionYes = () => {
+    this.state.confirm();
     this.close(() => {
       setTimeout(() => {
         if (this.props.onPressYes) {
@@ -50,7 +51,7 @@ export default class ModalConfirm extends Component  {
         <TouchableOpacity style={styles.modal} onPress={() => {this.close()}}>
           <View style={styles.tobModal}>
             <View style={[styles.tobView, {marginTop: ScaleHeight.small}]}>
-              <Text style={styles.textModel}>{this.props.title}</Text>
+              <Text style={styles.textModel}>{this.state.title}</Text>
             </View>
             <View style={[styles.tobView, {width: '86%'}]}>
               <View style={styles.tob}>

@@ -16,7 +16,7 @@ import React, {
   useState,
 } from 'react';
 import {convertDateTimeToString, showAlert} from '../../../functions/utils';
-import {getJourneyApi, getListDeviceApi} from '../../../network/DeviceService';
+import { getJourneyApi, getListDeviceApi, getLocationDeviceApi } from "../../../network/DeviceService";
 
 import {Colors} from '../../../assets/colors/Colors';
 import DataLocal from '../../../data/dataLocal';
@@ -28,32 +28,6 @@ import {String} from '../../../assets/strings/String';
 import styles from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import TimePickerModal from "../../../components/TimePickerModal";
-
-const mockData = [
-  {
-    id: 1,
-    name: 'Đi học',
-    radius: 1000,
-    status: 'on',
-    latitude: 21.0070253,
-    longitude: 105.843136,
-  },
-  {
-    id: 2,
-    name: 'Đi chơi',
-    radius: 700,
-    status: 'on',
-    latitude: 21.0067305,
-    longitude: 105.8181346,
-  },
-];
-
-const initialRegion = {
-  latitude: 21.030653,
-  longitude: 105.84713,
-  latitudeDelta: 0.0922,
-  longitudeDelta: 0.0421,
-};
 
 const headerScreen = () => {
   let title = String.home_journey.toLocaleLowerCase();
@@ -85,7 +59,7 @@ export default ({}) => {
   const [date, setDate] = useState(new Date());
   const [fromDate, setFromDate] = useState(fromDateDefault());
   const [toDate, setToDate] = useState(toDateDefault());
-  const [deviceInfo, setDeviceInfo] = useState(null);
+  const [deviceInfo, setDeviceInfo] = useState({location: {lat: 26.013197, lng: 105.78073}});
   const refLoading = useRef();
 
   const [openDatePicker, setOpenDatePicker] = useState(false)
@@ -95,7 +69,10 @@ export default ({}) => {
   }, []);
 
   const toggleJourney = () => {
-    if (fromDate.getHours() >= toDate.getHours()){
+    if (fromDate.getHours() > toDate.getHours()){
+      showAlert(String.timeInvalidNote);
+      return
+    }else if (fromDate.getHours() > toDate.getHours() && fromDate.getMinutes() > toDate.getMinutes()){
       showAlert(String.timeInvalidNote);
       return
     }
@@ -111,10 +88,10 @@ export default ({}) => {
       100,
       {
         success: resData => {
-          setListSafeArea(resData.data.content);
           if (!resData.data.content.length) {
             showAlert(`${deviceInfo.deviceName} - ${String.history_empty}`);
           } else {
+            setListSafeArea(resData.data.content);
             const {lat, lng} = resData.data.content[0].location;
             refMap.current.animateCamera({
               center: {
@@ -131,18 +108,22 @@ export default ({}) => {
   };
 
   useEffect(() => {
-    const getDeviceInfo = () => {
-      getListDeviceApi(null, 0, 100, DataLocal.deviceId, '',  {
-        success: res => {
-          const device = res.data.find(
-            val => val.deviceId === DataLocal.deviceId,
-          );
-          setDeviceInfo(device);
-        },
-        refLoading: refLoading,
-      });
-    };
-    getDeviceInfo();
+    getLocationDeviceApi(DataLocal.deviceId, {
+      success: res => {
+        setDeviceInfo(res.data);
+        const {lat, lng} = res.data?.location;
+        if (lat && lng) {
+          refMap.current.animateCamera({
+            center: {
+              latitude: lat,
+              longitude: lng,
+            },
+            zoom: 15,
+          });
+        }
+      },
+      refLoading: refLoading,
+    });
   }, []);
 
   const datePicker = () => {
@@ -226,6 +207,7 @@ export default ({}) => {
       </View>
     );
   };
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -240,7 +222,14 @@ export default ({}) => {
           style={styles.container}
           // provider={PROVIDER_GOOGLE}
           showsUserLocation={true}
-          region={initialRegion}>
+          >
+          <Marker
+            coordinate={{
+              latitude: deviceInfo.location.lat,
+              longitude: deviceInfo.location.lng,
+            }}>
+            <Image source={Images.icWatchMarker} style={{ width: 30, height: 30, resizeMode: 'contain' }} />
+          </Marker>
           {listSafeArea.map(val => (
             <View key={val.id}>
               <Marker
@@ -248,16 +237,6 @@ export default ({}) => {
                   latitude: val.location.lat,
                   longitude: val.location.lng,
                 }}>
-                <View
-                  style={{
-                    backgroundColor: 'white',
-                    paddingHorizontal: 4,
-                    paddingVertical: 2,
-                    borderRadius: 6,
-                  }}>
-                  <Text children={deviceInfo?.deviceName} />
-                </View>
-
                 <Image
                   source={Images.icMarkerDefault}
                   style={styles.icMarker}

@@ -29,6 +29,7 @@ export const String = {
   header_members: 'Danh sách thành viên',
   header_maps: 'Bản đồ',
   header_addDevice: 'Thêm thiết bị',
+  header_editDevice: 'Chỉnh sửa thông tin thiết bị',
   header_QRCode: 'Quét mã',
   header_relationship: 'Lựa chọn mối quan hệ',
   header_connectDevice: 'Kết nối thiết bị',
@@ -120,7 +121,8 @@ export const String = {
   deleteContactSuccess: 'Xóa thành viên thành công',
   deleteMessage: 'Xóa lịch sử tin nhắn',
   arleftDeleteMessage: 'Bạn có chắc chắn xóa cuộc trò chuyện này không ?',
-  arleftDeleteDevices: 'Bạn có chắc chắn muốn xóa thiết bị (Sever TQ) không ?',
+  arleftDeleteDevices1: 'Bạn có chắc chắn muốn xóa thiết bị (',
+  arleftDeleteDevices2: ') không ?',
   removeContactConfirm:
     'Bạn chắc chắn huỷ liên kết tài khoản này không ?',
   maxLengthSafeAreaName: 'Vui lòng nhập 1-32 ký tự',
@@ -218,5 +220,9 @@ export const String = {
   microphoneDenied: 'Quyền truy cập mic bị từ chối.\nVui lòng vào cài đặt để cấp quyền truy cập',
   writeExternalStorageAndroidUnavailable: 'Quyền ghi dữ liệu vào bộ nhớ không khả dụng trên thiết bị của bạn',
   writeExternalStorageAndroidDenied: 'Quyền ghi dữ liệu vào bộ nhớ bị từ chối.\nVui lòng vào cài đặt để cấp quyền',
+
+  //EditDevice
+  textAvatar: 'Hình đại diện',
+  textDeviceNane: 'Biệt hiệu',
 
 };

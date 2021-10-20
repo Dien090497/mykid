@@ -37,7 +37,7 @@ export const styles = StyleSheet.create ({
   tobModal: {
     flexDirection: 'column',
     width: '85%',
-    height: '25%',
+    height: height* 0.25,
     backgroundColor: Colors.white,
     borderRadius: 10,
     justifyContent: 'center',
@@ -45,7 +45,7 @@ export const styles = StyleSheet.create ({
   },
   tobView: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'center',
     width: '80%',
     alignItems: 'center',
@@ -80,4 +80,14 @@ export const styles = StyleSheet.create ({
     justifyContent: 'center',
     alignItems: 'center'
   },
+  textInput: {
+    width: '100%',
+    height: height* 0.05,
+    marginTop: height* 0.03,
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: 'rgba(231, 231, 231, 1)',
+    alignItems: 'center',
+    flexDirection: 'row'
+  }
 })

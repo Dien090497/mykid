@@ -60,6 +60,7 @@ export default {
   icSafeZone: require('./images/home/ic_safe_zone.png'),
   icMap: require('./images/home/ic_map.png'),
   bgHome: require('./images/home/bg_home.png'),
+  icShow: require('./images/ic_show.png'),
 
   //RewardPoints
   icAdd: require('./images/rewardoints/ic_add.png'),
@@ -108,6 +109,7 @@ export default {
   icRedConfirms: require('./images/ic_red_confirms.png'),
   icUnConfirms: require('./images/ic_uncheck_image.png'),
   icEdit: require('./images/ic_edit.png'),
+  icEditProfile: require('./images/ic_edit_profile.png'),
 
   //ShootImage
   icRotateRight: require('./images/ic_rotate_right.png'),

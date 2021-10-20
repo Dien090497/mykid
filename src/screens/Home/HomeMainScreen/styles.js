@@ -20,13 +20,18 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.white,
   },
   statusBar: {
+    height: ScaleHeight.xxxtraBig,
     backgroundColor: Colors.red,
+    borderBottomStartRadius:10,
+    borderBottomEndRadius:10,
+    alignItems: 'center',
+    justifyContent: "center"
   },
   body: {
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginTop: 25
+    marginTop: 10
   },
   support: {
     flexDirection: 'row',
@@ -43,10 +48,16 @@ export const styles = StyleSheet.create({
     borderLeftColor: Colors.gray,
   },
   banner: {
-    height: ScaleHeight.xxxtraBig,
     width: '100%',
     alignContent: 'center',
     alignItems: 'center',
+    height:'100%'
+  },
+  menu:{
+    position:'absolute',
+    bottom:5,
+    right:5,
+    width:'auto',
   },
   textInput: {
     width: '100%',
@@ -58,12 +69,12 @@ export const styles = StyleSheet.create({
   },
   txtTitle: {
     alignSelf: 'center',
-    fontSize: 35,
+    fontSize: 30,
     fontWeight: '400',
-    marginTop: -60,
     marginBottom: 0,
     fontFamily: 'UTM Cookies',
-    color: Colors.white
+    color: Colors.white,
+    position: 'absolute',
   },
   txtNotification: {
     fontSize: 10,
@@ -99,5 +110,32 @@ export const styles = StyleSheet.create({
   bgIcon: {
     width: 40,
     height: 40,
+  },
+  menuSelect:{
+    flexDirection:'row',
+    justifyContent: 'center',
+    alignItems:'center'
+  },
+  iconShowMenu:{
+    width:10,
+    height:10
+  },
+  textMenuShow:{
+    marginHorizontal:5,
+    color: Colors.white
+  },
+  avatar:{
+    width:ScaleHeight.small,
+    height:ScaleHeight.small,
+  },
+  textMenuDrop:{
+    marginHorizontal:5,
+    color: '#727272'
+  },
+  viewMenuDrop:{
+    flexDirection: "row",
+    alignItems:'center',
+    justifyContent:'space-between',
+    marginVertical:5
   },
 });

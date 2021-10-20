@@ -50,6 +50,7 @@ import DoNotDisturb from '../screens/Profile/DoNotDisturb';
 import DisturbSetting from '../screens/Profile/DoNotDisturb/DisturbSetting';
 import AlarmSetting from '../screens/Profile/AlarmClock/AlarmSetting';
 import SplashScreen from '../screens/Splash';
+import PersonalData from '../screens/Profile/PersonalData';
 import WS from './WebScoket';
 import {createStackNavigator} from '@react-navigation/stack';
 import reduxStore from '../redux/config/redux';
@@ -62,6 +63,7 @@ import ChatClient from "../components/XmppChat/ChatClient";
 import OffDevice from '../screens/Settings/OffDevice';
 import StartDevice from '../screens/Settings/RestartDevice';
 import { String } from '../assets/strings/String';
+import EditDevice from "../screens/Profile/DeviceManager/EditDevice";
 var encoder = new encoding.TextEncoder();
 const Tab = createBottomTabNavigator();
 
@@ -220,8 +222,16 @@ const Routes = () => {
           component={AddDeviceScreen}
         />
         <Stack.Screen
+          name={Consts.ScreenIds.PersonalData}
+          component={PersonalData}
+        />
+        <Stack.Screen
           name={Consts.ScreenIds.DeviceManager}
           component={DeviceManager}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.EditDevice}
+          component={EditDevice}
         />
         <Stack.Screen
           name={Consts.ScreenIds.FindDevice}
