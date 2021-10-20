@@ -55,7 +55,6 @@ export default function RoomChat({navigation, route}) {
   
   useLayoutEffect(() => {
     if (chatReducer.dataInfo) {
-      console.log(chatReducer.dataInfo);
       setChatHistory(chatReducer.dataInfo);
     }
   }, [chatReducer]);
@@ -69,7 +68,7 @@ export default function RoomChat({navigation, route}) {
     if (route.params && route.params.roomInfo) {
       const roomAddress = route.params.roomInfo.roomAddress;
       XmppClient.joinRoom(roomAddress);
-      XmppClient.getHistory(roomAddress, 50);
+      XmppClient.getHistory(50);
     }
     
   }, []);
@@ -86,21 +85,30 @@ export default function RoomChat({navigation, route}) {
     setIsRecord(state);
   };
 
-  const togglePlay = (url, index) => {
+  const togglePlay = (obj, index) => {
     try {
+      if (obj.audio) {
+        setIndexPlaying(index);
+        refAudioPlayer.current.onStartPlay(obj.audio);
+        return;
+      }
+
+      const appendExt = obj.body.split('.');
       showLoading(refLoading);
       RNFetchBlob
         .config({
           fileCache : true,
-          appendExt : 'm4a'
+          appendExt : appendExt[appendExt.length - 1]
         })
-        .fetch('GET', url)
+        .fetch('GET', obj.body)
         .then((res) => {
+          const lst = Object.assign([], chatHistory);
+          lst[index].audio = 'file://' + res.path();
+          setChatHistory(lst);
+
           hideLoading(refLoading);
-          console.log(res);
-          console.log(res.path());
           setIndexPlaying(index);
-          refAudioPlayer.current.onStartPlay('file://' + res.path());
+          refAudioPlayer.current.onStartPlay(lst[index].audio);
         })
     } catch (e) {
       console.log(e);
@@ -112,7 +120,7 @@ export default function RoomChat({navigation, route}) {
   const sendMsg = () => {
     Keyboard.dismiss();
     console.log(text);
-    XmppClient.sendMessage(route.params.roomInfo.roomAddress, 'text', text);
+    XmppClient.sendMessage('text', text);
     setText('');
   }
 
@@ -142,12 +150,9 @@ export default function RoomChat({navigation, route}) {
 
   const onStopRecord = (url) => {
     setIsRecording(false);
-
-    const lst = Object.assign([], chatHistory);
-    const item = Object.assign({}, lst[0]);
-    item.audio = url;
-    lst.push(item);
-    setChatHistory(lst);
+    showLoading(refLoading);
+    XmppClient.requestSendFile(url);
+    hideLoading(refLoading);
   };
 
   const onStopPlayer = () => {
@@ -162,15 +167,8 @@ export default function RoomChat({navigation, route}) {
     if (imagePickerResponse.uri) {
       showLoading(refLoading);
       resizeImage(imagePickerResponse).then(uri => {
+        XmppClient.requestSendFile(uri)
         hideLoading(refLoading);
-        if (uri) {
-          console.log(uri);
-          const lst = Object.assign([], chatHistory);
-          const item = Object.assign({}, lst[0]);
-          item.img = uri;
-          lst.push(item);
-          setChatHistory(lst);
-        }
       });
     }
   };
@@ -207,6 +205,31 @@ export default function RoomChat({navigation, route}) {
     return obj.from === `${DataLocal.userInfo.id}@${AppConfig.dev.rootDomain}`;
   };
 
+  const saveImage = (obj) => {
+    if (Platform.OS === 'ios') {
+      CameraRoll.save(obj.body)
+      .then(console.log('Photo added to camera roll!')) 
+      .catch(err => console.log('err:', err))
+    } else {
+      RNFetchBlob
+        .config({
+          fileCache : true,
+          appendExt : 'jpg'
+        })
+        .fetch('GET', obj.body)
+        .then((res) => {
+            console.log()
+          CameraRoll.saveToCameraRoll(res.path())
+            .then((res) => {
+            console.log("save", res)
+            }).catch((error) => {
+              console.log("error", error)
+            })
+
+        })
+    }
+  }
+
   return (
     <KeyboardAvoidingView style={styles.contain}
       behavior={Platform.OS === "ios" ? "padding" : ""}>
@@ -226,7 +249,7 @@ export default function RoomChat({navigation, route}) {
                 <View style={{flexDirection: !isMe(obj) ? 'row' : 'row-reverse'}}>
                     <View style={[styles.viewContentDetail, !isMe(obj) ? {} : {backgroundColor: Colors.pinkBgMsg}]}>
                       {obj.type === 'audio' &&
-                      <TouchableOpacity onPress={() => {togglePlay(obj.body, i)}}>
+                      <TouchableOpacity onPress={() => {togglePlay(obj, i)}}>
                         <FastImage
                           source={!isMe(obj) ? (indexPlaying === i ? Images.aAudioLeft : Images.icAudioLeft) : (indexPlaying === i ? Images.aAudioRight : Images.icAudioRight)}
                           resizeMode={FastImage.resizeMode.cover}
@@ -244,28 +267,7 @@ export default function RoomChat({navigation, route}) {
                 <Tooltip toggleAction={'onLongPress'} popover={
                   <View style={styles.viewTooltip}
                   onStartShouldSetResponder={(e) => {
-                      if (Platform.OS === 'ios') {
-                        CameraRoll.save(obj.body)
-                        .then(console.log('Photo added to camera roll!')) 
-                        .catch(err => console.log('err:', err))
-                      } else {
-                        RNFetchBlob
-                          .config({
-                            fileCache : true,
-                            appendExt : 'jpg'
-                          })
-                          .fetch('GET', obj.body)
-                          .then((res) => {
-                              console.log()
-                            CameraRoll.saveToCameraRoll(res.path())
-                              .then((res) => {
-                              console.log("save", res)
-                              }).catch((error) => {
-                                console.log("error", error)
-                              })
-
-                          })
-                      }
+                      saveImage(obj);
                       return false;
                     }}>
                     <Text>Lưu ảnh</Text>
