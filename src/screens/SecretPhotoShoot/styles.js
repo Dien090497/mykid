@@ -26,6 +26,10 @@ export const styles = StyleSheet.create({
     alignItems:'center',
     justifyContent:'center',
   },
+  imageItem:{
+    width:Consts.screenWidth/3-17,
+    height: Consts.screenWidth/3-17,
+  },
   iconCheck:{
     width:'15%',
     height:'15%',
