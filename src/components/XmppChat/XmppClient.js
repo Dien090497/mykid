@@ -171,7 +171,19 @@ export default class XmppClient {
     }
 
     if (!stanza.is('message')) return;
-    if (stanza.attrs.type === 'error') return;
+    if (stanza.attrs.type === 'error') {
+      const error = stanza.getChild('error');
+      if (error && error.attrs.code === '406') {
+        console.log('err 406 rejoin');
+        // rejoin
+        this.joinRoom(this.currentRoomId);
+      }
+      // <message xmlns="jabber:client" xml:lang="en" to="162@mykid.ttc.software/1171796266918910368535781" from="7304425285@conference.mykid.ttc.software" type="error">
+      //   <error code="406" type="modify">
+      //     <not-acceptable xmlns="urn:ietf:params:xml:ns:xmpp-stanzas"/>
+      //     <text xml:lang="en" xmlns="urn:ietf:params:xml:ns:xmpp-stanzas">Only occupants are allowed to send messages to the conference</text></error><body>audio:https://mykid.ttc.software:5443/upload/46901d9bc4e0990d88f09f9f8db22236c5b8c401/bAbl6v4TTEJmJpiWn8LFQxdePDpr7daEC5FRxL7T/sound.m4a</body></message>
+      return;
+    }
   
     // mam result
     const result = stanza.getChild('result', 'urn:xmpp:mam:2');

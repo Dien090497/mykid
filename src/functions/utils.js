@@ -84,7 +84,7 @@ export function showLoading(ref, msg) {
 
 export async function resizeImage(imgPickerResp) {
   if (imgPickerResp.height <= AppConfig.maxThumbnailSize && imgPickerResp.width <=
-    AppConfig.maxThumbnailSize) {
+    AppConfig.maxThumbnailSize && imgPickerResp.uri.endsWith('jpg')) {
     return imgPickerResp.uri;
   }
 
