@@ -26,6 +26,7 @@ export default function DeviceManager({navigation}) {
   const [onModal, setOnModal] = useState(false);
   const [idCancel, setIdCancel] = useState();
   const [loading, setLoading] = useState(false);
+  const [nameDevices, setNameDevices] = useState();
   const refLoading = useRef();
 
   const dataMock = [
@@ -100,6 +101,7 @@ export default function DeviceManager({navigation}) {
   const showModal = (item) => {
     setOnModal(true);
     setIdCancel(item.deviceId);
+    setNameDevices(item.deviceName)
   }
 
   const deleteDevices = idCancel => {
@@ -192,7 +194,7 @@ export default function DeviceManager({navigation}) {
           <TouchableOpacity style={styles.modal} onPress={() => setOnModal(false)}>
             <View style={styles.tobModal}>
               <View style={[styles.tobView, {marginTop: ScaleHeight.small}]}>
-                <Text style={styles.textModel}>{String.arleftDeleteDevices}</Text>
+                <Text style={styles.textModel}>{String.arleftDeleteDevices1}{nameDevices}{String.arleftDeleteDevices2}</Text>
               </View>
               <View style={[styles.tobView, {width: '86%'}]}>
                 <View style={styles.tob}>
