@@ -325,7 +325,7 @@ const Routes = () => {
       </Stack.Navigator>
       <OS />
       <WebSocketSafeZone />
-      <ChatClient />
+      {/* <ChatClient /> */}
     </NavigationContainer>
   );
 };

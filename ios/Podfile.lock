@@ -354,8 +354,6 @@ PODS:
     - React
   - RNAudioRecorderPlayer (3.2.0):
     - React-Core
-  - RNBinaryFile (1.0.1):
-    - React
   - RNCAsyncStorage (1.15.8):
     - React-Core
   - RNCPicker (2.1.0):
@@ -366,8 +364,6 @@ PODS:
     - React-Core
     - SDWebImage (~> 5.11.1)
     - SDWebImageWebPCoder (~> 0.8.4)
-  - RNFS (2.18.0):
-    - React
   - RNGestureHandler (1.10.3):
     - React-Core
   - RNPermissions (3.0.5):
@@ -446,12 +442,10 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - ReactNativeCameraKit (from `../node_modules/react-native-camera-kit`)
   - RNAudioRecorderPlayer (from `../node_modules/react-native-audio-recorder-player`)
-  - RNBinaryFile (from `../node_modules/react-native-binary-file`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - "RNCPicker (from `../node_modules/@react-native-picker/picker`)"
   - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - RNFastImage (from `../node_modules/react-native-fast-image`)
-  - RNFS (from `../node_modules/react-native-fs`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNScreens (from `../node_modules/react-native-screens`)
@@ -576,8 +570,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-camera-kit"
   RNAudioRecorderPlayer:
     :path: "../node_modules/react-native-audio-recorder-player"
-  RNBinaryFile:
-    :path: "../node_modules/react-native-binary-file"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
   RNCPicker:
@@ -586,8 +578,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/datetimepicker"
   RNFastImage:
     :path: "../node_modules/react-native-fast-image"
-  RNFS:
-    :path: "../node_modules/react-native-fs"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNPermissions:
@@ -660,12 +650,10 @@ SPEC CHECKSUMS:
   ReactCommon: eafed38eec7b591c31751bfa7494801618460459
   ReactNativeCameraKit: 89ed1f2470b56e18e15dd0e1a37bebca3f2da2de
   RNAudioRecorderPlayer: 2ae3bdbf328dd8e288bd72b8665c02b5a24fecdb
-  RNBinaryFile: 8d5082dd9019c9c81bf66138c50f9f1481938441
   RNCAsyncStorage: 0f655864a81214d1c5a9bf0faf79d86dc25c383e
   RNCPicker: f7a40b21b915b7a187624d52f52b7bc2f73ea413
   RNDateTimePicker: c9911be59b1f8670b9f244b85af3a7c295e175ed
   RNFastImage: 1f2cab428712a4baaf78d6169eaec7f622556dd7
-  RNFS: 3ab21fa6c56d65566d1fb26c2228e2b6132e5e32
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNPermissions: 3e5bb8afd93c787681bbacbf54d586a6272ecc92
   RNScreens: 21b73c94c9117e1110a79ee0ee80c93ccefed8ce
@@ -675,6 +663,6 @@ SPEC CHECKSUMS:
   SDWebImageWebPCoder: f93010f3f6c031e2f8fb3081ca4ee6966c539815
   Yoga: aa0cb45287ebe1004c02a13f279c55a95f1572f4
 
-PODFILE CHECKSUM: 727a58bba13a235e05274b79cc55223c6481a97c
+PODFILE CHECKSUM: 58bcbb3cafe26cffd2a110d4e2835ae3b1f0c761
 
 COCOAPODS: 1.10.1

@@ -35,11 +35,7 @@ pod 'react-native-google-maps', :path => rn_maps_path
 
   pod 'react-native-cameraroll', :path => '../node_modules/@react-native-community/cameraroll'
 
-  pod 'RNFS', :path => '../node_modules/react-native-fs'
-
   pod 'react-native-fetch-blob', :path => '../node_modules/react-native-fetch-blob'
-
-  pod 'RNBinaryFile', :path => '../node_modules/react-native-binary-file'
 
   target 'MyKidTests' do
     inherit! :complete

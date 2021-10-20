@@ -7,7 +7,6 @@ import {String} from '../assets/strings/String';
 import jwt_decode from 'jwt-decode';
 import AppConfig from '../data/AppConfig';
 import ImageResizer from 'react-native-image-resizer';
-import RNFetchBlob from 'react-native-fetch-blob';
 
 const addCommas = (num, style) => {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, style);
@@ -84,15 +83,13 @@ export function showLoading(ref, msg) {
 }
 
 export async function resizeImage(imgPickerResp) {
-  // if (imgPickerResp.height <= AppConfig.maxThumbnailSize && imgPickerResp.width <=
-  //   AppConfig.maxThumbnailSize) {
-  //   return imgPickerResp.uri;
-  // }
-
-  const dirs = RNFetchBlob.fs.dirs.DocumentDir
+  if (imgPickerResp.height <= AppConfig.maxThumbnailSize && imgPickerResp.width <=
+    AppConfig.maxThumbnailSize) {
+    return imgPickerResp.uri;
+  }
 
   return ImageResizer.createResizedImage(imgPickerResp.uri, AppConfig.maxThumbnailSize,
-    AppConfig.maxThumbnailSize, 'JPEG', 100, 0, dirs).then(response => {
+    AppConfig.maxThumbnailSize, 'JPEG', 100).then(response => {
     return response.uri;
   }).catch(err => {
     console.log('Compress error:', err);

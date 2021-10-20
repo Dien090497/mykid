@@ -35,7 +35,7 @@ export default function Chat({navigation}) {
   const toggleChat = (obj, i) => {
     checkMicrophonePermission().then(microGranted => {
       if (microGranted) {
-        navigation.navigate(Consts.ScreenIds.RoomChat);
+        navigation.navigate(Consts.ScreenIds.RoomChat, {roomInfo: obj});
       }
     })
   };

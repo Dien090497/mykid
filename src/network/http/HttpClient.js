@@ -16,8 +16,6 @@ import {RETRY_HTTP_REQUEST_NUMBER} from '../../data/AppConfig';
 import axios from 'axios';
 import reduxStore from '../../redux/config/redux';
 
-// import * as RNFS from 'react-native-fs';
-
 const TIMEOUT_CONNECT = 60000;
 
 const client = axios.create({

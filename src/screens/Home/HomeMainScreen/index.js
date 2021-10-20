@@ -8,13 +8,16 @@ import {String} from '../../../assets/strings/String';
 import {styles} from './styles';
 import {useNavigation} from '@react-navigation/native';
 import {showAlert} from '../../../functions/utils';
+import XmppClient from '../../../components/XmppChat/XmppClient';
 
 export default function HomeMainScreen() {
   const navigation = useNavigation();
 
   const refLoading = useRef();
 
-  useLayoutEffect(() => {}, []);
+  useLayoutEffect(() => {
+    XmppClient.connectXmppServer();
+  }, []);
 
   const pressMap = () => {
     navigation.navigate(Consts.ScreenIds.Maps);

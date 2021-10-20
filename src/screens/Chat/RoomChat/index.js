@@ -2,6 +2,7 @@ import React, { useLayoutEffect, useRef, useState } from 'react';
 import {
   Keyboard,
   KeyboardAvoidingView,
+  Platform,
   ScrollView,
   Text,
   TextInput,
@@ -17,8 +18,7 @@ import DataLocal from '../../../data/dataLocal';
 import { Image } from 'react-native';
 import Images from '../../../assets/Images';
 import Consts from '../../../functions/Consts';
-import { getListDeviceApi } from '../../../network/DeviceService';
-import { hideLoading, resizeImage, showAlert, showLoading } from '../../../functions/utils';
+import { hideLoading, resizeImage, showLoading } from '../../../functions/utils';
 import { String } from '../../../assets/strings/String';
 import RecorderComponent from '../../../components/RecorderComponent';
 import Spinner from 'react-native-spinkit';
@@ -28,8 +28,12 @@ import AudioPlayerComponent from '../../../components/AudioPlayerComponent';
 import CameraRoll from '@react-native-community/cameraroll';
 import { Tooltip } from 'react-native-elements';
 import { Colors } from '../../../assets/colors/Colors';
+import XmppClient from '../../../components/XmppChat/XmppClient';
+import { useSelector } from 'react-redux';
+import AppConfig from '../../../data/AppConfig';
+import RNFetchBlob from 'react-native-fetch-blob';
 
-export default function RoomChat({navigation}) {
+export default function RoomChat({navigation, route}) {
   const refLoading = useRef();
   const refRecorder = useRef();
   const refAudioPlayer = useRef();
@@ -38,15 +42,23 @@ export default function RoomChat({navigation}) {
   const [isRecord, setIsRecord] = useState(true);
   const [isRecording, setIsRecording] = useState(false);
   const [isCancelRecording, setIsCancelRecording] = useState(false);
-  const [devices, setDevices] = useState();
+  const [chatHistory, setChatHistory] = useState();
   const [text, setText] = useState();
   const [locationY, setLocationY] = useState();
   const [indexPlaying, setIndexPlaying] = useState(-1);
+  const chatReducer = useSelector(state => state.chatReducer);
   let sheet = null;
   
   useLayoutEffect(() => {
     focusTextInput();
   }, [refTextInput]);
+  
+  useLayoutEffect(() => {
+    if (chatReducer.dataInfo) {
+      console.log(chatReducer.dataInfo);
+      setChatHistory(chatReducer.dataInfo);
+    }
+  }, [chatReducer]);
 
   useLayoutEffect(() => {
     if (!isRecord)
@@ -54,7 +66,12 @@ export default function RoomChat({navigation}) {
   }, [isRecord]);
 
   useLayoutEffect(() => {
-    getListDevice();
+    if (route.params && route.params.roomInfo) {
+      const roomAddress = route.params.roomInfo.roomAddress;
+      XmppClient.joinRoom(roomAddress);
+      XmppClient.getHistory(roomAddress, 50);
+    }
+    
   }, []);
 
   const focusTextInput = () => {
@@ -65,23 +82,23 @@ export default function RoomChat({navigation}) {
     }
   };
 
-  const getListDevice = async () => {
-    getListDeviceApi(DataLocal.userInfo.id, Consts.pageDefault, 100, '', '', {
-      success: resData => {
-        setDevices(resData.data);
-      },
-      refLoading,
-    });
-  };
-
   const toggleRecord = (state) => {
     setIsRecord(state);
   };
 
   const togglePlay = (url, index) => {
     try {
-      setIndexPlaying(index);
-      refAudioPlayer.current.onStartPlay(url);
+      RNFetchBlob
+        .config({
+          fileCache : true,
+          appendExt : 'm4a'
+        })
+        .fetch('GET', url)
+        .then((res) => {
+          console.log(res);
+          setIndexPlaying(index);
+          refAudioPlayer.current.onStartPlay(res.path());
+        })
     } catch (e) {
       console.log(e);
       setIndexPlaying(-1);
@@ -92,6 +109,7 @@ export default function RoomChat({navigation}) {
   const sendMsg = () => {
     Keyboard.dismiss();
     console.log(text);
+    XmppClient.sendMessage(route.params.roomInfo.roomAddress, 'text', text);
     setText('');
   }
 
@@ -122,11 +140,11 @@ export default function RoomChat({navigation}) {
   const onStopRecord = (url) => {
     setIsRecording(false);
 
-    const lst = Object.assign([], devices);
+    const lst = Object.assign([], chatHistory);
     const item = Object.assign({}, lst[0]);
     item.audio = url;
     lst.push(item);
-    setDevices(lst);
+    setChatHistory(lst);
   };
 
   const onStopPlayer = () => {
@@ -144,11 +162,11 @@ export default function RoomChat({navigation}) {
         hideLoading(refLoading);
         if (uri) {
           console.log(uri);
-          const lst = Object.assign([], devices);
+          const lst = Object.assign([], chatHistory);
           const item = Object.assign({}, lst[0]);
           item.img = uri;
           lst.push(item);
-          setDevices(lst);
+          setChatHistory(lst);
         }
       });
     }
@@ -182,52 +200,81 @@ export default function RoomChat({navigation}) {
     }
   }
 
+  const isMe = (obj) => {
+    return obj.from === `${DataLocal.userInfo.id}@${AppConfig.dev.rootDomain}`;
+  };
+
   return (
     <KeyboardAvoidingView style={styles.contain}
       behavior={Platform.OS === "ios" ? "padding" : ""}>
       <Header title={'Server TQ nhóm gia đình (3)'} right rightIcon={Images.icGroup} rightAction={() => {gotoDeleteMessage()}}/>
       <View style={styles.container}>
         <ScrollView ref={refScrollView} style={styles.container}>
-          {devices && devices.map((obj, i) => (
-            <View key={i} style={[styles.viewItem, i % 2 === 0 ? {flexDirection: 'row'} : {flexDirection: 'row-reverse'}]}>
+          {chatHistory && chatHistory.map((obj, i) => (
+            <View key={i} style={[styles.viewItem, !isMe(obj) ? {flexDirection: 'row'} : {flexDirection: 'row-reverse'}]}>
               <View style={styles.viewImg}>
                 <Image source={Images.icAvatar} style={styles.icAvatar}/>
               </View>
               <View style={styles.viewContent}>
-                {i % 2 === 0 && 
-                  <Text style={styles.txtTitle}>{obj.deviceName}</Text>
+                { !isMe(obj) && 
+                  <Text style={styles.txtTitle}>{obj.from}</Text>
                 }
+                {obj.type !== 'image' &&
+                <View style={{flexDirection: !isMe(obj) ? 'row' : 'row-reverse'}}>
+                    <View style={[styles.viewContentDetail, !isMe(obj) ? {} : {backgroundColor: Colors.pinkBgMsg}]}>
+                      {obj.type === 'audio' &&
+                      <TouchableOpacity onPress={() => {togglePlay(obj.body, i)}}>
+                        <FastImage
+                          source={!isMe(obj) ? (indexPlaying === i ? Images.aAudioLeft : Images.icAudioLeft) : (indexPlaying === i ? Images.aAudioRight : Images.icAudioRight)}
+                          resizeMode={FastImage.resizeMode.cover}
+                          style={styles.icRecord}
+                        />
+                      </TouchableOpacity>
+                      }
+                      {obj.type === 'text' &&
+                      <Text>{obj.body}</Text>
+                      }
+                    </View>
+                  </View>
+                }
+                {obj.type === 'image' &&
                 <Tooltip toggleAction={'onLongPress'} popover={
                   <View style={styles.viewTooltip}
                   onStartShouldSetResponder={(e) => {
-                      CameraRoll.save('https://www.dungplus.com/wp-content/uploads/2019/12/girl-xinh-1-480x600.jpg')
-                      .then(console.log('Photo added to camera roll!')) 
-                      .catch(err => console.log('err:', err))
+                      if (Platform.OS === 'ios') {
+                        CameraRoll.save(obj.body)
+                        .then(console.log('Photo added to camera roll!')) 
+                        .catch(err => console.log('err:', err))
+                      } else {
+                        RNFetchBlob
+                          .config({
+                            fileCache : true,
+                            appendExt : 'jpg'
+                          })
+                          .fetch('GET', obj.body)
+                          .then((res) => {
+                              console.log()
+                            CameraRoll.saveToCameraRoll(res.path())
+                              .then((res) => {
+                              console.log("save", res)
+                              }).catch((error) => {
+                                console.log("error", error)
+                              })
+
+                          })
+                      }
                       return false;
                     }}>
                     <Text>Lưu ảnh</Text>
                   </View>
                 }>
-                  <View style={{flexDirection: i % 2 === 0 ? 'row' : 'row-reverse'}}>
-                  <View style={[styles.viewContentDetail, i % 2 === 0 ? {} : {backgroundColor: Colors.pinkBgMsg}]}>
-                    {!obj.img && !obj.audio &&
-                    <FastImage resizeMode={FastImage.resizeMode.cover} source={{uri: 'https://www.dungplus.com/wp-content/uploads/2019/12/girl-xinh-1-480x600.jpg'}} style={styles.icPhoto}/>
-                    }
-                    {obj.img && !obj.audio &&
-                    <FastImage resizeMode={FastImage.resizeMode.cover} source={{uri: obj.img}} style={styles.icPhoto}/>
-                    }
-                    {obj.audio &&
-                    <TouchableOpacity onPress={() => {togglePlay(obj.audio, i)}}>
-                      <FastImage
-                        source={i % 2 === 0 ? (indexPlaying === i ? Images.aAudioLeft : Images.icAudioLeft) : (indexPlaying === i ? Images.aAudioRight : Images.icAudioRight)}
-                        resizeMode={FastImage.resizeMode.cover}
-                        style={styles.icRecord}
-                      />
-                    </TouchableOpacity>
-                    }
-                  </View>
+                  <View style={{flexDirection: !isMe(obj) ? 'row' : 'row-reverse'}}>
+                    <View style={[styles.viewContentDetail, !isMe(obj) ? {} : {backgroundColor: Colors.pinkBgMsg}]}>
+                      <FastImage resizeMode={FastImage.resizeMode.cover} source={{uri: obj.body}} style={styles.icPhoto}/>
+                    </View>
                   </View>
                 </Tooltip>
+                }
               </View>
             </View>
           ))}
