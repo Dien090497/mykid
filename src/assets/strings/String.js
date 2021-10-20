@@ -221,4 +221,8 @@ export const String = {
   writeExternalStorageAndroidUnavailable: 'Quyền ghi dữ liệu vào bộ nhớ không khả dụng trên thiết bị của bạn',
   writeExternalStorageAndroidDenied: 'Quyền ghi dữ liệu vào bộ nhớ bị từ chối.\nVui lòng vào cài đặt để cấp quyền',
 
+  //EditDevice
+  textAvatar: 'Hình đại diện',
+  textDeviceNane: 'Biệt hiệu',
+
 };

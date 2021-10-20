@@ -1,7 +1,7 @@
 import {
   FlatList,
   Image, Keyboard, Modal, RefreshControl,
-  Text,
+  Text, TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -22,6 +22,7 @@ import {
 } from "../../../../functions/permissions";
 import { launchCamera, launchImageLibrary } from "react-native-image-picker";
 import { hideLoading, resizeImage, showLoading } from "../../../../functions/utils";
+import {editDeviceApi} from '../../../../network/DeviceService';
 
 export default function EditDevice({ navigation, route }) {
 
@@ -43,7 +44,6 @@ export default function EditDevice({ navigation, route }) {
     newData.relationshipName = relationship.name;
     newData.relationship = relationship.relationship;
     newData.icon = relationship.icon;
-    console.log(newData);
     setData(newData);
   };
 
@@ -94,7 +94,27 @@ export default function EditDevice({ navigation, route }) {
   }
 
   const deleteConfirm = () => {
-    console.log("DELETE")
+    const result = Object.assign({},data);
+    if (result.relationship !== 'OTHER'){
+      result.relationshipName = null;
+    }
+    editDeviceApi(
+      result.id,
+      result.deviceName,
+      result.icon,
+      result.relationship,
+      result.relationshipName,
+      {success: res =>{
+          navigation.goBack();
+          route.params.onRefresh()
+        },refLoading}
+    )
+  };
+
+  const setDeviceName = (text) =>{
+    const result = Object.assign({},data)
+    result.deviceName = text;
+    setData(result)
   }
 
 
@@ -105,13 +125,16 @@ export default function EditDevice({ navigation, route }) {
         <TouchableOpacity style={styles.viewAvatar} onPress={selectPhoto}>
           <Text style={styles.containText}>Hình đại diện</Text>
           <View>
-            {data && <Image source={data.avatar? {uri: data.avatar}: data.icon} resizeMode="cover" style={styles.avatar} />}
+            {data &&
+            <Image source={data.avatar ? { uri: data.avatar } : data.icon} resizeMode="cover" style={styles.avatar} />}
           </View>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.viewContain}>
-          <Text style={styles.containText}>Biệt hiệu</Text>
-          {data && <Text style={styles.textNickName}>{data.deviceName}</Text>}
-        </TouchableOpacity>
+        <View style={styles.viewContain}>
+          <Text style={styles.containText}>{String.textDeviceNane}</Text>
+          {data && <TextInput style={styles.textNickName}
+                              onChangeText={(text)=>{setDeviceName(text)}}
+                              value={data.deviceName} />}
+        </View>
         <TouchableOpacity style={styles.input} onPress={onRelationship}>
           {data && <Image style={[styles.iconInput, { height: "60%" }]} source={data.icon} resizeMode="contain" />}
           {data && <Text style={{ flex: 1, color: Colors.black }}>{String.iAm}<Text
@@ -120,7 +143,9 @@ export default function EditDevice({ navigation, route }) {
             <Image style={styles.iconInput} source={Images.icDetail} resizeMode="contain" />
           </TouchableOpacity>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={()=>{refConfirm.current.open(String.arleftDeleteDevices1+ data.deviceName + String.arleftDeleteDevices2, deleteConfirm)}}>
+        <TouchableOpacity style={styles.button} onPress={() => {
+          refConfirm.current.open(String.arleftDeleteDevices1 + data.deviceName + String.arleftDeleteDevices2, deleteConfirm);
+        }}>
           <Text style={styles.buttonText}>{String.confirm}</Text>
         </TouchableOpacity>
       </View>
