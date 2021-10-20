@@ -27,14 +27,13 @@ export default function restartDevice() {
       <Header title={String.header_remoteStart}/>
       <View style={{flex:1, alignItems: 'center', justifyContent: 'center'}}>
         <TouchableOpacity
-          onPress={() => {refModel.current.open(); }}
+          onPress={() => {refModel.current.open(String.alerfRestartDevice); }}
         >
           <Image source={Images.icRestart} resizeMode={'stretch'} style={{width: 190, height: 190}}/>
         </TouchableOpacity>
       </View>
       <ModalConfirm
         ref={refModel}
-        title={String.alerfRestartDevice}
         onPressYes={restartDevice}
       />
       <LoadingIndicator  ref={refLoading} />
