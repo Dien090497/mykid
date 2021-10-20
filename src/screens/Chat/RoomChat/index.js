@@ -88,6 +88,7 @@ export default function RoomChat({navigation, route}) {
 
   const togglePlay = (url, index) => {
     try {
+      showLoading(refLoading);
       RNFetchBlob
         .config({
           fileCache : true,
@@ -95,9 +96,11 @@ export default function RoomChat({navigation, route}) {
         })
         .fetch('GET', url)
         .then((res) => {
+          hideLoading(refLoading);
           console.log(res);
+          console.log(res.path());
           setIndexPlaying(index);
-          refAudioPlayer.current.onStartPlay(res.path());
+          refAudioPlayer.current.onStartPlay('file://' + res.path());
         })
     } catch (e) {
       console.log(e);

@@ -2,22 +2,15 @@ import { Image, StatusBar, Text, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 import { Menu, MenuItem, MenuDivider } from "react-native-material-menu";
-import Consts, { ScaleHeight } from "../../../functions/Consts";
-import Images from "../../../assets/Images";
-import LoadingIndicator from "../../../components/LoadingIndicator";
-import { String } from "../../../assets/strings/String";
-import { styles } from "./styles";
-import { useNavigation } from "@react-navigation/native";
-import { showAlert } from "../../../functions/utils";
-import { deleteDevicesApi, getListDeviceApi } from "../../../network/DeviceService";
 import DataLocal from "../../../data/dataLocal";
 import reduxStore from "../../../redux/config/redux";
 import { useSelector } from "react-redux";
 import commonInfoAction from "../../../redux/actions/commonInfoAction";
-
 import Consts from '../../../functions/Consts';
 import Images from '../../../assets/Images';
 import LoadingIndicator from '../../../components/LoadingIndicator';
+import { getListDeviceApi } from "../../../network/DeviceService";
+
 import {String} from '../../../assets/strings/String';
 import {styles} from './styles';
 import {useNavigation} from '@react-navigation/native';
@@ -34,6 +27,12 @@ export default function HomeMainScreen() {
 
   useLayoutEffect(() => {
     XmppClient.connectXmppServer();
+    getListDeviceApi(DataLocal.userInfo.id, Consts.pageDefault, 100, "", "ACTIVE", {
+      success: resData => {
+        setDevices(resData.data);
+      },
+      refLoading,
+    });
   }, []);
 
   useLayoutEffect(() => {
@@ -118,7 +117,7 @@ export default function HomeMainScreen() {
           >
             {devices && devices.map((obj, i) => {
               return (
-                <View style={{ paddingHorizontal: 10 }}>
+                <View key={i.toString()} style={{ paddingHorizontal: 10 }}>
                   <View style={styles.viewMenuDrop} onStartShouldSetResponder={() => {
                     handleChange(i);
                   }}>
