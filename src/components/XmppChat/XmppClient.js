@@ -1,3 +1,4 @@
+import FastImage from 'react-native-fast-image';
 import RNFetchBlob from 'react-native-fetch-blob';
 import AppConfig from '../../data/AppConfig';
 import DataLocal from '../../data/dataLocal';
@@ -6,14 +7,13 @@ import {wssXmppUrl} from '../../network/http/ApiUrl';
 import chatAction from '../../redux/actions/chatAction';
 const {client, xml, jid} = require('@xmpp/client');
 const debug = require('@xmpp/debug');
-// const roomId = '7304425285@conference.mykid.ttc.software';
 import reduxStore from '../../redux/config/redux';
-// const filePath = 'file:///var/mobile/Containers/Data/Application/E1850AAA-FFDF-4890-93E4-D522433C28AE/tmp/E1539DE6-72E0-4815-84B1-0A2E63D59878.jpg';
-const filePath = 'file:///var/mobile/Containers/Data/Application/E1850AAA-FFDF-4890-93E4-D522433C28AE/Library/Caches/sound.m4a';
 export default class XmppClient {
   static lstMsg = [];
   static clientXmpp = null;
   // static needReconnect = false;
+  static currentRoomId = null;
+  static filePath = null;
 
   static connectXmppServer = () => {
     if (!DataLocal.userInfo.id || !DataLocal.accessToken) return;
@@ -50,31 +50,32 @@ export default class XmppClient {
   }
 
   static async joinRoom(roomId) {
+    this.currentRoomId = roomId
     const toAddress = [roomId, this.getNickName()].join('/');
 
     let message = xml('presence', { to: toAddress });
     await clientXmpp.send(message);
   }
 
-  static async sendMessage(roomId, typeMsg, msg) {
+  static async sendMessage(typeMsg, msg) {
     //typeMsg: text | audio | image
     const content = [typeMsg, msg].join(':');
     let message = xml('message', { 
         type: 'groupchat',
-        to: roomId
+        to: this.currentRoomId
       },
       xml('body', {}, content)
     );
     await clientXmpp.send(message);
   }
 
-  static async getHistory(roomId, maxLength) {
+  static async getHistory(maxLength) {
     this.lstMsg = [];
     let message = xml('iq', 
       {
         id: generateRandomId() + ':history',
         type: 'set',
-        to: roomId
+        to: this.currentRoomId
       }, xml('query', 
         {
           xmlns: 'urn:xmpp:mam:2'
@@ -104,8 +105,8 @@ export default class XmppClient {
   }
 
   static async requestSendFile(path) {
-    filePath = path;
-    const file = await fetch(filePath);
+    this.filePath = path;
+    const file = await fetch(this.filePath);
 
     let message = xml('iq', {
         id: generateRandomId() + ':sendIQ',
@@ -124,8 +125,8 @@ export default class XmppClient {
     await clientXmpp.send(message);
   }
 
-  static uploadFile = function (filePath, putUrl) {
-    fetch(filePath).then((file) => {
+  static uploadFile = function (putUrl) {
+    fetch(this.filePath).then((file) => {
       const header = {
         'content-type': file._bodyBlob._data.type,
         filename: file._bodyBlob._data.name,
@@ -149,15 +150,19 @@ export default class XmppClient {
         console.log(put.attrs.url);
         const putUrl = put.attrs.url;
 
-        if (filePath && putUrl) {
-          this.uploadFile(filePath, putUrl);
-          filePath = null;
+        if (this.filePath && putUrl) {
+          this.uploadFile(putUrl);
+          this.filePath = null;
         }
 
         const get = result.getChild('get');
         console.log(get.attrs.url);
 
-        // this.sendMessage(roomId, 'audio', get.attrs.url);
+        const type = get.attrs.url.endsWith('jpg') ? 'image' : 'audio';
+        setTimeout(() => {
+          this.sendMessage(type, get.attrs.url);
+        }, 1000);
+        
       }
       if (stanza.getChild('fin')) {
         console.log(this.lstMsg);
@@ -189,6 +194,7 @@ export default class XmppClient {
           type = 'audio';
         } else if (body.startsWith('image')) {
           body = body.substr(6);
+          FastImage.preload([{uri: body}]);
           type = 'image';
         } else if (body.startsWith('text')) {
           body = body.substr(5);
@@ -217,6 +223,7 @@ export default class XmppClient {
           type = 'audio';
         } else if (body.startsWith('image')) {
           body = body.substr(6);
+          FastImage.preload([{uri: body}]);
           type = 'image';
         } else if (body.startsWith('text')) {
           body = body.substr(5);
