@@ -10,7 +10,6 @@ export const styles = StyleSheet.create({
   mainView: {
     flex:1,
     alignItems:'center',
-    paddingHorizontal:15
   },
   itemList:{
     flex:1,
@@ -27,8 +26,8 @@ export const styles = StyleSheet.create({
     justifyContent:'center',
   },
   imageItem:{
-    width:Consts.screenWidth/3-17,
-    height: Consts.screenWidth/3-17,
+    width:'100%',
+    height: '100%',
   },
   iconCheck:{
     width:'15%',

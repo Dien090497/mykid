@@ -260,7 +260,7 @@ export default ({ navigation }) => {
       />
       <View style={styles.mainView}>
         <FlatList
-          style={{ width: "100%", flex: 1 }}
+          style={{ width: "100%", flex: 1, paddingHorizontal:15 }}
           data={imageMook}
           renderItem={renderItem}
           keyExtractor={item => item.id}
