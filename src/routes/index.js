@@ -62,7 +62,8 @@ import LanguageTimeZone from "../screens/Profile/LanguageTimeZone";
 import OffDevice from '../screens/Settings/OffDevice';
 import StartDevice from '../screens/Settings/RestartDevice';
 import { String } from '../assets/strings/String';
-import EditDevice from "../screens/Profile/DeviceManager/EditDevice";
+import EditDevice from "../screens/Profile/DeviceManager/EditDevice"
+import InfoKits from "../screens/Home/InfoKids";
 var encoder = new encoding.TextEncoder();
 const Tab = createBottomTabNavigator();
 
@@ -315,6 +316,10 @@ const Routes = () => {
         <Stack.Screen
           name={Consts.ScreenIds.SecretPhotoShoot}
           component={SecretPhotoShoot}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.InforKits}
+          component={InfoKits}
         />
         <Stack.Screen name={Consts.ScreenIds.Contacts} component={Contacts} />
         <Stack.Screen name={Consts.ScreenIds.Members} component={Members} />

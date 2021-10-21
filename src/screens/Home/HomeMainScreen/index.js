@@ -85,7 +85,8 @@ export default function HomeMainScreen() {
   const handleChange = async (index) => {
     setSelectedIndex(index);
     await DataLocal.saveDeviceIndex(index);
-    await DataLocal.saveDeviceId(devices[index].deviceId);
+    await DataLocal.saveDeviceId(devices[index].deviceId)
+    navigation.navigate(Consts.ScreenIds.InforKits);
   };
 
   return (

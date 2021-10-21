@@ -55,6 +55,9 @@ export const roomsUrl = appUrl + '/rooms';
 //PhotoShoot
 export const PhotoShootUrl = appUrl + '/commands';
 
+//InfoKids
+export const InfoKids = appUrl + '/kids'
+
 /// url: string, obj: object
 export function assignUrlParams(url, obj) {
   if (!obj) {
