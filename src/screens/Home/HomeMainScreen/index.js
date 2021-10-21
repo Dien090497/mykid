@@ -87,8 +87,7 @@ export default function HomeMainScreen() {
   const handleChange = async (index) => {
     setSelectedIndex(index);
     await DataLocal.saveDeviceIndex(index);
-    await DataLocal.saveDeviceId(devices[index].deviceId)
-    navigation.navigate(Consts.ScreenIds.InforKits);
+    await DataLocal.saveDeviceId(devices[index].deviceId);
   };
 
   return (
@@ -105,18 +104,27 @@ export default function HomeMainScreen() {
           <Menu
             style={{ borderRadius: 15 }}
             visible={showMenu}
-            anchor={<TouchableOpacity style={styles.menuSelect} onPress={() => setShowMenu(true)}>
-              <Image source={Images.icShow} style={styles.iconShowMenu} resizeMode="stretch" />
-              <Text style={styles.textMenuShow}>{devices && devices[selectedIndex].deviceName}</Text>
-              <Image
-                source={devices && devices[selectedIndex].avatar ? { uri: devices[selectedIndex].avatar } : Images.icOther}
-                style={styles.avatar} resizeMode="stretch" />
-            </TouchableOpacity>}
+            anchor={
+              <View style={styles.menuSelect}>
+                <Image source={Images.icShow} style={styles.iconShowMenu} resizeMode="stretch" />
+                <View onStartShouldSetResponder={()=>{ setShowMenu(true)}}>
+                  <Text style={styles.textMenuShow}>{devices && devices[selectedIndex].deviceName}</Text>
+                </View>
+                <View onStartShouldSetResponder={()=>{
+                  navigation.navigate(Consts.ScreenIds.InforKits)
+                }}>
+                  <Image
+                    source={devices && devices[selectedIndex].avatar ? { uri: devices[selectedIndex].avatar } : Images.icOther}
+                    style={styles.avatar} resizeMode="cover" />
+                  </View>
+              </View>}
             onRequestClose={() => {
               setShowMenu(false);
             }}
           >
             {devices && devices.map((obj, i) => {
+              const isSelectDevice = obj.deviceId === DataLocal.deviceId;
+              console.log(obj)
               return (
                 <View key={i.toString()} style={{ paddingHorizontal: 10 }}>
                   <View style={styles.viewMenuDrop} onStartShouldSetResponder={() => {
@@ -124,7 +132,7 @@ export default function HomeMainScreen() {
                   }}>
                     <Text style={styles.textMenuDrop}>{obj.deviceName}</Text>
                     <Image source={obj.avatar ? { uri: obj.avatar } : Images.icOther} style={styles.avatar}
-                           resizeMode="stretch" />
+                           resizeMode="cover" />
                   </View>
                   <MenuDivider />
                 </View>

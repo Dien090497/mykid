@@ -105,8 +105,8 @@ export default function EditDevice({ navigation, route }) {
       result.relationship,
       result.relationshipName,
       {success: res =>{
-          navigation.goBack();
           route.params.onRefresh()
+          navigation.goBack();
         },refLoading}
     )
   };
@@ -133,6 +133,7 @@ export default function EditDevice({ navigation, route }) {
           <Text style={styles.containText}>{String.textDeviceNane}</Text>
           {data && <TextInput style={styles.textNickName}
                               onChangeText={(text)=>{setDeviceName(text)}}
+                              maxLength={10}
                               value={data.deviceName} />}
         </View>
         <TouchableOpacity style={styles.input} onPress={onRelationship}>
@@ -143,9 +144,7 @@ export default function EditDevice({ navigation, route }) {
             <Image style={styles.iconInput} source={Images.icDetail} resizeMode="contain" />
           </TouchableOpacity>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => {
-          refConfirm.current.open(String.arleftDeleteDevices1 + data.deviceName + String.arleftDeleteDevices2, deleteConfirm);
-        }}>
+        <TouchableOpacity style={styles.button} onPress={() => {deleteConfirm()}}>
           <Text style={styles.buttonText}>{String.confirm}</Text>
         </TouchableOpacity>
       </View>
