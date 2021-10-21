@@ -209,6 +209,7 @@ export const String = {
 
   //SecretPhotoShoot
   textShoot: 'Chụp hình',
+  textDeleteImage:'Bạn có chắc chắn muốn xóa ảnh này không?',
 
   // permissions
   cameraUnavailable: 'Máy ảnh không khả dụng trên thiết bị của bạn',
