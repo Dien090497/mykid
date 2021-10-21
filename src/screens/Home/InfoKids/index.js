@@ -17,7 +17,7 @@ import {String} from "../../../assets/strings/String";
 import {ScaleHeight} from "../../../functions/Consts";
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import DataLocal from "../../../data/dataLocal";
-import {getInfoApi, setInfoKitsApi} from "../../../network/InforKitsService";
+import {getInfoApi, setInfoKitsApi} from "../../../network/InfoKidsService";
 import DatePicker from 'react-native-date-picker';
 import {showAlert} from "../../../functions/utils";
 
