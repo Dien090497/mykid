@@ -66,6 +66,7 @@ const ScreenIds = {
   Contacts: 'Contacts',
   AddNewContact: 'AddNewContact',
   Members: 'Members',
+  Language: 'Language',
 
   //Maps
   Maps: 'Maps',

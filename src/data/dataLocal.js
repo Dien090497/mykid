@@ -3,10 +3,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const accessTokenKey = 'ACCESS_TOKEN';
 const deviceIdKey = 'DEVICE_ID_';
 const deviceIndexKey = 'DEVICE_Active_';
+const languageKey = 'LANGUAGE';
 let accessToken = null;
 let userInfo = null;
 let deviceIndex = 0;
 let deviceId = 0;
+let language = null;
 
 async function saveAccessToken(value) {
   try {
@@ -81,6 +83,31 @@ async function saveDeviceIndex(index) {
   }
 }
 
+async function loadLanguage() {
+  try {
+    const value = await AsyncStorage.getItem(languageKey, '');
+    if (value === null || value === undefined) {
+      DataLocal.language = 'vi';
+    } else {
+      DataLocal.language = value.toString();
+    }
+  } catch(e) {
+    DataLocal.language = null;
+    console.log(e);
+    console.log(e)
+  }
+}
+
+async function saveLanguage(language) {
+  try {
+    DataLocal.language = language;
+    return await AsyncStorage.setItem(languageKey, language.toString());
+  } catch (e) {
+    console.log(e);
+    return false;
+  }
+}
+
 async function removeAll() {
   await removeAccessToken();
 }
@@ -98,10 +125,14 @@ const DataLocal = {
   loadDeviceIndex,
   saveDeviceIndex,
 
+  saveLanguage,
+  loadLanguage,
+
   accessToken,
   userInfo,
   deviceIndex,
-  deviceId
+  deviceId,
+  language
 };
 
 export default DataLocal;
