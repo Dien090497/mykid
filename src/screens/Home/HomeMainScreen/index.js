@@ -128,9 +128,9 @@ export default function HomeMainScreen() {
               return (
                 <View key={i.toString()} style={{ paddingHorizontal: 10 }}>
                   <View style={styles.viewMenuDrop} onStartShouldSetResponder={() => {
-                    handleChange(i);
+                    !isSelectDevice ? handleChange(i) : null;
                   }}>
-                    <Text style={styles.textMenuDrop}>{obj.deviceName}</Text>
+                    <Text style={[styles.textMenuDrop,isSelectDevice?{color:'#CDCDCD'}:null]}>{obj.deviceName}</Text>
                     <Image source={obj.avatar ? { uri: obj.avatar } : Images.icOther} style={styles.avatar}
                            resizeMode="cover" />
                   </View>
