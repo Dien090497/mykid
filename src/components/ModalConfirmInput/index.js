@@ -41,12 +41,13 @@ export default class ModalConfirmInput extends Component {
       }, 500);
     });
   };
+
   isChangeText = (text) => {
     if (!this.state.check) {
       this.setState({text: text})
     }
     else {
-      this.setState({text: text.replace(/[^0-9]/g, '')})
+      this.setState({text: parseInt(text.replace(/[^0-9]/g, ''))})
     }
   }
 
@@ -96,7 +97,7 @@ export default class ModalConfirmInput extends Component {
                   </TouchableOpacity>
                 </View>
                 <View style={styles.TobOpacity}>
-                  {this.state.text !== '' ? (
+                  {this.state.text !== '' || this.state.text !== undefined ? (
                     <TouchableOpacity
                       style={[styles.smallButton, {backgroundColor: Colors.red}]}
                       onPress={() => {
@@ -113,8 +114,8 @@ export default class ModalConfirmInput extends Component {
                       style={[
                         styles.smallButton,
                         {
-                          backgroundColor: 'rgba(228, 228, 228, 1)',
-                          borderColor: 'rgba(228, 228, 228, 1)'
+                          backgroundColor: Colors.colorInputView,
+                          borderColor: Colors.colorInputView
                         }]
                       }>
                       <Text

@@ -61,14 +61,14 @@ export default function InfoKits() {
       id: '4',
       name: String.height,
       textName: heights + ' cm',
-      istextName: heights + '',
+      isTextName: heights + '',
       inputText: String.enterHeight
     },
     {
       id: '5',
       name: String.weight,
       textName: weights + ' kg',
-      istextName: heights + '',
+      isTextName: heights + '',
       inputText: String.enterWeight
     },
   ];
@@ -115,7 +115,7 @@ export default function InfoKits() {
     const bd = `${date.getFullYear()}-${`0${date.getMonth() + 1}`.slice(
       -2,
     )}-${`0${date.getDate()}`.slice(-2)}`;
-    let birthday = (check !== undefined  ? bd : birthday)
+    let birthday = (check !== undefined ? bd : birthday)
     const height = parseInt(heights);
     const weight = parseInt(weights);
     let body = {
@@ -145,11 +145,11 @@ export default function InfoKits() {
       if (item.item.id !== '1') {
         refModalInput.current.open('', () => {
           console.log('')
-        }, item.item.istextName, true);
+        }, item.item.isTextName, true);
       } else {
         refModalInput.current.open('', () => {
           console.log('')
-        }, item.item.istextName, false);
+        }, item.item.textName, false);
       }
     }
   }
@@ -232,8 +232,8 @@ export default function InfoKits() {
         ) : (
           <View style={[styles.tobViewMain,
             {
-              backgroundColor: 'rgba(228, 228, 228, 1)',
-              borderColor: 'rgba(228, 228, 228, 1)'
+              backgroundColor: Colors.colorInputView,
+              borderColor: Colors.colorInputView
             }
           ]}>
             <Text style={[styles.text, {color: Colors.white}]}>Lưu</Text>
