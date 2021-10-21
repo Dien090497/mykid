@@ -132,7 +132,7 @@ export default function RoomChat({navigation, route}) {
   };
 
   const sendMsg = () => {
-    if (isLock) return;
+    if (isLock && text === '') return;
     Keyboard.dismiss();
     setIsLock(true);
     XmppClient.sendMessage('text', text);
@@ -303,7 +303,7 @@ export default function RoomChat({navigation, route}) {
       const relationship = dataMock.filter(val => val.relationship === mems[0].relationship);
       return relationship.length > 0 ? relationship[0].icon : dataMock[6].icon;
     }
-    return uid;
+    return dataMock[6].icon;
   };
 
   return (
