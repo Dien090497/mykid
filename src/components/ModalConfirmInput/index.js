@@ -32,11 +32,12 @@ export default class ModalConfirmInput extends Component  {
     });
   };
 
-  actionYes = () => {
+  actionYes = (title, text) => {
     this.close(() => {
       setTimeout(() => {
         if (this.props.onPressYes) {
-          this.props.onPressYes();
+          this.props.onPressYes(title, text)
+          this.setState({text: ''})
         }
       }, 500);
     });
@@ -87,7 +88,7 @@ export default class ModalConfirmInput extends Component  {
                   <TouchableOpacity
                     style={[styles.smallButton, {backgroundColor: Colors.red}]}
                     onPress={ () => {
-                      this.actionYes();
+                      this.actionYes(this.props.title, this.state.text);
                     }}
                   >
                     <Text
