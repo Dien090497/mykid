@@ -3,13 +3,16 @@ import RNFetchBlob from 'react-native-fetch-blob';
 import AppConfig from '../../data/AppConfig';
 import DataLocal from '../../data/dataLocal';
 import { generateRandomId } from '../../functions/utils';
+import { getRoomsApi } from '../../network/ChatService';
 import {wssXmppUrl} from '../../network/http/ApiUrl';
 import chatAction from '../../redux/actions/chatAction';
 const {client, xml, jid} = require('@xmpp/client');
 const debug = require('@xmpp/debug');
 import reduxStore from '../../redux/config/redux';
+
 export default class XmppClient {
-  static lstMsg = [];
+  static lstMsg = {};
+  static lstRoom = [];
   static clientXmpp = null;
   // static needReconnect = false;
   static currentRoomId = null;
@@ -35,9 +38,27 @@ export default class XmppClient {
         return;
       }
       await clientXmpp.send(xml('presence'));
+      await this.getRooms();
+      await this.loadAllHistory();
     });
     clientXmpp.start().catch(console.error);
   };
+
+  static getRooms = async () => {
+    await getRoomsApi({
+      success: resData => {
+        this.lstRoom = resData.data;
+      },
+    });
+  };
+
+  static loadAllHistory = async () => {
+    for (const roomInfo of this.lstRoom) {
+      this.lstMsg[roomInfo.roomAddress] = [];
+      await this.joinRoom(roomInfo.roomAddress);
+      await this.getHistory(100);
+    }
+  }
 
   static disconnectXmppServer = () => {
     if (clientXmpp) {
@@ -50,11 +71,27 @@ export default class XmppClient {
   }
 
   static async joinRoom(roomId) {
-    this.currentRoomId = roomId
+    this.currentRoomId = roomId;
     const toAddress = [roomId, this.getNickName()].join('/');
 
-    let message = xml('presence', { to: toAddress });
+    let message = xml('presence', { to: toAddress },
+        // xml('x',
+        //   {xmlns: 'http://jabber.org/protocol/muc'},
+        //   xml('password',
+        //     {},
+        //     '1111111111',
+        //   ),
+        // ),
+      );
     await clientXmpp.send(message);
+  }
+
+  static setRoomId(roomId) {
+    this.currentRoomId = roomId;
+  }
+
+  static getCurrentHistory() {
+    return this.lstMsg[this.currentRoomId];
   }
 
   static async sendMessage(typeMsg, msg) {
@@ -70,7 +107,6 @@ export default class XmppClient {
   }
 
   static async getHistory(maxLength) {
-    this.lstMsg = [];
     let message = xml('iq', 
       {
         id: generateRandomId() + ':history',
@@ -125,7 +161,7 @@ export default class XmppClient {
     await clientXmpp.send(message);
   }
 
-  static uploadFile = function (putUrl) {
+  static uploadFile = function (putUrl, getUrl) {
     fetch(this.filePath).then((file) => {
       const header = {
         'content-type': file._bodyBlob._data.type,
@@ -137,6 +173,11 @@ export default class XmppClient {
         mode: 'cors',
         header : header,
         body: file._bodyBlob
+      }).then((resp) => {
+        const type = getUrl.endsWith('jpg') ? 'image' : 'audio';
+        // setTimeout(() => {
+          this.sendMessage(type, getUrl);
+        // }, 1000);
       });
     });
   }
@@ -147,22 +188,14 @@ export default class XmppClient {
       const result = stanza.getChild('slot', 'urn:xmpp:http:upload:0');
       if (result) {
         const put = result.getChild('put');
-        console.log(put.attrs.url);
+        const get = result.getChild('get');
         const putUrl = put.attrs.url;
+        const getUrl = get.attrs.url;
 
-        if (this.filePath && putUrl) {
-          this.uploadFile(putUrl);
+        if (this.filePath && putUrl && getUrl) {
+          this.uploadFile(putUrl, getUrl);
           this.filePath = null;
         }
-
-        const get = result.getChild('get');
-        console.log(get.attrs.url);
-
-        const type = get.attrs.url.endsWith('jpg') ? 'image' : 'audio';
-        setTimeout(() => {
-          this.sendMessage(type, get.attrs.url);
-        }, 1000);
-        
       }
       if (stanza.getChild('fin')) {
         console.log(this.lstMsg);
@@ -197,6 +230,9 @@ export default class XmppClient {
       const date = delay?.attrs.stamp ? new Date(delay?.attrs.stamp) : undefined;
       let body = message.getChildText('body');
       const fromSplit = message.attrs.from.split('/');
+      if (!this.lstMsg[fromSplit[0]]) {
+        this.lstMsg[fromSplit[0]] = [];
+      }
       if (body && fromSplit.length > 1) {
         // const bodySplit = body.split(':');
         // message is a mam message
@@ -212,7 +248,7 @@ export default class XmppClient {
           body = body.substr(5);
         }
         
-        this.lstMsg.push({
+        this.lstMsg[fromSplit[0]].push({
           from: fromSplit[1],
           body: body,
           type: type,
@@ -226,9 +262,10 @@ export default class XmppClient {
     if (body) {
       console.log(body);
       const fromSplit = stanza.attrs.from.split('/');
+      if (!this.lstMsg[fromSplit[0]]) {
+        this.lstMsg[fromSplit[0]] = [];
+      }
       if (body && fromSplit.length > 1) {
-        // const bodySplit = body.split(':');
-        // message is a mam message
         let type = 'text';
         if (body.startsWith('audio')) {
           body = body.substr(6);
@@ -241,7 +278,7 @@ export default class XmppClient {
           body = body.substr(5);
         }
         
-        this.lstMsg.push({
+        this.lstMsg[fromSplit[0]].push({
           from: fromSplit[1],
           body: body,
           type: type,

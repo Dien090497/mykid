@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     borderBottomStartRadius:10,
   },
   title: {
-    fontSize: FontSize.big,
+    fontSize: FontSize.medium,
     fontFamily: 'Roboto-Bold',
     color: Colors.white,
     width: '110%',
