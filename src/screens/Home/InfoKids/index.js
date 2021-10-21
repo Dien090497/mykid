@@ -46,7 +46,7 @@ export default function InfoKits() {
     {
       id: '2',
       name: String.birthday,
-      textName: (check ? `${date.getFullYear()}-${`0${date.getMonth() + 1}`.slice(
+      textName: (check !== undefined ? `${date.getFullYear()}-${`0${date.getMonth() + 1}`.slice(
         -2,
       )}-${`0${date.getDate()}`.slice(-2)}` : birthday),
       inputText: ''
@@ -60,13 +60,15 @@ export default function InfoKits() {
     {
       id: '4',
       name: String.height,
-      textName: heights + 'cm',
+      textName: heights + ' cm',
+      istextName: heights + '',
       inputText: String.enterHeight
     },
     {
       id: '5',
       name: String.weight,
-      textName: weights + 'kg',
+      textName: weights + ' kg',
+      istextName: heights + '',
       inputText: String.enterWeight
     },
   ];
@@ -113,7 +115,7 @@ export default function InfoKits() {
     const bd = `${date.getFullYear()}-${`0${date.getMonth() + 1}`.slice(
       -2,
     )}-${`0${date.getDate()}`.slice(-2)}`;
-    let birthday = (check ? bd : birthday)
+    let birthday = (check !== undefined  ? bd : birthday)
     const height = parseInt(heights);
     const weight = parseInt(weights);
     let body = {
@@ -132,7 +134,7 @@ export default function InfoKits() {
   }
 
   const OnMoDal = (item) => {
-    setTitle(item.item.name);
+    setTitle(item.item.name)
     setInputText(item.item.inputText)
     if (item.item.id === '2') {
       setModalDate(true)
@@ -140,7 +142,15 @@ export default function InfoKits() {
       Keyboard.dismiss();
       sheet.show();
     } else {
-      refModalInput.current.open();
+      if (item.item.id !== '1') {
+        refModalInput.current.open('', () => {
+          console.log('')
+        }, item.item.istextName, true);
+      } else {
+        refModalInput.current.open('', () => {
+          console.log('')
+        }, item.item.istextName, false);
+      }
     }
   }
 
@@ -215,9 +225,20 @@ export default function InfoKits() {
           keyExtractor={item => item.id}
           style={{paddingTop: 15}}
         />
-        <TouchableOpacity style={styles.tobViewMain} onPress={InstallInfo}>
-          <Text style={[styles.text, {color: Colors.white}]}>Lưu</Text>
-        </TouchableOpacity>
+        {parseInt(heights) > 0 && parseInt((weights)) > 0 ? (
+          <TouchableOpacity style={styles.tobViewMain} onPress={InstallInfo}>
+            <Text style={[styles.text, {color: Colors.white}]}>Lưu</Text>
+          </TouchableOpacity>
+        ) : (
+          <View style={[styles.tobViewMain,
+            {
+              backgroundColor: 'rgba(228, 228, 228, 1)',
+              borderColor: 'rgba(228, 228, 228, 1)'
+            }
+          ]}>
+            <Text style={[styles.text, {color: Colors.white}]}>Lưu</Text>
+          </View>
+        )}
       </View>
       <ModalConfirmInput
         ref={refModalInput}
