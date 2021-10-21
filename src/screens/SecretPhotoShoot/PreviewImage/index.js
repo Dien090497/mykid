@@ -13,7 +13,7 @@ export default class PreviewImage extends Component {
       modalVisible: false,
       data: null,
       selected: null,
-      src: null,
+      url: null,
       time: null,
       rotate: null,
     };
@@ -24,8 +24,8 @@ export default class PreviewImage extends Component {
       modalVisible: true,
       data: data,
       selected: index,
-      src: data[index].src,
-      time: data[index].date.toLocaleString(),
+      url: data[index].url,
+      time: data[index].shootingTime,
       rotate:0
     });
   };
@@ -42,8 +42,8 @@ export default class PreviewImage extends Component {
       this.setState({
         ...this.state,
         selected: i,
-        src: this.state.data[i].src,
-        time: this.state.data[i].date.toLocaleString(),
+        url: this.state.data[i].url,
+        time: this.state.data[i].shootingTime,
         rotate: 0
       });
     } else if (index < 0) {
@@ -51,8 +51,8 @@ export default class PreviewImage extends Component {
       this.setState({
         ...this.state,
         selected: i,
-        src: this.state.data[i].src,
-        time: this.state.data[i].date.toLocaleString(),
+        url: this.state.data[i].url,
+        time: this.state.data[i].shootingTime,
         rotate: 0
       });
     } else {
@@ -60,8 +60,8 @@ export default class PreviewImage extends Component {
       this.setState({
         ...this.state,
         selected: i,
-        src: this.state.data[i].src,
-        time: this.state.data[i].date.toLocaleString(),
+        url: this.state.data[i].url,
+        time: this.state.data[i].shootingTime,
         rotate: 0
       });
     }
@@ -74,8 +74,8 @@ export default class PreviewImage extends Component {
       this.setState({
         ...this.state,
         selected: i,
-        src: this.state.data[i].src,
-        time: this.state.data[i].date.toLocaleString(),
+        url: this.state.data[i].url,
+        time: this.state.data[i].shootingTime,
         rotate: 0
       });
     } else if (index <= 0) {
@@ -83,8 +83,8 @@ export default class PreviewImage extends Component {
       this.setState({
         ...this.state,
         selected: i,
-        src: this.state.data[i].src,
-        time: this.state.data[i].date.toLocaleString(),
+        url: this.state.data[i].url,
+        time: this.state.data[i].shootingTime,
         rotate: 0
       });
     } else {
@@ -92,8 +92,8 @@ export default class PreviewImage extends Component {
       this.setState({
         ...this.state,
         selected: i,
-        src: this.state.data[i].src,
-        time: this.state.data[i].date.toLocaleString(),
+        url: this.state.data[i].url,
+        time: this.state.data[i].shootingTime,
         rotate: 0
       });
     }
@@ -132,7 +132,7 @@ export default class PreviewImage extends Component {
             <TouchableOpacity onPress={this.hideModal} style={{alignSelf:'flex-end', marginRight:-25, marginBottom: 5}}>
               <Image source={Images.icClose} style={styles.icClose} resizeMode="contain" />
             </TouchableOpacity>
-            <FastImage source={this.state.src} style={[styles.image,{transform: [{ rotate: this.state.rotate+'deg' }]}]} resizeMode={FastImage.resizeMode.stretch} />
+            <FastImage source={{uri:this.state.url}} style={[styles.image,{transform: [{ rotate: this.state.rotate+'deg' }]}]} resizeMode={FastImage.resizeMode.stretch} />
             <Text style={styles.txtDate}>{this.state.time}</Text>
             <Text style={styles.txtDes}>Cảnh chụp: chụp từ xa</Text>
             <View style={styles.groupBtn}>
@@ -159,112 +159,3 @@ export default class PreviewImage extends Component {
     );
   }
 }
-
-
-// import { Image, Modal, StatusBar, Text, TouchableOpacity, View } from "react-native";
-// import React, { Component, useEffect, useRef, useState } from "react";
-// import { styles } from "./styles";
-// import { String } from "../../../assets/strings/String";
-// import { Colors } from "../../../assets/colors/Colors";
-// import Images from "../../../assets/Images";
-// import FastImage from "react-native-fast-image";
-//
-//
-// export function PreViewImage({ visible, data, selected, callback }) {
-//   const [modalVisible, setModalVisible] = useState(false);
-//   const [select, setSelect] = useState(setSelect);
-//
-//   const listImage = Object.assign([],data)
-//
-//   const hideModal = () => {
-//     callback();
-//     setModalVisible(false);
-//   };
-//
-//   useEffect(() => {
-//     setSelect(selected)
-//     setModalVisible(visible);
-//   });
-//
-//
-//   const nextImage = () => {
-//     const index = select;
-//     if (index >= data.length - 1) {
-//       setSelect(0);
-//     } else if (index < 0) {
-//       setSelect(data.length - 1);
-//     } else {
-//       setSelect(index + 1);
-//     }
-//   };
-//
-//   const prevImage = () => {
-//     const index = select;
-//     if (index > data.length - 1) {
-//       setSelect(0);
-//     } else if (index <= 0) {
-//       setSelect(data.length - 1);
-//     } else {
-//       setSelect(index - 1);
-//     }
-//   };
-//
-//   const rotateRight = () => {
-//     // const rotate = this.state.rotate + 90;
-//     // if (rotate >= 360) {
-//     //   this.setState({ ...this.state, rotate: 0 });
-//     // } else if (rotate < 0) {
-//     //   this.setState({ ...this.state, rotate: 360 });
-//     // } else {
-//     //   this.setState({ ...this.state, rotate: rotate });
-//     // }
-//   };
-//
-//   const rotateLeft = () => {
-//     // const rotate = this.state.rotate - 90;
-//     // if (rotate <= -360) {
-//     //   this.setState({ ...this.state, rotate: 0 });
-//     // } else if (rotate > 0) {
-//     //   this.setState({ ...this.state, rotate: -360 });
-//     // } else {
-//     //   this.setState({ ...this.state, rotate: rotate });
-//     // }
-//   };
-//   console.log(listImage[select].id)
-//   return (
-//     <Modal
-//       animationType="slide"
-//       transparent={true}
-//       visible={modalVisible}>
-//       <TouchableOpacity style={styles.bottomView} onPress={hideModal}>
-//         <View style={styles.body}>
-//           {/*<FastImage source={data[selected].src}*/}
-//           {/*           style={[styles.image, { transform: [{ rotate: "0deg" }] }]}*/}
-//           {/*           resizeMode={FastImage.resizeMode.stretch} />*/}
-//           {/*<Text style={styles.txtDate}>{data[selected].date.toISOString()}</Text>*/}
-//           <Text style={styles.txtDes}>Cảnh chụp: chụp từ xa</Text>
-//           <View style={styles.groupBtn}>
-//             <TouchableOpacity onPress={rotateRight}>
-//               <Image source={Images.icRotateRight} style={styles.icTouch} resizeMode="contain" />
-//             </TouchableOpacity>
-//             <TouchableOpacity onPress={prevImage}>
-//               <Image source={Images.icDetail}
-//                      style={[styles.icTouch, { tintColor: Colors.colorMain, transform: [{ rotate: "180deg" }] }]}
-//                      resizeMode="contain" />
-//             </TouchableOpacity>
-//             <TouchableOpacity onPress={nextImage}>
-//               <Image source={Images.icDetail} style={[styles.icTouch, { tintColor: Colors.colorMain }]}
-//                      resizeMode="contain" />
-//             </TouchableOpacity>
-//             <TouchableOpacity onPress={rotateLeft}>
-//               <Image source={Images.icRotateLeft} style={styles.icTouch} resizeMode="contain" />
-//             </TouchableOpacity>
-//           </View>
-//         </View>
-//         <Text>123</Text>
-//       </TouchableOpacity>
-//       <StatusBar backgroundColor={Colors.transparent} />
-//     </Modal>
-//   );
-//
-// }

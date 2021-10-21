@@ -115,6 +115,7 @@ export default {
   icRotateRight: require('./images/ic_rotate_right.png'),
   icRotateLeft: require('./images/ic_rotate_left.png'),
   icClose: require('./images/ic_close.png'),
+  icShootPhoto: require('./images/ic_shoot_photo.png'),
 
  //
   icAlarmClocks: require('./images/ic_alarm_clooks.png'),
