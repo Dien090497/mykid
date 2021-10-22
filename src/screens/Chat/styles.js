@@ -76,6 +76,7 @@ export const styles = StyleSheet.create({
     // tintColor: Colors.gray,
     resizeMode: 'contain',
     marginLeft: 3,
+    borderRadius: 25
   },
   rowDirection: {
     flexDirection: 'row',
