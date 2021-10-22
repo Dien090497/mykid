@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     width:25,
     height:25,
     tintColor: Colors.grayTextTitleColor,
-
+    right: 8
   }
 });
 export default styles;

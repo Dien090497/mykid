@@ -30,6 +30,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import Profile from '../screens/Profile';
 import QRCodeScreen from '../screens/Profile/QRCodeScreen';
 import Register from '../screens/auth/Register';
+import OTP from '../screens/auth/Register/OTP'
 import Relationship from '../screens/Profile/Relationship';
 import SafeZone from '../screens/Maps/SafeZone';
 import SettingScreen from '../screens/Settings';
@@ -272,6 +273,10 @@ const Routes = () => {
         <Stack.Screen
           name={Consts.ScreenIds.Register}
           component={DirectRegister}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.OTP}
+          component={OTP}
         />
         <Stack.Screen
           name={Consts.ScreenIds.Settings}

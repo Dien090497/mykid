@@ -31,10 +31,8 @@ const Login = ({ navigation }) => {
   const dispatch = useDispatch();
   const loggedInUserInfo = useSelector((state) => state.loginReducer.dataInfo);
 
-  // const [email, setEmail] = useState("Anhvt@gmail.com");
-  const [email, setEmail] = useState("hyhung@gmail.com");
-  const [password, setPassword] = useState("hung12345");
-  // const [password, setPassword] = useState("anh12345");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [checkbox, setCheckbox] = useState(false);
 
   const refLoading = useRef();
@@ -79,10 +77,6 @@ const Login = ({ navigation }) => {
 
   const onSubmit = () => {
     if (checkbox) {
-      if (!emailTest(email)) {
-        showAlert(String.errorGmail);
-        return;
-      }
       if (!passwordTest(password)) {
         showAlert(String.txtNotification);
         return;
