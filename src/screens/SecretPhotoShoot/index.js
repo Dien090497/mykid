@@ -162,7 +162,7 @@ export default ({ navigation }) => {
           /> : null}
         </TouchableOpacity>
         <View>
-          <Text style={styles.txtItemList}>{item.item.shootingTime}</Text>
+          <Text style={styles.txtItemList}>{item.item.shootingTime? item.item.shootingTime : ''}</Text>
         </View>
       </View>
     );
