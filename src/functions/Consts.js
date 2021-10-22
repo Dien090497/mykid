@@ -67,7 +67,7 @@ const ScreenIds = {
   Contacts: 'Contacts',
   AddNewContact: 'AddNewContact',
   Members: 'Members',
-  InforKits: 'InforKits',
+  InfoKits: 'InfoKits',
 
   //Maps
   Maps: 'Maps',
