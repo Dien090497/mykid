@@ -115,7 +115,7 @@ export default function DeviceManager({navigation}) {
   }
 
   const editDevice = (item)=>{
-    navigation.navigate(Consts.ScreenIds.EditDevice, {data: item ,onRefresh: refesh()})
+    navigation.navigate(Consts.ScreenIds.EditDevice, {data: item ,onRefresh: getListDevice})
   }
 
   const renderItem  = ({item, index}) => {
