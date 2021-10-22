@@ -37,7 +37,7 @@ const ScreenIds = {
   SoundSettings: 'SoundSettings',
   AlarmClock: 'AlarmClock',
   AlarmSetting: 'AlarmSetting',
-  EacesDroping:'EacesDroping',
+  EacesDroping: 'EacesDroping',
   RewardPoints: 'RewardPoints',
   LanguageTimeZone: 'LanguageTimeZone',
   DoNotDisturb: 'DoNotDisturb',
@@ -55,6 +55,7 @@ const ScreenIds = {
   AddDeviceScreen: 'AddDeviceScreen',
   Relationship: 'Relationship',
   QRCodeScreen: 'QRCodeScreen',
+  OTP: 'OTP',
 
   //Settings
   Settings: 'Settings',

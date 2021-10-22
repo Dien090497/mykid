@@ -9,170 +9,139 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import React, { useLayoutEffect, useState } from "react";
-import { createAccountApi, getCaptchaApi } from "../../../network/UserInfoService";
-import { emailTest, passwordTest, saveUserDataFromToken, showAlert } from "../../../functions/utils";
+import React, {useLayoutEffect, useRef, useState} from "react";
+import {getOtpApi} from "../../../network/UserInfoService";
+import {phoneTest, passwordTest, saveUserDataFromToken, showAlert} from "../../../functions/utils";
 
 import Button from "../../../components/buttonGradient";
-import { Colors } from "../../../assets/colors/Colors";
+import {Colors} from "../../../assets/colors/Colors";
 import Consts from "../../../functions/Consts";
 import CustomInput from "../../../components/inputRegister";
 import Images from "../../../assets/Images";
-import { String } from "../../../assets/strings/String";
-import { styles } from "./styles";
-import { ErrorMsg } from "../../../assets/strings/ErrorMsg";
-import { CheckBox } from "react-native-elements";
+import {String} from "../../../assets/strings/String";
+import {styles} from "./styles";
+import {ErrorMsg} from "../../../assets/strings/ErrorMsg";
+import {CheckBox} from "react-native-elements";
+import {ScreenHeight} from "react-native-elements/dist/helpers";
 
-const Register = ({ navigation }) => {
-  const [email, setEmail] = useState('');
-  const [checkGmail, setCheckGmail] = useState(false);
-  const [code, setCode] = useState('');
-  const [checkCode, setCheckCode] = useState(false);
+const Register = ({navigation}) => {
+  const refLoading = useRef(null);
+  const [phone, setPhone] = useState('');
+  const [checkPhone, setCheckPhone] = useState(false);
   const [pass, setPass] = useState('');
+  const [isPass, setIsPass] = useState('');
   const [checkPass, setCheckPass] = useState(false);
   const [showPass, setShowPass] = useState(true);
+  const [showUserVerification, setShowUserVerification] = useState(true);
   const [checkbox, setCheckbox] = useState(false);
-  const [captchaData, setCaptchaData] = useState();
   const [submitActive, setSubmitActive] = useState(false);
-  let isGetCaptcha = false;
 
   useLayoutEffect(() => {
-    getCaptcha();
-  }, []);
+    setSubmitActive(phone && pass)
+  }, [phone, pass]);
 
-  useLayoutEffect(() => {
-    setSubmitActive(email && pass && code)
-  }, [email, pass, code]);
-
-  const onChangeGmail = (text) => {
-    setEmail(text);
+  const onChangePhone = (text) => {
+    setPhone(text.replace(/[^0-9]/g, ''));
   };
+
   const onChangePass = (text) => {
     setPass(text);
-  };
+  }
 
-  const getCaptcha = () => {
-    if (isGetCaptcha) return;
-    isGetCaptcha = true;
-    setCaptchaData();
-    getCaptchaApi(
-      {
-        success: resData => {
-          if (resData.data) {
-            setCaptchaData(resData.data);
-          }
-        },
-      }).then();
-    isGetCaptcha = false;
-  };
-  const onChangeCode = (text) => {
-    setCode(text);
-  };
+  const onChangePass1 = (text) => {
+     setIsPass(text);
+  }
+
   const onChangeShowPass = () => {
     setShowPass(!showPass);
   };
-  const onclick = () => {
-    if (!submitActive) return;
-    let data = {
-      email: email,
-      password: pass,
-      answer: code,
-      captchaId: captchaData.captchaId,
-    };
-    if (checkbox) {
-      setCheckGmail(!emailTest(email));
-      setCheckPass(!passwordTest(pass));
-      if (emailTest(email) && passwordTest(pass)) {
-        createAccountApi(data,
-          {
-            success: resData => {
-              if (resData && resData.data && resData.data.token) {
-                setCheckCode(false)
-                saveUserDataFromToken(resData.data.token).then(token => {
-                  navigation.navigate(Consts.ScreenIds.ConnectionScreen)
-                });
-              }
-            },
-            failure: error => {
-              console.log(error);
-              setCode('');
-              getCaptcha();
-            }
-          }).then();
-      }
-    } else {
-      showAlert(String.error_message)
-    }
+
+  const ShowUserVerification = () => {
+    setShowUserVerification(!showUserVerification);
   };
+
+  const oncRegister = () => {
+     if (pass === isPass) {
+       setCheckPhone(!passwordTest(pass));
+       if (passwordTest(phone)) {
+         getOtpApi(phone , {
+             success: res => {
+               navigation.navigate(Consts.ScreenIds.OTP, {phone: phone, pass: pass})
+             }
+           }
+         );
+       }
+
+     } else {
+       showAlert('Mật khẩu không hợp lệ')
+     }
+  }
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : ""}
       style={styles.container}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.container}>
-          <Header title={String.register} />
-          <View style={styles.Sty_txtEmail}>
-            <CustomInput
-              placeholder={String.placeholderGmail}
-              onChangeText={onChangeGmail}
-              value={email}
-              notification={checkGmail}
-              txtnotification={String.errorGmail}
-            />
-          </View>
-          <View style={styles.Sty_txtCode}>
-            <View style={{ width: "100%" }}>
+          <Header title={String.register}/>
+          <View style={{alignItems: 'center', height: 600, justifyContent: 'center', marginHorizontal: 20}}>
+            <View style={styles.Sty_txt}>
               <CustomInput
-                number
-                placeholder={String.placeholderCode}
-                onChangeText={onChangeCode}
-                value={code}
-                notification={checkCode}
-                txtnotification={String.errorCode}
-                maxLength={10}
+                placeholder={String.placeholderPhone}
+                onChangeText={onChangePhone}
+                value={phone}
+                notification={checkPhone}
+                txtnotification={String.errorGmail}
+                maxLength={true}
+                checkKeyboard={true}
               />
             </View>
-            <View style={{ width: 130, marginLeft: -155 }}>
-              <Image
-                style={styles.Sty_iconCode}
-                source={captchaData ? { uri: `data:image/png;base64,${captchaData.captcha}` } : null} />
+            <View style={styles.Sty_txt}>
+              <CustomInput
+                placeholder={String.passwordUser}
+                onChangeText={onChangePass}
+                value={pass}
+                notification={checkPass}
+                secureTextEntry={showPass}
+                txtnotification={String.txtNotification}
+                icon
+                onChange={onChangeShowPass}
+                maxLength={false}
+                checkKeyboard={false}
+              />
             </View>
-            <TouchableOpacity
-              onPress={getCaptcha}>
-              <Image
-                style={styles.Sty_iconReset}
-                source={Images.icReload} />
-            </TouchableOpacity>
-          </View>
 
-          <View style={styles.Sty_txtPass}>
-            <CustomInput
-              placeholder={String.txtNotification}
-              onChangeText={onChangePass}
-              value={pass}
-              notification={checkPass}
-              secureTextEntry={showPass}
-              txtnotification={String.txtNotification}
-              icon
-              onChange={onChangeShowPass}
-              maxLength={16}
-            />
-          </View>
-          <View style={styles.viewButton}>
-            <Button
-              activeOpacity={submitActive ? 0 : 1}
-              onclick={onclick}
-              title={String.registrationConfirmation}
-              color={submitActive ? Colors.GradientColor : Colors.GradientColorGray}
-            />
-          </View>
-          <View style={{ marginTop: 15, flexDirection: "row", width: '90%' }}>
-            <CheckBox checkedColor='green' uncheckedColor='green' checked={checkbox}
-                      onPress={() => setCheckbox(!checkbox)} />
-            <Text style={styles.txt_Policy}>{String.acceptMy} <Text style={styles.txtPolicy}
-                                                                    onPress={() => console.log("hello")}>{String.agreement}</Text>   <Text
-              style={styles.txtPolicy} onPress={() => console.log("Chính sách bảo mật")}>{String.privacyPolicy}</Text>
-            </Text>
+            <View style={styles.Sty_txt}>
+              <CustomInput
+                placeholder={String.userVerification}
+                onChangeText={onChangePass1}
+                value={isPass}
+                notification={checkPass}
+                secureTextEntry={showUserVerification}
+                txtnotification={String.txtNotification}
+                icon
+                onChange={ShowUserVerification}
+                maxLength={false}
+                checkKeyboard={false}
+              />
+            </View>
+            {pass !== '' && isPass !== '' && phone !== '' && checkbox ? (
+              <TouchableOpacity onPress={oncRegister} style={styles.btnSubmit}>
+                <Text style={styles.textSubmit}>{String.register}</Text>
+              </TouchableOpacity>
+            ):(
+              <View style={[styles.btnSubmit, {backgroundColor: 'rgba(228, 228, 228, 1)'}]}>
+                <Text style={styles.textSubmit}>{String.register}</Text>
+              </View>
+            )
+            }
+            <View style={{marginTop: 15, flexDirection: "row", height: '20%'}}>
+              <CheckBox checkedColor='red' uncheckedColor='red' checked={checkbox}
+                        onPress={() => setCheckbox(!checkbox)}/>
+              <Text style={styles.txt_Policy}>{String.acceptMy}{' '}
+                <Text style={styles.txtPolicy}>{String.agreement}</Text>
+                <Text style={styles.txtPolicy}>{String.privacyPolicy}</Text>
+              </Text>
+            </View>
           </View>
         </View>
       </TouchableWithoutFeedback>

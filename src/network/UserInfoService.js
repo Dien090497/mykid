@@ -53,3 +53,12 @@ export function findWatchsApi(deviceId, { success, failure, autoShowMsg = true, 
   const url = [watchsUrl, deviceId, 'find'].join('/');
   return get(url, { success, failure, autoShowMsg, refLoading });
 }
+
+export function getOtpApi(
+  phone, { success, failure, autoShowMsg = true, refLoading = null } = {}) {
+  let body = {
+    phone
+  }
+  const url = 'http://192.168.30.5:8080/kwapp-core/v1/otp';
+  return post(url, { body, autoShowMsg, success, failure, refLoading });
+}

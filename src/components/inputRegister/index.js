@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { View, TouchableOpacity, Text, TextInput, Image } from "react-native";
+import React, {useEffect, useState} from "react";
+import {View, TouchableOpacity, Text, TextInput, Image, Dimensions} from "react-native";
 import styles from "./style";
 import Images from "../../assets/Images";
 
+const {width} = Dimensions.get("window");
 const CustomInput = (navigation) => {
   const {
     value,
@@ -14,23 +15,24 @@ const CustomInput = (navigation) => {
     txtnotification,
     icon,
     onChange,
-    maxLength
+    maxLength,
+    checkKeyboard
   } = navigation;
   return (
     <View style={styles.Sty_ViewInput}>
-      <View style={{width: "88%", flexDirection: "row", justifyContent: 'center', alignItems: 'center'}}>
+      <View style={{width: "100%", flexDirection: "row", justifyContent: 'center', alignItems: 'center'}}>
         <TextInput
           placeholder={placeholder}
           placeholderTextColor={"#9D9D9D"}
           secureTextEntry={secureTextEntry ? secureTextEntry : false}
-          keyboardType={number ? "numeric" : "default"}
+          keyboardType={checkKeyboard ? "number-pad" : "default"}
           onChangeText={(text) => onChangeText(text)}
           underlineColorAndroid={"transparent"}
-          maxLength={maxLength ? maxLength : 50}
+          maxLength={maxLength ? 11 : 50}
           style={{
             ...styles.Sty_input,
             color: "#000000",
-            width: icon ? "90%" : "100%",
+            width: icon ? width * 0.89 - 25 : width * 0.89,
             paddingVertical: !notification ? 4 : 0,
           }}
           disableFullscreenUI
@@ -39,8 +41,8 @@ const CustomInput = (navigation) => {
         {
           icon && <TouchableOpacity onPress={onChange}>
             <Image
-              style={{ ...styles.Sty_iconShow }}
-              source={secureTextEntry ? Images.icView : Images.icPrivate} />
+              style={{...styles.Sty_iconShow}}
+              source={secureTextEntry ? Images.icView : Images.icPrivate}/>
           </TouchableOpacity>
         }
       </View>
