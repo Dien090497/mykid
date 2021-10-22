@@ -29,6 +29,7 @@ export default function EditDevice({ navigation, route }) {
   const refLoading = useRef();
   const refConfirm = useRef();
   const [data, setData] = useState(null);
+  const [avatar, setAvatar] = useState(null);
   let sheet = null;
 
   useLayoutEffect(() => {
@@ -80,9 +81,7 @@ export default function EditDevice({ navigation, route }) {
       resizeImage(imagePickerResponse).then(uri => {
         hideLoading(refLoading);
         if (uri) {
-          const newData = Object.assign({}, data);
-          newData.avatar = uri
-          setData(newData);
+          setAvatar(uri);
         }
       });
     }
@@ -104,6 +103,7 @@ export default function EditDevice({ navigation, route }) {
       result.icon,
       result.relationship,
       result.relationshipName,
+      avatar,
       {success: res =>{
           route.params.onRefresh()
           navigation.goBack();
@@ -126,7 +126,7 @@ export default function EditDevice({ navigation, route }) {
           <Text style={styles.containText}>Hình đại diện</Text>
           <View>
             {data &&
-            <Image source={data.avatar ? { uri: data.avatar } : data.icon} resizeMode="cover" style={styles.avatar} />}
+            <Image source={avatar? {uri:avatar} : data.avatar ? { uri: data.avatar } : data.icon} resizeMode="cover" style={styles.avatar} />}
           </View>
         </TouchableOpacity>
         <View style={styles.viewContain}>

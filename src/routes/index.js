@@ -306,7 +306,7 @@ const Routes = () => {
           component={SecretPhotoShoot}
         />
         <Stack.Screen
-          name={Consts.ScreenIds.InforKits}
+          name={Consts.ScreenIds.InfoKits}
           component={InfoKits}
         />
         <Stack.Screen name={Consts.ScreenIds.Contacts} component={Contacts} />

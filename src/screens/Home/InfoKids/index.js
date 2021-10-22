@@ -21,7 +21,7 @@ import {getInfoApi, setInfoKitsApi} from "../../../network/InfoKidsService";
 import DatePicker from 'react-native-date-picker';
 import {showAlert} from "../../../functions/utils";
 
-export default function InfoKits() {
+export default function InfoKits({route}) {
   let sheet = null;
   const refLoading = useRef();
   const refModalInput = useRef();
@@ -206,6 +206,8 @@ export default function InfoKits() {
       </View>
     );
   }
+
+  console.log(route.params.avatar);
   return (
     <View style={{flex: 1, backgroundColor: Colors.white}}>
       <Header title={String.home_infoKits}/>
@@ -216,7 +218,7 @@ export default function InfoKits() {
           justifyContent: 'center',
           alignItems: 'center'
         }}>
-        <Image source={Images.icAvatar} style={{width: 130, height: 130}} resizeMode={'stretch'}/>
+        <Image source={route.params.avatar ? {uri: route.params.avatar} : Images.icAvatar} style={{width: 130, height: 130,borderRadius: 100}} resizeMode={route.params.avatar ? 'cover' : 'stretch'}/>
       </View>
       <View style={{justifyContent: 'center', alignItems: 'center'}}>
         <FlatList

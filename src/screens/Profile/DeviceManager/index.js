@@ -119,6 +119,7 @@ export default function DeviceManager({navigation}) {
   }
 
   const renderItem  = ({item, index}) => {
+    console.log(item)
     const relationship = dataMock.filter(val => val.relationship === item.relationship);
     const icon = relationship.length > 0 ? relationship[0].icon : dataMock[6].icon;
     relationship[0].name ? item.relationshipName = relationship[0].name: null;
@@ -127,7 +128,9 @@ export default function DeviceManager({navigation}) {
       return (
         <View style={styles.rowSettings}>
           <TouchableOpacity style={{flexDirection: 'row'}} onPress={()=>{editDevice(item)}}>
-            <Image source={item.icon} resizeMode={'contain'} style={styles.iconSetting}/>
+            <View style={{width:40,height:40,borderRadius:20}}>
+              <Image source={item.avatar ? {uri:item.avatar} : item.icon} resizeMode={item.avatar? 'cover' : 'stretch'} style={styles.iconSetting}/>
+            </View>
             <View style={{flexDirection: 'column', justifyContent: 'center'}}>
               <Text style={styles.textSettings}>{item.deviceName}</Text>
               <Text style={[styles.textSettings, {color: Colors.grayTextTitleColor, fontSize: 12}]}>{item.deviceCode}</Text>
