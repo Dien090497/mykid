@@ -197,34 +197,25 @@ export async function dele(
 }
 
 export async function upload(
-  url, uri, name, type, {success, failure, autoShowMsg = true, refLoading = null} = {}) {
+  url, formData, {success, failure, autoShowMsg = true, refLoading = null} = {}) {
   showLoading(refLoading);
-  const formData = new FormData();
-  formData.append('file', {
-    uri: Platform.OS === 'android' ? uri : uri.replace('file://', '/'),
-    name: name ? name : 'picture',
-    type: type ? type : 'image/png',
-  });
 
   let headers = await getHeaders(null);
   headers['Content-Type'] = 'multipart/form-data';
 
-  console.log('[API] [call] upload ' + url, formData, 'headers:', headers);
   let response;
   try {
+    console.log(url)
+    console.log(formData)
     response = await client.put(url, formData, {
       headers,
       timeout: TIMEOUT_CONNECT,
       responseType: 'json',
     });
   } catch (error) {
-    console.log('[API] [ERROR] call API upload ' + url, error);
     response = await error.response;
   }
-  console.log('[API] [response] upload ' + url, response);
-
   hideLoading(refLoading);
-
   return handleResp(response, autoShowMsg, success, failure, refLoading);
 }
 
