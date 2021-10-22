@@ -56,7 +56,7 @@ export default class XmppClient {
     for (const roomInfo of this.lstRoom) {
       this.lstMsg[roomInfo.roomAddress] = [];
       await this.joinRoom(roomInfo.roomAddress);
-      await this.getHistory(100);
+      await this.getHistory(50);
     }
   }
 
@@ -174,10 +174,8 @@ export default class XmppClient {
         header : header,
         body: file._bodyBlob
       }).then((resp) => {
-        const type = getUrl.endsWith('jpg') ? 'image' : 'audio';
-        // setTimeout(() => {
-          this.sendMessage(type, getUrl);
-        // }, 1000);
+        const type = (getUrl.toUpperCase().endsWith('JPG') || getUrl.toUpperCase().endsWith('JPEG')) ? 'image' : 'audio';
+        this.sendMessage(type, getUrl);
       });
     });
   }
