@@ -15,7 +15,9 @@ import {String} from '../../../assets/strings/String';
 import {styles} from './styles';
 import {useNavigation} from '@react-navigation/native';
 import {showAlert} from '../../../functions/utils';
-import XmppClient from '../../../components/XmppChat/XmppClient';
+import XmppClient from '../../../network/xmpp/XmppClient';
+import WebSocketSafeZone from "../../../network/socket/WebSocketSafeZone";
+import WebSocketVideoCall from "../../../network/socket/WebSocketVideoCall";
 
 export default function HomeMainScreen() {
   const navigation = useNavigation();
@@ -27,6 +29,10 @@ export default function HomeMainScreen() {
 
   useLayoutEffect(() => {
     XmppClient.connectXmppServer();
+    WebSocketSafeZone.setReconnect(true);
+    WebSocketSafeZone._handleWebSocketSetup(navigation);
+    WebSocketVideoCall.setReconnect(true);
+    WebSocketVideoCall._handleWebSocketSetup(navigation);
     getListDeviceApi(DataLocal.userInfo.id, Consts.pageDefault, 100, "", "ACTIVE", {
       success: resData => {
         setDevices(resData.data);

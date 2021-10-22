@@ -28,7 +28,7 @@ import AudioPlayerComponent from '../../../components/AudioPlayerComponent';
 import CameraRoll from '@react-native-community/cameraroll';
 import { Tooltip } from 'react-native-elements';
 import { Colors } from '../../../assets/colors/Colors';
-import XmppClient from '../../../components/XmppChat/XmppClient';
+import XmppClient from '../../../network/xmpp/XmppClient';
 import { useSelector } from 'react-redux';
 import AppConfig from '../../../data/AppConfig';
 import RNFetchBlob from 'react-native-fetch-blob';
@@ -47,7 +47,7 @@ export default function RoomChat({navigation, route}) {
   const [text, setText] = useState();
   const [locationY, setLocationY] = useState();
   const [indexPlaying, setIndexPlaying] = useState(-1);
-  const [roomAddress, setRoomAddress] = useState();
+  const [roomInfo, setRoomInfo] = useState();
   const [isLock, setIsLock] = useState(false);
   const [listMember, setListMember] = useState([]);
   const chatReducer = useSelector(state => state.chatReducer);
@@ -58,8 +58,8 @@ export default function RoomChat({navigation, route}) {
   }, [refTextInput]);
   
   useLayoutEffect(() => {
-    if (chatReducer.dataInfo && roomAddress) {
-      setChatHistory(chatReducer.dataInfo[roomAddress]);
+    if (chatReducer.dataInfo && roomInfo) {
+      setChatHistory(chatReducer.dataInfo[roomInfo.roomAddress]);
     }
   }, [chatReducer]);
 
@@ -70,7 +70,7 @@ export default function RoomChat({navigation, route}) {
 
   useLayoutEffect(() => {
     if (route.params && route.params.roomInfo) {
-      setRoomAddress(route.params.roomInfo.roomAddress);
+      setRoomInfo(route.params.roomInfo);
       XmppClient.setRoomId(route.params.roomInfo.roomAddress);
       setChatHistory(XmppClient.getCurrentHistory());
       XmppClient.joinRoom(route.params.roomInfo.roomAddress);
@@ -287,6 +287,9 @@ export default function RoomChat({navigation, route}) {
 
   const getName = (obj) => {
     const uid = obj.from.split('@')[0];
+    if (uid === 'terminal_mykid' && roomInfo.deviceName) {
+      return roomInfo.deviceName;
+    }
     const mems = listMember.filter(mem => mem.accountId.toString() === uid);
     if (mems.length > 0) {
       if (mems[0].relationship === 'OTHER') return mems[0].relationshipName;
@@ -298,6 +301,9 @@ export default function RoomChat({navigation, route}) {
 
   const getIcon = (obj) => {
     const uid = obj.from.split('@')[0];
+    if (uid === 'terminal_mykid' && roomInfo.avatar) {
+      return {uri: roomInfo.avatar}
+    }
     const mems = listMember.filter(mem => mem.accountId.toString() === uid);
     if (mems.length > 0) {
       const relationship = dataMock.filter(val => val.relationship === mems[0].relationship);
@@ -316,7 +322,7 @@ export default function RoomChat({navigation, route}) {
           {chatHistory && chatHistory.map((obj, i) => (
             <View key={i} style={[styles.viewItem, !isMe(obj) ? {flexDirection: 'row'} : {flexDirection: 'row-reverse'}]}>
               <View style={styles.viewImg}>
-                <Image source={getIcon(obj)} style={styles.icAvatar}/>
+                <FastImage source={getIcon(obj)} style={styles.icAvatar} resizeMode={FastImage.resizeMode.stretch} />
               </View>
               <View style={styles.viewContent}>
                 { !isMe(obj) && 

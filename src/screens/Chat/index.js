@@ -13,6 +13,7 @@ import Images from '../../assets/Images';
 import Consts from '../../functions/Consts';
 import { checkMicrophonePermission } from '../../functions/permissions';
 import { getRoomsApi } from '../../network/ChatService';
+import FastImage from 'react-native-fast-image';
 
 export default function Chat({navigation}) {
   const refLoading = useRef();
@@ -50,7 +51,7 @@ export default function Chat({navigation}) {
             </View>
             <TouchableOpacity style={styles.viewItem} onPress={() => {toggleChat(obj, i);}}>
               <View style={styles.viewImg}>
-                <Image source={Images.icAvatar} style={styles.icAvatar}/>
+                <FastImage source={obj.avatar ? {uri: obj.avatar} : Images.icAvatar} style={styles.icAvatar} resizeMode={FastImage.resizeMode.stretch} />
               </View>
               <View style={styles.viewText}>
                 <View style={styles.rowDirection}>

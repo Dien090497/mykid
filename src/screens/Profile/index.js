@@ -14,6 +14,9 @@ import DataLocal from '../../data/dataLocal';
 import CustomIcon from "../../components/VectorIcons";
 import {Colors} from "../../assets/colors/Colors";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
+import XmppClient from '../../network/xmpp/XmppClient';
+import WebSocketVideoCall from '../../network/socket/WebSocketVideoCall';
+import WebSocketSafeZone from '../../network/socket/WebSocketSafeZone';
 
 const {width,height} = Dimensions.get('window');
 export default function Profile({navigation}) {
@@ -64,6 +67,9 @@ export default function Profile({navigation}) {
 
   const handleLogout = async () => {
     await DataLocal.removeAll();
+    await XmppClient.disconnectXmppServer();
+    WebSocketSafeZone.disconnect();
+    WebSocketVideoCall.disconnect();
     navigation.replace(Consts.ScreenIds.Login);
   };
 
