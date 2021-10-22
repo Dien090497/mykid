@@ -15,7 +15,9 @@ import {String} from '../../../assets/strings/String';
 import {styles} from './styles';
 import {useNavigation} from '@react-navigation/native';
 import {showAlert} from '../../../functions/utils';
-import XmppClient from '../../../components/XmppChat/XmppClient';
+import XmppClient from '../../../network/xmpp/XmppClient';
+import WebSocketSafeZone from "../../../network/socket/WebSocketSafeZone";
+import WebSocketVideoCall from "../../../network/socket/WebSocketVideoCall";
 
 export default function HomeMainScreen() {
   const navigation = useNavigation();
@@ -27,6 +29,10 @@ export default function HomeMainScreen() {
 
   useLayoutEffect(() => {
     XmppClient.connectXmppServer();
+    WebSocketSafeZone.setReconnect(true);
+    WebSocketSafeZone._handleWebSocketSetup(navigation);
+    WebSocketVideoCall.setReconnect(true);
+    WebSocketVideoCall._handleWebSocketSetup(navigation);
     getListDeviceApi(DataLocal.userInfo.id, Consts.pageDefault, 100, "", "ACTIVE", {
       success: resData => {
         setDevices(resData.data);
@@ -104,26 +110,35 @@ export default function HomeMainScreen() {
           <Menu
             style={{ borderRadius: 15 }}
             visible={showMenu}
-            anchor={<TouchableOpacity style={styles.menuSelect} onPress={() => setShowMenu(true)}>
-              <Image source={Images.icShow} style={styles.iconShowMenu} resizeMode="stretch" />
-              <Text style={styles.textMenuShow}>{devices && devices[selectedIndex].deviceName}</Text>
-              <Image
-                source={devices && devices[selectedIndex].avatar ? { uri: devices[selectedIndex].avatar } : Images.icOther}
-                style={styles.avatar} resizeMode="stretch" />
-            </TouchableOpacity>}
+            anchor={
+              <View style={styles.menuSelect}>
+                <Image source={Images.icShow} style={styles.iconShowMenu} resizeMode="stretch" />
+                <View onStartShouldSetResponder={()=>{ setShowMenu(true)}}>
+                  <Text style={styles.textMenuShow}>{devices && devices[selectedIndex].deviceName}</Text>
+                </View>
+                <View onStartShouldSetResponder={()=>{
+                  navigation.navigate(Consts.ScreenIds.InfoKits, devices[selectedIndex].avatar ? {avatar: devices[selectedIndex].avatar} : null)
+                }}>
+                  <Image
+                    source={devices && devices[selectedIndex].avatar ? { uri: devices[selectedIndex].avatar } : Images.icOther}
+                    style={styles.avatar} resizeMode="cover" />
+                  </View>
+              </View>}
             onRequestClose={() => {
               setShowMenu(false);
             }}
           >
             {devices && devices.map((obj, i) => {
+              const isSelectDevice = obj.deviceId === DataLocal.deviceId;
+              console.log(obj)
               return (
                 <View key={i.toString()} style={{ paddingHorizontal: 10 }}>
                   <View style={styles.viewMenuDrop} onStartShouldSetResponder={() => {
-                    handleChange(i);
+                    !isSelectDevice ? handleChange(i) : null;
                   }}>
-                    <Text style={styles.textMenuDrop}>{obj.deviceName}</Text>
+                    <Text style={[styles.textMenuDrop,isSelectDevice?{color:'#CDCDCD'}:null]}>{obj.deviceName}</Text>
                     <Image source={obj.avatar ? { uri: obj.avatar } : Images.icOther} style={styles.avatar}
-                           resizeMode="stretch" />
+                           resizeMode="cover" />
                   </View>
                   <MenuDivider />
                 </View>

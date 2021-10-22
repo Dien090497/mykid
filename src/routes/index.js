@@ -1,24 +1,20 @@
-import {Alert, Image, StyleSheet, Text} from 'react-native';
+import {Image, StyleSheet, Text} from 'react-native';
 import {
   BottomTabBar,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
 //tab bar
 import Consts, {FontSize, ScaleHeight} from '../functions/Consts';
-import {Platform, Vibration} from 'react-native';
-import React, {useEffect, useRef} from 'react';
-import {appConfig, wsSafeZoneUrl, wsUrl} from '../network/http/ApiUrl';
+import {Platform} from 'react-native';
+import React, {useEffect} from 'react';
 import {isReadyRef, navigationRef} from './RootNavigation';
 
 import AddDeviceScreen from '../screens/Profile/AddDeviceScreen';
 import AddNewContact from '../screens/Settings/Contacts/addNew';
-import {AlertDropHelper} from '../functions/AlertDropHelper';
-import AppConfig from '../data/AppConfig';
 import ChangePassword from '../screens/Profile/ChangePassword';
 import {Colors} from '../assets/colors/Colors';
 import ConnectionScreen from '../screens/auth/ConnectionScreen';
 import Contacts from '../screens/Settings/Contacts';
-import DataLocal from '../data/dataLocal';
 import DeviceManager from '../screens/Profile/DeviceManager';
 import FindDevice from '../screens/Profile/FindDevice';
 //screen
@@ -34,6 +30,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import Profile from '../screens/Profile';
 import QRCodeScreen from '../screens/Profile/QRCodeScreen';
 import Register from '../screens/auth/Register';
+import OTP from '../screens/auth/Register/OTP'
 import Relationship from '../screens/Profile/Relationship';
 import SafeZone from '../screens/Maps/SafeZone';
 import SettingScreen from '../screens/Settings';
@@ -42,7 +39,6 @@ import SecretPhotoShoot from '../screens/SecretPhotoShoot';
 import Chat from '../screens/Chat';
 import RoomChat from '../screens/Chat/RoomChat';
 import DeleteMessage from "../screens/Chat/DeleteMessage";
-import Sound from 'react-native-sound';
 import SoundSettings from '../screens/Profile/SoundSettings';
 import AlarmClock from '../screens/Profile/AlarmClock';
 import EacesDroping from "../screens/Settings/EacesDroping";
@@ -54,18 +50,12 @@ import PersonalData from '../screens/Profile/PersonalData';
 import Language from '../screens/Settings/Language'
 import WS from './WebScoket';
 import {createStackNavigator} from '@react-navigation/stack';
-import reduxStore from '../redux/config/redux';
-import {generateRandomId, showAlert} from '../functions/utils';
-import {useSelector} from 'react-redux';
-import videoCallAction from '../redux/actions/videoCallAction';
-import * as encoding from 'text-encoding';
 import LanguageTimeZone from "../screens/Profile/LanguageTimeZone";
-import ChatClient from "../components/XmppChat/ChatClient";
 import OffDevice from '../screens/Settings/OffDevice';
 import StartDevice from '../screens/Settings/RestartDevice';
 import { String } from '../assets/strings/String';
-import EditDevice from "../screens/Profile/DeviceManager/EditDevice";
-var encoder = new encoding.TextEncoder();
+import EditDevice from "../screens/Profile/DeviceManager/EditDevice"
+import InfoKits from "../screens/Home/InfoKids";
 const Tab = createBottomTabNavigator();
 
 const PATTERN = [
@@ -287,6 +277,10 @@ const Routes = () => {
           component={DirectRegister}
         />
         <Stack.Screen
+          name={Consts.ScreenIds.OTP}
+          component={OTP}
+        />
+        <Stack.Screen
           name={Consts.ScreenIds.Settings}
           component={SettingScreen}
         />
@@ -322,6 +316,10 @@ const Routes = () => {
           name={Consts.ScreenIds.SecretPhotoShoot}
           component={SecretPhotoShoot}
         />
+        <Stack.Screen
+          name={Consts.ScreenIds.InfoKits}
+          component={InfoKits}
+        />
         <Stack.Screen name={Consts.ScreenIds.Contacts} component={Contacts} />
         <Stack.Screen name={Consts.ScreenIds.Members} component={Members} />
         <Stack.Screen name={Consts.ScreenIds.Maps} component={Maps} />
@@ -338,187 +336,7 @@ const Routes = () => {
           component={JourneyHistory}
         />
       </Stack.Navigator>
-      <OS />
-      <WebSocketSafeZone />
-      {/* <ChatClient /> */}
     </NavigationContainer>
-  );
-};
-
-//config and init websocket
-const OS = () => {
-  const ws = useRef(null);
-  const onOpen = async () => {
-    console.log('Websocket Open!');
-    if (ws.current?.send) {
-      let command =
-        'CONNECT\n' +
-        'accept-version:1.2\n' +
-        'host:mykid.ttc.software\n' +
-        'authorization:Bearer ' +
-        DataLocal.accessToken +
-        '\n' +
-        'content-length:0\n' +
-        '\n\0';
-      await ws.current.send(encoder.encode(command).buffer, true);
-
-      command =
-        'SUBSCRIBE\n' +
-        'id:' + generateRandomId(10) + '\n' +
-        'destination:/user/queue/video-calls\n' +
-        'content-length:0\n' +
-        '\n\0';
-      await ws.current.send(encoder.encode(command).buffer, true);
-    }
-  };
-
-  const onClose = () => {
-    console.log('Websocket Close!');
-  };
-
-  const onError = error => {
-    console.log(JSON.stringify(error));
-    console.log(error, 'Websocket Error!');
-  };
-
-  const onMessage = message => {
-    console.log(JSON.stringify(message));
-    if (DataLocal.accessToken !== null && message.data) {
-      const split = message.data.split('\n');
-      //['MESSAGE', 'event:INCOMING_CALL', 'destination:/user/queue/video-calls', 'content-type:application/json', 'subscription:111111', 'message-id:50952199-de98-32f6-b671-087214694a64-17', 'content-length:423', '', '{"id":213,"key":"ea0b71e8-6d4a-4093-95d5-d33316b6c…829Z","updatedAt":"2021-09-18T02:38:20.033829Z"}\x00']
-      if (
-        split[0] === 'MESSAGE' &&
-        split.length > 4 &&
-        split[2] === 'destination:/user/queue/video-calls'
-      ) {
-        const data = JSON.parse(
-          split[split.length - 1].replace('\u0000', '').replace('\\u0000', ''),
-        );
-        if (split[1] === 'event:INCOMING_CALL') {
-          // INCOMING_CALL
-          reduxStore.store.dispatch(videoCallAction.incomingCall(data));
-          navigationRef.current?.navigate(Consts.ScreenIds.ListDevice);
-        } else if (split[1] === 'event:REJECTED_CALL') {
-          // REJECTED_CALL
-          reduxStore.store.dispatch(videoCallAction.rejectedCall(data));
-        } else if (split[1] === 'event:ENDED_CALL') {
-          // ENDED_CALL
-          reduxStore.store.dispatch(videoCallAction.endedCall(data));
-        }
-      }
-      console.log(message, 'Websocket Message');
-    }
-  };
-  return (
-    <WS
-      ref={ws}
-      url={wsUrl}
-      onOpen={onOpen}
-      onMessage={onMessage}
-      onError={onError}
-      onClose={onClose}
-      reconnect={true} // Will try to reconnect onClose
-    />
-  );
-};
-const WebSocketSafeZone = () => {
-  const ws = useRef(null);
-  const ringtone = useRef(null);
-  const onOpen = async () => {
-    console.log('Websocket Open!');
-    if (ws.current?.send) {
-      let command =
-        'CONNECT\n' +
-        'accept-version:1.2\n' +
-        'host:mykid.ttc.software\n' +
-        'authorization:Bearer ' +
-        DataLocal.accessToken +
-        '\n' +
-        'content-length:0\n' +
-        '\n\0';
-      await ws.current.send(encoder.encode(command).buffer, true);
-      command =
-        'SUBSCRIBE\n' +
-        'id:' + generateRandomId(10) + '\n' +
-        'destination:/user/queue/unsafe-locations\n' +
-        'content-length:0\n' +
-        '\n\0';
-      await ws.current.send(encoder.encode(command).buffer, true);
-    }
-  };
-
-  const onClose = () => {
-    console.log('Websocket Close!');
-  };
-
-  const onError = error => {
-    console.log(JSON.stringify(error));
-    console.log(error, 'Websocket Error!');
-  };
-
-  const onMessage = message => {
-    if (DataLocal.accessToken !== null && message.data) {
-      const split = message.data.split('\n');
-      if (
-        split[0] === 'MESSAGE' &&
-        split.length > 4 &&
-        split[2] === 'destination:/user/queue/unsafe-locations'
-      ) {
-        const data = split.filter(val => val.includes('{'));
-        if (data.length > 0) {
-          if (split[1] === 'event:UNSAFE_LOCATION') {
-            const infoDevice = JSON.parse(
-              split[split.length - 1]
-                .replace('\u0000', '')
-                .replace('\\u0000', ''),
-            );
-            Vibration.vibrate(PATTERN, true);
-            AlertDropHelper.show(
-              Consts.dropdownAlertType.ERROR,
-              'MyKid',
-              `Thiết bị ${infoDevice.deviceCode} ra khỏi vùng an toàn `,
-            );
-            Sound.setCategory('Playback');
-            ringtone.current = new Sound(
-              'nof_default.mp3',
-              Sound.MAIN_BUNDLE,
-              error => {
-                console.log('error', error);
-                ringtone.current.play(() => {});
-                ringtone.current.setNumberOfLoops(5);
-              },
-            );
-            navigationRef.current?.navigate(Consts.ScreenIds.ElectronicFence, {
-              data: infoDevice,
-            });
-            setTimeout(() => {
-              Vibration.cancel();
-              if (ringtone.current) ringtone.current.stop();
-            }, 1000 * 15);
-          }
-        }
-      }
-      console.log(message, 'WebSocketSafeZone Message');
-    }
-  };
-
-  useEffect(() => {
-    AlertDropHelper.setOnClose(() => {
-      Vibration.cancel();
-      if (ringtone.current) ringtone.current.stop();
-    });
-  }, []);
-
-  return (
-    <WS
-      ref={ws}
-      url={wsSafeZoneUrl}
-      onOpen={onOpen}
-      onMessage={onMessage}
-      onError={onError}
-      onClose={onClose}
-      reconnect={true} // Will try to reconnect onClose
-    />
   );
 };
 

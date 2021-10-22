@@ -28,10 +28,11 @@ import AudioPlayerComponent from '../../../components/AudioPlayerComponent';
 import CameraRoll from '@react-native-community/cameraroll';
 import { Tooltip } from 'react-native-elements';
 import { Colors } from '../../../assets/colors/Colors';
-import XmppClient from '../../../components/XmppChat/XmppClient';
+import XmppClient from '../../../network/xmpp/XmppClient';
 import { useSelector } from 'react-redux';
 import AppConfig from '../../../data/AppConfig';
 import RNFetchBlob from 'react-native-fetch-blob';
+import { getListDeviceApi } from '../../../network/DeviceService';
 
 export default function RoomChat({navigation, route}) {
   const refLoading = useRef();
@@ -42,10 +43,13 @@ export default function RoomChat({navigation, route}) {
   const [isRecord, setIsRecord] = useState(true);
   const [isRecording, setIsRecording] = useState(false);
   const [isCancelRecording, setIsCancelRecording] = useState(false);
-  const [chatHistory, setChatHistory] = useState();
+  const [chatHistory, setChatHistory] = useState([]);
   const [text, setText] = useState();
   const [locationY, setLocationY] = useState();
   const [indexPlaying, setIndexPlaying] = useState(-1);
+  const [roomInfo, setRoomInfo] = useState();
+  const [isLock, setIsLock] = useState(false);
+  const [listMember, setListMember] = useState([]);
   const chatReducer = useSelector(state => state.chatReducer);
   let sheet = null;
   
@@ -54,8 +58,8 @@ export default function RoomChat({navigation, route}) {
   }, [refTextInput]);
   
   useLayoutEffect(() => {
-    if (chatReducer.dataInfo) {
-      setChatHistory(chatReducer.dataInfo);
+    if (chatReducer.dataInfo && roomInfo) {
+      setChatHistory(chatReducer.dataInfo[roomInfo.roomAddress]);
     }
   }, [chatReducer]);
 
@@ -66,12 +70,22 @@ export default function RoomChat({navigation, route}) {
 
   useLayoutEffect(() => {
     if (route.params && route.params.roomInfo) {
-      const roomAddress = route.params.roomInfo.roomAddress;
-      XmppClient.joinRoom(roomAddress);
-      XmppClient.getHistory(150);
+      setRoomInfo(route.params.roomInfo);
+      XmppClient.setRoomId(route.params.roomInfo.roomAddress);
+      setChatHistory(XmppClient.getCurrentHistory());
+      XmppClient.joinRoom(route.params.roomInfo.roomAddress);
     }
-    
+    getListDevice();
   }, []);
+
+  const getListDevice = () => {
+    getListDeviceApi(null, 0, 100, DataLocal.deviceId, 'ACTIVE', {
+      success: res => {
+        setListMember(res.data);
+      },
+      refLoading,
+    });
+  };
 
   const focusTextInput = () => {
     if (refTextInput && refTextInput.current) {
@@ -118,10 +132,14 @@ export default function RoomChat({navigation, route}) {
   };
 
   const sendMsg = () => {
+    if (isLock && text === '') return;
     Keyboard.dismiss();
-    console.log(text);
+    setIsLock(true);
     XmppClient.sendMessage('text', text);
     setText('');
+    setTimeout(() => {
+      setIsLock(false);
+    }, 3000);
   }
 
   const selectPhoto = () => {
@@ -230,20 +248,85 @@ export default function RoomChat({navigation, route}) {
     }
   }
 
+  const dataMock = [
+    {
+      name: 'Bố',
+      icon: Images.icFather,
+      relationship: 'FATHER'
+    },
+    {
+      name: 'Mẹ',
+      icon: Images.icMother,
+      relationship: 'MOTHER'
+    },
+    {
+      name: 'Ông',
+      icon: Images.icGrandfather,
+      relationship: 'GRANDFATHER'
+    },
+    {
+      name: 'Bà',
+      icon: Images.icGrandmother,
+      relationship: 'GRANDMOTHER'
+    },
+    {
+      name: 'Anh',
+      icon: Images.icBrother,
+      relationship: 'BROTHER'
+    },
+    {
+      name: 'Chị',
+      icon: Images.icSister,
+      relationship: 'SISTER'
+    },
+    {
+      icon: Images.icOther,
+      relationship: 'OTHER'
+    },
+  ];
+
+  const getName = (obj) => {
+    const uid = obj.from.split('@')[0];
+    if (uid === 'terminal_mykid' && roomInfo.deviceName) {
+      return roomInfo.deviceName;
+    }
+    const mems = listMember.filter(mem => mem.accountId.toString() === uid);
+    if (mems.length > 0) {
+      if (mems[0].relationship === 'OTHER') return mems[0].relationshipName;
+      const relationship = dataMock.filter(val => val.relationship === mems[0].relationship);
+      if (relationship.length > 0) return relationship[0].name;
+    }
+    return uid;
+  };
+
+  const getIcon = (obj) => {
+    const uid = obj.from.split('@')[0];
+    if (uid === 'terminal_mykid' && roomInfo.avatar) {
+      return {uri: roomInfo.avatar}
+    }
+    const mems = listMember.filter(mem => mem.accountId.toString() === uid);
+    if (mems.length > 0) {
+      const relationship = dataMock.filter(val => val.relationship === mems[0].relationship);
+      return relationship.length > 0 ? relationship[0].icon : dataMock[6].icon;
+    }
+    return dataMock[6].icon;
+  };
+
   return (
     <KeyboardAvoidingView style={styles.contain}
       behavior={Platform.OS === "ios" ? "padding" : ""}>
-      <Header title={'Server TQ nhóm gia đình (3)'} right rightIcon={Images.icGroup} rightAction={() => {gotoDeleteMessage()}}/>
+      <Header title={`${String.talkWithFamily} (${listMember.length})`} right rightIcon={Images.icGroup} rightAction={() => {gotoDeleteMessage()}}/>
       <View style={styles.container}>
-        <ScrollView ref={refScrollView} style={styles.container}>
+        <ScrollView ref={refScrollView} style={styles.container}
+          onContentSizeChange={() => refScrollView.current.scrollToEnd({animated: true})}>
           {chatHistory && chatHistory.map((obj, i) => (
             <View key={i} style={[styles.viewItem, !isMe(obj) ? {flexDirection: 'row'} : {flexDirection: 'row-reverse'}]}>
               <View style={styles.viewImg}>
-                <Image source={Images.icAvatar} style={styles.icAvatar}/>
+                <FastImage source={getIcon(obj)} style={styles.icAvatar} resizeMode={FastImage.resizeMode.stretch} />
               </View>
               <View style={styles.viewContent}>
                 { !isMe(obj) && 
-                  <Text style={styles.txtTitle}>{obj.from}</Text>
+                  <Text style={styles.txtTitle}>{getName(obj)}</Text>
                 }
                 {obj.type !== 'image' &&
                 <View style={{flexDirection: !isMe(obj) ? 'row' : 'row-reverse'}}>
@@ -317,8 +400,9 @@ export default function RoomChat({navigation, route}) {
             </View>
             }
           </View>
-          <TouchableOpacity style={styles.viewImg} onPress={isRecord ? selectPhoto : sendMsg}>
-            <Image source={isRecord ? Images.icCamera : Images.icSend} style={isRecord ? styles.icCamera : styles.icSend}/>
+          <TouchableOpacity activeOpacity={isLock ? 1 : 0} style={styles.viewImg} onPress={isRecord ? selectPhoto : sendMsg}>
+            <Image source={isRecord ? Images.icCamera : Images.icSend}
+              style={isRecord ? styles.icCamera : isLock ? [styles.icSend, {opacity: 0.5}] : styles.icSend}/>
           </TouchableOpacity>
         </View>
       </View>

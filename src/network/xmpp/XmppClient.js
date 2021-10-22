@@ -3,13 +3,16 @@ import RNFetchBlob from 'react-native-fetch-blob';
 import AppConfig from '../../data/AppConfig';
 import DataLocal from '../../data/dataLocal';
 import { generateRandomId } from '../../functions/utils';
-import {wssXmppUrl} from '../../network/http/ApiUrl';
+import { getRoomsApi } from '../ChatService';
+import {wssXmppUrl} from '../http/ApiUrl';
 import chatAction from '../../redux/actions/chatAction';
 const {client, xml, jid} = require('@xmpp/client');
 const debug = require('@xmpp/debug');
 import reduxStore from '../../redux/config/redux';
+
 export default class XmppClient {
-  static lstMsg = [];
+  static lstMsg = {};
+  static lstRoom = [];
   static clientXmpp = null;
   // static needReconnect = false;
   static currentRoomId = null;
@@ -35,9 +38,27 @@ export default class XmppClient {
         return;
       }
       await clientXmpp.send(xml('presence'));
+      await this.getRooms();
+      await this.loadAllHistory();
     });
     clientXmpp.start().catch(console.error);
   };
+
+  static getRooms = async () => {
+    await getRoomsApi({
+      success: resData => {
+        this.lstRoom = resData.data;
+      },
+    });
+  };
+
+  static loadAllHistory = async () => {
+    for (const roomInfo of this.lstRoom) {
+      this.lstMsg[roomInfo.roomAddress] = [];
+      await this.joinRoom(roomInfo.roomAddress);
+      await this.getHistory(50);
+    }
+  }
 
   static disconnectXmppServer = () => {
     if (clientXmpp) {
@@ -50,11 +71,27 @@ export default class XmppClient {
   }
 
   static async joinRoom(roomId) {
-    this.currentRoomId = roomId
+    this.currentRoomId = roomId;
     const toAddress = [roomId, this.getNickName()].join('/');
 
-    let message = xml('presence', { to: toAddress });
+    let message = xml('presence', { to: toAddress },
+        // xml('x',
+        //   {xmlns: 'http://jabber.org/protocol/muc'},
+        //   xml('password',
+        //     {},
+        //     '1111111111',
+        //   ),
+        // ),
+      );
     await clientXmpp.send(message);
+  }
+
+  static setRoomId(roomId) {
+    this.currentRoomId = roomId;
+  }
+
+  static getCurrentHistory() {
+    return this.lstMsg[this.currentRoomId];
   }
 
   static async sendMessage(typeMsg, msg) {
@@ -70,7 +107,6 @@ export default class XmppClient {
   }
 
   static async getHistory(maxLength) {
-    this.lstMsg = [];
     let message = xml('iq', 
       {
         id: generateRandomId() + ':history',
@@ -104,6 +140,11 @@ export default class XmppClient {
     await clientXmpp.send(message);
   }
 
+  static saveLastMsg(roomId, msg) {
+    const index = this.lstRoom.findIndex(val => val.roomAddress === roomId);
+    this.lstRoom[index].lastMsg = msg;
+  }
+
   static async requestSendFile(path) {
     this.filePath = path;
     const file = await fetch(this.filePath);
@@ -125,7 +166,7 @@ export default class XmppClient {
     await clientXmpp.send(message);
   }
 
-  static uploadFile = function (putUrl) {
+  static uploadFile = function (putUrl, getUrl) {
     fetch(this.filePath).then((file) => {
       const header = {
         'content-type': file._bodyBlob._data.type,
@@ -137,6 +178,9 @@ export default class XmppClient {
         mode: 'cors',
         header : header,
         body: file._bodyBlob
+      }).then((resp) => {
+        const type = (getUrl.toUpperCase().endsWith('JPG') || getUrl.toUpperCase().endsWith('JPEG')) ? 'image' : 'audio';
+        this.sendMessage(type, getUrl);
       });
     });
   }
@@ -147,26 +191,26 @@ export default class XmppClient {
       const result = stanza.getChild('slot', 'urn:xmpp:http:upload:0');
       if (result) {
         const put = result.getChild('put');
-        console.log(put.attrs.url);
+        const get = result.getChild('get');
         const putUrl = put.attrs.url;
+        const getUrl = get.attrs.url;
 
-        if (this.filePath && putUrl) {
-          this.uploadFile(putUrl);
+        if (this.filePath && putUrl && getUrl) {
+          this.uploadFile(putUrl, getUrl);
           this.filePath = null;
         }
-
-        const get = result.getChild('get');
-        console.log(get.attrs.url);
-
-        const type = get.attrs.url.endsWith('jpg') ? 'image' : 'audio';
-        setTimeout(() => {
-          this.sendMessage(type, get.attrs.url);
-        }, 1000);
-        
       }
       if (stanza.getChild('fin')) {
         console.log(this.lstMsg);
         reduxStore.store.dispatch(chatAction.updateMessage(this.lstMsg));
+        for (const key in this.lstMsg) {
+          if (Object.hasOwnProperty.call(this.lstMsg, key)) {
+            const lst = this.lstMsg[key];
+            if (lst.length > 0) {
+              this.saveLastMsg(key, lst[0]);
+            }
+          }
+        }
       }
     }
 
@@ -197,6 +241,9 @@ export default class XmppClient {
       const date = delay?.attrs.stamp ? new Date(delay?.attrs.stamp) : undefined;
       let body = message.getChildText('body');
       const fromSplit = message.attrs.from.split('/');
+      if (!this.lstMsg[fromSplit[0]]) {
+        this.lstMsg[fromSplit[0]] = [];
+      }
       if (body && fromSplit.length > 1) {
         // const bodySplit = body.split(':');
         // message is a mam message
@@ -212,7 +259,7 @@ export default class XmppClient {
           body = body.substr(5);
         }
         
-        this.lstMsg.push({
+        this.lstMsg[fromSplit[0]].push({
           from: fromSplit[1],
           body: body,
           type: type,
@@ -226,9 +273,10 @@ export default class XmppClient {
     if (body) {
       console.log(body);
       const fromSplit = stanza.attrs.from.split('/');
+      if (!this.lstMsg[fromSplit[0]]) {
+        this.lstMsg[fromSplit[0]] = [];
+      }
       if (body && fromSplit.length > 1) {
-        // const bodySplit = body.split(':');
-        // message is a mam message
         let type = 'text';
         if (body.startsWith('audio')) {
           body = body.substr(6);
@@ -240,13 +288,14 @@ export default class XmppClient {
         } else if (body.startsWith('text')) {
           body = body.substr(5);
         }
-        
-        this.lstMsg.push({
+        const msg = {
           from: fromSplit[1],
           body: body,
           type: type,
           time: new Date()
-        })
+        };
+        this.lstMsg[fromSplit[0]].push(msg);
+        this.saveLastMsg(fromSplit[0], msg);
         reduxStore.store.dispatch(chatAction.updateMessage(this.lstMsg));
       }
     }

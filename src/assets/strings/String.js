@@ -173,6 +173,7 @@ export const String = {
   home_setting: 'THIẾT LẬP',
   home_game: 'GIẢI TRÍ',
   home_warning: 'CẢNH BÁO',
+  home_infoKits: 'Thông tin của bé',
 
   //setting
   setting_contact: 'Danh bạ',
@@ -208,6 +209,7 @@ export const String = {
 
   //SecretPhotoShoot
   textShoot: 'Chụp hình',
+  textDeleteImage:'Bạn có chắc chắn muốn xóa ảnh này không?',
 
   // permissions
   cameraUnavailable: 'Máy ảnh không khả dụng trên thiết bị của bạn',
@@ -225,4 +227,15 @@ export const String = {
   textAvatar: 'Hình đại diện',
   textDeviceNane: 'Biệt hiệu',
 
+  //InfoKids
+  nameKids: 'Tên bé',
+  enterNameKids: 'Nhập tên của bé',
+  birthday: 'Ngày sinh',
+  gender: 'Giới tính',
+  height: 'Chiều cao',
+  enterHeight: 'Nhập chiều cao',
+  weight: 'Cân nặng',
+  enterWeight: 'Nhập cân nặng',
+  male: 'Nam',
+  female: 'nữ'
 };

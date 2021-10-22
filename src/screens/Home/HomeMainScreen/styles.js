@@ -121,12 +121,14 @@ export const styles = StyleSheet.create({
     height:10
   },
   textMenuShow:{
-    marginHorizontal:5,
-    color: Colors.white
+    width:100,
+    color: Colors.white,
+    textAlign:"center"
   },
   avatar:{
     width:ScaleHeight.small,
     height:ScaleHeight.small,
+    borderRadius: 10000
   },
   textMenuDrop:{
     marginHorizontal:5,

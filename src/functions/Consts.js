@@ -1,5 +1,6 @@
 import {Dimensions, StatusBar} from 'react-native';
 import {RFPercentage, RFValue} from 'react-native-responsive-fontsize';
+import InforKits from "../screens/Home/InfoKids";
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight =
@@ -39,7 +40,7 @@ const ScreenIds = {
   SoundSettings: 'SoundSettings',
   AlarmClock: 'AlarmClock',
   AlarmSetting: 'AlarmSetting',
-  EacesDroping:'EacesDroping',
+  EacesDroping: 'EacesDroping',
   RewardPoints: 'RewardPoints',
   LanguageTimeZone: 'LanguageTimeZone',
   DoNotDisturb: 'DoNotDisturb',
@@ -60,12 +61,14 @@ const ScreenIds = {
   AddDeviceScreen: 'AddDeviceScreen',
   Relationship: 'Relationship',
   QRCodeScreen: 'QRCodeScreen',
+  OTP: 'OTP',
 
   //Settings
   Settings: 'Settings',
   Contacts: 'Contacts',
   AddNewContact: 'AddNewContact',
   Members: 'Members',
+  InfoKits: 'InfoKits',
   Language: 'Language',
 
   //Maps

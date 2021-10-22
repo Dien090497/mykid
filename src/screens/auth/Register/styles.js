@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
   },
   Sty_txt: {
     marginTop: 25,
-    width: 'auto',
+    width: '100%',
     flexDirection: "row",
     marginVertical: 15,
     alignItems: "center",
@@ -82,7 +82,7 @@ export const styles = StyleSheet.create({
     alignItems:'center',
     justifyContent:'center',
     height: ScaleHeight.medium* 1.2,
-    width: '90%',
+    width: width* 0.85 + 25,
     marginTop: ScaleHeight.small* 1.5
   },
   textSubmit:{

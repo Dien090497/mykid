@@ -197,6 +197,17 @@ const ListDeviceScreen = () => {
             data: videoCallReducer.connectionData,
           });
         }
+
+        if (videoCallReducer.connectionState === 'ENDED') {
+          setVisibleCallState({
+            visible: false,
+          });
+          Vibration.cancel();
+          if (ringtone.current) {
+            ringtone.current.stop();
+          }
+        }
+
         setVisibleCall({visible: false, device: null, data: []});
         reduxStore.store.dispatch(videoCallAction.reset());
       }
@@ -273,6 +284,7 @@ const ListDeviceScreen = () => {
         data: item,
       });
     } else {
+      if (visibleCallState.visible) setVisibleCallState({ visible: false });
       createVideoCalllApi(
         // DataLocal.deviceId,
         {deviceId: item.caller.deviceId},

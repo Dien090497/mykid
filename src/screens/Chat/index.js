@@ -12,24 +12,16 @@ import { Image } from 'react-native';
 import Images from '../../assets/Images';
 import Consts from '../../functions/Consts';
 import { checkMicrophonePermission } from '../../functions/permissions';
-import { getRoomsApi } from '../../network/ChatService';
+import FastImage from 'react-native-fast-image';
+import XmppClient from '../../network/xmpp/XmppClient';
 
 export default function Chat({navigation}) {
   const refLoading = useRef();
   const [devices, setDevices] = useState([]);
 
   useLayoutEffect(() => {
-    getRooms();
+    setDevices(XmppClient.lstRoom);
   }, []);
-
-  const getRooms = async () => {
-    getRoomsApi({
-      success: resData => {
-        setDevices(resData.data);
-      },
-      refLoading,
-    });
-  };
 
   const toggleChat = (obj, i) => {
     checkMicrophonePermission().then(microGranted => {
@@ -50,13 +42,13 @@ export default function Chat({navigation}) {
             </View>
             <TouchableOpacity style={styles.viewItem} onPress={() => {toggleChat(obj, i);}}>
               <View style={styles.viewImg}>
-                <Image source={Images.icAvatar} style={styles.icAvatar}/>
+                <FastImage source={obj.avatar ? {uri: obj.avatar} : Images.icAvatar} style={styles.icAvatar} resizeMode={FastImage.resizeMode.stretch} />
               </View>
               <View style={styles.viewText}>
                 <View style={styles.rowDirection}>
                   <Text style={styles.txtTitle}>{obj.roomName ? obj.roomName : String.talkWithFamily}</Text>
                 </View>
-                <Text style={styles.txtContent}>{obj.updatedAt ? obj.updatedAt : ''}</Text>
+                <Text style={styles.txtContent}>{obj.lastMsg ? `[${obj.lastMsg.type}]` : ''}</Text>
               </View>
               <View style={styles.viewArrow}>
                 <Image source={Images.icRightArrow} style={styles.icArrow}/>

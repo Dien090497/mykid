@@ -83,12 +83,7 @@ export default ({navigation, route}) => {
         navigation.navigate(Consts.ScreenIds.SecretPhotoShoot);
       },
       icon: (
-        <CustomIcon
-          name={'people-alt'}
-          iconFamily={'MaterialIcons'}
-          size={ScaleHeight.small}
-          color={'#15d4a1'}
-        />
+         <Image source={Images.icShootPhoto} style={{width: 40, height: 40}} resizeMode={'center'}/>
       ),
     },
     {

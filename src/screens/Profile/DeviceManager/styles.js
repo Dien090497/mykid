@@ -63,6 +63,7 @@ export const styles = StyleSheet.create({
     height: 40,
     width: 40,
     aspectRatio: 1,
+    borderRadius: 20
   },
   textSettings: {
     fontSize: 16,
