@@ -73,6 +73,6 @@ export const Colors = {
   pinkBgMsg: '#FEF0F3',
   titleTxt: '#a9a9a9',
   indicatorColor: '#d8d8d8',
-  colorTextPlus: '#5F5F5F'
-
+  colorTextPlus: '#5F5F5F',
+  colorInputView: 'rgba(228, 228, 228, 1)'
 };

@@ -2,22 +2,21 @@ import React, {Component} from 'react';
 import {Modal, Text, TouchableOpacity, View, TextInput, Dimensions, Image} from 'react-native';
 import {styles} from './styles';
 import {Colors} from '../../assets/colors/Colors';
-import  {ScaleHeight} from '../../functions/Consts';
+import {ScaleHeight} from '../../functions/Consts';
 import {String} from "../../assets/strings/String";
 import Images from "../../assets/Images";
 
 const {width, height} = Dimensions.get('window');
-export default class ModalConfirmInput extends Component  {
+export default class ModalConfirmInput extends Component {
   constructor(props) {
     super(props);
     this.state = {
       modalVisible: false,
-      text: ''
     };
   }
 
-  open = (title, confirm) => {
-    this.setState({modalVisible: true,title: title, confirm: confirm});
+  open = (title, confirm, text, check) => {
+    this.setState({modalVisible: true, title: title, confirm: confirm, text: text, check: check});
   };
 
   close = (callback) => {
@@ -43,7 +42,17 @@ export default class ModalConfirmInput extends Component  {
     });
   };
 
+  isChangeText = (text) => {
+    if (!this.state.check) {
+      this.setState({text: text})
+    }
+    else {
+      this.setState({text: parseInt(text.replace(/[^0-9]/g, ''))})
+    }
+  }
+
   render() {
+    console.log('check', this.state.check)
     return (
       <Modal
         visible={this.state.modalVisible}
@@ -51,30 +60,33 @@ export default class ModalConfirmInput extends Component  {
         animationType={'none'}
       >
         <View style={styles.itemLeft}>
-          <TouchableOpacity style={styles.modal} onPress={() => {this.close()}}>
+          <TouchableOpacity style={styles.modal} onPress={() => {
+            this.close()
+          }}>
             <View style={styles.tobModal}>
-              <View style={[styles.tobView, {marginTop: height* 0.03}]}>
+              <View style={[styles.tobView, {marginTop: height * 0.03}]}>
                 <Text style={styles.textModel}>{this.props.title}</Text>
                 <View style={styles.textInput}>
                   <TextInput
-                    style={{width: '88%', height: height* 0.05, marginLeft: 5}}
+                    style={{width: '88%', height: height * 0.05, marginLeft: 5}}
                     maxLength={11}
                     placeholder={this.props.inputText}
                     placeholderTextColor={"#9D9D9D"}
-                    keyboardType={'default'}
+                    keyboardType={(this.state.check ? 'number-pad' : 'default')}
                     value={this.state.text}
-                    onChangeText={ (text) => this.setState({text: text})}
+                    underlineColorAndroid={'transparent'}
+                    onChangeText={(text) => this.isChangeText(text)}
                   />
-                 <TouchableOpacity onPress={ () => this.setState({text: ''})}>
-                   <Image source={Images.icClose} style={{width: 22, height: 22}} resizeMode={'stretch'}/>
-                 </TouchableOpacity>
+                  <TouchableOpacity onPress={() => this.setState({text: ''})}>
+                    <Image source={Images.icClose} style={{width: 22, height: 22}} resizeMode={'stretch'}/>
+                  </TouchableOpacity>
                 </View>
               </View>
               <View style={[styles.tobView, {width: '88%', flexDirection: 'row'}]}>
                 <View style={styles.tob}>
                   <TouchableOpacity
                     style={[styles.smallButton, {backgroundColor: Colors.white}]}
-                    onPress={ () => {
+                    onPress={() => {
                       this.actionNo();
                     }}
                   >
@@ -85,17 +97,33 @@ export default class ModalConfirmInput extends Component  {
                   </TouchableOpacity>
                 </View>
                 <View style={styles.TobOpacity}>
-                  <TouchableOpacity
-                    style={[styles.smallButton, {backgroundColor: Colors.red}]}
-                    onPress={ () => {
-                      this.actionYes(this.props.title, this.state.text);
-                    }}
-                  >
-                    <Text
-                      style={[styles.smallButtonText, {color: Colors.white}]}>
-                      {String.confirm}
-                    </Text>
-                  </TouchableOpacity>
+                  {this.state.text !== '' || this.state.text !== undefined ? (
+                    <TouchableOpacity
+                      style={[styles.smallButton, {backgroundColor: Colors.red}]}
+                      onPress={() => {
+                        this.actionYes(this.props.title, this.state.text);
+                      }}
+                    >
+                      <Text
+                        style={[styles.smallButtonText, {color: Colors.white}]}>
+                        {String.confirm}
+                      </Text>
+                    </TouchableOpacity>
+                  ) : (
+                    <View
+                      style={[
+                        styles.smallButton,
+                        {
+                          backgroundColor: Colors.colorInputView,
+                          borderColor: Colors.colorInputView
+                        }]
+                      }>
+                      <Text
+                        style={[styles.smallButtonText, {color: Colors.white}]}>
+                        {String.confirm}
+                      </Text>
+                    </View>
+                  )}
                 </View>
               </View>
             </View>
