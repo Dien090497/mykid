@@ -9,6 +9,7 @@ import {String} from '../../assets/strings/String';
 import {styles} from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Images from "../../assets/Images";
+import SecretPhotoShoot from "../SecretPhotoShoot";
 
 const {width,height} = Dimensions.get('window');
 export default ({navigation, route}) => {
@@ -76,9 +77,21 @@ export default ({navigation, route}) => {
       ),
     },
     {
+      key: 'SecretPhotoShoot',
+      title: String.header_secret_shoot,
+      onPress: () => {
+        navigation.navigate(Consts.ScreenIds.SecretPhotoShoot);
+      },
+      icon: (
+         <Image source={Images.icShootPhoto} style={{width: 40, height: 40}} resizeMode={'center'}/>
+      ),
+    },
+    {
       key: 'RemoteDevices',
       title: String.header_remoteDevices,
-      onPress: () => {},
+      onPress: () => {
+        navigation.navigate(Consts.ScreenIds.OffDevice);
+      },
       icon: (
         <Image source={Images.icSubtract} style={{width: 26, height: 26}} resizeMode={'stretch'}/>
       ),
@@ -86,7 +99,9 @@ export default ({navigation, route}) => {
     {
       key: 'RemoteStart',
       title: String.header_remoteStart,
-      onPress: () => {},
+      onPress: () => {
+        navigation.navigate(Consts.ScreenIds.RestartDevice);
+      },
       icon: (
         <Image source={Images.icRemoteStart} style={{width: 40, height: 40}} resizeMode={'stretch'}/>
       ),

@@ -67,9 +67,14 @@ const Relationship = ({ navigation, route }) => {
   useLayoutEffect(() => {
     const dataInfo = route.params.data;
     data.map((item,i) =>{
-      if (item.id === dataInfo.id){
+      if (item.relationship === dataInfo.relationship){
         setSelectedIndex(i)
-      }else setSelectedIndex(0)
+      }
+      if (dataInfo.relationship === 'OTHER'){
+        const _data = Object.assign([],data);
+        _data[6].name = dataInfo.relationshipName;
+        setData(_data)
+      }
     })
   }, []);
 
@@ -119,7 +124,8 @@ const Relationship = ({ navigation, route }) => {
   }
 
   const onChange = () => {
-    route.params.onChooseed(data[selectedIndex]);
+    if (route.params.onChooseed) route.params.onChooseed(data[selectedIndex]);
+    if (route.params.onSetRelationship) route.params.onSetRelationship(data[selectedIndex]);
     navigation.goBack();
   };
   return (

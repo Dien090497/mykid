@@ -1,5 +1,6 @@
 import {Dimensions, StatusBar} from 'react-native';
 import {RFPercentage, RFValue} from 'react-native-responsive-fontsize';
+import InforKits from "../screens/Home/InfoKids";
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight =
@@ -30,9 +31,11 @@ const ScreenIds = {
   Tabs: 'Tabs',
   Auth: 'Auth',
   Profile: 'Profile',
+  PersonalData: 'PersonalData',
   ChangePassword: 'ChangePassword',
   HomeMainScreen: 'HomeMainScreen',
   DeviceManager: 'DeviceManager',
+  EditDevice: 'EditDevice',
   FindDevice: 'FindDevice',
   SoundSettings: 'SoundSettings',
   AlarmClock: 'AlarmClock',
@@ -45,6 +48,9 @@ const ScreenIds = {
   Chat: 'Chat',
   RoomChat: 'RoomChat',
   DeleteMessage: 'DeleteMessage',
+  OffDevice: 'Offdevice',
+  RestartDevice: 'RestartDevice',
+  SecretPhotoShoot: 'SecretPhotoShoot',
 
   // Auth
   Login: 'Login',
@@ -62,6 +68,7 @@ const ScreenIds = {
   Contacts: 'Contacts',
   AddNewContact: 'AddNewContact',
   Members: 'Members',
+  InfoKits: 'InfoKits',
 
   //Maps
   Maps: 'Maps',

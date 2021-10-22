@@ -29,6 +29,7 @@ export const String = {
   header_members: 'Danh sách thành viên',
   header_maps: 'Bản đồ',
   header_addDevice: 'Thêm thiết bị',
+  header_editDevice: 'Chỉnh sửa thông tin thiết bị',
   header_QRCode: 'Quét mã',
   header_relationship: 'Lựa chọn mối quan hệ',
   header_connectDevice: 'Kết nối thiết bị',
@@ -46,6 +47,7 @@ export const String = {
   header_doNotDisturb: 'Chế độ lớp học',
   header_language_timezone: 'Ngôn ngữ và múi giờ',
   header_chat: 'Tin nhắn thoại',
+  header_secret_shoot: 'Chụp ảnh từ xa',
   header_remoteDevices: 'Tắt thiết bị từ xa',
   header_remoteStart: 'Khởi động lại từ xa',
 
@@ -119,7 +121,8 @@ export const String = {
   deleteContactSuccess: 'Xóa thành viên thành công',
   deleteMessage: 'Xóa lịch sử tin nhắn',
   arleftDeleteMessage: 'Bạn có chắc chắn xóa cuộc trò chuyện này không ?',
-  arleftDeleteDevices: 'Bạn có chắc chắn muốn xóa thiết bị (Sever TQ) không ?',
+  arleftDeleteDevices1: 'Bạn có chắc chắn muốn xóa thiết bị (',
+  arleftDeleteDevices2: ') không ?',
   removeContactConfirm:
     'Bạn chắc chắn huỷ liên kết tài khoản này không ?',
   maxLengthSafeAreaName: 'Vui lòng nhập 1-32 ký tự',
@@ -168,6 +171,9 @@ export const String = {
   home_alarmClock: 'BÁO THỨC',
   home_device: 'THIẾT BỊ',
   home_setting: 'THIẾT LẬP',
+  home_game: 'GIẢI TRÍ',
+  home_warning: 'CẢNH BÁO',
+  home_infoKits: 'Thông tin của bé',
 
   //setting
   setting_contact: 'Danh bạ',
@@ -176,6 +182,9 @@ export const String = {
   device_connected_not_found: 'Không tìm thấy thiết bị kết nối',
   call_busy: 'Người dùng bận',
   call_back: 'Gọi lại',
+  alerfTurnOffDevice: 'Bạn thực sự muốn tắt thiết bị này ?',
+  alerfRestartDevice: 'Bạn có chắc chắn muốn khởi động thiết bị của mình không ?',
+  submitSuccess: 'Gửi thành công ',
 
   // find device
   find_device_note0: 'Kiểm tra vị trí thiết bị mọi lúc, mọi nơi.',
@@ -189,11 +198,18 @@ export const String = {
   acceptVideocall: 'Trả lời',
   requestVideoCall: 'Cuộc gọi đến',
 
+  // Chat
+  talkWithFamily: 'Trò chuyện nhóm gia đình',
+
   //RewardPoints
   rewardPoints_text: 'Bé làm 1 việc tốt,hãy thưởng bé 1 điểm',
 
   //DoNotDisturb
   textAddTime: 'Thêm khoảng thời gian',
+
+  //SecretPhotoShoot
+  textShoot: 'Chụp hình',
+  textDeleteImage:'Bạn có chắc chắn muốn xóa ảnh này không?',
 
   // permissions
   cameraUnavailable: 'Máy ảnh không khả dụng trên thiết bị của bạn',
@@ -207,4 +223,19 @@ export const String = {
   writeExternalStorageAndroidUnavailable: 'Quyền ghi dữ liệu vào bộ nhớ không khả dụng trên thiết bị của bạn',
   writeExternalStorageAndroidDenied: 'Quyền ghi dữ liệu vào bộ nhớ bị từ chối.\nVui lòng vào cài đặt để cấp quyền',
 
+  //EditDevice
+  textAvatar: 'Hình đại diện',
+  textDeviceNane: 'Biệt hiệu',
+
+  //InfoKids
+  nameKids: 'Tên bé',
+  enterNameKids: 'Nhập tên của bé',
+  birthday: 'Ngày sinh',
+  gender: 'Giới tính',
+  height: 'Chiều cao',
+  enterHeight: 'Nhập chiều cao',
+  weight: 'Cân nặng',
+  enterWeight: 'Nhập cân nặng',
+  male: 'Nam',
+  female: 'nữ'
 };

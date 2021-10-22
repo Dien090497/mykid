@@ -16,6 +16,8 @@ import {String} from '../../../assets/strings/String';
 import {deleteDevicesApi, getListDeviceApi} from '../../../network/DeviceService';
 import {styles} from './styles';
 import {Colors} from "../../../assets/colors/Colors";
+import reduxStore from '../../../redux/config/redux'
+import commonInfoAction from "../../../redux/actions/commonInfoAction";
 
 export default function DeviceManager({navigation}) {
   const [selectedIndex, setSelectedIndex] = useState(DataLocal.deviceIndex);
@@ -24,30 +26,37 @@ export default function DeviceManager({navigation}) {
   const [onModal, setOnModal] = useState(false);
   const [idCancel, setIdCancel] = useState();
   const [loading, setLoading] = useState(false);
+  const [nameDevices, setNameDevices] = useState();
   const refLoading = useRef();
 
   const dataMock = [
     {
+      name: 'Bố',
       icon: Images.icFather,
       relationship: 'FATHER'
     },
     {
+      name: 'Mẹ',
       icon: Images.icMother,
       relationship: 'MOTHER'
     },
     {
+      name: 'Ông',
       icon: Images.icGrandfather,
       relationship: 'GRANDFATHER'
     },
     {
+      name: 'Bà',
       icon: Images.icGrandmother,
       relationship: 'GRANDMOTHER'
     },
     {
+      name: 'Anh',
       icon: Images.icBrother,
       relationship: 'BROTHER'
     },
     {
+      name: 'Chị',
       icon: Images.icSister,
       relationship: 'SISTER'
     },
@@ -63,9 +72,7 @@ export default function DeviceManager({navigation}) {
   }, []);
 
   const refesh = React.useCallback(async () => {
-    setLoading(true);
     getListDevice();
-    setLoading(false);
   }, []);
 
   const getListDevice = async () => {
@@ -82,6 +89,7 @@ export default function DeviceManager({navigation}) {
 
   const handleChange = async (index) => {
     setSelectedIndex(index);
+    reduxStore.store.dispatch(commonInfoAction.selectDevice(index));
     await DataLocal.saveDeviceIndex(index);
     await DataLocal.saveDeviceId(devices[index].deviceId);
   };
@@ -93,6 +101,7 @@ export default function DeviceManager({navigation}) {
   const showModal = (item) => {
     setOnModal(true);
     setIdCancel(item.deviceId);
+    setNameDevices(item.deviceName)
   }
 
   const deleteDevices = idCancel => {
@@ -105,17 +114,28 @@ export default function DeviceManager({navigation}) {
     });
   }
 
+  const editDevice = (item)=>{
+    navigation.navigate(Consts.ScreenIds.EditDevice, {data: item ,onRefresh: getListDevice})
+  }
+
   const renderItem  = ({item, index}) => {
+    console.log(item)
     const relationship = dataMock.filter(val => val.relationship === item.relationship);
     const icon = relationship.length > 0 ? relationship[0].icon : dataMock[6].icon;
+    relationship[0].name ? item.relationshipName = relationship[0].name: null;
+    item.icon = icon;
     if (checkDelete) {
       return (
         <View style={styles.rowSettings}>
-          <Image source={icon} resizeMode={'contain'} style={styles.iconSetting}/>
-          <View style={{flexDirection: 'column', justifyContent: 'center'}}>
-            <Text style={styles.textSettings}>{item.deviceName}</Text>
-            <Text style={[styles.textSettings, {color: Colors.grayTextTitleColor, fontSize: 12}]}>{item.deviceCode}</Text>
-          </View>
+          <TouchableOpacity style={{flexDirection: 'row'}} onPress={()=>{editDevice(item)}}>
+            <View style={{width:40,height:40,borderRadius:20}}>
+              <Image source={item.avatar ? {uri:item.avatar} : item.icon} resizeMode={item.avatar? 'cover' : 'stretch'} style={styles.iconSetting}/>
+            </View>
+            <View style={{flexDirection: 'column', justifyContent: 'center'}}>
+              <Text style={styles.textSettings}>{item.deviceName}</Text>
+              <Text style={[styles.textSettings, {color: Colors.grayTextTitleColor, fontSize: 12}]}>{item.deviceCode}</Text>
+            </View>
+          </TouchableOpacity>
           {selectedIndex !== index ?
             <TouchableOpacity onPress={() => {handleChange(index)}} style={styles.btnChange}>
               <Text style={styles.textCheck}>{String.change}</Text>
@@ -177,7 +197,7 @@ export default function DeviceManager({navigation}) {
           <TouchableOpacity style={styles.modal} onPress={() => setOnModal(false)}>
             <View style={styles.tobModal}>
               <View style={[styles.tobView, {marginTop: ScaleHeight.small}]}>
-                <Text style={styles.textModel}>{String.arleftDeleteDevices}</Text>
+                <Text style={styles.textModel}>{String.arleftDeleteDevices1}{nameDevices}{String.arleftDeleteDevices2}</Text>
               </View>
               <View style={[styles.tobView, {width: '86%'}]}>
                 <View style={styles.tob}>

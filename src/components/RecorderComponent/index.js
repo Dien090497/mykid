@@ -91,7 +91,7 @@ export default class RecorderComponent extends Component {
           Math.floor(e.currentPosition),
         ),
       });
-      if (Math.floor(e.currentPosition) > 5000) {
+      if (Math.floor(e.currentPosition) > 15000) {
         await this.onStopRecord();
       }
       if (this.props.recordBackListener) {

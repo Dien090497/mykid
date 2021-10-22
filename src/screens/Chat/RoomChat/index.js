@@ -2,6 +2,7 @@ import React, { useLayoutEffect, useRef, useState } from 'react';
 import {
   Keyboard,
   KeyboardAvoidingView,
+  Platform,
   ScrollView,
   Text,
   TextInput,
@@ -17,8 +18,7 @@ import DataLocal from '../../../data/dataLocal';
 import { Image } from 'react-native';
 import Images from '../../../assets/Images';
 import Consts from '../../../functions/Consts';
-import { getListDeviceApi } from '../../../network/DeviceService';
-import { hideLoading, resizeImage, showAlert, showLoading } from '../../../functions/utils';
+import { hideLoading, resizeImage, showLoading } from '../../../functions/utils';
 import { String } from '../../../assets/strings/String';
 import RecorderComponent from '../../../components/RecorderComponent';
 import Spinner from 'react-native-spinkit';
@@ -28,8 +28,13 @@ import AudioPlayerComponent from '../../../components/AudioPlayerComponent';
 import CameraRoll from '@react-native-community/cameraroll';
 import { Tooltip } from 'react-native-elements';
 import { Colors } from '../../../assets/colors/Colors';
+import XmppClient from '../../../network/xmpp/XmppClient';
+import { useSelector } from 'react-redux';
+import AppConfig from '../../../data/AppConfig';
+import RNFetchBlob from 'react-native-fetch-blob';
+import { getListDeviceApi } from '../../../network/DeviceService';
 
-export default function RoomChat({navigation}) {
+export default function RoomChat({navigation, route}) {
   const refLoading = useRef();
   const refRecorder = useRef();
   const refAudioPlayer = useRef();
@@ -38,14 +43,25 @@ export default function RoomChat({navigation}) {
   const [isRecord, setIsRecord] = useState(true);
   const [isRecording, setIsRecording] = useState(false);
   const [isCancelRecording, setIsCancelRecording] = useState(false);
-  const [devices, setDevices] = useState();
+  const [chatHistory, setChatHistory] = useState([]);
   const [text, setText] = useState();
   const [locationY, setLocationY] = useState();
+  const [indexPlaying, setIndexPlaying] = useState(-1);
+  const [roomInfo, setRoomInfo] = useState();
+  const [isLock, setIsLock] = useState(false);
+  const [listMember, setListMember] = useState([]);
+  const chatReducer = useSelector(state => state.chatReducer);
   let sheet = null;
   
   useLayoutEffect(() => {
     focusTextInput();
   }, [refTextInput]);
+  
+  useLayoutEffect(() => {
+    if (chatReducer.dataInfo && roomInfo) {
+      setChatHistory(chatReducer.dataInfo[roomInfo.roomAddress]);
+    }
+  }, [chatReducer]);
 
   useLayoutEffect(() => {
     if (!isRecord)
@@ -53,8 +69,23 @@ export default function RoomChat({navigation}) {
   }, [isRecord]);
 
   useLayoutEffect(() => {
+    if (route.params && route.params.roomInfo) {
+      setRoomInfo(route.params.roomInfo);
+      XmppClient.setRoomId(route.params.roomInfo.roomAddress);
+      setChatHistory(XmppClient.getCurrentHistory());
+      XmppClient.joinRoom(route.params.roomInfo.roomAddress);
+    }
     getListDevice();
   }, []);
+
+  const getListDevice = () => {
+    getListDeviceApi(null, 0, 100, DataLocal.deviceId, 'ACTIVE', {
+      success: res => {
+        setListMember(res.data);
+      },
+      refLoading,
+    });
+  };
 
   const focusTextInput = () => {
     if (refTextInput && refTextInput.current) {
@@ -64,27 +95,51 @@ export default function RoomChat({navigation}) {
     }
   };
 
-  const getListDevice = async () => {
-    getListDeviceApi(DataLocal.userInfo.id, Consts.pageDefault, 100, '', '', {
-      success: resData => {
-        setDevices(resData.data);
-      },
-      refLoading,
-    });
-  };
-
   const toggleRecord = (state) => {
     setIsRecord(state);
   };
 
-  const togglePlay = (url) => {
-    refAudioPlayer.current.onStartPlay(url);
+  const togglePlay = (obj, index) => {
+    try {
+      if (obj.audio) {
+        setIndexPlaying(index);
+        refAudioPlayer.current.onStartPlay(obj.audio);
+        return;
+      }
+
+      const appendExt = obj.body.split('.');
+      showLoading(refLoading);
+      RNFetchBlob
+        .config({
+          fileCache : true,
+          appendExt : appendExt[appendExt.length - 1]
+        })
+        .fetch('GET', obj.body)
+        .then((res) => {
+          const lst = Object.assign([], chatHistory);
+          lst[index].audio = 'file://' + res.path();
+          setChatHistory(lst);
+
+          hideLoading(refLoading);
+          setIndexPlaying(index);
+          refAudioPlayer.current.onStartPlay(lst[index].audio);
+        })
+    } catch (e) {
+      console.log(e);
+      setIndexPlaying(-1);
+    }
+    
   };
 
   const sendMsg = () => {
+    if (isLock && text === '') return;
     Keyboard.dismiss();
-    console.log(text);
+    setIsLock(true);
+    XmppClient.sendMessage('text', text);
     setText('');
+    setTimeout(() => {
+      setIsLock(false);
+    }, 3000);
   }
 
   const selectPhoto = () => {
@@ -113,12 +168,13 @@ export default function RoomChat({navigation}) {
 
   const onStopRecord = (url) => {
     setIsRecording(false);
+    showLoading(refLoading);
+    XmppClient.requestSendFile(url);
+    hideLoading(refLoading);
+  };
 
-    const lst = Object.assign([], devices);
-    const item = Object.assign({}, lst[0]);
-    item.audio = url;
-    lst.push(item);
-    setDevices(lst);
+  const onStopPlayer = () => {
+    setIndexPlaying(-1);
   };
 
   const recordBackListener = (e) => {
@@ -129,15 +185,8 @@ export default function RoomChat({navigation}) {
     if (imagePickerResponse.uri) {
       showLoading(refLoading);
       resizeImage(imagePickerResponse).then(uri => {
+        XmppClient.requestSendFile(uri)
         hideLoading(refLoading);
-        if (uri) {
-          console.log(uri);
-          const lst = Object.assign([], devices);
-          const item = Object.assign({}, lst[0]);
-          item.img = uri;
-          lst.push(item);
-          setDevices(lst);
-        }
       });
     }
   };
@@ -170,49 +219,150 @@ export default function RoomChat({navigation}) {
     }
   }
 
+  const isMe = (obj) => {
+    return obj.from === `${DataLocal.userInfo.id}@${AppConfig.dev.rootDomain}`;
+  };
+
+  const saveImage = (obj) => {
+    if (Platform.OS === 'ios') {
+      CameraRoll.save(obj.body)
+      .then(console.log('Photo added to camera roll!')) 
+      .catch(err => console.log('err:', err))
+    } else {
+      RNFetchBlob
+        .config({
+          fileCache : true,
+          appendExt : 'jpg'
+        })
+        .fetch('GET', obj.body)
+        .then((res) => {
+            console.log()
+          CameraRoll.saveToCameraRoll(res.path())
+            .then((res) => {
+            console.log("save", res)
+            }).catch((error) => {
+              console.log("error", error)
+            })
+
+        })
+    }
+  }
+
+  const dataMock = [
+    {
+      name: 'Bố',
+      icon: Images.icFather,
+      relationship: 'FATHER'
+    },
+    {
+      name: 'Mẹ',
+      icon: Images.icMother,
+      relationship: 'MOTHER'
+    },
+    {
+      name: 'Ông',
+      icon: Images.icGrandfather,
+      relationship: 'GRANDFATHER'
+    },
+    {
+      name: 'Bà',
+      icon: Images.icGrandmother,
+      relationship: 'GRANDMOTHER'
+    },
+    {
+      name: 'Anh',
+      icon: Images.icBrother,
+      relationship: 'BROTHER'
+    },
+    {
+      name: 'Chị',
+      icon: Images.icSister,
+      relationship: 'SISTER'
+    },
+    {
+      icon: Images.icOther,
+      relationship: 'OTHER'
+    },
+  ];
+
+  const getName = (obj) => {
+    const uid = obj.from.split('@')[0];
+    if (uid === 'terminal_mykid' && roomInfo.deviceName) {
+      return roomInfo.deviceName;
+    }
+    const mems = listMember.filter(mem => mem.accountId.toString() === uid);
+    if (mems.length > 0) {
+      if (mems[0].relationship === 'OTHER') return mems[0].relationshipName;
+      const relationship = dataMock.filter(val => val.relationship === mems[0].relationship);
+      if (relationship.length > 0) return relationship[0].name;
+    }
+    return uid;
+  };
+
+  const getIcon = (obj) => {
+    const uid = obj.from.split('@')[0];
+    if (uid === 'terminal_mykid' && roomInfo.avatar) {
+      return {uri: roomInfo.avatar}
+    }
+    const mems = listMember.filter(mem => mem.accountId.toString() === uid);
+    if (mems.length > 0) {
+      const relationship = dataMock.filter(val => val.relationship === mems[0].relationship);
+      return relationship.length > 0 ? relationship[0].icon : dataMock[6].icon;
+    }
+    return dataMock[6].icon;
+  };
+
   return (
     <KeyboardAvoidingView style={styles.contain}
       behavior={Platform.OS === "ios" ? "padding" : ""}>
-      <Header title={'Server TQ nhóm gia đình (3)'} right rightIcon={Images.icGroup} rightAction={() => {gotoDeleteMessage()}}/>
+      <Header title={`${String.talkWithFamily} (${listMember.length})`} right rightIcon={Images.icGroup} rightAction={() => {gotoDeleteMessage()}}/>
       <View style={styles.container}>
-        <ScrollView ref={refScrollView} style={styles.container}>
-          {devices && devices.map((obj, i) => (
-            <View key={i} style={[styles.viewItem, i % 2 === 0 ? {flexDirection: 'row'} : {flexDirection: 'row-reverse'}]}>
+        <ScrollView ref={refScrollView} style={styles.container}
+          onContentSizeChange={() => refScrollView.current.scrollToEnd({animated: true})}>
+          {chatHistory && chatHistory.map((obj, i) => (
+            <View key={i} style={[styles.viewItem, !isMe(obj) ? {flexDirection: 'row'} : {flexDirection: 'row-reverse'}]}>
               <View style={styles.viewImg}>
-                <Image source={Images.icAvatar} style={styles.icAvatar}/>
+                <FastImage source={getIcon(obj)} style={styles.icAvatar} resizeMode={FastImage.resizeMode.stretch} />
               </View>
               <View style={styles.viewContent}>
-                {i % 2 === 0 && 
-                  <Text style={styles.txtTitle}>{obj.deviceName}</Text>
+                { !isMe(obj) && 
+                  <Text style={styles.txtTitle}>{getName(obj)}</Text>
                 }
+                {obj.type !== 'image' &&
+                <View style={{flexDirection: !isMe(obj) ? 'row' : 'row-reverse'}}>
+                    <View style={[styles.viewContentDetail, !isMe(obj) ? {} : {backgroundColor: Colors.pinkBgMsg}]}>
+                      {obj.type === 'audio' &&
+                      <TouchableOpacity onPress={() => {togglePlay(obj, i)}}>
+                        <FastImage
+                          source={!isMe(obj) ? (indexPlaying === i ? Images.aAudioLeft : Images.icAudioLeft) : (indexPlaying === i ? Images.aAudioRight : Images.icAudioRight)}
+                          resizeMode={FastImage.resizeMode.cover}
+                          style={styles.icRecord}
+                        />
+                      </TouchableOpacity>
+                      }
+                      {obj.type === 'text' &&
+                      <Text>{obj.body}</Text>
+                      }
+                    </View>
+                  </View>
+                }
+                {obj.type === 'image' &&
                 <Tooltip toggleAction={'onLongPress'} popover={
                   <View style={styles.viewTooltip}
                   onStartShouldSetResponder={(e) => {
-                      CameraRoll.save('https://www.dungplus.com/wp-content/uploads/2019/12/girl-xinh-1-480x600.jpg')
-                      .then(console.log('Photo added to camera roll!')) 
-                      .catch(err => console.log('err:', err))
+                      saveImage(obj);
                       return false;
                     }}>
                     <Text>Lưu ảnh</Text>
                   </View>
                 }>
-                  <View style={{flexDirection: i % 2 === 0 ? 'row' : 'row-reverse'}}>
-                  <View style={[styles.viewContentDetail, i % 2 === 0 ? {} : {backgroundColor: Colors.pinkBgMsg}]}>
-                    {!obj.img && !obj.audio &&
-                    <Image source={{uri: 'https://www.dungplus.com/wp-content/uploads/2019/12/girl-xinh-1-480x600.jpg'}} style={styles.icPhoto}/>
-                    }
-                    {obj.audio &&
-                    <TouchableOpacity onPress={() => {togglePlay(obj.audio)}}>
-                      <FastImage
-                        source={i % 2 === 0 ? Images.aAudioLeft : Images.aAudioRight}
-                        resizeMode={FastImage.resizeMode.contain}
-                        style={styles.icRecord}
-                      />
-                    </TouchableOpacity>
-                    }
-                  </View>
+                  <View style={{flexDirection: !isMe(obj) ? 'row' : 'row-reverse'}}>
+                    <View style={[styles.viewContentDetail, !isMe(obj) ? {} : {backgroundColor: Colors.pinkBgMsg}]}>
+                      <FastImage resizeMode={FastImage.resizeMode.cover} source={{uri: obj.body}} style={styles.icPhoto}/>
+                    </View>
                   </View>
                 </Tooltip>
+                }
               </View>
             </View>
           ))}
@@ -250,8 +400,9 @@ export default function RoomChat({navigation}) {
             </View>
             }
           </View>
-          <TouchableOpacity style={styles.viewImg} onPress={isRecord ? selectPhoto : sendMsg}>
-            <Image source={isRecord ? Images.icCamera : Images.icSend} style={isRecord ? styles.icCamera : styles.icSend}/>
+          <TouchableOpacity activeOpacity={isLock ? 1 : 0} style={styles.viewImg} onPress={isRecord ? selectPhoto : sendMsg}>
+            <Image source={isRecord ? Images.icCamera : Images.icSend}
+              style={isRecord ? styles.icCamera : isLock ? [styles.icSend, {opacity: 0.5}] : styles.icSend}/>
           </TouchableOpacity>
         </View>
       </View>
@@ -281,7 +432,7 @@ export default function RoomChat({navigation}) {
       </View>}
       <LoadingIndicator ref={refLoading}/>
       <RecorderComponent ref={refRecorder} onStopRecord={onStopRecord} recordBackListener={recordBackListener}/>
-      <AudioPlayerComponent ref={refAudioPlayer}/>
+      <AudioPlayerComponent ref={refAudioPlayer} onStopPlayer={onStopPlayer}/>
       <ActionSheet
         ref={o => sheet = o}
         title={String.selectPhoto}

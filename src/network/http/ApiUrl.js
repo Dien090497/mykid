@@ -8,6 +8,7 @@ export const appUrl = hostUrl + '/kwapp-core/v1';
 export const streamUrl = hostUrl + '/kwstream-core/v1';
 export const wsUrl = 'wss://mykid.ttc.software/kwstream-core/v1/ws';
 export const wsSafeZoneUrl = 'wss://mykid.ttc.software/kwapp-core/v1/ws';
+export const wssXmppUrl = 'wss://' + appConfig.xmppServer + '/ws';
 
 // Account
 export const loginUrl = appUrl + '/auth/login';
@@ -47,6 +48,18 @@ export const createVideoCalllUrl = streamUrl + '/video-calls';
 
 // Rewards
 export const rewardsUrl = appUrl + '/rewards';
+
+// Device
+export const  deviceUrl = appUrl + '/commands';
+// Rooms
+export const roomsUrl = appUrl + '/rooms';
+
+//PhotoShoot
+export const PhotoShootUrl = appUrl + '/commands';
+export const ListPhotoUrl = appUrl + '/sneak_captures';
+
+//InfoKids
+export const InfoKids = appUrl + '/kids'
 
 //Auth
 export const getOTP = appUrl + '/otp';

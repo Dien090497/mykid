@@ -8,34 +8,25 @@ import {styles} from './styles';
 import Header from '../../components/Header';
 import {String} from '../../assets/strings/String';
 import LoadingIndicator from '../../components/LoadingIndicator';
-import DataLocal from '../../data/dataLocal';
 import { Image } from 'react-native';
 import Images from '../../assets/Images';
 import Consts from '../../functions/Consts';
-import { getListDeviceApi } from '../../network/DeviceService';
 import { checkMicrophonePermission } from '../../functions/permissions';
+import FastImage from 'react-native-fast-image';
+import XmppClient from '../../network/xmpp/XmppClient';
 
 export default function Chat({navigation}) {
   const refLoading = useRef();
-  const [devices, setDevices] = useState();
+  const [devices, setDevices] = useState([]);
 
   useLayoutEffect(() => {
-    getListDevice();
+    setDevices(XmppClient.lstRoom);
   }, []);
-
-  const getListDevice = async () => {
-    getListDeviceApi(DataLocal.userInfo.id, Consts.pageDefault, 100, '', '', {
-      success: resData => {
-        setDevices(resData.data);
-      },
-      refLoading,
-    });
-  };
 
   const toggleChat = (obj, i) => {
     checkMicrophonePermission().then(microGranted => {
       if (microGranted) {
-        navigation.navigate(Consts.ScreenIds.RoomChat);
+        navigation.navigate(Consts.ScreenIds.RoomChat, {roomInfo: obj});
       }
     })
   };
@@ -47,17 +38,17 @@ export default function Chat({navigation}) {
         {devices && devices.map((obj, i) => (
           <View key={i}>
             <View style={styles.viewTitleRoom}>
-              <Text style={styles.txtTitleRoom}>{obj.deviceName}</Text>
+              <Text style={styles.txtTitleRoom}>{obj.deviceName ? obj.deviceName : ''}</Text>
             </View>
             <TouchableOpacity style={styles.viewItem} onPress={() => {toggleChat(obj, i);}}>
               <View style={styles.viewImg}>
-                <Image source={Images.icAvatar} style={styles.icAvatar}/>
+                <FastImage source={obj.avatar ? {uri: obj.avatar} : Images.icAvatar} style={styles.icAvatar} resizeMode={FastImage.resizeMode.stretch} />
               </View>
               <View style={styles.viewText}>
                 <View style={styles.rowDirection}>
-                  <Text style={styles.txtTitle}>{'Trò chuyện nhóm gia đình'}</Text>
+                  <Text style={styles.txtTitle}>{obj.roomName ? obj.roomName : String.talkWithFamily}</Text>
                 </View>
-                <Text style={styles.txtContent}>{'[Hình ảnh]'}</Text>
+                <Text style={styles.txtContent}>{obj.lastMsg ? `[${obj.lastMsg.type}]` : ''}</Text>
               </View>
               <View style={styles.viewArrow}>
                 <Image source={Images.icRightArrow} style={styles.icArrow}/>
