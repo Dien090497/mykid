@@ -1,10 +1,11 @@
 import {View, Text, TouchableOpacity, TextInput} from 'react-native';
 import React, {useEffect, useRef, useState} from "react";
 import {Colors} from "../../../../assets/colors/Colors";
-import {getOtpApi} from "../../../../network/UserInfoService";
+import {getOtpApi, createAndLogin} from "../../../../network/UserInfoService";
 import Consts from "../../../../functions/Consts";
 import {styles} from "../styles";
 import {String} from "../../../../assets/strings/String";
+import LoadingIndicator from "../../../../components/LoadingIndicator";
 
 export default function OTP({navigation, route}) {
   const refLoading = useRef(null);
@@ -36,8 +37,18 @@ export default function OTP({navigation, route}) {
     })
   }
 
-  const oncRegister = () => {
-
+  const onRegister = () => {
+    const data = {
+      phone: phone,
+      password: route.params.pass,
+      otp: otp
+    }
+    createAndLogin(data,{
+      success: res =>{
+          navigation.navigate(Consts.ScreenIds.ConnectionScreen);
+      },
+      refLoading,
+    })
   }
 
   const refreshCountdown = () => {
@@ -54,7 +65,6 @@ export default function OTP({navigation, route}) {
   };
 
   const getTime = () => { return Math.floor(Date.now() / 1000); };
-
   return(
     <View style={{flex:1, alignItems: 'center', backgroundColor: Colors.white}}>
       <Header title={'Xác thực SĐT'}/>
@@ -62,7 +72,7 @@ export default function OTP({navigation, route}) {
         <TextInput
           placeholderTextColor={"#9D9D9D"}
           placeholder={'Nhập mã OTP'}
-          style={{width: '80%',height: '100%', borderColor: Colors.gray, borderWidth: 0.5, borderRadius: 10}}
+          style={{width: '80%',height: '100%', borderColor: Colors.gray, borderWidth: 0.5, borderRadius: 10,color: Colors.black}}
           onChangeText={(text => isChangeOTP(text))}
         />
           <TouchableOpacity
@@ -86,7 +96,7 @@ export default function OTP({navigation, route}) {
 
       </View>
       {otp !== '' ? (
-        <TouchableOpacity onPress={oncRegister} style={styles.btnSubmit}>
+        <TouchableOpacity onPress={onRegister} style={styles.btnSubmit}>
           <Text style={styles.textSubmit}>{String.register}</Text>
         </TouchableOpacity>
       ):(
@@ -95,6 +105,7 @@ export default function OTP({navigation, route}) {
         </View>
       )
       }
+      <LoadingIndicator ref={refLoading} />
     </View>
   );
 }

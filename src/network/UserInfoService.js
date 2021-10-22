@@ -1,6 +1,6 @@
 import {
   loginUrl,
-  getCaptchaUrl, createAccountUrl, changePasswordUrl, soundModesUrl, watchsUrl,
+  getCaptchaUrl, createAccountUrl, changePasswordUrl, soundModesUrl, watchsUrl, getOTP, accountDetailUrl,
 } from "./http/ApiUrl";
 import { generateRandomId } from "../functions/utils";
 import { post, get, put } from "./http/HttpClient";
@@ -44,7 +44,7 @@ export function getSoundModesApi(deviceId, { success, failure, autoShowMsg = tru
 
 export function setSoundModesApi(deviceId, mode, { success, failure, autoShowMsg = true, refLoading = null } = {}) {
   const url = [soundModesUrl, deviceId].join('/');
-  
+
   const body = { mode };
   return post(url, { body, success, failure, autoShowMsg, refLoading });
 }
@@ -59,6 +59,20 @@ export function getOtpApi(
   let body = {
     phone
   }
-  const url = 'http://192.168.30.5:8080/kwapp-core/v1/otp';
-  return post(url, { body, autoShowMsg, success, failure, refLoading });
+  return post(getOTP, { body, autoShowMsg, success, failure, refLoading });
+}
+
+export function createAndLogin(data, { success, failure, autoShowMsg = true, refLoading = null }) {
+  let body = {
+    phone: data.phone,
+    password: data.password,
+  };
+  const headers = {
+    "Accept": "application/json",
+    "Content-type": "application/json",
+    "X-OTP-Code":  data.otp,
+  };
+  console.log(headers)
+
+  return post(accountDetailUrl, { body, headers, success, failure, autoShowMsg, refLoading });
 }

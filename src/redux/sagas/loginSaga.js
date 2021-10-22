@@ -14,7 +14,7 @@ function* postLoginAction(email, password, refLoading) {
   try {
     showLoading(refLoading);
     let params = {
-      email: email,
+      phone: email,
       password: password,
     };
     let response = yield call(loginService, params);
@@ -25,7 +25,7 @@ function* postLoginAction(email, password, refLoading) {
         showAlert(ErrorMsg.parseUserTokenFailed);
         return;
       }
-      
+
       saveUserDataFromToken(token).then(userInfo => {
         reduxStore.store.dispatch(loginAction.loginSuccess(userInfo));
       });

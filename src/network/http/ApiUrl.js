@@ -48,6 +48,9 @@ export const createVideoCalllUrl = streamUrl + '/video-calls';
 // Rewards
 export const rewardsUrl = appUrl + '/rewards';
 
+//Auth
+export const getOTP = appUrl + '/otp';
+
 /// url: string, obj: object
 export function assignUrlParams(url, obj) {
   if (!obj) {
