@@ -68,7 +68,7 @@ export default function InfoKits() {
       id: '5',
       name: String.weight,
       textName: weights + ' kg',
-      isTextName: heights + '',
+      isTextName: weights + '',
       inputText: String.enterWeight
     },
   ];
@@ -99,9 +99,9 @@ export default function InfoKits() {
     if (title === String.nameKids) {
       setName(res);
     } else if (title === String.height) {
-      setHeight(res);
+      setHeight(parseInt(res));
     } else {
-      setWeight(res);
+      setWeight(parseInt(res));
     }
   }
 

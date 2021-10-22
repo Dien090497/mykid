@@ -43,16 +43,15 @@ export default class ModalConfirmInput extends Component {
   };
 
   isChangeText = (text) => {
-    if (!this.state.check) {
+    console.log('check', this.state.check)
+    if (this.state.check) {
+      this.setState({text: text.replace(/[^0-9]/g, '')})
+    } else {
       this.setState({text: text})
-    }
-    else {
-      this.setState({text: parseInt(text.replace(/[^0-9]/g, ''))})
     }
   }
 
   render() {
-    console.log('check', this.state.check)
     return (
       <Modal
         visible={this.state.modalVisible}
@@ -69,7 +68,7 @@ export default class ModalConfirmInput extends Component {
                 <View style={styles.textInput}>
                   <TextInput
                     style={{width: '88%', height: height * 0.05, marginLeft: 5}}
-                    maxLength={11}
+                    maxLength={(this.state.check ? 3 : 16)}
                     placeholder={this.props.inputText}
                     placeholderTextColor={"#9D9D9D"}
                     keyboardType={(this.state.check ? 'number-pad' : 'default')}
@@ -97,7 +96,7 @@ export default class ModalConfirmInput extends Component {
                   </TouchableOpacity>
                 </View>
                 <View style={styles.TobOpacity}>
-                  {this.state.text !== '' || this.state.text !== undefined ? (
+                  {this.state.text !== '' ? (
                     <TouchableOpacity
                       style={[styles.smallButton, {backgroundColor: Colors.red}]}
                       onPress={() => {
