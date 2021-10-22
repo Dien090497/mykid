@@ -140,6 +140,11 @@ export default class XmppClient {
     await clientXmpp.send(message);
   }
 
+  static saveLastMsg(roomId, msg) {
+    const index = this.lstRoom.findIndex(val => val.roomAddress === roomId);
+    this.lstRoom[index].lastMsg = msg;
+  }
+
   static async requestSendFile(path) {
     this.filePath = path;
     const file = await fetch(this.filePath);
@@ -198,6 +203,14 @@ export default class XmppClient {
       if (stanza.getChild('fin')) {
         console.log(this.lstMsg);
         reduxStore.store.dispatch(chatAction.updateMessage(this.lstMsg));
+        for (const key in this.lstMsg) {
+          if (Object.hasOwnProperty.call(this.lstMsg, key)) {
+            const lst = this.lstMsg[key];
+            if (lst.length > 0) {
+              this.saveLastMsg(key, lst[0]);
+            }
+          }
+        }
       }
     }
 
@@ -275,13 +288,14 @@ export default class XmppClient {
         } else if (body.startsWith('text')) {
           body = body.substr(5);
         }
-        
-        this.lstMsg[fromSplit[0]].push({
+        const msg = {
           from: fromSplit[1],
           body: body,
           type: type,
           time: new Date()
-        })
+        };
+        this.lstMsg[fromSplit[0]].push(msg);
+        this.saveLastMsg(fromSplit[0], msg);
         reduxStore.store.dispatch(chatAction.updateMessage(this.lstMsg));
       }
     }
