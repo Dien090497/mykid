@@ -1,14 +1,25 @@
-import {get, post} from './http/HttpClient';
-import {PersonalData} from "./http/ApiUrl";
+import {get, post, put} from './http/HttpClient';
+import {PersonalDataUrl} from "./http/ApiUrl";
 
-export function getPersonalData (
+export function getPersonalDataApi (
   {success, failure, autoShowMsg = true, refLoading = null} = {},
 ) {
-  const url = [PersonalData].join('/');
+  const url = [PersonalDataUrl].join('/');
   return get(url, {
     success,
     failure,
     autoShowMsg,
     refLoading,
   });
+}
+export function updatePersonalDataApi(
+  contact,
+  email,
+  file,
+  gender,
+  name,
+  {success, failure, autoShowMsg = true, refLoading = null} = {},
+) {
+  const url = [PersonalDataUrl].join('/');
+  return put(url, {success, failure, autoShowMsg, refLoading});
 }

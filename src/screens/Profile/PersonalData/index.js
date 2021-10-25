@@ -23,7 +23,7 @@ import {launchCamera, launchImageLibrary} from "react-native-image-picker";
 import {ScaleHeight} from "../../../functions/Consts";
 import {hideLoading, resizeImage, showLoading} from "../../../functions/utils";
 import LoadingIndicator from '../../../components/LoadingIndicator';
-import {getPersonalData} from "../../../network/PersonalDataService";
+import {getPersonalDataApi} from "../../../network/PersonalDataService";
 
 export default function PersonalDate() {
   let sheet = null;
@@ -87,7 +87,7 @@ export default function PersonalDate() {
   ]
 
   useLayoutEffect(() => {
-    getPersonalData({
+    getPersonalDataApi({
       success: res => {
         setName(res.data.name);
         setGender(res.data.gender);
@@ -98,16 +98,23 @@ export default function PersonalDate() {
       }
     });
   }, []);
-
-
+  
   const setInfo = (title, res) => {
-    if (title === String.nameKids) {
-      setName(res);
-    } else if (title === String.height) {
-      setHeight(parseInt(res));
+    if (title === 'Số điện thoại') {
+      setContact(res);
+    } else if (title === 'Email') {
+      setEmail(res);
     } else {
-      setWeight(parseInt(res));
+      setName(res);
     }
+  }
+
+  const InstallPersonalData = () => {
+    updatePersonalDataApi(phone, email, avatar, gender, name, {
+      success: res => {
+
+      }
+    })
   }
 
   const OnMoDal = (item) => {
@@ -261,7 +268,7 @@ export default function PersonalDate() {
             <Text style={[styles.text, {color: Colors.white}]}>Lưu</Text>
           </View>
         ) : (
-          <TouchableOpacity style={styles.tobViewMain}>
+          <TouchableOpacity style={styles.tobViewMain} onPress={InstallPersonalData}>
             <Text style={[styles.text, {color: Colors.white}]}>Lưu</Text>
           </TouchableOpacity>
         )}
@@ -270,7 +277,7 @@ export default function PersonalDate() {
         ref={refModalInput}
         title={title}
         inputText={inputText}
-        onPressYes={() => refModalInput.current.close()}
+        onPressYes={setInfo}
       />
       {title === 'Giới tính' ? (
         <ActionSheet

@@ -65,7 +65,7 @@ export const InfoKids = appUrl + '/kids'
 export const getOTP = appUrl + '/otp';
 
 //Personal
-export const PersonalData = appUrl + '/accounts/info';
+export const PersonalDataUrl = appUrl + '/accounts/info';
 
 /// url: string, obj: object
 export function assignUrlParams(url, obj) {
