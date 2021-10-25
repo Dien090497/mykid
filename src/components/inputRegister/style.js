@@ -1,7 +1,8 @@
 import {StyleSheet, Dimensions} from 'react-native';
 import {FontSize, ScaleHeight} from '../../functions/Consts';
 import {Colors} from "../../assets/colors/Colors";
-const { width, height } = Dimensions.get('window');
+
+const {width, height} = Dimensions.get('window');
 const styles = StyleSheet.create({
   Sty_TitleInput: {
     fontSize: 13,
@@ -13,22 +14,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
-    height: ScaleHeight.medium* 1.2
+    height: ScaleHeight.medium * 1.2,
+    width: '100%'
   },
   Sty_input: {
-    width: '100%',
     fontSize: FontSize ? FontSize.small : 13,
   },
   txtNotification: {
-    padding:0,
+    padding: 0,
     color: '#D71921',
     fontSize: FontSize ? FontSize.small : 13,
   },
   Sty_iconShow: {
-    width:25,
-    height:25,
+    width: 25,
+    height: 25,
     tintColor: Colors.grayTextTitleColor,
-    right: 8
   }
 });
 export default styles;

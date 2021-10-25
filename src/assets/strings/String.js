@@ -85,9 +85,12 @@ export const String = {
   userVerification: 'Xác nhận mật khẩu',
   errorCode: 'Lỗi định dạng mã xác minh',
   placeholderCode: 'Nhập mã xác minh',
+  submitOTP: 'Xác thực SĐT',
+  importOTP: 'Nhập mã OTP',
   notification: 'Thông báo',
   error_message:
     'Vui lòng đọc thỏa thuận người dùng và chính sách bảo mật rồi đánh dấu vào đồng ý',
+  error_pass: 'Mật khẩu không hợp lệ',
   registerSuccess: 'Đăng ký thành công',
   errorPhone:'Độ dài từ 10-11 số',
   genneralInfo: 'Thông tin cơ bản',
