@@ -10,7 +10,7 @@ import LoadingIndicator from "../../../../components/LoadingIndicator";
 export default function OTP({navigation, route}) {
   const refLoading = useRef(null);
   const [otp, setOTP] = useState('');
-  const [color, setColor] = useState(Colors.redTitle);
+  const [check, setCheck] = useState(false);
   const [phone, setPhone] = useState();
   const [isActive, setIsActive] = useState(false);
   const [otpSent, setOtpSent] = useState(false);
@@ -22,12 +22,12 @@ export default function OTP({navigation, route}) {
   })
 
   const isChangeOTP = (text) => {
-     setOTP(text);
+    setOTP(text.replace(/[^0-9]/g, ''));
   }
 
   const sendTo = () => {
-    setColor('rgba(228, 228, 228, 1)');
-    getOtpApi(phone , {
+    setCheck(true);
+    getOtpApi(phone, {
       success: res => {
         setIsActive(true);
         setOtpSent(true)
@@ -38,25 +38,27 @@ export default function OTP({navigation, route}) {
   }
 
   const onRegister = () => {
+    setCheck(false);
     const data = {
       phone: phone,
       password: route.params.pass,
       otp: otp
     }
-    createAndLogin(data,{
-      success: res =>{
-          navigation.navigate(Consts.ScreenIds.ConnectionScreen);
+    createAndLogin(data, {
+      success: res => {
+        navigation.navigate(Consts.ScreenIds.ConnectionScreen);
       },
       refLoading,
     })
   }
 
   const refreshCountdown = () => {
-    setTimeout(()=>{
+    setTimeout(() => {
       if (timer - getTime() <= 0) {
         setOtpSent(false);
         setIsActive(false);
         setTimerCount(60);
+        setCheck(false);
       } else {
         setTimerCount(timer - getTime());
         refreshCountdown();
@@ -64,48 +66,69 @@ export default function OTP({navigation, route}) {
     }, 1000)
   };
 
-  const getTime = () => { return Math.floor(Date.now() / 1000); };
-  return(
-    <View style={{flex:1, alignItems: 'center', backgroundColor: Colors.white}}>
-      <Header title={'Xác thực SĐT'}/>
-      <View style={{width: '90%', height:45, backgroundColor: Colors.white, marginTop: 40,  flexDirection: 'row'}}>
-        <TextInput
-          placeholderTextColor={"#9D9D9D"}
-          placeholder={'Nhập mã OTP'}
-          style={{width: '80%',height: '100%', borderColor: Colors.gray, borderWidth: 0.5, borderRadius: 10,color: Colors.black}}
-          onChangeText={(text => isChangeOTP(text))}
-        />
-          <TouchableOpacity
-            onPress={sendTo}
+  const getTime = () => {
+    return Math.floor(Date.now() / 1000);
+  };
+  return (
+    <View style={{flex: 1, alignItems: 'center', backgroundColor: Colors.white}}>
+      <Header title={String.submitOTP}/>
+      <View style={{
+        width: '90%',
+        height: 45,
+        backgroundColor: Colors.white,
+        marginTop: 40,
+        flexDirection: 'row'
+      }}>
+        <View style={{
+          width: '80%',
+          height: '100%',
+          borderColor: Colors.gray,
+          borderWidth: 0.5,
+          borderRadius: 10,
+          color: Colors.black,
+        }}>
+          <TextInput
+            placeholderTextColor={"#9D9D9D"}
+            placeholder={String.importOTP}
+            maxLength={10}
+            keyboardType={"number-pad"}
             style={{
-              width: '18%',
-              backgroundColor: (color === 0 ? Colors.redTitle : 'rgba(228, 228, 228, 1)'),
-              height: '100%',
-              justifyContent: 'center',
-              alignItems: 'center',
-              borderRadius: 10,
-              marginLeft: '2%'
+              marginHorizontal: 10
             }}
-          >
-            {color === Colors.redTitle ? (
-              <Text style={{fontSize: 14, color: Colors.white}}>Gửi lại</Text>
-            ):(
-              <Text style={{fontSize: 14, color: Colors.white}}>{timerCount}{'s'}</Text>
-            )}
-          </TouchableOpacity>
+            onChangeText={isChangeOTP}
+          />
+        </View>
+        <TouchableOpacity
+          onPress={sendTo}
+          style={{
+            width: '18%',
+            backgroundColor: (!check ? Colors.redTitle : 'rgba(228, 228, 228, 1)'),
+            height: '100%',
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: 10,
+            marginLeft: '2%'
+          }}
+        >
+          {!check ? (
+            <Text style={{fontSize: 14, color: Colors.white}}>Gửi lại</Text>
+          ) : (
+            <Text style={{fontSize: 14, color: Colors.white}}>{timerCount}{'s'}</Text>
+          )}
+        </TouchableOpacity>
 
       </View>
       {otp !== '' ? (
         <TouchableOpacity onPress={onRegister} style={styles.btnSubmit}>
           <Text style={styles.textSubmit}>{String.register}</Text>
         </TouchableOpacity>
-      ):(
+      ) : (
         <View style={[styles.btnSubmit, {backgroundColor: 'rgba(228, 228, 228, 1)'}]}>
           <Text style={styles.textSubmit}>{String.register}</Text>
         </View>
       )
       }
-      <LoadingIndicator ref={refLoading} />
+      <LoadingIndicator ref={refLoading}/>
     </View>
   );
 }

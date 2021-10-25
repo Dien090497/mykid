@@ -1,6 +1,4 @@
 import {
-  Image,
-  ImageBackground,
   Keyboard,
   KeyboardAvoidingView,
   Platform,
@@ -11,18 +9,13 @@ import {
 } from "react-native";
 import React, {useLayoutEffect, useRef, useState} from "react";
 import {getOtpApi} from "../../../network/UserInfoService";
-import {phoneTest, passwordTest, saveUserDataFromToken, showAlert} from "../../../functions/utils";
+import {phoneTest, passwordTest, showAlert} from "../../../functions/utils";
 
-import Button from "../../../components/buttonGradient";
-import {Colors} from "../../../assets/colors/Colors";
 import Consts from "../../../functions/Consts";
 import CustomInput from "../../../components/inputRegister";
-import Images from "../../../assets/Images";
 import {String} from "../../../assets/strings/String";
 import {styles} from "./styles";
-import {ErrorMsg} from "../../../assets/strings/ErrorMsg";
 import {CheckBox} from "react-native-elements";
-import {ScreenHeight} from "react-native-elements/dist/helpers";
 
 const Register = ({navigation}) => {
   const refLoading = useRef(null);
@@ -49,7 +42,7 @@ const Register = ({navigation}) => {
   }
 
   const onChangePass1 = (text) => {
-     setIsPass(text);
+    setIsPass(text);
   }
 
   const onChangeShowPass = () => {
@@ -61,20 +54,20 @@ const Register = ({navigation}) => {
   };
 
   const oncRegister = () => {
-     if (pass === isPass) {
-       setCheckPhone(!passwordTest(pass));
-       if (passwordTest(phone)) {
-         getOtpApi(phone , {
-             success: res => {
-               navigation.navigate(Consts.ScreenIds.OTP, {phone: phone, pass: pass})
-             }
-           }
-         );
-       }
+    if (pass === isPass) {
+      setCheckPhone(!passwordTest(pass));
+      if (passwordTest(phone)) {
+        getOtpApi(phone, {
+            success: res => {
+              navigation.navigate(Consts.ScreenIds.OTP, {phone: phone, pass: pass})
+            }
+          }
+        );
+      }
 
-     } else {
-       showAlert('Mật khẩu không hợp lệ')
-     }
+    } else {
+      showAlert(String.error_pass)
+    }
   }
   return (
     <KeyboardAvoidingView
@@ -83,7 +76,7 @@ const Register = ({navigation}) => {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.container}>
           <Header title={String.register}/>
-          <View style={{alignItems: 'center', height: 600, justifyContent: 'center', marginHorizontal: 20}}>
+          <View style={{alignItems: 'center', height: 600, justifyContent: 'center'}}>
             <View style={styles.Sty_txt}>
               <CustomInput
                 placeholder={String.placeholderPhone}
@@ -128,7 +121,7 @@ const Register = ({navigation}) => {
               <TouchableOpacity onPress={oncRegister} style={styles.btnSubmit}>
                 <Text style={styles.textSubmit}>{String.register}</Text>
               </TouchableOpacity>
-            ):(
+            ) : (
               <View style={[styles.btnSubmit, {backgroundColor: 'rgba(228, 228, 228, 1)'}]}>
                 <Text style={styles.textSubmit}>{String.register}</Text>
               </View>

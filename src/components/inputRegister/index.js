@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {View, TouchableOpacity, Text, TextInput, Image, Dimensions} from "react-native";
 import styles from "./style";
 import Images from "../../assets/Images";
+import {ScaleHeight} from "../../functions/Consts";
 
 const {width} = Dimensions.get("window");
 const CustomInput = (navigation) => {
@@ -32,14 +33,15 @@ const CustomInput = (navigation) => {
           style={{
             ...styles.Sty_input,
             color: "#000000",
-            width: icon ? width * 0.89 - 25 : width * 0.89,
-            paddingVertical: !notification ? 4 : 0,
+            width: width * 0.88,
+            height: ScaleHeight.medium,
+            marginLeft: 10
           }}
           disableFullscreenUI
           value={value || ""}
         />
         {
-          icon && <TouchableOpacity onPress={onChange}>
+          icon && <TouchableOpacity onPress={onChange} style={{position: 'absolute', right: 5}}>
             <Image
               style={{...styles.Sty_iconShow}}
               source={secureTextEntry ? Images.icView : Images.icPrivate}/>
