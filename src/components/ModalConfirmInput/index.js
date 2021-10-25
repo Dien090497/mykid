@@ -16,6 +16,7 @@ export default class ModalConfirmInput extends Component {
   }
 
   open = (title, confirm, text, check) => {
+    console.log(text)
     this.setState({modalVisible: true, title: title, confirm: confirm, text: text, check: check});
   };
 
