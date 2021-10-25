@@ -240,5 +240,6 @@ export const String = {
   weight: 'Cân nặng',
   enterWeight: 'Nhập cân nặng',
   male: 'Nam',
-  female: 'nữ'
+  female: 'Nữ',
+  error_info: 'Chiều cao và cân nặng luôn lớn hơn 0'
 };
