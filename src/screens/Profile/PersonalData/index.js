@@ -21,9 +21,9 @@ import {
 } from "../../../functions/permissions";
 import {launchCamera, launchImageLibrary} from "react-native-image-picker";
 import {ScaleHeight} from "../../../functions/Consts";
-import {hideLoading, resizeImage, showLoading} from "../../../functions/utils";
+import {hideLoading, resizeImage, showAlert, showLoading} from "../../../functions/utils";
 import LoadingIndicator from '../../../components/LoadingIndicator';
-import {getPersonalDataApi} from "../../../network/PersonalDataService";
+import {getPersonalDataApi, updatePersonalDataApi} from "../../../network/PersonalDataService";
 
 export default function PersonalDate() {
   let sheet = null;
@@ -32,12 +32,12 @@ export default function PersonalDate() {
   const [title, setTitle] = useState('');
   const [inputText, setInputText] = useState('')
   const [gender, setGender] = useState();
-  const [uri, setUri] = useState(false);
   const [avatar, setAvatar] = useState();
   const [contact, setContact] = useState();
   const [email, setEmail] = useState();
   const [name, setName] = useState();
   const [phone, setPhone] = useState();
+  const [check, setCheck] = useState(false);
 
   const data = [
     {
@@ -98,7 +98,7 @@ export default function PersonalDate() {
       }
     });
   }, []);
-  
+
   const setInfo = (title, res) => {
     if (title === 'Số điện thoại') {
       setContact(res);
@@ -112,7 +112,7 @@ export default function PersonalDate() {
   const InstallPersonalData = () => {
     updatePersonalDataApi(phone, email, avatar, gender, name, {
       success: res => {
-
+           showAlert('oke')
       }
     })
   }
@@ -145,8 +145,8 @@ export default function PersonalDate() {
       resizeImage(imagePickerResponse).then(uri => {
         hideLoading(refLoading);
         if (uri) {
-          console.log(uri);
-          setUri(uri);
+          setAvatar(uri);
+          setCheck(true);
         }
       });
     }
@@ -182,7 +182,11 @@ export default function PersonalDate() {
 
   const handleGenderAction = (index) => {
     if (index < 2) {
-      setGender(dataGender[index]);
+      if (dataGender[index] === 'Nam') {
+        setGender('MALE');
+      } else {
+        setGender('FEMALE');
+      }
     }
   }
 
@@ -204,10 +208,17 @@ export default function PersonalDate() {
                   OnMoDal(itemFlatlist)
                 }}
               >
-                <Image
-                  source={uri ? ({uri: uri}) : (itemFlatlist.item.image)}
-                  style={[styles.image, {width: 40, height: 40, borderRadius: 20}]}
-                />
+                {check ? (
+                  <Image
+                    source={{uri: avatar}}
+                    style={[styles.image, {width: 40, height: 40, borderRadius: 20}]}
+                  />
+                ) : (
+                  <Image
+                    source={avatar ? ({uri: avatar}) : (itemFlatlist.item.image)}
+                    style={[styles.image, {width: 40, height: 40, borderRadius: 20}]}
+                  />
+                )}
               </TouchableOpacity>
             </View>
           </View>
@@ -283,7 +294,7 @@ export default function PersonalDate() {
         <ActionSheet
           ref={o => sheet = o}
           styles={{
-            buttonBox: {width: '100%', height: ScaleHeight.big * 1.2},
+            buttonBox: {width: '100%', height: ScaleHeight.big},
             buttonText: {fontSize: 18, fontWeight: '400', fontStyle: 'normal'}
           }}
           options={[...dataGender, String.cancel]}
@@ -294,7 +305,7 @@ export default function PersonalDate() {
         <ActionSheet
           ref={o => sheet = o}
           styles={{
-            buttonBox: {width: '100%', height: ScaleHeight.big * 1.2},
+            buttonBox: {width: '100%', height: ScaleHeight.big},
             buttonText: {fontSize: 18, fontWeight: '400', fontStyle: 'normal'}
           }}
           options={[

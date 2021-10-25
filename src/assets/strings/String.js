@@ -237,5 +237,5 @@ export const String = {
   weight: 'Cân nặng',
   enterWeight: 'Nhập cân nặng',
   male: 'Nam',
-  female: 'nữ'
+  female: 'Nữ'
 };

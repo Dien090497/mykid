@@ -69,7 +69,7 @@ export default class ModalConfirmInput extends Component {
                 <View style={styles.textInput}>
                   <TextInput
                     style={{width: '88%', height: height * 0.05, marginLeft: 5}}
-                    maxLength={(this.state.check ? 3 : 16)}
+                    maxLength={(this.state.check ? 11 : 30)}
                     placeholder={this.props.inputText}
                     placeholderTextColor={"#9D9D9D"}
                     keyboardType={(this.state.check ? 'number-pad' : 'default')}
