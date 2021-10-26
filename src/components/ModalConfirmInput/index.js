@@ -44,7 +44,6 @@ export default class ModalConfirmInput extends Component {
   };
 
   isChangeText = (text) => {
-    console.log('check', this.state.check)
     if (this.state.check) {
       this.setState({text: text.replace(/[^0-9]/g, '')})
     } else {

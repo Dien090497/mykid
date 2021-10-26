@@ -21,7 +21,7 @@ import {
 } from "../../../functions/permissions";
 import {launchCamera, launchImageLibrary} from "react-native-image-picker";
 import {ScaleHeight} from "../../../functions/Consts";
-import {hideLoading, resizeImage, showAlert, showLoading} from "../../../functions/utils";
+import {emailTest, hideLoading, resizeImage, showAlert, showLoading} from "../../../functions/utils";
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import {getPersonalDataApi, updatePersonalDataApi} from "../../../network/PersonalDataService";
 
@@ -54,7 +54,7 @@ export default function PersonalDate() {
     {
       id: '3',
       name: 'Họ tên',
-      textName: (name === null ? 'Chưa có' : name),
+      textName: (name === null || name === '' ? 'Chưa có' : name),
       image: Images.icEditProfile,
       inputText: 'Nhập tên của bạn'
     },
@@ -75,7 +75,7 @@ export default function PersonalDate() {
       id: '6',
       name: 'Email',
       image: Images.icEditProfile,
-      textName: (email === null ? 'Chưa có' : email),
+      textName: (email === null || email === '' ? 'Chưa có' : email),
       inputText: 'Nhập email'
     },
 
@@ -103,14 +103,26 @@ export default function PersonalDate() {
     if (title === 'Số điện thoại') {
       setContact(res);
     } else if (title === 'Email') {
-      setEmail(res);
+        setEmail(res);
     } else {
-      setName(res);
+      setName(res.trim());
     }
   }
 
   const InstallPersonalData = () => {
-    updatePersonalDataApi(phone, email, avatar, gender, name, {
+    if (!emailTest(email)) {
+      showAlert('Email sai định dạng. Vui lòng nhập lại!');
+      return;
+    }
+    if (name === null || name === '') {
+      showAlert('Họ tên không được để trống');
+      return;
+    }
+    if (contact.length < 10) {
+      showAlert('Số điện thoại không đúng định dạng. Vui lòng nhập lại');
+      return;
+    }
+    updatePersonalDataApi(contact, email, avatar, gender, name, {
       success: res => {
         showAlert(String.EditSuccess)
       }
