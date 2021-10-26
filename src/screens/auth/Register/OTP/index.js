@@ -6,6 +6,7 @@ import Consts from "../../../../functions/Consts";
 import {styles} from "../styles";
 import {String} from "../../../../assets/strings/String";
 import LoadingIndicator from "../../../../components/LoadingIndicator";
+import {saveUserDataFromToken} from "../../../../functions/utils";
 
 export default function OTP({navigation, route}) {
   const refLoading = useRef(null);
@@ -26,14 +27,14 @@ export default function OTP({navigation, route}) {
   }
 
   const sendTo = () => {
-    setCheck(true);
     getOtpApi(phone, {
       success: res => {
+        setCheck(true);
         setIsActive(true);
         setOtpSent(true)
         timer = getTime() + 60;
         refreshCountdown();
-      }
+      },
     })
   }
 
@@ -46,7 +47,11 @@ export default function OTP({navigation, route}) {
     }
     createAndLogin(data, {
       success: res => {
+        const token = res.data.token;
+        saveUserDataFromToken(token).then(_ => {
+        });
         navigation.navigate(Consts.ScreenIds.ConnectionScreen);
+        setCheck(true);
       },
       refLoading,
     })
@@ -82,15 +87,17 @@ export default function OTP({navigation, route}) {
         <View style={{
           width: '80%',
           height: '100%',
-          borderColor: Colors.gray,
+          borderColor: 'rgba(231, 231, 231, 1)',
           borderWidth: 0.5,
           borderRadius: 10,
           color: Colors.black,
+          justifyContent: 'center'
         }}>
           <TextInput
-            placeholderTextColor={"#9D9D9D"}
+            placeholderTextColor={'rgba(181, 180, 180, 1)'}
             placeholder={String.importOTP}
-            maxLength={10}
+            maxLength={6}
+            value={otp}
             keyboardType={"number-pad"}
             style={{
               marginHorizontal: 10
@@ -98,36 +105,42 @@ export default function OTP({navigation, route}) {
             onChangeText={isChangeOTP}
           />
         </View>
-        <TouchableOpacity
-          onPress={sendTo}
-          style={{
-            width: '18%',
-            backgroundColor: (!check ? Colors.redTitle : 'rgba(228, 228, 228, 1)'),
-            height: '100%',
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderRadius: 10,
-            marginLeft: '2%'
-          }}
-        >
-          {!check ? (
-            <Text style={{fontSize: 14, color: Colors.white}}>Gửi lại</Text>
-          ) : (
+        {!check ? (
+          <TouchableOpacity
+            onPress={sendTo}
+            style={{
+              width: '18%',
+              backgroundColor: Colors.redTitle,
+              height: '100%',
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: 10,
+              marginLeft: '2%'
+            }}
+          >
+            <Text style={{fontSize: 14, color: Colors.white}}>Lấy mã</Text>
+          </TouchableOpacity>
+        ) : (
+          <View
+            style={{
+              width: '18%',
+              backgroundColor: 'rgba(228, 228, 228, 1)',
+              height: '100%',
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: 10,
+              marginLeft: '2%'
+            }}
+          >
             <Text style={{fontSize: 14, color: Colors.white}}>{timerCount}{'s'}</Text>
-          )}
-        </TouchableOpacity>
+          </View>
+        )}
 
       </View>
-      {otp !== '' ? (
-        <TouchableOpacity onPress={onRegister} style={styles.btnSubmit}>
-          <Text style={styles.textSubmit}>{String.register}</Text>
-        </TouchableOpacity>
-      ) : (
-        <View style={[styles.btnSubmit, {backgroundColor: 'rgba(228, 228, 228, 1)'}]}>
-          <Text style={styles.textSubmit}>{String.register}</Text>
-        </View>
-      )
-      }
+
+      <TouchableOpacity onPress={onRegister} style={styles.btnSubmit}>
+        <Text style={styles.textSubmit}>{String.register}</Text>
+      </TouchableOpacity>
       <LoadingIndicator ref={refLoading}/>
     </View>
   );
