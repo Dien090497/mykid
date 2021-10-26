@@ -76,7 +76,7 @@ export const String = {
   privacyPolicy: 'Chính sách bảo mật',
   registrationConfirmation: 'Xác nhận đăng ký',
   txtNotification: 'Nhập mật khẩu gồm 8-16 ký tự',
-  errorGmail: 'Lỗi định dạng hộp thư',
+  errorGmail: 'Lỗi định dạng ',
   errorNameArea: 'Vui lòng nhập tên vùng',
   errorLocationArea: 'Vui lòng chọn một vị trí trên bản đồ làm vùng an toàn',
   placeholderGmail: 'Nhập email',
@@ -85,10 +85,17 @@ export const String = {
   userVerification: 'Xác nhận mật khẩu',
   errorCode: 'Lỗi định dạng mã xác minh',
   placeholderCode: 'Nhập mã xác minh',
+  submitOTP: 'Xác thực SĐT',
+  importOTP: 'Nhập mã xác minh',
   notification: 'Thông báo',
   error_message:
-    'Vui lòng đọc thỏa thuận người dùng và chính sách bảo mật rồi đánh dấu vào đồng ý',
-  registerSuccess: 'Đăng ký thành công',
+    'Vui lòng đọc thỏa thuận người dùng, chính sách bảo mật và chọn đồng ý',
+  error_pass: 'Mật khẩu không khớp, vui lòng kiểm tra lại',
+  error_pass1:'Mật khẩu phải có độ dài từ 6 đến 20 ký tự',
+  error_phone: 'Sai định dạng số điện thoại',
+  error_otp: 'Mã xác minh phải có độ dài 6 số',
+  error_otp1: 'Bạn vui lòng nhập mã xác minh',
+  registerSuccess: 'Đăng ký thành công!',
   errorPhone:'Độ dài từ 10-11 số',
   genneralInfo: 'Thông tin cơ bản',
   enterCurrentPassword: 'Nhập mật khẩu hiện tại',
@@ -237,5 +244,6 @@ export const String = {
   weight: 'Cân nặng',
   enterWeight: 'Nhập cân nặng',
   male: 'Nam',
-  female: 'nữ'
+  female: 'Nữ',
+  error_info: 'Chiều cao và cân nặng luôn lớn hơn 0'
 };

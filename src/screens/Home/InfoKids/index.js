@@ -125,12 +125,16 @@ export default function InfoKits({route}) {
       name,
       weight
     }
-    setInfoKitsApi(DataLocal.deviceId, body, {
-      success: res => {
-        showAlert('Thành công')
-      },
-      refLoading: refLoading
-    })
+    if (parseInt(heights) > 0 && parseInt((weights)) > 0 ) {
+      setInfoKitsApi(DataLocal.deviceId, body, {
+        success: res => {
+          showAlert('Thành công')
+        },
+        refLoading: refLoading
+      })
+    } else {
+      showAlert(String.error_info)
+    }
   }
 
   const OnMoDal = (item) => {
@@ -207,7 +211,6 @@ export default function InfoKits({route}) {
     );
   }
 
-  console.log(route.params.avatar);
   return (
     <View style={{flex: 1, backgroundColor: Colors.white}}>
       <Header title={String.home_infoKits}/>
@@ -218,7 +221,9 @@ export default function InfoKits({route}) {
           justifyContent: 'center',
           alignItems: 'center'
         }}>
-        <Image source={route.params.avatar ? {uri: route.params.avatar} : Images.icAvatar} style={{width: 130, height: 130,borderRadius: 100}} resizeMode={route.params.avatar ? 'cover' : 'stretch'}/>
+        <Image source={route.params.avatar ? {uri: route.params.avatar} : Images.icAvatar}
+               style={{width: 130, height: 130, borderRadius: 100}}
+               resizeMode={route.params.avatar ? 'cover' : 'stretch'}/>
       </View>
       <View style={{justifyContent: 'center', alignItems: 'center'}}>
         <FlatList
@@ -227,20 +232,9 @@ export default function InfoKits({route}) {
           keyExtractor={item => item.id}
           style={{paddingTop: 15}}
         />
-        {parseInt(heights) > 0 && parseInt((weights)) > 0 ? (
-          <TouchableOpacity style={styles.tobViewMain} onPress={InstallInfo}>
-            <Text style={[styles.text, {color: Colors.white}]}>Lưu</Text>
-          </TouchableOpacity>
-        ) : (
-          <View style={[styles.tobViewMain,
-            {
-              backgroundColor: Colors.colorInputView,
-              borderColor: Colors.colorInputView
-            }
-          ]}>
-            <Text style={[styles.text, {color: Colors.white}]}>Lưu</Text>
-          </View>
-        )}
+        <TouchableOpacity style={styles.tobViewMain} onPress={InstallInfo}>
+          <Text style={[styles.text, {color: Colors.white}]}>Lưu</Text>
+        </TouchableOpacity>
       </View>
       <ModalConfirmInput
         ref={refModalInput}
@@ -251,7 +245,7 @@ export default function InfoKits({route}) {
       <ActionSheet
         ref={o => sheet = o}
         styles={{
-          buttonBox: {width: '100%', height: ScaleHeight.big * 1.2},
+          buttonBox: {width: '100%', height: ScaleHeight.big },
           buttonText: {fontSize: 18, fontWeight: '400', fontStyle: 'normal'}
         }}
         cancelButtonIndex={2}

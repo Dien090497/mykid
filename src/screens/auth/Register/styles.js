@@ -16,21 +16,7 @@ export const styles = StyleSheet.create({
   },
   Sty_txt: {
     marginTop: 25,
-    width: '100%',
-    flexDirection: "row",
-    marginVertical: 15,
-    alignItems: "center",
-  },
-  Sty_txtPass: {
-    marginLeft: '2%',
-    width: "98%",
-    flexDirection: "row",
-    marginVertical: 15,
-    alignItems: "center",
-  },
-  Sty_txtCode: {
-    marginLeft: '2%',
-    width: "96%",
+    width: width* 0.9,
     flexDirection: "row",
     marginVertical: 15,
     alignItems: "center",
@@ -63,11 +49,18 @@ export const styles = StyleSheet.create({
     color: Colors.red,
     textDecorationLine: "underline",
   },
+  txtPolicy1: {
+    fontWeight: "500",
+    fontSize: FontSize.xtraSmall,
+    color: Colors.red,
+    textDecorationLine: "underline",
+    marginLeft: -15
+  },
   txt_Policy: {
     fontSize: FontSize.xtraSmall,
     marginTop: 15,
-    marginLeft: -10,
-    width: width - 60,
+    marginLeft: -15,
+    width: width - 55,
     color: '#808080'
   },
   viewButton: {
@@ -81,9 +74,9 @@ export const styles = StyleSheet.create({
     borderRadius:10,
     alignItems:'center',
     justifyContent:'center',
-    height: ScaleHeight.medium* 1.2,
-    width: width* 0.85 + 25,
-    marginTop: ScaleHeight.small* 1.5
+    height: ScaleHeight.medium,
+    width: width* 0.9,
+    marginTop: ScaleHeight.small* 1.5,
   },
   textSubmit:{
     fontFamily:'Roboto-Medium',

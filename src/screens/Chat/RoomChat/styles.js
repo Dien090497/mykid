@@ -56,6 +56,7 @@ export const styles = StyleSheet.create({
     width: 40,
     height: 40,
     alignSelf: 'center',
+    borderRadius: 20
   },
   icPhoto: {
     width: 140,

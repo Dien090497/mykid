@@ -1,6 +1,4 @@
 import {
-  Image,
-  ImageBackground,
   Keyboard,
   KeyboardAvoidingView,
   Platform,
@@ -11,18 +9,13 @@ import {
 } from "react-native";
 import React, {useLayoutEffect, useRef, useState} from "react";
 import {getOtpApi} from "../../../network/UserInfoService";
-import {phoneTest, passwordTest, saveUserDataFromToken, showAlert} from "../../../functions/utils";
+import {phoneTest, passwordTest, showAlert, phoneTest1} from "../../../functions/utils";
 
-import Button from "../../../components/buttonGradient";
-import {Colors} from "../../../assets/colors/Colors";
 import Consts from "../../../functions/Consts";
 import CustomInput from "../../../components/inputRegister";
-import Images from "../../../assets/Images";
 import {String} from "../../../assets/strings/String";
 import {styles} from "./styles";
-import {ErrorMsg} from "../../../assets/strings/ErrorMsg";
 import {CheckBox} from "react-native-elements";
-import {ScreenHeight} from "react-native-elements/dist/helpers";
 
 const Register = ({navigation}) => {
   const refLoading = useRef(null);
@@ -49,7 +42,7 @@ const Register = ({navigation}) => {
   }
 
   const onChangePass1 = (text) => {
-     setIsPass(text);
+    setIsPass(text);
   }
 
   const onChangeShowPass = () => {
@@ -61,20 +54,29 @@ const Register = ({navigation}) => {
   };
 
   const oncRegister = () => {
-     if (pass === isPass) {
-       setCheckPhone(!passwordTest(pass));
-       if (passwordTest(phone)) {
-         getOtpApi(phone , {
-             success: res => {
-               navigation.navigate(Consts.ScreenIds.OTP, {phone: phone, pass: pass})
-             }
-           }
-         );
-       }
+    if (!checkbox) {
+      showAlert(String.error_message);
+      return;
+    }
+    if (!phoneTest1(phone)) {
+      showAlert(String.error_phone);
+      return;
+    }
+    if (pass !== isPass) {
+      showAlert(String.error_pass);
+      return;
+    }
+    if (!passwordTest(pass)) {
+      showAlert(String.error_pass1);
+      return;
+    }
 
-     } else {
-       showAlert('Mật khẩu không hợp lệ')
-     }
+    getOtpApi(phone, {
+        success: res => {
+          navigation.navigate(Consts.ScreenIds.OTP, {phone: phone, pass: pass, check: true})
+        }
+      }
+    );
   }
   return (
     <KeyboardAvoidingView
@@ -83,14 +85,13 @@ const Register = ({navigation}) => {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.container}>
           <Header title={String.register}/>
-          <View style={{alignItems: 'center', height: 600, justifyContent: 'center', marginHorizontal: 20}}>
+          <View style={{alignItems: 'center', height: 600, justifyContent: 'center'}}>
             <View style={styles.Sty_txt}>
               <CustomInput
                 placeholder={String.placeholderPhone}
                 onChangeText={onChangePhone}
                 value={phone}
                 notification={checkPhone}
-                txtnotification={String.errorGmail}
                 maxLength={true}
                 checkKeyboard={true}
               />
@@ -102,7 +103,6 @@ const Register = ({navigation}) => {
                 value={pass}
                 notification={checkPass}
                 secureTextEntry={showPass}
-                txtnotification={String.txtNotification}
                 icon
                 onChange={onChangeShowPass}
                 maxLength={false}
@@ -117,18 +117,17 @@ const Register = ({navigation}) => {
                 value={isPass}
                 notification={checkPass}
                 secureTextEntry={showUserVerification}
-                txtnotification={String.txtNotification}
                 icon
                 onChange={ShowUserVerification}
                 maxLength={false}
                 checkKeyboard={false}
               />
             </View>
-            {pass !== '' && isPass !== '' && phone !== '' && checkbox ? (
+            {pass !== '' && isPass !== '' && phone !== '' ? (
               <TouchableOpacity onPress={oncRegister} style={styles.btnSubmit}>
                 <Text style={styles.textSubmit}>{String.register}</Text>
               </TouchableOpacity>
-            ):(
+            ) : (
               <View style={[styles.btnSubmit, {backgroundColor: 'rgba(228, 228, 228, 1)'}]}>
                 <Text style={styles.textSubmit}>{String.register}</Text>
               </View>
@@ -137,10 +136,12 @@ const Register = ({navigation}) => {
             <View style={{marginTop: 15, flexDirection: "row", height: '20%'}}>
               <CheckBox checkedColor='red' uncheckedColor='red' checked={checkbox}
                         onPress={() => setCheckbox(!checkbox)}/>
-              <Text style={styles.txt_Policy}>{String.acceptMy}{' '}
-                <Text style={styles.txtPolicy}>{String.agreement}</Text>
-                <Text style={styles.txtPolicy}>{String.privacyPolicy}</Text>
-              </Text>
+              <View>
+                <Text style={styles.txt_Policy}>{String.acceptMy}{' '}
+                  <Text style={styles.txtPolicy}>{String.agreement}</Text>
+                </Text>
+                <Text style={styles.txtPolicy1}>{String.privacyPolicy}</Text>
+              </View>
             </View>
           </View>
         </View>

@@ -6,11 +6,12 @@ import Consts from "../../../../functions/Consts";
 import {styles} from "../styles";
 import {String} from "../../../../assets/strings/String";
 import LoadingIndicator from "../../../../components/LoadingIndicator";
+import {saveUserDataFromToken, showAlert} from "../../../../functions/utils";
 
 export default function OTP({navigation, route}) {
   const refLoading = useRef(null);
   const [otp, setOTP] = useState('');
-  const [color, setColor] = useState(Colors.redTitle);
+  const [check, setCheck] = useState(false);
   const [phone, setPhone] = useState();
   const [isActive, setIsActive] = useState(false);
   const [otpSent, setOtpSent] = useState(false);
@@ -18,22 +19,27 @@ export default function OTP({navigation, route}) {
   let timer = 0;
 
   useEffect(() => {
-    setPhone(route.params.phone)
-  })
+    setPhone(route.params.phone);
+    setCheck(true);
+    setIsActive(true);
+    setOtpSent(true)
+    timer = getTime() + 60;
+    refreshCountdown();
+  },[route.params.check])
 
   const isChangeOTP = (text) => {
-     setOTP(text);
+    setOTP(text.replace(/[^0-9]/g, ''));
   }
 
   const sendTo = () => {
-    setColor('rgba(228, 228, 228, 1)');
-    getOtpApi(phone , {
+    getOtpApi(phone, {
       success: res => {
+        setCheck(true);
         setIsActive(true);
         setOtpSent(true)
         timer = getTime() + 60;
         refreshCountdown();
-      }
+      },
     })
   }
 
@@ -43,20 +49,34 @@ export default function OTP({navigation, route}) {
       password: route.params.pass,
       otp: otp
     }
-    createAndLogin(data,{
-      success: res =>{
-          navigation.navigate(Consts.ScreenIds.ConnectionScreen);
+    if (otp === '') {
+      showAlert(String.error_otp1);
+      return;
+    }
+    if (otp.length < 6) {
+      showAlert(String.error_otp);
+      return;
+    }
+
+    createAndLogin(data, {
+      success: res => {
+        const token = res.data.token;
+        saveUserDataFromToken(token).then(_ => {
+        });
+        navigation.navigate(Consts.ScreenIds.ConnectionScreen);
+        setCheck(false);
       },
       refLoading,
     })
   }
 
   const refreshCountdown = () => {
-    setTimeout(()=>{
+    setTimeout(() => {
       if (timer - getTime() <= 0) {
         setOtpSent(false);
         setIsActive(false);
         setTimerCount(60);
+        setCheck(false);
       } else {
         setTimerCount(timer - getTime());
         refreshCountdown();
@@ -64,22 +84,46 @@ export default function OTP({navigation, route}) {
     }, 1000)
   };
 
-  const getTime = () => { return Math.floor(Date.now() / 1000); };
-  return(
-    <View style={{flex:1, alignItems: 'center', backgroundColor: Colors.white}}>
-      <Header title={'Xác thực SĐT'}/>
-      <View style={{width: '90%', height:45, backgroundColor: Colors.white, marginTop: 40,  flexDirection: 'row'}}>
-        <TextInput
-          placeholderTextColor={"#9D9D9D"}
-          placeholder={'Nhập mã OTP'}
-          style={{width: '80%',height: '100%', borderColor: Colors.gray, borderWidth: 0.5, borderRadius: 10,color: Colors.black}}
-          onChangeText={(text => isChangeOTP(text))}
-        />
+  const getTime = () => {
+    return Math.floor(Date.now() / 1000);
+  };
+  return (
+    <View style={{flex: 1, alignItems: 'center', backgroundColor: Colors.white}}>
+      <Header title={String.submitOTP}/>
+      <View style={{
+        width: '90%',
+        height: 45,
+        backgroundColor: Colors.white,
+        marginTop: 40,
+        flexDirection: 'row'
+      }}>
+        <View style={{
+          width: '80%',
+          height: '100%',
+          borderColor: 'rgba(231, 231, 231, 1)',
+          borderWidth: 0.5,
+          borderRadius: 10,
+          color: Colors.black,
+          justifyContent: 'center'
+        }}>
+          <TextInput
+            placeholderTextColor={'rgba(181, 180, 180, 1)'}
+            placeholder={String.importOTP}
+            maxLength={6}
+            value={otp}
+            keyboardType={"number-pad"}
+            style={{
+              marginHorizontal: 10
+            }}
+            onChangeText={isChangeOTP}
+          />
+        </View>
+        {!check ? (
           <TouchableOpacity
             onPress={sendTo}
             style={{
               width: '18%',
-              backgroundColor: (color === 0 ? Colors.redTitle : 'rgba(228, 228, 228, 1)'),
+              backgroundColor: Colors.redTitle,
               height: '100%',
               justifyContent: 'center',
               alignItems: 'center',
@@ -87,25 +131,30 @@ export default function OTP({navigation, route}) {
               marginLeft: '2%'
             }}
           >
-            {color === Colors.redTitle ? (
-              <Text style={{fontSize: 14, color: Colors.white}}>Gửi lại</Text>
-            ):(
-              <Text style={{fontSize: 14, color: Colors.white}}>{timerCount}{'s'}</Text>
-            )}
+            <Text style={{fontSize: 14, color: Colors.white}}>Lấy mã</Text>
           </TouchableOpacity>
+        ) : (
+          <View
+            style={{
+              width: '18%',
+              backgroundColor: 'rgba(228, 228, 228, 1)',
+              height: '100%',
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: 10,
+              marginLeft: '2%'
+            }}
+          >
+            <Text style={{fontSize: 14, color: Colors.white}}>{timerCount}{'s'}</Text>
+          </View>
+        )}
 
       </View>
-      {otp !== '' ? (
-        <TouchableOpacity onPress={onRegister} style={styles.btnSubmit}>
-          <Text style={styles.textSubmit}>{String.register}</Text>
-        </TouchableOpacity>
-      ):(
-        <View style={[styles.btnSubmit, {backgroundColor: 'rgba(228, 228, 228, 1)'}]}>
-          <Text style={styles.textSubmit}>{String.register}</Text>
-        </View>
-      )
-      }
-      <LoadingIndicator ref={refLoading} />
+
+      <TouchableOpacity onPress={onRegister} style={styles.btnSubmit}>
+        <Text style={styles.textSubmit}>{String.register}</Text>
+      </TouchableOpacity>
+      <LoadingIndicator ref={refLoading}/>
     </View>
   );
 }
