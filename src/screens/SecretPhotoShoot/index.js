@@ -68,13 +68,11 @@ export default ({ navigation }) => {
         });
     });
   };
-  console.log(data);
 
   const shootImage = () => {
     DoSecretShoot(
       DataLocal.deviceId, {
         success: data => {
-          console.log(data);
         },
         refLoading,
       },
@@ -124,11 +122,9 @@ export default ({ navigation }) => {
         })
         .fetch("GET", src)
         .then((res) => {
-          console.log();
           CameraRoll.saveToCameraRoll(res.path())
             .then((res) => {
               console.log("save", res);
-              showAlert('Lưu ảnh thành công!')
             }).catch((error) => {
             console.log("error", error);
           });
@@ -147,8 +143,10 @@ export default ({ navigation }) => {
                           onLongPress={() => {
                             if (!isSetting){
                               sheet.show();
-                              setSelectItem(item.item);
                             }
+                          }}
+                          onPressIn={()=>{
+                            setSelectItem(item.item);
                           }}>
           <FastImage
             source={{ uri: item.item.url }}
