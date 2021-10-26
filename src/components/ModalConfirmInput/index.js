@@ -68,7 +68,7 @@ export default class ModalConfirmInput extends Component {
                 <Text style={styles.textModel}>{this.props.title}</Text>
                 <View style={styles.textInput}>
                   <TextInput
-                    style={{width: '88%', height: height * 0.05, marginLeft: 5}}
+                    style={{width: '88%', height: height * 0.05, marginLeft: 5, color: Colors.black}}
                     maxLength={(this.state.check ? 11 : 30)}
                     placeholder={this.props.inputText}
                     placeholderTextColor={"#9D9D9D"}

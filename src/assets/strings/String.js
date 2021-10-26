@@ -65,6 +65,7 @@ export const String = {
   changePassword: 'Đổi mật khẩu',
   header_deviceManager: 'Quản lý thiết bị',
   personalData: 'Dữ liệu cá nhân',
+  EditSuccess: 'Sửa đổi thành công',
 
   //
   login: 'Đăng nhập',

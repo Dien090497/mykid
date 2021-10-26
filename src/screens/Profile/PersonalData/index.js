@@ -82,8 +82,8 @@ export default function PersonalDate() {
   ];
 
   const dataGender = [
-    'Nam',
-    'Nữ'
+    'MALE',
+    'FEMALE'
   ]
 
   useLayoutEffect(() => {
@@ -112,7 +112,7 @@ export default function PersonalDate() {
   const InstallPersonalData = () => {
     updatePersonalDataApi(phone, email, avatar, gender, name, {
       success: res => {
-        showAlert('oke')
+        showAlert(String.EditSuccess)
       }
     })
   }
@@ -242,6 +242,7 @@ export default function PersonalDate() {
                   onPress={() => {
                     OnMoDal(itemFlatlist)
                   }}
+                  style={{width: 35, height: 50, justifyContent: "center", alignItems: 'flex-end'}}
                 >
                   <Image
                     source={itemFlatlist.item.image}
@@ -259,7 +260,7 @@ export default function PersonalDate() {
   }
   return (
     <View style={{flex: 1, backgroundColor: Colors.white}}>
-      <Header title={'Dữ liệu cá nhân'}/>
+      <Header title={String.personalData}/>
       <View style={{justifyContent: 'center', alignItems: 'center'}}>
         <FlatList
           data={data}
@@ -267,18 +268,9 @@ export default function PersonalDate() {
           keyExtractor={item => item.id}
           style={{paddingTop: 15}}
         />
-        {name === null || gender === null || email === null || contact === null ? (
-          <View style={[styles.tobViewMain, {
-            backgroundColor: Colors.colorInputView,
-            borderColor: Colors.colorInputView
-          }]}>
-            <Text style={[styles.text, {color: Colors.white}]}>Lưu</Text>
-          </View>
-        ) : (
-          <TouchableOpacity style={styles.tobViewMain} onPress={InstallPersonalData}>
-            <Text style={[styles.text, {color: Colors.white}]}>Lưu</Text>
-          </TouchableOpacity>
-        )}
+        <TouchableOpacity style={styles.tobViewMain} onPress={InstallPersonalData}>
+          <Text style={[styles.text, {color: Colors.white}]}>Lưu</Text>
+        </TouchableOpacity>
       </View>
       <ModalConfirmInput
         ref={refModalInput}
@@ -293,7 +285,7 @@ export default function PersonalDate() {
             buttonBox: {width: '100%', height: ScaleHeight.big},
             buttonText: {fontSize: 18, fontWeight: '400', fontStyle: 'normal'}
           }}
-          options={['Nam','Nữ', String.cancel]}
+          options={['Nam', 'Nữ', String.cancel]}
           cancelButtonIndex={2}
           onPress={handleGenderAction}
         />
