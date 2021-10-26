@@ -7,7 +7,8 @@ export default class AudioPlayerComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isPlaying: false
+      isPlaying: false,
+      path: ''
     };
 
     this._isMounted = false;
@@ -37,7 +38,8 @@ export default class AudioPlayerComponent extends Component {
       return;
     } 
     this._isMounted && this.setState({
-      isPlaying: true
+      isPlaying: true,
+      path: url
     });
 
     if (url.endsWith('amr')) {
@@ -83,9 +85,11 @@ export default class AudioPlayerComponent extends Component {
   };
 
   onStopPlay = async () => {
-    this.state.sound.stop((time) => {
-      console.log('stop: ', time);
-    });
+    if (!this.state.path.endsWith('amr')) {
+      this.state.sound.stop((time) => {
+        console.log('stop: ', time);
+      });
+    }
     this._isMounted && this.setState({
       isPlaying: false
     });
