@@ -49,6 +49,13 @@ export const styles = StyleSheet.create({
     color: Colors.red,
     textDecorationLine: "underline",
   },
+  txtPolicy1: {
+    fontWeight: "500",
+    fontSize: FontSize.xtraSmall,
+    color: Colors.red,
+    textDecorationLine: "underline",
+    marginLeft: -15
+  },
   txt_Policy: {
     fontSize: FontSize.xtraSmall,
     marginTop: 15,

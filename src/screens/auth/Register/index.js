@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import React, {useLayoutEffect, useRef, useState} from "react";
 import {getOtpApi} from "../../../network/UserInfoService";
-import {phoneTest, passwordTest, showAlert} from "../../../functions/utils";
+import {phoneTest, passwordTest, showAlert, phoneTest1} from "../../../functions/utils";
 
 import Consts from "../../../functions/Consts";
 import CustomInput from "../../../components/inputRegister";
@@ -54,20 +54,29 @@ const Register = ({navigation}) => {
   };
 
   const oncRegister = () => {
-    if (pass === isPass) {
-      setCheckPhone(!passwordTest(pass));
-      if (passwordTest(phone)) {
-        getOtpApi(phone, {
-            success: res => {
-              navigation.navigate(Consts.ScreenIds.OTP, {phone: phone, pass: pass})
-            }
-          }
-        );
-      }
-
-    } else {
-      showAlert(String.error_pass)
+    if (!checkbox) {
+      showAlert(String.error_message);
+      return;
     }
+    if (!phoneTest1(phone)) {
+      showAlert(String.error_phone);
+      return;
+    }
+    if (pass !== isPass) {
+      showAlert(String.error_pass);
+      return;
+    }
+    if (!passwordTest(pass)) {
+      showAlert(String.error_pass1);
+      return;
+    }
+
+    getOtpApi(phone, {
+        success: res => {
+          navigation.navigate(Consts.ScreenIds.OTP, {phone: phone, pass: pass})
+        }
+      }
+    );
   }
   return (
     <KeyboardAvoidingView
@@ -83,7 +92,6 @@ const Register = ({navigation}) => {
                 onChangeText={onChangePhone}
                 value={phone}
                 notification={checkPhone}
-                txtnotification={String.errorGmail}
                 maxLength={true}
                 checkKeyboard={true}
               />
@@ -95,7 +103,6 @@ const Register = ({navigation}) => {
                 value={pass}
                 notification={checkPass}
                 secureTextEntry={showPass}
-                txtnotification={String.txtNotification}
                 icon
                 onChange={onChangeShowPass}
                 maxLength={false}
@@ -110,14 +117,13 @@ const Register = ({navigation}) => {
                 value={isPass}
                 notification={checkPass}
                 secureTextEntry={showUserVerification}
-                txtnotification={String.txtNotification}
                 icon
                 onChange={ShowUserVerification}
                 maxLength={false}
                 checkKeyboard={false}
               />
             </View>
-            {pass !== '' && isPass !== '' && phone !== '' && checkbox ? (
+            {pass !== '' && isPass !== '' && phone !== '' ? (
               <TouchableOpacity onPress={oncRegister} style={styles.btnSubmit}>
                 <Text style={styles.textSubmit}>{String.register}</Text>
               </TouchableOpacity>
@@ -130,10 +136,12 @@ const Register = ({navigation}) => {
             <View style={{marginTop: 15, flexDirection: "row", height: '20%'}}>
               <CheckBox checkedColor='red' uncheckedColor='red' checked={checkbox}
                         onPress={() => setCheckbox(!checkbox)}/>
-              <Text style={styles.txt_Policy}>{String.acceptMy}{' '}
-                <Text style={styles.txtPolicy}>{String.agreement}</Text>
-                <Text style={styles.txtPolicy}>{String.privacyPolicy}</Text>
-              </Text>
+              <View>
+                <Text style={styles.txt_Policy}>{String.acceptMy}{' '}
+                  <Text style={styles.txtPolicy}>{String.agreement}</Text>
+                </Text>
+                <Text style={styles.txtPolicy1}>{String.privacyPolicy}</Text>
+              </View>
             </View>
           </View>
         </View>

@@ -13,7 +13,6 @@ const CustomInput = (navigation) => {
     secureTextEntry,
     placeholder,
     notification,
-    txtnotification,
     icon,
     onChange,
     maxLength,
@@ -29,7 +28,7 @@ const CustomInput = (navigation) => {
           keyboardType={checkKeyboard ? "number-pad" : "default"}
           onChangeText={(text) => onChangeText(text)}
           underlineColorAndroid={"transparent"}
-          maxLength={maxLength ? 11 : 50}
+          maxLength={maxLength ? 12 : 20}
           style={{
             ...styles.Sty_input,
             color: "#000000",
@@ -48,10 +47,6 @@ const CustomInput = (navigation) => {
           </TouchableOpacity>
         }
       </View>
-      {
-        notification &&
-        <Text style={styles.txtNotification}>{txtnotification}</Text>
-      }
 
     </View>
   );
