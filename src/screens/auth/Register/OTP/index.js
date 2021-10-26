@@ -6,7 +6,7 @@ import Consts from "../../../../functions/Consts";
 import {styles} from "../styles";
 import {String} from "../../../../assets/strings/String";
 import LoadingIndicator from "../../../../components/LoadingIndicator";
-import {saveUserDataFromToken} from "../../../../functions/utils";
+import {saveUserDataFromToken, showAlert} from "../../../../functions/utils";
 
 export default function OTP({navigation, route}) {
   const refLoading = useRef(null);
@@ -19,8 +19,13 @@ export default function OTP({navigation, route}) {
   let timer = 0;
 
   useEffect(() => {
-    setPhone(route.params.phone)
-  })
+    setPhone(route.params.phone);
+    setCheck(true);
+    setIsActive(true);
+    setOtpSent(true)
+    timer = getTime() + 60;
+    refreshCountdown();
+  },[route.params.check])
 
   const isChangeOTP = (text) => {
     setOTP(text.replace(/[^0-9]/g, ''));
@@ -39,19 +44,27 @@ export default function OTP({navigation, route}) {
   }
 
   const onRegister = () => {
-    setCheck(false);
     const data = {
       phone: phone,
       password: route.params.pass,
       otp: otp
     }
+    if (otp === '') {
+      showAlert(String.error_otp1);
+      return;
+    }
+    if (otp.length < 6) {
+      showAlert(String.error_otp);
+      return;
+    }
+
     createAndLogin(data, {
       success: res => {
         const token = res.data.token;
         saveUserDataFromToken(token).then(_ => {
         });
         navigation.navigate(Consts.ScreenIds.ConnectionScreen);
-        setCheck(true);
+        setCheck(false);
       },
       refLoading,
     })

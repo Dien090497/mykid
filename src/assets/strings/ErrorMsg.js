@@ -17,6 +17,7 @@ export const ErrorMsg = {
     kwa4026: 'Số lượng danh bạ không được lớn hơn 15 (KWA-4026)',
     kwa4029: 'Số điện thoại đã tồn tại (KWA-4029)',
     kwa4033: 'Không gửi được mã OTP (KWA-4033)',
+    kwa4034: 'Mã xác minh không đúng. Vui lòng nhập lại (KWA-4034)',
     kwa4036: 'Bạn đã gửi OTP quá số lần quy định. Vui lòng thử lại sau 3 tiếng (KWA-4036)',
     kwa4037: 'Tài khoản tạm khóa. Vui lòng thử lại sau 3 tiếng (KWA-4036)',
     kwa4041: 'Số điện thoại không tồn tại (KWA-4041)',

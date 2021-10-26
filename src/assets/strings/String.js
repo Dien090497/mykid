@@ -93,6 +93,8 @@ export const String = {
   error_pass: 'Mật khẩu không khớp, vui lòng kiểm tra lại',
   error_pass1:'Mật khẩu phải có độ dài từ 6 đến 20 ký tự',
   error_phone: 'Sai định dạng số điện thoại',
+  error_otp: 'Mã xác minh phải có độ dài 6 số',
+  error_otp1: 'Bạn vui lòng nhập mã xác minh',
   registerSuccess: 'Đăng ký thành công!',
   errorPhone:'Độ dài từ 10-11 số',
   genneralInfo: 'Thông tin cơ bản',
