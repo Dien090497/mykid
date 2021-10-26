@@ -106,16 +106,6 @@ export default ({navigation, route}) => {
         <Image source={Images.icRemoteStart} style={{width: 40, height: 40}} resizeMode={'stretch'}/>
       ),
     },
-    {
-      key: 'Language',
-      title: 'Cài đặt ngôn ngữ',
-      onPress: () => {
-        navigation.navigate(Consts.ScreenIds.Language);
-      },
-      icon: (
-        <Image source={Images.icCheck} style={{width: 40, height: 40}} resizeMode={'stretch'}/>
-      ),
-    },
   ];
   const renderItem = ({item}) => {
     return (

@@ -47,7 +47,6 @@ import DisturbSetting from '../screens/Profile/DoNotDisturb/DisturbSetting';
 import AlarmSetting from '../screens/Profile/AlarmClock/AlarmSetting';
 import SplashScreen from '../screens/Splash';
 import PersonalData from '../screens/Profile/PersonalData';
-import Language from '../screens/Settings/Language'
 import WS from './WebScoket';
 import {createStackNavigator} from '@react-navigation/stack';
 import LanguageTimeZone from "../screens/Profile/LanguageTimeZone";
@@ -295,10 +294,6 @@ const Routes = () => {
         <Stack.Screen
           name={Consts.ScreenIds.AddNewContact}
           component={AddNewContact}
-        />
-        <Stack.Screen
-          name={Consts.ScreenIds.Language}
-          component={Language}
         />
         <Stack.Screen
           name={Consts.ScreenIds.Chat}

@@ -26,6 +26,13 @@ import { getListDeviceApi } from "../../../network/DeviceService";
 import { styles } from "./styles";
 import { CheckBox } from "react-native-elements";
 import DataLocal from "../../../data/dataLocal";
+import { useTranslation } from "react-i18next";
+import { WheelPicker } from "react-native-wheel-picker-android";
+
+const LANGUAGES = [
+  { code: 'en', label: 'English' },
+  { code: 'vi', label: 'Việt Nam' }
+];
 
 const Login = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -34,8 +41,9 @@ const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [checkbox, setCheckbox] = useState(false);
-
   const refLoading = useRef();
+  const { t, i18n } = useTranslation();
+  const selectedLanguageCode = i18n.language;
 
   useLayoutEffect(() => {
     onLoggedIn();
@@ -87,6 +95,10 @@ const Login = ({ navigation }) => {
     }
   };
 
+  const setLanguage = code => {
+    i18n.changeLanguage(code);
+  };
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -96,7 +108,7 @@ const Login = ({ navigation }) => {
         <ScrollView>
           <ImageBackground source={Images.bgLogin} style={styles.image} resizeMode="stretch">
             <Image source={Images.bannerLogin} style={styles.banner} />
-            <Text style={styles.title}>{String.login}</Text>
+            <Text style={styles.title}>{t('common:login')}</Text>
             <TextInput
               placeholder={String.header_account + ":"}
               placeholderTextColor="#B5B4B4"
@@ -129,7 +141,7 @@ const Login = ({ navigation }) => {
               </TouchableOpacity>
             </View>
 
-            <View style={{ marginTop: 15, flexDirection: "row", marginBottom: 40 }}>
+            <View style={{ marginTop: 15, flexDirection: "row", marginBottom: 20 }}>
               <CheckBox checkedColor={Colors.colorMain} uncheckedColor={Colors.colorMain} checked={checkbox}
                         onPress={() => setCheckbox(!checkbox)} />
               <Text style={styles.txt_Policy}>{String.acceptMy}
@@ -139,6 +151,17 @@ const Login = ({ navigation }) => {
                 <Text style={styles.txtPolicy}
                       onPress={() => console.log("Chính sách bảo mật")}>{String.privacyPolicy}</Text>
               </Text>
+            </View>
+
+            <View style={{
+              width: "100%",
+              marginTop: 10,
+              justifyContent: "center",
+              alignItems:'flex-end',
+            }}>
+              <TouchableOpacity>
+                <Text>Ngôn ngữ: <Text style={{color: Colors.colorMain,textDecorationLine: "underline",}}>{DataLocal.language ==='vi'? "Việt Nam":'English'}</Text></Text>
+              </TouchableOpacity>
             </View>
           </ImageBackground>
         </ScrollView>
