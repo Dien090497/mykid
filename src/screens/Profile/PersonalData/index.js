@@ -112,7 +112,7 @@ export default function PersonalDate() {
   const InstallPersonalData = () => {
     updatePersonalDataApi(phone, email, avatar, gender, name, {
       success: res => {
-           showAlert('oke')
+        showAlert('oke')
       }
     })
   }
@@ -182,11 +182,7 @@ export default function PersonalDate() {
 
   const handleGenderAction = (index) => {
     if (index < 2) {
-      if (dataGender[index] === 'Nam') {
-        setGender('MALE');
-      } else {
-        setGender('FEMALE');
-      }
+      setGender(dataGender[index]);
     }
   }
 
@@ -297,7 +293,7 @@ export default function PersonalDate() {
             buttonBox: {width: '100%', height: ScaleHeight.big},
             buttonText: {fontSize: 18, fontWeight: '400', fontStyle: 'normal'}
           }}
-          options={[...dataGender, String.cancel]}
+          options={['Nam','Nữ', String.cancel]}
           cancelButtonIndex={2}
           onPress={handleGenderAction}
         />
