@@ -154,7 +154,7 @@ export default function RoomChat({navigation, route}) {
   const onResponderStart = async (e) => {
     setLocationY(e.nativeEvent.pageY);
     setIsRecording(true);
-    await refRecorder.current.onStartRecord();
+    await refRecorder.current._record();
   }
 
   const onResponderMove = async (e) => {
@@ -163,7 +163,7 @@ export default function RoomChat({navigation, route}) {
 
   const onResponderRelease = async (e) => {
     setIsRecording(false);
-    await refRecorder.current.onStopRecord();
+    await refRecorder.current._stop();
   }
 
   const onStopRecord = (url) => {

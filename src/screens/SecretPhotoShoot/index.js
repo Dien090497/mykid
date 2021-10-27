@@ -15,6 +15,9 @@ import ModalConfirm from "../../components/ModalConfirm";
 import CameraRoll from "@react-native-community/cameraroll";
 import RNFetchBlob from "react-native-fetch-blob";
 import { showAlert } from "../../functions/utils";
+import SimpleToast from "react-native-simple-toast";
+import Moment from "moment";
+import { Colors } from "../../assets/colors/Colors";
 
 export default ({ navigation }) => {
   const refLoading = useRef();
@@ -23,7 +26,8 @@ export default ({ navigation }) => {
   const [isSetting, setIsSetting] = useState(false);
   let sheet = null;
   const [selectItem, setSelectItem] = useState(null);
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
+  const [enable, setEnable] = useState(false)
 
   useLayoutEffect(() => {
     getListImage();
@@ -32,6 +36,10 @@ export default ({ navigation }) => {
   const getListImage = () => {
     GetListImage(DataLocal.deviceId, 0, 99, {
         success: res => {
+          if (res.data.length <= data.length){
+            SimpleToast.show('Không có ảnh mới');
+            return;
+          }
           res.data.map(item => {
             item.isChoose = false;
           });
@@ -42,17 +50,26 @@ export default ({ navigation }) => {
     );
   };
 
+
   const touchImage = (item) => {
     if (isSetting) {
       const images = Object.assign([], data);
       data[item.index].isChoose = !data[item.index].isChoose;
       setData(images);
+      for (let dataKey in data) {
+        if (data[dataKey].isChoose === true) {
+          setEnable(true);
+          return;
+        }
+        setEnable(false);
+      }
     } else {
       refImage.current.openModal(data, item.index);
     }
   };
 
   const deleteImage = () => {
+    if (!enable) return;
     const ids = [];
     data.map(item => {
       item.isChoose ? ids.push(item.id) : null;
@@ -62,7 +79,6 @@ export default ({ navigation }) => {
         {
           success: res => {
             getListImage();
-            showAlert('Xóa thành công!')
           },
           refLoading,
         });
@@ -73,6 +89,10 @@ export default ({ navigation }) => {
     DoSecretShoot(
       DataLocal.deviceId, {
         success: data => {
+          SimpleToast.show('Gửi thành công, vui lòng đợi làm mới');
+        },
+        failure: fail =>{
+          SimpleToast.show(String.fail);
         },
         refLoading,
       },
@@ -97,7 +117,6 @@ export default ({ navigation }) => {
             {
               success: res => {
                 getListImage();
-                showAlert('Xóa thành công!')
               },
               refLoading,
             });
@@ -160,7 +179,7 @@ export default ({ navigation }) => {
           /> : null}
         </TouchableOpacity>
         <View>
-          <Text style={styles.txtItemList}>{item.item.shootingTime? item.item.shootingTime : ''}</Text>
+          <Text style={styles.txtItemList}>{item.item.shootingTime? Moment(item.item.shootingTime).format('HH:mm DD-MM-yyyy Z') : ''}</Text>
         </View>
       </View>
     );
@@ -197,8 +216,8 @@ export default ({ navigation }) => {
         />
         <View style={{ width: "100%", paddingHorizontal: 20 }}>
           {isSetting ?
-            <TouchableOpacity style={styles.btnSubmit} onPress={deleteImage}>
-              <Text style={styles.textSubmit}>{String.delete}</Text>
+            <TouchableOpacity style={[styles.btnSubmit, enable ? null: {backgroundColor: Colors.transparent, borderColor: Colors.colorMain, borderWidth:1}]} onPress={deleteImage}>
+              <Text style={[styles.textSubmit, enable ? {} : {color: Colors.colorMain}]}>{String.delete}</Text>
             </TouchableOpacity>
             :
             <TouchableOpacity style={styles.btnSubmit} onPress={shootImage}>

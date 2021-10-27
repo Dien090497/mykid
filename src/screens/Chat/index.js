@@ -1,5 +1,6 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import {
+  ScrollView,
   Text,
   TouchableOpacity,
   View,
@@ -34,7 +35,7 @@ export default function Chat({navigation}) {
   return (
     <View style={styles.contain}>
       <Header title={String.header_chat} />
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         {devices && devices.map((obj, i) => (
           <View key={i}>
             <View style={styles.viewTitleRoom}>
@@ -56,7 +57,7 @@ export default function Chat({navigation}) {
             </TouchableOpacity>
           </View>
         ))}
-      </View>
+      </ScrollView>
       <LoadingIndicator ref={refLoading} />
     </View>
   );
