@@ -26,7 +26,7 @@ export default ({ navigation }) => {
   const [isSetting, setIsSetting] = useState(false);
   let sheet = null;
   const [selectItem, setSelectItem] = useState(null);
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
   const [enable, setEnable] = useState(false)
 
   useLayoutEffect(() => {
@@ -36,6 +36,10 @@ export default ({ navigation }) => {
   const getListImage = () => {
     GetListImage(DataLocal.deviceId, 0, 99, {
         success: res => {
+          if (res.data.length <= data.length){
+            SimpleToast.show('Không có ảnh mới');
+            return;
+          }
           res.data.map(item => {
             item.isChoose = false;
           });
