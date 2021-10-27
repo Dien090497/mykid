@@ -16,7 +16,14 @@ export const ErrorMsg = {
     kwa4025: 'Không tìm thấy danh bạ (KWA-4025)',
     kwa4026: 'Số lượng danh bạ không được lớn hơn 15 (KWA-4026)',
     kwa4029: 'Số điện thoại đã tồn tại (KWA-4029)',
-
+    kwa4033: 'Không gửi được mã OTP (KWA-4033)',
+    kwa4034: 'Mã xác minh không đúng. Vui lòng nhập lại (KWA-4034)',
+    kwa4036: 'Bạn đã gửi OTP quá số lần quy định. Vui lòng thử lại sau 3 tiếng (KWA-4036)',
+    kwa4037: 'Tài khoản tạm khóa. Vui lòng thử lại sau 3 tiếng (KWA-4036)',
+    kwa4041: 'Số điện thoại không tồn tại (KWA-4041)',
+    kwa4042: 'Không xác định được nhà mạng thuê bao (KWA-4042)',
+    kwa4044: 'Thương hiệu chưa được khai báo cho nhà mạng tương ứng với thuê bao (KWA-4044)',
+    kwa4043: 'Độ dài số điện thoại không hợp lệ (KWA-4043)',
     // common
     exceedNicknameLength: 'Vượt quá số lượng ký tự cho phép',
     downloadFailed: 'Tải dữ liệu không thành công',

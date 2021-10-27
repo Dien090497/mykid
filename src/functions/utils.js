@@ -24,7 +24,11 @@ export function emailTest(email) {
   );
 }
 export function passwordTest(pass) {
-  return /^[\x20-\x7E\p{L}]{8,16}$/.test(pass);
+  return /^[\x20-\x7E\p{L}]{6,20}$/.test(pass);
+}
+
+export function phoneTest1(phone) {
+  return /^(0|84)[\d]{1,10}$/.test(phone);
 }
 
 export function convertCountdownTime(seconds) {

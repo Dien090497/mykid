@@ -29,13 +29,16 @@ pod 'react-native-google-maps', :path => rn_maps_path
 
   pod 'react-native-maps', :path => '../node_modules/react-native-maps'
 
-  pod 'RNAudioRecorderPlayer', :path => '../node_modules/react-native-audio-recorder-player'
 
   pod 'react-native-spinkit', :path => '../node_modules/react-native-spinkit'
 
   pod 'react-native-cameraroll', :path => '../node_modules/@react-native-community/cameraroll'
 
   pod 'react-native-fetch-blob', :path => '../node_modules/react-native-fetch-blob'
+
+  pod 'RNAudio', :path => '../node_modules/react-native-audio'
+
+  pod 'react-native-amr', :path => '../node_modules/react-native-amr'
 
   target 'MyKidTests' do
     inherit! :complete

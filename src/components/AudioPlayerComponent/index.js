@@ -1,20 +1,16 @@
 import React, {Component} from 'react';
-import AudioRecorderPlayer from 'react-native-audio-recorder-player';
+import Sound from 'react-native-sound';
+import AMR from 'react-native-amr'
 
 export default class AudioPlayerComponent extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      currentPositionSec: 0,
-      currentDurationSec: 0,
-      playTime: '00:00:00',
-      duration: '00:00:00',
-      isPlaying: false
+      isPlaying: false,
+      path: ''
     };
 
-    this.audioRecorderPlayer = new AudioRecorderPlayer();
-    this.audioRecorderPlayer.setSubscriptionDuration(0.1); // optional. Default is 0.5
     this._isMounted = false;
   }
 
@@ -42,39 +38,58 @@ export default class AudioPlayerComponent extends Component {
       return;
     } 
     this._isMounted && this.setState({
-      isPlaying: true
+      isPlaying: true,
+      path: url
     });
-    const msg = await this.audioRecorderPlayer.startPlayer(url);
-    const volume = await this.audioRecorderPlayer.setVolume(1.0);
-    console.log(`file: ${msg}`, `volume: ${volume}`);
 
-    this.audioRecorderPlayer.addPlayBackListener((e) => {
-      if (this.props.onStopPlayer && e.currentPosition === e.duration) {
-        this.props.onStopPlayer();
-      }
-      this._isMounted && this.setState({
-        currentPositionSec: e.currentPosition,
-        currentDurationSec: e.duration,
-        playTime: this.audioRecorderPlayer.mmssss(
-          Math.floor(e.currentPosition),
-        ),
-        duration: this.audioRecorderPlayer.mmssss(Math.floor(e.duration)),
-        isPlaying: (e.currentPosition !== e.duration)
+    if (url.endsWith('amr')) {
+      AMR.stop();
+ 
+      // status: 0:playing, 1:play success end, 2:play failed, 3: stop
+      AMR.play(url.replace('file://', ''), (error, event) => {
+          if (!error) {
+              if (event.status === 1) {
+                console.log('play success');
+              } else if(event.status === 3) {
+                console.log('stop success');
+              }
+          } else {
+              //event.status = 2
+              console.log('can\'t play');
+          }
+          if (this.props.onStopPlayer) {
+            this.props.onStopPlayer();
+            this._isMounted && this.setState({
+              isPlaying: false
+            });
+          }
       });
-    });
-  };
+    } else {
+      this.state.sound = new Sound(url, '', (error) => {
+        if (error) {
+          console.log('failed to load the sound', error);
+        }
+      });
 
-  onPausePlay = async () => {
-    await this.audioRecorderPlayer.pausePlayer();
-  };
-
-  onResumePlay = async () => {
-    await this.audioRecorderPlayer.resumePlayer();
+      setTimeout(() => {
+        this.state.sound.play((success) => {
+          if (this.props.onStopPlayer) {
+            this.props.onStopPlayer();
+            this._isMounted && this.setState({
+              isPlaying: false
+            });
+          }
+        });
+      }, 100);
+    }
   };
 
   onStopPlay = async () => {
-    this.audioRecorderPlayer.stopPlayer();
-    this.audioRecorderPlayer.removePlayBackListener();
+    if (!this.state.path.endsWith('amr')) {
+      this.state.sound.stop((time) => {
+        console.log('stop: ', time);
+      });
+    }
     this._isMounted && this.setState({
       isPlaying: false
     });
