@@ -22,6 +22,7 @@ export const String = {
   custom: 'Tự chỉnh',
   home: 'Trang chủ',
   profile: 'Cá nhân',
+  fail: 'Thất bại',
   thisFunctionIsNotValid: 'Tính năng chưa được cập nhật',
   header_settings: 'Thiết lập',
   header_contacts: 'Danh bạ',

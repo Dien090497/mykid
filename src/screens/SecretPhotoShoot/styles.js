@@ -40,7 +40,8 @@ export const styles = StyleSheet.create({
     paddingVertical:5,
     fontFamily:'Roboto',
     fontSize: FontSize.xxtraSmall,
-    color: Colors.grayTextTitleColor
+    color: Colors.grayTextTitleColor,
+    textAlign:'center'
   },
   btnSubmit:{
     backgroundColor:'#EE0033',
