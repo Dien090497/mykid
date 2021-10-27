@@ -66,6 +66,17 @@ export const String = {
   header_deviceManager: 'Quản lý thiết bị',
   personalData: 'Dữ liệu cá nhân',
   EditSuccess: 'Sửa đổi thành công',
+  name: 'Họ tên',
+  avatar: 'Hình đại diện',
+  account: 'Tài khoản',
+  contact : 'Số điện thoại',
+  email: 'Email',
+  textName: 'Nhập tên của bạn',
+  textContact: 'Nhập số điện thoại',
+  textEmail: 'Nhập email',
+  error_email: 'Email sai định dạng. Vui lòng nhập lại!',
+  error_contact: 'Số điện thoại không đúng định dạng. Vui lòng nhập lại!',
+  error_name: 'Họ tên không được để trống',
 
   //
   login: 'Đăng nhập',

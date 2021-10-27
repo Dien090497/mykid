@@ -1,19 +1,20 @@
 import Consts, {FontSize, ScaleHeight} from '../../../functions/Consts';
 
 import {Colors} from '../../../assets/colors/Colors';
-import {StyleSheet,Dimensions} from 'react-native';
-const {width,height} = Dimensions.get("window");
+import {StyleSheet, Dimensions} from 'react-native';
+
+const {width, height} = Dimensions.get("window");
 
 export const styles = StyleSheet.create({
   tobMain: {
     backgroundColor: Colors.white,
-    width: width* 0.9,
-    height: height* 0.07,
-    marginHorizontal: width*0.04,
+    width: width * 0.9,
+    height: height * 0.07,
+    marginHorizontal: width * 0.04,
     padding: 10,
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius:width*0.02,
+    borderRadius: width * 0.02,
     shadowColor: 'rgba(25,25,25, 0.5)',
     shadowOffset: {
       width: 0,
@@ -30,8 +31,8 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 40,
-    width: width* 0.9,
-    height: height* 0.05,
+    width: width * 0.9,
+    height: height * 0.05,
     borderRadius: 12
   },
   text: {
@@ -39,9 +40,22 @@ export const styles = StyleSheet.create({
     fontWeight: '500',
     color: Colors.black
   },
-  image:  {
+  image: {
     width: 30,
     height: 30,
     marginLeft: 5
+  },
+  viewAvatar: {
+    flexDirection: 'row',
+    position: 'absolute',
+    right: 10,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  tobView: {
+    width: 35,
+    height: 50,
+    justifyContent: "center",
+    alignItems: 'flex-end'
   }
 });
