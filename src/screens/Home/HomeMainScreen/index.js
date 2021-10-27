@@ -1,23 +1,24 @@
-import { Image, StatusBar, Text, TouchableOpacity, View } from "react-native";
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { Image, StatusBar, Text, TouchableOpacity, View } from 'react-native';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
-import { Menu, MenuItem, MenuDivider } from "react-native-material-menu";
-import DataLocal from "../../../data/dataLocal";
-import reduxStore from "../../../redux/config/redux";
-import { useSelector } from "react-redux";
-import commonInfoAction from "../../../redux/actions/commonInfoAction";
+import { Menu, MenuItem, MenuDivider } from 'react-native-material-menu';
+import DataLocal from '../../../data/dataLocal';
+import reduxStore from '../../../redux/config/redux';
+import { useSelector } from 'react-redux';
+import commonInfoAction from '../../../redux/actions/commonInfoAction';
 import Consts from '../../../functions/Consts';
 import Images from '../../../assets/Images';
 import LoadingIndicator from '../../../components/LoadingIndicator';
-import { getListDeviceApi } from "../../../network/DeviceService";
+import { getListDeviceApi } from '../../../network/DeviceService';
 
 import {String} from '../../../assets/strings/String';
 import {styles} from './styles';
 import {useNavigation} from '@react-navigation/native';
 import {showAlert} from '../../../functions/utils';
 import XmppClient from '../../../network/xmpp/XmppClient';
-import WebSocketSafeZone from "../../../network/socket/WebSocketSafeZone";
-import WebSocketVideoCall from "../../../network/socket/WebSocketVideoCall";
+import WebSocketSafeZone from '../../../network/socket/WebSocketSafeZone';
+import WebSocketVideoCall from '../../../network/socket/WebSocketVideoCall';
+import { useTranslation } from 'react-i18next';
 
 export default function HomeMainScreen() {
   const navigation = useNavigation();
@@ -26,6 +27,7 @@ export default function HomeMainScreen() {
   const [showMenu, setShowMenu] = useState(false);
   const [devices, setDevices] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(DataLocal.deviceIndex);
+  const { t } = useTranslation();
 
   useLayoutEffect(() => {
     XmppClient.connectXmppServer();
@@ -33,7 +35,7 @@ export default function HomeMainScreen() {
     WebSocketSafeZone._handleWebSocketSetup(navigation);
     WebSocketVideoCall.setReconnect(true);
     WebSocketVideoCall._handleWebSocketSetup(navigation);
-    getListDeviceApi(DataLocal.userInfo.id, Consts.pageDefault, 100, "", "ACTIVE", {
+    getListDeviceApi(DataLocal.userInfo.id, Consts.pageDefault, 100, '', 'ACTIVE', {
       success: resData => {
         setDevices(resData.data);
       },
@@ -98,11 +100,11 @@ export default function HomeMainScreen() {
 
   return (
     <View style={styles.container}>
-      <StatusBar translucent backgroundColor="transparent" />
+      <StatusBar translucent backgroundColor='transparent' />
       <View style={styles.statusBar}>
         <Image
           source={Images.bgHome}
-          resizeMode={"stretch"}
+          resizeMode={'stretch'}
           style={styles.banner}
         />
         <Text style={styles.txtTitle}>V-KID PRO</Text>
@@ -112,7 +114,7 @@ export default function HomeMainScreen() {
             visible={showMenu}
             anchor={
               <View style={styles.menuSelect}>
-                <Image source={Images.icShow} style={styles.iconShowMenu} resizeMode="stretch" />
+                <Image source={Images.icShow} style={styles.iconShowMenu} resizeMode='stretch' />
                 <View onStartShouldSetResponder={()=>{ setShowMenu(true)}}>
                   <Text style={styles.textMenuShow}>{devices && devices[selectedIndex].deviceName}</Text>
                 </View>
@@ -121,7 +123,7 @@ export default function HomeMainScreen() {
                 }}>
                   <Image
                     source={devices && devices[selectedIndex].avatar ? { uri: devices[selectedIndex].avatar } : Images.icOther}
-                    style={styles.avatar} resizeMode="cover" />
+                    style={styles.avatar} resizeMode='cover' />
                   </View>
               </View>}
             onRequestClose={() => {
@@ -138,7 +140,7 @@ export default function HomeMainScreen() {
                   }}>
                     <Text style={[styles.textMenuDrop,isSelectDevice?{color:'#CDCDCD'}:null]}>{obj.deviceName}</Text>
                     <Image source={obj.avatar ? { uri: obj.avatar } : Images.icOther} style={styles.avatar}
-                           resizeMode="cover" />
+                           resizeMode='cover' />
                   </View>
                   <MenuDivider />
                 </View>
@@ -149,8 +151,8 @@ export default function HomeMainScreen() {
       </View>
 
       <View style={styles.body}>
-        <View style={[{ minHeight: "39%", width: "50%" }]}>
-          <View style={[styles.buttonContainerL, { width: "100%" }]}>
+        <View style={[{ minHeight: '39%', width: '50%' }]}>
+          <View style={[styles.buttonContainerL, { width: '100%' }]}>
             <TouchableOpacity
               {...buttonProps}
               style={styles.button}
@@ -158,10 +160,10 @@ export default function HomeMainScreen() {
               <View style={styles.bgIcon}>
                 <Image source={Images.icMap} style={styles.icon} />
               </View>
-              <Text style={styles.buttonText}>{String.home_gps}</Text>
+              <Text style={styles.buttonText}>{t('common:home_gps')}</Text>
             </TouchableOpacity>
           </View>
-          <View style={[styles.buttonContainerL, { width: "100%" }]}>
+          <View style={[styles.buttonContainerL, { width: '100%' }]}>
             <TouchableOpacity
               {...buttonProps}
               style={styles.button}
@@ -169,11 +171,11 @@ export default function HomeMainScreen() {
               <View style={styles.bgIcon}>
                 <Image source={Images.icJourney} style={styles.icon} />
               </View>
-              <Text style={styles.buttonText}>{String.home_journey}</Text>
+              <Text style={styles.buttonText}>{t('common:home_journey')}</Text>
             </TouchableOpacity>
           </View>
         </View>
-        <View style={[styles.buttonContainerR, { minHeight: "39%" }]}>
+        <View style={[styles.buttonContainerR, { minHeight: '39%' }]}>
           <TouchableOpacity
             {...buttonProps}
             style={styles.button}

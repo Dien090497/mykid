@@ -1,4 +1,4 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const accessTokenKey = 'ACCESS_TOKEN';
 const deviceIdKey = 'DEVICE_ID_';
@@ -84,22 +84,23 @@ async function saveDeviceIndex(index) {
 }
 
 async function loadLanguage() {
+  if (DataLocal.language) return;
   try {
     const value = await AsyncStorage.getItem(languageKey, '');
-    if (value === null || value === undefined) {
-      DataLocal.language = 'vi';
-    } else {
+    if (value !== null && value !== undefined) {
       DataLocal.language = value.toString();
+    } else {
+      DataLocal.language = 'vi';
     }
   } catch(e) {
-    DataLocal.language = null;
     console.log(e);
-    console.log(e)
+    DataLocal.language = 'vi';
   }
 }
 
 async function saveLanguage(language) {
   try {
+    console.log('saveLanguage', language)
     DataLocal.language = language;
     return await AsyncStorage.setItem(languageKey, language.toString());
   } catch (e) {

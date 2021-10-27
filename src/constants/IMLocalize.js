@@ -1,9 +1,9 @@
-import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
-import DataLocal from "../data/dataLocal";
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+import DataLocal from '../data/dataLocal';
 
-import en from "./translations/en";
-import vi from "./translations/vi";
+import en from './translations/en';
+import vi from './translations/vi';
 
 const LANGUAGES = {
   en,
@@ -11,20 +11,17 @@ const LANGUAGES = {
 };
 
 const LANGUAGE_DETECTOR = {
-  type: "languageDetector",
+  type: 'languageDetector',
   async: true,
   detect: callback => {
-    const language = DataLocal.language;
-    console.log('LANGUAGE',language)
-    if (!language === undefined || language === null) {
-      callback("vi");
-      return;
-    }
-    callback(language);
+    DataLocal.loadLanguage().then(res => {
+      callback(DataLocal.language);
+    });
   },
-  init: () => {},
+  init: () => {
+  },
   cacheUserLanguage: language => {
-    DataLocal.saveLanguage(language);
+    DataLocal.saveLanguage(language).then();
   },
 };
 
@@ -41,5 +38,5 @@ i18n
     interpolation: {
       escapeValue: false,
     },
-    defaultNS: "common",
+    defaultNS: 'common',
   });

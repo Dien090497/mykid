@@ -184,7 +184,6 @@ export async function saveUserDataFromToken(token) {
   await DataLocal.loadDeviceIndex();
   await DataLocal.loadDeviceId();
   await DataLocal.saveAccessToken(token);
-  await DataLocal.loadLanguage();
   return userInfo;
 }
 
