@@ -16,6 +16,7 @@ export default class ModalConfirmInput extends Component {
   }
 
   open = (title, confirm, text, check) => {
+    console.log(text)
     this.setState({modalVisible: true, title: title, confirm: confirm, text: text, check: check});
   };
 
@@ -43,7 +44,6 @@ export default class ModalConfirmInput extends Component {
   };
 
   isChangeText = (text) => {
-    console.log('check', this.state.check)
     if (this.state.check) {
       this.setState({text: text.replace(/[^0-9]/g, '')})
     } else {
@@ -67,8 +67,8 @@ export default class ModalConfirmInput extends Component {
                 <Text style={styles.textModel}>{this.props.title}</Text>
                 <View style={styles.textInput}>
                   <TextInput
-                    style={{width: '88%', height: height * 0.05, marginLeft: 5}}
-                    maxLength={(this.state.check ? 3 : 16)}
+                    style={{width: '88%', height: height * 0.05, marginLeft: 5, color: Colors.black}}
+                    maxLength={(this.state.check ? 11 : 30)}
                     placeholder={this.props.inputText}
                     placeholderTextColor={"#9D9D9D"}
                     keyboardType={(this.state.check ? 'number-pad' : 'default')}
