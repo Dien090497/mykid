@@ -113,7 +113,8 @@ export default function OTP({navigation, route}) {
             value={otp}
             keyboardType={"number-pad"}
             style={{
-              marginHorizontal: 10
+              marginHorizontal: 10,
+              color: Colors.black
             }}
             onChangeText={isChangeOTP}
           />

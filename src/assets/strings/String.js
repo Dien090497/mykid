@@ -191,7 +191,7 @@ export const String = {
   call_busy: 'Người dùng bận',
   call_back: 'Gọi lại',
   alerfTurnOffDevice: 'Bạn thực sự muốn tắt thiết bị này ?',
-  alerfRestartDevice: 'Bạn có chắc chắn muốn khởi động thiết bị của mình không ?',
+  alerfRestartDevice: 'Bạn có chắc chắn muốn khởi động lại thiết bị của mình không ?',
   submitSuccess: 'Gửi thành công ',
 
   // find device
