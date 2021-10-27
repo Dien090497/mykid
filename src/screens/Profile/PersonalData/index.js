@@ -1,10 +1,8 @@
 import {
-  FlatList,
-  Image, Modal, RefreshControl,
+  Image,
   Text,
   TouchableOpacity,
   View,
-  Dimensions, Keyboard
 } from 'react-native';
 import React, {useLayoutEffect, useRef, useState} from 'react';
 import Header from '../../../components/Header';
@@ -21,12 +19,13 @@ import {
 } from "../../../functions/permissions";
 import {launchCamera, launchImageLibrary} from "react-native-image-picker";
 import {ScaleHeight} from "../../../functions/Consts";
-import {emailTest, hideLoading, resizeImage, showAlert, showLoading} from "../../../functions/utils";
+import {emailTest, hideLoading, phoneTest1, resizeImage, showAlert, showLoading} from "../../../functions/utils";
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import {getPersonalDataApi, updatePersonalDataApi} from "../../../network/PersonalDataService";
 
 export default function PersonalDate() {
   let sheet = null;
+  let sheet1 = null;
   const refLoading = useRef();
   const refModalInput = useRef();
   const [title, setTitle] = useState('');
@@ -38,48 +37,6 @@ export default function PersonalDate() {
   const [name, setName] = useState();
   const [phone, setPhone] = useState();
   const [check, setCheck] = useState(false);
-
-  const data = [
-    {
-      id: '1',
-      name: 'Hình đại diện',
-      image: Images.icAvatar,
-    },
-    {
-      id: '2',
-      name: 'Tài khoản',
-      textName: (phone === null ? 'Chưa có' : phone),
-      image: Images.icEditProfile,
-    },
-    {
-      id: '3',
-      name: 'Họ tên',
-      textName: (name === null || name === '' ? 'Chưa có' : name),
-      image: Images.icEditProfile,
-      inputText: 'Nhập tên của bạn'
-    },
-    {
-      id: '4',
-      name: 'Giới tính',
-      image: Images.icEditProfile,
-      textName: (gender === null ? 'Chưa có' : (gender === 'MALE' ? String.male : String.female)),
-    },
-    {
-      id: '5',
-      name: 'Số điện thoại',
-      image: Images.icEditProfile,
-      textName: (contact === null ? 'Chưa có' : contact),
-      inputText: 'Nhập số điện thoại'
-    },
-    {
-      id: '6',
-      name: 'Email',
-      image: Images.icEditProfile,
-      textName: (email === null || email === '' ? 'Chưa có' : email),
-      inputText: 'Nhập email'
-    },
-
-  ];
 
   const dataGender = [
     'MALE',
@@ -100,10 +57,13 @@ export default function PersonalDate() {
   }, []);
 
   const setInfo = (title, res) => {
-    if (title === 'Số điện thoại') {
-      setContact(res);
-    } else if (title === 'Email') {
-        setEmail(res);
+    const resp = res.trim();
+    if (title === String.contact) {
+      setContact(resp);
+    } else if (title === String.email) {
+      if (resp !== '') {
+        setEmail(resp);
+      }
     } else {
       setName(res.trim());
     }
@@ -111,15 +71,15 @@ export default function PersonalDate() {
 
   const InstallPersonalData = () => {
     if (!emailTest(email)) {
-      showAlert('Email sai định dạng. Vui lòng nhập lại!');
+      showAlert(String.error_email);
       return;
     }
     if (name === null || name === '') {
-      showAlert('Họ tên không được để trống');
+      showAlert(String.error_name);
       return;
     }
-    if (contact.length < 10) {
-      showAlert('Số điện thoại không đúng định dạng. Vui lòng nhập lại');
+    if (contact.length < 10 || !phoneTest1(contact)) {
+      showAlert(String.error_contact);
       return;
     }
     updatePersonalDataApi(contact, email, avatar, gender, name, {
@@ -129,25 +89,25 @@ export default function PersonalDate() {
     })
   }
 
-  const OnMoDal = (item) => {
-    setTitle(item.item.name)
-    setInputText(item.item.inputText)
-    if (item.item.textName === 'Chưa có') {
-      item.item.textName = '';
+  const OnMoDal = (name, textName, textInput, check) => {
+    setTitle(name);
+    setInputText(textName);
+    if (!check) {
+      refModalInput.current.open('', () => {
+        console.log('')
+      }, textInput, true);
+    } else {
+      refModalInput.current.open('', () => {
+        console.log('')
+      }, textInput, false);
     }
-    if (item.item.id === '1' || item.item.id === '4') {
-      Keyboard.dismiss();
+  }
+
+  const OnActionSheet = (isCheck) => {
+    if (isCheck) {
       sheet.show();
     } else {
-      if (item.item.id === '5') {
-        refModalInput.current.open('', () => {
-          console.log('')
-        }, item.item.textName, true);
-      } else {
-        refModalInput.current.open('', () => {
-          console.log('')
-        }, item.item.textName, false);
-      }
+      sheet1.show();
     }
   }
 
@@ -198,125 +158,170 @@ export default function PersonalDate() {
     }
   }
 
-  const renderFlatlist = (itemFlatlist) => {
-    return (
-      <View style={{flex: 1}}>
-        {itemFlatlist.item.id === '1' ? (
+  return (
+    <View style={{flex: 1, backgroundColor: Colors.white}}>
+      <Header title={String.personalData}/>
+      <View style={{justifyContent: 'center', alignItems: 'center'}}>
+        <View style={{paddingTop: 15}}>
           <View style={styles.tobMain}>
-            <Text style={styles.text}> {itemFlatlist.item.name} </Text>
-            <View style={{
-              flexDirection: 'row',
-              position: 'absolute',
-              right: 10,
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}>
-              <TouchableOpacity
-                onPress={() => {
-                  OnMoDal(itemFlatlist)
-                }}
-              >
-                {check ? (
-                  <Image
-                    source={{uri: avatar}}
-                    style={[styles.image, {width: 40, height: 40, borderRadius: 20}]}
-                  />
-                ) : (
-                  <Image
-                    source={avatar ? ({uri: avatar}) : (itemFlatlist.item.image)}
-                    style={[styles.image, {width: 40, height: 40, borderRadius: 20}]}
-                  />
-                )}
+            <Text style={styles.text}>{String.avatar}</Text>
+            <View style={styles.viewAvatar}>
+              <TouchableOpacity onPress={() => {
+                OnActionSheet(true)
+              }}>
+                <Image
+                  source={check ? {uri: avatar} : avatar ? {uri: avatar} : Images.icAvatar}
+                  style={[styles.image, {width: 40, height: 40, borderRadius: 20}]}
+                />
               </TouchableOpacity>
             </View>
           </View>
-        ) : (
           <View style={styles.tobMain}>
-            <Text style={styles.text}> {itemFlatlist.item.name} </Text>
-            <View style={{
-              flexDirection: 'row',
-              position: 'absolute',
-              right: 10,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
+            <Text style={styles.text}>{String.account}</Text>
+            <View style={styles.viewAvatar}>
               <Text
                 style={
                   [styles.text, {
                     color: 'rgba(181, 180, 180, 1)',
                     fontSize: 12
                   }]}>
-                {itemFlatlist.item.textName}
-
+                {phone === null ? 'Chưa có' : phone}
               </Text>
-              {itemFlatlist.item.id !== '2' ? (
-                <TouchableOpacity
-                  onPress={() => {
-                    OnMoDal(itemFlatlist)
-                  }}
-                  style={{width: 35, height: 50, justifyContent: "center", alignItems: 'flex-end'}}
-                >
-                  <Image
-                    source={itemFlatlist.item.image}
-                    style={styles.image}
-                  />
-                </TouchableOpacity>
-              ) : (
-                <View style={{width: 35}}/>
-              )}
+              <View style={{width: 35}}/>
             </View>
           </View>
-        )}
-      </View>
-    );
-  }
-  return (
-    <View style={{flex: 1, backgroundColor: Colors.white}}>
-      <Header title={String.personalData}/>
-      <View style={{justifyContent: 'center', alignItems: 'center'}}>
-        <FlatList
-          data={data}
-          renderItem={renderFlatlist}
-          keyExtractor={item => item.id}
-          style={{paddingTop: 15}}
-        />
+          <View style={styles.tobMain}>
+            <Text style={styles.text}>{String.name}</Text>
+            <View style={styles.viewAvatar}>
+              <Text
+                style={
+                  [styles.text, {
+                    color: 'rgba(181, 180, 180, 1)',
+                    fontSize: 12
+                  }]}>
+                {name === null || name === '' ? 'Chưa có' : name}
+              </Text>
+              <TouchableOpacity
+                onPress={() => {
+                  OnMoDal(String.name, String.textName, name, true)
+                }}
+                style={styles.tobView}
+              >
+                <Image
+                  source={Images.icEditProfile}
+                  style={styles.image}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={styles.tobMain}>
+            <Text style={styles.text}>{String.gender}</Text>
+            <View style={styles.viewAvatar}>
+              <Text
+                style={
+                  [styles.text, {
+                    color: 'rgba(181, 180, 180, 1)',
+                    fontSize: 12
+                  }]}>
+                {gender === null ? 'Chưa có' : (gender === 'MALE' ? String.male : String.female)}
+              </Text>
+              <TouchableOpacity
+                onPress={() => {
+                  OnActionSheet(false)
+                }}
+                style={styles.tobView}
+              >
+                <Image
+                  source={Images.icEditProfile}
+                  style={styles.image}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={styles.tobMain}>
+            <Text style={styles.text}>{String.contact}</Text>
+            <View style={styles.viewAvatar}>
+              <Text
+                style={
+                  [styles.text, {
+                    color: 'rgba(181, 180, 180, 1)',
+                    fontSize: 12
+                  }]}>
+                {contact === null ? 'Chưa có' : contact}
+              </Text>
+              <TouchableOpacity
+                onPress={() => {
+                  OnMoDal(String.contact, String.textContact, contact, false)
+                }}
+                style={styles.tobView}
+              >
+                <Image
+                  source={Images.icEditProfile}
+                  style={styles.image}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={styles.tobMain}>
+            <Text style={styles.text}>{String.email}</Text>
+            <View style={styles.viewAvatar}>
+              <Text
+                style={
+                  [styles.text, {
+                    color: 'rgba(181, 180, 180, 1)',
+                    fontSize: 12
+                  }]}>
+                {email === null || email === '' ? 'Chưa có' : email}
+              </Text>
+              <TouchableOpacity
+                onPress={() => {
+                  OnMoDal(String.email, String.textEmail, email, true)
+                }}
+                style={styles.tobView}
+              >
+                <Image
+                  source={Images.icEditProfile}
+                  style={styles.image}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+
+        </View>
         <TouchableOpacity style={styles.tobViewMain} onPress={InstallPersonalData}>
           <Text style={[styles.text, {color: Colors.white}]}>Lưu</Text>
         </TouchableOpacity>
       </View>
       <ModalConfirmInput
         ref={refModalInput}
+        onPressYes={setInfo}
         title={title}
         inputText={inputText}
-        onPressYes={setInfo}
       />
-      {title === 'Giới tính' ? (
-        <ActionSheet
-          ref={o => sheet = o}
-          styles={{
-            buttonBox: {width: '100%', height: ScaleHeight.big},
-            buttonText: {fontSize: 18, fontWeight: '400', fontStyle: 'normal'}
-          }}
-          options={['Nam', 'Nữ', String.cancel]}
-          cancelButtonIndex={2}
-          onPress={handleGenderAction}
-        />
-      ) : (
-        <ActionSheet
-          ref={o => sheet = o}
-          styles={{
-            buttonBox: {width: '100%', height: ScaleHeight.big},
-            buttonText: {fontSize: 18, fontWeight: '400', fontStyle: 'normal'}
-          }}
-          options={[
-            String.selectPhotoLibrary,
-            String.takePhoto,
-            String.cancel,
-          ]}
-          cancelButtonIndex={2}
-          onPress={handleImageAction}
-        />
-      )}
+      <ActionSheet
+        ref={o => sheet1 = o}
+        styles={{
+          buttonBox: {width: '100%', height: ScaleHeight.big},
+          buttonText: {fontSize: 18, fontWeight: '400', fontStyle: 'normal'}
+        }}
+        options={['Nam', 'Nữ', String.cancel]}
+        cancelButtonIndex={2}
+        onPress={handleGenderAction}
+      />
+      <ActionSheet
+        ref={o => sheet = o}
+        styles={{
+          buttonBox: {width: '100%', height: ScaleHeight.big},
+          buttonText: {fontSize: 18, fontWeight: '400', fontStyle: 'normal'}
+        }}
+        options={[
+          String.selectPhotoLibrary,
+          String.takePhoto,
+          String.cancel,
+        ]}
+        cancelButtonIndex={2}
+        onPress={handleImageAction}
+      />
       <LoadingIndicator ref={refLoading}/>
     </View>
   );
