@@ -1,5 +1,4 @@
 import FastImage from 'react-native-fast-image';
-import RNFetchBlob from 'react-native-fetch-blob';
 import AppConfig from '../../data/AppConfig';
 import DataLocal from '../../data/dataLocal';
 import { generateRandomId } from '../../functions/utils';
