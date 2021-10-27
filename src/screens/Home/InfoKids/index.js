@@ -97,7 +97,7 @@ export default function InfoKits({route}) {
 
   const setInfo = (title, res) => {
     if (title === String.nameKids) {
-      setName(res);
+      setName(res.trim());
     } else if (title === String.height) {
       setHeight(parseInt(res));
     } else {
@@ -124,6 +124,10 @@ export default function InfoKits({route}) {
       height,
       name,
       weight
+    }
+    if (name === '') {
+      showAlert("Tên bé không được để trống");
+      return;
     }
     if (parseInt(heights) > 0 && parseInt((weights)) > 0 ) {
       setInfoKitsApi(DataLocal.deviceId, body, {
