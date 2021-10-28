@@ -15,25 +15,25 @@ export const styles = StyleSheet.create({
   Sty_txtEmail: {
     marginLeft: '2%',
     marginTop: 25,
-    width: "96%",
-    flexDirection: "row",
+    width: '96%',
+    flexDirection: 'row',
     marginVertical: 15,
-    alignItems: "center",
+    alignItems: 'center',
   },
   Sty_txtPass: {
-    width: "100%",
-    flexDirection: "row",
+    width: '100%',
+    flexDirection: 'row',
     marginVertical: 10,
-    alignItems: "center",
+    alignItems: 'center',
     justifyContent: 'center',
 
   },
   Sty_txtCode: {
     marginLeft: '2%',
-    width: "96%",
-    flexDirection: "row",
+    width: '96%',
+    flexDirection: 'row',
     marginVertical: 15,
-    alignItems: "center",
+    alignItems: 'center',
   },
   Sty_iconCode: {
     width: 120,
@@ -48,29 +48,29 @@ export const styles = StyleSheet.create({
     width: 20,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: "#009900",
+    borderColor: '#009900',
   },
   Sty_iconCheckbox: {
     borderWidth: 1,
     borderRadius: 10,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: '#FFFFFF',
     height: 20,
     width: 20,
   },
   txtPolicy: {
-    fontWeight: "700",
+    fontWeight: '700',
     fontSize: FontSize.medium,
-    color: "#00CCCC",
-    textDecorationLine: "underline",
+    color: '#00CCCC',
+    textDecorationLine: 'underline',
   },
   txt_Policy: {
     fontSize: FontSize.medium,
     marginLeft: 5,
   },
   viewButton: {
-    width: "100%",
+    width: '100%',
     marginTop: 40,
-    justifyContent: "center",
+    justifyContent: 'center',
     alignItems: 'center'
   }
 });

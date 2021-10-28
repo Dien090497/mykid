@@ -1,6 +1,4 @@
 import {
-  Alert,
-  Animated,
   Image,
   KeyboardAvoidingView, Modal,
   Platform,
@@ -8,7 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-} from "react-native";
+} from 'react-native';
 import {Divider, Icon, Slider, Switch} from 'react-native-elements';
 import MapView, {Circle, Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import React, {memo, useCallback, useEffect, useRef, useState} from 'react';
@@ -19,12 +17,9 @@ import {
   updateSafeZoneApi,
 } from '../../../network/SafeZoneService';
 import {
-  getCurrentLocation,
   showAlert,
-  showConfirmation,
 } from '../../../functions/utils';
 
-import Button from '../../../components/buttonGradient';
 import {Colors} from '../../../assets/colors/Colors';
 import DataLocal from '../../../data/dataLocal';
 import {FontSize} from '../../../functions/Consts';
@@ -32,20 +27,15 @@ import Geolocation from 'react-native-geolocation-service';
 import Header from '../../../components/Header';
 import Images from '../../../assets/Images';
 import LoadingIndicator from '../../../components/LoadingIndicator';
-import {String} from '../../../assets/strings/String';
 import styles from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import { useTranslation } from 'react-i18next';
 
 const initialRegion = {
   latitude: 21.030653,
   longitude: 105.84713,
   latitudeDelta: 0.0922,
   longitudeDelta: 0.0421,
-};
-
-const headerScreen = () => {
-  let title = String.home_safeArea.toLocaleLowerCase();
-  return title.charAt(0).toUpperCase() + title.slice(1);
 };
 
 export default ({navigation, route}) => {
@@ -64,6 +54,7 @@ export default ({navigation, route}) => {
     route?.params?.data,
   );
   const [showModal,setShowModal] = useState(false);
+  const { t } = useTranslation();
 
   const getListSafeZone = () => {
     getListSafeZoneApi(DataLocal.deviceId, 1, 30, {
@@ -72,6 +63,11 @@ export default ({navigation, route}) => {
       },
       refLoading: refLoading,
     });
+  };
+
+  const headerScreen = () => {
+    let title = t('common:home_safeArea').toLocaleLowerCase();
+    return title.charAt(0).toUpperCase() + title.slice(1);
   };
 
   useEffect(() => {
@@ -171,18 +167,18 @@ export default ({navigation, route}) => {
   const removeModal =() =>{
     return(
       <Modal
-        animationType="fade"
+        animationType='fade'
         transparent={true}
         visible={showModal}>
         <View style={styles.modal}>
           <View style={styles.modalContain}>
-            <Text style={styles.modalTitle}>{String.confirm_remove_safe_zone}</Text>
-            <View style={{flexDirection:'row', alignItems:"center"}}>
+            <Text style={styles.modalTitle}>{t('common:confirm_remove_safe_zone')}</Text>
+            <View style={{flexDirection:'row', alignItems:'center'}}>
               <TouchableOpacity style={[styles.containerTextAction,{borderWidth:1, borderColor: Colors.grayTextColor,marginRight:10}]} onPress={()=>{setShowModal(false)}}>
-                <Text children={String.back} style={[styles.txtBack,{color:Colors.black}]} />
+                <Text children={t('common:back')} style={[styles.txtBack,{color:Colors.black}]} />
               </TouchableOpacity>
               <TouchableOpacity style={[styles.containerTextAction,{backgroundColor:Colors.colorMain,marginLeft:10}]} onPress={onRemove}>
-                <Text children={String.member_approval} style={styles.txtSave} />
+                <Text children={t('common:member_approval')} style={styles.txtSave} />
               </TouchableOpacity>
             </View>
           </View>
@@ -243,7 +239,7 @@ export default ({navigation, route}) => {
         )}
         {!safeArea.visible && listSafeArea.length < 3 && (
           <TouchableOpacity style={styles.btn} onPress={() => setSafeArea({visible: true, area: null})}>
-              <Text style={styles.textBtn}>{String.palaceHolderSafeZone}</Text>
+              <Text style={styles.textBtn}>{t('common:palaceHolderSafeZone')}</Text>
           </TouchableOpacity>
         )}
       </View>
@@ -288,7 +284,7 @@ export default ({navigation, route}) => {
           longitude: val.location.lng,
         }}
         radius={(1000 * val.radius) / 1000}
-        strokeColor="#4F6D7A"
+        strokeColor='#4F6D7A'
         strokeWidth={0.1}
       />
     );
@@ -314,7 +310,7 @@ export default ({navigation, route}) => {
             styles.icMarkerDefault,
             val.name ? {tintColor: Colors.red} : {},
           ]}
-          resizeMode="contain"
+          resizeMode='contain'
         />
       </Marker>
     );
@@ -366,7 +362,7 @@ export default ({navigation, route}) => {
                     longitude: deviceOutSafeZone.location.lng,
                   }}
                   radius={500}
-                  strokeColor="#4F6D7A"
+                  strokeColor='#4F6D7A'
                   strokeWidth={0.1}
                 />
               </>
@@ -399,7 +395,7 @@ export default ({navigation, route}) => {
           {safeArea.visible && !safeArea.area && (
             <View style={styles.containerNote}>
               <Text
-                children={String.note_create_area}
+                children={t('common:note_create_area')}
                 style={styles.txtNoteDrag}
               />
             </View>
@@ -407,7 +403,7 @@ export default ({navigation, route}) => {
           {listSafeArea.length === 3 && (
             <View style={styles.containerNote}>
               <Text
-                children={String.note_max_length_safe_zone}
+                children={t('common:note_max_length_safe_zone')}
                 style={styles.txtNoteDrag}
               />
             </View>
@@ -430,6 +426,7 @@ const ViewAddOrEditArea = ({
 }) => {
   const [name, setName] = useState(area?.name || '');
   const [range, setRange] = useState(area?.radius || 200);
+  const { t } = useTranslation();
   const renderIncrementOrDecrement = (type = 'increment', onPress) => {
     return (
       <TouchableOpacity
@@ -445,7 +442,7 @@ const ViewAddOrEditArea = ({
 
   const onSave = () => {
     if (!name.length) {
-      showAlert(String.errorNameArea);
+      showAlert(t('common:errorNameArea'));
       return;
     }
 
@@ -457,7 +454,7 @@ const ViewAddOrEditArea = ({
       });
     } else {
       if (!newLocationSafeArea) {
-        showAlert(String.errorLocationArea);
+        showAlert(t('common:errorLocationArea'));
         return;
       }
       onCreate({
@@ -477,15 +474,15 @@ const ViewAddOrEditArea = ({
       <View style={styles.textInput}>
         <TextInput
           style={styles.wrap}
-          clearButtonMode="always"
+          clearButtonMode='always'
           maxLength={32}
           value={name}
           onChangeText={text => setName(text)}
         />
-        <Text children={String.maxLengthSafeAreaName} style={styles.txtNote} />
+        <Text children={t('common:maxLengthSafeAreaName')} style={styles.txtNote} />
       </View>
       <View style={styles.slide}>
-        <Text children={String.area} style={{marginRight: 5, color:Colors.colorMain, fontFamily:'Roboto-Medium', fontSize: FontSize.small}} />
+        <Text children={t('common:area')} style={{marginRight: 5, color:Colors.colorMain, fontFamily:'Roboto-Medium', fontSize: FontSize.small}} />
         {renderIncrementOrDecrement('decrement', () =>
           setRange(prev => {
             return prev - 100 < 200 ? 200 : prev - 100;
@@ -504,7 +501,7 @@ const ViewAddOrEditArea = ({
           maximumValue={2000}
           trackStyle={{paddingHorizontal: 0}}
           minimumTrackTintColor={Colors.colorMain}
-          maximumTrackTintColor="#b7b7b7"
+          maximumTrackTintColor='#b7b7b7'
         />
         {renderIncrementOrDecrement('increment', () =>
           setRange(prev => {
@@ -516,17 +513,17 @@ const ViewAddOrEditArea = ({
       <View
         style={styles.containerTextInput}>
         <TouchableOpacity style={[styles.containerTextAction,{backgroundColor:Colors.colorMain,marginRight:10}]} onPress={onSave}>
-          <Text children={String.save} style={styles.txtSave} />
+          <Text children={t('common:save')} style={styles.txtSave} />
         </TouchableOpacity>
         {area && (
           <TouchableOpacity
             style={[styles.containerTextAction,{borderWidth:1, borderColor: Colors.colorMain}]}
             onPress={onRemove}>
-            <Text children={String.member_remove} style={styles.txtBack} />
+            <Text children={t('common:member_remove')} style={styles.txtBack} />
           </TouchableOpacity>
         )}
         <TouchableOpacity style={[styles.containerTextAction,{borderWidth:1, borderColor: Colors.grayTextColor,marginLeft:10}]} onPress={toggle}>
-          <Text children={String.back} style={[styles.txtBack,{color:Colors.black}]} />
+          <Text children={t('common:back')} style={[styles.txtBack,{color:Colors.black}]} />
         </TouchableOpacity>
       </View>
     </View>

@@ -1,7 +1,7 @@
 import {StyleSheet, Dimensions} from 'react-native';
 import {FontSize, ScaleHeight} from '../../../functions/Consts';
-import {Colors} from "../../../assets/colors/Colors";
-const { width } = Dimensions.get("window");
+import {Colors} from '../../../assets/colors/Colors';
+const { width } = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
   container: {
@@ -17,9 +17,9 @@ export const styles = StyleSheet.create({
   Sty_txt: {
     marginTop: 25,
     width: width* 0.9,
-    flexDirection: "row",
+    flexDirection: 'row',
     marginVertical: 15,
-    alignItems: "center",
+    alignItems: 'center',
   },
   Sty_iconCode: {
     width: 120,
@@ -34,26 +34,26 @@ export const styles = StyleSheet.create({
     width: 20,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: "#009900",
+    borderColor: '#009900',
   },
   Sty_iconCheckbox: {
     borderWidth: 1,
     borderRadius: 10,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: '#FFFFFF',
     height: 20,
     width: 20,
   },
   txtPolicy: {
-    fontWeight: "500",
+    fontWeight: '500',
     fontSize: FontSize.xtraSmall,
     color: Colors.red,
-    textDecorationLine: "underline",
+    textDecorationLine: 'underline',
   },
   txtPolicy1: {
-    fontWeight: "500",
+    fontWeight: '500',
     fontSize: FontSize.xtraSmall,
     color: Colors.red,
-    textDecorationLine: "underline",
+    textDecorationLine: 'underline',
     marginLeft: -15
   },
   txt_Policy: {
@@ -64,9 +64,9 @@ export const styles = StyleSheet.create({
     color: '#808080'
   },
   viewButton: {
-    width: "96%",
+    width: '96%',
     marginTop: 50,
-    justifyContent: "center",
+    justifyContent: 'center',
     marginLeft: '2%'
   },
   btnSubmit:{

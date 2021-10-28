@@ -7,17 +7,19 @@ import {
 } from 'react-native';
 import Header from '../../../components/Header';
 import {styles} from './styles';
-import {String} from "../../../assets/strings/String";
-import {showAlert} from "../../../functions/utils";
+import {String} from '../../../assets/strings/String';
+import {showAlert} from '../../../functions/utils';
 import {
   setEacesDropApi,
   getPhoneApi
 } from '../../../network/EacesDropingService';
-import DataLocal from "../../../data/dataLocal";
-import LoadingIndicator from "../../../components/LoadingIndicator";
+import DataLocal from '../../../data/dataLocal';
+import LoadingIndicator from '../../../components/LoadingIndicator';
+import { useTranslation } from 'react-i18next';
 export  default function EacesDroping(){
   const [number,setNumber] =useState('');
   const refLoading = useRef();
+  const { t } = useTranslation();
   useEffect(() => {
     getPhoneApi(DataLocal.deviceId, {
       success: res => {
@@ -47,7 +49,7 @@ export  default function EacesDroping(){
   }
   return(
     <View style={styles.viewContainer}>
-      <Header title={String.hender_eacesDroping} />
+      <Header title={t('common:hender_eacesDroping')} />
        <View style={styles.viewInput}>
            <View style={styles.viewInputText}>
                <TextInput
@@ -55,7 +57,7 @@ export  default function EacesDroping(){
                  underlineColorAndroid={'transparent'}
                  style={styles.inputText}
                  value={number}
-                 keyboardType={"number-pad"}
+                 keyboardType={'number-pad'}
                  placeholder={'Nhập số điện thoại'}
                  placeholderTextColor='#B5B4B4'
                  disableFullscreenUI
@@ -65,7 +67,7 @@ export  default function EacesDroping(){
             <TouchableOpacity style={styles.tob}
               onPress={()=>checkNumber(number)}
             >
-                  <Text style={styles.text}>{String.confirm}</Text>
+                  <Text style={styles.text}>{t('common:confirm')}</Text>
             </TouchableOpacity>
        </View>
       <LoadingIndicator ref={refLoading} />

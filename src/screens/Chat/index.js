@@ -7,7 +7,6 @@ import {
 } from 'react-native';
 import {styles} from './styles';
 import Header from '../../components/Header';
-import {String} from '../../assets/strings/String';
 import LoadingIndicator from '../../components/LoadingIndicator';
 import { Image } from 'react-native';
 import Images from '../../assets/Images';
@@ -15,10 +14,12 @@ import Consts from '../../functions/Consts';
 import { checkMicrophonePermission } from '../../functions/permissions';
 import FastImage from 'react-native-fast-image';
 import XmppClient from '../../network/xmpp/XmppClient';
+import { useTranslation } from 'react-i18next';
 
 export default function Chat({navigation}) {
   const refLoading = useRef();
   const [devices, setDevices] = useState([]);
+  const { t } = useTranslation();
 
   useLayoutEffect(() => {
     setDevices(XmppClient.lstRoom);
@@ -34,7 +35,7 @@ export default function Chat({navigation}) {
 
   return (
     <View style={styles.contain}>
-      <Header title={String.header_chat} />
+      <Header title={t('common:header_chat')} />
       <ScrollView style={styles.container}>
         {devices && devices.map((obj, i) => (
           <View key={i}>
@@ -47,7 +48,7 @@ export default function Chat({navigation}) {
               </View>
               <View style={styles.viewText}>
                 <View style={styles.rowDirection}>
-                  <Text style={styles.txtTitle}>{obj.roomName ? obj.roomName : String.talkWithFamily}</Text>
+                  <Text style={styles.txtTitle}>{obj.roomName ? obj.roomName : t('common:talkWithFamily')}</Text>
                 </View>
                 <Text style={styles.txtContent}>{obj.lastMsg ? `[${obj.lastMsg.type}]` : ''}</Text>
               </View>

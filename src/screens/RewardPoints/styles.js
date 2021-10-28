@@ -1,6 +1,5 @@
-import { Colors } from "../../assets/colors/Colors";
-import { StyleSheet } from "react-native";
-import Consts from "../../functions/Consts";
+import { Colors } from '../../assets/colors/Colors';
+import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
@@ -19,7 +18,7 @@ export const styles = StyleSheet.create({
     marginTop:30,
     alignItems:'center',
     justifyContent:'center',
-    width: "80%",
+    width: '80%',
     height: 300,
     padding:'5%',
   },

@@ -1,25 +1,26 @@
 import {
   FlatList,
-  Image, Modal, RefreshControl,
+  Image,
   Text,
   TouchableOpacity,
   View,
-  Dimensions, Keyboard
+  Keyboard
 } from 'react-native';
-import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
+import React, { useLayoutEffect, useRef, useState} from 'react';
 import Header from '../../../components/Header';
 import Images from '../../../assets/Images';
-import {Colors} from "../../../assets/colors/Colors";
-import {styles} from "./styles";
-import ModalConfirmInput from "../../../components/ModalConfirmInput";
+import {Colors} from '../../../assets/colors/Colors';
+import {styles} from './styles';
+import ModalConfirmInput from '../../../components/ModalConfirmInput';
 import ActionSheet from '@alessiocancian/react-native-actionsheet';
-import {String} from "../../../assets/strings/String";
-import {ScaleHeight} from "../../../functions/Consts";
+import {String} from '../../../assets/strings/String';
+import {ScaleHeight} from '../../../functions/Consts';
 import LoadingIndicator from '../../../components/LoadingIndicator';
-import DataLocal from "../../../data/dataLocal";
-import {getInfoApi, setInfoKitsApi} from "../../../network/InfoKidsService";
+import DataLocal from '../../../data/dataLocal';
+import {getInfoApi, setInfoKitsApi} from '../../../network/InfoKidsService';
 import DatePicker from 'react-native-date-picker';
-import {showAlert} from "../../../functions/utils";
+import {showAlert} from '../../../functions/utils';
+import { useTranslation } from 'react-i18next';
 
 export default function InfoKits({route}) {
   let sheet = null;
@@ -35,17 +36,18 @@ export default function InfoKits({route}) {
   const [heights, setHeight] = useState(0);
   const [date, setDate] = useState(new Date());
   const [check, setCheck] = useState(false);
+  const { t } = useTranslation();
 
   const data = [
     {
       id: '1',
-      name: String.nameKids,
+      name: t('common:nameKids'),
       textName: name,
-      inputText: String.enterNameKids
+      inputText: t('common:enterNameKids')
     },
     {
       id: '2',
-      name: String.birthday,
+      name: t('common:birthday'),
       textName: (check !== undefined ? `${date.getFullYear()}-${`0${date.getMonth() + 1}`.slice(
         -2,
       )}-${`0${date.getDate()}`.slice(-2)}` : birthday),
@@ -53,23 +55,23 @@ export default function InfoKits({route}) {
     },
     {
       id: '3',
-      name: String.gender,
-      textName: (gender === 'MALE' ? String.male : String.female),
+      name: t('common:gender'),
+      textName: (gender === 'MALE' ? t('common:male') : t('common:female')),
       inputText: ''
     },
     {
       id: '4',
-      name: String.height,
+      name: t('common:height'),
       textName: heights + ' cm',
       isTextName: heights + '',
-      inputText: String.enterHeight
+      inputText: t('common:enterHeight')
     },
     {
       id: '5',
-      name: String.weight,
+      name: t('common:weight'),
       textName: weights + ' kg',
       isTextName: weights + '',
-      inputText: String.enterWeight
+      inputText: t('common:enterWeight')
     },
   ];
 
@@ -96,9 +98,9 @@ export default function InfoKits({route}) {
   }
 
   const setInfo = (title, res) => {
-    if (title === String.nameKids) {
+    if (title === t('common:nameKids')) {
       setName(res.trim());
-    } else if (title === String.height) {
+    } else if (title === t('common:height')) {
       setHeight(parseInt(res));
     } else {
       setWeight(parseInt(res));
@@ -126,13 +128,13 @@ export default function InfoKits({route}) {
       weight
     }
     if (name === '') {
-      showAlert("Tên bé không được để trống");
+      showAlert('Tên bé không được để trống');
       return;
     }
     if (parseInt(heights) > 0 && parseInt((weights)) > 0 ) {
       setInfoKitsApi(DataLocal.deviceId, body, {
         success: res => {
-          showAlert('Thành công')
+          showAlert(t('common:success'))
         },
         refLoading: refLoading
       })
@@ -178,8 +180,8 @@ export default function InfoKits({route}) {
           setModalDate(false)
         }}
         title={'Chọn ngày'}
-        cancelText={String.cancel}
-        confirmText={String.confirm}
+        cancelText={t('common:cancel')}
+        confirmText={t('common:confirm')}
       />
     );
   }
@@ -217,7 +219,7 @@ export default function InfoKits({route}) {
 
   return (
     <View style={{flex: 1, backgroundColor: Colors.white}}>
-      <Header title={String.home_infoKits}/>
+      <Header title={t('common:home_infoKits')}/>
       <View
         style={{
           width: '100%',
@@ -237,7 +239,7 @@ export default function InfoKits({route}) {
           style={{paddingTop: 15}}
         />
         <TouchableOpacity style={styles.tobViewMain} onPress={InstallInfo}>
-          <Text style={[styles.text, {color: Colors.white}]}>Lưu</Text>
+          <Text style={[styles.text, {color: Colors.white}]}>{t('common:save')}</Text>
         </TouchableOpacity>
       </View>
       <ModalConfirmInput
@@ -254,9 +256,9 @@ export default function InfoKits({route}) {
         }}
         cancelButtonIndex={2}
         options={[
-          'Nam',
-          'Nữ',
-          String.cancel]}
+          t('common:male'),
+          t('common:female'),
+          t('common:cancel')]}
         onPress={handleGenderAction}
       />
       {datePicker()}

@@ -1,9 +1,7 @@
-import Consts, {FontSize, ScaleHeight} from '../../../functions/Consts';
-
 import {Colors} from '../../../assets/colors/Colors';
 import {StyleSheet, Dimensions} from 'react-native';
 
-const {width, height} = Dimensions.get("window");
+const {width, height} = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
   tobMain: {
@@ -55,7 +53,7 @@ export const styles = StyleSheet.create({
   tobView: {
     width: 35,
     height: 50,
-    justifyContent: "center",
+    justifyContent: 'center',
     alignItems: 'flex-end'
   }
 });

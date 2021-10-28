@@ -12,12 +12,12 @@ import DataLocal from '../../../data/dataLocal';
 import Header from '../../../components/Header';
 import Images from '../../../assets/Images';
 import LoadingIndicator from '../../../components/LoadingIndicator';
-import {String} from '../../../assets/strings/String';
 import {deleteDevicesApi, getListDeviceApi} from '../../../network/DeviceService';
 import {styles} from './styles';
-import {Colors} from "../../../assets/colors/Colors";
+import {Colors} from '../../../assets/colors/Colors';
 import reduxStore from '../../../redux/config/redux'
-import commonInfoAction from "../../../redux/actions/commonInfoAction";
+import commonInfoAction from '../../../redux/actions/commonInfoAction';
+import { useTranslation } from 'react-i18next';
 
 export default function DeviceManager({navigation}) {
   const [selectedIndex, setSelectedIndex] = useState(DataLocal.deviceIndex);
@@ -28,39 +28,41 @@ export default function DeviceManager({navigation}) {
   const [loading, setLoading] = useState(false);
   const [nameDevices, setNameDevices] = useState();
   const refLoading = useRef();
+  const { t } = useTranslation();
 
   const dataMock = [
     {
-      name: 'Bố',
+      name: t('common:dad'),
       icon: Images.icFather,
       relationship: 'FATHER'
     },
     {
-      name: 'Mẹ',
+      name: t('common:mom'),
       icon: Images.icMother,
       relationship: 'MOTHER'
     },
     {
-      name: 'Ông',
+      name: t('common:grandfather'),
       icon: Images.icGrandfather,
       relationship: 'GRANDFATHER'
     },
     {
-      name: 'Bà',
+      name: t('common:grandma'),
       icon: Images.icGrandmother,
       relationship: 'GRANDMOTHER'
     },
     {
-      name: 'Anh',
+      name: t('common:brother'),
       icon: Images.icBrother,
       relationship: 'BROTHER'
     },
     {
-      name: 'Chị',
+      name: t('common:sister'),
       icon: Images.icSister,
       relationship: 'SISTER'
     },
     {
+      name: t('common:other'),
       icon: Images.icOther,
       relationship: 'OTHER'
     },
@@ -138,7 +140,7 @@ export default function DeviceManager({navigation}) {
           </TouchableOpacity>
           {selectedIndex !== index ?
             <TouchableOpacity onPress={() => {handleChange(index)}} style={styles.btnChange}>
-              <Text style={styles.textCheck}>{String.change}</Text>
+              <Text style={styles.textCheck}>{t('common:change')}</Text>
             </TouchableOpacity>
             :
             <View style={styles.viewCurrent}>
@@ -167,13 +169,13 @@ export default function DeviceManager({navigation}) {
   return (
     <View style={styles.contain}>
       {checkDelete ? (
-        <Header title={String.header_deviceManager} right rightIcon={Images.icDelete} rightAction={checkDeleteDevices}/>
+        <Header title={t('common:header_deviceManager')} right rightIcon={Images.icDelete} rightAction={checkDeleteDevices}/>
       ):(
-        <Header title={String.header_deviceManager} right rightIcon={Images.icConfirms} rightAction={checkDeleteDevices}/>
+        <Header title={t('common:header_deviceManager')} right rightIcon={Images.icConfirms} rightAction={checkDeleteDevices}/>
       )}
       <View style={styles.container}>
         <TouchableOpacity style={styles.rowPlus} onPress={handleAddDevice}>
-          <Text style={styles.textPlus}>{'+ '}{String.header_addDevice}</Text>
+          <Text style={styles.textPlus}>{'+ '}{t('common:header_addDevice')}</Text>
         </TouchableOpacity>
 
         <FlatList
@@ -197,7 +199,7 @@ export default function DeviceManager({navigation}) {
           <TouchableOpacity style={styles.modal} onPress={() => setOnModal(false)}>
             <View style={styles.tobModal}>
               <View style={[styles.tobView, {marginTop: ScaleHeight.small}]}>
-                <Text style={styles.textModel}>{String.arleftDeleteDevices1}{nameDevices}{String.arleftDeleteDevices2}</Text>
+                <Text style={styles.textModel}>{t('common:arleftDeleteDevices1')}{nameDevices}{t('common:arleftDeleteDevices2')}</Text>
               </View>
               <View style={[styles.tobView, {width: '86%'}]}>
                 <View style={styles.tob}>
@@ -207,7 +209,7 @@ export default function DeviceManager({navigation}) {
                   >
                     <Text
                       style={[styles.smallButtonText, {color: Colors.red}]}>
-                      {String.cancel}
+                      {t('common:cancel')}
                     </Text>
                   </TouchableOpacity>
                 </View>
@@ -218,7 +220,7 @@ export default function DeviceManager({navigation}) {
                   >
                     <Text
                       style={[styles.smallButtonText, {color: Colors.white}]}>
-                      {String.confirm}
+                      {t('common:confirm')}
                     </Text>
                   </TouchableOpacity>
                 </View>

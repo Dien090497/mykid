@@ -1,11 +1,12 @@
-import React, {Component} from 'react';
-import {Modal, Text, TouchableOpacity, View} from 'react-native';
-import {styles} from './styles';
-import {Colors} from '../../assets/colors/Colors';
-import  {ScaleHeight} from '../../functions/Consts';
-import {String} from "../../assets/strings/String";
+import React, { Component } from 'react';
+import { Modal, Text, TouchableOpacity, View } from 'react-native';
+import { styles } from './styles';
+import { Colors } from '../../assets/colors/Colors';
+import { ScaleHeight } from '../../functions/Consts';
+import { String } from '../../assets/strings/String';
+import i18next from 'i18next';
 
-export default class ModalConfirm extends Component  {
+export default class ModalConfirm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,11 +15,11 @@ export default class ModalConfirm extends Component  {
   }
 
   open = (title, confirm) => {
-    this.setState({modalVisible: true,title: title, confirm: confirm});
+    this.setState({ modalVisible: true, title: title, confirm: confirm });
   };
 
   close = (callback) => {
-    this.setState({modalVisible: false}, () => {
+    this.setState({ modalVisible: false }, () => {
       if (callback) {
         callback();
       }
@@ -41,50 +42,52 @@ export default class ModalConfirm extends Component  {
   };
 
   render() {
-  return (
-    <Modal
-      visible={this.state.modalVisible}
-      transparent={true}
-      animationType={'none'}
-    >
-      <View style={styles.itemLeft}>
-        <TouchableOpacity style={styles.modal} onPress={() => {this.close()}}>
-          <View style={styles.tobModal}>
-            <View style={[styles.tobView, {marginTop: ScaleHeight.small}]}>
-              <Text style={styles.textModel}>{this.state.title}</Text>
-            </View>
-            <View style={[styles.tobView, {width: '86%'}]}>
-              <View style={styles.tob}>
-                <TouchableOpacity
-                  style={[styles.smallButton, {backgroundColor: Colors.white}]}
-                  onPress={ () => {
-                    this.actionNo();
-                  }}
-                >
-                  <Text
-                    style={[styles.smallButtonText, {color: Colors.red}]}>
-                    {String.cancel}
-                  </Text>
-                </TouchableOpacity>
+    return (
+      <Modal
+        visible={this.state.modalVisible}
+        transparent={true}
+        animationType={'none'}
+      >
+        <View style={styles.itemLeft}>
+          <TouchableOpacity style={styles.modal} onPress={() => {
+            this.close();
+          }}>
+            <View style={styles.tobModal}>
+              <View style={[styles.tobView, { marginTop: ScaleHeight.small }]}>
+                <Text style={styles.textModel}>{this.state.title}</Text>
               </View>
-              <View style={styles.TobOpacity}>
-                <TouchableOpacity
-                  style={[styles.smallButton, {backgroundColor: Colors.red}]}
-                  onPress={ () => {
-                    this.actionYes();
-                  }}
-                >
-                  <Text
-                    style={[styles.smallButtonText, {color: Colors.white}]}>
-                    {String.confirm}
-                  </Text>
-                </TouchableOpacity>
+              <View style={[styles.tobView, { width: '86%' }]}>
+                <View style={styles.tob}>
+                  <TouchableOpacity
+                    style={[styles.smallButton, { backgroundColor: Colors.white }]}
+                    onPress={() => {
+                      this.actionNo();
+                    }}
+                  >
+                    <Text
+                      style={[styles.smallButtonText, { color: Colors.red }]}>
+                      {i18next.t('common:cancel')}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+                <View style={styles.TobOpacity}>
+                  <TouchableOpacity
+                    style={[styles.smallButton, { backgroundColor: Colors.red }]}
+                    onPress={() => {
+                      this.actionYes();
+                    }}
+                  >
+                    <Text
+                      style={[styles.smallButtonText, { color: Colors.white }]}>
+                      {i18next.t('common:confirm')}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
-          </View>
-        </TouchableOpacity>
-      </View>
-    </Modal>
-  );
-}
+          </TouchableOpacity>
+        </View>
+      </Modal>
+    );
+  }
 }

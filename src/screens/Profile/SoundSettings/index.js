@@ -11,17 +11,19 @@ import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'reac
 import { Colors } from '../../../assets/colors/Colors';
 import { getSoundModesApi, setSoundModesApi } from '../../../network/UserInfoService';
 import DataLocal from '../../../data/dataLocal';
+import { useTranslation } from 'react-i18next';
 
 const {width, height} = Dimensions.get('window');
 export default function SoundSettings({navigation}) {
   const [mode, setMode] = useState();
   const refLoading = useRef();
+  const { t } = useTranslation();
 
   const radio_props = [
-    {label: 'Rung và chuông', value: 1},
-    {label: 'Chuông', value: 2},
-    {label: 'Rung', value: 3},
-    {label: 'Im lặng', value: 4},
+    {label: t('common:vibrateAndRing'), value: 1},
+    {label: t('common:ring'), value: 2},
+    {label: t('common:vibrate'), value: 3},
+    {label: t('common:silent'), value: 4},
   ];
 
   useLayoutEffect(() => {
@@ -63,7 +65,7 @@ export default function SoundSettings({navigation}) {
 
   return (
     <View style={styles.contain}>
-      <Header title={String.header_soundSettings} />
+      <Header title={t('common:header_soundSettings')} />
       <View style={styles.container}>
         <RadioForm formHorizontal={false} animation={true} style={{marginTop: height* 0.008}}>
           {
@@ -96,7 +98,7 @@ export default function SoundSettings({navigation}) {
                 />
               </RadioButton>
             ))
-          }  
+          }
         </RadioForm>
       </View>
       <LoadingIndicator ref={refLoading} />

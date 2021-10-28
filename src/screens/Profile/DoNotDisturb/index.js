@@ -5,10 +5,9 @@ import {
   Text,
   TouchableOpacity,
   View,
-} from "react-native";
+} from 'react-native';
 import {styles} from './styles';
 import Header from '../../../components/Header';
-import {String} from '../../../assets/strings/String';
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import { Colors } from '../../../assets/colors/Colors';
 import DataLocal from '../../../data/dataLocal';
@@ -16,13 +15,23 @@ import { Image } from 'react-native';
 import Images from '../../../assets/Images';
 import PeriodModal from '../../../components/PeriodModal';
 import { getClassModesApi, setClassModesApi } from '../../../network/ClassModesService';
-import Consts from "../../../functions/Consts";
+import Consts from '../../../functions/Consts';
+import { useTranslation } from "react-i18next";
 
 export default function DoNotDisturb({navigation}) {
   const refLoading = useRef();
   const refPeriodModal = useRef();
   const [classConfig, setClassConfig] = useState();
-  const dayOfWeeks = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
+  const { t } = useTranslation();
+  const dayOfWeeks = [
+    t('common:monDay'),
+    t('common:tueDay'),
+    t('common:wed'),
+    t('common:thu'),
+    t('common:fri'),
+    t('common:sat'),
+    t('common:sun')
+  ];
 
   useLayoutEffect(() => {
     getClassModes();
@@ -70,7 +79,7 @@ export default function DoNotDisturb({navigation}) {
     });
   };
   const dayOfWeek = (text) => {
-    const day = text.split("")
+    const day = text.split('')
     const dayOfWeek = day.reduce((total,item,index) =>{
       return item === '0' ? total : total+' '+dayOfWeeks[index];
     },'');
@@ -79,7 +88,7 @@ export default function DoNotDisturb({navigation}) {
 
   return (
     <View style={styles.contain}>
-      <Header title={String.header_doNotDisturb} />
+      <Header title={t('common:header_doNotDisturb')} />
       <ScrollView style={styles.container}>
         <View style={styles.viewImg}>
           <Image source={Images.icDoNotDisturb} resizeMode={'contain'} style={styles.iconClock}/>
@@ -92,7 +101,7 @@ export default function DoNotDisturb({navigation}) {
                 <View style={styles.rowDirection}>
                   {obj.from === obj.to ?
                     <View style={{flex:9}}>
-                      <Text style={styles.txtAddTime}>{String.textAddTime}</Text>
+                      <Text style={styles.txtAddTime}>{t('common:textAddTime')}</Text>
                     </View> :
                     <View style={{flex:9}}>
                       <Text style={styles.txtTime}>{obj.from.substring(0, 5)} - {obj.to.substring(0, 5)}</Text>
@@ -114,7 +123,7 @@ export default function DoNotDisturb({navigation}) {
           ))}
         </View>
         <TouchableOpacity style={styles.button} onPress={handleSave}>
-          <Text style={styles.buttonText}>{String.confirm}</Text>
+          <Text style={styles.buttonText}>{t('common:confirm')}</Text>
         </TouchableOpacity>
       </ScrollView>
       <PeriodModal ref={refPeriodModal}/>

@@ -23,11 +23,13 @@ import LoadingIndicator from '../../../components/LoadingIndicator';
 import {String} from '../../../assets/strings/String';
 import {styles} from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import { useTranslation } from 'react-i18next';
 
 export default ({navigation, route}) => {
   const refLoading = useRef();
   const [isBlocking, setIsBlocking] = useState(false);
   const [dataContacts, setDataContacts] = useState(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     getListContactPhoneApi(DataLocal.deviceId, {
@@ -65,8 +67,8 @@ export default ({navigation, route}) => {
     }
 
     showConfirmation(String.removeContactConfirm, {
-      acceptStr: String.member_approval,
-      cancelStr: String.back,
+      acceptStr: t('common:member_approval'),
+      cancelStr: t('common:back'),
       response: () => {
         deletePhoneBookApi(
           DataLocal.deviceId,
@@ -106,7 +108,7 @@ export default ({navigation, route}) => {
           <TouchableOpacity
             style={styles.containerRemove}
             onPress={() => removeContact(item)}>
-            <Text style={styles.txtRemove}>{String.delete}</Text>
+            <Text style={styles.txtRemove}>{t('common:delete')}</Text>
           </TouchableOpacity>
         </View>
       </TouchableOpacity>
@@ -130,7 +132,7 @@ export default ({navigation, route}) => {
   return (
     <View
       style={[styles.container, {paddingBottom: useSafeAreaInsets().bottom}]}>
-      <Header title={String.header_contacts} />
+      <Header title={t('common:header_contacts')} />
       <View style={styles.mainView}>
         <FlatList
           data={dataContacts?.phones || []}
@@ -145,19 +147,19 @@ export default ({navigation, route}) => {
               <Image
                 source={Images.icEmptyContact}
                 style={styles.emptyContact}
-                resizeMode="contain"
+                resizeMode='contain'
               />
               <Text style={styles.txtEmpty} children={String.empty_contact} />
             </View>
           }
         />
         <View style={styles.containerViewBottom}>
-          <Text style={styles.txtBlockContact}>{String.blockOther}</Text>
+          <Text style={styles.txtBlockContact}>{t('common:blockOther')}</Text>
           <View style={styles.containerSwitch}>
             <Switch
               trackColor={{false: Colors.gray, true: '#81b0ff'}}
-              // thumbColor={isBlocking ? "#f5dd4b" : "#f4f3f4"}
-              ios_backgroundColor="#3e3e3e"
+              // thumbColor={isBlocking ? '#f5dd4b' : '#f4f3f4'}
+              ios_backgroundColor='#3e3e3e'
               onValueChange={toggleSwitch}
               value={isBlocking}
               // value={dataContacts?.blockUnknown}
@@ -165,7 +167,7 @@ export default ({navigation, route}) => {
           </View>
         </View>
         <TouchableOpacity style={styles.containerAdd} onPress={pressAddNew}>
-          <Text style={styles.txtAdd}>{String.addPhone}</Text>
+          <Text style={styles.txtAdd}>{t('common:addPhone')}</Text>
         </TouchableOpacity>
       </View>
 
