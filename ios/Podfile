@@ -40,6 +40,8 @@ pod 'react-native-google-maps', :path => rn_maps_path
 
   pod 'react-native-amr', :path => '../node_modules/react-native-amr'
 
+  pod 'react-native-simple-toast', :path => '../node_modules/react-native-simple-toast'
+
   target 'MyKidTests' do
     inherit! :complete
     # Pods for testing
