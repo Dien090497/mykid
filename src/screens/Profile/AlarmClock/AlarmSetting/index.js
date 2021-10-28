@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import { styles } from './styles';
 import Header from '../../../../components/Header';
-import { String } from '../../../../assets/strings/String';
 import LoadingIndicator from '../../../../components/LoadingIndicator';
 import { Colors } from '../../../../assets/colors/Colors';
 import DataLocal from '../../../../data/dataLocal';
@@ -16,20 +15,22 @@ import { Image } from 'react-native';
 import Images from '../../../../assets/Images';
 import { TimePicker } from 'react-native-wheel-picker-android';
 import { setAlarmApi } from '../../../../network/AlarmService';
-import { showAlert } from "../../../../functions/utils";
+import { showAlert } from '../../../../functions/utils';
+import { useTranslation } from 'react-i18next';
 
 export default function AlarmSetting({navigation, route}) {
   const refLoading = useRef();
   const [config, setConfig] = useState();
   const [time, setTime] = useState();
+  const { t } = useTranslation();
   const [dayOfWeeks, setdayOfWeeks] = useState([
-    {day: 'CN', value: 1, isOn: false},
-    {day: 'T2', value: 2, isOn: false},
-    {day: 'T3', value: 3, isOn: false},
-    {day: 'T4', value: 4, isOn: false},
-    {day: 'T5', value: 5, isOn: false},
-    {day: 'T6', value: 6, isOn: false},
-    {day: 'T7', value: 7, isOn: false},
+    {day: t('common:monDay'), value: 1, isOn: false},
+    {day: t('common:tueDay'), value: 2, isOn: false},
+    {day: t('common:wed'), value: 3, isOn: false},
+    {day: t('common:thu'), value: 4, isOn: false},
+    {day: t('common:fri'), value: 5, isOn: false},
+    {day: t('common:sat'), value: 6, isOn: false},
+    {day: t('common:sun'), value: 7, isOn: false},
   ]);
 
   useLayoutEffect(() => {
@@ -84,11 +85,11 @@ export default function AlarmSetting({navigation, route}) {
         obj.custom += element.isOn ? '1' : '0';
       });
       if (obj.custom === '0000000') {
-        showAlert(String.selectAtLeastOneDay)
+        showAlert(t('common:selectAtLeastOneDay'))
         return;
       }
     }
-    
+
     setConfig(obj);
     setAlarmApi(DataLocal.deviceId, obj, {
       success: resData => {
@@ -112,7 +113,7 @@ export default function AlarmSetting({navigation, route}) {
 
   return (
     <View style={styles.contain}>
-      <Header title={String.header_alarmSetting} />
+      <Header title={t('common:header_alarmSetting')} />
       <ScrollView>
         <View style={styles.chooseClock}>
           <View style={[styles.viewTime, Platform.OS !== 'ios' ? {height: 150, paddingTop: 20} : {}]}>
@@ -124,7 +125,7 @@ export default function AlarmSetting({navigation, route}) {
             </View>
         </View>
         <View style={{flex:1, marginHorizontal:20}}>
-          <Text style={styles.txtTitle}>{String.repeat}</Text>
+          <Text style={styles.txtTitle}>{t('common:repeat')}</Text>
           { config &&
           <TouchableOpacity style={styles.viewItem} onPress={() => {
             const obj = Object.assign([], config);
@@ -134,7 +135,7 @@ export default function AlarmSetting({navigation, route}) {
             resetDay();
           }}>
             <View style={styles.viewText}>
-              <Text style={[styles.txtTitle, config.frequency !== 'ONCE' ? {color: Colors.titleTxt} : {color: Colors.black}]}>{String.once}</Text>
+              <Text style={[styles.txtTitle, config.frequency !== 'ONCE' ? {color: Colors.titleTxt} : {color: Colors.black}]}>{t('common:once')}</Text>
             </View>
             <View style={styles.viewSwitch}>
               { config.frequency === 'ONCE' &&
@@ -152,7 +153,7 @@ export default function AlarmSetting({navigation, route}) {
             resetDay();
           }}>
             <View style={styles.viewText} >
-              <Text style={[styles.txtTitle, config.frequency !== 'EVERY_DAY' ? {color: Colors.titleTxt} : {color:Colors.black}]}>{String.everyday}</Text>
+              <Text style={[styles.txtTitle, config.frequency !== 'EVERY_DAY' ? {color: Colors.titleTxt} : {color:Colors.black}]}>{t('common:everyday')}</Text>
             </View>
             <View style={styles.viewSwitch}>
               { config.frequency === 'EVERY_DAY' &&
@@ -172,7 +173,7 @@ export default function AlarmSetting({navigation, route}) {
             }
             }>
               <View style={styles.viewText}>
-                <Text style={[styles.txtMode, config.frequency !== 'CUSTOM' ? {color: Colors.titleTxt} : {}]}>{String.custom}</Text>
+                <Text style={[styles.txtMode, config.frequency !== 'CUSTOM' ? {color: Colors.titleTxt} : {}]}>{t('common:custom')}</Text>
               </View>
               <View style={styles.viewSwitch}>
                 { config.frequency === 'CUSTOM' &&
@@ -192,7 +193,7 @@ export default function AlarmSetting({navigation, route}) {
           </View>
           }
           <TouchableOpacity style={styles.button} onPress={handleSave}>
-            <Text style={styles.buttonText}>{String.save}</Text>
+            <Text style={styles.buttonText}>{t('common:save')}</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

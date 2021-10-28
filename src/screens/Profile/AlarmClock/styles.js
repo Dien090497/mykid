@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
   },
   viewImg: {
     width: '100%',
-    height:"25%",
+    height:'25%',
     alignSelf: 'center',
     marginVertical: 15,
     alignItems: 'center',

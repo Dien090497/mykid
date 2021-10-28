@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
   containerAdd: {
     height: ScaleHeight.medium * 1.2,
     backgroundColor: Colors.red,
-    width: "100%",
+    width: '100%',
     alignSelf: 'center',
     borderRadius: 10,
     justifyContent: 'center',
@@ -98,7 +98,7 @@ export const styles = StyleSheet.create({
     height: height - height / 1.5 - height / 4
   },
   wheel: {
-    width: "100%",
+    width: '100%',
     height: height / 4
   },
 });

@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '100%',
     height:200,
-    alignItems:"center"
+    alignItems:'center'
   },
   viewTime: {
     flex:1,
@@ -60,7 +60,7 @@ export const styles = StyleSheet.create({
     aspectRatio: 1,
     justifyContent: 'center',
     borderRadius: 5,
-    alignItems:"center"
+    alignItems:'center'
   },
   txtDay: {
     alignSelf: 'center',

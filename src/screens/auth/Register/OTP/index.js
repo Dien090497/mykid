@@ -1,12 +1,13 @@
 import {View, Text, TouchableOpacity, TextInput} from 'react-native';
-import React, {useEffect, useRef, useState} from "react";
-import {Colors} from "../../../../assets/colors/Colors";
-import {getOtpApi, createAndLogin} from "../../../../network/UserInfoService";
-import Consts from "../../../../functions/Consts";
-import {styles} from "../styles";
-import {String} from "../../../../assets/strings/String";
-import LoadingIndicator from "../../../../components/LoadingIndicator";
-import {saveUserDataFromToken, showAlert} from "../../../../functions/utils";
+import React, {useEffect, useRef, useState} from 'react';
+import {Colors} from '../../../../assets/colors/Colors';
+import {getOtpApi, createAndLogin} from '../../../../network/UserInfoService';
+import Consts from '../../../../functions/Consts';
+import {styles} from '../styles';
+import {String} from '../../../../assets/strings/String';
+import LoadingIndicator from '../../../../components/LoadingIndicator';
+import {saveUserDataFromToken, showAlert} from '../../../../functions/utils';
+import { useTranslation } from 'react-i18next';
 
 export default function OTP({navigation, route}) {
   const refLoading = useRef(null);
@@ -16,6 +17,7 @@ export default function OTP({navigation, route}) {
   const [isActive, setIsActive] = useState(false);
   const [otpSent, setOtpSent] = useState(false);
   const [timerCount, setTimerCount] = useState(60);
+  const { t } = useTranslation();
   let timer = 0;
 
   useEffect(() => {
@@ -89,7 +91,7 @@ export default function OTP({navigation, route}) {
   };
   return (
     <View style={{flex: 1, alignItems: 'center', backgroundColor: Colors.white}}>
-      <Header title={String.submitOTP}/>
+      <Header title={t('common:submitOTP')}/>
       <View style={{
         width: '90%',
         height: 45,
@@ -108,10 +110,10 @@ export default function OTP({navigation, route}) {
         }}>
           <TextInput
             placeholderTextColor={'rgba(181, 180, 180, 1)'}
-            placeholder={String.importOTP}
+            placeholder={t('common:importOTP')}
             maxLength={6}
             value={otp}
-            keyboardType={"number-pad"}
+            keyboardType={'number-pad'}
             style={{
               marginHorizontal: 10,
               color: Colors.black
@@ -153,7 +155,7 @@ export default function OTP({navigation, route}) {
       </View>
 
       <TouchableOpacity onPress={onRegister} style={styles.btnSubmit}>
-        <Text style={styles.textSubmit}>{String.register}</Text>
+        <Text style={styles.textSubmit}>{t('common:register')}</Text>
       </TouchableOpacity>
       <LoadingIndicator ref={refLoading}/>
     </View>

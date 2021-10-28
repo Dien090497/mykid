@@ -1,10 +1,9 @@
-import { FlatList, Image, Modal, Platform, ScrollView, StatusBar, Text, TouchableOpacity, View } from "react-native";
-import React, { Component, useEffect, useRef, useState } from "react";
-import { styles } from "./styles";
-import { String } from "../../../assets/strings/String";
-import { Colors } from "../../../assets/colors/Colors";
-import Images from "../../../assets/Images";
-import FastImage from "react-native-fast-image";
+import { Image, Modal, StatusBar, Text, TouchableOpacity, View } from 'react-native';
+import React, { Component } from 'react';
+import { styles } from './styles';
+import { Colors } from '../../../assets/colors/Colors';
+import Images from '../../../assets/Images';
+import FastImage from 'react-native-fast-image';
 
 export default class PreviewImage extends Component {
   constructor(props) {
@@ -19,14 +18,15 @@ export default class PreviewImage extends Component {
     };
   }
 
-  openModal = (data, index) => {
+  openModal = (data, index,text) => {
     this.setState({
       modalVisible: true,
       data: data,
       selected: index,
       url: data[index].url,
       time: data[index].shootingTime,
-      rotate:0
+      rotate:0,
+      text: text,
     });
   };
 
@@ -124,32 +124,32 @@ export default class PreviewImage extends Component {
   render() {
     return (
       <Modal
-        animationType="slide"
+        animationType='slide'
         transparent={true}
         visible={this.state.modalVisible}>
         <View style={styles.bottomView}>
           <View style={styles.body}>
             <TouchableOpacity onPress={this.hideModal} style={{alignSelf:'flex-end', marginRight:-25, marginBottom: 5}}>
-              <Image source={Images.icClose} style={styles.icClose} resizeMode="contain" />
+              <Image source={Images.icClose} style={styles.icClose} resizeMode='contain' />
             </TouchableOpacity>
             <FastImage source={{uri:this.state.url}} style={[styles.image,{transform: [{ rotate: this.state.rotate+'deg' }]}]} resizeMode={FastImage.resizeMode.stretch} />
             <Text style={styles.txtDate}>{this.state.time}</Text>
-            <Text style={styles.txtDes}>Cảnh chụp: chụp từ xa</Text>
+            <Text style={styles.txtDes}>{this.state.text}</Text>
             <View style={styles.groupBtn}>
               <TouchableOpacity onPress={this.rotateRight}>
-                <Image source={Images.icRotateRight} style={styles.icTouch} resizeMode="contain" />
+                <Image source={Images.icRotateRight} style={styles.icTouch} resizeMode='contain' />
               </TouchableOpacity>
               <TouchableOpacity onPress={this.prevImage}>
                 <Image source={Images.icDetail}
-                       style={[styles.icTouch, { tintColor: Colors.colorMain, transform: [{ rotate: "180deg" }] }]}
-                       resizeMode="contain" />
+                       style={[styles.icTouch, { tintColor: Colors.colorMain, transform: [{ rotate: '180deg' }] }]}
+                       resizeMode='contain' />
               </TouchableOpacity>
               <TouchableOpacity onPress={this.nextImage}>
                 <Image source={Images.icDetail} style={[styles.icTouch, { tintColor: Colors.colorMain }]}
-                       resizeMode="contain" />
+                       resizeMode='contain' />
               </TouchableOpacity>
               <TouchableOpacity onPress={this.rotateLeft}>
-                <Image source={Images.icRotateLeft} style={styles.icTouch} resizeMode="contain" />
+                <Image source={Images.icRotateLeft} style={styles.icTouch} resizeMode='contain' />
               </TouchableOpacity>
             </View>
           </View>

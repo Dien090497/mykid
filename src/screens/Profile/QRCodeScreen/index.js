@@ -1,11 +1,12 @@
-import React from "react";
-import { View } from "react-native";
-import styles from "./style";
+import React from 'react';
+import { View } from 'react-native';
+import styles from './style';
 import {CameraKitCameraScreen} from 'react-native-camera-kit';
-import Header from "../../../components/Header";
-import { String } from "../../../assets/strings/String";
+import Header from '../../../components/Header';
+import { useTranslation } from 'react-i18next';
 
 const QRCodeScreen = ({ navigation, route }) => {
+  const { t } = useTranslation();
   let isSuccess = false;
 
   const onSuccess = e => {
@@ -20,7 +21,7 @@ const QRCodeScreen = ({ navigation, route }) => {
 
   return (
     <View style={styles.container}>
-      <Header title={String.header_QRCode} />
+      <Header title={t('common:header_QRCode')} />
       <CameraKitCameraScreen
         showFrame={true}
         // Show/hide scan frame

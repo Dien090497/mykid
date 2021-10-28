@@ -7,6 +7,7 @@ import Routes from './src/routes';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {StatusBar} from 'react-native';
 import redux from './src/redux/config/redux';
+import './src/constants/IMLocalize';
 
 class App extends React.Component {
   render() {

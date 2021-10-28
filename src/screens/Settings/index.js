@@ -8,17 +8,19 @@ import LoadingIndicator from '../../components/LoadingIndicator';
 import {String} from '../../assets/strings/String';
 import {styles} from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import Images from "../../assets/Images";
-import SecretPhotoShoot from "../SecretPhotoShoot";
+import Images from '../../assets/Images';
+import SecretPhotoShoot from '../SecretPhotoShoot';
+import { useTranslation } from 'react-i18next';
 
 const {width,height} = Dimensions.get('window');
 export default ({navigation, route}) => {
   const refLoading = useRef();
+  const { t } = useTranslation();
 
   const dataSettings = [
     {
       key: 'Contacts',
-      title: String.setting_contact,
+      title: t('common:setting_contact'),
       onPress: () => {
         navigation.navigate(Consts.ScreenIds.Contacts);
       },
@@ -28,7 +30,7 @@ export default ({navigation, route}) => {
     },
     {
       key: 'Members',
-      title: String.setting_member,
+      title: t('common:setting_member'),
       onPress: () => {
         navigation.navigate(Consts.ScreenIds.Members);
       },
@@ -38,7 +40,7 @@ export default ({navigation, route}) => {
     },
     {
       key: 'RewardPoints',
-      title: String.header_reward_points,
+      title: t('common:header_reward_points'),
       onPress: () => {
         navigation.navigate(Consts.ScreenIds.RewardPoints);
       },
@@ -48,7 +50,7 @@ export default ({navigation, route}) => {
     },
     {
       key: 'DoNotDisturb',
-      title: String.header_doNotDisturb,
+      title: t('common:header_doNotDisturb'),
       onPress: () => {
         navigation.navigate(Consts.ScreenIds.DoNotDisturb);
       },
@@ -58,7 +60,7 @@ export default ({navigation, route}) => {
     },
     {
       key: 'LanguageTimeZone',
-      title: String.header_language_timezone,
+      title: t('common:header_language_timezone'),
       onPress: () => {
         navigation.navigate(Consts.ScreenIds.LanguageTimeZone);
       },
@@ -68,7 +70,7 @@ export default ({navigation, route}) => {
     },
     {
       key: 'EacesDroping',
-      title: String.hender_eacesDroping,
+      title: t('common:hender_eacesDroping'),
       onPress: () => {
         navigation.navigate(Consts.ScreenIds.EacesDroping);
       },
@@ -88,7 +90,7 @@ export default ({navigation, route}) => {
     },
     {
       key: 'RemoteDevices',
-      title: String.header_remoteDevices,
+      title: t('common:header_remoteDevices'),
       onPress: () => {
         navigation.navigate(Consts.ScreenIds.OffDevice);
       },
@@ -98,7 +100,7 @@ export default ({navigation, route}) => {
     },
     {
       key: 'RemoteStart',
-      title: String.header_remoteStart,
+      title: t('common:header_remoteStart'),
       onPress: () => {
         navigation.navigate(Consts.ScreenIds.RestartDevice);
       },
@@ -131,7 +133,7 @@ export default ({navigation, route}) => {
   return (
     <View
       style={[styles.container, {paddingBottom: useSafeAreaInsets().bottom}]}>
-      <Header title={String.header_settings}/>
+      <Header title={t('common:header_settings')}/>
       <View style={styles.mainView}>
         <FlatList
           data={dataSettings}

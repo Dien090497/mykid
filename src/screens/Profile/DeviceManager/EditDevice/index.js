@@ -1,28 +1,28 @@
 import {
-  FlatList,
-  Image, Keyboard, Modal, RefreshControl,
+  Image, Keyboard,
   Text, TextInput,
   TouchableOpacity,
   View,
-} from "react-native";
-import { styles } from "./styles";
-import Header from "../../../../components/Header";
-import { String } from "../../../../assets/strings/String";
-import Images from "../../../../assets/Images";
-import Consts, { ScaleHeight } from "../../../../functions/Consts";
-import { Colors } from "../../../../assets/colors/Colors";
-import LoadingIndicator from "../../../../components/LoadingIndicator";
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+} from 'react-native';
+import { styles } from './styles';
+import Header from '../../../../components/Header';
+import Images from '../../../../assets/Images';
+import Consts from '../../../../functions/Consts';
+import { Colors } from '../../../../assets/colors/Colors';
+import LoadingIndicator from '../../../../components/LoadingIndicator';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import ActionSheet from '@alessiocancian/react-native-actionsheet';
-import ModalConfirm from "../../../../components/ModalConfirm";
+import ModalConfirm from '../../../../components/ModalConfirm';
 import {
   checkCameraPermission,
   checkPhotoLibraryReadPermission,
   checkPhotoLibraryWritePermission,
-} from "../../../../functions/permissions";
-import { launchCamera, launchImageLibrary } from "react-native-image-picker";
-import { hideLoading, resizeImage, showLoading } from "../../../../functions/utils";
+} from '../../../../functions/permissions';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import { hideLoading, resizeImage, showLoading } from '../../../../functions/utils';
 import {editDeviceApi} from '../../../../network/DeviceService';
+import { useTranslation } from 'react-i18next';
+import DataLocal from '../../../../data/dataLocal';
 
 export default function EditDevice({ navigation, route }) {
 
@@ -30,6 +30,7 @@ export default function EditDevice({ navigation, route }) {
   const refConfirm = useRef();
   const [data, setData] = useState(null);
   const [avatar, setAvatar] = useState(null);
+  const { t } = useTranslation();
   let sheet = null;
 
   useLayoutEffect(() => {
@@ -120,43 +121,48 @@ export default function EditDevice({ navigation, route }) {
 
   return (
     <View style={styles.contain}>
-      <Header title={String.header_editDevice} />
+      <Header title={t('common:header_editDevice')} />
       <View style={{ flex: 1, marginHorizontal: 20 }}>
         <TouchableOpacity style={styles.viewAvatar} onPress={selectPhoto}>
-          <Text style={styles.containText}>Hình đại diện</Text>
+          <Text style={styles.containText}>{t('common:textAvatar')}</Text>
           <View>
             {data &&
-            <Image source={avatar? {uri:avatar} : data.avatar ? { uri: data.avatar } : data.icon} resizeMode="cover" style={styles.avatar} />}
+            <Image source={avatar? {uri:avatar} : data.avatar ? { uri: data.avatar } : data.icon} resizeMode='cover' style={styles.avatar} />}
           </View>
         </TouchableOpacity>
         <View style={styles.viewContain}>
-          <Text style={styles.containText}>{String.textDeviceNane}</Text>
+          <Text style={styles.containText}>{t('common:textDeviceNane')}</Text>
           {data && <TextInput style={styles.textNickName}
                               onChangeText={(text)=>{setDeviceName(text)}}
                               maxLength={10}
                               value={data.deviceName} />}
         </View>
         <TouchableOpacity style={styles.input} onPress={onRelationship}>
-          {data && <Image style={[styles.iconInput, { height: "60%" }]} source={data.icon} resizeMode="contain" />}
-          {data && <Text style={{ flex: 1, color: Colors.black }}>{String.iAm}<Text
-            style={{ fontFamily: "Roboto-Bold" }}>{data.relationshipName}</Text>{String.ofHe}</Text>}
-          <TouchableOpacity style={{ paddingVertical: "3%" }}>
-            <Image style={styles.iconInput} source={Images.icDetail} resizeMode="contain" />
+          {data && <Image style={[styles.iconInput, { height: '60%' }]} source={data.icon} resizeMode='contain' />}
+          {data &&
+          <Text style={{ flex: 1, color: Colors.black }}>{t('common:iAm')}
+            <Text style={{ fontFamily: 'Roboto-Bold' }}>
+              {DataLocal.language === 'vi' ? data.relationshipName : t('common:ofHe') + ' '}
+            </Text>
+            {DataLocal.language === 'vi' ? t('common:ofHe') + ' ' : data.relationshipName}
+          </Text>}
+          <TouchableOpacity style={{ paddingVertical: '3%' }}>
+            <Image style={styles.iconInput} source={Images.icDetail} resizeMode='contain' />
           </TouchableOpacity>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={() => {deleteConfirm()}}>
-          <Text style={styles.buttonText}>{String.confirm}</Text>
+          <Text style={styles.buttonText}>{t('common:confirm')}</Text>
         </TouchableOpacity>
       </View>
       <LoadingIndicator ref={refLoading} />
       <ModalConfirm ref={refConfirm} />
       <ActionSheet
         ref={o => sheet = o}
-        title={String.selectPhoto}
+        title={t('common:selectPhoto')}
         options={[
-          String.selectPhotoLibrary,
-          String.takePhoto,
-          String.cancel,
+          t('common:selectPhotoLibrary'),
+          t('common:takePhoto'),
+          t('common:cancel'),
         ]}
         cancelButtonIndex={2}
         onPress={handleImageAction}

@@ -7,21 +7,22 @@ import {
 import React, {useLayoutEffect, useRef, useState} from 'react';
 import Header from '../../../components/Header';
 import Images from '../../../assets/Images';
-import {Colors} from "../../../assets/colors/Colors";
-import {styles} from "./styles";
-import ModalConfirmInput from "../../../components/ModalConfirmInput";
+import {Colors} from '../../../assets/colors/Colors';
+import {styles} from './styles';
+import ModalConfirmInput from '../../../components/ModalConfirmInput';
 import ActionSheet from '@alessiocancian/react-native-actionsheet';
-import {String} from "../../../assets/strings/String";
+import {String} from '../../../assets/strings/String';
 import {
   checkCameraPermission,
   checkPhotoLibraryReadPermission,
   checkPhotoLibraryWritePermission
-} from "../../../functions/permissions";
-import {launchCamera, launchImageLibrary} from "react-native-image-picker";
-import {ScaleHeight} from "../../../functions/Consts";
-import {emailTest, hideLoading, phoneTest1, resizeImage, showAlert, showLoading} from "../../../functions/utils";
+} from '../../../functions/permissions';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {ScaleHeight} from '../../../functions/Consts';
+import {emailTest, hideLoading, phoneTest1, resizeImage, showAlert, showLoading} from '../../../functions/utils';
 import LoadingIndicator from '../../../components/LoadingIndicator';
-import {getPersonalDataApi, updatePersonalDataApi} from "../../../network/PersonalDataService";
+import {getPersonalDataApi, updatePersonalDataApi} from '../../../network/PersonalDataService';
+import { useTranslation } from 'react-i18next';
 
 export default function PersonalDate() {
   let sheet = null;
@@ -37,6 +38,7 @@ export default function PersonalDate() {
   const [name, setName] = useState();
   const [phone, setPhone] = useState();
   const [check, setCheck] = useState(false);
+  const { t } = useTranslation();
 
   const dataGender = [
     'MALE',
@@ -58,9 +60,9 @@ export default function PersonalDate() {
 
   const setInfo = (title, res) => {
     const resp = res.trim();
-    if (title === String.contact) {
+    if (title === t('common:contact')) {
       setContact(resp);
-    } else if (title === String.email) {
+    } else if (title === t('common:email')) {
       if (resp !== '') {
         setEmail(resp);
       }
@@ -160,11 +162,11 @@ export default function PersonalDate() {
 
   return (
     <View style={{flex: 1, backgroundColor: Colors.white}}>
-      <Header title={String.personalData}/>
+      <Header title={t('common:personalData')}/>
       <View style={{justifyContent: 'center', alignItems: 'center'}}>
         <View style={{paddingTop: 15}}>
           <View style={styles.tobMain}>
-            <Text style={styles.text}>{String.avatar}</Text>
+            <Text style={styles.text}>{t('common:textAvatar')}</Text>
             <View style={styles.viewAvatar}>
               <TouchableOpacity onPress={() => {
                 OnActionSheet(true)
@@ -177,7 +179,7 @@ export default function PersonalDate() {
             </View>
           </View>
           <View style={styles.tobMain}>
-            <Text style={styles.text}>{String.account}</Text>
+            <Text style={styles.text}>{t('common:account')}</Text>
             <View style={styles.viewAvatar}>
               <Text
                 style={
@@ -191,7 +193,7 @@ export default function PersonalDate() {
             </View>
           </View>
           <View style={styles.tobMain}>
-            <Text style={styles.text}>{String.name}</Text>
+            <Text style={styles.text}>{t('common:name')}</Text>
             <View style={styles.viewAvatar}>
               <Text
                 style={
@@ -199,11 +201,11 @@ export default function PersonalDate() {
                     color: 'rgba(181, 180, 180, 1)',
                     fontSize: 12
                   }]}>
-                {name === null || name === '' ? 'Chưa có' : name}
+                {name === null || name === '' ? t('common:yetHave') : name}
               </Text>
               <TouchableOpacity
                 onPress={() => {
-                  OnMoDal(String.name, String.textName, name, true)
+                  OnMoDal(t('common:name'), t('common:textName'), name, true)
                 }}
                 style={styles.tobView}
               >
@@ -215,7 +217,7 @@ export default function PersonalDate() {
             </View>
           </View>
           <View style={styles.tobMain}>
-            <Text style={styles.text}>{String.gender}</Text>
+            <Text style={styles.text}>{t('common:gender')}</Text>
             <View style={styles.viewAvatar}>
               <Text
                 style={
@@ -223,7 +225,7 @@ export default function PersonalDate() {
                     color: 'rgba(181, 180, 180, 1)',
                     fontSize: 12
                   }]}>
-                {gender === null ? 'Chưa có' : (gender === 'MALE' ? String.male : String.female)}
+                {gender === null ? 'Chưa có' : (gender === 'MALE' ? t('common:male') : t('common:female'))}
               </Text>
               <TouchableOpacity
                 onPress={() => {
@@ -239,7 +241,7 @@ export default function PersonalDate() {
             </View>
           </View>
           <View style={styles.tobMain}>
-            <Text style={styles.text}>{String.contact}</Text>
+            <Text style={styles.text}>{t('common:contact')}</Text>
             <View style={styles.viewAvatar}>
               <Text
                 style={
@@ -251,7 +253,7 @@ export default function PersonalDate() {
               </Text>
               <TouchableOpacity
                 onPress={() => {
-                  OnMoDal(String.contact, String.textContact, contact, false)
+                  OnMoDal(t('common:contact'), t('common:textContact'), contact, false)
                 }}
                 style={styles.tobView}
               >
@@ -263,7 +265,7 @@ export default function PersonalDate() {
             </View>
           </View>
           <View style={styles.tobMain}>
-            <Text style={styles.text}>{String.email}</Text>
+            <Text style={styles.text}>{t('common:email')}</Text>
             <View style={styles.viewAvatar}>
               <Text
                 style={
@@ -275,7 +277,7 @@ export default function PersonalDate() {
               </Text>
               <TouchableOpacity
                 onPress={() => {
-                  OnMoDal(String.email, String.textEmail, email, true)
+                  OnMoDal(t('common:email'), t('common:textEmail'), email, true)
                 }}
                 style={styles.tobView}
               >
@@ -289,7 +291,7 @@ export default function PersonalDate() {
 
         </View>
         <TouchableOpacity style={styles.tobViewMain} onPress={InstallPersonalData}>
-          <Text style={[styles.text, {color: Colors.white}]}>Lưu</Text>
+          <Text style={[styles.text, {color: Colors.white}]}>{t('common:save')}</Text>
         </TouchableOpacity>
       </View>
       <ModalConfirmInput
@@ -304,7 +306,7 @@ export default function PersonalDate() {
           buttonBox: {width: '100%', height: ScaleHeight.big},
           buttonText: {fontSize: 18, fontWeight: '400', fontStyle: 'normal'}
         }}
-        options={['Nam', 'Nữ', String.cancel]}
+        options={['Nam', 'Nữ', t('common:cancel')]}
         cancelButtonIndex={2}
         onPress={handleGenderAction}
       />
@@ -315,9 +317,9 @@ export default function PersonalDate() {
           buttonText: {fontSize: 18, fontWeight: '400', fontStyle: 'normal'}
         }}
         options={[
-          String.selectPhotoLibrary,
-          String.takePhoto,
-          String.cancel,
+          t('common:selectPhotoLibrary'),
+          t('common:takePhoto'),
+          t('common:cancel'),
         ]}
         cancelButtonIndex={2}
         onPress={handleImageAction}

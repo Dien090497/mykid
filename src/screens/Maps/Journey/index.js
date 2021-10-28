@@ -7,7 +7,7 @@ import {
   Text,
   TouchableOpacity,
   View,
-} from "react-native";
+} from 'react-native';
 import MapView, {Circle, Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import React, {
   useCallback,
@@ -16,7 +16,7 @@ import React, {
   useState,
 } from 'react';
 import {convertDateTimeToString, showAlert} from '../../../functions/utils';
-import { getJourneyApi, getListDeviceApi, getLocationDeviceApi } from "../../../network/DeviceService";
+import { getJourneyApi, getLocationDeviceApi } from '../../../network/DeviceService';
 
 import {Colors} from '../../../assets/colors/Colors';
 import DataLocal from '../../../data/dataLocal';
@@ -27,12 +27,8 @@ import LoadingIndicator from '../../../components/LoadingIndicator';
 import {String} from '../../../assets/strings/String';
 import styles from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import TimePickerModal from "../../../components/TimePickerModal";
-
-const headerScreen = () => {
-  let title = String.home_journey.toLocaleLowerCase();
-  return title.charAt(0).toUpperCase() + title.slice(1);
-};
+import TimePickerModal from '../../../components/TimePickerModal';
+import { useTranslation } from 'react-i18next';
 
 const roundMinutes = (date = new Date()) => {
   var minute = date.getMinutes();
@@ -61,12 +57,17 @@ export default ({}) => {
   const [toDate, setToDate] = useState(toDateDefault());
   const [deviceInfo, setDeviceInfo] = useState({location: {lat: 26.013197, lng: 105.78073}});
   const refLoading = useRef();
-
+  const { t } = useTranslation();
   const [openDatePicker, setOpenDatePicker] = useState(false)
 
   const toggleModalDate = useCallback(() => {
     setOpenDatePicker(prev => !prev);
   }, []);
+
+  const headerScreen = () => {
+    let title = t('common:journey').toLocaleLowerCase();
+    return title.charAt(0).toUpperCase() + title.slice(1);
+  };
 
   const toggleJourney = () => {
     if (fromDate.getHours() > toDate.getHours()){
@@ -141,8 +142,8 @@ export default ({}) => {
           setOpenDatePicker(false)
         }}
         title={'Chọn ngày'}
-        cancelText={String.cancel}
-        confirmText={String.confirm}
+        cancelText={t('common:cancel')}
+        confirmText={t('common:confirm')}
       />
     );
   }
@@ -163,7 +164,7 @@ export default ({}) => {
             />
           </TouchableOpacity>
           <View style={styles.containerHour}>
-            <Text style={{fontFamily:'Roboto-Medium', marginRight:10}} children={'Từ'} />
+            <Text style={{fontFamily:'Roboto-Medium', marginRight:10}} children={t('common:from')} />
             <TouchableOpacity
               onPress={()=>{
                 refTime.current.openModal(
@@ -182,7 +183,7 @@ export default ({}) => {
             </TouchableOpacity>
           </View>
           <View style={styles.containerHour}>
-            <Text style={{fontFamily:'Roboto-Medium', marginRight:10}} children={'Đến'} />
+            <Text style={{fontFamily:'Roboto-Medium', marginRight:10}} children={t('common:to')} />
             <TouchableOpacity
               onPress={()=>{
                 refTime.current.openModal(
@@ -202,7 +203,7 @@ export default ({}) => {
           </View>
         </View>
         <TouchableOpacity style={[styles.containerTime,{backgroundColor: Colors.colorMain,marginVertical: 10}]} onPress={toggleJourney}>
-          <Text children={String.journey} style={styles.txtBtn} />
+          <Text children={t('common:journey')} style={styles.txtBtn} />
         </TouchableOpacity>
       </View>
     );

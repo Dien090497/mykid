@@ -10,55 +10,56 @@ import {
 import React, {useLayoutEffect, useState} from 'react';
 
 import Header from '../../../components/Header';
-import {String} from '../../../assets/strings/String';
 import styles from './style';
-import Images from "../../../assets/Images";
-import { Colors } from "../../../assets/colors/Colors";
+import Images from '../../../assets/Images';
+import { useTranslation } from 'react-i18next';
+import DataLocal from '../../../data/dataLocal';
 
 const Relationship = ({ navigation, route }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const { t } = useTranslation();
   const [data, setData] = useState( [
     {
       id: 1,
-      name: "Bố",
+      name: t('common:dad'),
       icon: Images.icFather,
-      relationship: "FATHER",
+      relationship: 'FATHER',
     },
     {
       id: 2,
-      name: "Mẹ",
+      name: t('common:mom'),
       icon: Images.icMother,
-      relationship: "MOTHER",
+      relationship: 'MOTHER',
     },
     {
       id: 3,
-      name: "Ông",
+      name: t('common:grandfather'),
       icon: Images.icGrandfather,
-      relationship: "GRANDFATHER",
+      relationship: 'GRANDFATHER',
     },
     {
       id: 4,
-      name: "Bà",
+      name: t('common:grandma'),
       icon: Images.icGrandmother,
-      relationship: "GRANDMOTHER",
+      relationship: 'GRANDMOTHER',
     },
     {
       id: 5,
-      name: "Anh",
+      name: t('common:brother'),
       icon: Images.icBrother,
-      relationship: "BROTHER",
+      relationship: 'BROTHER',
     },
     {
       id: 6,
-      name: "Chị",
+      name: t('common:sister'),
       icon: Images.icSister,
-      relationship: "SISTER",
+      relationship: 'SISTER',
     },
     {
       id: 7,
-      name: "Khác",
+      name: t('common:other'),
       icon: Images.icOther,
-      relationship: "OTHER",
+      relationship: 'OTHER',
     },
   ]);
   const [ newRelationship, setNewRelationship] = useState(false);
@@ -95,26 +96,26 @@ const Relationship = ({ navigation, route }) => {
   const addRelationship = () =>{
     return(
       <Modal
-        animationType="slide"
+        animationType='slide'
         transparent={true}
         visible={showModal}>
         <View style={styles.modalContainer}>
           <View style={styles.modal}>
-            <Text style={styles.titleModal}>Khác</Text>
+            <Text style={styles.titleModal}>{t('common:other')}</Text>
             <TextInput
               onChangeText={text => setNewRelationship(text)}
               style={styles.textInputModal}
-              placeholder={String.setNameAndSetRelationship}
+              placeholder={t('common:setNameAndSetRelationship')}
               placeholderTextColor={'#B5B4B4' }/>
             <View style={styles.groundBtnModal}>
               <TouchableOpacity style={styles.btnCancel}
                                 onPress={()=>{setShowModal(false)}}>
-                <Text style={styles.textCancel}>Hủy</Text>
+                <Text style={styles.textCancel}>{t('common:cancel')}</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={confirmAddRelationship}
                 style={styles.btnConfirm}>
-                <Text style={styles.textConfirm}>{String.confirm}</Text>
+                <Text style={styles.textConfirm}>{t('common:confirm')}</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -130,12 +131,18 @@ const Relationship = ({ navigation, route }) => {
   };
   return (
     <View style={styles.container}>
-      <Header title={String.header_relationship} />
+      <Header title={t('common:header_relationship')} />
       <View style={styles.txtSelection}>
         <Image source={Images.icUser2} style={styles.iconSelection} resizeMode='contain'/>
-        <Text style={styles.txtRelationship}>{String.iAm}<Text
-          style={{ color: "#696969", fontSize: 16, fontWeight: "bold" }}>
-            {data && data[selectedIndex] ? data[selectedIndex].name : ''}</Text>{String.ofHe}</Text>
+        <Text style={styles.txtRelationship}>
+          {t('common:iAm')}
+          {DataLocal.language === 'vi' ? '' : t('common:ofHe')+' '}
+          <Text
+            style={{ color: '#696969', fontSize: 16, fontWeight: 'bold' }}>
+            {data && data[selectedIndex] ? data[selectedIndex].name : ''}
+          </Text>
+          {DataLocal.language === 'vi' ? ' '+t('common:ofHe') : ''}
+        </Text>
       </View>
       <View>
         { data &&
@@ -167,7 +174,7 @@ const Relationship = ({ navigation, route }) => {
         />}
       </View>
       <TouchableOpacity style={styles.button} onPress={onChange}>
-        <Text style={styles.buttonText}>{String.confirm}</Text>
+        <Text style={styles.buttonText}>{t('common:confirm')}</Text>
       </TouchableOpacity>
       {addRelationship()}
     </View>

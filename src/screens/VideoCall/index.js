@@ -37,6 +37,7 @@ import reduxStore from '../../redux/config/redux';
 import Sound from 'react-native-sound';
 import {useIsFocused} from '@react-navigation/native';
 import {keepScreenAwake} from '../../functions/utils';
+import { useTranslation } from 'react-i18next';
 
 const initialState = {
   data: [],
@@ -90,6 +91,7 @@ const ListDeviceScreen = () => {
   const [page, setPage] = useState(0);
   const [presentRoomId, setPresentRoomId] = useState(-1);
   const [videoCallData, setVideoCallData] = useState();
+  const { t } = useTranslation();
 
   let isPickUp = false;
   const [visibleCall, setVisibleCall] = useState({
@@ -357,7 +359,7 @@ const ListDeviceScreen = () => {
   return (
     <View
       style={[styles.container, {paddingBottom: useSafeAreaInsets().bottom}]}>
-      <Header title={String.video_call} />
+      <Header title={t('common:video_call')} />
       <View style={styles.mainView}>
         {!state.loading && !state.error && (
           <FlatList

@@ -102,4 +102,42 @@ export const styles = StyleSheet.create({
     width: width - 60,
     color:'#808080'
   },
+  modalView: {
+    flex:1,
+    flexDirection:'column'
+  },
+  modalViewTob: {
+    width: '100%',
+    height: height / 1.5,
+    backgroundColor: 'rgba(1, 1, 1, 0.3)'
+  },
+  wheelPickerView: {
+    backgroundColor: 'white',
+    width: '100%',
+    height: height - height / 1.5,
+    flexDirection: 'column'
+  },
+  tobWheel: {
+    width: '100%',
+    height: height - height / 1.5 - height / 4
+  },
+  confirmView: {
+    width: '100%',
+    height: height / 15,
+    backgroundColor: Colors.colorConfirmPicker,
+    alignItems: 'flex-end',
+    justifyContent: 'center'
+  },
+  textConfirm: {
+    color: Colors.colorMain,
+    fontSize: FontSize.medium,
+    position: 'absolute',
+    right: width * 0.03,
+    fontWeight: '600',
+    fontStyle: 'normal',
+  },
+  wheel: {
+    width: "100%",
+    height: height / 4
+  },
 });
