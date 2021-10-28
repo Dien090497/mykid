@@ -119,4 +119,6 @@ export default {
 
  //
   icAlarmClocks: require('./images/ic_alarm_clooks.png'),
+
+  icNodeBook: require('./images/ic_nodebook.png')
 }

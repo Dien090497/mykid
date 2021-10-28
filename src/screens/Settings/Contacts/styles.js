@@ -21,18 +21,19 @@ export const styles = StyleSheet.create({
     fontSize: FontSize.medium,
     textAlignVertical: 'center',
     textAlign: 'left',
-    color: Colors.black,
+    color: Colors.grayTxt,
     flex: 0.8,
     paddingHorizontal: 10,
-    fontWeight: 'bold',
+    fontFamily:'Roboto-Medium'
   },
   phoneText: {
-    fontSize: FontSize.small,
+    fontSize: FontSize.xtraSmall,
     textAlignVertical: 'center',
     textAlign: 'left',
-    color: Colors.black,
+    color: Colors.grayTxt,
     flex: 0.8,
     paddingHorizontal: 10,
+    fontFamily: 'Roboto'
   },
 
   iconProfile: {
@@ -117,8 +118,16 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 13,
   },
-  txtAdd: {color: 'white', fontSize: FontSize.medium},
-  containerSwitch: {flex: 0.2, alignItems: 'center', justifyContent: 'center'},
+  txtAdd: {
+    color: 'white',
+    fontSize: FontSize.small,
+    fontFamily: 'Roboto-Medium'
+  },
+  containerSwitch: {
+    flex: 0.2,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   containerBottom: {
     padding: 10,
     flexDirection: 'row',
@@ -128,16 +137,24 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  txtBlockContact: {flex: 0.8, textAlign: 'left', fontSize: FontSize.small},
+  txtBlockContact: {
+    flex: 0.8,
+    textAlign: 'left',
+    fontSize: FontSize.small
+  },
   containerRemove: {
     borderWidth: 1,
-    paddingHorizontal: 20,
+    paddingHorizontal: 30,
     paddingVertical: 5,
-    borderRadius: 20,
-    borderColor: Colors.grayColorKeyBoard,
-    backgroundColor: Colors.grayBackground,
+    borderRadius: 10,
+    borderColor: Colors.colorMain,
+    backgroundColor: Colors.white,
   },
-  txtRemove: {fontSize: FontSize.small, color: 'red'},
+  txtRemove: {
+    fontSize: FontSize.small,
+    color: Colors.colorMain,
+    fontFamily: 'Roboto-Medium'
+  },
   containerSelected: {
     backgroundColor: 'red',
     width: FontSize.small,
@@ -146,31 +163,60 @@ export const styles = StyleSheet.create({
   },
   containerChangeSOS: {
     borderWidth: 1,
-    borderColor: Colors.gray,
+    borderColor: Colors.colorMain,
     width: FontSize.medium,
     height: FontSize.medium,
     borderRadius: FontSize.medium / 2,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  txtSOS: {fontSize: FontSize.xtraSmall, color: 'red'},
-  containerSOS: {flex: 0.2, justifyContent: 'center', alignItems: 'center'},
-  wrap: {flex: 1, flexDirection: 'row', alignItems: 'center'},
+  txtSOS: {
+    fontSize: FontSize.xtraSmall,
+    color: 'red'
+  },
+  containerSOS: {
+    flex: 0.2,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  wrap: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
   containerItemContact: {
-    backgroundColor: Colors.grayInput,
+    backgroundColor: Colors.white,
     borderRadius: 10,
-    marginVertical: 2,
+    marginVertical: 10,
     padding: 15,
-    marginHorizontal: 10,
+    marginHorizontal: 20,
+    shadowColor: 'rgba(25,25,25, 0.5)',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
   },
   containerViewBottom: {
     padding: 10,
     flexDirection: 'row',
     width: '90%',
     alignSelf: 'center',
-    borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom:15,
+    shadowColor: 'rgba(25,25,25, 0.5)',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    borderRadius:10,
+    backgroundColor: Colors.white
   },
   emptyContact: {
     width: screenWidth * 0.5,

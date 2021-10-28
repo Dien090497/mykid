@@ -1,4 +1,5 @@
 import {
+  Image,
   Keyboard,
   PermissionsAndroid,
   Platform,
@@ -7,20 +8,21 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
-} from 'react-native';
+} from "react-native";
 import React, {useRef, useState} from 'react';
 
-import { Colors } from '../../../assets/colors/Colors';
-import DataLocal from '../../../data/dataLocal';
-import Header from '../../../components/Header';
+import { Colors } from '../../../../assets/colors/Colors';
+import DataLocal from '../../../../data/dataLocal';
+import Header from '../../../../components/Header';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import LoadingIndicator from '../../../components/LoadingIndicator';
-import {String} from '../../../assets/strings/String';
-import {addPhoneBookApi} from '../../../network/ContactService';
+import LoadingIndicator from '../../../../components/LoadingIndicator';
+import {String} from '../../../../assets/strings/String';
+import {addPhoneBookApi} from '../../../../network/ContactService';
 import {selectContact} from 'react-native-select-contact';
-import {showAlert} from '../../../functions/utils';
+import {showAlert} from '../../../../functions/utils';
 import {styles} from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import Images from "../../../../assets/Images";
 
 export default ({navigation, route}) => {
   const [relationship, setRelationship] = useState('');
@@ -30,7 +32,6 @@ export default ({navigation, route}) => {
   const callContacts = async () => {
     try {
       var permissionAndroid;
-      //Nếu là nền tảng android thì sẽ yêu cầu cấp quyền trước
       if (Platform.OS == 'android') {
         permissionAndroid = await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
@@ -47,7 +48,6 @@ export default ({navigation, route}) => {
           setRelationship(rsSelected.name);
           setPhone(removeNonNumeric(rsSelected.phones[0].number));
         }
-        //    console.log('rsSelected', rsSelected)
       } catch (e) {
         console.warn(e);
       }
@@ -57,7 +57,6 @@ export default ({navigation, route}) => {
   };
 
   const saveContact = async () => {
-    //Thực hiện lưu liên lạc
     if (!relationship.trim().length) {
       showAlert(String.enter_relationship);
       return;
@@ -90,74 +89,41 @@ export default ({navigation, route}) => {
       <View style={styles.mainView}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View
-            style={{
-              flex: 1,
-              paddingHorizontal: 20,
-              width: '100%',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <TextInput
-              underlineColorAndroid={'transparent'}
-              style={{
-                fontSize: 16,
-                padding: 10,
-                marginBottom: 10,
-                height: 50,
-                width: '100%',
-                backgroundColor: '#efefef',
-                borderRadius: 10,
-                alignSelf: 'center',
-              }}
-              disableFullscreenUI
-              value={relationship}
-              placeholder={'Mối quan hệ với trẻ...'}
-              onChangeText={text => setRelationship(text)}
-            />
-
-            <View
-              style={{
-                flexDirection: 'row',
-                height: 50,
-                width: '100%',
-                backgroundColor: '#efefef',
-                alignSelf: 'center',
-                borderRadius: 10,
-              }}>
+            style={styles.mainContent}>
+            <View style={styles.viewTextInput}>
               <TextInput
                 underlineColorAndroid={'transparent'}
-                style={{fontSize: 16, padding: 10, flex: 0.9}}
+                style={styles.textInput}
+                disableFullscreenUI
+                value={relationship}
+                placeholder={'Mối quan hệ với trẻ'}
+                onChangeText={text => setRelationship(text)}
+                placeholderTextColor={Colors.grayTextTitleColor}
+              />
+            </View>
+            <View
+              style={styles.viewTextInput}>
+              <TextInput
+                underlineColorAndroid={'transparent'}
+                style={styles.textInput}
                 disableFullscreenUI
                 value={phone}
-                placeholder={'Nhập số điện thoại...'}
+                placeholder={'Nhập số điện thoại'}
                 onChangeText={text => setPhone(text)}
-                keyboardType={'phone-pad'}></TextInput>
+                keyboardType={'phone-pad'}
+                placeholderTextColor={Colors.grayTextTitleColor}/>
               <TouchableOpacity
-                style={{
-                  flex: 0.1,
-                  alignSelf: 'center',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
                 onPress={callContacts}>
-                <Icon name={'contacts'} size={24} color={'gray'} />
+                <Image source={Images.icNodeBook} style={styles.iconNodeBook} resizeMode={'stretch'}/>
               </TouchableOpacity>
             </View>
+            <TouchableOpacity
+              style={styles.btnSubmit}
+              onPress={saveContact}>
+              <Text style={styles.txtSubmit}>{String.save}</Text>
+            </TouchableOpacity>
           </View>
         </TouchableWithoutFeedback>
-        <TouchableOpacity
-          style={{
-            backgroundColor: Colors.blueButton,
-            width: '90%',
-            alignSelf: 'center',
-            borderRadius: 10,
-            justifyContent: 'center',
-            alignItems: 'center',
-            paddingVertical: 13,
-          }}
-          onPress={saveContact}>
-          <Text style={{color: 'white', fontSize: 16}}>Lưu</Text>
-        </TouchableOpacity>
       </View>
       <LoadingIndicator ref={refLoading} />
     </View>
