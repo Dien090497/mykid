@@ -6,10 +6,10 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
-} from 'react-native';
-import React, {useLayoutEffect, useRef, useState} from 'react';
-import {getOtpApi} from '../../../network/UserInfoService';
-import {phoneTest, passwordTest, showAlert, phoneTest1} from '../../../functions/utils';
+} from "react-native";
+import React, {useLayoutEffect, useRef, useState} from "react";
+import {getOtpApi} from "../../../network/UserInfoService";
+import {passwordTest1, showAlert, phoneTest1, phoneTest, passwordTest} from "../../../functions/utils";
 
 import Consts from '../../../functions/Consts';
 import CustomInput from '../../../components/inputRegister';
@@ -40,11 +40,11 @@ const Register = ({navigation}) => {
   };
 
   const onChangePass = (text) => {
-    setPass(text);
+    setPass(text.trim());
   }
 
   const onChangePass1 = (text) => {
-    setIsPass(text);
+    setIsPass(text.trim());
   }
 
   const onChangeShowPass = () => {
@@ -68,7 +68,7 @@ const Register = ({navigation}) => {
       showAlert(String.error_pass);
       return;
     }
-    if (!passwordTest(pass)) {
+    if (!passwordTest1(pass)) {
       showAlert(String.error_pass1);
       return;
     }

@@ -14,7 +14,7 @@ const ConnectionScreen = ({navigation}) => {
   };
   return (
     <View style={styles.contain}>
-      <Header title={t('common:register')} />
+      <Header title={String.register} back={false} />
       <View style={styles.container}>
         <Text style={styles.txtRegister}>{t('common:registerSuccess')}</Text>
         <Image source={Images.icRegister} style={styles.icon} resizeMode='stretch'/>

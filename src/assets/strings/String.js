@@ -103,8 +103,8 @@ export const String = {
   notification: 'Thông báo',
   error_message:
     'Vui lòng đọc thỏa thuận người dùng, chính sách bảo mật và chọn đồng ý',
-  error_pass: 'Mật khẩu không khớp, vui lòng kiểm tra lại',
-  error_pass1:'Mật khẩu phải có độ dài từ 6 đến 20 ký tự',
+  error_pass: 'Mật khẩu không khớp, vui lòng kiểm tra lại!',
+  error_pass1:'Mật khẩu phải có độ dài từ 6 đến 20 ký tự bao gồm cả chữ và số',
   error_phone: 'Sai định dạng số điện thoại',
   error_otp: 'Mã xác minh phải có độ dài 6 số',
   error_otp1: 'Bạn vui lòng nhập mã xác minh',

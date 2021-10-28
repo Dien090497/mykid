@@ -28,7 +28,11 @@ export function passwordTest(pass) {
 }
 
 export function phoneTest1(phone) {
-  return /^(0|84)[\d]{1,10}$/.test(phone);
+  return /^(0|84)[\d]{9,10}$/.test(phone);
+}
+
+export function passwordTest1(pass) {
+  return /^(?=.*[A-Za-z])(?=.*\d)[^\s]{6,20}$/.test(pass);
 }
 
 export function convertCountdownTime(seconds) {
