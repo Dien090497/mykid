@@ -47,6 +47,8 @@ export default {
   profile: 'Cá nhân',
   account: 'Tài khoản',
   fail: 'Thất bại',
+  chooseDay: 'Chọn ngày',
+  success: 'Thành công',
   thisFunctionIsNotValid: 'Tính năng chưa được cập nhật',
   header_settings: 'Thiết lập',
   header_contacts: 'Danh bạ',
