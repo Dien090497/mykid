@@ -1,5 +1,4 @@
 export default {
-  hello: 'Xin chào',
   txtLanguage: 'Ngôn ngữ: ',
 
   emailContactUs: 'live@xxx.com',
@@ -25,7 +24,7 @@ export default {
   vibrateAndRing: 'Rung và chuông',
   ring: 'Chuông',
   vibrate: 'Rung',
-  silent:'Im lặng',
+  silent: 'Im lặng',
 
   // Common
   done: 'Xong',
@@ -47,6 +46,7 @@ export default {
   home: 'Trang chủ',
   profile: 'Cá nhân',
   account: 'Tài khoản',
+  fail: 'Thất bại',
   thisFunctionIsNotValid: 'Tính năng chưa được cập nhật',
   header_settings: 'Thiết lập',
   header_contacts: 'Danh bạ',
@@ -60,14 +60,14 @@ export default {
   header_connectDevice: 'Kết nối thiết bị',
   header_profile: 'Cá nhân',
   header_account: 'Nhập số điện thoại',
-  header_account_admin:'Administrator',
-  header_account_member:'Family Members',
+  header_account_admin: 'Administrator',
+  header_account_member: 'Family Members',
   header_password: 'Mật khẩu',
   header_findDevice: 'Tìm kiếm bị',
   header_soundSettings: 'Cài đặt chuông',
   header_alarmClock: 'Báo thức',
   header_alarmSetting: 'Cài đặt báo thức',
-  hender_eacesDroping:'Nghe lén (Giám sát từ xa)',
+  hender_eacesDroping: 'Nghe lén (Giám sát từ xa)',
   header_reward_points: 'Tặng phần thưởng',
   header_doNotDisturb: 'Chế độ lớp học',
   header_language_timezone: 'Ngôn ngữ và múi giờ',
@@ -90,6 +90,18 @@ export default {
   changePassword: 'Đổi mật khẩu',
   header_deviceManager: 'Quản lý thiết bị',
   personalData: 'Dữ liệu cá nhân',
+  EditSuccess: 'Sửa đổi thành công',
+  name: 'Họ tên',
+  avatar: 'Hình đại diện',
+  contact: 'Số điện thoại',
+  email: 'Email',
+  textName: 'Nhập tên của bạn',
+  textContact: 'Nhập số điện thoại',
+  textEmail: 'Nhập email',
+  error_email: 'Email sai định dạng. Vui lòng nhập lại!',
+  error_contact: 'Số điện thoại không đúng định dạng. Vui lòng nhập lại!',
+  error_name: 'Họ tên không được để trống',
+  yetHave: 'Chưa có',
 
   //
   login: 'Đăng nhập',
@@ -116,18 +128,18 @@ export default {
   error_message:
     'Vui lòng đọc thỏa thuận người dùng, chính sách bảo mật và chọn đồng ý',
   error_pass: 'Mật khẩu không khớp, vui lòng kiểm tra lại',
-  error_pass1:'Mật khẩu phải có độ dài từ 6 đến 20 ký tự',
+  error_pass1: 'Mật khẩu phải có độ dài từ 6 đến 20 ký tự',
   error_phone: 'Sai định dạng số điện thoại',
   error_otp: 'Mã xác minh phải có độ dài 6 số',
   error_otp1: 'Bạn vui lòng nhập mã xác minh',
   registerSuccess: 'Đăng ký thành công!',
-  errorPhone:'Độ dài từ 10-11 số',
+  errorPhone: 'Độ dài từ 10-11 số',
   genneralInfo: 'Thông tin cơ bản',
   enterCurrentPassword: 'Nhập mật khẩu hiện tại',
   enterNewPassword: 'Nhập mật khẩu mới',
   reEnterNewPassword: 'Nhập lại mật khẩu mới',
   changePasswordSuccess: 'Đổi mật khẩu thành công',
-  changeLangguageAndTimezone:'Cập nhật thành công',
+  changeLangguageAndTimezone: 'Cập nhật thành công',
   currentPasswordInvalid:
     'Mật khẩu hiện tại bạn nhập không đúng định dạng (8-16 ký tự)',
   newPasswordInvalid: 'Mật khẩu mới bạn nhập không đúng định dạng (8-16 ký tự)',
@@ -171,9 +183,9 @@ export default {
   history_empty: 'Thiết bị chưa có lịch sử vị trí',
   time_invalid: 'Thời gian chọn không hợp lệ',
   timeInvalidNote: 'Thời gian bắt đầu phải nhỏ hơn thời gian kết thúc',
-  setNameAndSetRelationship:'Đặt tên mối quan hệ',
+  setNameAndSetRelationship: 'Đặt tên mối quan hệ',
   holdAndTalk: 'Giữ và nói',
-  language:'Chọn ngôn ngữ',
+  language: 'Chọn ngôn ngữ',
   selectAtLeastOneDay: 'Vui lòng chọn ít nhất một ngày',
   msgInvalidImage: 'Ảnh không hợp lệ',
   selectPhotoLibrary: 'Chọn ảnh từ thư viện',
@@ -181,7 +193,7 @@ export default {
   selectPhoto: 'Chọn ảnh',
   journey: 'Hành trình',
 
-  palaceHolderSafeZone:'Thêm vùng an toàn',
+  palaceHolderSafeZone: 'Thêm vùng an toàn',
 
   //member
   member_refresh: 'Làm mới',
@@ -216,7 +228,7 @@ export default {
   call_back: 'Gọi lại',
   alerfTurnOffDevice: 'Bạn thực sự muốn tắt thiết bị này ?',
   alerfRestartDevice: 'Bạn có chắc chắn muốn khởi động thiết bị của mình không ?',
-  submitSuccess: 'Gửi thành công ',
+  submitSuccess: 'Gửi thành công!',
 
   // find device
   find_device_note0: 'Kiểm tra vị trí thiết bị mọi lúc, mọi nơi.',
@@ -241,7 +253,11 @@ export default {
 
   //SecretPhotoShoot
   textShoot: 'Chụp hình',
-  textDeleteImage:'Bạn có chắc chắn muốn xóa ảnh này không?',
+  textDeleteImage: 'Bạn có chắc chắn muốn xóa ảnh này không?',
+  txtNotHaveNewPicture: 'Không có ảnh mới',
+  txtWaitNewPicture: 'Hướng dẫn gửi thành công. Vui lòng đợi làm mới',
+  savePicture: 'Lưu ảnh',
+  txtModalPicture: 'Cảnh chụp: chụp từ xa',
 
   // permissions
   cameraUnavailable: 'Máy ảnh không khả dụng trên thiết bị của bạn',
@@ -249,7 +265,7 @@ export default {
   microphoneUnavailable: 'Mic không khả dụng trên thiết bị của bạn',
   cameraDenied: 'Quyền truy cập máy ảnh bị từ chối.\nVui lòng vào cài đặt để cấp quyền truy cập',
   photoLibraryReadDenied: 'Quyền truy cập thư viện ảnh bị từ chối.\nVui lòng mở cài đặt để cấp quyền truy cập',
-  photoLibraryReadLimit: 'Quyền truy cập thư viện ảnh bị giới hạn.\nVui lòng mở cài đặt để cấp quyền truy cập "Tất cả ảnh"',
+  photoLibraryReadLimit: 'Quyền truy cập thư viện ảnh bị giới hạn.\nVui lòng mở cài đặt để cấp quyền truy cập \'Tất cả ảnh\'',
   photoLibraryWriteDenied: 'Quyền ghi ảnh bị từ chối.\nVui lòng mở cài đặt để cấp quyền',
   microphoneDenied: 'Quyền truy cập mic bị từ chối.\nVui lòng vào cài đặt để cấp quyền truy cập',
   writeExternalStorageAndroidUnavailable: 'Quyền ghi dữ liệu vào bộ nhớ không khả dụng trên thiết bị của bạn',
@@ -270,5 +286,5 @@ export default {
   enterWeight: 'Nhập cân nặng',
   male: 'Nam',
   female: 'Nữ',
-  error_info: 'Chiều cao và cân nặng luôn lớn hơn 0'
+  error_info: 'Chiều cao và cân nặng luôn lớn hơn 0',
 };

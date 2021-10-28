@@ -16,6 +16,7 @@ import {String} from '../../../assets/strings/String';
 import {styles} from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {ScaleHeight} from "../../../functions/Consts";
+import { useTranslation } from "react-i18next";
 export default ({navigation, route}) => {
   const refLoading = useRef();
   const [allMember, setAllMember] = useState([]);
@@ -23,6 +24,7 @@ export default ({navigation, route}) => {
   const [onModal, setOnModal] = useState(false)
   const [idCancel, setIdCancel] = useState();
   const [loading, setLoading] = useState(false);
+  const { t } = useTranslation();
 
   const loadMore = React.useCallback(async () => {
     setLoading(true);
@@ -36,37 +38,37 @@ export default ({navigation, route}) => {
 
   const dataMock = [
     {
-      name: 'Bố',
+      name: t('common:dad'),
       icon: Images.icFather,
       relationship: 'FATHER'
     },
     {
-      name: 'Mẹ',
+      name: t('common:mom'),
       icon: Images.icMother,
       relationship: 'MOTHER'
     },
     {
-      name: 'Ông',
+      name: t('common:grandfather'),
       icon: Images.icGrandfather,
       relationship: 'GRANDFATHER'
     },
     {
-      name: 'Bà',
+      name: t('common:grandma'),
       icon: Images.icGrandmother,
       relationship: 'GRANDMOTHER'
     },
     {
-      name: 'Anh',
+      name: t('common:brother'),
       icon: Images.icBrother,
       relationship: 'BROTHER'
     },
     {
-      name: 'Chị',
+      name: t('common:sister'),
       icon: Images.icSister,
       relationship: 'SISTER'
     },
     {
-      icon: Images.icOther,
+      icon: t('common:other'),
       relationship: 'OTHER'
     },
   ];
@@ -176,10 +178,10 @@ export default ({navigation, route}) => {
              </View>
              <Text
                style={styles.otherInfoText}
-               children={`${String.header_account}: ${item.email}`}
+               children={`${t('common:account')}: ${ item.phone ? item.phone : ''}`}
              />
              <Text style={styles.otherInfoText}>
-               {String.relationship}{item.relationshipName}
+               {t('common:relationship')}{item.relationshipName}
              </Text>
            </View>
            {!item.admin && item.status === 'ACTIVE' && admin &&
@@ -206,7 +208,7 @@ export default ({navigation, route}) => {
                   onPress={() => cancelContact(item)}>
                   <Text
                     style={[styles.smallButtonText, {color: Colors.red}]}>
-                    {String.member_reject}
+                    {t('common:member_reject')}
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -215,7 +217,7 @@ export default ({navigation, route}) => {
                   style={[styles.smallButton,{backgroundColor:Colors.red}]}
                   onPress={() => acceptContact(item)}>
                   <Text style={[styles.smallButtonText, {color: Colors.white}]}>
-                    {String.member_approval}
+                    {t('common:member_approval')}
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -241,16 +243,16 @@ export default ({navigation, route}) => {
           />
         )}
         <Text style={styles.headerText}>
-          {isAdmin ? String.header_account_admin : String.header_account_member}
+          {isAdmin ? t('common:header_account_admin') : t('common:header_account_member')}
         </Text>
       </View>
     );
   };
-
+   console.log(allMember);
   return (
     <View
       style={[styles.container, {paddingBottom: useSafeAreaInsets().bottom}]}>
-      <Header title={String.header_members} />
+      <Header title={t('common:header_members')} />
       <View style={styles.mainView}>
         {admin && renderHeader(true)}
         {admin && renderMemberItem(admin)}
@@ -287,7 +289,7 @@ export default ({navigation, route}) => {
                     >
                       <Text
                         style={[styles.smallButtonText, {color: Colors.red}]}>
-                        {String.cancel}
+                        {t('common:cancel')}
                       </Text>
                     </TouchableOpacity>
                   </View>
@@ -298,7 +300,7 @@ export default ({navigation, route}) => {
                   >
                     <Text
                       style={[styles.smallButtonText, {color: Colors.white}]}>
-                      {String.confirm}
+                      {t('common:confirm')}
                     </Text>
                   </TouchableOpacity>
                 </View>

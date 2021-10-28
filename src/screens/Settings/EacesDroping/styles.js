@@ -1,6 +1,6 @@
 import {StyleSheet,Dimensions} from 'react-native';
-import {FontSize} from "../../../functions/Consts";
-import {Colors} from "../../../assets/colors/Colors";
+import {FontSize} from '../../../functions/Consts';
+import {Colors} from '../../../assets/colors/Colors';
 const {width,height}=Dimensions.get('window');
 export  const styles =StyleSheet.create({
   viewContainer:{

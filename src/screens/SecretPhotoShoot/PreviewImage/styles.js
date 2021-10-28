@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
-import { Colors } from "../../../assets/colors/Colors";
-import Consts, { FontSize, ScaleHeight } from "../../../functions/Consts";
+import { Colors } from '../../../assets/colors/Colors';
+import Consts, { FontSize, ScaleHeight } from '../../../functions/Consts';
 
 export const styles = StyleSheet.create({
   containerModal: {

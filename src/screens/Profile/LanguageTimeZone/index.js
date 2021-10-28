@@ -19,8 +19,9 @@ import {
   setLanguageTimeZoneApi,
 } from '../../../network/LanguageTimeZoneService';
 import RadioGroup from '../../../components/RadioGroup';
-import {WheelPicker} from "react-native-wheel-picker-android";
-import {showAlert} from "../../../functions/utils";
+import {WheelPicker} from 'react-native-wheel-picker-android';
+import {showAlert} from '../../../functions/utils';
+import { useTranslation } from 'react-i18next';
 
 export default function LanguageTimeZone({navigation, route}) {
   const refLoading = useRef();
@@ -30,6 +31,7 @@ export default function LanguageTimeZone({navigation, route}) {
   const [listLangguages, setListLanguage] = useState([]);
   const [check, setCheck] = useState(false);
   const refRadioGroup = useRef();
+  const { t } = useTranslation();
 
   useLayoutEffect(() => {
     getLanguageTimeZone();
@@ -99,13 +101,13 @@ export default function LanguageTimeZone({navigation, route}) {
 
   return (
     <View style={[styles.container, {paddingBottom: useSafeAreaInsets().bottom}]}>
-      <Header title={String.header_language_timezone} />
+      <Header title={t('common:header_language_timezone')} />
       <View style={styles.TobView}>
        <View style={styles.mainView}>
          <TouchableOpacity
            style={styles.containerAdd}
            onPress={setLanguageTimeZones}>
-           <Text style={[styles.txtAdd, {color: Colors.white}]}>{String.confirm}</Text>
+           <Text style={[styles.txtAdd, {color: Colors.white}]}>{t('common:confirm')}</Text>
          </TouchableOpacity>
          <TouchableOpacity
            style={styles.containerAdd1}
@@ -118,7 +120,7 @@ export default function LanguageTimeZone({navigation, route}) {
       <ScrollView
            howsHorizontalScrollIndicator={false}
            showsVerticalScrollIndicator={false}
-           contentInsetAdjustmentBehavior="automatic"
+           contentInsetAdjustmentBehavior='automatic'
            style={styles.scrollView}>
            <View style={styles.row}>
              <RadioGroup
@@ -131,7 +133,7 @@ export default function LanguageTimeZone({navigation, route}) {
       <Modal
           visible={check}
           transparent={true}
-          animationType="slide"
+          animationType='slide'
       >
         <View style={styles.modalView}>
           <TouchableOpacity style={styles.modalViewTob} onPress={outConfirm}/>
@@ -140,7 +142,7 @@ export default function LanguageTimeZone({navigation, route}) {
                <TouchableOpacity style={styles.confirmView}
                   onPress={onCornfirm}
                >
-                    <Text style={styles.textConfirm}>{String.confirm}</Text>
+                    <Text style={styles.textConfirm}>{t('common:confirm')}</Text>
                </TouchableOpacity>
             </View>
             <WheelPicker

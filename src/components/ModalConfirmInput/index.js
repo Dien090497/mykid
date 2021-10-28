@@ -2,11 +2,10 @@ import React, {Component} from 'react';
 import {Modal, Text, TouchableOpacity, View, TextInput, Dimensions, Image} from 'react-native';
 import {styles} from './styles';
 import {Colors} from '../../assets/colors/Colors';
-import {ScaleHeight} from '../../functions/Consts';
-import {String} from "../../assets/strings/String";
-import Images from "../../assets/Images";
+import Images from '../../assets/Images';
+import i18next from 'i18next';
 
-const {width, height} = Dimensions.get('window');
+const { height} = Dimensions.get('window');
 export default class ModalConfirmInput extends Component {
   constructor(props) {
     super(props);
@@ -70,7 +69,7 @@ export default class ModalConfirmInput extends Component {
                     style={{width: '88%', height: height * 0.05, marginLeft: 5, color: Colors.black}}
                     maxLength={(this.state.check ? 11 : 30)}
                     placeholder={this.props.inputText}
-                    placeholderTextColor={"#9D9D9D"}
+                    placeholderTextColor={'#9D9D9D'}
                     keyboardType={(this.state.check ? 'number-pad' : 'default')}
                     value={this.state.text}
                     underlineColorAndroid={'transparent'}
@@ -91,7 +90,7 @@ export default class ModalConfirmInput extends Component {
                   >
                     <Text
                       style={[styles.smallButtonText, {color: Colors.red}]}>
-                      {String.cancel}
+                      {i18next.t('common:cancel')}
                     </Text>
                   </TouchableOpacity>
                 </View>
@@ -105,7 +104,7 @@ export default class ModalConfirmInput extends Component {
                     >
                       <Text
                         style={[styles.smallButtonText, {color: Colors.white}]}>
-                        {String.confirm}
+                        {i18next.t('common:confirm')}
                       </Text>
                     </TouchableOpacity>
                   ) : (
@@ -119,7 +118,7 @@ export default class ModalConfirmInput extends Component {
                       }>
                       <Text
                         style={[styles.smallButtonText, {color: Colors.white}]}>
-                        {String.confirm}
+                        {i18next.t('common:confirm')}
                       </Text>
                     </View>
                   )}
