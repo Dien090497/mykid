@@ -10,7 +10,7 @@ import React, {useEffect} from 'react';
 import {isReadyRef, navigationRef} from './RootNavigation';
 
 import AddDeviceScreen from '../screens/Profile/AddDeviceScreen';
-import AddNewContact from '../screens/Settings/Contacts/addNew';
+import AddNewContact from '../screens/Settings/Contacts/AddNew';
 import ChangePassword from '../screens/Profile/ChangePassword';
 import {Colors} from '../assets/colors/Colors';
 import ConnectionScreen from '../screens/auth/ConnectionScreen';

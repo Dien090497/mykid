@@ -162,7 +162,6 @@ export default ({navigation, route}) => {
               ios_backgroundColor='#3e3e3e'
               onValueChange={toggleSwitch}
               value={isBlocking}
-              // value={dataContacts?.blockUnknown}
             />
           </View>
         </View>
