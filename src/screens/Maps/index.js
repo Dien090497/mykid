@@ -24,6 +24,7 @@ import LoadingIndicator from '../../components/LoadingIndicator';
 import {String} from '../../assets/strings/String';
 import {styles} from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import { useTranslation } from 'react-i18next';
 
 const markerDaughter = {
   latitude: 21.0076485,
@@ -45,6 +46,7 @@ export default ({navigation, route}) => {
   const refLoading = useRef(null);
   const [locationDevice, setLocationDevice] = useState(null);
   const [infoDevice, setInfoDevice] = useState(null);
+  const { t } = useTranslation();
 
   const getLocationDevice = async () => {
     try {
@@ -101,7 +103,7 @@ export default ({navigation, route}) => {
   return (
     <View
       style={[styles.container, {paddingBottom: useSafeAreaInsets().bottom}]}>
-      <Header title={String.header_maps} back />
+      <Header title={t('common:header_maps')} back />
       <View style={styles.container}>
         <MapView
           ref={refMap}

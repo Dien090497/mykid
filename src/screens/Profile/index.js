@@ -11,20 +11,22 @@ import Images from '../../assets/Images';
 import {String} from '../../assets/strings/String';
 import Consts, {FontSize} from '../../functions/Consts';
 import DataLocal from '../../data/dataLocal';
-import CustomIcon from "../../components/VectorIcons";
-import {Colors} from "../../assets/colors/Colors";
-import {useSafeAreaInsets} from "react-native-safe-area-context";
+import CustomIcon from '../../components/VectorIcons';
+import {Colors} from '../../assets/colors/Colors';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import XmppClient from '../../network/xmpp/XmppClient';
 import WebSocketVideoCall from '../../network/socket/WebSocketVideoCall';
 import WebSocketSafeZone from '../../network/socket/WebSocketSafeZone';
+import { useTranslation } from "react-i18next";
 
 const {width,height} = Dimensions.get('window');
 export default function Profile({navigation}) {
+  const { t } = useTranslation();
 
   const dataProfile = [
     {
       key: 'Personal',
-      title: String.personalData,
+      title: t('common:personalData'),
       onPress: () => {
         navigation.navigate(Consts.ScreenIds.PersonalData)
       },
@@ -34,7 +36,7 @@ export default function Profile({navigation}) {
     },
     {
       key: 'DevicesManager',
-      title: String.header_deviceManager,
+      title: t('common:header_deviceManager'),
       onPress: () => {
         navigation.navigate(Consts.ScreenIds.DeviceManager);
       },
@@ -44,7 +46,7 @@ export default function Profile({navigation}) {
     },
     {
       key: 'ChangePassWord',
-      title: String.changePassword,
+      title: t('common:changePassword'),
       onPress: () => {
         navigation.navigate(Consts.ScreenIds.ChangePassword);
       },
@@ -54,7 +56,7 @@ export default function Profile({navigation}) {
     },
     {
       key: 'LogOut',
-      title: String.logout,
+      title: t('common:logout'),
       onPress: () => {
         handleLogout();
       },
@@ -97,7 +99,7 @@ export default function Profile({navigation}) {
   return (
     <View
       style={[styles.container, {paddingBottom: useSafeAreaInsets().bottom}]}>
-      <Header title={String.header_account}/>
+      <Header title={t('common:account')}/>
       <View style={styles.mainView}>
         <FlatList
           data={dataProfile}

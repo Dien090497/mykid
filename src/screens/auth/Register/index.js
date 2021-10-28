@@ -6,16 +6,17 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
-} from "react-native";
-import React, {useLayoutEffect, useRef, useState} from "react";
-import {getOtpApi} from "../../../network/UserInfoService";
-import {phoneTest, passwordTest, showAlert, phoneTest1} from "../../../functions/utils";
+} from 'react-native';
+import React, {useLayoutEffect, useRef, useState} from 'react';
+import {getOtpApi} from '../../../network/UserInfoService';
+import {phoneTest, passwordTest, showAlert, phoneTest1} from '../../../functions/utils';
 
-import Consts from "../../../functions/Consts";
-import CustomInput from "../../../components/inputRegister";
-import {String} from "../../../assets/strings/String";
-import {styles} from "./styles";
-import {CheckBox} from "react-native-elements";
+import Consts from '../../../functions/Consts';
+import CustomInput from '../../../components/inputRegister';
+import {String} from '../../../assets/strings/String';
+import {styles} from './styles';
+import {CheckBox} from 'react-native-elements';
+import { useTranslation } from 'react-i18next';
 
 const Register = ({navigation}) => {
   const refLoading = useRef(null);
@@ -28,6 +29,7 @@ const Register = ({navigation}) => {
   const [showUserVerification, setShowUserVerification] = useState(true);
   const [checkbox, setCheckbox] = useState(false);
   const [submitActive, setSubmitActive] = useState(false);
+  const { t } = useTranslation();
 
   useLayoutEffect(() => {
     setSubmitActive(phone && pass)
@@ -55,7 +57,7 @@ const Register = ({navigation}) => {
 
   const oncRegister = () => {
     if (!checkbox) {
-      showAlert(String.error_message);
+      showAlert(t('common:error_message'));
       return;
     }
     if (!phoneTest1(phone)) {
@@ -80,15 +82,15 @@ const Register = ({navigation}) => {
   }
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : ""}
+      behavior={Platform.OS === 'ios' ? 'padding' : ''}
       style={styles.container}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.container}>
-          <Header title={String.register}/>
+          <Header title={t('common:register')}/>
           <View style={{alignItems: 'center', height: 600, justifyContent: 'center'}}>
             <View style={styles.Sty_txt}>
               <CustomInput
-                placeholder={String.placeholderPhone}
+                placeholder={t('common:placeholderPhone')}
                 onChangeText={onChangePhone}
                 value={phone}
                 notification={checkPhone}
@@ -98,7 +100,7 @@ const Register = ({navigation}) => {
             </View>
             <View style={styles.Sty_txt}>
               <CustomInput
-                placeholder={String.passwordUser}
+                placeholder={t('common:passwordUser')}
                 onChangeText={onChangePass}
                 value={pass}
                 notification={checkPass}
@@ -112,7 +114,7 @@ const Register = ({navigation}) => {
 
             <View style={styles.Sty_txt}>
               <CustomInput
-                placeholder={String.userVerification}
+                placeholder={t('common:userVerification')}
                 onChangeText={onChangePass1}
                 value={isPass}
                 notification={checkPass}
@@ -125,22 +127,22 @@ const Register = ({navigation}) => {
             </View>
             {pass !== '' && isPass !== '' && phone !== '' ? (
               <TouchableOpacity onPress={oncRegister} style={styles.btnSubmit}>
-                <Text style={styles.textSubmit}>{String.register}</Text>
+                <Text style={styles.textSubmit}>{t('common:register')}</Text>
               </TouchableOpacity>
             ) : (
               <View style={[styles.btnSubmit, {backgroundColor: 'rgba(228, 228, 228, 1)'}]}>
-                <Text style={styles.textSubmit}>{String.register}</Text>
+                <Text style={styles.textSubmit}>{t('common:register')}</Text>
               </View>
             )
             }
-            <View style={{marginTop: 15, flexDirection: "row", height: '20%'}}>
+            <View style={{marginTop: 15, flexDirection: 'row', height: '20%'}}>
               <CheckBox checkedColor='red' uncheckedColor='red' checked={checkbox}
                         onPress={() => setCheckbox(!checkbox)}/>
               <View>
-                <Text style={styles.txt_Policy}>{String.acceptMy}{' '}
-                  <Text style={styles.txtPolicy}>{String.agreement}</Text>
+                <Text style={styles.txt_Policy}>{t('common:acceptMy')}{' '}
+                  <Text style={styles.txtPolicy}>{t('common:agreement')}</Text>
                 </Text>
-                <Text style={styles.txtPolicy1}>{String.privacyPolicy}</Text>
+                <Text style={styles.txtPolicy1}>{t('common:privacyPolicy')}</Text>
               </View>
             </View>
           </View>

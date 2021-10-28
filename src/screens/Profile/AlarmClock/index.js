@@ -5,10 +5,9 @@ import {
   Text,
   TouchableOpacity,
   View,
-} from "react-native";
+} from 'react-native';
 import {styles} from './styles';
 import Header from '../../../components/Header';
-import {String} from '../../../assets/strings/String';
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import { Colors } from '../../../assets/colors/Colors';
 import DataLocal from '../../../data/dataLocal';
@@ -16,11 +15,21 @@ import { Image } from 'react-native';
 import Images from '../../../assets/Images';
 import Consts from '../../../functions/Consts';
 import { getAlarmsApi, setAlarmApi } from '../../../network/AlarmService';
+import { useTranslation } from 'react-i18next';
 
 export default function AlarmClock({navigation}) {
   const refLoading = useRef();
   const [alarmConfig, setAlarmConfig] = useState();
-  const dayOfWeeks = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
+  const { t } = useTranslation();
+  const dayOfWeeks = [
+    t('common:monDay'),
+    t('common:tueDay'),
+    t('common:wed'),
+    t('common:thu'),
+    t('common:fri'),
+    t('common:sat'),
+    t('common:sun')
+  ];
 
   useLayoutEffect(() => {
     getAlarms();
@@ -61,9 +70,9 @@ export default function AlarmClock({navigation}) {
 
   const getTextFrequency = (obj) => {
     if (obj.frequency === 'ONCE') {
-      return String.once;
+      return t('common:once');
     } else if (obj.frequency === 'EVERY_DAY') {
-      return String.everyday;
+      return t('common:everyday');
     } else if (obj.custom) {
       let custom = '';
       for (let index = 0; index < dayOfWeeks.length; index++) {
@@ -77,7 +86,7 @@ export default function AlarmClock({navigation}) {
 
   return (
     <View style={styles.contain}>
-      <Header title={String.header_alarmClock} />
+      <Header title={t('common:header_alarmClock')} />
       <View style={styles.container}>
         <View style={styles.viewImg}>
           <Image source={Images.icAlarmClock} resizeMode={'contain'} style={styles.iconClock}/>

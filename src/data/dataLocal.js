@@ -100,7 +100,6 @@ async function loadLanguage() {
 
 async function saveLanguage(language) {
   try {
-    console.log('saveLanguage', language)
     DataLocal.language = language;
     return await AsyncStorage.setItem(languageKey, language.toString());
   } catch (e) {

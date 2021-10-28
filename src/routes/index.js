@@ -38,10 +38,10 @@ import RewardPoints from '../screens/RewardPoints';
 import SecretPhotoShoot from '../screens/SecretPhotoShoot';
 import Chat from '../screens/Chat';
 import RoomChat from '../screens/Chat/RoomChat';
-import DeleteMessage from "../screens/Chat/DeleteMessage";
+import DeleteMessage from '../screens/Chat/DeleteMessage';
 import SoundSettings from '../screens/Profile/SoundSettings';
 import AlarmClock from '../screens/Profile/AlarmClock';
-import EacesDroping from "../screens/Settings/EacesDroping";
+import EacesDroping from '../screens/Settings/EacesDroping';
 import DoNotDisturb from '../screens/Profile/DoNotDisturb';
 import DisturbSetting from '../screens/Profile/DoNotDisturb/DisturbSetting';
 import AlarmSetting from '../screens/Profile/AlarmClock/AlarmSetting';
@@ -49,12 +49,12 @@ import SplashScreen from '../screens/Splash';
 import PersonalData from '../screens/Profile/PersonalData';
 import WS from './WebScoket';
 import {createStackNavigator} from '@react-navigation/stack';
-import LanguageTimeZone from "../screens/Profile/LanguageTimeZone";
+import LanguageTimeZone from '../screens/Profile/LanguageTimeZone';
 import OffDevice from '../screens/Settings/OffDevice';
 import StartDevice from '../screens/Settings/RestartDevice';
-import { String } from '../assets/strings/String';
-import EditDevice from "../screens/Profile/DeviceManager/EditDevice"
-import InfoKits from "../screens/Home/InfoKids";
+import EditDevice from '../screens/Profile/DeviceManager/EditDevice'
+import InfoKits from '../screens/Home/InfoKids';
+import { useTranslation } from 'react-i18next';
 const Tab = createBottomTabNavigator();
 
 const PATTERN = [
@@ -82,11 +82,6 @@ const TabBarIcon = {
   [Consts.ScreenIds.Profile]: Images.icProfileOn,
 };
 
-const TabBarName = {
-  [Consts.ScreenIds.HomeMainScreen]: String.home,
-  [Consts.ScreenIds.Profile]: String.profile,
-};
-
 const renderTabBarIcon = (focused, route) => {
   const sizeIcon = focused ? ScaleHeight.xtraSmall : ScaleHeight.xtraSmall - 3;
   const tintColor = focused ? Colors.red : Colors.gray;
@@ -98,16 +93,22 @@ const renderTabBarIcon = (focused, route) => {
         height: sizeIcon,
         tintColor: tintColor,
       }}
-      resizeMode="contain"
+      resizeMode='contain'
     />
   );
 };
 
 const renderTabBarLabel = (focused, route) => {
+  const { t } = useTranslation();
   const styleLabel = {
     color: focused ? Colors.red : Colors.gray,
     fontWeight: focused ? 'bold' : 'normal',
   };
+  const TabBarName = {
+    [Consts.ScreenIds.HomeMainScreen]: t('common:home'),
+    [Consts.ScreenIds.Profile]: t('common:profile'),
+  };
+
   return (
     <Text
       children={TabBarName[route.name]}
@@ -149,7 +150,7 @@ const StackAuth = createStackNavigator();
 const Auth = () => {
   return (
     <StackAuth.Navigator
-      initialRouteName="Login"
+      initialRouteName='Login'
       screenOptions={{
         headerShown: false,
       }}>
@@ -195,7 +196,7 @@ const Routes = () => {
         isReadyRef.current = true;
       }}>
       <Stack.Navigator
-        initialRouteName="Splash"
+        initialRouteName='Splash'
         screenOptions={{
           headerShown: false,
         }}>

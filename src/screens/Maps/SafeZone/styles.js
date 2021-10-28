@@ -1,33 +1,33 @@
-import { Colors } from "../../../assets/colors/Colors";
-import { FontSize, ScaleHeight } from "../../../functions/Consts";
-import { StyleSheet } from "react-native";
+import { Colors } from '../../../assets/colors/Colors';
+import { FontSize, ScaleHeight } from '../../../functions/Consts';
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "transparent"
+    backgroundColor: 'transparent'
   },
   mainView: {
     flex: 1,
-    backgroundColor: "#EFF0F1",
-    flexDirection: "column",
-    width: "100%",
-    alignContent: "center",
+    backgroundColor: '#EFF0F1',
+    flexDirection: 'column',
+    width: '100%',
+    alignContent: 'center',
   },
   containerDeviceItem: {
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderRadius: 5,
     margin: 3,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     paddingHorizontal: 16,
     paddingVertical: 8,
   },
   txtName: {
     fontSize: FontSize.small,
     color: Colors.colorMain,
-    fontFamily: "Roboto-Medium",
+    fontFamily: 'Roboto-Medium',
     flex: 1,
     paddingRight:20
   },
@@ -38,13 +38,13 @@ const styles = StyleSheet.create({
   icPhone: {
     flex: 1,
     aspectRatio: 1,
-    resizeMode: "contain"
+    resizeMode: 'contain'
   },
   txtNotfound: {
     fontSize: FontSize.small,
-    textAlign: "center",
+    textAlign: 'center',
     marginVertical: 10,
-    fontStyle: "italic",
+    fontStyle: 'italic',
   },
   containerFlatList: {
     marginHorizontal: 4,
@@ -55,19 +55,19 @@ const styles = StyleSheet.create({
   },
   containerBottomSheet: {
     paddingHorizontal: 20,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     paddingVertical: 10,
     borderTopEndRadius: 10,
     borderTopStartRadius: 10,
   },
   rowDirection: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     height: ScaleHeight.medium,
     borderRadius: 10,
     backgroundColor: Colors.white,
-    shadowColor: "rgba(173, 173, 173, 0.5)",
+    shadowColor: 'rgba(173, 173, 173, 0.5)',
     shadowOffset: {
       width: 1,
       height: 6,
@@ -82,21 +82,21 @@ const styles = StyleSheet.create({
     width: 14,
     height: 14,
     tintColor: Colors.gray,
-    resizeMode: "contain",
+    resizeMode: 'contain',
     marginLeft: 3,
   },
   btn: {
-    width: "100%",
+    width: '100%',
     backgroundColor: Colors.colorMain,
     height: ScaleHeight.medium,
     borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     marginTop: 10,
   },
   textBtn: {
     color: Colors.white,
-    fontFamily: "Roboto-Medium",
+    fontFamily: 'Roboto-Medium',
   },
   line: {
     marginVertical: 4
@@ -106,22 +106,22 @@ const styles = StyleSheet.create({
     color: Colors.gray,
   },
   containerTextInput: {
-    flexDirection: "row",
-    width: "100%",
-    alignItems: "center",
+    flexDirection: 'row',
+    width: '100%',
+    alignItems: 'center',
   },
   slide: {
-    flexDirection: "row",
-    width: "100%",
-    alignItems: "center",
+    flexDirection: 'row',
+    width: '100%',
+    alignItems: 'center',
     paddingHorizontal:10,
     height: ScaleHeight.big,
     justifyContent:'center'
   },
   textInput: {
-    flexDirection: "row",
-    width: "100%",
-    alignItems: "center",
+    flexDirection: 'row',
+    width: '100%',
+    alignItems: 'center',
     borderColor: Colors.borderInputText,
     borderWidth: 1,
     borderRadius: 10,
@@ -137,14 +137,14 @@ const styles = StyleSheet.create({
     height: 20,
     borderRadius: 40,
     backgroundColor: Colors.colorMain,
-    position: "absolute",
+    position: 'absolute',
     bottom: 10,
     right: 10,
   },
   thumb: {
     height: 40,
     width: 40,
-    backgroundColor: "transparent"
+    backgroundColor: 'transparent'
   },
   containerAction: {
     height:ScaleHeight.xtraSmall,
@@ -155,11 +155,11 @@ const styles = StyleSheet.create({
     backgroundColor:Colors.colorMain
   },
   txtAction: {
-    color: "white",
+    color: 'white',
   },
   containerTextAction: {
     flex: 1,
-    alignItems: "center",
+    alignItems: 'center',
     height: ScaleHeight.medium,
     justifyContent:'center',
     borderRadius:10
@@ -176,33 +176,33 @@ const styles = StyleSheet.create({
   icMarker: {
     width: 30,
     height: 30,
-    resizeMode: "contain"
+    resizeMode: 'contain'
   },
   containerNote: {
-    position: "absolute",
+    position: 'absolute',
     top: 10,
     left: 10,
-    width: "95%",
-    backgroundColor: "white",
+    width: '95%',
+    backgroundColor: 'white',
     borderRadius: 10,
     paddingVertical: 5,
     paddingHorizontal: 20,
-    flexDirection: "row",
-    justifyContent: "center",
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
   txtNoteDrag: {
-    textAlign: "center",
+    textAlign: 'center',
     fontSize: FontSize.small
   },
   containerRadius: {
     flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   containerTitleMarker: {
     paddingHorizontal: 5,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderRadius: 5,
     paddingVertical: 1,
     marginBottom: 3,
@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
   icMarkerDefault: {
     width: 30,
     height: 30,
-    alignSelf: "center",
+    alignSelf: 'center',
   },
   txtMarkerName: {
     fontSize: FontSize.small,
@@ -226,12 +226,14 @@ const styles = StyleSheet.create({
     paddingBottom:20,
     paddingTop:20,
     paddingHorizontal:20,
-    borderRadius:10
+    borderRadius:10,
+    marginHorizontal:30
   },
   modalTitle:{
     fontFamily:'Roboto-Medium',
     marginBottom:35,
     fontSize: FontSize.small,
+    textAlign: 'center'
   }
 });
 

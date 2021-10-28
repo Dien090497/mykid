@@ -93,7 +93,7 @@ const Login = ({ navigation }) => {
       }
       dispatch(Actions.actionLogin({ email, password, refLoading }));
     } else {
-      Alert.alert(String.notification, String.error_message);
+      Alert.alert(t('common:notification'), t('common:error_message'));
     }
   };
 

@@ -1,7 +1,7 @@
 import { Image, StatusBar, Text, TouchableOpacity, View } from 'react-native';
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 
-import { Menu, MenuItem, MenuDivider } from 'react-native-material-menu';
+import { Menu, MenuDivider } from 'react-native-material-menu';
 import DataLocal from '../../../data/dataLocal';
 import reduxStore from '../../../redux/config/redux';
 import { useSelector } from 'react-redux';
@@ -11,10 +11,8 @@ import Images from '../../../assets/Images';
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import { getListDeviceApi } from '../../../network/DeviceService';
 
-import {String} from '../../../assets/strings/String';
 import {styles} from './styles';
 import {useNavigation} from '@react-navigation/native';
-import {showAlert} from '../../../functions/utils';
 import XmppClient from '../../../network/xmpp/XmppClient';
 import WebSocketSafeZone from '../../../network/socket/WebSocketSafeZone';
 import WebSocketVideoCall from '../../../network/socket/WebSocketVideoCall';
@@ -77,10 +75,6 @@ export default function HomeMainScreen() {
 
   const pressFindDevice = () => {
     navigation.navigate(Consts.ScreenIds.FindDevice);
-  };
-
-  const pressEntertainment = () => {
-    showAlert(String.thisFunctionIsNotValid);
   };
 
   const pressAlarmClock = () => {
@@ -183,7 +177,7 @@ export default function HomeMainScreen() {
             <View style={styles.bgIcon}>
               <Image source={Images.icVideoCall} style={styles.icon} />
             </View>
-            <Text style={styles.buttonText}>{String.home_videoCall}</Text>
+            <Text style={styles.buttonText}>{t('common:home_videoCall')}</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.buttonContainerL}>
@@ -194,7 +188,7 @@ export default function HomeMainScreen() {
             <View style={styles.bgIcon}>
               <Image source={Images.icSafeZone} style={styles.icon} />
             </View>
-            <Text style={styles.buttonText}>{String.home_safeArea}</Text>
+            <Text style={styles.buttonText}>{t('common:home_safeArea')}</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.buttonContainerR}>
@@ -205,7 +199,7 @@ export default function HomeMainScreen() {
             <View style={styles.bgIcon}>
               <Image source={Images.icSoundSetting} style={styles.icon} />
             </View>
-            <Text style={styles.buttonText}>{String.home_alarm}</Text>
+            <Text style={styles.buttonText}>{t('common:home_alarm')}</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.buttonContainerL}>
@@ -216,7 +210,7 @@ export default function HomeMainScreen() {
             <View style={styles.bgIcon}>
               <Image source={Images.icAlarm} style={styles.icon} />
             </View>
-            <Text style={styles.buttonText}>{String.home_alarmClock}</Text>
+            <Text style={styles.buttonText}>{t('common:home_alarmClock')}</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.buttonContainerR}>
@@ -227,7 +221,7 @@ export default function HomeMainScreen() {
             <View style={styles.bgIcon}>
               <Image source={Images.icChat} style={styles.icon} />
             </View>
-            <Text style={styles.buttonText}>{String.home_chat}</Text>
+            <Text style={styles.buttonText}>{t('common:home_chat')}</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.buttonContainerL}>
@@ -238,7 +232,7 @@ export default function HomeMainScreen() {
             <View style={styles.bgIcon}>
               <Image source={Images.icFindDevice} style={styles.icon} />
             </View>
-            <Text style={styles.buttonText}>{String.home_findDevice}</Text>
+            <Text style={styles.buttonText}>{t('common:home_findDevice')}</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.buttonContainerR}>
@@ -249,7 +243,7 @@ export default function HomeMainScreen() {
             <View style={styles.bgIcon}>
               <Image source={Images.icSetting} style={styles.icon} />
             </View>
-            <Text style={styles.buttonText}>{String.home_setting}</Text>
+            <Text style={styles.buttonText}>{t('common:home_setting')}</Text>
           </TouchableOpacity>
         </View>
       </View>
