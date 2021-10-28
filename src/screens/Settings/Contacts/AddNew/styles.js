@@ -36,7 +36,7 @@ export const styles = StyleSheet.create({
     alignItems:'center'
   },
   textInput:{
-    fontSize: 16,
+    fontSize: FontSize.small,
     padding: 10,
     flex: 1
   },
