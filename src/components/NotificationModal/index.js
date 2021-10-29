@@ -13,20 +13,16 @@ export default class ModalConfirm extends Component {
     };
   }
 
-  open = (title) => {
-    this.setState({ modalVisible: true, title: title });
+  open = (title, callback) => {
+    this.setState({ modalVisible: true, title: title, callback: callback });
   };
 
-  close = (callback) => {
-    this.setState({ modalVisible: false }, () => {
-      if (callback) {
-        callback();
-      }
-    });
+  close = () => {
+    if (this.state.callback) this.state.callback();
+    this.setState({... this.state, modalVisible: false });
   };
   actionClose = () => {
-    this.close(() => {
-    });
+    this.close();
   };
 
   render() {

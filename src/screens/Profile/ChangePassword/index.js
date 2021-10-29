@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Text
 } from 'react-native';
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect, useRef, useState } from "react";
 import { changePasswordApi } from '../../../network/UserInfoService';
 import { passwordTest, saveUserDataFromToken, showAlert } from '../../../functions/utils';
 
@@ -17,8 +17,10 @@ import { String } from '../../../assets/strings/String';
 import { styles } from './styles';
 import {ScaleHeight} from '../../../functions/Consts';
 import { useTranslation } from 'react-i18next';
+import NotificationModal from '../../../components/NotificationModal'
 
 const ChangePassword = ({ navigation }) => {
+  const refNotification = useRef();
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [newPasswordConfirm, setNewPasswordConfirm] = useState('');
@@ -35,19 +37,19 @@ const ChangePassword = ({ navigation }) => {
   const onSubmit = () => {
     if (!submitActive) return;
     if (!passwordTest(currentPassword)) {
-      showAlert(String.currentPasswordInvalid);
+      refNotification.current.open(String.currentPasswordInvalid);
       return;
     }
     if (!passwordTest(newPassword)) {
-      showAlert(String.newPasswordInvalid);
+      refNotification.current.open(String.newPasswordInvalid);
       return;
     }
     if (newPassword !== newPasswordConfirm) {
-      showAlert(String.passwordConfirmInvalid);
+      refNotification.current.open(String.passwordConfirmInvalid);
       return;
     }
     if (newPassword === currentPassword) {
-      showAlert(String.passwordDuplicated);
+      refNotification.current.open(String.passwordDuplicated);
       return;
     }
 
@@ -125,6 +127,7 @@ const ChangePassword = ({ navigation }) => {
           </View>
         </View>
       </TouchableWithoutFeedback>
+      <NotificationModal ref={refNotification}/>
     </KeyboardAvoidingView>
   );
 };

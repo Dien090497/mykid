@@ -14,7 +14,7 @@ import {
   TextInput, StatusBar, Modal,
 } from 'react-native';
 import React, { useLayoutEffect, useRef, useState } from 'react';
-import { passwordTest, showAlert } from '../../../functions/utils';
+import { passwordTest } from '../../../functions/utils';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Colors } from '../../../assets/colors/Colors';

@@ -10,6 +10,7 @@ import { String } from '../../assets/strings/String';
 import { showAlert } from '../../functions/utils';
 import { styles } from './styles';
 
+// TODO Can Remove
 export default class PeriodModal extends Component {
   constructor(props) {
     super(props);
@@ -98,7 +99,7 @@ export default class PeriodModal extends Component {
                 { this.state.from &&
                   <TimePicker format24
                     initDate={this.state.from}
-                    onTimeSelected={this.onFromSelected} 
+                    onTimeSelected={this.onFromSelected}
                     minutes={this.getMinutes()}/>
                 }
               </View>
@@ -106,9 +107,9 @@ export default class PeriodModal extends Component {
                 <Text style={styles.txtSub}>-</Text>
               </View>
               <View style={[styles.viewTime, Platform.OS !== 'ios' ? {height: 150, paddingTop: 20} : {}]}>
-                { this.state.to && 
+                { this.state.to &&
                   <TimePicker format24
-                    initDate={this.state.to} 
+                    initDate={this.state.to}
                     onTimeSelected={this.onToSelected}
                     minutes={this.getMinutes()}/>
                 }

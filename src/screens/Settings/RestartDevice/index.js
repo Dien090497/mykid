@@ -5,19 +5,20 @@ import DataLocal from '../../../data/dataLocal';
 import Header from '../../../components/Header';
 import Images from '../../../assets/Images';
 import { restartDeviceApi } from '../../../network/DeviceService';
-import { showAlert } from '../../../functions/utils';
 import ModalConfirm from '../../../components/ModalConfirm';
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import { useTranslation } from 'react-i18next';
+import NotificationModal from '../../../components/NotificationModal'
 
 export default function restartDevice() {
   const refModel = useRef();
   const refLoading = useRef();
+  const refNotification = useRef();
   const { t } = useTranslation();
   const restartDevice = () => {
     restartDeviceApi(DataLocal.deviceId, {
       success: res => {
-        showAlert(t('common:submitSuccess'));
+        refNotification.current.open(t('common:submitSuccess'))
       },
       refLoading: refLoading,
     });
@@ -38,6 +39,7 @@ export default function restartDevice() {
       <ModalConfirm
         ref={refModel}
       />
+      <NotificationModal ref={refNotification} />
       <LoadingIndicator ref={refLoading} />
     </View>
   );
