@@ -10,7 +10,7 @@ import {
 
 import Consts from '../../functions/Consts';
 import DataLocal from '../../data/dataLocal';
-import {ErrorMsg} from '../../assets/strings/ErrorMsg';
+import errorMsg from "../../constants/translations/vi/errorMsg";
 import {Platform} from 'react-native';
 import {RETRY_HTTP_REQUEST_NUMBER} from '../../data/AppConfig';
 import axios from 'axios';
@@ -23,10 +23,6 @@ const client = axios.create({
   baseURL: appUrl,
   timeout: TIMEOUT_CONNECT,
 });
-
-const TOKEN_EXPIRED_MSG = 'Phiên đăng nhập của bạn đã hết. Vui lòng đăng nhập lại.';
-export const OTHER_LOGIN = 'Bạn đã đăng nhập trên thiết bị khác.';
-export const UNEXPECTED_ERROR_MSG = 'Có lỗi không xác định xảy ra';
 
 const requestType = {
   post: 'post',
@@ -353,13 +349,13 @@ async function handleResp(response, autoShowMsg, success, failure, refLoading) {
       }
 
       if (autoShowMsg) {
-        showAlert(TOKEN_EXPIRED_MSG);
+        showAlert(i18next.t('errorMsg:TOKEN_EXPIRED_MSG'));
       }
       if (failure) {
-        failure(TOKEN_EXPIRED_MSG);
+        failure(i18next.t('errorMsg:TOKEN_EXPIRED_MSG'));
       }
 
-      return failureResponse(TOKEN_EXPIRED_MSG, response);
+      return failureResponse(i18next.t('errorMsg:TOKEN_EXPIRED_MSG'), response);
     }
 
     const err = checkFailure(result);
@@ -422,17 +418,17 @@ function checkFailure(result) {
   }
 
   if (!meta || !meta.code) {
-    return UNEXPECTED_ERROR_MSG;
+    return i18next.t('errorMsg:UNEXPECTED_ERROR_MSG');
   }
 
   const code = meta.code.toLowerCase().split('-').join('');
 
-  if (Object.keys(ErrorMsg).includes(code)) {
+  if (Object.keys(errorMsg).includes(code)) {
     return showAlert(i18next.t('errorMsg:'+code))
     // return ErrorMsg[code];
   }
 
-  return UNEXPECTED_ERROR_MSG + ' (' + meta.code + ')';
+  return i18next.t('errorMsg:UNEXPECTED_ERROR_MSG') + ' (' + meta.code + ')';
 }
 
 export function anonymousLogin(refLoading = null) {

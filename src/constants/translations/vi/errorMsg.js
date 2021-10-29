@@ -37,5 +37,10 @@ export default {
   uploadAvatarFailed: 'Cập nhật ảnh đại diện thất bại',
 
   //device default not found
-  updateDeviceDefault: 'Vui lòng lựa chọn thiết bị mặc định'
+  updateDeviceDefault: 'Vui lòng lựa chọn thiết bị mặc định',
+
+  // http
+  TOKEN_EXPIRED_MSG: 'Phiên đăng nhập của bạn đã hết. Vui lòng đăng nhập lại',
+  OTHER_LOGIN: 'Bạn đã đăng nhập trên thiết bị khác.',
+  UNEXPECTED_ERROR_MSG: 'Không kết nối được với server. Vui lòng thử lại sau!',
 }
