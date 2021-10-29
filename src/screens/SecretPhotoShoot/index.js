@@ -34,7 +34,7 @@ export default ({ navigation }) => {
   }, []);
 
   const getListImage = () => {
-    GetListImage(DataLocal.deviceId, 0, 99, {
+    GetListImage(DataLocal.deviceId, 0, 98, {
         success: res => {
           if (res.data.length === data.length){
             SimpleToast.show(t('common:txtNotHaveNewPicture'));
