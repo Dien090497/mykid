@@ -15,6 +15,7 @@ import {Platform} from 'react-native';
 import {RETRY_HTTP_REQUEST_NUMBER} from '../../data/AppConfig';
 import axios from 'axios';
 import reduxStore from '../../redux/config/redux';
+import i18next from 'i18next';
 
 const TIMEOUT_CONNECT = 60000;
 
@@ -321,7 +322,7 @@ export async function uploadFile(
 
 async function handleResp(response, autoShowMsg, success, failure, refLoading) {
   if (!response || response.status === 500) {
-    let err = ErrorMsg.connectToServerFailed;
+    let err = i18next.t('errorMsg:connectToServerFailed');
     console.log('handleResp >>>>>>>>>>>', response)
     if (response && response.error) {
       err = response.error;
@@ -401,11 +402,11 @@ async function checkRefreshToken(headers, refLoading) {
 export const refreshUserToken = async (refLoading = null) => {
   const resp = await get(refreshTokenUrl, {refLoading});
   if (!resp.success) {
-    showAlert(ErrorMsg.clientServerCommunicationProb);
+    showAlert(i18next.t('errorMsg:clientServerCommunicationProb'));
   } else {
     const resData = resp.success.data;
     if (!resData || !resData.token) {
-      showAlert(ErrorMsg.clientServerCommunicationProb);
+      showAlert(i18next.t('errorMsg:clientServerCommunicationProb'));
     } else {
     }
   }
@@ -427,7 +428,8 @@ function checkFailure(result) {
   const code = meta.code.toLowerCase().split('-').join('');
 
   if (Object.keys(ErrorMsg).includes(code)) {
-    return ErrorMsg[code];
+    return showAlert(i18next.t('errorMsg:'+code))
+    // return ErrorMsg[code];
   }
 
   return UNEXPECTED_ERROR_MSG + ' (' + meta.code + ')';

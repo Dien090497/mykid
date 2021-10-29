@@ -27,7 +27,7 @@ export default {
   silent: 'Silent',
 
   // Common
-  done: 'Xong',
+  done: 'Done',
   delete: 'Delete',
   cancel: 'Cancel',
   accept: 'Accept',

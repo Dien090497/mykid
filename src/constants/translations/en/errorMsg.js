@@ -36,7 +36,11 @@ export default {
   userNotFound: 'User information not found',
   uploadAvatarFailed: 'Avatar update failed',
 
-
   //device default not found
-  updateDeviceDefault: 'Please select default device'
+  updateDeviceDefault: 'Please select default device',
+
+  // http
+  TOKEN_EXPIRED_MSG: 'Phiên đăng nhập của bạn đã hết. Vui lòng đăng nhập lại.',
+  OTHER_LOGIN: 'Bạn đã đăng nhập trên thiết bị khác.',
+  UNEXPECTED_ERROR_MSG: 'Có lỗi không xác định xảy ra',
 };

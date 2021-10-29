@@ -1,8 +1,6 @@
 import Consts, {FontSize} from '../../functions/Consts';
 import {
-  FlatList,
   Image,
-  Switch,
   Text,
   TouchableOpacity,
   View,
@@ -17,11 +15,9 @@ import {
 
 import {Colors} from '../../assets/colors/Colors';
 import DataLocal from '../../data/dataLocal';
-import {ErrorMsg} from '../../assets/strings/ErrorMsg';
 import Header from '../../components/Header';
 import Images from '../../assets/Images';
 import LoadingIndicator from '../../components/LoadingIndicator';
-import {String} from '../../assets/strings/String';
 import {styles} from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
@@ -83,7 +79,7 @@ export default ({navigation, route}) => {
   useEffect(() => {
     if (DataLocal.deviceId) getLocationDevice();
     else {
-      showAlert(ErrorMsg.updateDeviceDefault, {
+      showAlert(t('errorMsg:updateDeviceDefault'), {
         close: () => {
           navigation.replace(Consts.ScreenIds.DeviceManager);
         },
