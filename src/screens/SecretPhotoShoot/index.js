@@ -131,8 +131,13 @@ export default ({ navigation }) => {
   const saveImage = (src) => {
     if (Platform.OS === 'ios') {
       CameraRoll.save(src)
-        .then(console.log('Photo added to camera roll!'))
-        .catch(err => console.log('err:', err));
+        .then(res =>{
+          SimpleToast.show(t('common:savePictureSuccess'))
+        })
+        .catch(err => {
+          SimpleToast.show(t('common:savePictureFail'))
+          console.log('err:', err)
+        });
     } else {
       RNFetchBlob
         .config({
@@ -143,9 +148,10 @@ export default ({ navigation }) => {
         .then((res) => {
           CameraRoll.saveToCameraRoll(res.path())
             .then((res) => {
-              console.log('save', res);
+              SimpleToast.show(t('common:savePictureSuccess'))
             }).catch((error) => {
-            console.log('error', error);
+            SimpleToast.show(t('common:savePictureFail'))
+            console.log('err:', error)
           });
 
         });
