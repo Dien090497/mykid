@@ -110,7 +110,8 @@ export default function DeviceManager({navigation}) {
     setOnModal(false);
     deleteDevicesApi(idCancel, {
       success: res => {
-        console.log('deleteDevices ', res)
+        console.log('deleteDevices ', res);
+        getListDevice();
       },
       refLoading
     });
@@ -220,7 +221,7 @@ export default function DeviceManager({navigation}) {
                   >
                     <Text
                       style={[styles.smallButtonText, {color: Colors.white}]}>
-                      {t('common:confirm')}
+                      {t('common:member_approval')}
                     </Text>
                   </TouchableOpacity>
                 </View>

@@ -181,7 +181,7 @@ export default function InfoKits({route}) {
         }}
         title={'Chọn ngày'}
         cancelText={t('common:cancel')}
-        confirmText={t('common:confirm')}
+        confirmText={t('common:member_approval')}
       />
     );
   }
@@ -238,7 +238,7 @@ export default function InfoKits({route}) {
           keyExtractor={item => item.id}
           style={{paddingTop: 15}}
         />
-        <TouchableOpacity style={styles.tobViewMain} onPress={InstallInfo}>
+        <TouchableOpacity style={styles.tobViewMain} onPress={InstallInfo} disabled={route.params.disableTob}>
           <Text style={[styles.text, {color: Colors.white}]}>{t('common:save')}</Text>
         </TouchableOpacity>
       </View>
