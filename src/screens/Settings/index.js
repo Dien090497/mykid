@@ -85,7 +85,7 @@ export default ({navigation, route}) => {
         navigation.navigate(Consts.ScreenIds.SecretPhotoShoot);
       },
       icon: (
-         <Image source={Images.icShootPhoto} style={{width: 40, height: 40}} resizeMode={'center'}/>
+         <Image source={Images.icShootPhoto} style={{width: 24, height: 20}} resizeMode={'stretch'}/>
       ),
     },
     {
