@@ -289,4 +289,5 @@ export default {
   male: 'Male',
   female: 'Female',
   error_info: 'Chiều cao và cân nặng luôn lớn hơn 0',
+  error_birthday: 'Ngày sinh của bé không hợp lệ'
 };

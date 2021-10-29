@@ -44,9 +44,6 @@ export default class ModalConfirmInput extends Component {
   };
 
   isChangeText = (text) => {
-    if (this.state.text !== text) {
-      this.setState({disableTob: true});
-    }
     if (this.state.check) {
       this.setState({text: text.replace(/[^0-9]/g, '')})
     } else {
@@ -70,7 +67,7 @@ export default class ModalConfirmInput extends Component {
                 <Text style={styles.textModel}>{this.props.title}</Text>
                 <View style={styles.textInput}>
                   <TextInput
-                    style={{width: '88%', height: height * 0.06, marginLeft: 5, color: Colors.black}}
+                    style={{width: '88%', height: height * 0.055, marginLeft: 5, color: Colors.black}}
                     maxLength={(this.state.check ? 11 : 30)}
                     placeholder={this.props.inputText}
                     placeholderTextColor={'#9D9D9D'}
@@ -122,7 +119,7 @@ export default class ModalConfirmInput extends Component {
                       }>
                       <Text
                         style={[styles.smallButtonText, {color: Colors.white}]}>
-                        {i18next.t('common:confirm')}
+                        {i18next.t('common:member_approval')}
                       </Text>
                     </View>
                   )}
