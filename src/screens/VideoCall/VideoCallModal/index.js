@@ -1,21 +1,20 @@
 import {
   Image,
   Modal,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {memo, useRef} from 'react';
+import React, { useRef } from 'react';
 
-import {String} from '../../../assets/strings/String';
 import styles from './styles.js';
 import JanusVideoRoomScreen from '../JanusVideoRoomScreen';
-import {navigationRef} from '../../../routes/RootNavigation';
 import Images from '../../../assets/Images';
+import { useTranslation } from "react-i18next";
 
 const VideoCallModal = ({visible, device, toggleModal, pickUp, data}) => {
   const refJanusVideoRoomScreen = useRef();
+  const { t } = useTranslation();
   const destroyVideoCall = () => {
     // refJanusVideoRoomScreen.current.destroyVideoCall();
     toggleModal(data.id);
@@ -37,7 +36,7 @@ const VideoCallModal = ({visible, device, toggleModal, pickUp, data}) => {
             style={styles.txtName}
             children={device ? device.deviceName : ''}
           />
-          <Text children={String.video_call} style={styles.txtVideoCall} />
+          <Text children={t('common:video_call')} style={styles.txtVideoCall} />
         </View>
         <View style={styles.containerFooter}>
           <TouchableOpacity

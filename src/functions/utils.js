@@ -7,6 +7,7 @@ import {String} from '../assets/strings/String';
 import jwt_decode from 'jwt-decode';
 import AppConfig from '../data/AppConfig';
 import ImageResizer from 'react-native-image-resizer';
+import i18next from 'i18next';
 
 const addCommas = (num, style) => {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, style);
@@ -51,7 +52,7 @@ export function showAlert(msg, {close, needCheckDuplicate = true} = {}) {
   setTimeout(() => {
     Alert.alert('MyKid', msg, [
       {
-        text: String.accept,
+        text: i18next.t('common:accept'),
         onPress: () => {
           if (close) {
             close();
@@ -65,7 +66,7 @@ export function showAlert(msg, {close, needCheckDuplicate = true} = {}) {
 export function showConfirmation(msg, {acceptStr, cancelStr, response} = {}) {
   Alert.alert('MyKid', msg, [
     {
-      text: acceptStr || String.accept,
+      text: acceptStr || i18next.t('common:accept'),
       onPress: () => {
         if (response) {
           response(true);
@@ -73,7 +74,7 @@ export function showConfirmation(msg, {acceptStr, cancelStr, response} = {}) {
       },
     },
     {
-      text: cancelStr || String.cancel,
+      text: cancelStr || i18next.t('common:cancel'),
       style: 'cancel',
     },
   ]);
