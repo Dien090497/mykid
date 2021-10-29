@@ -6,20 +6,21 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
-} from "react-native";
-import React, {useLayoutEffect, useRef, useState} from "react";
-import {getOtpApi} from "../../../network/UserInfoService";
-import {passwordTest1, showAlert, phoneTest1, phoneTest, passwordTest} from "../../../functions/utils";
+} from 'react-native';
+import React, {useLayoutEffect, useRef, useState} from 'react';
+import {getOtpApi} from '../../../network/UserInfoService';
+import {passwordTest1, phoneTest1 } from '../../../functions/utils';
 
 import Consts from '../../../functions/Consts';
 import CustomInput from '../../../components/inputRegister';
-import {String} from '../../../assets/strings/String';
 import {styles} from './styles';
 import {CheckBox} from 'react-native-elements';
 import { useTranslation } from 'react-i18next';
+import NotificationModal from '../../../components/NotificationModal'
 
 const Register = ({navigation}) => {
   const refLoading = useRef(null);
+  const refNotification = useRef();
   const [phone, setPhone] = useState('');
   const [checkPhone, setCheckPhone] = useState(false);
   const [pass, setPass] = useState('');
@@ -57,19 +58,19 @@ const Register = ({navigation}) => {
 
   const oncRegister = () => {
     if (!checkbox) {
-      showAlert(t('common:error_message'));
+      refNotification.current.open(t('common:error_message'))
       return;
     }
     if (!phoneTest1(phone)) {
-      showAlert(String.error_phone);
+      refNotification.current.open(t('common:error_phone'))
       return;
     }
     if (pass !== isPass) {
-      showAlert(String.error_pass);
+      refNotification.current.open(t('common:error_pass'))
       return;
     }
     if (!passwordTest1(pass)) {
-      showAlert(String.error_pass1);
+      refNotification.current.open(t('common:error_pass1'))
       return;
     }
 
@@ -148,6 +149,7 @@ const Register = ({navigation}) => {
           </View>
         </View>
       </TouchableWithoutFeedback>
+      <NotificationModal ref = {refNotification} />
     </KeyboardAvoidingView>
   );
 };

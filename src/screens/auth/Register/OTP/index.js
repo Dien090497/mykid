@@ -6,11 +6,13 @@ import Consts from '../../../../functions/Consts';
 import {styles} from '../styles';
 import {String} from '../../../../assets/strings/String';
 import LoadingIndicator from '../../../../components/LoadingIndicator';
-import {saveUserDataFromToken, showAlert} from '../../../../functions/utils';
+import {saveUserDataFromToken} from '../../../../functions/utils';
 import { useTranslation } from 'react-i18next';
+import NotificationModal from '../../../../components/NotificationModal'
 
 export default function OTP({navigation, route}) {
   const refLoading = useRef(null);
+  const refNotification = useRef();
   const [otp, setOTP] = useState('');
   const [check, setCheck] = useState(false);
   const [phone, setPhone] = useState();
@@ -52,11 +54,11 @@ export default function OTP({navigation, route}) {
       otp: otp
     }
     if (otp === '') {
-      showAlert(String.error_otp1);
+      refNotification.current.open(String.error_otp1)
       return;
     }
     if (otp.length < 6) {
-      showAlert(String.error_otp);
+      refNotification.current.open(String.error_otp)
       return;
     }
 
@@ -157,6 +159,7 @@ export default function OTP({navigation, route}) {
       <TouchableOpacity onPress={onRegister} style={styles.btnSubmit}>
         <Text style={styles.textSubmit}>{t('common:register')}</Text>
       </TouchableOpacity>
+      <NotificationModal ref = {refNotification} />
       <LoadingIndicator ref={refLoading}/>
     </View>
   );

@@ -28,6 +28,7 @@ import { CheckBox } from 'react-native-elements';
 import DataLocal from '../../../data/dataLocal';
 import { useTranslation } from 'react-i18next';
 import { WheelPicker } from 'react-native-wheel-picker-android';
+import NotificationModal from '../../../components/NotificationModal'
 
 const LANGUAGES = [
   { code: 'en', label: 'English' },
@@ -45,6 +46,7 @@ const Login = ({ navigation }) => {
   const [showModal,setShowModal] = useState(false);
   const [indexLanguage,setIndexLanguage] = useState(0);
   const refLoading = useRef();
+  const refNotification = useRef();
   const { t, i18n } = useTranslation();
 
   useLayoutEffect(() => {
@@ -88,7 +90,7 @@ const Login = ({ navigation }) => {
   const onSubmit = () => {
     if (checkbox) {
       if (!passwordTest(password)) {
-        showAlert(String.txtNotification);
+        refNotification.current.open(String.txtNotification)
         return;
       }
       dispatch(Actions.actionLogin({ email, password, refLoading }));
@@ -202,6 +204,7 @@ const Login = ({ navigation }) => {
         </View>
       </Modal>
       <LoadingIndicator ref={refLoading} />
+      <NotificationModal ref = {refNotification} />
     </KeyboardAvoidingView>
   );
 };
