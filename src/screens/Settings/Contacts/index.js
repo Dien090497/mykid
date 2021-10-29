@@ -20,7 +20,6 @@ import DataLocal from '../../../data/dataLocal';
 import Header from '../../../components/Header';
 import Images from '../../../assets/Images';
 import LoadingIndicator from '../../../components/LoadingIndicator';
-import {String} from '../../../assets/strings/String';
 import {styles} from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
@@ -62,11 +61,11 @@ export default ({navigation, route}) => {
   const removeContact = item => {
     //call remove Contact
     if (item.sosNumber) {
-      showAlert(String.message_remove_contact_sos);
+      showAlert(t('common:message_remove_contact_sos'));
       return;
     }
 
-    showConfirmation(String.removeContactConfirm, {
+    showConfirmation(t('common:removeContactConfirm'), {
       acceptStr: t('common:member_approval'),
       cancelStr: t('common:back'),
       response: () => {
@@ -149,7 +148,7 @@ export default ({navigation, route}) => {
                 style={styles.emptyContact}
                 resizeMode='contain'
               />
-              <Text style={styles.txtEmpty} children={String.empty_contact} />
+              <Text style={styles.txtEmpty} children={t('common:empty_contact')} />
             </View>
           }
         />

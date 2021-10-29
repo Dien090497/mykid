@@ -3,7 +3,6 @@ import ReactNative, {Alert, UIManager} from 'react-native';
 import DataLocal from '../data/dataLocal';
 import {ErrorMsg} from '../assets/strings/ErrorMsg';
 import KeepAwake from 'react-native-keep-awake';
-import {String} from '../assets/strings/String';
 import jwt_decode from 'jwt-decode';
 import AppConfig from '../data/AppConfig';
 import ImageResizer from 'react-native-image-resizer';
@@ -102,7 +101,7 @@ export async function resizeImage(imgPickerResp) {
     return response.uri;
   }).catch(err => {
     console.log('Compress error:', err);
-    showAlert(String.msgInvalidImage);
+    showAlert(i18next.t('common:msgInvalidImage'));
     return null;
   });
 }

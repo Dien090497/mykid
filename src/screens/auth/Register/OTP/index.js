@@ -4,7 +4,6 @@ import {Colors} from '../../../../assets/colors/Colors';
 import {getOtpApi, createAndLogin} from '../../../../network/UserInfoService';
 import Consts from '../../../../functions/Consts';
 import {styles} from '../styles';
-import {String} from '../../../../assets/strings/String';
 import LoadingIndicator from '../../../../components/LoadingIndicator';
 import {saveUserDataFromToken, showAlert} from '../../../../functions/utils';
 import { useTranslation } from 'react-i18next';
@@ -52,11 +51,11 @@ export default function OTP({navigation, route}) {
       otp: otp
     }
     if (otp === '') {
-      showAlert(String.error_otp1);
+      showAlert(t('common:error_otp1'));
       return;
     }
     if (otp.length < 6) {
-      showAlert(String.error_otp);
+      showAlert(t('common:error_otp'));
       return;
     }
 

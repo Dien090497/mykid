@@ -289,4 +289,5 @@ export default {
   male: 'Nam',
   female: 'Nữ',
   error_info: 'Chiều cao và cân nặng luôn lớn hơn 0',
+  errorName: 'Tên bé không được để trống'
 };

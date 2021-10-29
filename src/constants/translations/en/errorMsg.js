@@ -40,7 +40,7 @@ export default {
   updateDeviceDefault: 'Please select default device',
 
   // http
-  TOKEN_EXPIRED_MSG: 'Phiên đăng nhập của bạn đã hết. Vui lòng đăng nhập lại.',
-  OTHER_LOGIN: 'Bạn đã đăng nhập trên thiết bị khác.',
-  UNEXPECTED_ERROR_MSG: 'Có lỗi không xác định xảy ra',
+  TOKEN_EXPIRED_MSG: 'Your login session has expired. Please login again',
+  OTHER_LOGIN: 'You are signed in on another device.',
+  UNEXPECTED_ERROR_MSG: 'Unknown error occurred',
 };

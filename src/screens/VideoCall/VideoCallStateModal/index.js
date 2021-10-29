@@ -1,10 +1,10 @@
 import {Modal, Image, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 
-import {String} from '../../../assets/strings/String';
 import styles from './styles.js';
 import Images from '../../../assets/Images';
 import {Colors} from '../../../assets/colors/Colors';
+import i18next from 'i18next';
 
 const VideoCallStateModal = ({
   connectionState,
@@ -19,7 +19,7 @@ const VideoCallStateModal = ({
     toggleModal({connectionState: connectionState, roomId: item.id});
   };
   return (
-    <Modal visible={visible} animationType="fade" transparent={true}>
+    <Modal visible={visible} animationType='fade' transparent={true}>
       <View
         style={[
           styles.centeredView,
@@ -38,8 +38,8 @@ const VideoCallStateModal = ({
           <Text
             children={
               connectionState === 'INIT'
-                ? String.requestVideoCall
-                : String.call_busy
+                ? i18next.t('common:requestVideoCall')
+                : i18next.t('common:call_busy')
             }
             style={styles.txtVideoCall}
           />
@@ -67,7 +67,7 @@ const VideoCallStateModal = ({
             />
             <Text
               children={
-                connectionState === 'INIT' ? String.reject : String.cancel
+                connectionState === 'INIT' ? i18next.t('common:reject') : i18next.t('common:cancel')
               }
               style={styles.txtVideoCall}
             />
@@ -79,8 +79,8 @@ const VideoCallStateModal = ({
             <Text
               children={
                 connectionState === 'INIT'
-                  ? String.acceptVideocall
-                  : String.call_back
+                  ? i18next.t('common:acceptVideocall')
+                  : i18next.t('common:call_back')
               }
               style={styles.txtVideoCall}
             />

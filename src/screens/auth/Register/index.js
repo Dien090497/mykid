@@ -9,11 +9,10 @@ import {
 } from "react-native";
 import React, {useLayoutEffect, useRef, useState} from "react";
 import {getOtpApi} from "../../../network/UserInfoService";
-import {passwordTest1, showAlert, phoneTest1, phoneTest, passwordTest} from "../../../functions/utils";
+import {passwordTest1, showAlert, phoneTest1 } from "../../../functions/utils";
 
 import Consts from '../../../functions/Consts';
 import CustomInput from '../../../components/inputRegister';
-import {String} from '../../../assets/strings/String';
 import {styles} from './styles';
 import {CheckBox} from 'react-native-elements';
 import { useTranslation } from 'react-i18next';
@@ -61,15 +60,15 @@ const Register = ({navigation}) => {
       return;
     }
     if (!phoneTest1(phone)) {
-      showAlert(String.error_phone);
+      showAlert(t('common:error_phone'));
       return;
     }
     if (pass !== isPass) {
-      showAlert(String.error_pass);
+      showAlert(t('common:error_pass'));
       return;
     }
     if (!passwordTest1(pass)) {
-      showAlert(String.error_pass1);
+      showAlert(t('common:error_pass1'));
       return;
     }
 

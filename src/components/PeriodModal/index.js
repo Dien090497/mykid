@@ -3,10 +3,9 @@ import {
   View,
   TouchableOpacity,
   Modal,
-  Text,
-} from 'react-native';
+  Text, Platform,
+} from "react-native";
 import { TimePicker } from 'react-native-wheel-picker-android';
-import { String } from '../../assets/strings/String';
 import { showAlert } from '../../functions/utils';
 import { styles } from './styles';
 import i18next from 'i18next';
@@ -54,7 +53,7 @@ export default class PeriodModal extends Component {
 
   onSubmit = () => {
     if (this.state.to <= this.state.from) {
-      showAlert(String.timeInvalidNote);
+      showAlert(i18next.t('common:timeInvalidNote'));
       return;
     }
     const splitFrom = this.state.from.toString().split(' ');

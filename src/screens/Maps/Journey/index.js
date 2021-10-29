@@ -1,6 +1,4 @@
 import {
-  Alert,
-  Animated,
   Image,
   KeyboardAvoidingView,
   Platform,
@@ -8,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import MapView, {Circle, Marker, PROVIDER_GOOGLE} from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
 import React, {
   useCallback,
   useEffect,
@@ -24,7 +22,6 @@ import DatePicker from 'react-native-date-picker';
 import Header from '../../../components/Header';
 import Images from '../../../assets/Images';
 import LoadingIndicator from '../../../components/LoadingIndicator';
-import {String} from '../../../assets/strings/String';
 import styles from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import TimePickerModal from '../../../components/TimePickerModal';
@@ -71,10 +68,10 @@ export default ({}) => {
 
   const toggleJourney = () => {
     if (fromDate.getHours() > toDate.getHours()){
-      showAlert(String.timeInvalidNote);
+      showAlert(t('common:timeInvalidNote'));
       return
     }else if (fromDate.getHours() > toDate.getHours() && fromDate.getMinutes() > toDate.getMinutes()){
-      showAlert(String.timeInvalidNote);
+      showAlert(t('common:timeInvalidNote'));
       return
     }
     fromDate.setMonth(date.getMonth(), date.getDate())
@@ -90,7 +87,7 @@ export default ({}) => {
       {
         success: resData => {
           if (!resData.data.content.length) {
-            showAlert(`${deviceInfo.deviceName} - ${String.history_empty}`);
+            showAlert(`${deviceInfo.deviceName} - ${t('common:history_empty')}`);
           } else {
             setListSafeArea(resData.data.content);
             const {lat, lng} = resData.data.content[0].location;

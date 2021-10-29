@@ -1,4 +1,4 @@
-import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
+import React, { useLayoutEffect, useRef, useState} from 'react';
 import {
   Text,
   TouchableOpacity,
@@ -7,7 +7,6 @@ import {
   RefreshControl,
   Image, Modal
 } from 'react-native'
-import {String} from '../../../assets/strings/String';
 import Header from '../../../components/Header';
 import {getListDeviceApi} from '../../../network/DeviceService';
 import DataLocal from '../../../data/dataLocal';
@@ -148,7 +147,7 @@ export default function DeleteMessage({navigation}) {
         style={styles.tobDelete}
         onPress={() => setOnModal(true)}
       >
-        <Text style={styles.textDelete}>{String.deleteMessage}</Text>
+        <Text style={styles.textDelete}>{t('common:deleteMessage')}</Text>
       </TouchableOpacity>
       <Modal
         visible={onModal}
@@ -159,7 +158,7 @@ export default function DeleteMessage({navigation}) {
           <TouchableOpacity style={styles.modal} onPress={() => setOnModal(false)}>
             <View style={styles.tobModal}>
               <View style={[styles.tobView, {marginTop: ScaleHeight.small}]}>
-                <Text style={styles.textModel}>{String.arleftDeleteMessage}</Text>
+                <Text style={styles.textModel}>{t('common:arleftDeleteMessage')}</Text>
               </View>
               <View style={[styles.tobView, {width: '86%'}]}>
                 <View style={styles.tob}>
