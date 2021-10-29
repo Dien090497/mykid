@@ -19,8 +19,8 @@ export const styles = StyleSheet.create({
     maxWidth:(Consts.screenWidth-60)/3,
   },
   imageList:{
-    width:Consts.screenWidth*0.3,
-    height: Consts.screenWidth*0.3,
+    width:Consts.screenWidth*0.285,
+    height: Consts.screenWidth*0.285,
     marginVertical:10,
     alignItems:'center',
     justifyContent:'center',
