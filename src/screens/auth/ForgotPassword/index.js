@@ -8,7 +8,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import React, {useLayoutEffect, useRef, useState} from "react";
+import React, { useState} from "react";
 import Header from '../../../components/Header';
 import {styles} from "./style";
 import {useTranslation} from "react-i18next";
@@ -29,7 +29,7 @@ const ForgotPassword = ({navigation}) => {
 
   const sendTo = () => {
     if (!phoneTest1(phone)) {
-      showAlert(t('common:error_phone'));
+      refNotification.current.open(t('common:error_phone'));
       return;
     }
     getOtpResettingApi(phone, {
@@ -45,6 +45,10 @@ const ForgotPassword = ({navigation}) => {
   }
 
   const isContinue = () => {
+    if (otp === null) {
+      refNotification.current.open('Mã xác thực không được để trống');
+      return;
+    }
     const data = {
       phone: phone,
       otp: otp
@@ -93,9 +97,9 @@ const ForgotPassword = ({navigation}) => {
             <View style={styles.Sty_txt}>
               <TextInput
                 placeholderTextColor={"#9D9D9D"}
-                placeholder={'Vui lòng nhập số điện thoại của bạn'}
+                placeholder={t('common:inputTxt')}
                 underlineColorAndroid={"transparent"}
-                maxLength={12}
+                maxLength={11}
                 keyboardType={"number-pad"}
                 style={styles.textInput}
                 value={phone}

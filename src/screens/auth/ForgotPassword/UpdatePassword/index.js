@@ -1,82 +1,108 @@
-import {View, Text, TouchableOpacity, TextInput} from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
+import {View, Text, TouchableOpacity, TextInput, Image} from 'react-native';
+import React, {useRef, useState} from 'react';
 import {Colors} from '../../../../assets/colors/Colors';
-import {getOtpApi, createAndLogin} from '../../../../network/UserInfoService';
-import Consts from '../../../../functions/Consts';
 import LoadingIndicator from '../../../../components/LoadingIndicator';
-import {saveUserDataFromToken, showAlert} from '../../../../functions/utils';
+import {passwordTest1} from '../../../../functions/utils';
 import {useTranslation} from 'react-i18next';
-import {styles} from "../../Register/styles";
-import CustomInput from "../../../../components/inputRegister";
+import styles from "./styles";
+import Images from "../../../../assets/Images";
+import NotificationModal from '../../../../components/NotificationModal';
+import {UpdatePasswordApi} from '../../../../network/UserInfoService';
 
 export default function UpdatePassword({navigation, route}) {
   const refLoading = useRef(null);
-  const [otp, setOTP] = useState('');
-  const [check, setCheck] = useState(false);
-  const [phone, setPhone] = useState();
-  const [isActive, setIsActive] = useState(false);
-  const [otpSent, setOtpSent] = useState(false);
-  const [timerCount, setTimerCount] = useState(60);
+  const refNotification = useRef();
+  const [pass, setPass] = useState(false);
+  const [isPass, setIsPass] = useState();
+  const [showPass, setShowPass] = useState(true);
+  const [showIsPass, setShowIsPass] = useState(true);
   const {t} = useTranslation();
-  let timer = 0;
 
-  useEffect(() => {
-
-  })
-
-  const sendTo = () => {
-
-  }
-
-  const onRegister = () => {
-    const data = {
-      phone: phone,
-      password: route.params.pass,
-      otp: otp
-    }
-    if (otp === '') {
-      showAlert(t('common:error_otp1'));
+  const onConfirm = () => {
+    if (pass !== isPass) {
+      refNotification.current.open('Mật khấu xác nhận không đúng');
       return;
     }
-    if (otp.length < 6) {
-      showAlert(t('common:error_otp'));
+    if (pass === null || isPass === null) {
+      refNotification.current.open('Mật khẩu không được để trống');
+      return;
+    }
+    if (!passwordTest1(pass)) {
+      refNotification.current.open(t('common:error_pass1'))
       return;
     }
 
-    createAndLogin(data, {
+    let data = {
+      phone: route.params.phone,
+      newPassword: pass
+    }
+
+    UpdatePasswordApi(data, {
       success: res => {
-        const token = res.data.token;
-        saveUserDataFromToken(token).then(_ => {
-        });
-        navigation.navigate(Consts.ScreenIds.ConnectionScreen);
-        setCheck(false);
-      },
-      refLoading,
-    })
+        refNotification.current.open('Cập nhật mật khẩu thành công');
+      }
+    });
+
   }
+
   return (
     <View style={{flex: 1, alignItems: 'center', backgroundColor: Colors.white}}>
       <Header title={t('common:submitOTP')}/>
-      <View style={{
-        width: '90%',
-        height: 45,
-        backgroundColor: Colors.white,
-        marginTop: 40,
-        flexDirection: 'row'
-      }}>
-        <View style={{alignItems: 'center', height: 600, justifyContent: 'center'}}>
-          <View style={{
-            marginTop: 25,
-            width: width * 0.9,
-            flexDirection: 'row',
-            marginVertical: 15,
-            alignItems: 'center',
-          }}>
+      <View style={{height: 600, width: '90%', marginHorizontal: '5%', marginTop: '5%'}}>
+        <View style={styles.viewInput}>
+          <TextInput
+            placeholder={'Nhập mật khẩu mới'}
+            placeholderTextColor={"#9D9D9D"}
+            secureTextEntry={showPass}
+            keyboardType={"default"}
+            value={pass}
+            onChangeText={(text) => setPass(text.trim())}
+            underlineColorAndroid={"transparent"}
+            maxLength={20}
+            minLength={6}
+            style={{marginLeft: 10, color: Colors.black, width: '85%'}}
+          />
+          <TouchableOpacity
+            style={styles.viewTob}
+            onPress={() => setShowPass(!showPass)}
+          >
+            <Image
+              style={styles.viewImage}
+              source={showPass ? Images.icView : Images.icPrivate}/>
+          </TouchableOpacity>
 
-          </View>
         </View>
-
+        <View style={styles.viewInput}>
+          <TextInput
+            placeholder={'Nhập mã xác minh'}
+            placeholderTextColor={"#9D9D9D"}
+            secureTextEntry={showIsPass}
+            keyboardType={"default"}
+            onChangeText={(text) => setIsPass(text.trim())}
+            underlineColorAndroid={"transparent"}
+            value={isPass}
+            maxLength={20}
+            minLength={6}
+            style={{marginLeft: 10, color: Colors.black, width: '85%'}}
+          />
+          <TouchableOpacity
+            style={styles.viewTob}
+            onPress={() => setShowIsPass(!showIsPass)}
+          >
+            <Image
+              style={styles.viewImage}
+              source={showIsPass ? Images.icView : Images.icPrivate}/>
+          </TouchableOpacity>
+        </View>
+        <TouchableOpacity
+          style={styles.tobConfirm}
+          onPress={onConfirm}
+        >
+          <Text style={styles.txt}>Xác nhận</Text>
+        </TouchableOpacity>
+        <NotificationModal ref={refNotification}/>
       </View>
+
       <LoadingIndicator ref={refLoading}/>
     </View>
   );
