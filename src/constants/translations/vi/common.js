@@ -91,7 +91,7 @@ export default {
   logout: 'Đăng xuất tài khoản',
   changePassword: 'Đổi mật khẩu',
   header_deviceManager: 'Quản lý thiết bị',
-  personalData: 'Dữ liệu cá nhân',
+  personalData: 'Thông tin cá nhân',
   EditSuccess: 'Sửa đổi thành công',
   name: 'Họ tên',
   avatar: 'Hình đại diện',
@@ -291,5 +291,6 @@ export default {
   male: 'Nam',
   female: 'Nữ',
   error_info: 'Chiều cao và cân nặng luôn lớn hơn 0',
+  error_birthday: 'Ngày sinh của bé khộng hợp lệ',
   errorName: 'Tên bé không được để trống'
 };

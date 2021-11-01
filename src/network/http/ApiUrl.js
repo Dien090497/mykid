@@ -62,7 +62,7 @@ export const ListPhotoUrl = appUrl + '/sneak_captures';
 export const InfoKids = appUrl + '/kids'
 
 //Auth
-export const getOTP = appUrl + '/otp';
+export const getOTP = appUrl + '/otps/registration';
 
 //Personal
 export const PersonalDataUrl = appUrl + '/accounts/info';
