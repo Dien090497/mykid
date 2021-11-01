@@ -36,7 +36,11 @@ export default {
   userNotFound: 'User information not found',
   uploadAvatarFailed: 'Avatar update failed',
 
-
   //device default not found
-  updateDeviceDefault: 'Please select default device'
+  updateDeviceDefault: 'Please select default device',
+
+  // http
+  TOKEN_EXPIRED_MSG: 'Your login session has expired. Please login again',
+  OTHER_LOGIN: 'You are signed in on another device.',
+  UNEXPECTED_ERROR_MSG: 'Can not connect to server. Please try later!',
 };

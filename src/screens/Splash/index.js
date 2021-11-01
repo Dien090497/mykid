@@ -11,12 +11,14 @@ import {appStatusBar} from '../../components/CommonUIComponents';
 import DataLocal from '../../data/dataLocal';
 import { saveUserDataFromToken } from '../../functions/utils';
 import { getListDeviceApi } from '../../network/DeviceService';
+import { useTranslation } from 'react-i18next';
 
 export default function SplashScreen() {
   const navigation = useNavigation();
+  const { t } = useTranslation();
 
   const [syncFailed, setSyncFailed] = useState(false);
-  const [msg, setMsg] = useState(String.splashMsg);
+  const [msg, setMsg] = useState(t('common:splashMsg'));
 
   useEffect(() => {
     loadFromData().then();

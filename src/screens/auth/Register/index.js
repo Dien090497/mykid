@@ -13,6 +13,7 @@ import {passwordTest1, phoneTest1 } from '../../../functions/utils';
 
 import Consts from '../../../functions/Consts';
 import CustomInput from '../../../components/inputRegister';
+import {String} from '../../../assets/strings/String';
 import {styles} from './styles';
 import {CheckBox} from 'react-native-elements';
 import { useTranslation } from 'react-i18next';

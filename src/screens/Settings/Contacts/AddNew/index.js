@@ -14,19 +14,19 @@ import React, {useRef, useState} from 'react';
 import { Colors } from '../../../../assets/colors/Colors';
 import DataLocal from '../../../../data/dataLocal';
 import Header from '../../../../components/Header';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LoadingIndicator from '../../../../components/LoadingIndicator';
-import {String} from '../../../../assets/strings/String';
 import {addPhoneBookApi} from '../../../../network/ContactService';
 import {selectContact} from 'react-native-select-contact';
 import {showAlert} from '../../../../functions/utils';
 import {styles} from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Images from "../../../../assets/Images";
+import { useTranslation } from "react-i18next";
 
 export default ({navigation, route}) => {
   const [relationship, setRelationship] = useState('');
   const [phone, setPhone] = useState('');
+  const { t } = useTranslation();
   const refLoading = useRef();
   const removeNonNumeric = num => num.toString().replace(/[^0-9]/g, '');
   const callContacts = async () => {
@@ -37,7 +37,7 @@ export default ({navigation, route}) => {
           PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
         );
         if (permissionAndroid != 'granted') {
-          showAlert(String.noContactPermission);
+          showAlert(t('common:noContactPermission'));
           return;
         }
       }
@@ -58,11 +58,11 @@ export default ({navigation, route}) => {
 
   const saveContact = async () => {
     if (!relationship.trim().length) {
-      showAlert(String.enter_relationship);
+      showAlert(t('common:enter_relationship'));
       return;
     }
     if (!phone.trim().length) {
-      showAlert(String.enter_phone_number);
+      showAlert(t('common:enter_phone_number'));
       return;
     }
     addPhoneBookApi(
@@ -85,7 +85,7 @@ export default ({navigation, route}) => {
   return (
     <View
       style={[styles.container, {paddingBottom: useSafeAreaInsets().bottom}]}>
-      <Header title={String.header_addContact} />
+      <Header title={t('common:header_addContact')} />
       <View style={styles.mainView}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View
@@ -120,7 +120,7 @@ export default ({navigation, route}) => {
             <TouchableOpacity
               style={styles.btnSubmit}
               onPress={saveContact}>
-              <Text style={styles.txtSubmit}>{String.save}</Text>
+              <Text style={styles.txtSubmit}>{t('common:save')}</Text>
             </TouchableOpacity>
           </View>
         </TouchableWithoutFeedback>

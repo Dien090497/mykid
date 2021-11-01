@@ -13,7 +13,6 @@ import {Colors} from '../../../assets/colors/Colors';
 import {styles} from './styles';
 import ModalConfirmInput from '../../../components/ModalConfirmInput';
 import ActionSheet from '@alessiocancian/react-native-actionsheet';
-import {String} from '../../../assets/strings/String';
 import {ScaleHeight} from '../../../functions/Consts';
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import DataLocal from '../../../data/dataLocal';
@@ -128,7 +127,7 @@ export default function InfoKits({route}) {
       weight
     }
     if (name === '') {
-      showAlert('Tên bé không được để trống');
+      showAlert(t('common:errorName'));
       return;
     }
     if (parseInt(heights) > 0 && parseInt((weights)) > 0 ) {
@@ -139,7 +138,7 @@ export default function InfoKits({route}) {
         refLoading: refLoading
       })
     } else {
-      showAlert(String.error_info)
+      showAlert(t('common:error_info'))
     }
   }
 

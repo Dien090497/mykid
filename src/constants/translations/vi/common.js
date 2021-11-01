@@ -259,6 +259,8 @@ export default {
   txtNotHaveNewPicture: 'Không có ảnh mới',
   txtWaitNewPicture: 'Hướng dẫn gửi thành công. Vui lòng đợi làm mới',
   savePicture: 'Lưu ảnh',
+  savePictureSuccess: 'Lưu thành công',
+  savePictureFail: 'Lưu thất bại',
   txtModalPicture: 'Cảnh chụp: chụp từ xa',
 
   // permissions
@@ -289,4 +291,5 @@ export default {
   male: 'Nam',
   female: 'Nữ',
   error_info: 'Chiều cao và cân nặng luôn lớn hơn 0',
+  errorName: 'Tên bé không được để trống'
 };

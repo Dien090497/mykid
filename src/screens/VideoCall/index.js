@@ -19,7 +19,6 @@ import Consts from '../../functions/Consts';
 import Header from '../../components/Header';
 import Images from '../../assets/Images';
 import LoadingIndicator from '../../components/LoadingIndicator';
-import {String} from '../../assets/strings/String';
 import VideoCallModal from './VideoCallModal';
 import {getListDeviceApi} from '../../network/DeviceService';
 import styles from './styles.js';
@@ -374,7 +373,7 @@ const ListDeviceScreen = () => {
             }
             ListEmptyComponent={
               <Text
-                children={String.device_connected_not_found}
+                children={t('common:device_connected_not_found')}
                 style={styles.txtNotfound}
               />
             }
