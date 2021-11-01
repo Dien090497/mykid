@@ -3,7 +3,7 @@ import { Modal, Text, TouchableOpacity, View } from "react-native";
 import { styles } from "./styles";
 import i18next from "i18next";
 
-export default class ModalConfirm extends Component {
+export default class NotificationModal extends Component {
   constructor(props) {
     super(props);
     this.state = {

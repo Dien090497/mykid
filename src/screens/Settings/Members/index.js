@@ -105,6 +105,7 @@ export default ({navigation, route}) => {
             },
             failure: error => {},
             refLoading: refLoading,
+            refNotification: refNotification,
           });
   };
 
@@ -117,6 +118,7 @@ export default ({navigation, route}) => {
       },
       failure: error => {},
       refLoading: refLoading,
+      refNotification: refNotification,
     });
   };
 
@@ -131,6 +133,7 @@ export default ({navigation, route}) => {
       },
       failure: error => {},
       refLoading: refLoading,
+      refNotification: refNotification,
     });
   };
   const renderItem = ({item}) => {

@@ -55,7 +55,8 @@ export default function PersonalDate() {
         setAvatar(res.data.avatar);
         setPhone(res.data.phone);
         setEmail(res.data.email);
-      }
+      },
+      refNotification: refNotification,
     });
   }, []);
 
@@ -88,7 +89,8 @@ export default function PersonalDate() {
     updatePersonalDataApi(contact, email, avatar, gender, name, {
       success: res => {
         refNotification.current.open(t('common:EditSuccess'))
-      }
+      },
+      refNotification: refNotification,
     })
   }
 

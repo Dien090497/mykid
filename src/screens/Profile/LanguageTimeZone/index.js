@@ -52,6 +52,7 @@ export default function LanguageTimeZone({navigation, route}) {
         setTimeZoneSelect(res.data.timeZone);
         refRadioGroup.current.updateView(res.data.timeZone);
       },
+      refNotification: refNotification,
     });
   }
 
@@ -61,6 +62,7 @@ export default function LanguageTimeZone({navigation, route}) {
         setListLanguage(res.data);
       },
       refLoading: refLoading,
+      refNotification: refNotification,
     });
   }
 
@@ -80,6 +82,7 @@ export default function LanguageTimeZone({navigation, route}) {
           refNotification.current.open(t('common:changeLanguageAndTimezone'))
         },
         refLoading: refLoading,
+        refNotification: refNotification,
       },
     );
   };

@@ -133,36 +133,37 @@ export async function post(
     failure,
     autoShowMsg = true,
     refLoading = null,
+    refNotification = null,
   } = {}) {
   showLoading(refLoading);
   const headersGet = getHeaders(headers);
   let response = await doRequest(url, headersGet, body, requestType.post);
   hideLoading(refLoading);
-  return handleResp(response, autoShowMsg, success, failure, refLoading);
+  return handleResp(response, autoShowMsg, success, failure, refLoading, refNotification);
 }
 
 export async function path(
-  url, {body, headers, success, failure, autoShowMsg = true, refLoading = null} = {}) {
+  url, {body, headers, success, failure, autoShowMsg = true, refLoading = null, refNotification = null} = {}) {
   showLoading(refLoading);
   const headersGet = getHeaders(headers);
   let response = await doRequest(url, headersGet, body, requestType.patch);
   hideLoading(refLoading);
 
-  return handleResp(response, autoShowMsg, success, failure, refLoading);
+  return handleResp(response, autoShowMsg, success, failure, refLoading, refNotification);
 }
 
 export async function put(
-  url, {body, headers, success, failure, autoShowMsg = true, refLoading = null} = {}) {
+  url, {body, headers, success, failure, autoShowMsg = true, refLoading = null, refNotification = null} = {}) {
   showLoading(refLoading);
   const headersGet = getHeaders(headers);
   let response = await doRequest(url, headersGet, body, requestType.put);
   hideLoading(refLoading);
 
-  return handleResp(response, autoShowMsg, success, failure, refLoading);
+  return handleResp(response, autoShowMsg, success, failure, refLoading, refNotification);
 }
 
 export async function get(
-  url, {params, headers, success, failure, autoShowMsg = true, refLoading = null} = {}) {
+  url, {params, headers, success, failure, autoShowMsg = true, refLoading = null, refNotification = null} = {}) {
   showLoading(refLoading);
 
   if (params) {
@@ -180,21 +181,21 @@ export async function get(
   let response = await doRequest(url, headersGet, null, requestType.get);
   hideLoading(refLoading);
 
-  return handleResp(response, autoShowMsg, success, failure, refLoading);
+  return handleResp(response, autoShowMsg, success, failure, refLoading, refNotification);
 }
 
 export async function dele(
-  url, {body = {}, headers, success, failure, autoShowMsg = true, refLoading = null} = {}) {
+  url, {body = {}, headers, success, failure, autoShowMsg = true, refLoading = null, refNotification = null} = {}) {
   showLoading(refLoading);
   const headersGet = getHeaders(headers);
   let response = await doRequest(url, headersGet, body, requestType.delete);
   hideLoading(refLoading);
 
-  return handleResp(response, autoShowMsg, success, failure, refLoading);
+  return handleResp(response, autoShowMsg, success, failure, refLoading, refNotification);
 }
 
 export async function upload(
-  url, formData, {success, failure, autoShowMsg = true, refLoading = null} = {}) {
+  url, formData, {success, failure, autoShowMsg = true, refLoading = null, refNotification = null} = {}) {
   showLoading(refLoading);
 
   let headers = await getHeaders(null);
@@ -213,7 +214,7 @@ export async function upload(
     response = await error.response;
   }
   hideLoading(refLoading);
-  return handleResp(response, autoShowMsg, success, failure, refLoading);
+  return handleResp(response, autoShowMsg, success, failure, refLoading, refNotification);
 }
 
 export async function uploadFile(
@@ -224,6 +225,7 @@ export async function uploadFile(
     failure,
     autoShowMsg = true,
     refLoading = null,
+    refNotification =null,
   } = {}) {
   showLoading(refLoading);
 
@@ -241,7 +243,7 @@ export async function uploadFile(
 
   hideLoading(refLoading);
 
-  return handleResp(response, autoShowMsg, success, failure, refLoading);
+  return handleResp(response, autoShowMsg, success, failure, refLoading, refNotification);
 }
 
 // export async function download(
@@ -316,7 +318,7 @@ export async function uploadFile(
 //   });
 // }
 
-async function handleResp(response, autoShowMsg, success, failure, refLoading) {
+async function handleResp(response, autoShowMsg, success, failure, refLoading, refNotification) {
   if (!response || response.status === 500) {
     let err = i18next.t('errorMsg:connectToServerFailed');
     console.log('handleResp >>>>>>>>>>>', response)
@@ -324,7 +326,7 @@ async function handleResp(response, autoShowMsg, success, failure, refLoading) {
       err = response.error;
     }
     if (autoShowMsg) {
-      showAlert(err);
+      refNotification.current.open(err)
     }
     if (failure) {
       failure(err);
@@ -349,7 +351,7 @@ async function handleResp(response, autoShowMsg, success, failure, refLoading) {
       }
 
       if (autoShowMsg) {
-        showAlert(i18next.t('errorMsg:TOKEN_EXPIRED_MSG'));
+        refNotification.current.open(i18next.t('errorMsg:TOKEN_EXPIRED_MSG'));
       }
       if (failure) {
         failure(i18next.t('errorMsg:TOKEN_EXPIRED_MSG'));
@@ -364,7 +366,7 @@ async function handleResp(response, autoShowMsg, success, failure, refLoading) {
       console.log('error KWS-4001');
     }
     else if (autoShowMsg) {
-      showAlert(err);
+      refNotification.current.open(err);
     }
 
     if (failure) {
@@ -379,7 +381,7 @@ async function handleResp(response, autoShowMsg, success, failure, refLoading) {
     result.headers = headers;
   }
 
-  await checkRefreshToken(headers, refLoading);
+  await checkRefreshToken(headers, refLoading, refNotification);
 
   if (success) {
     success(result);
@@ -388,28 +390,28 @@ async function handleResp(response, autoShowMsg, success, failure, refLoading) {
   return successResponse(result, response);
 }
 
-async function checkRefreshToken(headers, refLoading) {
+async function checkRefreshToken(headers, refLoading, refNotification) {
   const xUpdated = headers['x-updated'];
   if (xUpdated === true || xUpdated === 'true') {
-    await refreshUserToken(refLoading);
+    await refreshUserToken(refLoading, refNotification);
   }
 }
 
-export const refreshUserToken = async (refLoading = null) => {
+export const refreshUserToken = async (refLoading = null, refNotification = null) => {
   const resp = await get(refreshTokenUrl, {refLoading});
   if (!resp.success) {
-    showAlert(i18next.t('errorMsg:clientServerCommunicationProb'));
+    refNotification.current.open(i18next.t('errorMsg:clientServerCommunicationProb'));
   } else {
     const resData = resp.success.data;
     if (!resData || !resData.token) {
-      showAlert(i18next.t('errorMsg:clientServerCommunicationProb'));
+      refNotification.current.open(i18next.t('errorMsg:clientServerCommunicationProb'));
     } else {
     }
   }
   return resp;
 };
 
-function checkFailure(result) {
+function checkFailure(result, refNotification) {
   let meta;
   if (result && result.code) {
     meta = result;
@@ -424,7 +426,7 @@ function checkFailure(result) {
   const code = meta.code.toLowerCase().split('-').join('');
 
   if (Object.keys(errorMsg).includes(code)) {
-    return showAlert(i18next.t('errorMsg:'+code))
+    return refNotification.current.open(i18next.t('errorMsg:'+code));
     // return ErrorMsg[code];
   }
 

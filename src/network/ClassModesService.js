@@ -4,7 +4,7 @@ import {classModesUrl} from './http/ApiUrl';
 
 export function getClassModesApi(
   deviceId,
-  {success, failure, autoShowMsg = true, refLoading = null} = {},
+  {success, failure, autoShowMsg = true, refLoading = null, refNotification = null} = {},
 ) {
   const url = [classModesUrl, deviceId].join('/');
   return get(url, {
@@ -12,13 +12,14 @@ export function getClassModesApi(
     failure,
     autoShowMsg,
     refLoading,
+    refNotification
   });
 }
 
 export function setClassModesApi(
   deviceId,
   body,
-  {success, failure, autoShowMsg = true, refLoading = null} = {},
+  {success, failure, autoShowMsg = true, refLoading = null, refNotification = null} = {},
 ) {
   const url = [classModesUrl, deviceId].join('/');
   return post(url, {
@@ -27,5 +28,6 @@ export function setClassModesApi(
     failure,
     autoShowMsg,
     refLoading,
+    refNotification
   });
 }

@@ -4,7 +4,7 @@ import {languageTimeZoneUrl,languageUrl} from './http/ApiUrl';
 
 export function getLanguageTimeZoneApi(
   deviceId,
-  {success, failure, autoShowMsg = true, refLoading = null} = {},
+  {success, failure, autoShowMsg = true, refLoading = null, refNotification = null} = {},
 ) {
   const url = [languageTimeZoneUrl, deviceId].join('/');
   return get(url, {
@@ -12,11 +12,12 @@ export function getLanguageTimeZoneApi(
     failure,
     autoShowMsg,
     refLoading,
+    refNotification,
   });
 }
 
 export function getLanguageApi(
-  {success, failure, autoShowMsg = true, refLoading = null} = {},
+  {success, failure, autoShowMsg = true, refLoading = null, refNotification = null} = {},
 ) {
   const url = languageUrl;
   return get(url, {
@@ -24,13 +25,14 @@ export function getLanguageApi(
     failure,
     autoShowMsg,
     refLoading,
+    refNotification
   });
 }
 
 export function setLanguageTimeZoneApi(
   deviceId,
   body,
-  {success, failure, autoShowMsg = true, refLoading = null} = {},
+  {success, failure, autoShowMsg = true, refLoading = null, refNotification = null} = {},
 ) {
   const url = [languageTimeZoneUrl, deviceId].join('/');
   return post(url, {
@@ -39,5 +41,6 @@ export function setLanguageTimeZoneApi(
     failure,
     autoShowMsg,
     refLoading,
+    refNotification
   });
 }

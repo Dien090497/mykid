@@ -15,10 +15,12 @@ import { Image } from 'react-native';
 import Images from '../../../assets/Images';
 import { getClassModesApi, setClassModesApi } from '../../../network/ClassModesService';
 import Consts from '../../../functions/Consts';
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
+import NotificationModal from '../../../components/NotificationModal';
 
 export default function DoNotDisturb({navigation}) {
   const refLoading = useRef();
+  const refNotification = useRef();
   const [classConfig, setClassConfig] = useState();
   const { t } = useTranslation();
   const dayOfWeeks = [
@@ -47,6 +49,7 @@ export default function DoNotDisturb({navigation}) {
         setClassConfig(data);
       },
       refLoading,
+      refNotification,
     });
   };
   const toggleSwitch = (obj, i) => {
@@ -74,6 +77,7 @@ export default function DoNotDisturb({navigation}) {
         setClassConfig(resData.data);
       },
       refLoading,
+      refNotification,
     });
   };
   const dayOfWeek = (text) => {
@@ -125,6 +129,7 @@ export default function DoNotDisturb({navigation}) {
         </TouchableOpacity>
       </ScrollView>
       <LoadingIndicator ref={refLoading} />
+      <NotificationModal ref={refNotification} />
     </View>
   );
 }

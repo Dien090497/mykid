@@ -27,6 +27,7 @@ export  default function EacesDroping(){
         setNumber(res.data.phoneNumber)
       },
       refLoading: refLoading,
+      refNotification: refNotification,
     });
   }, []);
   const checkNumber = (number)=> {
@@ -45,7 +46,8 @@ export  default function EacesDroping(){
       success: res =>{
         refNotification.current.open(t('common:addDeviceSuccess'))
       },
-      refLoading:refLoading
+      refLoading:refLoading,
+      refNotification: refNotification,
     })
   }
   return(

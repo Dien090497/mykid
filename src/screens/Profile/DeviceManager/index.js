@@ -18,6 +18,7 @@ import {Colors} from '../../../assets/colors/Colors';
 import reduxStore from '../../../redux/config/redux'
 import commonInfoAction from '../../../redux/actions/commonInfoAction';
 import { useTranslation } from 'react-i18next';
+import NotificationModal from "../../../components/NotificationModal";
 
 export default function DeviceManager({navigation}) {
   const [selectedIndex, setSelectedIndex] = useState(DataLocal.deviceIndex);
@@ -28,6 +29,7 @@ export default function DeviceManager({navigation}) {
   const [loading, setLoading] = useState(false);
   const [nameDevices, setNameDevices] = useState();
   const refLoading = useRef();
+  const refNotification = useRef();
   const { t } = useTranslation();
 
   const dataMock = [
@@ -83,6 +85,7 @@ export default function DeviceManager({navigation}) {
         setDevices(resData.data);
       },
       refLoading,
+      refNotification,
     });
   };
   const handleAddDevice = () => {
@@ -113,7 +116,8 @@ export default function DeviceManager({navigation}) {
         getListDevice();
         console.log('deleteDevices ', res)
       },
-      refLoading
+      refLoading,
+      refNotification,
     });
   }
 
@@ -231,6 +235,7 @@ export default function DeviceManager({navigation}) {
         </View>
       </Modal>
       <LoadingIndicator ref={refLoading} />
+      <NotificationModal ref={refNotification} />
     </View>
   );
 }

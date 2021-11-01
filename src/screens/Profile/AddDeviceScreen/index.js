@@ -87,6 +87,7 @@ const AddDeviceScreen = ({ navigation, route }) => {
       failure: error => {
       },
       refLoading,
+      refNotification,
     }).then();
   };
   const onScan = async () => {

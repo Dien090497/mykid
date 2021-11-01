@@ -21,6 +21,7 @@ export default function restartDevice() {
         refNotification.current.open(t('common:submitSuccess'))
       },
       refLoading: refLoading,
+      refNotification: refNotification,
     });
   };
 

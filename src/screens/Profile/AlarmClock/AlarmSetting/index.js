@@ -100,6 +100,7 @@ export default function AlarmSetting({navigation, route}) {
         }
       },
       refLoading,
+      refNotification,
     });
   };
 

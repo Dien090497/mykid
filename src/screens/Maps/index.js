@@ -56,6 +56,7 @@ export default ({navigation, route}) => {
             setInfoDevice(device);
           },
           // refLoading: refLoading,
+          refNotification: refNotification,
         });
       }
       getLocationDeviceApi(DataLocal.deviceId, {
@@ -73,6 +74,7 @@ export default ({navigation, route}) => {
           }
         },
         refLoading: refLoading,
+        refNotification: refNotification,
       });
     } catch (error) {}
   };

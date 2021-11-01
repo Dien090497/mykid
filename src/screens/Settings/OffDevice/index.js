@@ -21,7 +21,8 @@ export default function OffDevice() {
       success: res => {
         refNotification.current.open(t('common:submitSuccess'))
       },
-      refLoading: refLoading
+      refLoading: refLoading,
+      refNotification: refNotification``
     });
   }
 

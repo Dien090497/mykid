@@ -23,11 +23,13 @@ import { hideLoading, resizeImage, showLoading } from '../../../../functions/uti
 import {editDeviceApi} from '../../../../network/DeviceService';
 import { useTranslation } from 'react-i18next';
 import DataLocal from '../../../../data/dataLocal';
+import NotificationModal from "../../../../components/NotificationModal";
 
 export default function EditDevice({ navigation, route }) {
 
   const refLoading = useRef();
   const refConfirm = useRef();
+  const refNotification = useRef();
   const [data, setData] = useState(null);
   const [avatar, setAvatar] = useState(null);
   const { t } = useTranslation();
@@ -108,7 +110,10 @@ export default function EditDevice({ navigation, route }) {
       {success: res =>{
           route.params.onRefresh()
           navigation.goBack();
-        },refLoading}
+        }
+        ,refLoading,
+        refNotification,
+      }
     )
   };
 
@@ -156,6 +161,7 @@ export default function EditDevice({ navigation, route }) {
       </View>
       <LoadingIndicator ref={refLoading} />
       <ModalConfirm ref={refConfirm} />
+      <NotificationModal ref={refNotification} />
       <ActionSheet
         ref={o => sheet = o}
         title={t('common:selectPhoto')}

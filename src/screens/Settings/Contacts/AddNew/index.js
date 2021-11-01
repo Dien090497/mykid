@@ -80,6 +80,7 @@ export default ({navigation, route}) => {
           }
         },
         refLoading: refLoading,
+        refNotification: refNotification,
       },
     );
   };

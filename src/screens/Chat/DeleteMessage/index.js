@@ -16,9 +16,11 @@ import LoadingIndicator from '../../../components/LoadingIndicator';
 import Consts, {ScaleHeight} from '../../../functions/Consts';
 import {styles} from './styles';
 import { useTranslation } from 'react-i18next';
+import NotificationModal from "../../../components/NotificationModal";
 
 export default function DeleteMessage({navigation}) {
   const refLoading = useRef();
+  const refNotification = useRef();
   const [listMember, setListMember] = useState([]);
   const [loading, setLoading] = useState(false);
   const [onModal, setOnModal] = useState(false);
@@ -85,6 +87,7 @@ export default function DeleteMessage({navigation}) {
       failure: error => {
       },
       refLoading: refLoading,
+      refNotification: refNotification
     });
   };
 
@@ -189,6 +192,7 @@ export default function DeleteMessage({navigation}) {
         </View>
       </Modal>
       <LoadingIndicator ref={refLoading}/>
+      <NotificationModal ref={refNotification}/>
     </View>
   );
 }

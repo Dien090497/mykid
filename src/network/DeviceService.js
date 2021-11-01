@@ -16,7 +16,7 @@ export function getListDeviceApi(
   size,
   deviceId,
   status,
-  { success, failure, autoShowMsg = true, refLoading = null } = {},
+  { success, failure, autoShowMsg = true, refLoading = null, refNotification = null } = {},
 ) {
   let params = {
     accountId: accountId || "",
@@ -32,6 +32,7 @@ export function getListDeviceApi(
     failure,
     autoShowMsg,
     refLoading,
+    refNotification,
   });
 }
 
@@ -41,7 +42,7 @@ export function addDeviceApi(
   icon,
   relationship,
   relationshipName,
-  { success, failure, autoShowMsg = true, refLoading = null } = {},
+  { success, failure, autoShowMsg = true, refLoading = null, refNotification = null } = {},
 ) {
   let body = {
     imeiCode,
@@ -50,7 +51,7 @@ export function addDeviceApi(
     relationship,
     relationshipName,
   };
-  return post(listDeviceUrl, { body, success, failure, autoShowMsg, refLoading });
+  return post(listDeviceUrl, { body, success, failure, autoShowMsg, refLoading, refNotification });
 }
 
 export function editDeviceApi(
@@ -60,7 +61,7 @@ export function editDeviceApi(
   relationship,
   relationshipName,
   avatar,
-  { success, failure, autoShowMsg = true, refLoading = null } = {},
+  { success, failure, autoShowMsg = true, refLoading = null, refNotification = null } = {},
 ) {
   const formData = new FormData();
   formData.append("deviceName", deviceName);
@@ -75,12 +76,12 @@ export function editDeviceApi(
     });
   }
   const url = [listDeviceUrl, id].join("/");
-  return upload(url, formData, { success, failure, autoShowMsg, refLoading });
+  return upload(url, formData, { success, failure, autoShowMsg, refLoading, refNotification });
 }
 
 export function getLocationDeviceApi(
   deviceId,
-  { success, failure, autoShowMsg = true, refLoading = null } = {},
+  { success, failure, autoShowMsg = true, refLoading = null, refNotification = null } = {},
 ) {
   const url = [locationDeviceUrl, deviceId].join("/");
   return get(url, {
@@ -89,23 +90,24 @@ export function getLocationDeviceApi(
     failure,
     autoShowMsg,
     refLoading,
+    refNotification
   });
 }
 
 export function acceptContactApi(
   id,
-  { success, failure, autoShowMsg = true, refLoading = null },
+  { success, failure, autoShowMsg = true, refLoading = null, refNotification = null },
 ) {
   const url = [listDeviceUrl, id].join("/");
-  return path(url, { success, failure, autoShowMsg, refLoading });
+  return path(url, { success, failure, autoShowMsg, refLoading, refNotification });
 }
 
 export function rejectContactApi(
   id,
-  { success, failure, autoShowMsg = true, refLoading = null },
+  { success, failure, autoShowMsg = true, refLoading = null, refNotification = null },
 ) {
   const url = [listDeviceUrl, id].join("/");
-  return dele(url, { success, failure, autoShowMsg, refLoading });
+  return dele(url, { success, failure, autoShowMsg, refLoading, refNotification });
 }
 
 export function getJourneyApi(
@@ -114,7 +116,7 @@ export function getJourneyApi(
   toDate,
   page,
   size,
-  { success, failure, autoShowMsg = true, refLoading = null },
+  { success, failure, autoShowMsg = true, refLoading = null, refNotification = null },
 ) {
   let params = {
     fromDate,
@@ -129,12 +131,13 @@ export function getJourneyApi(
     failure,
     autoShowMsg,
     refLoading,
+    refNotification
   });
 }
 
 export function deleteDevicesApi(
   deviceId,
-  { success, failure, autoShowMsg = true, refLoading = null },
+  { success, failure, autoShowMsg = true, refLoading = null, refNotification = null },
 ) {
   const url = [deleteDeviceUrl, deviceId].join("/");
   return dele(url, {
@@ -142,12 +145,13 @@ export function deleteDevicesApi(
     success,
     failure,
     refLoading,
+    refNotification
   });
 }
 
 export function offDeviceApi(
   deviceId,
-  { success, failure, autoShowMsg = true, refLoading = null } = {},
+  { success, failure, autoShowMsg = true, refLoading = null, refNotification = null } = {},
 ) {
   const url = [deviceUrl, deviceId, "power-off"].join("/");
   return post(url, {
@@ -155,12 +159,13 @@ export function offDeviceApi(
     failure,
     autoShowMsg,
     refLoading,
+    refNotification
   });
 }
 
 export function restartDeviceApi(
   deviceId,
-  { success, failure, autoShowMsg = true, refLoading = null } = {},
+  { success, failure, autoShowMsg = true, refLoading = null, refNotification = null } = {},
 ) {
   const url = [deviceUrl, deviceId, "restart"].join("/");
   return post(url, {
@@ -168,5 +173,6 @@ export function restartDeviceApi(
     failure,
     autoShowMsg,
     refLoading,
+    refNotification
   });
 }

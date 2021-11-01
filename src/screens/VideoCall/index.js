@@ -37,6 +37,7 @@ import Sound from 'react-native-sound';
 import {useIsFocused} from '@react-navigation/native';
 import {keepScreenAwake} from '../../functions/utils';
 import { useTranslation } from 'react-i18next';
+import NotificationModal from "../../components/NotificationModal";
 
 const initialState = {
   data: [],
@@ -84,6 +85,7 @@ const reducer = (state, action) => {
 
 const ListDeviceScreen = () => {
   const refLoading = useRef();
+  const refNotification = useRef();
   const {token} = useSelector(state => state.loginReducer).dataInfo;
   const videoCallReducer = useSelector(state => state.videoCallReducer);
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -130,6 +132,7 @@ const ListDeviceScreen = () => {
           });
         },
         refLoading,
+        refNotification,
       });
     } catch (error) {
       console.log(error);
@@ -381,6 +384,7 @@ const ListDeviceScreen = () => {
         )}
       </View>
       <LoadingIndicator ref={refLoading} />
+      <NotificationModal ref={refNotification} />
       {visibleCall.visible && (
         <VideoCallModal
           visible={visibleCall.visible}

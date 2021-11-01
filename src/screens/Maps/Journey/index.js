@@ -103,6 +103,7 @@ export default ({}) => {
           }
         },
         refLoading: refLoading,
+        refNotification: refNotification,
       },
     );
   };
@@ -123,6 +124,7 @@ export default ({}) => {
         }
       },
       refLoading: refLoading,
+      refNotification: refNotification,
     });
   }, []);
 

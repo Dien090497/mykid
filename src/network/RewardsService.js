@@ -4,7 +4,7 @@ import {rewardsUrl} from './http/ApiUrl';
 
 export function getRewardsApi(
   deviceId,
-  {success, failure, autoShowMsg = true, refLoading = null} = {},
+  {success, failure, autoShowMsg = true, refLoading = null, refNotification = null} = {},
 ) {
   const url = [rewardsUrl, deviceId].join('/');
   return get(url, {
@@ -12,13 +12,14 @@ export function getRewardsApi(
     failure,
     autoShowMsg,
     refLoading,
+    refNotification,
   });
 }
 
 export function setRewardsApi(
   deviceId,
   body,
-  {success, failure, autoShowMsg = true, refLoading = null} = {},
+  {success, failure, autoShowMsg = true, refLoading = null, refNotification = null} = {},
 )
 {
   const url = [rewardsUrl, deviceId].join('/');
@@ -28,5 +29,6 @@ export function setRewardsApi(
     failure,
     autoShowMsg,
     refLoading,
+    refNotification,
   });
 }

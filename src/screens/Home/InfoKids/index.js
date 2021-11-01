@@ -93,7 +93,8 @@ export default function InfoKits({route}) {
         setWeight(res.data.weight);
         setHeight(res.data.height);
       },
-      refLoading: refLoading
+      refLoading: refLoading,
+      refNotification: refNotification,
     })
   }
 
@@ -136,7 +137,8 @@ export default function InfoKits({route}) {
         success: res => {
           refNotification.current.open(t('common:success'))
         },
-        refLoading: refLoading
+        refLoading: refLoading,
+        refNotification: refNotification,
       })
     } else {
       refNotification.current.open(t('common:error_info'))

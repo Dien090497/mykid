@@ -1,13 +1,12 @@
 import {dele, get, path, post, put} from './http/HttpClient';
 
-import Consts from '../functions/Consts';
 import {safeZoneUrl} from './http/ApiUrl';
 
 export function getListSafeZoneApi(
   deviceId,
   page,
   size,
-  {success, failure, autoShowMsg = true, refLoading = null} = {},
+  {success, failure, autoShowMsg = true, refLoading = null, re} = {},
 ) {
   let params = {
     page,

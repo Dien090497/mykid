@@ -23,6 +23,7 @@ export default ({ navigation }) => {
         setPoint(resData.data.heart);
       },
       refLoading,
+      refNotification,
     })
   },[]);
 
@@ -41,6 +42,7 @@ export default ({ navigation }) => {
         refNotification.current.open(t('common:sendRewards'))
       },
       refLoading,
+      refNotification,
     })
   };
   return (

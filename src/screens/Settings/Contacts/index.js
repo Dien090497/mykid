@@ -41,6 +41,7 @@ export default ({navigation, route}) => {
         }
       },
       refLoading: refLoading,
+      refNotification: refNotification,
     });
   }, []);
 
@@ -56,6 +57,7 @@ export default ({navigation, route}) => {
           setDataContacts(res.data);
         },
         refLoading: refLoading,
+        refNotification: refNotification,
       },
     );
   };
@@ -81,6 +83,7 @@ export default ({navigation, route}) => {
               setDataContacts(res.data);
             },
             refLoading: refLoading,
+            refNotification: refNotification,
           },
         );
       },
@@ -127,6 +130,7 @@ export default ({navigation, route}) => {
         setIsBlocking(!isBlocking);
       },
       refLoading: refLoading,
+      refNotification: refNotification,
     });
   };
 

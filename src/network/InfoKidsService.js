@@ -3,7 +3,7 @@ import {InfoKids} from "./http/ApiUrl";
 
 export function getInfoApi (
   deviceId,
-  {success, failure, autoShowMsg = true, refLoading = null} = {},
+  {success, failure, autoShowMsg = true, refLoading = null, refNotification = null} = {},
 ) {
   const url = [InfoKids, deviceId].join('/');
   return get(url, {
@@ -11,13 +11,14 @@ export function getInfoApi (
     failure,
     autoShowMsg,
     refLoading,
+    refNotification,
   });
 }
 
 export function setInfoKitsApi (
   deviceId,
   body,
-  {success, failure, autoShowMsg = true, refLoading = null} = {},
+  {success, failure, autoShowMsg = true, refLoading = null, refNotification = null} = {},
 ) {
   const url = [InfoKids, deviceId].join('/');
   return post(url, {
@@ -26,5 +27,6 @@ export function setInfoKitsApi (
     failure,
     autoShowMsg,
     refLoading,
+    refNotification,
   });
 }
