@@ -73,7 +73,7 @@ export default {
   header_reward_points: 'Rewards',
   header_doNotDisturb: 'Do Not Disturb',
   header_language_timezone: 'Language and Time Zone',
-  header_chat: 'Void chat',
+  header_chat: 'Chat',
   header_secret_shoot: 'Remote photo',
   header_remoteDevices: 'Remote Shutdown',
   header_remoteStart: 'Remote Restart',
@@ -141,7 +141,7 @@ export default {
   enterNewPassword: 'Enter new password',
   reEnterNewPassword: 'Enter new password',
   changePasswordSuccess: 'Success',
-  changeLangguageAndTimezone: 'Success',
+  changeLanguageAndTimezone: 'Success',
   currentPasswordInvalid:
     'The current password you entered is not in the correct format (8-16 characters)',
   newPasswordInvalid: 'The new password you entered is not in the correct format (8-16 characters)',
@@ -249,6 +249,7 @@ export default {
 
   //RewardPoints
   rewardPoints_text: 'Send a reward!',
+  sendRewards: 'Successful',
 
   //DoNotDisturb
   textAddTime: 'Time',

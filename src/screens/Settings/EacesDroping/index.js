@@ -7,7 +7,6 @@ import {
 } from 'react-native';
 import Header from '../../../components/Header';
 import {styles} from './styles';
-import {showAlert} from '../../../functions/utils';
 import {
   setEacesDropApi,
   getPhoneApi
@@ -15,9 +14,12 @@ import {
 import DataLocal from '../../../data/dataLocal';
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import { useTranslation } from 'react-i18next';
+import NotificationModal from '../../../components/NotificationModal';
+
 export  default function EacesDroping(){
   const [number,setNumber] =useState('');
   const refLoading = useRef();
+  const refNotification = useRef();
   const { t } = useTranslation();
   useEffect(() => {
     getPhoneApi(DataLocal.deviceId, {
@@ -29,7 +31,7 @@ export  default function EacesDroping(){
   }, []);
   const checkNumber = (number)=> {
     if (number.length <= 9 || number.length >= 12) {
-      showAlert(t('common:errorPhone'))
+      refNotification.current.open(t('common:errorPhone'))
     }
     else {
       eacesDropingApi();
@@ -41,7 +43,7 @@ export  default function EacesDroping(){
     }
     setEacesDropApi(DataLocal.deviceId,body,{
       success: res =>{
-        showAlert(t('common:addDeviceSuccess'))
+        refNotification.current.open(t('common:addDeviceSuccess'))
       },
       refLoading:refLoading
     })
@@ -57,7 +59,7 @@ export  default function EacesDroping(){
                  style={styles.inputText}
                  value={number}
                  keyboardType={'number-pad'}
-                 placeholder={'Nhập số điện thoại'}
+                 placeholder={t('common:header_account')}
                  placeholderTextColor='#B5B4B4'
                  disableFullscreenUI
                  onChangeText={(text => setNumber(text))}
@@ -70,6 +72,7 @@ export  default function EacesDroping(){
             </TouchableOpacity>
        </View>
       <LoadingIndicator ref={refLoading} />
+      <NotificationModal ref={refNotification} />
     </View>
   );
 }

@@ -14,7 +14,7 @@ import {
   setBlockUnknownApi,
   setSOSApi,
 } from '../../../network/ContactService';
-import {showAlert, showConfirmation} from '../../../functions/utils';
+import { showConfirmation} from '../../../functions/utils';
 import {Colors} from '../../../assets/colors/Colors';
 import DataLocal from '../../../data/dataLocal';
 import Header from '../../../components/Header';
@@ -23,9 +23,11 @@ import LoadingIndicator from '../../../components/LoadingIndicator';
 import {styles} from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
+import NotificationModal from '../../../components/NotificationModal';
 
 export default ({navigation, route}) => {
   const refLoading = useRef();
+  const refNotification = useRef();
   const [isBlocking, setIsBlocking] = useState(false);
   const [dataContacts, setDataContacts] = useState(null);
   const { t } = useTranslation();
@@ -61,7 +63,7 @@ export default ({navigation, route}) => {
   const removeContact = item => {
     //call remove Contact
     if (item.sosNumber) {
-      showAlert(t('common:message_remove_contact_sos'));
+      refNotification.current.open(t('common:message_remove_contact_sos'))
       return;
     }
 
@@ -168,7 +170,7 @@ export default ({navigation, route}) => {
           <Text style={styles.txtAdd}>{t('common:addPhone')}</Text>
         </TouchableOpacity>
       </View>
-
+      <NotificationModal ref={refNotification} />
       <LoadingIndicator ref={refLoading} />
     </View>
   );

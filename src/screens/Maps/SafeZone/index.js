@@ -7,19 +7,15 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {Divider, Icon, Slider, Switch} from 'react-native-elements';
-import MapView, {Circle, Marker, PROVIDER_GOOGLE} from 'react-native-maps';
-import React, {memo, useCallback, useEffect, useRef, useState} from 'react';
+import { Slider, Switch} from 'react-native-elements';
+import MapView, {Circle, Marker} from 'react-native-maps';
+import React, { useCallback, useEffect, useRef, useState} from 'react';
 import {
   createSafeZoneApi,
   deleteSafeZoneApi,
   getListSafeZoneApi,
   updateSafeZoneApi,
 } from '../../../network/SafeZoneService';
-import {
-  showAlert,
-} from '../../../functions/utils';
-
 import {Colors} from '../../../assets/colors/Colors';
 import DataLocal from '../../../data/dataLocal';
 import {FontSize} from '../../../functions/Consts';
@@ -30,6 +26,7 @@ import LoadingIndicator from '../../../components/LoadingIndicator';
 import styles from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
+import NotificationModal from '../../../components/NotificationModal';
 
 const initialRegion = {
   latitude: 21.030653,
@@ -427,6 +424,7 @@ const ViewAddOrEditArea = ({
   const [name, setName] = useState(area?.name || '');
   const [range, setRange] = useState(area?.radius || 200);
   const { t } = useTranslation();
+  const refNotification = useRef();
   const renderIncrementOrDecrement = (type = 'increment', onPress) => {
     return (
       <TouchableOpacity
@@ -442,7 +440,7 @@ const ViewAddOrEditArea = ({
 
   const onSave = () => {
     if (!name.length) {
-      showAlert(t('common:errorNameArea'));
+      refNotification.current.open(t('common:errorNameArea'));
       return;
     }
 
@@ -454,7 +452,7 @@ const ViewAddOrEditArea = ({
       });
     } else {
       if (!newLocationSafeArea) {
-        showAlert(t('common:errorLocationArea'));
+        refNotification.current.open(t('common:errorLocationArea'));
         return;
       }
       onCreate({
@@ -526,6 +524,7 @@ const ViewAddOrEditArea = ({
           <Text children={t('common:back')} style={[styles.txtBack,{color:Colors.black}]} />
         </TouchableOpacity>
       </View>
+      <NotificationModal ref={refNotification} />
     </View>
   );
 };

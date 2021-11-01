@@ -90,7 +90,7 @@ const Login = ({ navigation }) => {
   const onSubmit = () => {
     if (checkbox) {
       if (!passwordTest(password)) {
-        refNotification.current.open(String.txtNotification)
+        refNotification.current.open(t('common:txtNotification'))
         return;
       }
       dispatch(Actions.actionLogin({ email, password, refLoading }));

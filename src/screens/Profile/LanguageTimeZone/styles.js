@@ -72,7 +72,7 @@ export const styles = StyleSheet.create({
     flex:1,
     flexDirection:'column'
   },
-  wheelPickkerView: {
+  wheelPickerView: {
     backgroundColor: 'white',
     width: '100%',
     height: height - height / 1.5,

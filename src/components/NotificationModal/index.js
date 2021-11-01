@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { Modal, Text, TouchableOpacity, View } from "react-native";
 import { styles } from "./styles";
-import { Colors } from "../../assets/colors/Colors";
-import { ScaleHeight } from "../../functions/Consts";
 import i18next from "i18next";
 
 export default class ModalConfirm extends Component {
@@ -19,7 +17,7 @@ export default class ModalConfirm extends Component {
 
   close = () => {
     if (this.state.callback) this.state.callback();
-    this.setState({... this.state, modalVisible: false });
+    this.setState({ ...this.state, modalVisible: false });
   };
   actionClose = () => {
     this.close();

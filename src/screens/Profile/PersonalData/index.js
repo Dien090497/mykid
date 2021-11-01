@@ -18,15 +18,17 @@ import {
 } from '../../../functions/permissions';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {ScaleHeight} from '../../../functions/Consts';
-import {emailTest, hideLoading, phoneTest1, resizeImage, showAlert, showLoading} from '../../../functions/utils';
+import {emailTest, hideLoading, phoneTest1, resizeImage, showLoading} from '../../../functions/utils';
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import {getPersonalDataApi, updatePersonalDataApi} from '../../../network/PersonalDataService';
 import { useTranslation } from 'react-i18next';
+import NotificationModal from '../../../components/NotificationModal';
 
 export default function PersonalDate() {
   let sheet = null;
   let sheet1 = null;
   const refLoading = useRef();
+  const refNotification = useRef();
   const refModalInput = useRef();
   const [title, setTitle] = useState('');
   const [inputText, setInputText] = useState('')
@@ -72,20 +74,20 @@ export default function PersonalDate() {
 
   const InstallPersonalData = () => {
     if (!emailTest(email)) {
-      showAlert(t('common:error_email'));
+      refNotification.current.open(t('common:error_email'))
       return;
     }
     if (name === null || name === '') {
-      showAlert(t('common:error_name'));
+      refNotification.current.open(t('common:error_name'))
       return;
     }
     if (contact.length < 10 || !phoneTest1(contact)) {
-      showAlert(t('common:error_contact'));
+      refNotification.current.open(t('common:error_contact'))
       return;
     }
     updatePersonalDataApi(contact, email, avatar, gender, name, {
       success: res => {
-        showAlert(t('common:EditSuccess'))
+        refNotification.current.open(t('common:EditSuccess'))
       }
     })
   }
@@ -324,6 +326,7 @@ export default function PersonalDate() {
         onPress={handleImageAction}
       />
       <LoadingIndicator ref={refLoading}/>
+      <NotificationModal ref={refNotification}/>
     </View>
   );
 }

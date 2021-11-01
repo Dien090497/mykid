@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import React, { useLayoutEffect, useRef, useState } from "react";
 import { changePasswordApi } from '../../../network/UserInfoService';
-import { passwordTest, saveUserDataFromToken, showAlert } from '../../../functions/utils';
+import { passwordTest, saveUserDataFromToken } from '../../../functions/utils';
 
 import { Colors } from '../../../assets/colors/Colors';
 import CustomInput from '../../../components/inputRegister';
@@ -36,19 +36,19 @@ const ChangePassword = ({ navigation }) => {
   const onSubmit = () => {
     if (!submitActive) return;
     if (!passwordTest(currentPassword)) {
-      refNotification.current.open(String.currentPasswordInvalid);
+      refNotification.current.open(t('common:currentPasswordInvalid'));
       return;
     }
     if (!passwordTest(newPassword)) {
-      refNotification.current.open(String.newPasswordInvalid);
+      refNotification.current.open(t('common:newPasswordInvalid'));
       return;
     }
     if (newPassword !== newPasswordConfirm) {
-      refNotification.current.open(String.passwordConfirmInvalid);
+      refNotification.current.open(t('common:passwordConfirmInvalid'));
       return;
     }
     if (newPassword === currentPassword) {
-      refNotification.current.open(String.passwordDuplicated);
+      refNotification.current.open(t('common:passwordDuplicated'));
       return;
     }
 
@@ -57,10 +57,8 @@ const ChangePassword = ({ navigation }) => {
         if (resData.data.token) {
           saveUserDataFromToken(resData.data.token);
         }
-        showAlert(('common:changePasswordSuccess'), {
-          close: () => {
-            navigation.goBack();
-          },
+        refNotification.current.open(t('common:changePasswordSuccess'),()=>{
+          navigation.goBack();
         });
       },
       failure: _ => {

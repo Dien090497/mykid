@@ -18,13 +18,14 @@ import LoadingIndicator from '../../../components/LoadingIndicator';
 import DataLocal from '../../../data/dataLocal';
 import {getInfoApi, setInfoKitsApi} from '../../../network/InfoKidsService';
 import DatePicker from 'react-native-date-picker';
-import {showAlert} from '../../../functions/utils';
 import { useTranslation } from 'react-i18next';
+import NotificationModal from '../../../components/NotificationModal';
 
 export default function InfoKits({route}) {
   let sheet = null;
   const refLoading = useRef();
   const refModalInput = useRef();
+  const refNotification = useRef();
   const [title, setTitle] = useState('');
   const [inputText, setInputText] = useState('')
   const [gender, setGender] = useState('');
@@ -127,18 +128,18 @@ export default function InfoKits({route}) {
       weight
     }
     if (name === '') {
-      showAlert(t('common:errorName'));
+      refNotification.current.open(t('common:errorName'))
       return;
     }
     if (parseInt(heights) > 0 && parseInt((weights)) > 0 ) {
       setInfoKitsApi(DataLocal.deviceId, body, {
         success: res => {
-          showAlert(t('common:success'))
+          refNotification.current.open(t('common:success'))
         },
         refLoading: refLoading
       })
     } else {
-      showAlert(t('common:error_info'))
+      refNotification.current.open(t('common:error_info'))
     }
   }
 
@@ -178,7 +179,7 @@ export default function InfoKits({route}) {
         onCancel={() => {
           setModalDate(false)
         }}
-        title={'Chọn ngày'}
+        title={t('common:chooseDay')}
         cancelText={t('common:cancel')}
         confirmText={t('common:confirm')}
       />
@@ -262,6 +263,7 @@ export default function InfoKits({route}) {
       />
       {datePicker()}
       <LoadingIndicator ref={refLoading}/>
+      <NotificationModal ref={refNotification} />
     </View>
   );
 }
