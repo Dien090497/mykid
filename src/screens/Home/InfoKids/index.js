@@ -120,6 +120,9 @@ export default function InfoKits({route}) {
 
   const handleGenderAction = (index) => {
     if (index < 2) {
+      if (setGender(dataGender[index]) !== gender) {
+        setDisableTob(true);
+      }
       setGender(dataGender[index]);
     }
   }
