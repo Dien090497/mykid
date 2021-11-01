@@ -8,7 +8,8 @@ import {
   getOTP,
   accountDetailUrl,
   getOtpReset,
-  getVerificationOtp
+  getVerificationOtp,
+  UpdatePassword
 } from "./http/ApiUrl";
 import { generateRandomId } from "../functions/utils";
 import { post, get, put } from "./http/HttpClient";
@@ -104,5 +105,13 @@ export function getVerificationOtpApi(
     "X-OTP-Code": data.otp
   }
   return post(getVerificationOtp, {body, headers, autoShowMsg, success, failure, refLoading});
+}
+
+export function UpdatePasswordApi(data , { success, failure, autoShowMsg = true, refLoading = null, refNotification = null }) {
+  let body = {
+    phone: data.phone,
+    newPassword : data.newPassword
+  };
+  return put(UpdatePassword, { body, success, failure, autoShowMsg, refLoading, refNotification });
 }
 

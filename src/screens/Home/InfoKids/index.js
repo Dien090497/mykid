@@ -268,7 +268,10 @@ export default function InfoKits({route}) {
           keyExtractor={item => item.id}
           style={{paddingTop: 15}}
         />
-        <TouchableOpacity style={styles.tobViewMain} onPress={InstallInfo}>
+        <TouchableOpacity
+          style={(!disableTob ? [styles.tobViewMain , {backgroundColor: 'rgba(181, 180, 180, 1)'}]: styles.tobViewMain)}
+          onPress={InstallInfo} disabled={!disableTob}
+        >
           <Text style={[styles.text, {color: Colors.white}]}>{t('common:save')}</Text>
         </TouchableOpacity>
       </View>
