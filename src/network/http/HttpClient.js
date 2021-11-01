@@ -10,11 +10,12 @@ import {
 
 import Consts from '../../functions/Consts';
 import DataLocal from '../../data/dataLocal';
-import {ErrorMsg} from '../../assets/strings/ErrorMsg';
+import errorMsg from "../../constants/translations/vi/errorMsg";
 import {Platform} from 'react-native';
 import {RETRY_HTTP_REQUEST_NUMBER} from '../../data/AppConfig';
 import axios from 'axios';
 import reduxStore from '../../redux/config/redux';
+import i18next from 'i18next';
 
 const TIMEOUT_CONNECT = 60000;
 
@@ -22,10 +23,6 @@ const client = axios.create({
   baseURL: appUrl,
   timeout: TIMEOUT_CONNECT,
 });
-
-const TOKEN_EXPIRED_MSG = 'Phiên đăng nhập của bạn đã hết. Vui lòng đăng nhập lại.';
-export const OTHER_LOGIN = 'Bạn đã đăng nhập trên thiết bị khác.';
-export const UNEXPECTED_ERROR_MSG = 'Có lỗi không xác định xảy ra';
 
 const requestType = {
   post: 'post',
@@ -321,7 +318,7 @@ export async function uploadFile(
 
 async function handleResp(response, autoShowMsg, success, failure, refLoading) {
   if (!response || response.status === 500) {
-    let err = ErrorMsg.connectToServerFailed;
+    let err = i18next.t('errorMsg:connectToServerFailed');
     console.log('handleResp >>>>>>>>>>>', response)
     if (response && response.error) {
       err = response.error;
@@ -352,13 +349,13 @@ async function handleResp(response, autoShowMsg, success, failure, refLoading) {
       }
 
       if (autoShowMsg) {
-        showAlert(TOKEN_EXPIRED_MSG);
+        showAlert(i18next.t('errorMsg:TOKEN_EXPIRED_MSG'));
       }
       if (failure) {
-        failure(TOKEN_EXPIRED_MSG);
+        failure(i18next.t('errorMsg:TOKEN_EXPIRED_MSG'));
       }
 
-      return failureResponse(TOKEN_EXPIRED_MSG, response);
+      return failureResponse(i18next.t('errorMsg:TOKEN_EXPIRED_MSG'), response);
     }
 
     const err = checkFailure(result);
@@ -401,11 +398,11 @@ async function checkRefreshToken(headers, refLoading) {
 export const refreshUserToken = async (refLoading = null) => {
   const resp = await get(refreshTokenUrl, {refLoading});
   if (!resp.success) {
-    showAlert(ErrorMsg.clientServerCommunicationProb);
+    showAlert(i18next.t('errorMsg:clientServerCommunicationProb'));
   } else {
     const resData = resp.success.data;
     if (!resData || !resData.token) {
-      showAlert(ErrorMsg.clientServerCommunicationProb);
+      showAlert(i18next.t('errorMsg:clientServerCommunicationProb'));
     } else {
     }
   }
@@ -421,16 +418,17 @@ function checkFailure(result) {
   }
 
   if (!meta || !meta.code) {
-    return UNEXPECTED_ERROR_MSG;
+    return i18next.t('errorMsg:UNEXPECTED_ERROR_MSG');
   }
 
   const code = meta.code.toLowerCase().split('-').join('');
 
-  if (Object.keys(ErrorMsg).includes(code)) {
-    return ErrorMsg[code];
+  if (Object.keys(errorMsg).includes(code)) {
+    return showAlert(i18next.t('errorMsg:'+code))
+    // return ErrorMsg[code];
   }
 
-  return UNEXPECTED_ERROR_MSG + ' (' + meta.code + ')';
+  return i18next.t('errorMsg:UNEXPECTED_ERROR_MSG') + ' (' + meta.code + ')';
 }
 
 export function anonymousLogin(refLoading = null) {

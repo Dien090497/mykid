@@ -4,10 +4,10 @@ import {
   TouchableOpacity,
   Modal,
   Text, Platform,
-} from "react-native";
+} from 'react-native';
 import { TimePicker } from 'react-native-wheel-picker-android';
-import { String } from '../../assets/strings/String';
 import { styles } from './styles';
+import i18next from 'i18next';
 
 export default class TimePickerModal extends Component {
   constructor(props) {
@@ -48,18 +48,18 @@ export default class TimePickerModal extends Component {
   render() {
     return (
       <Modal
-        animationType="slide"
+        animationType='slide'
         transparent={true}
         visible={this.state.modalVisible}>
         <TouchableOpacity style={styles.bottomView} onPress={this.hideModal}>
           <TouchableOpacity style={styles.containerModal} activeOpacity={1}>
             <View style={styles.header}>
               <TouchableOpacity style={styles.btnCancel} onPress={this.hideModal}>
-                <Text style={styles.txtCancel}>{String.cancel}</Text>
+                <Text style={styles.txtCancel}>{i18next.t('common:cancel')}</Text>
               </TouchableOpacity>
               <View style={{width: '50%'}}/>
               <TouchableOpacity style={styles.btnAccept} onPress={this.onSubmit}>
-                <Text style={styles.txtAccept}>{String.accept}</Text>
+                <Text style={styles.txtAccept}>{i18next.t('common:accept')}</Text>
               </TouchableOpacity>
             </View>
             <View style={styles.body}>

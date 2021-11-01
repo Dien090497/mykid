@@ -7,7 +7,6 @@ import {
 } from 'react-native';
 import Header from '../../../components/Header';
 import {styles} from './styles';
-import {String} from '../../../assets/strings/String';
 import {showAlert} from '../../../functions/utils';
 import {
   setEacesDropApi,
@@ -30,7 +29,7 @@ export  default function EacesDroping(){
   }, []);
   const checkNumber = (number)=> {
     if (number.length <= 9 || number.length >= 12) {
-      showAlert(String.errorPhone)
+      showAlert(t('common:errorPhone'))
     }
     else {
       eacesDropingApi();
@@ -42,7 +41,7 @@ export  default function EacesDroping(){
     }
     setEacesDropApi(DataLocal.deviceId,body,{
       success: res =>{
-        showAlert(String.addDeviceSuccess)
+        showAlert(t('common:addDeviceSuccess'))
       },
       refLoading:refLoading
     })

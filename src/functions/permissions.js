@@ -1,20 +1,20 @@
 import {Platform} from 'react-native';
-import {String} from '../assets/strings/String';
 import {check, request, PERMISSIONS, RESULTS, openSettings} from 'react-native-permissions';
 import {showAlert, showConfirmation} from './utils';
+import i18next from 'i18next';
 
 export async function checkWriteExternalStorageAndroid() {
   if (Platform.OS !== 'android') {
     return true;
   }
 
-  const msgs = [String.writeExternalStorageAndroidUnavailable, String.writeExternalStorageAndroidDenied];
+  const msgs = [i18next.t('common:writeExternalStorageAndroidUnavailable'), i18next.t('common:writeExternalStorageAndroidDenied')];
   const result = await check(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE);
   return handlePermissionResp(result, PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE, msgs);
 }
 
 export async function checkPhotoLibraryWritePermission() {
-  const msgs = [String.photoLibraryUnavailable, String.photoLibraryWriteDenied, String.photoLibraryReadLimit];
+  const msgs = [i18next.t('common:photoLibraryUnavailable'), i18next.t('common:photoLibraryWriteDenied'), i18next.t('common:photoLibraryReadLimit')];
   if (Platform.OS === 'ios') {
     const result = await check(PERMISSIONS.IOS.PHOTO_LIBRARY);
     return handlePermissionResp(result, PERMISSIONS.IOS.PHOTO_LIBRARY, msgs);
@@ -27,7 +27,7 @@ export async function checkPhotoLibraryWritePermission() {
 }
 
 export async function checkPhotoLibraryReadPermission() {
-  const msgs = [String.photoLibraryUnavailable, String.photoLibraryReadDenied, String.photoLibraryReadLimit];
+  const msgs = [i18next.t('common:photoLibraryUnavailable'), i18next.t('common:photoLibraryReadDenied'), i18next.t('common:photoLibraryReadLimit')];
   if (Platform.OS === 'ios') {
     const result = await check(PERMISSIONS.IOS.PHOTO_LIBRARY);
     return handlePermissionResp(result, PERMISSIONS.IOS.PHOTO_LIBRARY, msgs);
@@ -40,7 +40,7 @@ export async function checkPhotoLibraryReadPermission() {
 }
 
 export async function checkMicrophonePermission() {
-  const msgs = [String.microphoneUnavailable, String.microphoneDenied];
+  const msgs = [i18next.t('common:microphoneUnavailable'), i18next.t('common:microphoneDenied')];
   if (Platform.OS === 'ios') {
     const result = await check(PERMISSIONS.IOS.MICROPHONE);
     return handlePermissionResp(result, PERMISSIONS.IOS.MICROPHONE, msgs);
@@ -53,7 +53,7 @@ export async function checkMicrophonePermission() {
 }
 
 export async function checkCameraPermission() {
-  const msgs = [String.cameraUnavailable, String.cameraDenied];
+  const msgs = [i18next.t('common:cameraUnavailable'), i18next.t('common:cameraDenied')];
   if (Platform.OS === 'ios') {
     const result = await check(PERMISSIONS.IOS.CAMERA);
     return handlePermissionResp(result, PERMISSIONS.IOS.CAMERA, msgs);

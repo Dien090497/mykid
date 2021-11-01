@@ -1,18 +1,17 @@
-import Consts, {FontSize, ScaleHeight} from '../../functions/Consts';
+import Consts, {FontSize } from '../../functions/Consts';
 import {Dimensions, FlatList, Image, Text, TouchableOpacity, View} from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useRef } from 'react';
 import {Colors} from '../../assets/colors/Colors';
 import CustomIcon from '../../components/VectorIcons';
 import Header from '../../components/Header';
 import LoadingIndicator from '../../components/LoadingIndicator';
-import {String} from '../../assets/strings/String';
 import {styles} from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Images from '../../assets/Images';
 import SecretPhotoShoot from '../SecretPhotoShoot';
 import { useTranslation } from 'react-i18next';
 
-const {width,height} = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 export default ({navigation, route}) => {
   const refLoading = useRef();
   const { t } = useTranslation();
@@ -80,7 +79,7 @@ export default ({navigation, route}) => {
     },
     {
       key: 'SecretPhotoShoot',
-      title: String.header_secret_shoot,
+      title: t('common:header_secret_shoot'),
       onPress: () => {
         navigation.navigate(Consts.ScreenIds.SecretPhotoShoot);
       },

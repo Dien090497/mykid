@@ -9,7 +9,6 @@ import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
 import DataLocal from '../../../data/dataLocal';
 import Header from '../../../components/Header';
 import LoadingIndicator from '../../../components/LoadingIndicator';
-import {String} from '../../../assets/strings/String';
 import {styles} from './styles';
 import {Colors} from '../../../assets/colors/Colors';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -77,7 +76,7 @@ export default function LanguageTimeZone({navigation, route}) {
       },
       {
         success: res => {
-          showAlert(String.changeLangguageAndTimezone);
+          showAlert(t('common:changeLangguageAndTimezone'));
         },
         refLoading: refLoading,
       },

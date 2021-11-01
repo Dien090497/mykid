@@ -19,7 +19,6 @@ import { Image } from 'react-native';
 import Images from '../../../assets/Images';
 import Consts from '../../../functions/Consts';
 import { hideLoading, resizeImage, showLoading } from '../../../functions/utils';
-import { String } from '../../../assets/strings/String';
 import RecorderComponent from '../../../components/RecorderComponent';
 import Spinner from 'react-native-spinkit';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
@@ -33,6 +32,7 @@ import { useSelector } from 'react-redux';
 import AppConfig from '../../../data/AppConfig';
 import RNFetchBlob from 'react-native-fetch-blob';
 import { getListDeviceApi } from '../../../network/DeviceService';
+import { useTranslation } from 'react-i18next';
 
 export default function RoomChat({navigation, route}) {
   const refLoading = useRef();
@@ -51,12 +51,13 @@ export default function RoomChat({navigation, route}) {
   const [isLock, setIsLock] = useState(false);
   const [listMember, setListMember] = useState([]);
   const chatReducer = useSelector(state => state.chatReducer);
+  const { t } = useTranslation();
   let sheet = null;
-  
+
   useLayoutEffect(() => {
     focusTextInput();
   }, [refTextInput]);
-  
+
   useLayoutEffect(() => {
     if (chatReducer.dataInfo && roomInfo) {
       setChatHistory(chatReducer.dataInfo[roomInfo.roomAddress]);
@@ -128,7 +129,7 @@ export default function RoomChat({navigation, route}) {
       console.log(e);
       setIndexPlaying(-1);
     }
-    
+
   };
 
   const sendMsg = () => {
@@ -226,7 +227,7 @@ export default function RoomChat({navigation, route}) {
   const saveImage = (obj) => {
     if (Platform.OS === 'ios') {
       CameraRoll.save(obj.body)
-      .then(console.log('Photo added to camera roll!')) 
+      .then(console.log('Photo added to camera roll!'))
       .catch(err => console.log('err:', err))
     } else {
       RNFetchBlob
@@ -239,9 +240,9 @@ export default function RoomChat({navigation, route}) {
             console.log()
           CameraRoll.saveToCameraRoll(res.path())
             .then((res) => {
-            console.log("save", res)
+            console.log('save', res)
             }).catch((error) => {
-              console.log("error", error)
+              console.log('error', error)
             })
 
         })
@@ -314,8 +315,8 @@ export default function RoomChat({navigation, route}) {
 
   return (
     <KeyboardAvoidingView style={styles.contain}
-      behavior={Platform.OS === "ios" ? "padding" : ""}>
-      <Header title={`${String.talkWithFamily} (${listMember.length})`} right rightIcon={Images.icGroup} rightAction={() => {gotoDeleteMessage()}}/>
+      behavior={Platform.OS === 'ios' ? 'padding' : ''}>
+      <Header title={`${t('common:talkWithFamily')} (${listMember.length})`} right rightIcon={Images.icGroup} rightAction={() => {gotoDeleteMessage()}}/>
       <View style={styles.container}>
         <ScrollView ref={refScrollView} style={styles.container}
           onContentSizeChange={() => refScrollView.current.scrollToEnd({animated: true})}>
@@ -325,7 +326,7 @@ export default function RoomChat({navigation, route}) {
                 <FastImage source={getIcon(obj)} style={styles.icAvatar} resizeMode={FastImage.resizeMode.stretch} />
               </View>
               <View style={styles.viewContent}>
-                { !isMe(obj) && 
+                { !isMe(obj) &&
                   <Text style={styles.txtTitle}>{getName(obj)}</Text>
                 }
                 {obj.type !== 'image' &&
@@ -373,13 +374,13 @@ export default function RoomChat({navigation, route}) {
           </TouchableOpacity>
           <View style={styles.viewContent}>
             {isRecord ?
-            <View style={styles.toInput} 
+            <View style={styles.toInput}
               onStartShouldSetResponder={() => {return true;}}
               onResponderStart={(e) => {onResponderStart(e)}}
               onResponderMove={(e) => {onResponderMove(e)}}
               onResponderRelease={(e) => {onResponderRelease(e)}}
               onResponderTerminate={(e) => {onResponderRelease(e)}}>
-              <Text style={styles.txtInput}>{String.holdAndTalk}</Text>
+              <Text style={styles.txtInput}>{t('common:holdAndTalk')}</Text>
             </View>
             :
             <View style={styles.toInput}>
@@ -416,7 +417,7 @@ export default function RoomChat({navigation, route}) {
       }}>
         <View style={{
           padding: 10,
-          paddingTop: Platform.OS === "ios" ? 150 : 180,
+          paddingTop: Platform.OS === 'ios' ? 150 : 180,
           paddingLeft: 12,
           borderRadius: 5,
           width: 150,
@@ -424,10 +425,10 @@ export default function RoomChat({navigation, route}) {
           justifyContent: 'center',
           backgroundColor: 'rgba(0, 0, 0, 0.5)',
         }}>
-          <Image source={isCancelRecording ? Images.icCancelRecord : Images.icMicrophone} 
+          <Image source={isCancelRecording ? Images.icCancelRecord : Images.icMicrophone}
             style={isCancelRecording ? styles.icCancelRecord : styles.icMicrophone}/>
           {isCancelRecording ? <View style={{marginBottom: 120, marginTop: -10, height: 70}}/> :
-          <Spinner style={{marginBottom: 120, marginTop: Platform.OS === "ios" ? -20 : -10, height: 70, marginLeft: Platform.OS === "ios" ? 30 : 35}} isVisible={true} size={60} type={'ThreeBounce'} color={'white'}/>}
+          <Spinner style={{marginBottom: 120, marginTop: Platform.OS === 'ios' ? -20 : -10, height: 70, marginLeft: Platform.OS === 'ios' ? 30 : 35}} isVisible={true} size={60} type={'ThreeBounce'} color={'white'}/>}
         </View>
       </View>}
       <LoadingIndicator ref={refLoading}/>
@@ -435,11 +436,11 @@ export default function RoomChat({navigation, route}) {
       <AudioPlayerComponent ref={refAudioPlayer} onStopPlayer={onStopPlayer}/>
       <ActionSheet
         ref={o => sheet = o}
-        title={String.selectPhoto}
+        title={t('common:selectPhoto')}
         options={[
-          String.selectPhotoLibrary,
-          String.takePhoto,
-          String.cancel,
+          t('common:selectPhotoLibrary'),
+          t('common:takePhoto'),
+          t('common:cancel'),
         ]}
         cancelButtonIndex={2}
         onPress={handleImageAction}
