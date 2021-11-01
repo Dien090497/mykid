@@ -2,13 +2,13 @@ import {call, put} from 'redux-saga/effects';
 import {
   hideLoading,
   saveUserDataFromToken,
-  showAlert,
   showLoading,
 } from '../../functions/utils';
 import {ErrorMsg} from '../../assets/strings/ErrorMsg';
 import loginAction from '../actions/loginAction';
 import {loginService} from '../../network/UserInfoService';
 import reduxStore from '../config/redux';
+import SimpleToast from "react-native-simple-toast";
 
 function* postLoginAction(email, password, refLoading) {
   try {
@@ -22,7 +22,7 @@ function* postLoginAction(email, password, refLoading) {
       const token = response.success.data.token;
       if (!token) {
         hideLoading(refLoading);
-        showAlert(ErrorMsg.parseUserTokenFailed);
+        SimpleToast.show(ErrorMsg.parseUserTokenFailed)
         return;
       }
 

@@ -1,7 +1,8 @@
 import {Platform} from 'react-native';
 import {check, request, PERMISSIONS, RESULTS, openSettings} from 'react-native-permissions';
-import {showAlert, showConfirmation} from './utils';
+import { showConfirmation} from './utils';
 import i18next from 'i18next';
+import SimpleToast from "react-native-simple-toast";
 
 export async function checkWriteExternalStorageAndroid() {
   if (Platform.OS !== 'android') {
@@ -71,7 +72,7 @@ async function handlePermissionResp(result, permission, listMsg = []) {
   switch (result) {
     case RESULTS.UNAVAILABLE:
       if (listMsg.length > 0) {
-        showAlert(listMsg[0]);
+        SimpleToast.show(listMsg[0])
       }
       break;
     case RESULTS.DENIED:

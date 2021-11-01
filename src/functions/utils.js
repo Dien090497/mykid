@@ -7,6 +7,7 @@ import jwt_decode from 'jwt-decode';
 import AppConfig from '../data/AppConfig';
 import ImageResizer from 'react-native-image-resizer';
 import i18next from 'i18next';
+import SimpleToast from "react-native-simple-toast";
 
 const addCommas = (num, style) => {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, style);
@@ -101,7 +102,7 @@ export async function resizeImage(imgPickerResp) {
     return response.uri;
   }).catch(err => {
     console.log('Compress error:', err);
-    showAlert(i18next.t('common:msgInvalidImage'));
+    SimpleToast.show(i18next.t('common:msgInvalidImage'))
     return null;
   });
 }
@@ -180,7 +181,7 @@ export function parseTokenToObject(token) {
 export async function saveUserDataFromToken(token) {
   const userInfo = parseTokenToObject(token);
   if (!userInfo) {
-    showAlert(ErrorMsg.parseUserTokenFailed);
+    SimpleToast.show(ErrorMsg.parseUserTokenFailed)
     return null;
   }
   DataLocal.accessToken = token;
