@@ -23,7 +23,6 @@ import LoadingIndicator from '../../../components/LoadingIndicator';
 import {getPersonalDataApi, updatePersonalDataApi} from '../../../network/PersonalDataService';
 import { useTranslation } from 'react-i18next';
 import NotificationModal from '../../../components/NotificationModal';
-import {useTranslation} from 'react-i18next';
 
 export default function PersonalDate() {
   let sheet = null;
@@ -349,6 +348,7 @@ export default function PersonalDate() {
         onPress={handleImageAction}
       />
       <LoadingIndicator ref={refLoading}/>
+      <NotificationModal ref={refNotification}/>
     </View>
   );
 }

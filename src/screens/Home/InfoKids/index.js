@@ -18,6 +18,7 @@ import LoadingIndicator from '../../../components/LoadingIndicator';
 import DataLocal from '../../../data/dataLocal';
 import {getInfoApi, setInfoKitsApi} from '../../../network/InfoKidsService';
 import DatePicker from 'react-native-date-picker';
+import {showAlert} from '../../../functions/utils';
 import { useTranslation } from 'react-i18next';
 import NotificationModal from '../../../components/NotificationModal';
 
@@ -131,7 +132,7 @@ export default function InfoKits({route}) {
     const bd = `${date.getFullYear()}-${`0${date.getMonth() + 1}`.slice(
       -2,
     )}-${`0${date.getDate()}`.slice(-2)}`;
-    let birthday = (check !== undefined ? bd : birthday)
+    let birthday = (check !== false ? bd : birthday)
     const height = parseInt(heights);
     const weight = parseInt(weights);
     let body = {
@@ -142,11 +143,11 @@ export default function InfoKits({route}) {
       weight
     }
     if (name === '') {
-      refNotification.current.open(t('common:errorName'))
+      refNotification.current.open(t('common:errorName'));
       return;
     }
     if (!checkDate()) {
-      showAlert(t('common:error_birthday'));
+      refNotification.current.open(t('common:error_birthday'));
       return;
     }
     if (parseInt(heights) > 0 && parseInt((weights)) > 0 ) {
@@ -159,7 +160,7 @@ export default function InfoKits({route}) {
         refNotification: refNotification,
       })
     } else {
-      refNotification.current.open(t('common:error_info'))
+      showAlert(t('common:error_info'))
     }
   }
 
@@ -192,12 +193,9 @@ export default function InfoKits({route}) {
         open={modalDate}
         date={date}
         onConfirm={(time) => {
-          setModalDate(false);
-          if (time.getTime() !== birthday) {
-            setDisableTob(true);
-          }
-          setDate(time);
-          setCheck(true);
+          setModalDate(false)
+          setDate(time)
+          setCheck(true)
         }}
         onCancel={() => {
           setModalDate(false)
@@ -270,10 +268,7 @@ export default function InfoKits({route}) {
           keyExtractor={item => item.id}
           style={{paddingTop: 15}}
         />
-        <TouchableOpacity
-          style={(!disableTob ? [styles.tobViewMain , {backgroundColor: 'rgba(181, 180, 180, 1)'}]: styles.tobViewMain)}
-          onPress={InstallInfo} disabled={!disableTob}
-        >
+        <TouchableOpacity style={styles.tobViewMain} onPress={InstallInfo}>
           <Text style={[styles.text, {color: Colors.white}]}>{t('common:save')}</Text>
         </TouchableOpacity>
       </View>
@@ -298,7 +293,7 @@ export default function InfoKits({route}) {
       />
       {datePicker()}
       <LoadingIndicator ref={refLoading}/>
-      <NotificationModal ref={refNotification} />
+      <NotificationModal ref={refNotification }/>
     </View>
   );
 }

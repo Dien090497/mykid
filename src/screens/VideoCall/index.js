@@ -25,8 +25,8 @@ import styles from './styles.js';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useSelector} from 'react-redux';
 import {
-  createVideoCalllApi,
-  finishVideoCalllApi,
+  createVideoCallApi,
+  finishVideoCallApi,
   rejectVideoCallApi,
 } from '../../network/VideoCallService';
 import DataLocal from '../../data/dataLocal';
@@ -226,7 +226,7 @@ const ListDeviceScreen = () => {
     dispatch({type: 'loading', payload: {page}});
   }, [page]);
   const onPressCall = item => () => {
-    createVideoCalllApi(
+    createVideoCallApi(
       // DataLocal.deviceId,
       {deviceId: item.deviceId},
       {
@@ -240,14 +240,16 @@ const ListDeviceScreen = () => {
           setPresentRoomId(res.data.id);
           setTimeout(() => {
             if (!isPickUp) {
-              finishVideoCalllApi({}, res.data.id, {
+              finishVideoCallApi({}, res.data.id, {
                 success: res => {},
                 refLoading: refLoading,
+                refNotification: refNotification
               });
             }
           }, 1000 * 59);
         },
         refLoading: refLoading,
+        refNotification: refNotification
       },
     );
   };
@@ -256,7 +258,7 @@ const ListDeviceScreen = () => {
     isPickUp = isAccept;
   };
   const toggleModal = roomId => {
-    finishVideoCalllApi({}, roomId, {
+    finishVideoCallApi({}, roomId, {
       success: res => {
         setPresentRoomId(-1);
         setVisibleCallState({
@@ -267,6 +269,7 @@ const ListDeviceScreen = () => {
         });
       },
       refLoading: refLoading,
+      refNotification: refNotification,
     });
     setVisibleCall({visible: false, device: null, data: []});
   };
@@ -289,7 +292,7 @@ const ListDeviceScreen = () => {
       });
     } else {
       if (visibleCallState.visible) setVisibleCallState({ visible: false });
-      createVideoCalllApi(
+      createVideoCallApi(
         // DataLocal.deviceId,
         {deviceId: item.caller.deviceId},
         {
@@ -306,14 +309,16 @@ const ListDeviceScreen = () => {
             setPresentRoomId(res.data.id);
             setTimeout(() => {
               if (!isPickUp) {
-                finishVideoCalllApi({}, res.data.id, {
+                finishVideoCallApi({}, res.data.id, {
                   success: res => {},
                   refLoading: refLoading,
+                  refNotification: refNotification
                 });
               }
             }, 1000 * 20);
           },
           refLoading: refLoading,
+          refNotification: refNotification,
         },
       );
     }
@@ -335,6 +340,7 @@ const ListDeviceScreen = () => {
           });
         },
         refLoading: refLoading,
+        refNotification: refNotification,
       });
     } else {
       setVisibleCallState({

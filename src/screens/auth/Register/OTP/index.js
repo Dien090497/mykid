@@ -43,6 +43,7 @@ export default function OTP({navigation, route}) {
         timer = getTime() + 60;
         refreshCountdown();
       },
+      refNotification,
     })
   }
 
@@ -70,6 +71,7 @@ export default function OTP({navigation, route}) {
         setCheck(false);
       },
       refLoading,
+      refNotification,
     })
   }
 

@@ -12,11 +12,13 @@ import { Colors } from '../../../assets/colors/Colors';
 import { getSoundModesApi, setSoundModesApi } from '../../../network/UserInfoService';
 import DataLocal from '../../../data/dataLocal';
 import { useTranslation } from 'react-i18next';
+import NotificationModal from "../../../components/NotificationModal";
 
 const {width, height} = Dimensions.get('window');
 export default function SoundSettings({navigation}) {
   const [mode, setMode] = useState();
   const refLoading = useRef();
+  const refNotification = useRef();
   const { t } = useTranslation();
 
   const radio_props = [
@@ -43,6 +45,7 @@ export default function SoundSettings({navigation}) {
         }
       },
       refLoading,
+      refNotification,
     });
   };
 
@@ -54,6 +57,7 @@ export default function SoundSettings({navigation}) {
         }
       },
       refLoading,
+      refNotification,
     });
   };
 
@@ -102,6 +106,7 @@ export default function SoundSettings({navigation}) {
         </RadioForm>
       </View>
       <LoadingIndicator ref={refLoading} />
+      <NotificationModal ref={refNotification} />
     </View>
   );
 }

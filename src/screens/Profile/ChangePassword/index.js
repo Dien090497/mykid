@@ -62,7 +62,8 @@ const ChangePassword = ({ navigation }) => {
         });
       },
       failure: _ => {
-      }
+      },
+      refNotification: refNotification,
     }).then();
   };
   return (

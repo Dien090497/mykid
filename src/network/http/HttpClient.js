@@ -360,7 +360,7 @@ async function handleResp(response, autoShowMsg, success, failure, refLoading, r
       return failureResponse(i18next.t('errorMsg:TOKEN_EXPIRED_MSG'), response);
     }
 
-    const err = checkFailure(result);
+    const err = checkFailure(result, refNotification);
 
     if (err.includes('KWS-4001')) {
       console.log('error KWS-4001');

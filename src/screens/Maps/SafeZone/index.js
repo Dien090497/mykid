@@ -38,6 +38,7 @@ const initialRegion = {
 export default ({navigation, route}) => {
   const refMap = useRef(null);
   const refLoading = useRef(null);
+  const refNotification = useRef(null);
   const [listSafeArea, setListSafeArea] = useState([]);
   const [currentLocation, setCurrentLocation] = useState(null);
   const [safeArea, setSafeArea] = useState({
@@ -59,6 +60,7 @@ export default ({navigation, route}) => {
         setListSafeArea(res.data.content);
       },
       refLoading: refLoading,
+      refNotification: refNotification,
     });
   };
 
@@ -107,6 +109,7 @@ export default ({navigation, route}) => {
         setListSafeArea(newListSafeArea);
       },
       refLoading: refLoading,
+      refNotification: refNotification,
     });
   };
 
@@ -126,6 +129,7 @@ export default ({navigation, route}) => {
         onToggleCreateArea();
       },
       refLoading: refLoading,
+      refNotification: refNotification,
     });
   };
 
@@ -140,6 +144,7 @@ export default ({navigation, route}) => {
           setListSafeArea(newListSafeArea);
         },
         refLoading: refLoading,
+        refNotification: refNotification,
       });
     }
     onToggleCreateArea();
@@ -156,6 +161,7 @@ export default ({navigation, route}) => {
           setListSafeArea(newListSafeArea);
         },
         refLoading: refLoading,
+        refNotification: refNotification,
       });
     }
     setShowModal(false)
@@ -409,6 +415,7 @@ export default ({navigation, route}) => {
       </View>
       {removeModal()}
       <LoadingIndicator ref={refLoading} />
+      <NotificationModal ref={refNotification} />
     </KeyboardAvoidingView>
   );
 };

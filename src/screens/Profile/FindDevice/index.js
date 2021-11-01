@@ -27,6 +27,7 @@ export default function FindDevice({navigation}) {
         }
       },
       refLoading,
+      refNotification,
     });
   };
 

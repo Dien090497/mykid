@@ -78,7 +78,8 @@ const Register = ({navigation}) => {
     getOtpApi(phone, {
         success: res => {
           navigation.navigate(Consts.ScreenIds.OTP, {phone: phone, pass: pass, check: true})
-        }
+        },
+        refNotification,
       }
     );
   }
