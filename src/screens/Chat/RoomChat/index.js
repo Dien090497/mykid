@@ -54,6 +54,43 @@ export default function RoomChat({navigation, route}) {
   const { t } = useTranslation();
   let sheet = null;
 
+  const dataMock = [
+    {
+      name: 'Bố',
+      icon: Images.icFather,
+      relationship: 'FATHER'
+    },
+    {
+      name: 'Mẹ',
+      icon: Images.icMother,
+      relationship: 'MOTHER'
+    },
+    {
+      name: 'Ông',
+      icon: Images.icGrandfather,
+      relationship: 'GRANDFATHER'
+    },
+    {
+      name: 'Bà',
+      icon: Images.icGrandmother,
+      relationship: 'GRANDMOTHER'
+    },
+    {
+      name: 'Anh',
+      icon: Images.icBrother,
+      relationship: 'BROTHER'
+    },
+    {
+      name: 'Chị',
+      icon: Images.icSister,
+      relationship: 'SISTER'
+    },
+    {
+      icon: Images.icOther,
+      relationship: 'OTHER'
+    },
+  ];
+
   useLayoutEffect(() => {
     focusTextInput();
   }, [refTextInput]);
@@ -105,6 +142,7 @@ export default function RoomChat({navigation, route}) {
       if (obj.audio) {
         setIndexPlaying(index);
         refAudioPlayer.current.onStartPlay(obj.audio);
+        console.log(obj.audio);
         return;
       }
 
@@ -193,10 +231,11 @@ export default function RoomChat({navigation, route}) {
   };
 
   const handleImageAction = async (index) => {
+    const photosGranted = await checkPhotoLibraryWritePermission();
     switch (index) {
       case 0:
         const granted = await checkPhotoLibraryReadPermission();
-        if (granted) {
+        if (granted && photosGranted) {
           launchImageLibrary({
             mediaType: 'photo',
           }, resp => {
@@ -206,7 +245,6 @@ export default function RoomChat({navigation, route}) {
         break;
       case 1:
         const cameraGranted = await checkCameraPermission();
-        const photosGranted = await checkPhotoLibraryWritePermission();
         if (cameraGranted && photosGranted) {
           launchCamera({
             mediaType: 'photo',
@@ -249,43 +287,6 @@ export default function RoomChat({navigation, route}) {
     }
   }
 
-  const dataMock = [
-    {
-      name: 'Bố',
-      icon: Images.icFather,
-      relationship: 'FATHER'
-    },
-    {
-      name: 'Mẹ',
-      icon: Images.icMother,
-      relationship: 'MOTHER'
-    },
-    {
-      name: 'Ông',
-      icon: Images.icGrandfather,
-      relationship: 'GRANDFATHER'
-    },
-    {
-      name: 'Bà',
-      icon: Images.icGrandmother,
-      relationship: 'GRANDMOTHER'
-    },
-    {
-      name: 'Anh',
-      icon: Images.icBrother,
-      relationship: 'BROTHER'
-    },
-    {
-      name: 'Chị',
-      icon: Images.icSister,
-      relationship: 'SISTER'
-    },
-    {
-      icon: Images.icOther,
-      relationship: 'OTHER'
-    },
-  ];
-
   const getName = (obj) => {
     const uid = obj.from.split('@')[0];
     if (uid === 'terminal_mykid' && roomInfo.deviceName) {
@@ -316,7 +317,7 @@ export default function RoomChat({navigation, route}) {
   return (
     <KeyboardAvoidingView style={styles.contain}
       behavior={Platform.OS === 'ios' ? 'padding' : ''}>
-      <Header title={`${t('common:talkWithFamily')} (${listMember.length})`} right rightIcon={Images.icGroup} rightAction={() => {gotoDeleteMessage()}}/>
+      <Header title={`${roomInfo ? roomInfo.deviceName : ''} ${t('common:familyGroup')} (${listMember.length})`} right rightIcon={Images.icGroup} rightAction={() => {gotoDeleteMessage()}}/>
       <View style={styles.container}>
         <ScrollView ref={refScrollView} style={styles.container}
           onContentSizeChange={() => refScrollView.current.scrollToEnd({animated: true})}>

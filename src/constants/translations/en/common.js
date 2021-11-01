@@ -245,7 +245,9 @@ export default {
   requestVideoCall: 'Incoming call',
 
   // Chat
+  familyGroup: 'family group',
   talkWithFamily: 'Family group information',
+  familyGroupInformation: 'Family group information',
 
   //RewardPoints
   rewardPoints_text: 'Send a reward!',

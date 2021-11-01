@@ -127,7 +127,7 @@ export default function DeleteMessage({navigation}) {
 
   return (
     <View style={styles.containerView}>
-      <Header title={'Thông tin nhóm gia đình'}/>
+      <Header title={`${t('common:familyGroupInformation')} (${listMember.length})`}/>
       <View style={styles.flatListContainer}>
         <FlatList
           data={[...listMember, {relationship: 'DELETE'}]}
