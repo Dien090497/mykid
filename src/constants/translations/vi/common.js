@@ -259,6 +259,8 @@ export default {
   txtNotHaveNewPicture: 'Không có ảnh mới',
   txtWaitNewPicture: 'Hướng dẫn gửi thành công. Vui lòng đợi làm mới',
   savePicture: 'Lưu ảnh',
+  savePictureSuccess: 'Lưu thành công',
+  savePictureFail: 'Lưu thất bại',
   txtModalPicture: 'Cảnh chụp: chụp từ xa',
 
   // permissions

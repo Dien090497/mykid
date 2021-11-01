@@ -13,14 +13,14 @@ export const styles = StyleSheet.create({
   },
   itemList:{
     flex:1,
-    paddingHorizontal:0,
-    marginVertical:10,
+    marginHorizontal:5,
     alignItems:'center',
     justifyContent:'center',
+    maxWidth:(Consts.screenWidth-60)/3,
   },
   imageList:{
-    width:Consts.screenWidth/3-17,
-    height: Consts.screenWidth/3-17,
+    width:Consts.screenWidth*0.285,
+    height: Consts.screenWidth*0.285,
     marginVertical:10,
     alignItems:'center',
     justifyContent:'center',

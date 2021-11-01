@@ -259,6 +259,8 @@ export default {
   txtNotHaveNewPicture: 'Không có ảnh mới EN',
   txtWaitNewPicture: 'Instructions for successful submission. Please wait for refresh',
   savePicture: 'Save',
+  savePictureSuccess: 'Successful',
+  savePictureFail: 'Fail',
   txtModalPicture: 'Reason for shooting: Remote shooting',
 
   // permissions
