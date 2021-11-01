@@ -63,7 +63,8 @@ export const InfoKids = appUrl + '/kids'
 
 //Auth
 export const getOTP = appUrl + '/otps/registration';
-
+export const getOtpReset = appUrl + '/otps/password-resetting';
+export const getVerificationOtp = appUrl + '/otps/verification/password-resetting';
 //Personal
 export const PersonalDataUrl = appUrl + '/accounts/info';
 

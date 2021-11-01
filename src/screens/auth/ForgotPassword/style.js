@@ -47,5 +47,25 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 10,
     marginLeft: '2%'
-  }
+  },
+  text: {
+    fontSize: 12,
+    fontWeight: '400',
+    fontStyle: 'normal',
+    color: 'rgba(128, 128, 128, 1)'
+  },
+  btnSubmit:{
+    backgroundColor: Colors.colorMain,
+    borderRadius:10,
+    alignItems:'center',
+    justifyContent:'center',
+    height: ScaleHeight.medium,
+    width: '90%',
+    marginTop: ScaleHeight.small* 1.5,
+  },
+  textSubmit:{
+    fontFamily:'Roboto-Medium',
+    fontSize:FontSize.small,
+    color: Colors.white
+  },
 });

@@ -20,7 +20,6 @@ import {getInfoApi, setInfoKitsApi} from '../../../network/InfoKidsService';
 import DatePicker from 'react-native-date-picker';
 import {showAlert} from '../../../functions/utils';
 import { useTranslation } from 'react-i18next';
-import {backgroundColor} from "react-native-tab-view/lib/typescript/example/src/CoverflowExample";
 
 export default function InfoKits({route}) {
   let sheet = null;
@@ -31,7 +30,7 @@ export default function InfoKits({route}) {
   const [gender, setGender] = useState('');
   const [modalDate, setModalDate] = useState(false);
   const [name, setName] = useState('');
-  const [birthday, setBirthday] = useState('');
+  const [birthdays, setBirthday] = useState('');
   const [weights, setWeight] = useState(0);
   const [heights, setHeight] = useState(0);
   const [date, setDate] = useState(new Date());
@@ -51,7 +50,7 @@ export default function InfoKits({route}) {
       name: t('common:birthday'),
       textName: (check !== false ? `${date.getFullYear()}-${`0${date.getMonth() + 1}`.slice(
         -2,
-      )}-${`0${date.getDate()}`.slice(-2)}` : birthday),
+      )}-${`0${date.getDate()}`.slice(-2)}` : birthdays),
       inputText: ''
     },
     {
@@ -130,7 +129,7 @@ export default function InfoKits({route}) {
     const bd = `${date.getFullYear()}-${`0${date.getMonth() + 1}`.slice(
       -2,
     )}-${`0${date.getDate()}`.slice(-2)}`;
-    let birthday = (check !== undefined ? bd : birthday)
+    let birthday = (check !== false ? bd : birthdays)
     const height = parseInt(heights);
     const weight = parseInt(weights);
     let body = {
@@ -191,9 +190,7 @@ export default function InfoKits({route}) {
         date={date}
         onConfirm={(time) => {
           setModalDate(false);
-          if (time.getTime() !== birthday) {
-            setDisableTob(true);
-          }
+          setDisableTob(true);
           setDate(time);
           setCheck(true);
         }}
