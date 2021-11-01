@@ -54,6 +54,8 @@ import OffDevice from '../screens/Settings/OffDevice';
 import StartDevice from '../screens/Settings/RestartDevice';
 import EditDevice from '../screens/Profile/DeviceManager/EditDevice'
 import InfoKits from '../screens/Home/InfoKids';
+import  ForgotPassword from '../screens/auth/ForgotPassword';
+import UpdatePassword from '../screens/auth/ForgotPassword/UpdatePassword';
 import { useTranslation } from 'react-i18next';
 const Tab = createBottomTabNavigator();
 
@@ -156,6 +158,7 @@ const Auth = () => {
       }}>
       <Stack.Screen name={Consts.ScreenIds.Login} component={Login} />
       <Stack.Screen name={Consts.ScreenIds.Register} component={Register} />
+      <Stack.Screen name={Consts.ScreenIds.ForgotPassword} component={ForgotPassword} />
       <Stack.Screen
         name={Consts.ScreenIds.ConnectionScreen}
         component={ConnectionScreen}
@@ -279,6 +282,10 @@ const Routes = () => {
         <Stack.Screen
           name={Consts.ScreenIds.OTP}
           component={OTP}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.UpdatePassword}
+          component={UpdatePassword}
         />
         <Stack.Screen
           name={Consts.ScreenIds.Settings}

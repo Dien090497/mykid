@@ -31,7 +31,7 @@ export default function InfoKits({route}) {
   const [gender, setGender] = useState('');
   const [modalDate, setModalDate] = useState(false);
   const [name, setName] = useState('');
-  const [birthday, setBirthday] = useState('');
+  const [birthdays, setBirthday] = useState('');
   const [weights, setWeight] = useState(0);
   const [heights, setHeight] = useState(0);
   const [date, setDate] = useState(new Date());
@@ -51,7 +51,7 @@ export default function InfoKits({route}) {
       name: t('common:birthday'),
       textName: (check !== false ? `${date.getFullYear()}-${`0${date.getMonth() + 1}`.slice(
         -2,
-      )}-${`0${date.getDate()}`.slice(-2)}` : birthday),
+      )}-${`0${date.getDate()}`.slice(-2)}` : birthdays),
       inputText: ''
     },
     {
@@ -192,9 +192,10 @@ export default function InfoKits({route}) {
         open={modalDate}
         date={date}
         onConfirm={(time) => {
-          setModalDate(false)
-          setDate(time)
-          setCheck(true)
+          setModalDate(false);
+          setDisableTob(true);
+          setDate(time);
+          setCheck(true);
         }}
         onCancel={() => {
           setModalDate(false)

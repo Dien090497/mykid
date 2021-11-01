@@ -61,6 +61,7 @@ const ScreenIds = {
   Relationship: 'Relationship',
   QRCodeScreen: 'QRCodeScreen',
   OTP: 'OTP',
+  UpdatePassword: 'UpdatePassword',
 
   //Settings
   Settings: 'Settings',
