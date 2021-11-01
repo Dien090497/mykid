@@ -4,7 +4,7 @@ import {alarmUrl} from './http/ApiUrl';
 
 export function getAlarmsApi(
   deviceId,
-  {success, failure, autoShowMsg = true, refLoading = null} = {},
+  {success, failure, autoShowMsg = true, refLoading = null, refNotification = null} = {},
 ) {
   const url = [alarmUrl, deviceId].join('/');
   return get(url, {
@@ -12,13 +12,14 @@ export function getAlarmsApi(
     failure,
     autoShowMsg,
     refLoading,
+    refNotification
   });
 }
 
 export function setAlarmApi(
   deviceId,
   body,
-  {success, failure, autoShowMsg = true, refLoading = null} = {},
+  {success, failure, autoShowMsg = true, refLoading = null, refNotification = null} = {},
 ) {
   const url = [alarmUrl, deviceId].join('/');
   return post(url, {
@@ -27,5 +28,6 @@ export function setAlarmApi(
     failure,
     autoShowMsg,
     refLoading,
+    refNotification
   });
 }

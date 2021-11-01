@@ -1,11 +1,10 @@
 import {dele, get, path, post} from './http/HttpClient';
 
-import Consts from '../functions/Consts';
 import {phoneBookUrl} from './http/ApiUrl';
 
 export function getListContactPhoneApi(
   deviceId,
-  {success, failure, autoShowMsg = true, refLoading = null} = {},
+  {success, failure, autoShowMsg = true, refLoading = null, refNotification = null} = {},
 ) {
   const url = [phoneBookUrl, deviceId].join('/');
   return get(url, {
@@ -13,13 +12,14 @@ export function getListContactPhoneApi(
     failure,
     autoShowMsg,
     refLoading,
+    refNotification,
   });
 }
 
 export function setSOSApi(
   deviceId,
   body,
-  {success, failure, autoShowMsg = true, refLoading = null} = {},
+  {success, failure, autoShowMsg = true, refLoading = null, refNotification = null} = {},
 ) {
   const url = [phoneBookUrl, deviceId, 'sos'].join('/');
   return post(url, {
@@ -28,13 +28,14 @@ export function setSOSApi(
     failure,
     autoShowMsg,
     refLoading,
+    refNotification
   });
 }
 
 export function deletePhoneBookApi(
   deviceId,
   body,
-  {success, failure, autoShowMsg = true, refLoading = null} = {},
+  {success, failure, autoShowMsg = true, refLoading = null, refNotification = null} = {},
 ) {
   const url = [phoneBookUrl, deviceId].join('/');
   return dele(url, {
@@ -43,12 +44,13 @@ export function deletePhoneBookApi(
     failure,
     autoShowMsg,
     refLoading,
+    refNotification
   });
 }
 export function addPhoneBookApi(
   deviceId,
   body,
-  {success, failure, autoShowMsg = true, refLoading = null} = {},
+  {success, failure, autoShowMsg = true, refLoading = null, refNotification = null} = {},
 ) {
   const url = [phoneBookUrl, deviceId].join('/');
   return post(url, {
@@ -57,13 +59,14 @@ export function addPhoneBookApi(
     failure,
     autoShowMsg,
     refLoading,
+    refNotification
   });
 }
 
 export function setBlockUnknownApi(
   deviceId,
   block,
-  {success, failure, autoShowMsg = true, refLoading = null} = {},
+  {success, failure, autoShowMsg = true, refLoading = null, refNotification = null} = {},
 ) {
   let body = {
     block
@@ -75,5 +78,6 @@ export function setBlockUnknownApi(
     failure,
     autoShowMsg,
     refLoading,
+    refNotification
   });
 }

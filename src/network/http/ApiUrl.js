@@ -44,7 +44,7 @@ export const accountDetailUrl = appUrl + '/accounts';
 //EacesDrop
 export const eacesDropUrl = appUrl + '/monitors';
 // Videocall
-export const createVideoCalllUrl = streamUrl + '/video-calls';
+export const createVideoCallUrl = streamUrl + '/video-calls';
 
 // Rewards
 export const rewardsUrl = appUrl + '/rewards';

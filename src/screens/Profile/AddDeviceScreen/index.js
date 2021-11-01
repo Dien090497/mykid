@@ -7,12 +7,13 @@ import Images from '../../../assets/Images';
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import { addDeviceApi } from '../../../network/DeviceService';
 import styles from './style';
-import { showAlert } from '../../../functions/utils';
 import { checkCameraPermission } from '../../../functions/permissions';
 import { useTranslation } from 'react-i18next';
 import DataLocal from '../../../data/dataLocal';
+import NotificationModal from '../../../components/NotificationModal';
 
 const AddDeviceScreen = ({ navigation, route }) => {
+  const refNotification = useRef();
   const [deviceCode, setDeviceCode] = useState('');
   const [deviceName, setDeviceName] = useState('');
   const [submitActive, setSubmitActive] = useState(false);
@@ -71,15 +72,13 @@ const AddDeviceScreen = ({ navigation, route }) => {
             } else {
               navigation.navigate(Consts.ScreenIds.Tabs);
             }
-            showAlert(t('common:addDeviceSuccess'), {
-              close: () => {
-                if (route.params && route.params.onRefresh) {
-                  route.params.onRefresh();
-                  navigation.goBack();
-                } else {
-                  navigation.navigate(Consts.ScreenIds.Tabs);
-                }
-              },
+            refNotification.current.open(t('common:addDeviceSuccess'),()=>{
+              if (route.params && route.params.onRefresh) {
+                route.params.onRefresh();
+                navigation.goBack();
+              } else {
+                navigation.navigate(Consts.ScreenIds.Tabs);
+              }
             });
           }
         }
@@ -88,6 +87,7 @@ const AddDeviceScreen = ({ navigation, route }) => {
       failure: error => {
       },
       refLoading,
+      refNotification,
     }).then();
   };
   const onScan = async () => {
@@ -168,6 +168,7 @@ const AddDeviceScreen = ({ navigation, route }) => {
       </ScrollView>
       {showModalMes()}
       <LoadingIndicator ref={refLoading} />
+      <NotificationModal ref={refNotification} />
     </View>
   );
 };

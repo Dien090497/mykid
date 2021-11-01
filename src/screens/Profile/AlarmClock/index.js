@@ -16,9 +16,11 @@ import Images from '../../../assets/Images';
 import Consts from '../../../functions/Consts';
 import { getAlarmsApi, setAlarmApi } from '../../../network/AlarmService';
 import { useTranslation } from 'react-i18next';
+import NotificationModal from '../../../components/NotificationModal';
 
 export default function AlarmClock({navigation}) {
   const refLoading = useRef();
+  const refNotification = useRef();
   const [alarmConfig, setAlarmConfig] = useState();
   const { t } = useTranslation();
   const dayOfWeeks = [
@@ -41,6 +43,7 @@ export default function AlarmClock({navigation}) {
         setAlarmConfig(resData.data);
       },
       refLoading,
+      refNotification,
     });
   };
 
@@ -54,6 +57,7 @@ export default function AlarmClock({navigation}) {
         setAlarmConfig(config);
       },
       refLoading,
+      refNotification,
     });
   };
 
@@ -116,6 +120,7 @@ export default function AlarmClock({navigation}) {
         </ScrollView>
       </View>
       <LoadingIndicator ref={refLoading} />
+      <NotificationModal ref={refNotification} />
     </View>
   );
 }

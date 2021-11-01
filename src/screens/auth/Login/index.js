@@ -14,19 +14,21 @@ import {
   TextInput, StatusBar, Modal,
 } from 'react-native';
 import React, { useLayoutEffect, useRef, useState } from 'react';
-import { passwordTest, showAlert } from '../../../functions/utils';
+import { passwordTest } from '../../../functions/utils';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Colors } from '../../../assets/colors/Colors';
 import Consts from '../../../functions/Consts';
 import Images from '../../../assets/Images';
 import LoadingIndicator from '../../../components/LoadingIndicator';
+import { String } from '../../../assets/strings/String';
 import { getListDeviceApi } from '../../../network/DeviceService';
 import { styles } from './styles';
 import { CheckBox } from 'react-native-elements';
 import DataLocal from '../../../data/dataLocal';
 import { useTranslation } from 'react-i18next';
 import { WheelPicker } from 'react-native-wheel-picker-android';
+import NotificationModal from '../../../components/NotificationModal'
 
 const LANGUAGES = [
   { code: 'en', label: 'English' },
@@ -44,6 +46,7 @@ const Login = ({ navigation }) => {
   const [showModal,setShowModal] = useState(false);
   const [indexLanguage,setIndexLanguage] = useState(0);
   const refLoading = useRef();
+  const refNotification = useRef();
   const { t, i18n } = useTranslation();
 
   useLayoutEffect(() => {
@@ -57,6 +60,7 @@ const Login = ({ navigation }) => {
           onNavigate(resData);
         },
         refLoading,
+        refNotification,
       });
     }
   };
@@ -87,7 +91,7 @@ const Login = ({ navigation }) => {
   const onSubmit = () => {
     if (checkbox) {
       if (!passwordTest(password)) {
-        showAlert(t('common:txtNotification'));
+        refNotification.current.open(t('common:txtNotification'))
         return;
       }
       dispatch(Actions.actionLogin({ email, password, refLoading }));
@@ -202,6 +206,7 @@ const Login = ({ navigation }) => {
         </View>
       </Modal>
       <LoadingIndicator ref={refLoading} />
+      <NotificationModal ref = {refNotification} />
     </KeyboardAvoidingView>
   );
 };

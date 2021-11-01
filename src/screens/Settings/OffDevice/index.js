@@ -1,6 +1,5 @@
 import { Image, TouchableOpacity, View } from 'react-native';
 import React, { useRef } from 'react'
-import { showAlert } from '../../../functions/utils';
 
 import {Colors} from '../../../assets/colors/Colors';
 import Header from '../../../components/Header';
@@ -9,18 +8,21 @@ import LoadingIndicator from '../../../components/LoadingIndicator';
 import {offDeviceApi} from '../../../network/DeviceService';
 import DataLocal from '../../../data/dataLocal';
 import ModalConfirm from '../../../components/ModalConfirm';
+import NotificationModal from '../../../components/NotificationModal';
 import { useTranslation } from 'react-i18next';
 
 export default function OffDevice() {
   const refModel = useRef();
   const refLoading = useRef();
+  const refNotification = useRef();
   const { t } = useTranslation();
   const turnOffDevice = () => {
     offDeviceApi(DataLocal.deviceId, {
       success: res => {
-        showAlert(t('common:submitSuccess'))
+        refNotification.current.open(t('common:submitSuccess'))
       },
-      refLoading: refLoading
+      refLoading: refLoading,
+      refNotification: refNotification``
     });
   }
 
@@ -38,6 +40,7 @@ export default function OffDevice() {
          ref={refModel}
       />
       <LoadingIndicator  ref={refLoading} />
+      <NotificationModal ref={refNotification} />
     </View>
   );
 }

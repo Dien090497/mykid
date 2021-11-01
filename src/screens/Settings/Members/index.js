@@ -5,7 +5,6 @@ import {
   getListDeviceApi,
   rejectContactApi,
 } from '../../../network/DeviceService';
-import { showAlert } from '../../../functions/utils';
 
 import {Colors} from '../../../assets/colors/Colors';
 import DataLocal from '../../../data/dataLocal';
@@ -16,9 +15,11 @@ import {styles} from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {ScaleHeight} from '../../../functions/Consts';
 import { useTranslation } from 'react-i18next';
+import NotificationModal from '../../../components/NotificationModal';
 
 export default ({navigation, route}) => {
   const refLoading = useRef();
+  const refNotification = useRef();
   const [allMember, setAllMember] = useState([]);
   const [admin, setAdmin] = useState();
   const [onModal, setOnModal] = useState(false)
@@ -95,31 +96,29 @@ export default ({navigation, route}) => {
           rejectContactApi(idCancel, {
             success: res => {
               setOnModal(false);
-              showAlert(t('common:deleteContactSuccess'), {
-                close: () => {
-                  getListDevice();
-                  if (route.params && route.params.Delete) {
-                    route.params.Delete();
-                  }
-                },
-              });
+              refNotification.current.open(t('common:deleteContactSuccess'),()=>{
+                getListDevice();
+                if (route.params && route.params.Delete) {
+                  route.params.Delete();
+                }
+              })
             },
             failure: error => {},
             refLoading: refLoading,
+            refNotification: refNotification,
           });
   };
 
   const cancelContact = item => {
     rejectContactApi(item.id, {
       success: res => {
-        showAlert(t('common:rejectContactSuccess'), {
-          close: () => {
-            getListDevice();
-          },
-        });
+        refNotification.current.open(t('common:rejectContactSuccess'),()=>{
+          getListDevice();
+        })
       },
       failure: error => {},
       refLoading: refLoading,
+      refNotification: refNotification,
     });
   };
 
@@ -127,15 +126,14 @@ export default ({navigation, route}) => {
     acceptContactApi(item.id, {
       success: res => {
         if (res.data && res.data.status === 'ACTIVE') {
-          showAlert(t('common:acceptContactSuccess'), {
-            close: () => {
-              getListDevice();
-            },
-          });
+          refNotification.current.open(t('common:acceptContactSuccess'),()=>{
+            getListDevice();
+          })
         }
       },
       failure: error => {},
       refLoading: refLoading,
+      refNotification: refNotification,
     });
   };
   const renderItem = ({item}) => {
@@ -309,6 +307,7 @@ export default ({navigation, route}) => {
            </TouchableOpacity>
          </View>
       </Modal>
+      <NotificationModal ref={refNotification} />
       <LoadingIndicator ref={refLoading} />
     </View>
   );

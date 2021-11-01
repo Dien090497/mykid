@@ -17,11 +17,13 @@ import XmppClient from '../../../network/xmpp/XmppClient';
 import WebSocketSafeZone from '../../../network/socket/WebSocketSafeZone';
 import WebSocketVideoCall from '../../../network/socket/WebSocketVideoCall';
 import { useTranslation } from 'react-i18next';
+import NotificationModal from "../../../components/NotificationModal";
 
 export default function HomeMainScreen() {
   const navigation = useNavigation();
   const commonInfoReducer = useSelector(state => state.commonInfoReducer);
   const refLoading = useRef();
+  const refNotification = useRef();
   const [showMenu, setShowMenu] = useState(false);
   const [devices, setDevices] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(DataLocal.deviceIndex);
@@ -38,6 +40,7 @@ export default function HomeMainScreen() {
         setDevices(resData.data);
       },
       refLoading,
+      refNotification,
     });
   }, []);
 
@@ -248,6 +251,7 @@ export default function HomeMainScreen() {
         </View>
       </View>
       <LoadingIndicator ref={refLoading} />
+      <NotificationModal ref={refNotification} />
     </View>
   );
 }

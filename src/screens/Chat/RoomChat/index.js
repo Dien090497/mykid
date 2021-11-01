@@ -33,9 +33,11 @@ import AppConfig from '../../../data/AppConfig';
 import RNFetchBlob from 'react-native-fetch-blob';
 import { getListDeviceApi } from '../../../network/DeviceService';
 import { useTranslation } from 'react-i18next';
+import NotificationModal from "../../../components/NotificationModal";
 
 export default function RoomChat({navigation, route}) {
   const refLoading = useRef();
+  const refNotification = useRef();
   const refRecorder = useRef();
   const refAudioPlayer = useRef();
   const refScrollView = useRef();
@@ -122,6 +124,7 @@ export default function RoomChat({navigation, route}) {
         setListMember(res.data);
       },
       refLoading,
+      refNotification,
     });
   };
 
@@ -433,6 +436,7 @@ export default function RoomChat({navigation, route}) {
         </View>
       </View>}
       <LoadingIndicator ref={refLoading}/>
+      <NotificationModal ref={refNotification}/>
       <RecorderComponent ref={refRecorder} onStopRecord={onStopRecord} recordBackListener={recordBackListener}/>
       <AudioPlayerComponent ref={refAudioPlayer} onStopPlayer={onStopPlayer}/>
       <ActionSheet

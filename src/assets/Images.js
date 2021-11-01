@@ -1,5 +1,3 @@
-import DoNotDisturb from "../screens/Profile/DoNotDisturb";
-
 export default {
   bgLogin: require('./images/bg_login.png'),
   icAdmin: require('./images/ic_admin.png'),

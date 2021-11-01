@@ -15,11 +15,12 @@ import { Image } from 'react-native';
 import Images from '../../../../assets/Images';
 import { TimePicker } from 'react-native-wheel-picker-android';
 import { setAlarmApi } from '../../../../network/AlarmService';
-import { showAlert } from '../../../../functions/utils';
 import { useTranslation } from 'react-i18next';
+import NotificationModal from '../../../../components/NotificationModal';
 
 export default function AlarmSetting({navigation, route}) {
   const refLoading = useRef();
+  const refNotification = useRef();
   const [config, setConfig] = useState();
   const [time, setTime] = useState();
   const { t } = useTranslation();
@@ -85,7 +86,7 @@ export default function AlarmSetting({navigation, route}) {
         obj.custom += element.isOn ? '1' : '0';
       });
       if (obj.custom === '0000000') {
-        showAlert(t('common:selectAtLeastOneDay'))
+        refNotification.current.open(t('common:selectAtLeastOneDay'))
         return;
       }
     }
@@ -99,6 +100,7 @@ export default function AlarmSetting({navigation, route}) {
         }
       },
       refLoading,
+      refNotification,
     });
   };
 
@@ -198,6 +200,7 @@ export default function AlarmSetting({navigation, route}) {
         </View>
       </ScrollView>
       <LoadingIndicator ref={refLoading} />
+      <NotificationModal ref={refNotification} />
     </View>
   );
 }

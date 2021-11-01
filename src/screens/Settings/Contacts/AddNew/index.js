@@ -17,17 +17,18 @@ import Header from '../../../../components/Header';
 import LoadingIndicator from '../../../../components/LoadingIndicator';
 import {addPhoneBookApi} from '../../../../network/ContactService';
 import {selectContact} from 'react-native-select-contact';
-import {showAlert} from '../../../../functions/utils';
 import {styles} from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Images from "../../../../assets/Images";
 import { useTranslation } from "react-i18next";
+import NotificationModal from '../../../../components/NotificationModal';
 
 export default ({navigation, route}) => {
   const [relationship, setRelationship] = useState('');
   const [phone, setPhone] = useState('');
   const { t } = useTranslation();
   const refLoading = useRef();
+  const refNotification = useRef();
   const removeNonNumeric = num => num.toString().replace(/[^0-9]/g, '');
   const callContacts = async () => {
     try {
@@ -37,7 +38,7 @@ export default ({navigation, route}) => {
           PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
         );
         if (permissionAndroid != 'granted') {
-          showAlert(t('common:noContactPermission'));
+          refNotification.current.open(t('common:noContactPermission'))
           return;
         }
       }
@@ -58,11 +59,11 @@ export default ({navigation, route}) => {
 
   const saveContact = async () => {
     if (!relationship.trim().length) {
-      showAlert(t('common:enter_relationship'));
+      refNotification.current.open(t('common:enter_relationship'))
       return;
     }
     if (!phone.trim().length) {
-      showAlert(t('common:enter_phone_number'));
+      refNotification.current.open(t('common:enter_phone_number'))
       return;
     }
     addPhoneBookApi(
@@ -79,6 +80,7 @@ export default ({navigation, route}) => {
           }
         },
         refLoading: refLoading,
+        refNotification: refNotification,
       },
     );
   };
@@ -126,6 +128,7 @@ export default ({navigation, route}) => {
         </TouchableWithoutFeedback>
       </View>
       <LoadingIndicator ref={refLoading} />
+      <NotificationModal ref={refNotification} />
     </View>
   );
 };

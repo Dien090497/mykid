@@ -1,7 +1,6 @@
 import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import React, { useEffect, useRef, useState } from 'react';
 
-import {showAlert} from '../../functions/utils';
 import Header from '../../components/Header';
 import LoadingIndicator from '../../components/LoadingIndicator';
 import Images from '../../assets/Images';
@@ -10,10 +9,12 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { setRewardsApi, getRewardsApi } from '../../network/RewardsService.js';
 import DataLocal from '../../data/dataLocal';
 import { useTranslation } from 'react-i18next';
+import NotificationModal from '../../components/NotificationModal';
 
 export default ({ navigation }) => {
   const [point, setPoint] = useState(0);
   const refLoading = useRef();
+  const refNotification = useRef();
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -22,6 +23,7 @@ export default ({ navigation }) => {
         setPoint(resData.data.heart);
       },
       refLoading,
+      refNotification,
     })
   },[]);
 
@@ -37,9 +39,10 @@ export default ({ navigation }) => {
     }
     setRewardsApi(DataLocal.deviceId,heart,{
       success: resData => {
-        showAlert('Tặng thành công!')
+        refNotification.current.open(t('common:sendRewards'))
       },
       refLoading,
+      refNotification,
     })
   };
   return (
@@ -73,6 +76,7 @@ export default ({ navigation }) => {
         </View>
       </ScrollView>
       <LoadingIndicator ref={refLoading} />
+      <NotificationModal ref={refNotification} />
     </View>
   );
 };

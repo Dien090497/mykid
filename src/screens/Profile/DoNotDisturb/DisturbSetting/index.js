@@ -11,11 +11,12 @@ import Header from '../../../../components/Header';
 import LoadingIndicator from '../../../../components/LoadingIndicator';
 import { TimePicker } from 'react-native-wheel-picker-android';
 import { Colors } from '../../../../assets/colors/Colors';
-import { showAlert } from '../../../../functions/utils';
 import { useTranslation } from 'react-i18next';
+import NotificationModal from '../../../../components/NotificationModal'
 
 export default function DoNotDisturb({ navigation, route }) {
   const refLoading = useRef();
+  const refNotification = useRef();
   const { t } = useTranslation();
   const [config, setConfig] = useState({
     deviceId: null,
@@ -99,7 +100,7 @@ export default function DoNotDisturb({ navigation, route }) {
   const onSubmit = () => {
     const data = {};
     if (config.to <= config.from) {
-      showAlert(t('common:timeInvalidNote'));
+      refNotification.current.open(t('common:timeInvalidNote'))
       return;
     }
     data.deviceId = config.deviceId;
@@ -118,7 +119,7 @@ export default function DoNotDisturb({ navigation, route }) {
       item.isOn ? data.period = data.period + '1' : data.period = data.period + '0';
     });
     if (data.period === '0000000') {
-      showAlert(t('common:selectAtLeastOneDay'));
+      refNotification.current.open(t('common:selectAtLeastOneDay'))
       return;
     }
     route.params.saveConfig(data);
@@ -173,6 +174,7 @@ export default function DoNotDisturb({ navigation, route }) {
           </TouchableOpacity>
         </View>
       </ScrollView>
+      <NotificationModal ref={refNotification}/>
       <LoadingIndicator ref={refLoading} />
     </View>
   );

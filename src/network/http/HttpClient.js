@@ -4,7 +4,6 @@ import {appUrl, refreshTokenUrl} from './ApiUrl';
 import {
   generateRandomId,
   hideLoading,
-  showAlert,
   showLoading,
 } from '../../functions/utils';
 
@@ -133,36 +132,37 @@ export async function post(
     failure,
     autoShowMsg = true,
     refLoading = null,
+    refNotification = null,
   } = {}) {
   showLoading(refLoading);
   const headersGet = getHeaders(headers);
   let response = await doRequest(url, headersGet, body, requestType.post);
   hideLoading(refLoading);
-  return handleResp(response, autoShowMsg, success, failure, refLoading);
+  return handleResp(response, autoShowMsg, success, failure, refLoading, refNotification);
 }
 
 export async function path(
-  url, {body, headers, success, failure, autoShowMsg = true, refLoading = null} = {}) {
+  url, {body, headers, success, failure, autoShowMsg = true, refLoading = null, refNotification = null} = {}) {
   showLoading(refLoading);
   const headersGet = getHeaders(headers);
   let response = await doRequest(url, headersGet, body, requestType.patch);
   hideLoading(refLoading);
 
-  return handleResp(response, autoShowMsg, success, failure, refLoading);
+  return handleResp(response, autoShowMsg, success, failure, refLoading, refNotification);
 }
 
 export async function put(
-  url, {body, headers, success, failure, autoShowMsg = true, refLoading = null} = {}) {
+  url, {body, headers, success, failure, autoShowMsg = true, refLoading = null, refNotification = null} = {}) {
   showLoading(refLoading);
   const headersGet = getHeaders(headers);
   let response = await doRequest(url, headersGet, body, requestType.put);
   hideLoading(refLoading);
 
-  return handleResp(response, autoShowMsg, success, failure, refLoading);
+  return handleResp(response, autoShowMsg, success, failure, refLoading, refNotification);
 }
 
 export async function get(
-  url, {params, headers, success, failure, autoShowMsg = true, refLoading = null} = {}) {
+  url, {params, headers, success, failure, autoShowMsg = true, refLoading = null, refNotification = null} = {}) {
   showLoading(refLoading);
 
   if (params) {
@@ -180,21 +180,21 @@ export async function get(
   let response = await doRequest(url, headersGet, null, requestType.get);
   hideLoading(refLoading);
 
-  return handleResp(response, autoShowMsg, success, failure, refLoading);
+  return handleResp(response, autoShowMsg, success, failure, refLoading, refNotification);
 }
 
 export async function dele(
-  url, {body = {}, headers, success, failure, autoShowMsg = true, refLoading = null} = {}) {
+  url, {body = {}, headers, success, failure, autoShowMsg = true, refLoading = null, refNotification = null} = {}) {
   showLoading(refLoading);
   const headersGet = getHeaders(headers);
   let response = await doRequest(url, headersGet, body, requestType.delete);
   hideLoading(refLoading);
 
-  return handleResp(response, autoShowMsg, success, failure, refLoading);
+  return handleResp(response, autoShowMsg, success, failure, refLoading, refNotification);
 }
 
 export async function upload(
-  url, formData, {success, failure, autoShowMsg = true, refLoading = null} = {}) {
+  url, formData, {success, failure, autoShowMsg = true, refLoading = null, refNotification = null} = {}) {
   showLoading(refLoading);
 
   let headers = await getHeaders(null);
@@ -213,7 +213,7 @@ export async function upload(
     response = await error.response;
   }
   hideLoading(refLoading);
-  return handleResp(response, autoShowMsg, success, failure, refLoading);
+  return handleResp(response, autoShowMsg, success, failure, refLoading, refNotification);
 }
 
 export async function uploadFile(
@@ -224,6 +224,7 @@ export async function uploadFile(
     failure,
     autoShowMsg = true,
     refLoading = null,
+    refNotification =null,
   } = {}) {
   showLoading(refLoading);
 
@@ -241,82 +242,10 @@ export async function uploadFile(
 
   hideLoading(refLoading);
 
-  return handleResp(response, autoShowMsg, success, failure, refLoading);
+  return handleResp(response, autoShowMsg, success, failure, refLoading, refNotification);
 }
 
-// export async function download(
-//   url, destPath, {
-//     success,
-//     failure,
-//     begin,
-//     progress,
-//     retryTimeLeft = RETRY_HTTP_REQUEST_NUMBER,
-//     autoShowMsg = true,
-//     refLoading = null,
-//   } = {}) {
-//   showLoading(refLoading);
-//   console.log('request download', url, destPath);
-//   // const fs = RNFS.downloadFile({
-//   //   fromUrl: url,
-//   //   toFile: destPath,
-//   //   discretionary: true,
-//   //   cacheable: true,
-//   //   background: true,
-//   //   progressDivider: 20,
-//   //   begin: res => {
-//   //     if (begin) {
-//   //       begin({
-//   //         jobId: res.jobId,
-//   //         contentLength: res.contentLength,
-//   //         statusCode: res.statusCode,
-//   //       });
-//   //     }
-//   //     console.log('download begin:', url, res);
-//   //   },
-//   //   progress: res => {
-//   //     const percent = res.bytesWritten / res.contentLength * 100;
-//   //     if (progress) {
-//   //       progress({
-//   //         jobId: res.jobId,
-//   //         percent: percent,
-//   //       });
-//   //     }
-//   //     console.log('job', res.jobId, 'download progress', Math.round(percent), '%');
-//   //   },
-//   // });
-//   return fs.promise.then(res => {
-//     hideLoading(refLoading);
-//     if (success) {
-//       success();
-//     }
-//     console.log('download completed', res);
-//     return successResponse(res);
-//   }).catch(error => {
-//     console.log('download failed', error);
-//     if (retryTimeLeft > 0) {
-//       return download(url, destPath, {
-//         success,
-//         failure,
-//         begin,
-//         progress,
-//         retryTimeLeft: retryTimeLeft - 1,
-//         autoShowMsg,
-//         refLoading,
-//       });
-//     }
-//     hideLoading(refLoading);
-//     if (failure) {
-//       failure(error);
-//     }
-
-//     if (autoShowMsg) {
-//       showAlert(ErrorMsg.downloadFailed);
-//     }
-//     return failureResponse(error);
-//   });
-// }
-
-async function handleResp(response, autoShowMsg, success, failure, refLoading) {
+async function handleResp(response, autoShowMsg, success, failure, refLoading, refNotification) {
   if (!response || response.status === 500) {
     let err = i18next.t('errorMsg:connectToServerFailed');
     console.log('handleResp >>>>>>>>>>>', response)
@@ -324,7 +253,7 @@ async function handleResp(response, autoShowMsg, success, failure, refLoading) {
       err = response.error;
     }
     if (autoShowMsg) {
-      showAlert(err);
+      refNotification.current.open(err)
     }
     if (failure) {
       failure(err);
@@ -349,7 +278,7 @@ async function handleResp(response, autoShowMsg, success, failure, refLoading) {
       }
 
       if (autoShowMsg) {
-        showAlert(i18next.t('errorMsg:TOKEN_EXPIRED_MSG'));
+        refNotification.current.open(i18next.t('errorMsg:TOKEN_EXPIRED_MSG'));
       }
       if (failure) {
         failure(i18next.t('errorMsg:TOKEN_EXPIRED_MSG'));
@@ -358,13 +287,13 @@ async function handleResp(response, autoShowMsg, success, failure, refLoading) {
       return failureResponse(i18next.t('errorMsg:TOKEN_EXPIRED_MSG'), response);
     }
 
-    const err = checkFailure(result);
+    const err = checkFailure(result, refNotification);
 
     if (err.includes('KWS-4001')) {
       console.log('error KWS-4001');
     }
     else if (autoShowMsg) {
-      showAlert(err);
+      refNotification.current.open(err);
     }
 
     if (failure) {
@@ -379,7 +308,7 @@ async function handleResp(response, autoShowMsg, success, failure, refLoading) {
     result.headers = headers;
   }
 
-  await checkRefreshToken(headers, refLoading);
+  await checkRefreshToken(headers, refLoading, refNotification);
 
   if (success) {
     success(result);
@@ -388,28 +317,28 @@ async function handleResp(response, autoShowMsg, success, failure, refLoading) {
   return successResponse(result, response);
 }
 
-async function checkRefreshToken(headers, refLoading) {
+async function checkRefreshToken(headers, refLoading, refNotification) {
   const xUpdated = headers['x-updated'];
   if (xUpdated === true || xUpdated === 'true') {
-    await refreshUserToken(refLoading);
+    await refreshUserToken(refLoading, refNotification);
   }
 }
 
-export const refreshUserToken = async (refLoading = null) => {
+export const refreshUserToken = async (refLoading = null, refNotification = null) => {
   const resp = await get(refreshTokenUrl, {refLoading});
   if (!resp.success) {
-    showAlert(i18next.t('errorMsg:clientServerCommunicationProb'));
+    refNotification.current.open(i18next.t('errorMsg:clientServerCommunicationProb'));
   } else {
     const resData = resp.success.data;
     if (!resData || !resData.token) {
-      showAlert(i18next.t('errorMsg:clientServerCommunicationProb'));
+      refNotification.current.open(i18next.t('errorMsg:clientServerCommunicationProb'));
     } else {
     }
   }
   return resp;
 };
 
-function checkFailure(result) {
+function checkFailure(result, refNotification) {
   let meta;
   if (result && result.code) {
     meta = result;
@@ -424,7 +353,7 @@ function checkFailure(result) {
   const code = meta.code.toLowerCase().split('-').join('');
 
   if (Object.keys(errorMsg).includes(code)) {
-    return showAlert(i18next.t('errorMsg:'+code))
+    return refNotification.current.open(i18next.t('errorMsg:'+code));
     // return ErrorMsg[code];
   }
 
