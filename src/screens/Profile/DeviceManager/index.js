@@ -220,7 +220,7 @@ export default function DeviceManager({navigation}) {
                   >
                     <Text
                       style={[styles.smallButtonText, {color: Colors.white}]}>
-                      {t('common:member_approval')}
+                      {t('common:confirm')}
                     </Text>
                   </TouchableOpacity>
                 </View>

@@ -26,8 +26,7 @@ export default class ModalConfirm extends Component {
     });
   };
   actionNo = () => {
-    this.close(() => {
-    });
+    this.close(() => {});
   };
 
   actionYes = () => {

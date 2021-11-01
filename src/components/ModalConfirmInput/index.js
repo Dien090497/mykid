@@ -23,7 +23,7 @@ export default class ModalConfirmInput extends Component {
   close = (callback) => {
     this.setState({modalVisible: false}, () => {
       if (callback) {
-        callback();
+        callback({disableTob: this.state.disableTob});
       }
     });
   };

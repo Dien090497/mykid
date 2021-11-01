@@ -21,6 +21,7 @@ import {getInfoApi, setInfoKitsApi} from '../../../network/InfoKidsService';
 import DatePicker from 'react-native-date-picker';
 import {showAlert} from '../../../functions/utils';
 import { useTranslation } from 'react-i18next';
+import {backgroundColor} from "react-native-tab-view/lib/typescript/example/src/CoverflowExample";
 
 export default function InfoKits({route}) {
   let sheet = null;
