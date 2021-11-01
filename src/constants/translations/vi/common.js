@@ -73,7 +73,7 @@ export default {
   header_reward_points: 'Tặng phần thưởng',
   header_doNotDisturb: 'Chế độ lớp học',
   header_language_timezone: 'Ngôn ngữ và múi giờ',
-  header_chat: 'Tin nhắn thoại',
+  header_chat: 'Tin nhắn',
   header_secret_shoot: 'Chụp ảnh từ xa',
   header_remoteDevices: 'Tắt thiết bị từ xa',
   header_remoteStart: 'Khởi động lại từ xa',
@@ -91,7 +91,7 @@ export default {
   logout: 'Đăng xuất tài khoản',
   changePassword: 'Đổi mật khẩu',
   header_deviceManager: 'Quản lý thiết bị',
-  personalData: 'Dữ liệu cá nhân',
+  personalData: 'Thông tin cá nhân',
   EditSuccess: 'Sửa đổi thành công',
   name: 'Họ tên',
   avatar: 'Hình đại diện',
@@ -166,7 +166,7 @@ export default {
   rejectContactSuccess: 'Từ chối thành viên thành công',
   deleteContactSuccess: 'Xóa thành viên thành công',
   deleteMessage: 'Xóa lịch sử tin nhắn',
-  arleftDeleteMessage: 'Bạn có chắc chắn xóa cuộc trò chuyện này không ?',
+  arleftDeleteMessage: 'Bạn có chắc chắn muốn xóa cuộc trò chuyện của mình không?',
   arleftDeleteDevices1: 'Bạn có chắc chắn muốn xóa thiết bị (',
   arleftDeleteDevices2: ') không ?',
   removeContactConfirm:
@@ -245,7 +245,9 @@ export default {
   requestVideoCall: 'Cuộc gọi đến',
 
   // Chat
+  familyGroup: 'nhóm gia đình',
   talkWithFamily: 'Trò chuyện nhóm gia đình',
+  familyGroupInformation: 'Thông tin nhóm gia đình',
 
   //RewardPoints
   rewardPoints_text: 'Bé làm 1 việc tốt,hãy thưởng bé 1 điểm',
@@ -292,5 +294,6 @@ export default {
   male: 'Nam',
   female: 'Nữ',
   error_info: 'Chiều cao và cân nặng luôn lớn hơn 0',
+  error_birthday: 'Ngày sinh của bé khộng hợp lệ',
   errorName: 'Tên bé không được để trống'
 };

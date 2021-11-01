@@ -36,6 +36,7 @@ export default function InfoKits({route}) {
   const [heights, setHeight] = useState(0);
   const [date, setDate] = useState(new Date());
   const [check, setCheck] = useState(false);
+  const [disableTob, setDisableTob] = useState(false);
   const { t } = useTranslation();
 
   const data = [
@@ -48,7 +49,7 @@ export default function InfoKits({route}) {
     {
       id: '2',
       name: t('common:birthday'),
-      textName: (check !== undefined ? `${date.getFullYear()}-${`0${date.getMonth() + 1}`.slice(
+      textName: (check !== false ? `${date.getFullYear()}-${`0${date.getMonth() + 1}`.slice(
         -2,
       )}-${`0${date.getDate()}`.slice(-2)}` : birthday),
       inputText: ''
@@ -100,16 +101,28 @@ export default function InfoKits({route}) {
 
   const setInfo = (title, res) => {
     if (title === t('common:nameKids')) {
+      if(name !== res) {
+        setDisableTob(true);
+      }
       setName(res.trim());
     } else if (title === t('common:height')) {
+      if( heights !== res) {
+        setDisableTob(true);
+      }
       setHeight(parseInt(res));
     } else {
+      if( weights !== res) {
+        setDisableTob(true);
+      }
       setWeight(parseInt(res));
     }
   }
 
   const handleGenderAction = (index) => {
     if (index < 2) {
+      if (setGender(dataGender[index]) !== gender) {
+        setDisableTob(true);
+      }
       setGender(dataGender[index]);
     }
   }
@@ -132,9 +145,14 @@ export default function InfoKits({route}) {
       refNotification.current.open(t('common:errorName'))
       return;
     }
+    if (!checkDate()) {
+      showAlert(t('common:error_birthday'));
+      return;
+    }
     if (parseInt(heights) > 0 && parseInt((weights)) > 0 ) {
       setInfoKitsApi(DataLocal.deviceId, body, {
         success: res => {
+          setDisableTob(false);
           refNotification.current.open(t('common:success'))
         },
         refLoading: refLoading,
@@ -174,18 +192,30 @@ export default function InfoKits({route}) {
         open={modalDate}
         date={date}
         onConfirm={(time) => {
-          setModalDate(false)
-          setDate(time)
-          setCheck(true)
+          setModalDate(false);
+          if (time.getTime() !== birthday) {
+            setDisableTob(true);
+          }
+          setDate(time);
+          setCheck(true);
         }}
         onCancel={() => {
           setModalDate(false)
         }}
         title={t('common:chooseDay')}
         cancelText={t('common:cancel')}
-        confirmText={t('common:confirm')}
+        confirmText={t('common:member_approval')}
       />
     );
+  }
+
+  const checkDate = () => {
+    const d =  new Date();
+    if (date.getTime() < d.getTime()) {
+     return true;
+   } else {
+     return false;
+   }
   }
 
   const renderFlatlist = (itemFlatlist) => {
@@ -240,7 +270,10 @@ export default function InfoKits({route}) {
           keyExtractor={item => item.id}
           style={{paddingTop: 15}}
         />
-        <TouchableOpacity style={styles.tobViewMain} onPress={InstallInfo}>
+        <TouchableOpacity
+          style={(!disableTob ? [styles.tobViewMain , {backgroundColor: 'rgba(181, 180, 180, 1)'}]: styles.tobViewMain)}
+          onPress={InstallInfo} disabled={!disableTob}
+        >
           <Text style={[styles.text, {color: Colors.white}]}>{t('common:save')}</Text>
         </TouchableOpacity>
       </View>

@@ -36,14 +36,14 @@ export const String = {
   header_connectDevice: 'Kết nối thiết bị',
   header_profile: 'Cá nhân',
   header_account: 'Tài khoản',
-  header_account_admin:'Administrator',
-  header_account_member:'Family Members',
+  header_account_admin: 'Administrator',
+  header_account_member: 'Family Members',
   header_password: 'Mật khẩu',
   header_findDevice: 'Tìm kiếm bị',
   header_soundSettings: 'Cài đặt chuông',
   header_alarmClock: 'Báo thức',
   header_alarmSetting: 'Cài đặt báo thức',
-  hender_eacesDroping:'Nghe lén (Giám sát từ xa)',
+  hender_eacesDroping: 'Nghe lén (Giám sát từ xa)',
   header_reward_points: 'Tặng phần thưởng',
   header_doNotDisturb: 'Chế độ lớp học',
   header_language_timezone: 'Ngôn ngữ và múi giờ',
@@ -70,7 +70,7 @@ export const String = {
   name: 'Họ tên',
   avatar: 'Hình đại diện',
   account: 'Tài khoản',
-  contact : 'Số điện thoại',
+  contact: 'Số điện thoại',
   email: 'Email',
   textName: 'Nhập tên của bạn',
   textContact: 'Nhập số điện thoại',
@@ -104,18 +104,18 @@ export const String = {
   error_message:
     'Vui lòng đọc thỏa thuận người dùng, chính sách bảo mật và chọn đồng ý',
   error_pass: 'Mật khẩu không khớp, vui lòng kiểm tra lại!',
-  error_pass1:'Mật khẩu phải có độ dài từ 6 đến 20 ký tự bao gồm cả chữ và số',
+  error_pass1: 'Mật khẩu phải có độ dài từ 6 đến 20 ký tự bao gồm cả chữ và số',
   error_phone: 'Sai định dạng số điện thoại',
   error_otp: 'Mã xác minh phải có độ dài 6 số',
   error_otp1: 'Bạn vui lòng nhập mã xác minh',
   registerSuccess: 'Đăng ký thành công!',
-  errorPhone:'Độ dài từ 10-11 số',
+  errorPhone: 'Độ dài từ 10-11 số',
   genneralInfo: 'Thông tin cơ bản',
   enterCurrentPassword: 'Nhập mật khẩu hiện tại',
   enterNewPassword: 'Nhập mật khẩu mới',
   reEnterNewPassword: 'Nhập lại mật khẩu mới',
   changePasswordSuccess: 'Đổi mật khẩu thành công',
-  changeLangguageAndTimezone:'Cập nhật thành công',
+  changeLangguageAndTimezone: 'Cập nhật thành công',
   currentPasswordInvalid:
     'Mật khẩu hiện tại bạn nhập không đúng định dạng (8-16 ký tự)',
   newPasswordInvalid: 'Mật khẩu mới bạn nhập không đúng định dạng (8-16 ký tự)',
@@ -143,8 +143,7 @@ export const String = {
   arleftDeleteMessage: 'Bạn có chắc chắn xóa cuộc trò chuyện này không ?',
   arleftDeleteDevices1: 'Bạn có chắc chắn muốn xóa thiết bị (',
   arleftDeleteDevices2: ') không ?',
-  removeContactConfirm:
-    'Bạn chắc chắn huỷ liên kết tài khoản này không ?',
+  removeContactConfirm: 'Bạn chắc chắn huỷ liên kết tài khoản này không ?',
   maxLengthSafeAreaName: 'Vui lòng nhập 1-32 ký tự',
   message_remove_contact_sos: 'Bạn không được xoá liên lạc khẩn cấp',
   noContactPermission: 'Bạn chưa cấp quyền truy cập danh bạ',
@@ -159,9 +158,9 @@ export const String = {
   history_empty: 'Thiết bị chưa có lịch sử vị trí',
   time_invalid: 'Thời gian chọn không hợp lệ',
   timeInvalidNote: 'Thời gian bắt đầu phải nhỏ hơn thời gian kết thúc',
-  setNameAndSetRelationship:'Đặt tên mối quan hệ',
+  setNameAndSetRelationship: 'Đặt tên mối quan hệ',
   holdAndTalk: 'Giữ và nói',
-  language:'Chọn ngôn ngữ',
+  language: 'Chọn ngôn ngữ',
   selectAtLeastOneDay: 'Vui lòng chọn ít nhất một ngày',
   msgInvalidImage: 'Ảnh không hợp lệ',
   selectPhotoLibrary: 'Chọn ảnh từ thư viện',
@@ -169,7 +168,7 @@ export const String = {
   selectPhoto: 'Chọn ảnh',
   journey: 'Hành trình',
 
-  palaceHolderSafeZone:'Thêm vùng an toàn',
+  palaceHolderSafeZone: 'Thêm vùng an toàn',
 
   //member
   member_refresh: 'Làm mới',
@@ -203,7 +202,8 @@ export const String = {
   call_busy: 'Người dùng bận',
   call_back: 'Gọi lại',
   alerfTurnOffDevice: 'Bạn thực sự muốn tắt thiết bị này ?',
-  alerfRestartDevice: 'Bạn có chắc chắn muốn khởi động lại thiết bị của mình không ?',
+  alerfRestartDevice:
+    'Bạn có chắc chắn muốn khởi động lại thiết bị của mình không ?',
   submitSuccess: 'Gửi thành công ',
 
   // find device
@@ -211,8 +211,7 @@ export const String = {
   find_device_note1: '1. Bấm nút để tìm Thiết bị',
   find_device_note2: '2. Bấm thành công',
   find_device_note3: '3. Gửi thành công',
-  find_device_note4:
-    '4. Thiết bị đổ chuông sau khi nhận được yêu cầu',
+  find_device_note4: '4. Thiết bị đổ chuông sau khi nhận được yêu cầu',
   // Videocall
   reject: 'Từ chối',
   acceptVideocall: 'Trả lời',
@@ -229,19 +228,26 @@ export const String = {
 
   //SecretPhotoShoot
   textShoot: 'Chụp hình',
-  textDeleteImage:'Bạn có chắc chắn muốn xóa ảnh này không?',
+  textDeleteImage: 'Bạn có chắc chắn muốn xóa ảnh này không?',
 
   // permissions
   cameraUnavailable: 'Máy ảnh không khả dụng trên thiết bị của bạn',
   photoLibraryUnavailable: 'Thư viện ảnh không khả dụng trên thiết bị của bạn',
   microphoneUnavailable: 'Mic không khả dụng trên thiết bị của bạn',
-  cameraDenied: 'Quyền truy cập máy ảnh bị từ chối.\nVui lòng vào cài đặt để cấp quyền truy cập',
-  photoLibraryReadDenied: 'Quyền truy cập thư viện ảnh bị từ chối.\nVui lòng mở cài đặt để cấp quyền truy cập',
-  photoLibraryReadLimit: 'Quyền truy cập thư viện ảnh bị giới hạn.\nVui lòng mở cài đặt để cấp quyền truy cập "Tất cả ảnh"',
-  photoLibraryWriteDenied: 'Quyền ghi ảnh bị từ chối.\nVui lòng mở cài đặt để cấp quyền',
-  microphoneDenied: 'Quyền truy cập mic bị từ chối.\nVui lòng vào cài đặt để cấp quyền truy cập',
-  writeExternalStorageAndroidUnavailable: 'Quyền ghi dữ liệu vào bộ nhớ không khả dụng trên thiết bị của bạn',
-  writeExternalStorageAndroidDenied: 'Quyền ghi dữ liệu vào bộ nhớ bị từ chối.\nVui lòng vào cài đặt để cấp quyền',
+  cameraDenied:
+    'Quyền truy cập máy ảnh bị từ chối.\nVui lòng vào cài đặt để cấp quyền truy cập',
+  photoLibraryReadDenied:
+    'Quyền truy cập thư viện ảnh bị từ chối.\nVui lòng mở cài đặt để cấp quyền truy cập',
+  photoLibraryReadLimit:
+    'Quyền truy cập thư viện ảnh bị giới hạn.\nVui lòng mở cài đặt để cấp quyền truy cập "Tất cả ảnh"',
+  photoLibraryWriteDenied:
+    'Quyền ghi ảnh bị từ chối.\nVui lòng mở cài đặt để cấp quyền',
+  microphoneDenied:
+    'Quyền truy cập mic bị từ chối.\nVui lòng vào cài đặt để cấp quyền truy cập',
+  writeExternalStorageAndroidUnavailable:
+    'Quyền ghi dữ liệu vào bộ nhớ không khả dụng trên thiết bị của bạn',
+  writeExternalStorageAndroidDenied:
+    'Quyền ghi dữ liệu vào bộ nhớ bị từ chối.\nVui lòng vào cài đặt để cấp quyền',
 
   //EditDevice
   textAvatar: 'Hình đại diện',
@@ -258,5 +264,5 @@ export const String = {
   enterWeight: 'Nhập cân nặng',
   male: 'Nam',
   female: 'Nữ',
-  error_info: 'Chiều cao và cân nặng luôn lớn hơn 0'
+  error_info: 'Chiều cao và cân nặng luôn lớn hơn 0',
 };

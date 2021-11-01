@@ -114,7 +114,6 @@ export default function DeviceManager({navigation}) {
     deleteDevicesApi(idCancel, {
       success: res => {
         getListDevice();
-        console.log('deleteDevices ', res)
       },
       refLoading,
       refNotification,

@@ -137,7 +137,8 @@ const Login = ({ navigation }) => {
               style={styles.textInput}
             />
             <View style={styles.ViewResetPass}>
-              <View />
+              <View >
+              </View>
               <TouchableOpacity onPress={() => navigation.navigate(Consts.ScreenIds.Register)}>
                 <Text
                   style={styles.txtRegister}>{t('common:register')}</Text>
