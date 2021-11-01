@@ -131,7 +131,7 @@ export default function InfoKits({route}) {
     const bd = `${date.getFullYear()}-${`0${date.getMonth() + 1}`.slice(
       -2,
     )}-${`0${date.getDate()}`.slice(-2)}`;
-    let birthday = (check !== false ? bd : birthday)
+    let birthday = (check !== false ? bd : birthdays)
     const height = parseInt(heights);
     const weight = parseInt(weights);
     let body = {
