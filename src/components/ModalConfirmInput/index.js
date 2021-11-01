@@ -11,6 +11,7 @@ export default class ModalConfirmInput extends Component {
     super(props);
     this.state = {
       modalVisible: false,
+      disableTob: false
     };
   }
 
@@ -66,7 +67,7 @@ export default class ModalConfirmInput extends Component {
                 <Text style={styles.textModel}>{this.props.title}</Text>
                 <View style={styles.textInput}>
                   <TextInput
-                    style={{width: '88%', height: height * 0.05, marginLeft: 5, color: Colors.black}}
+                    style={{width: '88%', height: height * 0.055, marginLeft: 5, color: Colors.black}}
                     maxLength={(this.state.check ? 11 : 30)}
                     placeholder={this.props.inputText}
                     placeholderTextColor={'#9D9D9D'}
@@ -104,7 +105,7 @@ export default class ModalConfirmInput extends Component {
                     >
                       <Text
                         style={[styles.smallButtonText, {color: Colors.white}]}>
-                        {i18next.t('common:confirm')}
+                        {i18next.t('common:member_approval')}
                       </Text>
                     </TouchableOpacity>
                   ) : (
@@ -118,7 +119,7 @@ export default class ModalConfirmInput extends Component {
                       }>
                       <Text
                         style={[styles.smallButtonText, {color: Colors.white}]}>
-                        {i18next.t('common:confirm')}
+                        {i18next.t('common:member_approval')}
                       </Text>
                     </View>
                   )}
