@@ -21,7 +21,7 @@ import {ScaleHeight} from '../../../functions/Consts';
 import {emailTest, hideLoading, phoneTest1, resizeImage, showAlert, showLoading} from '../../../functions/utils';
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import {getPersonalDataApi, updatePersonalDataApi} from '../../../network/PersonalDataService';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 
 export default function PersonalDate() {
   let sheet = null;
@@ -37,7 +37,8 @@ export default function PersonalDate() {
   const [name, setName] = useState();
   const [phone, setPhone] = useState();
   const [check, setCheck] = useState(false);
-  const { t } = useTranslation();
+  const [disableTob, setDisableTob] = useState(false);
+  const {t} = useTranslation();
 
   const dataGender = [
     'MALE',
@@ -58,14 +59,25 @@ export default function PersonalDate() {
   }, []);
 
   const setInfo = (title, res) => {
-    const resp = res.trim();
+    if (res === null) {
+      return;
+    }
     if (title === t('common:contact')) {
-      setContact(resp);
+      if (contact !== res) {
+        setDisableTob(true);
+      }
+      setContact(res);
     } else if (title === t('common:email')) {
-      if (resp !== '') {
-        setEmail(resp);
+      if (email !== res) {
+        setDisableTob(true);
+      }
+      if (res !== '') {
+        setEmail(res.trim());
       }
     } else {
+      if (name !== res) {
+        setDisableTob(true);
+      }
       setName(res.trim());
     }
   }
@@ -79,13 +91,14 @@ export default function PersonalDate() {
       showAlert(t('common:error_name'));
       return;
     }
-    if (contact.length < 10 || !phoneTest1(contact)) {
+    if (!phoneTest1(contact) && contact !== null) {
       showAlert(t('common:error_contact'));
       return;
     }
     updatePersonalDataApi(contact, email, avatar, gender, name, {
       success: res => {
-        showAlert(t('common:EditSuccess'))
+        showAlert(t('common:EditSuccess'));
+        setDisableTob(false);
       }
     })
   }
@@ -120,6 +133,7 @@ export default function PersonalDate() {
         if (uri) {
           setAvatar(uri);
           setCheck(true);
+          setDisableTob(true);
         }
       });
     }
@@ -155,6 +169,9 @@ export default function PersonalDate() {
 
   const handleGenderAction = (index) => {
     if (index < 2) {
+      if (setGender(dataGender[index]) !== gender) {
+        setDisableTob(true);
+      }
       setGender(dataGender[index]);
     }
   }
@@ -289,7 +306,10 @@ export default function PersonalDate() {
           </View>
 
         </View>
-        <TouchableOpacity style={styles.tobViewMain} onPress={InstallPersonalData}>
+        <TouchableOpacity
+          style={(!disableTob ? [styles.tobViewMain, {backgroundColor: 'rgba(181, 180, 180, 1)'}] : styles.tobViewMain)}
+          onPress={InstallPersonalData} disabled={!disableTob}
+        >
           <Text style={[styles.text, {color: Colors.white}]}>{t('common:save')}</Text>
         </TouchableOpacity>
       </View>

@@ -95,7 +95,7 @@ export default {
   EditSuccess: 'Success',
   name: 'Full name',
   avatar: 'Avatar',
-  contact : 'Phone number',
+  contact: 'Phone number',
   email: 'Email',
   textName: 'Enter your name',
   textContact: 'Enter your phone number',
@@ -246,7 +246,9 @@ export default {
   requestVideoCall: 'Incoming call',
 
   // Chat
+  familyGroup: 'family group',
   talkWithFamily: 'Family group information',
+  familyGroupInformation: 'Family group information',
 
   //RewardPoints
   rewardPoints_text: 'Send a reward!',
@@ -292,5 +294,6 @@ export default {
   male: 'Male',
   female: 'Female',
   error_info: 'Height and weight are always greater than 0',
-  errorName: 'Baby name cannot be blank'
+  errorName: 'Baby name cannot be blank',
+  error_birthday: 'Ngày sinh của bé không hợp lệ'
 };

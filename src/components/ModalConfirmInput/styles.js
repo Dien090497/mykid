@@ -82,7 +82,7 @@ export const styles = StyleSheet.create ({
   },
   textInput: {
     width: '100%',
-    height: height* 0.05,
+    height: height* 0.055,
     marginTop: height* 0.03,
     borderWidth: 1,
     borderRadius: 10,
