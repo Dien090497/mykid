@@ -291,6 +291,6 @@ export default {
   male: 'Male',
   female: 'Female',
   error_info: 'Height and weight are always greater than 0',
-  errorName: 'Baby name cannot be blank'
+  errorName: 'Baby name cannot be blank',
   error_birthday: 'Ngày sinh của bé không hợp lệ'
 };
