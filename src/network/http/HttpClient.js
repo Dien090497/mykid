@@ -4,7 +4,6 @@ import {appUrl, refreshTokenUrl} from './ApiUrl';
 import {
   generateRandomId,
   hideLoading,
-  showAlert,
   showLoading,
 } from '../../functions/utils';
 
@@ -245,78 +244,6 @@ export async function uploadFile(
 
   return handleResp(response, autoShowMsg, success, failure, refLoading, refNotification);
 }
-
-// export async function download(
-//   url, destPath, {
-//     success,
-//     failure,
-//     begin,
-//     progress,
-//     retryTimeLeft = RETRY_HTTP_REQUEST_NUMBER,
-//     autoShowMsg = true,
-//     refLoading = null,
-//   } = {}) {
-//   showLoading(refLoading);
-//   console.log('request download', url, destPath);
-//   // const fs = RNFS.downloadFile({
-//   //   fromUrl: url,
-//   //   toFile: destPath,
-//   //   discretionary: true,
-//   //   cacheable: true,
-//   //   background: true,
-//   //   progressDivider: 20,
-//   //   begin: res => {
-//   //     if (begin) {
-//   //       begin({
-//   //         jobId: res.jobId,
-//   //         contentLength: res.contentLength,
-//   //         statusCode: res.statusCode,
-//   //       });
-//   //     }
-//   //     console.log('download begin:', url, res);
-//   //   },
-//   //   progress: res => {
-//   //     const percent = res.bytesWritten / res.contentLength * 100;
-//   //     if (progress) {
-//   //       progress({
-//   //         jobId: res.jobId,
-//   //         percent: percent,
-//   //       });
-//   //     }
-//   //     console.log('job', res.jobId, 'download progress', Math.round(percent), '%');
-//   //   },
-//   // });
-//   return fs.promise.then(res => {
-//     hideLoading(refLoading);
-//     if (success) {
-//       success();
-//     }
-//     console.log('download completed', res);
-//     return successResponse(res);
-//   }).catch(error => {
-//     console.log('download failed', error);
-//     if (retryTimeLeft > 0) {
-//       return download(url, destPath, {
-//         success,
-//         failure,
-//         begin,
-//         progress,
-//         retryTimeLeft: retryTimeLeft - 1,
-//         autoShowMsg,
-//         refLoading,
-//       });
-//     }
-//     hideLoading(refLoading);
-//     if (failure) {
-//       failure(error);
-//     }
-
-//     if (autoShowMsg) {
-//       showAlert(ErrorMsg.downloadFailed);
-//     }
-//     return failureResponse(error);
-//   });
-// }
 
 async function handleResp(response, autoShowMsg, success, failure, refLoading, refNotification) {
   if (!response || response.status === 500) {

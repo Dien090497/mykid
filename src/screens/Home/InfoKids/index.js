@@ -160,7 +160,7 @@ export default function InfoKits({route}) {
         refNotification: refNotification,
       })
     } else {
-      showAlert(t('common:error_info'))
+      refNotification.current.open(t('common:error_info'));
     }
   }
 
