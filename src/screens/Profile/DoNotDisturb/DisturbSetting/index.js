@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import { styles } from './styles';
 import Header from '../../../../components/Header';
-import { String } from '../../../../assets/strings/String';
 import LoadingIndicator from '../../../../components/LoadingIndicator';
 import { TimePicker } from 'react-native-wheel-picker-android';
 import { Colors } from '../../../../assets/colors/Colors';
@@ -100,7 +99,7 @@ export default function DoNotDisturb({ navigation, route }) {
   const onSubmit = () => {
     const data = {};
     if (config.to <= config.from) {
-      showAlert(String.timeInvalidNote);
+      showAlert(t('common:timeInvalidNote'));
       return;
     }
     data.deviceId = config.deviceId;
@@ -119,7 +118,7 @@ export default function DoNotDisturb({ navigation, route }) {
       item.isOn ? data.period = data.period + '1' : data.period = data.period + '0';
     });
     if (data.period === '0000000') {
-      showAlert(String.selectAtLeastOneDay);
+      showAlert(t('common:selectAtLeastOneDay'));
       return;
     }
     route.params.saveConfig(data);

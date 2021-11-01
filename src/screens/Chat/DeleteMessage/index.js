@@ -1,4 +1,4 @@
-import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
+import React, { useLayoutEffect, useRef, useState} from 'react';
 import {
   Text,
   TouchableOpacity,
@@ -7,59 +7,61 @@ import {
   RefreshControl,
   Image, Modal
 } from 'react-native'
-import {String} from "../../../assets/strings/String";
-import Header from "../../../components/Header";
-import {getListDeviceApi} from "../../../network/DeviceService";
-import DataLocal from "../../../data/dataLocal";
-import Images from "../../../assets/Images";
-import {Colors} from "../../../assets/colors/Colors";
-import LoadingIndicator from "../../../components/LoadingIndicator";
-import Consts, {ScaleHeight} from "../../../functions/Consts";
-import {styles} from "./styles";
+import Header from '../../../components/Header';
+import {getListDeviceApi} from '../../../network/DeviceService';
+import DataLocal from '../../../data/dataLocal';
+import Images from '../../../assets/Images';
+import {Colors} from '../../../assets/colors/Colors';
+import LoadingIndicator from '../../../components/LoadingIndicator';
+import Consts, {ScaleHeight} from '../../../functions/Consts';
+import {styles} from './styles';
+import { useTranslation } from 'react-i18next';
 
 export default function DeleteMessage({navigation}) {
   const refLoading = useRef();
   const [listMember, setListMember] = useState([]);
   const [loading, setLoading] = useState(false);
   const [onModal, setOnModal] = useState(false);
+  const { t } = useTranslation();
 
   const dataMock = [
     {
-      name: 'Bố',
+      name: t('common:dad'),
       icon: Images.icFather,
       relationship: 'FATHER'
     },
     {
-      name: 'Mẹ',
+      name: t('common:mom'),
       icon: Images.icMother,
       relationship: 'MOTHER'
     },
     {
-      name: 'Ông',
+      name: t('common:grandfather'),
       icon: Images.icGrandfather,
       relationship: 'GRANDFATHER'
     },
     {
-      name: 'Bà',
+      name: t('common:grandma'),
       icon: Images.icGrandmother,
       relationship: 'GRANDMOTHER'
     },
     {
-      name: 'Anh',
+      name: t('common:brother'),
       icon: Images.icBrother,
       relationship: 'BROTHER'
     },
     {
-      name: 'Chị',
+      name: t('common:sister'),
       icon: Images.icSister,
       relationship: 'SISTER'
     },
     {
+      name: t('common:other'),
       icon: Images.icOther,
       relationship: 'OTHER'
     },
     {
-      name: 'Xóa',
+      name: t('common:delete'),
       icon: Images.icDeleteMessage,
       relationship: 'DELETE'
     },
@@ -109,12 +111,12 @@ export default function DeleteMessage({navigation}) {
           {itemFlatlist.item.relationship !== 'DELETE' ?
             (
               <View style={{alignItems: 'center'}}>
-                <Image style={styles.icon} source={icon} resizeMode={"stretch"}/>
+                <Image style={styles.icon} source={icon} resizeMode={'stretch'}/>
                 <Text style={styles.textItem}>{itemFlatlist.item.relationshipName}</Text>
               </View>
             ) : (
               <TouchableOpacity style={{alignItems: 'center'}} onPress={gotoMember}>
-                <Image style={styles.icon} source={icon} resizeMode={"stretch"}/>
+                <Image style={styles.icon} source={icon} resizeMode={'stretch'}/>
                 <Text style={styles.textItem}>{itemFlatlist.item.relationshipName}</Text>
               </TouchableOpacity>
             )}
@@ -145,7 +147,7 @@ export default function DeleteMessage({navigation}) {
         style={styles.tobDelete}
         onPress={() => setOnModal(true)}
       >
-        <Text style={styles.textDelete}>{String.deleteMessage}</Text>
+        <Text style={styles.textDelete}>{t('common:deleteMessage')}</Text>
       </TouchableOpacity>
       <Modal
         visible={onModal}
@@ -156,7 +158,7 @@ export default function DeleteMessage({navigation}) {
           <TouchableOpacity style={styles.modal} onPress={() => setOnModal(false)}>
             <View style={styles.tobModal}>
               <View style={[styles.tobView, {marginTop: ScaleHeight.small}]}>
-                <Text style={styles.textModel}>{String.arleftDeleteMessage}</Text>
+                <Text style={styles.textModel}>{t('common:arleftDeleteMessage')}</Text>
               </View>
               <View style={[styles.tobView, {width: '86%'}]}>
                 <View style={styles.tob}>
@@ -166,7 +168,7 @@ export default function DeleteMessage({navigation}) {
                   >
                     <Text
                       style={[styles.smallButtonText, {color: Colors.red}]}>
-                      {String.cancel}
+                      {t('common:cancel')}
                     </Text>
                   </TouchableOpacity>
                 </View>
@@ -177,7 +179,7 @@ export default function DeleteMessage({navigation}) {
                   >
                     <Text
                       style={[styles.smallButtonText, {color: Colors.white}]}>
-                      {String.confirm}
+                      {t('common:confirm')}
                     </Text>
                   </TouchableOpacity>
                 </View>

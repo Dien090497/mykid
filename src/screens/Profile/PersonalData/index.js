@@ -11,7 +11,6 @@ import {Colors} from '../../../assets/colors/Colors';
 import {styles} from './styles';
 import ModalConfirmInput from '../../../components/ModalConfirmInput';
 import ActionSheet from '@alessiocancian/react-native-actionsheet';
-import {String} from '../../../assets/strings/String';
 import {
   checkCameraPermission,
   checkPhotoLibraryReadPermission,
@@ -85,20 +84,20 @@ export default function PersonalDate() {
 
   const InstallPersonalData = () => {
     if (!emailTest(email)) {
-      showAlert(String.error_email);
+      showAlert(t('common:error_email'));
       return;
     }
     if (name === null || name === '') {
-      showAlert(String.error_name);
+      showAlert(t('common:error_name'));
       return;
     }
     if (!phoneTest1(contact) && contact !== null) {
-      showAlert(String.error_contact);
+      showAlert(t('common:error_contact'));
       return;
     }
     updatePersonalDataApi(contact, email, avatar, gender, name, {
       success: res => {
-        showAlert(String.EditSuccess);
+        showAlert(t('common:EditSuccess'));
         setDisableTob(false);
       }
     })

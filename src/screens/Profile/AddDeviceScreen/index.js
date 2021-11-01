@@ -1,12 +1,10 @@
-import { Image, Modal, PermissionsAndroid, Platform, ScrollView, Text, TextInput, TouchableOpacity, View, } from 'react-native';
+import { Image, Modal, ScrollView, Text, TextInput, TouchableOpacity, View, } from 'react-native';
 import React, { useLayoutEffect, useRef, useState } from 'react';
 
-import { Colors } from '../../../assets/colors/Colors';
 import Consts from '../../../functions/Consts';
 import Header from '../../../components/Header';
 import Images from '../../../assets/Images';
 import LoadingIndicator from '../../../components/LoadingIndicator';
-import { String } from '../../../assets/strings/String';
 import { addDeviceApi } from '../../../network/DeviceService';
 import styles from './style';
 import { showAlert } from '../../../functions/utils';
@@ -73,7 +71,7 @@ const AddDeviceScreen = ({ navigation, route }) => {
             } else {
               navigation.navigate(Consts.ScreenIds.Tabs);
             }
-            showAlert(String.addDeviceSuccess, {
+            showAlert(t('common:addDeviceSuccess'), {
               close: () => {
                 if (route.params && route.params.onRefresh) {
                   route.params.onRefresh();

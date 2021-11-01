@@ -3,12 +3,12 @@ import {
   View,
   TouchableOpacity,
   Modal,
-  Text,
-} from 'react-native';
+  Text, Platform,
+} from "react-native";
 import { TimePicker } from 'react-native-wheel-picker-android';
-import { String } from '../../assets/strings/String';
 import { showAlert } from '../../functions/utils';
 import { styles } from './styles';
+import i18next from 'i18next';
 
 export default class PeriodModal extends Component {
   constructor(props) {
@@ -53,7 +53,7 @@ export default class PeriodModal extends Component {
 
   onSubmit = () => {
     if (this.state.to <= this.state.from) {
-      showAlert(String.timeInvalidNote);
+      showAlert(i18next.t('common:timeInvalidNote'));
       return;
     }
     const splitFrom = this.state.from.toString().split(' ');
@@ -79,18 +79,18 @@ export default class PeriodModal extends Component {
   render() {
     return (
       <Modal
-        animationType="slide"
+        animationType='slide'
         transparent={true}
         visible={this.state.modalVisible}>
         <TouchableOpacity style={styles.bottomView} onPress={this.hideModal}>
           <TouchableOpacity style={styles.containerModal} activeOpacity={1}>
             <View style={styles.header}>
               <TouchableOpacity style={styles.btnCancel} onPress={this.hideModal}>
-                <Text style={styles.txtCancel}>{String.cancel}</Text>
+                <Text style={styles.txtCancel}>{i18next.t('common:cancel')}</Text>
               </TouchableOpacity>
               <View style={{width: '50%'}}/>
               <TouchableOpacity style={styles.btnAccept} onPress={this.onSubmit}>
-                <Text style={styles.txtAccept}>{String.accept}</Text>
+                <Text style={styles.txtAccept}>{i18next.t('common:accept')}</Text>
               </TouchableOpacity>
             </View>
             <View style={styles.body}>
@@ -98,7 +98,7 @@ export default class PeriodModal extends Component {
                 { this.state.from &&
                   <TimePicker format24
                     initDate={this.state.from}
-                    onTimeSelected={this.onFromSelected} 
+                    onTimeSelected={this.onFromSelected}
                     minutes={this.getMinutes()}/>
                 }
               </View>
@@ -106,9 +106,9 @@ export default class PeriodModal extends Component {
                 <Text style={styles.txtSub}>-</Text>
               </View>
               <View style={[styles.viewTime, Platform.OS !== 'ios' ? {height: 150, paddingTop: 20} : {}]}>
-                { this.state.to && 
+                { this.state.to &&
                   <TimePicker format24
-                    initDate={this.state.to} 
+                    initDate={this.state.to}
                     onTimeSelected={this.onToSelected}
                     minutes={this.getMinutes()}/>
                 }

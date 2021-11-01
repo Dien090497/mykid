@@ -13,7 +13,6 @@ import { passwordTest, saveUserDataFromToken, showAlert } from '../../../functio
 
 import { Colors } from '../../../assets/colors/Colors';
 import CustomInput from '../../../components/inputRegister';
-import { String } from '../../../assets/strings/String';
 import { styles } from './styles';
 import {ScaleHeight} from '../../../functions/Consts';
 import { useTranslation } from 'react-i18next';
@@ -35,19 +34,19 @@ const ChangePassword = ({ navigation }) => {
   const onSubmit = () => {
     if (!submitActive) return;
     if (!passwordTest(currentPassword)) {
-      showAlert(String.currentPasswordInvalid);
+      showAlert(('common:currentPasswordInvalid'));
       return;
     }
     if (!passwordTest(newPassword)) {
-      showAlert(String.newPasswordInvalid);
+      showAlert(('common:newPasswordInvalid'));
       return;
     }
     if (newPassword !== newPasswordConfirm) {
-      showAlert(String.passwordConfirmInvalid);
+      showAlert(('common:passwordConfirmInvalid'));
       return;
     }
     if (newPassword === currentPassword) {
-      showAlert(String.passwordDuplicated);
+      showAlert(('common:passwordDuplicated'));
       return;
     }
 
@@ -56,7 +55,7 @@ const ChangePassword = ({ navigation }) => {
         if (resData.data.token) {
           saveUserDataFromToken(resData.data.token);
         }
-        showAlert(String.changePasswordSuccess, {
+        showAlert(('common:changePasswordSuccess'), {
           close: () => {
             navigation.goBack();
           },

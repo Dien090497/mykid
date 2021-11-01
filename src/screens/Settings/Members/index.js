@@ -5,18 +5,18 @@ import {
   getListDeviceApi,
   rejectContactApi,
 } from '../../../network/DeviceService';
-import {showAlert, showConfirmation} from '../../../functions/utils';
+import { showAlert } from '../../../functions/utils';
 
 import {Colors} from '../../../assets/colors/Colors';
 import DataLocal from '../../../data/dataLocal';
 import Header from '../../../components/Header';
 import Images from '../../../assets/Images';
 import LoadingIndicator from '../../../components/LoadingIndicator';
-import {String} from '../../../assets/strings/String';
 import {styles} from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {ScaleHeight} from "../../../functions/Consts";
-import { useTranslation } from "react-i18next";
+import {ScaleHeight} from '../../../functions/Consts';
+import { useTranslation } from 'react-i18next';
+
 export default ({navigation, route}) => {
   const refLoading = useRef();
   const [allMember, setAllMember] = useState([]);
@@ -95,7 +95,7 @@ export default ({navigation, route}) => {
           rejectContactApi(idCancel, {
             success: res => {
               setOnModal(false);
-              showAlert(String.deleteContactSuccess, {
+              showAlert(t('common:deleteContactSuccess'), {
                 close: () => {
                   getListDevice();
                   if (route.params && route.params.Delete) {
@@ -112,7 +112,7 @@ export default ({navigation, route}) => {
   const cancelContact = item => {
     rejectContactApi(item.id, {
       success: res => {
-        showAlert(String.rejectContactSuccess, {
+        showAlert(t('common:rejectContactSuccess'), {
           close: () => {
             getListDevice();
           },
@@ -127,7 +127,7 @@ export default ({navigation, route}) => {
     acceptContactApi(item.id, {
       success: res => {
         if (res.data && res.data.status === 'ACTIVE') {
-          showAlert(String.acceptContactSuccess, {
+          showAlert(t('common:acceptContactSuccess'), {
             close: () => {
               getListDevice();
             },
@@ -279,7 +279,7 @@ export default ({navigation, route}) => {
            <TouchableOpacity style={styles.modal} onPress={ () => setOnModal(false)}>
              <View style={styles.tobModal}>
                 <View style={[styles.tobView, {marginTop: ScaleHeight.small}]}>
-                  <Text style={styles.textModel}>{String.removeContactConfirm}</Text>
+                  <Text style={styles.textModel}>{t('common:removeContactConfirm')}</Text>
                 </View>
                 <View style={[styles.tobView , {width: '86%'}]}>
                   <View style={styles.tob}>

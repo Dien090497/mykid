@@ -21,7 +21,6 @@ import { Colors } from '../../../assets/colors/Colors';
 import Consts from '../../../functions/Consts';
 import Images from '../../../assets/Images';
 import LoadingIndicator from '../../../components/LoadingIndicator';
-import { String } from '../../../assets/strings/String';
 import { getListDeviceApi } from '../../../network/DeviceService';
 import { styles } from './styles';
 import { CheckBox } from 'react-native-elements';
@@ -88,7 +87,7 @@ const Login = ({ navigation }) => {
   const onSubmit = () => {
     if (checkbox) {
       if (!passwordTest(password)) {
-        showAlert(String.txtNotification);
+        showAlert(t('common:txtNotification'));
         return;
       }
       dispatch(Actions.actionLogin({ email, password, refLoading }));
