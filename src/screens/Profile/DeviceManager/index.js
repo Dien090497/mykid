@@ -110,6 +110,7 @@ export default function DeviceManager({navigation}) {
     setOnModal(false);
     deleteDevicesApi(idCancel, {
       success: res => {
+        getListDevice();
         console.log('deleteDevices ', res)
       },
       refLoading
