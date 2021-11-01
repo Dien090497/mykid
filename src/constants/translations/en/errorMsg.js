@@ -18,7 +18,7 @@ export default {
   kwa4029: 'Existing phone number (KWA-4029)',
   kwa4033: 'Failed to send OTP code (KWA-4033)',
   kwa4034: 'The verification code is incorrect. Please enter again(KWA-4034)',
-  kwa4035: 'Mã OTP đã hết hạn (KWA-4035)',
+  kwa4035: 'OTP code expired (KWA-4035)',
   kwa4036: 'Send OTP more than specified times. Please try again in 3 hours (KWA-4036)',
   kwa4037: 'Account is temporarily locked. Please try again in 3 hours (KWA-4036)',
   kwa4041: 'Phone number does not exist (KWA-4041)',
