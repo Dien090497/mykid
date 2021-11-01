@@ -134,6 +134,13 @@ const Login = ({ navigation }) => {
             />
             <View style={styles.ViewResetPass}>
               <View />
+              <TouchableOpacity
+                onPress={() => navigation.navigate(Consts.ScreenIds.ForgotPassword)}
+                style={{position:'absolute', left: 0}}
+              >
+                <Text
+                  style={[styles.txtRegister, {color: 'rgba(95, 95, 95, 1)'}]}>{t('common:forgotPassword')}</Text>
+              </TouchableOpacity>
               <TouchableOpacity onPress={() => navigation.navigate(Consts.ScreenIds.Register)}>
                 <Text
                   style={styles.txtRegister}>{t('common:register')}</Text>

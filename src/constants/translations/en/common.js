@@ -108,6 +108,7 @@ export default {
   //
   login: 'Login',
   register: 'Register',
+  forgotPassword: 'ForgotPassword',
   settings: 'Setting',
   connection: 'Connecting the device',
   acceptMy: 'I have read and agree to the ',

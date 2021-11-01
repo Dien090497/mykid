@@ -108,6 +108,7 @@ export default {
   //
   login: 'Đăng nhập',
   register: 'Đăng ký',
+  forgotPassword: 'Quên mật khẩu',
   settings: 'Cài đặt',
   connection: 'Kết nối thiết bị',
   acceptMy: 'Tôi đã đọc và đồng ý',
