@@ -12,8 +12,10 @@ import DataLocal from '../../data/dataLocal';
 import { saveUserDataFromToken } from '../../functions/utils';
 import { getListDeviceApi } from '../../network/DeviceService';
 import { useTranslation } from 'react-i18next';
+import NotificationModal from '../../components/NotificationModal'
 
 export default function SplashScreen() {
+  const refNotification = useRef();
   const navigation = useNavigation();
   const { t } = useTranslation();
 
@@ -32,6 +34,7 @@ export default function SplashScreen() {
           success: resData => {
             onNavigate(resData);
           },
+          refNotification
         });
       });
       console.log(token);
@@ -68,6 +71,7 @@ export default function SplashScreen() {
         }
         {/* {isLoading && <ActivityIndicator style={{marginTop: 20}} animating={true}/>} */}
       </View>
+      <NotificationModal ref={refNotification} />
     </View>
   );
 }

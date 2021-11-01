@@ -13,7 +13,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import {convertDateTimeToString, showAlert} from '../../../functions/utils';
+import {convertDateTimeToString} from '../../../functions/utils';
 import { getJourneyApi, getLocationDeviceApi } from '../../../network/DeviceService';
 
 import {Colors} from '../../../assets/colors/Colors';
@@ -26,6 +26,7 @@ import styles from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import TimePickerModal from '../../../components/TimePickerModal';
 import { useTranslation } from 'react-i18next';
+import NotificationModal from '../../../components/NotificationModal'
 
 const roundMinutes = (date = new Date()) => {
   var minute = date.getMinutes();
@@ -56,6 +57,7 @@ export default ({}) => {
   const refLoading = useRef();
   const { t } = useTranslation();
   const [openDatePicker, setOpenDatePicker] = useState(false)
+  const refNotification = useRef();
 
   const toggleModalDate = useCallback(() => {
     setOpenDatePicker(prev => !prev);
@@ -68,10 +70,10 @@ export default ({}) => {
 
   const toggleJourney = () => {
     if (fromDate.getHours() > toDate.getHours()){
-      showAlert(t('common:timeInvalidNote'));
+      refNotification.current.open(t('common:timeInvalidNote'))
       return
     }else if (fromDate.getHours() > toDate.getHours() && fromDate.getMinutes() > toDate.getMinutes()){
-      showAlert(t('common:timeInvalidNote'));
+      refNotification.current.open(t('common:timeInvalidNote'))
       return
     }
     fromDate.setMonth(date.getMonth(), date.getDate())
@@ -87,7 +89,7 @@ export default ({}) => {
       {
         success: resData => {
           if (!resData.data.content.length) {
-            showAlert(`${deviceInfo.deviceName} - ${t('common:history_empty')}`);
+            refNotification.current.open(`${deviceInfo.deviceName} - ${t('common:history_empty')}`)
           } else {
             setListSafeArea(resData.data.content);
             const {lat, lng} = resData.data.content[0].location;
@@ -101,6 +103,7 @@ export default ({}) => {
           }
         },
         refLoading: refLoading,
+        refNotification: refNotification,
       },
     );
   };
@@ -121,6 +124,7 @@ export default ({}) => {
         }
       },
       refLoading: refLoading,
+      refNotification: refNotification,
     });
   }, []);
 
@@ -247,6 +251,7 @@ export default ({}) => {
       {datePicker()}
       <TimePickerModal ref={refTime}/>
       <LoadingIndicator ref={refLoading} />
+      <NotificationModal ref={refNotification} />
     </KeyboardAvoidingView>
   );
 };

@@ -142,7 +142,7 @@ export default {
   enterNewPassword: 'Nhập mật khẩu mới',
   reEnterNewPassword: 'Nhập lại mật khẩu mới',
   changePasswordSuccess: 'Đổi mật khẩu thành công',
-  changeLangguageAndTimezone: 'Cập nhật thành công',
+  changeLanguageAndTimezone: 'Cập nhật thành công',
   currentPasswordInvalid:
     'Mật khẩu hiện tại bạn nhập không đúng định dạng (8-16 ký tự)',
   newPasswordInvalid: 'Mật khẩu mới bạn nhập không đúng định dạng (8-16 ký tự)',
@@ -252,6 +252,7 @@ export default {
 
   //RewardPoints
   rewardPoints_text: 'Bé làm 1 việc tốt,hãy thưởng bé 1 điểm',
+  sendRewards: 'Tặng thành công',
 
   //DoNotDisturb
   textAddTime: 'Thêm khoảng thời gian',

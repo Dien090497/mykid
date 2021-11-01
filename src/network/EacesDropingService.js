@@ -3,7 +3,7 @@ import {get, post} from './http/HttpClient';
 import {eacesDropUrl} from './http/ApiUrl';
 export function getPhoneApi(
   deviceId,
-  {success, failure, autoShowMsg = true, refLoading = null} = {},
+  {success, failure, autoShowMsg = true, refLoading = null, refNotification = null} = {},
 ) {
   const url = [eacesDropUrl, deviceId].join('/');
   return get(url, {
@@ -11,13 +11,14 @@ export function getPhoneApi(
     failure,
     autoShowMsg,
     refLoading,
+    refNotification,
   });
 }
 
 export function setEacesDropApi(
   deviceId,
   body,
-  {success, failure, autoShowMsg = true, refLoading = null} = {},
+  {success, failure, autoShowMsg = true, refLoading = null, refNotification = null} = {},
 )
 {
   const url = [eacesDropUrl, deviceId].join('/');
@@ -27,5 +28,6 @@ export function setEacesDropApi(
     failure,
     autoShowMsg,
     refLoading,
+    refNotification,
   });
 }

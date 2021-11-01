@@ -17,11 +17,13 @@ import SimpleToast from 'react-native-simple-toast';
 import Moment from 'moment';
 import { Colors } from '../../assets/colors/Colors';
 import { useTranslation } from 'react-i18next';
+import NotificationModal from "../../components/NotificationModal";
 
 export default ({ navigation }) => {
   const refLoading = useRef();
   const refImage = useRef();
   const refConfirm = useRef();
+  const refNotification = useRef();
   const [isSetting, setIsSetting] = useState(false);
   let sheet = null;
   const [selectItem, setSelectItem] = useState(null);
@@ -46,6 +48,7 @@ export default ({ navigation }) => {
           setData(res.data);
         },
         refLoading,
+        refNotification,
       },
     );
   };
@@ -81,6 +84,7 @@ export default ({ navigation }) => {
             getListImage();
           },
           refLoading,
+          refNotification,
         });
     });
   };
@@ -95,6 +99,7 @@ export default ({ navigation }) => {
           SimpleToast.show(t('common:fail'));
         },
         refLoading,
+        refNotification,
       },
     );
   };
@@ -119,6 +124,7 @@ export default ({ navigation }) => {
                 getListImage();
               },
               refLoading,
+              refNotification,
             });
         });
         break;
@@ -235,6 +241,7 @@ export default ({ navigation }) => {
       <PreViewImage ref={refImage} />
       <ModalConfirm ref={refConfirm} />
       <LoadingIndicator ref={refLoading} />
+      <NotificationModal ref={refNotification} />
     </View>
   );
 };

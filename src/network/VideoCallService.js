@@ -1,28 +1,27 @@
 import {post} from './http/HttpClient';
 
-import Consts from '../functions/Consts';
-import {createVideoCalllUrl} from './http/ApiUrl';
+import {createVideoCallUrl} from './http/ApiUrl';
 
-export function createVideoCalllApi(
+export function createVideoCallApi(
   body,
-  {success, failure, autoShowMsg = true, refLoading = null} = {},
+  {success, failure, autoShowMsg = true, refLoading = null, refNotification = null} = {},
 ) {
-  const url = [createVideoCalllUrl].join('/');
-  return post(url, {body, success, failure, autoShowMsg, refLoading});
+  const url = [createVideoCallUrl].join('/');
+  return post(url, {body, success, failure, autoShowMsg, refLoading, refNotification});
 }
-export function finishVideoCalllApi(
+export function finishVideoCallApi(
   body,
   id,
-  {success, failure, autoShowMsg = true, refLoading = null} = {},
+  {success, failure, autoShowMsg = true, refLoading = null, refNotification = null} = {},
 ) {
-  const url = [createVideoCalllUrl, id, 'finish'].join('/');
-  return post(url, {body, success, failure, autoShowMsg, refLoading});
+  const url = [createVideoCallUrl, id, 'finish'].join('/');
+  return post(url, {body, success, failure, autoShowMsg, refLoading, refNotification});
 }
 export function rejectVideoCallApi(
   body,
   id,
-  {success, failure, autoShowMsg = true, refLoading = null} = {},
+  {success, failure, autoShowMsg = true, refLoading = null, refNotification = null} = {},
 ) {
-  const url = [createVideoCalllUrl, id, 'reject'].join('/');
-  return post(url, {body, success, failure, autoShowMsg, refLoading});
+  const url = [createVideoCallUrl, id, 'reject'].join('/');
+  return post(url, {body, success, failure, autoShowMsg, refLoading, refNotification});
 }

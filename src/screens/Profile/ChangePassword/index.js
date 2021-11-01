@@ -7,17 +7,19 @@ import {
   TouchableOpacity,
   Text
 } from 'react-native';
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect, useRef, useState } from "react";
 import { changePasswordApi } from '../../../network/UserInfoService';
-import { passwordTest, saveUserDataFromToken, showAlert } from '../../../functions/utils';
+import { passwordTest, saveUserDataFromToken } from '../../../functions/utils';
 
 import { Colors } from '../../../assets/colors/Colors';
 import CustomInput from '../../../components/inputRegister';
 import { styles } from './styles';
 import {ScaleHeight} from '../../../functions/Consts';
 import { useTranslation } from 'react-i18next';
+import NotificationModal from '../../../components/NotificationModal'
 
 const ChangePassword = ({ navigation }) => {
+  const refNotification = useRef();
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [newPasswordConfirm, setNewPasswordConfirm] = useState('');
@@ -34,19 +36,19 @@ const ChangePassword = ({ navigation }) => {
   const onSubmit = () => {
     if (!submitActive) return;
     if (!passwordTest(currentPassword)) {
-      showAlert(('common:currentPasswordInvalid'));
+      refNotification.current.open(t('common:currentPasswordInvalid'));
       return;
     }
     if (!passwordTest(newPassword)) {
-      showAlert(('common:newPasswordInvalid'));
+      refNotification.current.open(t('common:newPasswordInvalid'));
       return;
     }
     if (newPassword !== newPasswordConfirm) {
-      showAlert(('common:passwordConfirmInvalid'));
+      refNotification.current.open(t('common:passwordConfirmInvalid'));
       return;
     }
     if (newPassword === currentPassword) {
-      showAlert(('common:passwordDuplicated'));
+      refNotification.current.open(t('common:passwordDuplicated'));
       return;
     }
 
@@ -55,14 +57,13 @@ const ChangePassword = ({ navigation }) => {
         if (resData.data.token) {
           saveUserDataFromToken(resData.data.token);
         }
-        showAlert(('common:changePasswordSuccess'), {
-          close: () => {
-            navigation.goBack();
-          },
+        refNotification.current.open(t('common:changePasswordSuccess'),()=>{
+          navigation.goBack();
         });
       },
       failure: _ => {
-      }
+      },
+      refNotification: refNotification,
     }).then();
   };
   return (
@@ -124,6 +125,7 @@ const ChangePassword = ({ navigation }) => {
           </View>
         </View>
       </TouchableWithoutFeedback>
+      <NotificationModal ref={refNotification}/>
     </KeyboardAvoidingView>
   );
 };

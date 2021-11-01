@@ -19,15 +19,16 @@ import {
 } from '../../../network/LanguageTimeZoneService';
 import RadioGroup from '../../../components/RadioGroup';
 import {WheelPicker} from 'react-native-wheel-picker-android';
-import {showAlert} from '../../../functions/utils';
 import { useTranslation } from 'react-i18next';
+import NotificationModal from '../../../components/NotificationModal';
 
 export default function LanguageTimeZone({navigation, route}) {
   const refLoading = useRef();
+  const refNotification = useRef();
   const [timeZoneSelect, setTimeZoneSelect] = useState(0);
-  const [numberLangguages, setNumberLanguage] = useState();
+  const [numberLanguages, setNumberLanguage] = useState();
   const [languageConfirm, setLanguageConfirm] = useState();
-  const [listLangguages, setListLanguage] = useState([]);
+  const [listLanguages, setListLanguage] = useState([]);
   const [check, setCheck] = useState(false);
   const refRadioGroup = useRef();
   const { t } = useTranslation();
@@ -38,11 +39,11 @@ export default function LanguageTimeZone({navigation, route}) {
   }, []);
 
   useEffect(() => {
-    if (languageConfirm && listLangguages) {
-      const index = listLangguages.findIndex(val => val === languageConfirm);
+    if (languageConfirm && listLanguages) {
+      const index = listLanguages.findIndex(val => val === languageConfirm);
       setNumberLanguage(index);
     }
-  }, [languageConfirm, listLangguages]);
+  }, [languageConfirm, listLanguages]);
 
   const  getLanguageTimeZone = () => {
     getLanguageTimeZoneApi(DataLocal.deviceId, {
@@ -51,6 +52,7 @@ export default function LanguageTimeZone({navigation, route}) {
         setTimeZoneSelect(res.data.timeZone);
         refRadioGroup.current.updateView(res.data.timeZone);
       },
+      refNotification: refNotification,
     });
   }
 
@@ -60,6 +62,7 @@ export default function LanguageTimeZone({navigation, route}) {
         setListLanguage(res.data);
       },
       refLoading: refLoading,
+      refNotification: refNotification,
     });
   }
 
@@ -76,16 +79,17 @@ export default function LanguageTimeZone({navigation, route}) {
       },
       {
         success: res => {
-          showAlert(t('common:changeLangguageAndTimezone'));
+          refNotification.current.open(t('common:changeLanguageAndTimezone'))
         },
         refLoading: refLoading,
+        refNotification: refNotification,
       },
     );
   };
 
-  const onCornfirm = () => {
-    if (numberLangguages !== undefined) {
-      setLanguageConfirm(listLangguages[numberLangguages]);
+  const onConfirm = () => {
+    if (numberLanguages !== undefined) {
+      setLanguageConfirm(listLanguages[numberLanguages]);
     }
     setCheck(false);
   }
@@ -136,20 +140,20 @@ export default function LanguageTimeZone({navigation, route}) {
       >
         <View style={styles.modalView}>
           <TouchableOpacity style={styles.modalViewTob} onPress={outConfirm}/>
-          <View style={styles.wheelPickkerView}>
+          <View style={styles.wheelPickerView}>
             <View style={styles.tobWheel}>
                <TouchableOpacity style={styles.confirmView}
-                  onPress={onCornfirm}
+                  onPress={onConfirm}
                >
                     <Text style={styles.textConfirm}>{t('common:confirm')}</Text>
                </TouchableOpacity>
             </View>
             <WheelPicker
-                    data={listLangguages}
+                    data={listLanguages}
                     style={styles.wheel}
                     selectedItemTextSize={20}
-                    initPosition={numberLangguages}
-                    selectedItem={numberLangguages}
+                    initPosition={numberLanguages}
+                    selectedItem={numberLanguages}
                     selectedItemTextFontFamily={'Roboto'}
                     itemTextFontFamily={'Roboto'}
                     onItemSelected={onItemSelected}
@@ -158,6 +162,7 @@ export default function LanguageTimeZone({navigation, route}) {
         </View>
       </Modal>
       <LoadingIndicator ref={refLoading} />
+      <NotificationModal ref={refNotification} />
     </View>
   );
 }

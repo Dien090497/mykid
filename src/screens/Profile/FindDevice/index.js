@@ -11,21 +11,23 @@ import Images from '../../../assets/Images';
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import { findWatchsApi } from '../../../network/UserInfoService';
 import DataLocal from '../../../data/dataLocal';
-import { showAlert } from '../../../functions/utils';
 import { useTranslation } from 'react-i18next';
+import NotificationModal from '../../../components/NotificationModal';
 
 export default function FindDevice({navigation}) {
   const refLoading = useRef();
+  const refNotification = useRef();
   const { t } = useTranslation();
 
   const handleFindDevice = async () => {
     await findWatchsApi(DataLocal.deviceId, {
       success: resData => {
         if (resData.data) {
-          showAlert(t('common:sendRequestSuccess'));
+          refNotification.current.open(t('common:sendRequestSuccess'))
         }
       },
       refLoading,
+      refNotification,
     });
   };
 
@@ -52,6 +54,7 @@ export default function FindDevice({navigation}) {
         </TouchableOpacity>
       </View>
       <LoadingIndicator ref={refLoading} />
+      <NotificationModal ref={refNotification} />
     </View>
   );
 }

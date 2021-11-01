@@ -1,9 +1,9 @@
-import {get, post, put, upload} from './http/HttpClient';
+import {get, upload} from './http/HttpClient';
 import {PersonalDataUrl} from "./http/ApiUrl";
 import {Platform} from "react-native";
 
 export function getPersonalDataApi (
-  {success, failure, autoShowMsg = true, refLoading = null} = {},
+  {success, failure, autoShowMsg = true, refLoading = null, refNotification = null} = {},
 ) {
   const url = [PersonalDataUrl].join('/');
   return get(url, {
@@ -11,6 +11,7 @@ export function getPersonalDataApi (
     failure,
     autoShowMsg,
     refLoading,
+    refNotification,
   });
 }
 export function updatePersonalDataApi(
@@ -19,7 +20,7 @@ export function updatePersonalDataApi(
   file,
   gender,
   name,
-  {success, failure, autoShowMsg = true, refLoading = null} = {},
+  {success, failure, autoShowMsg = true, refLoading = null, refNotification = null} = {},
 ) {
   const formData = new FormData();
   if (contact !== null ) {formData.append("contact", contact);}
@@ -35,5 +36,5 @@ export function updatePersonalDataApi(
   }
 
   const url = [PersonalDataUrl].join('/');
-  return upload(url, formData, {success, failure, autoShowMsg, refLoading});
+  return upload(url, formData, {success, failure, autoShowMsg, refLoading, refNotification});
 }

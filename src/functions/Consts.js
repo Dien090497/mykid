@@ -1,6 +1,5 @@
 import {Dimensions, StatusBar} from 'react-native';
 import {RFPercentage, RFValue} from 'react-native-responsive-fontsize';
-import InforKits from "../screens/Home/InfoKids";
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight =

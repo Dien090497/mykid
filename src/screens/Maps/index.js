@@ -7,12 +7,12 @@ import {
 } from 'react-native';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import React, {useEffect, useRef, useState} from 'react';
-import {convertDateTimeToString, showAlert} from '../../functions/utils.js';
+import {convertDateTimeToString} from '../../functions/utils.js';
 import {
   getListDeviceApi,
   getLocationDeviceApi,
 } from '../../network/DeviceService';
-
+import NotificationModal from '../../components/NotificationModal';
 import {Colors} from '../../assets/colors/Colors';
 import DataLocal from '../../data/dataLocal';
 import Header from '../../components/Header';
@@ -40,6 +40,7 @@ const initialRegion = {
 export default ({navigation, route}) => {
   const refMap = useRef(null);
   const refLoading = useRef(null);
+  const refNotification = useRef(null);
   const [locationDevice, setLocationDevice] = useState(null);
   const [infoDevice, setInfoDevice] = useState(null);
   const { t } = useTranslation();
@@ -55,6 +56,7 @@ export default ({navigation, route}) => {
             setInfoDevice(device);
           },
           // refLoading: refLoading,
+          refNotification: refNotification,
         });
       }
       getLocationDeviceApi(DataLocal.deviceId, {
@@ -72,6 +74,7 @@ export default ({navigation, route}) => {
           }
         },
         refLoading: refLoading,
+        refNotification: refNotification,
       });
     } catch (error) {}
   };
@@ -79,11 +82,9 @@ export default ({navigation, route}) => {
   useEffect(() => {
     if (DataLocal.deviceId) getLocationDevice();
     else {
-      showAlert(t('errorMsg:updateDeviceDefault'), {
-        close: () => {
-          navigation.replace(Consts.ScreenIds.DeviceManager);
-        },
-      });
+      refNotification.current.open(t('errorMsg:updateDeviceDefault',()=>{
+        navigation.replace(Consts.ScreenIds.DeviceManager);
+      }))
     }
   }, []);
 
@@ -170,6 +171,7 @@ export default ({navigation, route}) => {
         </TouchableOpacity>
       </View>
       <LoadingIndicator ref={refLoading} />
+      <NotificationModal ref={refNotification } />
     </View>
   );
 };
