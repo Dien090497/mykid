@@ -93,6 +93,10 @@ export default class XmppClient {
     return this.lstMsg[this.currentRoomId];
   }
 
+  static cleanCurrentHistory() {
+    this.lstMsg[this.currentRoomId] = [];
+  }
+
   static async sendMessage(typeMsg, msg) {
     //typeMsg: text | audio | image
     const content = [typeMsg, msg].join(':');

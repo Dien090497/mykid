@@ -16,6 +16,7 @@ import LoadingIndicator from '../../../components/LoadingIndicator';
 import Consts, {ScaleHeight} from '../../../functions/Consts';
 import {styles} from './styles';
 import { useTranslation } from 'react-i18next';
+import XmppClient from '../../../network/xmpp/XmppClient';
 
 export default function DeleteMessage({navigation}) {
   const refLoading = useRef();
@@ -175,7 +176,10 @@ export default function DeleteMessage({navigation}) {
                 <View style={styles.TobOpacity}>
                   <TouchableOpacity
                     style={[styles.smallButton, {backgroundColor: Colors.red}]}
-                    onPress={() => navigation.navigate(Consts.ScreenIds.Chat)}
+                    onPress={() => {
+                      XmppClient.cleanCurrentHistory();
+                      navigation.navigate(Consts.ScreenIds.Chat);
+                    }}
                   >
                     <Text
                       style={[styles.smallButtonText, {color: Colors.white}]}>
