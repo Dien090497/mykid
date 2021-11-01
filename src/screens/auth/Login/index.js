@@ -160,7 +160,7 @@ const Login = ({ navigation }) => {
               <Text style={styles.txt_Policy}>{t('common:acceptMy')}
                 <Text> </Text>
                 <Text style={styles.txtPolicy} onPress={() => console.log('hello')}>{t('common:agreement')}</Text>
-                <Text> </Text>
+                <Text>{'\n'}</Text>
                 <Text style={styles.txtPolicy}
                       onPress={() => console.log('Chính sách bảo mật')}>{t('common:privacyPolicy')}</Text>
               </Text>
