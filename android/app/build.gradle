@@ -185,6 +185,7 @@ android {
 dependencies {
     implementation project(":rncamerakit")
     implementation project(":react-native-audio")
+    implementation project(":react-native-audio-recorder-player")
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
