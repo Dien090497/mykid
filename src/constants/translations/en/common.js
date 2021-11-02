@@ -303,4 +303,11 @@ export default {
   txtForgotPassWord1: '1.Xin vui lòng nhập số điện thoại hợp lệ để nhận mã xác minh.',
   txtForgotPassWord2: '2. Nhập xác nhận thiết lập lại mật khẩu mã xác minh là  thành công.',
   inputTxt: 'Vui lòng nhập số điện thoại của bạn',
+
+  //Warning
+  txtSOS: ' is in an emergency. Please attention.',
+  txtOutSafeZone: ' is out of the safe zone. Please check on the app',
+  txtInSafeZone: ' has entered the safe zone. Please check on the app',
+  txtFullBattery: 'The watch is fully charged. Please remove the charger',
+  txtLowBattery: 'Low battery warning',
 };
