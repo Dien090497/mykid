@@ -36,9 +36,17 @@ export default class WebSocketVideoCall {
       this.onError(error);
     };
     this.ws.onclose = () =>
-      this.reconnect
-        ? this._handleWebSocketSetup()
-        : this.onClose();
+      this.onClose();
+  };
+
+  static ping = async () => {
+    console.log('WebSocketVideoCall Ping');
+    await this.ws.send(encoder.encode('').buffer, true);
+    setTimeout(() => {
+      if (this.reconnect) {
+        this.ping();
+      }
+    }, 3000)
   };
 
   static onOpen = async () => {
@@ -60,6 +68,8 @@ export default class WebSocketVideoCall {
       'content-length:0\n' +
       '\n\0';
     await this.ws.send(encoder.encode(command).buffer, true);
+    
+    this.ping();
   };
 
   static onClose = () => {

@@ -19,12 +19,13 @@ import { useTranslation } from 'react-i18next';
 import NotificationModal from "../../../components/NotificationModal";
 import XmppClient from '../../../network/xmpp/XmppClient';
 
-export default function DeleteMessage({navigation}) {
+export default function DeleteMessage({navigation, route}) {
   const refLoading = useRef();
   const refNotification = useRef();
   const [listMember, setListMember] = useState([]);
   const [loading, setLoading] = useState(false);
   const [onModal, setOnModal] = useState(false);
+  const [roomInfo, setRoomInfo] = useState(route.params.roomInfo);
   const { t } = useTranslation();
 
   const dataMock = [
@@ -71,8 +72,12 @@ export default function DeleteMessage({navigation}) {
   ];
 
   useLayoutEffect(() => {
-    getListDevice();
+    setRoomInfo(route.params.roomInfo);
   }, []);
+
+  useLayoutEffect(() => {
+    getListDevice();
+  }, [roomInfo]);
 
   const refesh = React.useCallback(async () => {
     setLoading(true);
@@ -81,7 +86,7 @@ export default function DeleteMessage({navigation}) {
   }, []);
 
   const getListDevice = () => {
-    getListDeviceApi(null, 0, 100, DataLocal.deviceId, 'ACTIVE', {
+    getListDeviceApi(null, 0, 100, roomInfo.deviceId, 'ACTIVE', {
       success: res => {
         setListMember(res.data);
       },
@@ -131,7 +136,7 @@ export default function DeleteMessage({navigation}) {
 
   return (
     <View style={styles.containerView}>
-      <Header title={`${t('common:familyGroupInformation')} (${listMember.length})`}/>
+      <Header title={`${t('common:familyGroupInformation')} (${roomInfo ? roomInfo.deviceName : ''})`}/>
       <View style={styles.flatListContainer}>
         <FlatList
           data={[...listMember, {relationship: 'DELETE'}]}

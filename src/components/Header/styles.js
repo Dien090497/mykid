@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     fontSize: FontSize.medium,
     fontFamily: 'Roboto-Bold',
     color: Colors.white,
-    width: '110%',
+    width: '130%',
     marginTop: 3,
     textAlign: 'center'
   },

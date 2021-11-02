@@ -48,14 +48,13 @@ import AlarmSetting from '../screens/Profile/AlarmClock/AlarmSetting';
 import SplashScreen from '../screens/Splash';
 import PersonalData from '../screens/Profile/PersonalData';
 import Warning from '../screens/Warning'
-import WS from './WebScoket';
 import {createStackNavigator} from '@react-navigation/stack';
 import LanguageTimeZone from '../screens/Profile/LanguageTimeZone';
 import OffDevice from '../screens/Settings/OffDevice';
 import StartDevice from '../screens/Settings/RestartDevice';
 import EditDevice from '../screens/Profile/DeviceManager/EditDevice'
 import InfoKits from '../screens/Home/InfoKids';
-import  ForgotPassword from '../screens/auth/ForgotPassword';
+import ForgotPassword from '../screens/auth/ForgotPassword';
 import UpdatePassword from '../screens/auth/ForgotPassword/UpdatePassword';
 import { useTranslation } from 'react-i18next';
 const Tab = createBottomTabNavigator();
@@ -160,10 +159,7 @@ const Auth = () => {
       <Stack.Screen name={Consts.ScreenIds.Login} component={Login} />
       <Stack.Screen name={Consts.ScreenIds.Register} component={Register} />
       <Stack.Screen name={Consts.ScreenIds.ForgotPassword} component={ForgotPassword} />
-      <Stack.Screen
-        name={Consts.ScreenIds.ConnectionScreen}
-        component={ConnectionScreen}
-      />
+      <Stack.Screen name={Consts.ScreenIds.ConnectionScreen} component={ConnectionScreen} />
       <Stack.Screen
         name={Consts.ScreenIds.AddDeviceScreen}
         component={AddDeviceScreen}
@@ -208,6 +204,7 @@ const Routes = () => {
         <Stack.Screen name={Consts.ScreenIds.Tabs} component={TabBarBottom} />
         <Stack.Screen name={Consts.ScreenIds.Auth} component={Auth} />
         <Stack.Screen name={Consts.ScreenIds.Login} component={Login} />
+        <Stack.Screen name={Consts.ScreenIds.ForgotPassword} component={ForgotPassword} />
         <Stack.Screen
           name={Consts.ScreenIds.ConnectionScreen}
           component={ConnectionScreen}
