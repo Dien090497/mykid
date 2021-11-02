@@ -116,7 +116,7 @@ export default {
   agreement: 'Thỏa thuận của người dùng.',
   privacyPolicy: 'Chính sách bảo mật',
   registrationConfirmation: 'Xác nhận đăng ký',
-  txtNotification: 'Nhập mật khẩu gồm 8-16 ký tự',
+  txtNotification: 'Mật khẩu phải có độ dài từ 6 đến 20 ký tự bao gồm cả chữ và số',
   errorGmail: 'Lỗi định dạng ',
   errorNameArea: 'Vui lòng nhập tên vùng',
   errorLocationArea: 'Vui lòng chọn một vị trí trên bản đồ làm vùng an toàn',
@@ -303,4 +303,10 @@ export default {
   txtForgotPassWord1: '1.Xin vui lòng nhập số điện thoại hợp lệ để nhận mã xác minh.',
   txtForgotPassWord2: '2. Nhập xác nhận thiết lập lại mật khẩu mã xác minh là  thành công.',
   inputTxt: 'Vui lòng nhập số điện thoại của bạn',
+  txtContinue : 'Tiếp tục',
+  getCode: 'Lấy mã',
+  successPassword: 'Cập nhật mật khẩu thành công',
+  newPassword: 'Nhập mật khẩu mới',
+  isNewPassword: 'Nhập lại mật khẩu mới',
+  updatePassword: 'Cập nhật mật khẩu'
 };

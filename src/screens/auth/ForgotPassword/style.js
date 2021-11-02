@@ -1,7 +1,7 @@
 import {StyleSheet, Dimensions} from 'react-native';
 import {FontSize, ScaleHeight} from '../../../functions/Consts';
 import {Colors} from '../../../assets/colors/Colors';
-const { width } = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
   container: {
@@ -9,12 +9,12 @@ export const styles = StyleSheet.create({
   },
   Sty_txt: {
     marginTop: 25,
-    width: width* 0.9,
+    width: width * 0.9,
     flexDirection: 'row',
     marginVertical: 15,
     alignItems: 'center',
     borderRadius: 10,
-    height: ScaleHeight.medium *1.2,
+    height: ScaleHeight.medium * 1.2,
     borderWidth: 1,
     borderColor: Colors.borderInputText,
   },
@@ -23,6 +23,7 @@ export const styles = StyleSheet.create({
     width: width * 0.88,
     height: ScaleHeight.medium,
     marginLeft: 10,
+    fontSize: FontSize.small
   },
   viewInput: {
     width: '75%',
@@ -33,7 +34,7 @@ export const styles = StyleSheet.create({
     height: ScaleHeight.medium * 1.2,
   },
   viewOtp: {
-    width: width* 0.9,
+    width: width * 0.9,
     flexDirection: 'row',
     marginVertical: 15,
     alignItems: 'center',
@@ -49,23 +50,23 @@ export const styles = StyleSheet.create({
     marginLeft: '2%'
   },
   text: {
-    fontSize: 12,
+    fontSize: FontSize.small,
     fontWeight: '400',
     fontStyle: 'normal',
     color: 'rgba(128, 128, 128, 1)'
   },
-  btnSubmit:{
+  btnSubmit: {
     backgroundColor: Colors.colorMain,
-    borderRadius:10,
-    alignItems:'center',
-    justifyContent:'center',
-    height: ScaleHeight.medium,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: ScaleHeight.medium * 1.2,
     width: '90%',
-    marginTop: ScaleHeight.small* 1.5,
+    marginTop: ScaleHeight.small * 1.5,
   },
-  textSubmit:{
-    fontFamily:'Roboto-Medium',
-    fontSize:FontSize.small,
+  textSubmit: {
+    fontFamily: 'Roboto-Medium',
+    fontSize: FontSize.small,
     color: Colors.white
   },
 });
