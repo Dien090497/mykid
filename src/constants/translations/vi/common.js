@@ -303,6 +303,14 @@ export default {
   txtForgotPassWord1: '1.Xin vui lòng nhập số điện thoại hợp lệ để nhận mã xác minh.',
   txtForgotPassWord2: '2. Nhập xác nhận thiết lập lại mật khẩu mã xác minh là  thành công.',
   inputTxt: 'Vui lòng nhập số điện thoại của bạn',
+
+  //Warning
+  txtSOS: ' đang trong tình trạng khẩn cấp. Bạn vui lòng chú ý theo dõi',
+  txtOutSafeZone: ' đã ra khỏi vùng an toàn. Vui lòng kiểm tra trên ứng dụng',
+  txtInSafeZone: ' đã đi vào vùng an toàn. Vui lòng kiểm tra trên ứng dụng',
+  txtFullBattery: 'Đồng hồ đã sạc đầy. Vui lòng tháo sạc',
+  txtLowBattery: 'Cảnh báo Pin yếu',
+  
   txtContinue : 'Tiếp tục',
   getCode: 'Lấy mã',
   successPassword: 'Cập nhật mật khẩu thành công',

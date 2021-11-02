@@ -310,5 +310,10 @@ export default {
   isNewPassword: 'Re-enter a new password',// to do
   updatePassword: 'Update password',
 
-
+  //Warning
+  txtSOS: ' is in an emergency. Please attention.',
+  txtOutSafeZone: ' is out of the safe zone. Please check on the app',
+  txtInSafeZone: ' has entered the safe zone. Please check on the app',
+  txtFullBattery: 'The watch is fully charged. Please remove the charger',
+  txtLowBattery: 'Low battery warning',
 };
