@@ -1,5 +1,3 @@
-import * as Actions from '../../redux/actions';
-
 import {appUrl, refreshTokenUrl} from './ApiUrl';
 import {
   generateRandomId,
@@ -7,14 +5,13 @@ import {
   showLoading,
 } from '../../functions/utils';
 
-import Consts from '../../functions/Consts';
 import DataLocal from '../../data/dataLocal';
 import errorMsg from "../../constants/translations/vi/errorMsg";
 import {Platform} from 'react-native';
 import {RETRY_HTTP_REQUEST_NUMBER} from '../../data/AppConfig';
 import axios from 'axios';
-import reduxStore from '../../redux/config/redux';
 import i18next from 'i18next';
+import SimpleToast from "react-native-simple-toast";
 
 const TIMEOUT_CONNECT = 60000;
 
@@ -253,7 +250,11 @@ async function handleResp(response, autoShowMsg, success, failure, refLoading, r
       err = response.error;
     }
     if (autoShowMsg) {
-      refNotification.current.open(err)
+      if (refNotification) {
+        refNotification.current.open(err);
+      } else {
+       SimpleToast.show(err);
+      }
     }
     if (failure) {
       failure(err);
@@ -278,7 +279,8 @@ async function handleResp(response, autoShowMsg, success, failure, refLoading, r
       }
 
       if (autoShowMsg) {
-        refNotification.current.open(i18next.t('errorMsg:TOKEN_EXPIRED_MSG'));
+        if (refNotification) refNotification.current.open(i18next.t('errorMsg:TOKEN_EXPIRED_MSG'));
+        else SimpleToast.show(i18next.t('errorMsg:TOKEN_EXPIRED_MSG'));
       }
       if (failure) {
         failure(i18next.t('errorMsg:TOKEN_EXPIRED_MSG'));
@@ -293,7 +295,9 @@ async function handleResp(response, autoShowMsg, success, failure, refLoading, r
       console.log('error KWS-4001');
     }
     else if (autoShowMsg) {
-      refNotification.current.open(err);
+      if (refNotification) refNotification.current.open(err);
+      else SimpleToast.show(err);
+
     }
 
     if (failure) {
@@ -327,11 +331,13 @@ async function checkRefreshToken(headers, refLoading, refNotification) {
 export const refreshUserToken = async (refLoading = null, refNotification = null) => {
   const resp = await get(refreshTokenUrl, {refLoading});
   if (!resp.success) {
-    refNotification.current.open(i18next.t('errorMsg:clientServerCommunicationProb'));
+    if (refNotification) refNotification.current.open(i18next.t('errorMsg:clientServerCommunicationProb'));
+    else SimpleToast.show(i18next.t('errorMsg:clientServerCommunicationProb'));
   } else {
     const resData = resp.success.data;
     if (!resData || !resData.token) {
-      refNotification.current.open(i18next.t('errorMsg:clientServerCommunicationProb'));
+      if (refNotification) refNotification.current.open(i18next.t('errorMsg:clientServerCommunicationProb'));
+      else SimpleToast.show(i18next.t('errorMsg:clientServerCommunicationProb'));
     } else {
     }
   }
@@ -353,19 +359,11 @@ function checkFailure(result, refNotification) {
   const code = meta.code.toLowerCase().split('-').join('');
 
   if (Object.keys(errorMsg).includes(code)) {
-    return refNotification.current.open(i18next.t('errorMsg:'+code));
-    // return ErrorMsg[code];
+    if (refNotification) return refNotification.current.open(i18next.t('errorMsg:'+code));
+    else return SimpleToast.show(i18next.t('errorMsg:'+code));
   }
 
   return i18next.t('errorMsg:UNEXPECTED_ERROR_MSG') + ' (' + meta.code + ')';
-}
-
-export function anonymousLogin(refLoading = null) {
-  reduxStore.store.dispatch(Actions.actionLogin({
-    email: Consts.anonymousAccount,
-    password: Consts.anonymousPassword,
-    refLoading: refLoading,
-  }));
 }
 
 export default client;
