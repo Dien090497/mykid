@@ -87,15 +87,15 @@ export function createAndLogin(data, { success, failure, autoShowMsg = true, ref
 }
 
 export function getOtpResettingApi(
-  phone, { success, failure, autoShowMsg = true, refLoading = null } = {}) {
+  phone, { success, failure, autoShowMsg = true, refLoading = null, refNotification = null } = {}) {
   let body = {
     phone
   }
-  return post(getOtpReset, {body, autoShowMsg, success, failure, refLoading});
+  return post(getOtpReset, {body, autoShowMsg, success, failure, refLoading, refNotification});
 }
 
 export function getVerificationOtpApi(
-  data, { success, failure, autoShowMsg = true, refLoading = null } = {}) {
+  data, { success, failure, autoShowMsg = true, refLoading = null, refNotification = null } = {}) {
   let body = {
     phone: data.phone,
   };
@@ -104,7 +104,7 @@ export function getVerificationOtpApi(
     "Content-type": "application/json",
     "X-OTP-Code": data.otp
   }
-  return post(getVerificationOtp, {body, headers, autoShowMsg, success, failure, refLoading});
+  return post(getVerificationOtp, {body, headers, autoShowMsg, success, failure, refLoading, refNotification});
 }
 
 export function UpdatePasswordApi(data , { success, failure, autoShowMsg = true, refLoading = null, refNotification = null }) {

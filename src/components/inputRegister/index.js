@@ -34,13 +34,13 @@ const CustomInput = (navigation) => {
             color: "#000000",
             width: width * 0.88,
             height: ScaleHeight.medium,
-            marginLeft: 10
+            marginLeft: 10,
           }}
           disableFullscreenUI
           value={value || ""}
         />
         {
-          icon && <TouchableOpacity onPress={onChange} style={{position: 'absolute', right: 5}}>
+          icon && <TouchableOpacity onPress={onChange} style={{position: 'absolute', right: 10}}>
             <Image
               style={{...styles.Sty_iconShow}}
               source={secureTextEntry ? Images.icView : Images.icPrivate}/>
