@@ -18,6 +18,7 @@ import Moment from 'moment';
 import { Colors } from '../../assets/colors/Colors';
 import { useTranslation } from 'react-i18next';
 import NotificationModal from "../../components/NotificationModal";
+import { checkPhotoLibraryWritePermission } from "../../functions/permissions";
 
 export default ({ navigation }) => {
   const refLoading = useRef();
@@ -129,7 +130,10 @@ export default ({ navigation }) => {
         });
         break;
       case 1:
-        saveImage(selectItem.url);
+        const photosGranted = await checkPhotoLibraryWritePermission();
+        if (photosGranted){
+          saveImage(selectItem.url);
+        }
         break;
     }
   };

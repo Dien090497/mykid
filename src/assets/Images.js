@@ -59,6 +59,7 @@ export default {
   icMap: require('./images/home/ic_map.png'),
   bgHome: require('./images/home/bg_home.png'),
   icShow: require('./images/ic_show.png'),
+  icWarning: require('./images/home/ic_warning.png'),
 
   //RewardPoints
   icAdd: require('./images/rewardoints/ic_add.png'),
