@@ -109,6 +109,7 @@ export default {
   //
   login: 'Đăng nhập',
   register: 'Đăng ký',
+  forgotPassword: 'Quên mật khẩu',
   settings: 'Cài đặt',
   connection: 'Kết nối thiết bị',
   acceptMy: 'Tôi đã đọc và đồng ý',
@@ -131,7 +132,7 @@ export default {
   error_message:
     'Vui lòng đọc thỏa thuận người dùng, chính sách bảo mật và chọn đồng ý',
   error_pass: 'Mật khẩu không khớp, vui lòng kiểm tra lại',
-  error_pass1: 'Mật khẩu phải có độ dài từ 6 đến 20 ký tự',
+  error_pass1: 'Mật khẩu phải có độ dài từ 6 đến 20 ký tự bao gồm cả chữ và số',
   error_phone: 'Sai định dạng số điện thoại',
   error_otp: 'Mã xác minh phải có độ dài 6 số',
   error_otp1: 'Bạn vui lòng nhập mã xác minh',
@@ -296,5 +297,10 @@ export default {
   female: 'Nữ',
   error_info: 'Chiều cao và cân nặng luôn lớn hơn 0',
   error_birthday: 'Ngày sinh của bé khộng hợp lệ',
-  errorName: 'Tên bé không được để trống'
+  errorName: 'Tên bé không được để trống',
+
+  //ForgotPassWord
+  txtForgotPassWord1: '1.Xin vui lòng nhập số điện thoại hợp lệ để nhận mã xác minh.',
+  txtForgotPassWord2: '2. Nhập xác nhận thiết lập lại mật khẩu mã xác minh là  thành công.',
+  inputTxt: 'Vui lòng nhập số điện thoại của bạn',
 };

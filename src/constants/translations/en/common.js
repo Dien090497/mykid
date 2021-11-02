@@ -109,6 +109,7 @@ export default {
   //
   login: 'Login',
   register: 'Register',
+  forgotPassword: 'ForgotPassword',
   settings: 'Setting',
   connection: 'Connecting the device',
   acceptMy: 'I have read and agree to the ',
@@ -296,5 +297,10 @@ export default {
   female: 'Female',
   error_info: 'Height and weight are always greater than 0',
   errorName: 'Baby name cannot be blank',
-  error_birthday: 'Ngày sinh của bé không hợp lệ'
+  error_birthday: 'Ngày sinh của bé không hợp lệ',
+
+  //ForgotPassWord
+  txtForgotPassWord1: '1.Xin vui lòng nhập số điện thoại hợp lệ để nhận mã xác minh.',
+  txtForgotPassWord2: '2. Nhập xác nhận thiết lập lại mật khẩu mã xác minh là  thành công.',
+  inputTxt: 'Vui lòng nhập số điện thoại của bạn',
 };

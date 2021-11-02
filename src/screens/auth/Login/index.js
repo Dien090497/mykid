@@ -137,8 +137,14 @@ const Login = ({ navigation }) => {
               style={styles.textInput}
             />
             <View style={styles.ViewResetPass}>
-              <View >
-              </View>
+              <View />
+              <TouchableOpacity
+                onPress={() => navigation.navigate(Consts.ScreenIds.ForgotPassword)}
+                style={{position:'absolute', left: 0}}
+              >
+                <Text
+                  style={[styles.txtRegister, {color: 'rgba(95, 95, 95, 1)'}]}>{t('common:forgotPassword')}</Text>
+              </TouchableOpacity>
               <TouchableOpacity onPress={() => navigation.navigate(Consts.ScreenIds.Register)}>
                 <Text
                   style={styles.txtRegister}>{t('common:register')}</Text>
@@ -160,7 +166,7 @@ const Login = ({ navigation }) => {
               <Text style={styles.txt_Policy}>{t('common:acceptMy')}
                 <Text> </Text>
                 <Text style={styles.txtPolicy} onPress={() => console.log('hello')}>{t('common:agreement')}</Text>
-                <Text> </Text>
+                <Text>{'\n'}</Text>
                 <Text style={styles.txtPolicy}
                       onPress={() => console.log('Chính sách bảo mật')}>{t('common:privacyPolicy')}</Text>
               </Text>

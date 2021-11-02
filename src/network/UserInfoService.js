@@ -1,6 +1,15 @@
 import {
   loginUrl,
-  getCaptchaUrl, createAccountUrl, changePasswordUrl, soundModesUrl, watchsUrl, getOTP, accountDetailUrl,
+  getCaptchaUrl,
+  createAccountUrl,
+  changePasswordUrl,
+  soundModesUrl,
+  watchsUrl,
+  getOTP,
+  accountDetailUrl,
+  getOtpReset,
+  getVerificationOtp,
+  UpdatePassword
 } from "./http/ApiUrl";
 import { generateRandomId } from "../functions/utils";
 import { post, get, put } from "./http/HttpClient";
@@ -76,3 +85,33 @@ export function createAndLogin(data, { success, failure, autoShowMsg = true, ref
 
   return post(accountDetailUrl, { body, headers, success, failure, autoShowMsg, refLoading, refNotification });
 }
+
+export function getOtpResettingApi(
+  phone, { success, failure, autoShowMsg = true, refLoading = null } = {}) {
+  let body = {
+    phone
+  }
+  return post(getOtpReset, {body, autoShowMsg, success, failure, refLoading});
+}
+
+export function getVerificationOtpApi(
+  data, { success, failure, autoShowMsg = true, refLoading = null } = {}) {
+  let body = {
+    phone: data.phone,
+  };
+  let headers = {
+    "Accept": "application/json",
+    "Content-type": "application/json",
+    "X-OTP-Code": data.otp
+  }
+  return post(getVerificationOtp, {body, headers, autoShowMsg, success, failure, refLoading});
+}
+
+export function UpdatePasswordApi(data , { success, failure, autoShowMsg = true, refLoading = null, refNotification = null }) {
+  let body = {
+    phone: data.phone,
+    newPassword : data.newPassword
+  };
+  return put(UpdatePassword, { body, success, failure, autoShowMsg, refLoading, refNotification });
+}
+

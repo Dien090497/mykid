@@ -1,5 +1,5 @@
 import { Image, ScrollView, StatusBar, Text, TouchableOpacity, View } from "react-native";
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import { Menu, MenuDivider } from 'react-native-material-menu';
 import DataLocal from '../../../data/dataLocal';
@@ -12,12 +12,12 @@ import LoadingIndicator from '../../../components/LoadingIndicator';
 import { getListDeviceApi } from '../../../network/DeviceService';
 
 import {styles} from './styles';
-import {useNavigation} from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import XmppClient from '../../../network/xmpp/XmppClient';
 import WebSocketSafeZone from '../../../network/socket/WebSocketSafeZone';
 import WebSocketVideoCall from '../../../network/socket/WebSocketVideoCall';
 import { useTranslation } from 'react-i18next';
-import NotificationModal from "../../../components/NotificationModal";
+import NotificationModal from '../../../components/NotificationModal';
 
 export default function HomeMainScreen() {
   const navigation = useNavigation();
@@ -26,6 +26,7 @@ export default function HomeMainScreen() {
   const refNotification = useRef();
   const [showMenu, setShowMenu] = useState(false);
   const [devices, setDevices] = useState(null);
+  const isFocused = useIsFocused();
   const [selectedIndex, setSelectedIndex] = useState(DataLocal.deviceIndex);
   const { t } = useTranslation();
 
@@ -35,6 +36,10 @@ export default function HomeMainScreen() {
     WebSocketSafeZone._handleWebSocketSetup(navigation);
     WebSocketVideoCall.setReconnect(true);
     WebSocketVideoCall._handleWebSocketSetup(navigation);
+    getListDevices();
+  }, []);
+
+  const getListDevices = () =>{
     getListDeviceApi(DataLocal.userInfo.id, Consts.pageDefault, 100, '', 'ACTIVE', {
       success: resData => {
         setDevices(resData.data);
@@ -42,7 +47,13 @@ export default function HomeMainScreen() {
       refLoading,
       refNotification,
     });
-  }, []);
+  }
+
+  useEffect(() => {
+    if (isFocused) {
+      getListDevices();
+    }
+  }, [isFocused]);
 
   useLayoutEffect(() => {
     if (commonInfoReducer.selectDevice === null || commonInfoReducer.selectDevice === undefined) {

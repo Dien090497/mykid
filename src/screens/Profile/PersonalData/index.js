@@ -52,9 +52,9 @@ export default function PersonalDate() {
       success: res => {
         setName(res.data.name);
         setGender(res.data.gender);
-        setContact(res.data.contact);
+        setContact('0' + res.data.contact.substring(3));
         setAvatar(res.data.avatar);
-        setPhone(res.data.phone);
+        setPhone('0' + res.data.phone.substring(3));
         setEmail(res.data.email);
       },
       refNotification: refNotification,
