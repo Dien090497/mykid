@@ -42,6 +42,8 @@ pod 'react-native-google-maps', :path => rn_maps_path
 
   pod 'react-native-simple-toast', :path => '../node_modules/react-native-simple-toast'
 
+  pod 'RNAudioRecorderPlayer', :path => '../node_modules/react-native-audio-recorder-player'
+
   target 'MyKidTests' do
     inherit! :complete
     # Pods for testing
