@@ -72,7 +72,7 @@ const ChangePassword = ({ navigation }) => {
       style={styles.container}>
       <Header title={t('common:changePassword')} />
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={[styles.container, {marginTop: ScaleHeight.small}]}>
+        <View style={[styles.container, {marginTop: ScaleHeight.small, marginHorizontal: '5%'}]}>
           <View style={styles.Sty_txtPass}>
             <CustomInput
               placeholder={t('common:enterCurrentPassword')}
@@ -118,7 +118,7 @@ const ChangePassword = ({ navigation }) => {
           <View style={styles.viewButton}>
             <TouchableOpacity
               onPress={onSubmit}
-              style={{backgroundColor: Colors.red, width: '88%', height: ScaleHeight.medium* 1.2, justifyContent: 'center', alignItems: 'center', borderRadius: 10}}
+              style={styles.tobSubmit}
             >
               <Text style={{color: Colors.white}}>{t('common:confirm')}</Text>
             </TouchableOpacity>

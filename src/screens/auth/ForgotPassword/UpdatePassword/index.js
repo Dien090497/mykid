@@ -8,25 +8,23 @@ import styles from "./styles";
 import Images from "../../../../assets/Images";
 import NotificationModal from '../../../../components/NotificationModal';
 import {UpdatePasswordApi} from '../../../../network/UserInfoService';
+import Consts from "../../../../functions/Consts";
 
 export default function UpdatePassword({navigation, route}) {
   const refLoading = useRef(null);
   const refNotification = useRef();
-  const [pass, setPass] = useState(false);
-  const [isPass, setIsPass] = useState();
+  const [pass, setPass] = useState('');
+  const [isPass, setIsPass] = useState('');
   const [showPass, setShowPass] = useState(true);
   const [showIsPass, setShowIsPass] = useState(true);
   const {t} = useTranslation();
 
   const onConfirm = () => {
     if (pass !== isPass) {
-      refNotification.current.open('Mật khấu xác nhận không đúng');
+      refNotification.current.open(t('common:error_pass'));
       return;
     }
-    if (pass === null || isPass === null) {
-      refNotification.current.open('Mật khẩu không được để trống');
-      return;
-    }
+
     if (!passwordTest1(pass)) {
       refNotification.current.open(t('common:error_pass1'))
       return;
@@ -39,19 +37,24 @@ export default function UpdatePassword({navigation, route}) {
 
     UpdatePasswordApi(data, {
       success: res => {
-        refNotification.current.open('Cập nhật mật khẩu thành công');
-      }
+        refNotification.current.open(t('common:successPassword'), () => {
+            navigation.navigate(Consts.ScreenIds.Login)
+          }
+        );
+        setPass('');
+        setIsPass('');
+      },
+      refNotification
     });
-
   }
 
   return (
     <View style={{flex: 1, alignItems: 'center', backgroundColor: Colors.white}}>
-      <Header title={t('common:submitOTP')}/>
-      <View style={{height: 600, width: '90%', marginHorizontal: '5%', marginTop: '5%'}}>
+      <Header title={t('common:updatePassword')}/>
+      <View style={{height: 800, width: '90%', marginHorizontal: '5%', marginTop: '8%'}}>
         <View style={styles.viewInput}>
           <TextInput
-            placeholder={'Nhập mật khẩu mới'}
+            placeholder={t('common:newPassword')}
             placeholderTextColor={"#9D9D9D"}
             secureTextEntry={showPass}
             keyboardType={"default"}
@@ -60,7 +63,7 @@ export default function UpdatePassword({navigation, route}) {
             underlineColorAndroid={"transparent"}
             maxLength={20}
             minLength={6}
-            style={{marginLeft: 10, color: Colors.black, width: '85%'}}
+            style={styles.txtInput}
           />
           <TouchableOpacity
             style={styles.viewTob}
@@ -74,7 +77,7 @@ export default function UpdatePassword({navigation, route}) {
         </View>
         <View style={styles.viewInput}>
           <TextInput
-            placeholder={'Nhập mã xác minh'}
+            placeholder={t('common:isNewPassword')}
             placeholderTextColor={"#9D9D9D"}
             secureTextEntry={showIsPass}
             keyboardType={"default"}
@@ -83,7 +86,7 @@ export default function UpdatePassword({navigation, route}) {
             value={isPass}
             maxLength={20}
             minLength={6}
-            style={{marginLeft: 10, color: Colors.black, width: '85%'}}
+            style={styles.txtInput}
           />
           <TouchableOpacity
             style={styles.viewTob}
@@ -94,12 +97,15 @@ export default function UpdatePassword({navigation, route}) {
               source={showIsPass ? Images.icView : Images.icPrivate}/>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          style={styles.tobConfirm}
-          onPress={onConfirm}
-        >
-          <Text style={styles.txt}>Xác nhận</Text>
-        </TouchableOpacity>
+        {pass !== '' && isPass !== '' ? (
+          <TouchableOpacity onPress={onConfirm} style={styles.tobConfirm}>
+            <Text style={styles.txt}>{t('common:confirm')}</Text>
+          </TouchableOpacity>
+        ) : (
+          <View style={[styles.tobConfirm, {backgroundColor: 'rgba(228, 228, 228, 1)'}]}>
+            <Text style={styles.txt}>{t('common:confirm')}</Text>
+          </View>
+        )}
         <NotificationModal ref={refNotification}/>
       </View>
 

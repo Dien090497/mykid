@@ -1,9 +1,12 @@
-import {StyleSheet} from 'react-native';
-import { FontSize } from '../../../functions/Consts';
+import {StyleSheet, Dimensions} from 'react-native';
+import {FontSize, ScaleHeight} from '../../../functions/Consts';
+import {Colors} from "../../../assets/colors/Colors";
 
+const {width} = Dimensions.get('window');
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: 'center'
   },
   image: {
     paddingHorizontal: 20,
@@ -72,5 +75,13 @@ export const styles = StyleSheet.create({
     marginTop: 40,
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  tobSubmit: {
+    backgroundColor: Colors.red,
+    width: width * 0.88 + 10,
+    height: ScaleHeight.medium * 1.2,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
   }
 });

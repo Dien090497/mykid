@@ -1,5 +1,4 @@
 import {
-  Dimensions,
   Keyboard,
   KeyboardAvoidingView,
   Platform,
@@ -8,28 +7,32 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import React, { useState} from "react";
+import React, {useRef, useState} from "react";
 import Header from '../../../components/Header';
 import {styles} from "./style";
 import {useTranslation} from "react-i18next";
-import Consts, {ScaleHeight} from "../../../functions/Consts";
+import Consts from '../../../functions/Consts';
 import {Colors} from "../../../assets/colors/Colors";
 import {getOtpResettingApi, getVerificationOtpApi} from "../../../network/UserInfoService";
-import {phoneTest1, showAlert} from "../../../functions/utils";
+import {phoneTest1} from "../../../functions/utils";
+import NotificationModal from "../../../components/NotificationModal";
+import LoadingIndicator from "../../../components/LoadingIndicator";
 
 const ForgotPassword = ({navigation}) => {
+  const refLoading = useRef(null);
+  const refNotification = useRef();
   const {t} = useTranslation();
   const [timerCount, setTimerCount] = useState(60);
   const [check, setCheck] = useState(false);
-  const [phone, setPhone] = useState();
-  const [otp, setOtp] = useState();
+  const [phone, setPhone] = useState('');
+  const [otp, setOtp] = useState('');
   let timer = 0;
   const [isActive, setIsActive] = useState(false);
   const [otpSent, setOtpSent] = useState(false);
 
   const sendTo = () => {
     if (!phoneTest1(phone)) {
-      refNotification.current.open(t('common:error_phone'));
+      refNotification.current.open(t('common:error_phone'))
       return;
     }
     getOtpResettingApi(phone, {
@@ -39,25 +42,31 @@ const ForgotPassword = ({navigation}) => {
           setOtpSent(true)
           timer = getTime() + 60;
           refreshCountdown();
-        }
+        },
+        refNotification
       }
     );
   }
 
   const isContinue = () => {
-    if (otp === null) {
-      refNotification.current.open('Mã xác thực không được để trống');
+    if (!phoneTest1(phone)) {
+      refNotification.current.open(t('common:error_phone'))
+      return;
+    }
+    if (otp.length < 6) {
+      refNotification.current.open(t('common:error_otp'))
       return;
     }
     const data = {
       phone: phone,
       otp: otp
     }
-   getVerificationOtpApi(data, {
-     success: res => {
-       navigation.navigate(Consts.ScreenIds.UpdatePassword, {phone: phone})
-     }
-   })
+    getVerificationOtpApi(data, {
+      success: res => {
+        navigation.navigate(Consts.ScreenIds.UpdatePassword, {phone: phone})
+      },
+      refNotification
+    })
   }
 
   const isChangePhone = (text) => {
@@ -93,7 +102,7 @@ const ForgotPassword = ({navigation}) => {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.container}>
           <Header title={t('common:forgotPassword')}/>
-          <View style={{alignItems: 'center', height: 600, marginVertical: '8%'}}>
+          <View style={{alignItems: 'center', height: 800, marginVertical: '8%'}}>
             <View style={styles.Sty_txt}>
               <TextInput
                 placeholderTextColor={"#9D9D9D"}
@@ -120,22 +129,32 @@ const ForgotPassword = ({navigation}) => {
               </View>
               <TouchableOpacity
                 onPress={sendTo}
-                style={!check ? styles.tobOtp : [styles.tobOtp, {backgroundColor: 'rgba(228, 228, 228, 1)'}]}
+                style={phone === '' ? [styles.tobOtp, {backgroundColor: 'rgba(228, 228, 228, 1)'}]
+                  : !check ? styles.tobOtp : [styles.tobOtp, {backgroundColor: 'rgba(228, 228, 228, 1)'}]}
                 disabled={check}
               >
-                <Text style={{fontSize: 14, color: Colors.white}}>{check ? timerCount + 's' : 'Lấy mã'}</Text>
+                <Text
+                  style={{fontSize: 14, color: Colors.white}}>{check ? timerCount + 's' : t('common:getCode')}</Text>
               </TouchableOpacity>
             </View>
             <View style={{marginTop: 20, width: '90%'}}>
               <Text style={styles.text}>{t('common:txtForgotPassWord1')}</Text>
               <Text style={[styles.text, {marginTop: 20}]}>{t('common:txtForgotPassWord2')}</Text>
             </View>
-            <TouchableOpacity  style={styles.btnSubmit}  onPress={isContinue}>
-              <Text style={styles.textSubmit}>{t('common:register')}</Text>
-            </TouchableOpacity>
+            {otp !== '' && phone !== '' ? (
+              <TouchableOpacity onPress={isContinue} style={styles.btnSubmit}>
+                <Text style={styles.textSubmit}>{t('common:txtContinue')}</Text>
+              </TouchableOpacity>
+            ) : (
+              <View style={[styles.btnSubmit, {backgroundColor: 'rgba(228, 228, 228, 1)'}]}>
+                <Text style={styles.textSubmit}>{t('common:txtContinue')}</Text>
+              </View>
+            )}
+            <NotificationModal ref={refNotification}/>
           </View>
         </View>
       </TouchableWithoutFeedback>
+      <LoadingIndicator ref={refLoading}/>
     </KeyboardAvoidingView>
   );
 };
