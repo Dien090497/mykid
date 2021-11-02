@@ -102,6 +102,9 @@ export default function HomeMainScreen() {
   const pressWarning = () => {
     navigation.navigate(Consts.ScreenIds.Warning);
   };
+  const pressHealth = () => {
+    navigation.navigate(Consts.ScreenIds.Health);
+  };
   const buttonProps = { activeOpacity: 0.8 };
 
   const handleChange = async (index) => {
@@ -282,6 +285,17 @@ export default function HomeMainScreen() {
                 <Image source={Images.icWarning} style={styles.icon} />
               </View>
               <Text style={styles.buttonText}>{t('common:home_warning')}</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.buttonContainerL}>
+            <TouchableOpacity
+              {...buttonProps}
+              style={styles.button}
+              onPress={pressHealth}>
+              <View style={styles.bgIcon}>
+                <Image source={Images.icTransport} style={styles.icon} />
+              </View>
+              <Text style={styles.buttonText}>{t('common:home_transport')}</Text>
             </TouchableOpacity>
           </View>
         </View>

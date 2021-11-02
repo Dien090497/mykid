@@ -60,6 +60,7 @@ export default {
   bgHome: require('./images/home/bg_home.png'),
   icShow: require('./images/ic_show.png'),
   icWarning: require('./images/home/ic_warning.png'),
+  icTransport: require('./images/home/ic_transfer.png'),
 
   //RewardPoints
   icAdd: require('./images/rewardoints/ic_add.png'),

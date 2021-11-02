@@ -221,6 +221,7 @@ export default {
   home_setting: 'SETTING',
   home_game: 'GAME',
   home_warning: 'ALERT CENTER',
+  home_transport: 'SỨC KHỎE',
   home_infoKits: 'Baby\'s information',
 
   //setting

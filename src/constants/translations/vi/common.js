@@ -221,6 +221,7 @@ export default {
   home_setting: 'THIẾT LẬP',
   home_game: 'GIẢI TRÍ',
   home_warning: 'CẢNH BÁO',
+  home_transport: 'SỨC KHỎE',
   home_infoKits: 'Thông tin của bé',
 
   //setting
