@@ -94,7 +94,7 @@ const Login = ({ navigation }) => {
         refNotification.current.open(t('common:txtNotification'))
         return;
       }
-      dispatch(Actions.actionLogin({ email, password, refLoading }));
+      dispatch(Actions.actionLogin({ email, password, refLoading, refNotification }));
     } else {
       Alert.alert(t('common:notification'), t('common:error_message'));
     }

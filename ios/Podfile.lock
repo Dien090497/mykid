@@ -359,6 +359,8 @@ PODS:
     - React
   - RNAudio (4.3.0):
     - React
+  - RNAudioRecorderPlayer (3.2.0):
+    - React-Core
   - RNCAsyncStorage (1.15.8):
     - React-Core
   - RNCPicker (2.1.0):
@@ -450,6 +452,7 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - ReactNativeCameraKit (from `../node_modules/react-native-camera-kit`)
   - RNAudio (from `../node_modules/react-native-audio`)
+  - RNAudioRecorderPlayer (from `../node_modules/react-native-audio-recorder-player`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - "RNCPicker (from `../node_modules/@react-native-picker/picker`)"
   - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
@@ -583,6 +586,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-camera-kit"
   RNAudio:
     :path: "../node_modules/react-native-audio"
+  RNAudioRecorderPlayer:
+    :path: "../node_modules/react-native-audio-recorder-player"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
   RNCPicker:
@@ -665,6 +670,7 @@ SPEC CHECKSUMS:
   ReactCommon: eafed38eec7b591c31751bfa7494801618460459
   ReactNativeCameraKit: 89ed1f2470b56e18e15dd0e1a37bebca3f2da2de
   RNAudio: cae2991f2dccb75163f260b60da8051717b959fa
+  RNAudioRecorderPlayer: 2ae3bdbf328dd8e288bd72b8665c02b5a24fecdb
   RNCAsyncStorage: 0f655864a81214d1c5a9bf0faf79d86dc25c383e
   RNCPicker: f7a40b21b915b7a187624d52f52b7bc2f73ea413
   RNDateTimePicker: c9911be59b1f8670b9f244b85af3a7c295e175ed
@@ -679,6 +685,6 @@ SPEC CHECKSUMS:
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   Yoga: aa0cb45287ebe1004c02a13f279c55a95f1572f4
 
-PODFILE CHECKSUM: 7c4236509dfe2e532b226dafc7d448ef7d6b1a79
+PODFILE CHECKSUM: 1492483f21577363c32ca2a5dd722eaf95d95e24
 
 COCOAPODS: 1.10.1

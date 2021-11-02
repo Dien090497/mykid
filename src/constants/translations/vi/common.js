@@ -77,6 +77,7 @@ export default {
   header_secret_shoot: 'Chụp ảnh từ xa',
   header_remoteDevices: 'Tắt thiết bị từ xa',
   header_remoteStart: 'Khởi động lại từ xa',
+  header_warning: 'Cảnh báo',
 
   // Codepush
   codepushChecking: 'Đang kiểm tra bản cập nhật...',

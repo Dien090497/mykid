@@ -50,6 +50,7 @@ const ScreenIds = {
   OffDevice: 'Offdevice',
   RestartDevice: 'RestartDevice',
   SecretPhotoShoot: 'SecretPhotoShoot',
+  Warning: 'Warning',
 
   // Auth
   Login: 'Login',
