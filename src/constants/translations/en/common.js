@@ -316,4 +316,16 @@ export default {
   txtInSafeZone: ' has entered the safe zone. Please check on the app',
   txtFullBattery: 'The watch is fully charged. Please remove the charger',
   txtLowBattery: 'Low battery warning',
+  payInCash: 'Pay in cash', //to do,
+  accountInfo: 'Account information', //to do,
+  package: 'Package', // to do
+  deadline: 'Deadline', // to do
+  ori_account: 'Original account',// to do
+  free_intranet_voice: 'Free intranet voice', // to do
+  free_offline_voice: 'Free offline voice', // to do
+  free_data_traffic: 'Free data traffic', // to do
+  more_money: 'More money', //  to do
+  card: 'Scratch card', // to do
+  txt_phone: 'The phone number of the clock:', // to do
+  cardCode: 'Viettel scratch card code', //to do
 };

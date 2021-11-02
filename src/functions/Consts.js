@@ -51,6 +51,7 @@ const ScreenIds = {
   RestartDevice: 'RestartDevice',
   SecretPhotoShoot: 'SecretPhotoShoot',
   Warning: 'Warning',
+  Paying: 'Paying',
 
   // Auth
   Login: 'Login',
@@ -73,6 +74,9 @@ const ScreenIds = {
 
   //Maps
   Maps: 'Maps',
+
+  //Paying
+  Card: 'Card',
 
   //VideoCall
   ListDevice: 'ListDevice',
