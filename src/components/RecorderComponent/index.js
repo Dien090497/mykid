@@ -98,6 +98,11 @@ export default class RecorderComponent extends Component {
   }
 
   async _stop() {
+    if (Platform.OS === 'android') {
+      await this.onStopRecord();
+      return;
+    }
+
     if (!this.state.recording) {
       console.warn('Can\'t stop, not recording!');
       return;
@@ -107,10 +112,6 @@ export default class RecorderComponent extends Component {
 
     try {
       const filePath = await AudioRecorder.stopRecording();
-
-      if (Platform.OS === 'android') {
-        this._finishRecording(true, filePath);
-      }
       return filePath;
     } catch (error) {
       console.error(error);
@@ -218,11 +219,6 @@ export default class RecorderComponent extends Component {
 
   _finishRecording(didSucceed, filePath, fileSize) {
     this.setState({ finished: didSucceed });
-
-    if (Platform.OS === 'android') {
-      await this.onStopRecord();
-      return;
-    }
 
     if (this.props.onStopRecord) {
       this.props.onStopRecord(filePath);
