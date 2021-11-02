@@ -1,4 +1,4 @@
-import { Image, StatusBar, Text, TouchableOpacity, View } from 'react-native';
+import { Image, ScrollView, StatusBar, Text, TouchableOpacity, View } from "react-native";
 import React, { useLayoutEffect, useRef, useState } from 'react';
 
 import { Menu, MenuDivider } from 'react-native-material-menu';
@@ -87,6 +87,10 @@ export default function HomeMainScreen() {
   const pressSettings = () => {
     navigation.navigate(Consts.ScreenIds.Settings);
   };
+
+  const pressWarning = () => {
+    navigation.navigate(Consts.ScreenIds.Warning);
+  };
   const buttonProps = { activeOpacity: 0.8 };
 
   const handleChange = async (index) => {
@@ -147,109 +151,130 @@ export default function HomeMainScreen() {
         </View>
       </View>
 
-      <View style={styles.body}>
-        <View style={[{ minHeight: '39%', width: '50%' }]}>
-          <View style={[styles.buttonContainerL, { width: '100%' }]}>
+      <ScrollView style={styles.body}>
+        <View style={{width:'100%',height:'39%', flexDirection: 'row'}}>
+          <View style={[{ minHeight: '100%', width: '50%' }]}>
+            <View style={[styles.buttonContainerL, { height:'50%' }]}>
+              <TouchableOpacity
+                {...buttonProps}
+                style={styles.button}
+                onPress={pressMap}>
+                <View style={styles.bgIcon}>
+                  <Image source={Images.icMap} style={styles.icon} />
+                </View>
+                <Text style={styles.buttonText}>{t('common:home_gps')}</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={[styles.buttonContainerL, {height:'50%' }]}>
+              <TouchableOpacity
+                {...buttonProps}
+                style={styles.button}
+                onPress={pressJourney}>
+                <View style={styles.bgIcon}>
+                  <Image source={Images.icJourney} style={styles.icon} />
+                </View>
+                <Text style={styles.buttonText}>{t('common:home_journey')}</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={[styles.buttonContainerR, { minHeight: '39%' }]}>
             <TouchableOpacity
               {...buttonProps}
               style={styles.button}
-              onPress={pressMap}>
+              onPress={pressVideoCall}>
               <View style={styles.bgIcon}>
-                <Image source={Images.icMap} style={styles.icon} />
+                <Image source={Images.icVideoCall} style={styles.icon} />
               </View>
-              <Text style={styles.buttonText}>{t('common:home_gps')}</Text>
+              <Text style={styles.buttonText}>{t('common:home_videoCall')}</Text>
             </TouchableOpacity>
           </View>
-          <View style={[styles.buttonContainerL, { width: '100%' }]}>
+        </View>
+        <View style={{width:'100%', height:'19.5%', flexDirection:'row'}}>
+          <View style={styles.buttonContainerL}>
             <TouchableOpacity
               {...buttonProps}
               style={styles.button}
-              onPress={pressJourney}>
+              onPress={pressSafeArea}>
               <View style={styles.bgIcon}>
-                <Image source={Images.icJourney} style={styles.icon} />
+                <Image source={Images.icSafeZone} style={styles.icon} />
               </View>
-              <Text style={styles.buttonText}>{t('common:home_journey')}</Text>
+              <Text style={styles.buttonText}>{t('common:home_safeArea')}</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.buttonContainerR}>
+            <TouchableOpacity
+              {...buttonProps}
+              style={styles.button}
+              onPress={pressAlarm}>
+              <View style={styles.bgIcon}>
+                <Image source={Images.icSoundSetting} style={styles.icon} />
+              </View>
+              <Text style={styles.buttonText}>{t('common:home_alarm')}</Text>
             </TouchableOpacity>
           </View>
         </View>
-        <View style={[styles.buttonContainerR, { minHeight: '39%' }]}>
-          <TouchableOpacity
-            {...buttonProps}
-            style={styles.button}
-            onPress={pressVideoCall}>
-            <View style={styles.bgIcon}>
-              <Image source={Images.icVideoCall} style={styles.icon} />
-            </View>
-            <Text style={styles.buttonText}>{t('common:home_videoCall')}</Text>
-          </TouchableOpacity>
+        <View style={{width:'100%', height:'19.5%', flexDirection:'row'}}>
+          <View style={styles.buttonContainerL}>
+            <TouchableOpacity
+              {...buttonProps}
+              style={styles.button}
+              onPress={pressAlarmClock}>
+              <View style={styles.bgIcon}>
+                <Image source={Images.icAlarm} style={styles.icon} />
+              </View>
+              <Text style={styles.buttonText}>{t('common:home_alarmClock')}</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.buttonContainerR}>
+            <TouchableOpacity
+              {...buttonProps}
+              style={styles.button}
+              onPress={pressChat}>
+              <View style={styles.bgIcon}>
+                <Image source={Images.icChat} style={styles.icon} />
+              </View>
+              <Text style={styles.buttonText}>{t('common:home_chat')}</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <View style={styles.buttonContainerL}>
-          <TouchableOpacity
-            {...buttonProps}
-            style={styles.button}
-            onPress={pressSafeArea}>
-            <View style={styles.bgIcon}>
-              <Image source={Images.icSafeZone} style={styles.icon} />
-            </View>
-            <Text style={styles.buttonText}>{t('common:home_safeArea')}</Text>
-          </TouchableOpacity>
+        <View style={{width:'100%', height:'19.5%', flexDirection:'row'}}>
+          <View style={styles.buttonContainerL}>
+            <TouchableOpacity
+              {...buttonProps}
+              style={styles.button}
+              onPress={pressFindDevice}>
+              <View style={styles.bgIcon}>
+                <Image source={Images.icFindDevice} style={styles.icon} />
+              </View>
+              <Text style={styles.buttonText}>{t('common:home_findDevice')}</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.buttonContainerR}>
+            <TouchableOpacity
+              {...buttonProps}
+              style={styles.button}
+              onPress={pressSettings}>
+              <View style={styles.bgIcon}>
+                <Image source={Images.icSetting} style={styles.icon} />
+              </View>
+              <Text style={styles.buttonText}>{t('common:home_setting')}</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <View style={styles.buttonContainerR}>
-          <TouchableOpacity
-            {...buttonProps}
-            style={styles.button}
-            onPress={pressAlarm}>
-            <View style={styles.bgIcon}>
-              <Image source={Images.icSoundSetting} style={styles.icon} />
-            </View>
-            <Text style={styles.buttonText}>{t('common:home_alarm')}</Text>
-          </TouchableOpacity>
+        <View style={{width:'100%', height:'19.5%', flexDirection:'row'}}>
+          <View style={styles.buttonContainerL}>
+            <TouchableOpacity
+              {...buttonProps}
+              style={styles.button}
+              onPress={pressWarning}>
+              <View style={styles.bgIcon}>
+                <Image source={Images.icWarning} style={styles.icon} />
+              </View>
+              <Text style={styles.buttonText}>{t('common:home_warning')}</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <View style={styles.buttonContainerL}>
-          <TouchableOpacity
-            {...buttonProps}
-            style={styles.button}
-            onPress={pressAlarmClock}>
-            <View style={styles.bgIcon}>
-              <Image source={Images.icAlarm} style={styles.icon} />
-            </View>
-            <Text style={styles.buttonText}>{t('common:home_alarmClock')}</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.buttonContainerR}>
-          <TouchableOpacity
-            {...buttonProps}
-            style={styles.button}
-            onPress={pressChat}>
-            <View style={styles.bgIcon}>
-              <Image source={Images.icChat} style={styles.icon} />
-            </View>
-            <Text style={styles.buttonText}>{t('common:home_chat')}</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.buttonContainerL}>
-          <TouchableOpacity
-            {...buttonProps}
-            style={styles.button}
-            onPress={pressFindDevice}>
-            <View style={styles.bgIcon}>
-              <Image source={Images.icFindDevice} style={styles.icon} />
-            </View>
-            <Text style={styles.buttonText}>{t('common:home_findDevice')}</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.buttonContainerR}>
-          <TouchableOpacity
-            {...buttonProps}
-            style={styles.button}
-            onPress={pressSettings}>
-            <View style={styles.bgIcon}>
-              <Image source={Images.icSetting} style={styles.icon} />
-            </View>
-            <Text style={styles.buttonText}>{t('common:home_setting')}</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+      </ScrollView>
       <LoadingIndicator ref={refLoading} />
       <NotificationModal ref={refNotification} />
     </View>

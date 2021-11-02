@@ -47,6 +47,7 @@ import DisturbSetting from '../screens/Profile/DoNotDisturb/DisturbSetting';
 import AlarmSetting from '../screens/Profile/AlarmClock/AlarmSetting';
 import SplashScreen from '../screens/Splash';
 import PersonalData from '../screens/Profile/PersonalData';
+import Warning from '../screens/Warning'
 import WS from './WebScoket';
 import {createStackNavigator} from '@react-navigation/stack';
 import LanguageTimeZone from '../screens/Profile/LanguageTimeZone';
@@ -315,6 +316,10 @@ const Routes = () => {
         <Stack.Screen
           name={Consts.ScreenIds.InfoKits}
           component={InfoKits}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.Warning}
+          component={Warning}
         />
         <Stack.Screen name={Consts.ScreenIds.Contacts} component={Contacts} />
         <Stack.Screen name={Consts.ScreenIds.Members} component={Members} />

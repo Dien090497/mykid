@@ -12,11 +12,9 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.white,
-    // paddingTop: 10,
   },
   tabView: {
     flex: 6.5,
-    // height: tabViewHeight,
     backgroundColor: Colors.white,
   },
   statusBar: {
@@ -31,7 +29,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginTop: 10
+    marginVertical: 10,
   },
   support: {
     flexDirection: 'row',
@@ -87,8 +85,18 @@ export const styles = StyleSheet.create({
     height: searchHeight,
     alignSelf: 'flex-end',
   },
-  buttonContainerL: {width: '50%', minHeight: '19.5%', padding: 5, paddingLeft: 10},
-  buttonContainerR: {width: '50%', minHeight: '19.5%', padding: 5, paddingRight: 10},
+  buttonContainerL: {
+    width: Const.screenWidth/2,
+    minHeight: '19.5%',
+    padding: 5,
+    paddingLeft: 10
+  },
+  buttonContainerR: {
+    width: Const.screenWidth/2,
+    minHeight: '19.5%',
+    padding: 5,
+    paddingRight: 10
+  },
   button: {
     flex: 1,
     borderRadius: 8,

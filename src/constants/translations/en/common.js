@@ -77,6 +77,7 @@ export default {
   header_secret_shoot: 'Remote photo',
   header_remoteDevices: 'Remote Shutdown',
   header_remoteStart: 'Remote Restart',
+  header_warning: 'Alert Center',
 
   // Codepush
   codepushChecking: 'Checking...',
