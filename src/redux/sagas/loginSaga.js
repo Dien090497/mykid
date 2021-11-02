@@ -10,14 +10,14 @@ import {loginService} from '../../network/UserInfoService';
 import reduxStore from '../config/redux';
 import SimpleToast from "react-native-simple-toast";
 
-function* postLoginAction(email, password, refLoading) {
+function* postLoginAction(email, password, refLoading, refNotification) {
   try {
     showLoading(refLoading);
     let params = {
       phone: email,
       password: password,
     };
-    let response = yield call(loginService, params);
+    let response = yield call(loginService, params, true, refLoading, refNotification);
     if (response.success) {
       const token = response.success.data.token;
       if (!token) {
@@ -45,5 +45,6 @@ export default function* (action) {
     action.payload.email,
     action.payload.password,
     action.payload.refLoading,
+    action.payload.refNotification
   );
 }
