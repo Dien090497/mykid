@@ -215,7 +215,6 @@ const Routes = () => {
         <Stack.Screen name={Consts.ScreenIds.Tabs} component={TabBarBottom} />
         <Stack.Screen name={Consts.ScreenIds.Auth} component={Auth} />
         <Stack.Screen name={Consts.ScreenIds.Login} component={Login} />
-        <Stack.Screen name={Consts.ScreenIds.ForgotPassword} component={ForgotPassword} />
         <Stack.Screen
           name={Consts.ScreenIds.ConnectionScreen}
           component={ConnectionScreen}
