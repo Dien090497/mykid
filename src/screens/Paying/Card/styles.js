@@ -1,4 +1,4 @@
-import {StyleShee} from "react-native";
+import {StyleSheet} from "react-native";
 import {ScaleHeight} from "../../../functions/Consts";
 import {Colors} from "../../../assets/colors/Colors";
 
