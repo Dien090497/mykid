@@ -42,8 +42,28 @@ export default class XmppClient {
       await clientXmpp.send(xml('presence'));
       await this.getRooms();
       await this.loadAllHistory();
+      await this.ping();
     });
     clientXmpp.start().catch(console.error);
+  };
+
+  static ping = async () => {
+    let message = xml('iq', {
+        id: 'KAQWV-' + generateRandomId(),
+        type: 'get',
+        to: 'mykid.ttc.software'
+      }, xml('ping', 
+        {
+          xmlns: 'urn:xmpp:ping'
+        }
+      ),
+    );
+    await clientXmpp.send(message);
+    setTimeout(() => {
+      if (this.reconnect) {
+        this.ping();
+      }
+    }, 3000)
   };
 
   static getRooms = async () => {

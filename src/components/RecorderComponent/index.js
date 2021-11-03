@@ -108,7 +108,6 @@ export default class RecorderComponent extends Component {
     if (Platform.OS === 'android') {
       // stop recording
       this.state.audioPath = await AudioRecord.stop();
-      console.log(this.state.audioPath);
       if (this.props.onStopRecord) {
         this.props.onStopRecord('file://' + this.state.audioPath);
       }

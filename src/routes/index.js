@@ -60,11 +60,6 @@ import {useTranslation} from 'react-i18next';
 
 const Tab = createBottomTabNavigator();
 
-const PATTERN = [
-  0, 500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170,
-  40, 500,
-];
-
 const styles = StyleSheet.create({
   bottomBar: {
     height: ScaleHeight.xxtraBig,

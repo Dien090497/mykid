@@ -34,6 +34,7 @@ import RNFetchBlob from 'react-native-fetch-blob';
 import { getListDeviceApi } from '../../../network/DeviceService';
 import { useTranslation } from 'react-i18next';
 import NotificationModal from "../../../components/NotificationModal";
+import SimpleToast from 'react-native-simple-toast';
 
 export default function RoomChat({navigation, route}) {
   const refLoading = useRef();
@@ -53,6 +54,7 @@ export default function RoomChat({navigation, route}) {
   const [isLock, setIsLock] = useState(false);
   const [listMember, setListMember] = useState([]);
   const chatReducer = useSelector(state => state.chatReducer);
+  const [timerCount, setTimerCount] = useState();
   const { t } = useTranslation();
   let sheet = null;
 
@@ -143,9 +145,12 @@ export default function RoomChat({navigation, route}) {
   const togglePlay = (obj, index) => {
     try {
       if (obj.audio) {
-        setIndexPlaying(index);
-        refAudioPlayer.current.onStartPlay(obj.audio);
-        console.log(obj.audio);
+        if (!obj.isError) {
+          setIndexPlaying(index);
+          refAudioPlayer.current.onStartPlay(obj.audio);
+        } else {
+          SimpleToast.show(t('errorMsg:playAudioFail'));
+        }
         return;
       }
 
@@ -159,15 +164,19 @@ export default function RoomChat({navigation, route}) {
         .fetch('GET', obj.body)
         .then((res) => {
           const lst = Object.assign([], chatHistory);
+          lst[index].isError = parseInt(res.respInfo.headers['Content-Length'], 0) < 100;
           lst[index].audio = 'file://' + res.path();
           setChatHistory(lst);
 
           hideLoading(refLoading);
-          setIndexPlaying(index);
-          refAudioPlayer.current.onStartPlay(lst[index].audio);
+          if (!lst[index].isError) {
+            setIndexPlaying(index);
+            refAudioPlayer.current.onStartPlay(lst[index].audio);
+          } else {
+            SimpleToast.show(t('errorMsg:playAudioFail'));
+          }
         })
     } catch (e) {
-      console.log(e);
       setIndexPlaying(-1);
     }
 
@@ -197,7 +206,18 @@ export default function RoomChat({navigation, route}) {
     setLocationY(e.nativeEvent.pageY);
     setIsRecording(true);
     await refRecorder.current._record();
+    setTimerCount(getTime());
+    setTimeout(() => {
+      if (getTime() - timerCount >= 14) {
+        setIsRecording(false);
+        refRecorder.current._stop().then();
+      }
+    }, 15000)
   }
+
+  const getTime = () => {
+    return Math.floor(Date.now() / 1000);
+  };
 
   const onResponderMove = async (e) => {
     setIsCancelRecording(locationY - e.nativeEvent.pageY > 80);
@@ -210,9 +230,14 @@ export default function RoomChat({navigation, route}) {
 
   const onStopRecord = (url) => {
     setIsRecording(false);
-    showLoading(refLoading);
-    XmppClient.requestSendFile(url);
-    hideLoading(refLoading);
+    setTimerCount(getTime());
+    if (getTime() - timerCount < 3) {
+      SimpleToast.show(t('errorMsg:recordingFail'));
+    } else {
+      showLoading(refLoading);
+      XmppClient.requestSendFile(url);
+      hideLoading(refLoading);
+    }
   };
 
   const onStopPlayer = () => {
@@ -268,8 +293,8 @@ export default function RoomChat({navigation, route}) {
   const saveImage = (obj) => {
     if (Platform.OS === 'ios') {
       CameraRoll.save(obj.body)
-      .then(console.log('Photo added to camera roll!'))
-      .catch(err => console.log('err:', err))
+      .then(SimpleToast.show(t('common:savePictureSuccess')))
+      .catch(err => SimpleToast.show(t('common:savePictureFail')))
     } else {
       RNFetchBlob
         .config({
@@ -278,12 +303,11 @@ export default function RoomChat({navigation, route}) {
         })
         .fetch('GET', obj.body)
         .then((res) => {
-            console.log()
           CameraRoll.saveToCameraRoll(res.path())
             .then((res) => {
-            console.log('save', res)
+              SimpleToast.show(t('common:savePictureSuccess'))
             }).catch((error) => {
-              console.log('error', error)
+              SimpleToast.show(t('common:savePictureFail'))
             })
 
         })
@@ -341,7 +365,7 @@ export default function RoomChat({navigation, route}) {
                         <FastImage
                           source={!isMe(obj) ? (indexPlaying === i ? Images.aAudioLeft : Images.icAudioLeft) : (indexPlaying === i ? Images.aAudioRight : Images.icAudioRight)}
                           resizeMode={FastImage.resizeMode.cover}
-                          style={styles.icRecord}
+                          style={styles.icAudio}
                         />
                       </TouchableOpacity>
                       }

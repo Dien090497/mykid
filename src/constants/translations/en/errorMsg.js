@@ -31,6 +31,8 @@ export default {
   // common
   exceedNicknameLength: 'Exceeded number of characters allowed',
   downloadFailed: 'Data download failed',
+  playAudioFail: 'Recording file is corrupted',
+  recordingFail: 'Recording time is too short',
 
   // server associated
   clientServerCommunicationProb: 'Error in communication with the server',

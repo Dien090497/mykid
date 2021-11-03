@@ -15,15 +15,23 @@ import { checkMicrophonePermission } from '../../functions/permissions';
 import FastImage from 'react-native-fast-image';
 import XmppClient from '../../network/xmpp/XmppClient';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 export default function Chat({navigation}) {
   const refLoading = useRef();
   const [devices, setDevices] = useState([]);
+  const chatReducer = useSelector(state => state.chatReducer);
   const { t } = useTranslation();
 
   useLayoutEffect(() => {
     setDevices(XmppClient.lstRoom);
   }, []);
+
+  useLayoutEffect(() => {
+    if (chatReducer.dataInfo) {
+      setDevices(XmppClient.lstRoom);
+    }
+  }, [chatReducer]);
 
   const toggleChat = (obj, i) => {
     checkMicrophonePermission().then(microGranted => {
