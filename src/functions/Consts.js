@@ -1,5 +1,6 @@
 import {Dimensions, StatusBar} from 'react-native';
-import {RFPercentage, RFValue} from 'react-native-responsive-fontsize';
+import {RFPercentage} from 'react-native-responsive-fontsize';
+import DetailHealth from '../screens/Health/DetailHealth';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight =
@@ -52,6 +53,7 @@ const ScreenIds = {
   SecretPhotoShoot: 'SecretPhotoShoot',
   Warning: 'Warning',
   Health: 'Health',
+  DetailHealth: 'DetailHealth',
 
   // Auth
   Login: 'Login',

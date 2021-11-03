@@ -49,7 +49,8 @@ import SplashScreen from '../screens/Splash';
 import PersonalData from '../screens/Profile/PersonalData';
 import Warning from '../screens/Warning'
 import Health from '../screens/Health'
-import WS from './WebScoket';
+import DetailHealth from '../screens/Health/DetailHealth'
+
 import {createStackNavigator} from '@react-navigation/stack';
 import LanguageTimeZone from '../screens/Profile/LanguageTimeZone';
 import OffDevice from '../screens/Settings/OffDevice';
@@ -61,11 +62,6 @@ import UpdatePassword from '../screens/auth/ForgotPassword/UpdatePassword';
 import {useTranslation} from 'react-i18next';
 
 const Tab = createBottomTabNavigator();
-
-const PATTERN = [
-  0, 500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170,
-  40, 500,
-];
 
 const styles = StyleSheet.create({
   bottomBar: {
@@ -344,6 +340,10 @@ const Routes = () => {
         <Stack.Screen
           name={Consts.ScreenIds.Health}
           component={Health}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.DetailHealth}
+          component={DetailHealth}
         />
         <Stack.Screen name={Consts.ScreenIds.Contacts} component={Contacts} />
         <Stack.Screen name={Consts.ScreenIds.Members} component={Members} />

@@ -5,9 +5,10 @@ import {
   Modal,
   Text, Platform,
 } from 'react-native';
-import { DatePicker } from 'react-native-wheel-picker-android';
+import DatePicker from 'react-native-date-picker';
 import { styles } from './styles';
 import i18next from 'i18next';
+import DataLocal from "../../data/dataLocal";
 
 export default class DatePickerModal extends Component {
   constructor(props) {
@@ -53,24 +54,24 @@ export default class DatePickerModal extends Component {
         visible={this.state.modalVisible}>
         <TouchableOpacity style={styles.bottomView} onPress={this.hideModal}>
           <TouchableOpacity style={styles.containerModal} activeOpacity={1}>
-            <View style={styles.header}>
-              <TouchableOpacity style={styles.btnCancel} onPress={this.hideModal}>
-                <Text style={styles.txtCancel}>{i18next.t('common:cancel')}</Text>
-              </TouchableOpacity>
-              <View style={{ width: '50%' }} />
-              <TouchableOpacity style={styles.btnAccept} onPress={this.onSubmit}>
-                <Text style={styles.txtAccept}>{i18next.t('common:accept')}</Text>
-              </TouchableOpacity>
-            </View>
             <View style={styles.body}>
-              <View style={[styles.viewTime, Platform.OS !== 'ios' ? { height: 150, paddingTop: 20 } : {}]}>
+              <View style={[styles.viewTime]}>
                 {this.state.time &&
-                <DatePicker format24
-                            initDate={this.state.time}
-                            onTimeSelected={this.onFromSelected}
-                            minutes={this.getMinutes()} />
+                <DatePicker mode={'date'}
+                            date={this.state.time}
+                            locale={DataLocal.language}
+                            onDateChange={date => { this.setState(...this.state, this.time = date)}}
+                />
                 }
               </View>
+            </View>
+            <View style={styles.groupBtn}>
+              <TouchableOpacity style={styles.buttonCancel} onPress={this.hideModal}>
+                <Text style={styles.buttonTextCancel}>{i18next.t('common:cancel')}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.button} onPress={this.onSubmit}>
+                <Text style={styles.buttonText}>{i18next.t('common:accept')}</Text>
+              </TouchableOpacity>
             </View>
           </TouchableOpacity>
         </TouchableOpacity>

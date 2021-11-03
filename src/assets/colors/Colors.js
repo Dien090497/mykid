@@ -5,6 +5,7 @@ export const Colors = {
   opacityBold: 'rgba(0, 0, 0, 0.9)',
   opacityMedium: 'rgba(0, 0, 0, 0.7)',
   opacityWhite: 'rgba(255, 255, 255, 0.8)',
+  opacityWhite5: 'rgba(255, 255, 255, 0.5)',
   transparent: 'rgba(0, 0, 0, 0)',
   blackTransparent: 'rgba(1, 1, 1, 0.3)',
   whiteTransparent: 'rgba(255, 255, 255, 0.24)',
@@ -74,5 +75,8 @@ export const Colors = {
   titleTxt: '#a9a9a9',
   indicatorColor: '#d8d8d8',
   colorTextPlus: '#5F5F5F',
-  colorInputView: 'rgba(228, 228, 228, 1)'
+  colorInputView: 'rgba(228, 228, 228, 1)',
+  orangeHealth: '#EEAE2C',
+  blueHealth: '#17A2FF',
+  greenHealth: '#36DE9F',
 };
