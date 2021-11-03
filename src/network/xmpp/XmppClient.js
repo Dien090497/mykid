@@ -9,6 +9,7 @@ const {client, xml, jid} = require('@xmpp/client');
 const debug = require('@xmpp/debug');
 import reduxStore from '../../redux/config/redux';
 import Sound from 'react-native-sound';
+import SimpleToast from 'react-native-simple-toast';
 
 export default class XmppClient {
   static lstMsg = {};
@@ -223,6 +224,8 @@ export default class XmppClient {
     if (stanza.attrs.type === 'error') {
       const error = stanza.getChild('error');
       if (error && error.attrs.code === '406') {
+        // TODO: test
+        SimpleToast.show('Have some error when send message');
         console.log('err 406 rejoin');
         // rejoin
         this.joinRoom(this.currentRoomId);
@@ -302,15 +305,19 @@ export default class XmppClient {
         this.lstMsg[fromSplit[0]].push(msg);
         this.saveLastMsg(fromSplit[0], msg);
 
-        Sound.setCategory('Playback');
-        this.ringtone = new Sound(
-          'message.mp3',
-          Sound.MAIN_BUNDLE,
-          error => {
-            console.log('error', error);
-            this.ringtone.play(() => {});
-          },
-        );
+
+
+        if (msg.from !== `${DataLocal.userInfo.id}@${AppConfig.dev.rootDomain}`) {
+          Sound.setCategory('Playback');
+          this.ringtone = new Sound(
+            'message.mp3',
+            Sound.MAIN_BUNDLE,
+            error => {
+              console.log('error', error);
+              this.ringtone.play(() => {});
+            },
+          );
+        }
         reduxStore.store.dispatch(chatAction.updateMessage(this.lstMsg));
       }
     }

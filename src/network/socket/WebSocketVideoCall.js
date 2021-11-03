@@ -40,7 +40,7 @@ export default class WebSocketVideoCall {
   };
 
   static ping = async () => {
-    console.log('WebSocketVideoCall Ping');
+    // console.log('WebSocketVideoCall Ping');
     await this.ws.send(encoder.encode('').buffer, true);
     setTimeout(() => {
       if (this.reconnect) {

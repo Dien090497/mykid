@@ -46,7 +46,7 @@ export default class WebSocketSafeZone {
   };
 
   static ping = async () => {
-    console.log('WebSocketSafeZone Ping');
+    // console.log('WebSocketSafeZone Ping');
     await this.ws.send(encoder.encode('').buffer, true);
     setTimeout(() => {
       if (this.reconnect) {
