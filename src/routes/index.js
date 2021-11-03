@@ -56,9 +56,10 @@ import OffDevice from '../screens/Settings/OffDevice';
 import StartDevice from '../screens/Settings/RestartDevice';
 import EditDevice from '../screens/Profile/DeviceManager/EditDevice'
 import InfoKits from '../screens/Home/InfoKids';
-import  ForgotPassword from '../screens/auth/ForgotPassword';
+import ForgotPassword from '../screens/auth/ForgotPassword';
 import UpdatePassword from '../screens/auth/ForgotPassword/UpdatePassword';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
+
 const Tab = createBottomTabNavigator();
 
 const PATTERN = [
@@ -103,7 +104,7 @@ const renderTabBarIcon = (focused, route) => {
 };
 
 const renderTabBarLabel = (focused, route) => {
-  const { t } = useTranslation();
+  const {t} = useTranslation();
   const styleLabel = {
     color: focused ? Colors.red : Colors.gray,
     fontWeight: focused ? 'bold' : 'normal',
@@ -145,7 +146,7 @@ const TabBarBottom = () => {
         component={HomeMainScreen}
       />
       {/* <Tab.Screen name={Consts.ScreenIds.Support} component={Discover} /> */}
-      <Tab.Screen name={Consts.ScreenIds.Profile} component={Profile} />
+      <Tab.Screen name={Consts.ScreenIds.Profile} component={Profile}/>
     </Tab.Navigator>
   );
 };
@@ -161,14 +162,9 @@ const Auth = () => {
       <Stack.Screen name={Consts.ScreenIds.Login} component={Login} />
       <Stack.Screen name={Consts.ScreenIds.Register} component={Register} />
       <Stack.Screen name={Consts.ScreenIds.ForgotPassword} component={ForgotPassword} />
-      <Stack.Screen
-        name={Consts.ScreenIds.ConnectionScreen}
-        component={ConnectionScreen}
-      />
-      <Stack.Screen
-        name={Consts.ScreenIds.AddDeviceScreen}
-        component={AddDeviceScreen}
-      />
+      <Stack.Screen name={Consts.ScreenIds.ConnectionScreen} component={ConnectionScreen} />
+      <Stack.Screen name={Consts.ScreenIds.AddDeviceScreen} component={AddDeviceScreen} />
+      <Stack.Screen name={Consts.ScreenIds.UpdatePassword} component={UpdatePassword} />
     </StackAuth.Navigator>
   );
 };
@@ -181,7 +177,19 @@ const DirectRegister = () => {
       screenOptions={{
         headerShown: false,
       }}>
-      <Stack.Screen name={Consts.ScreenIds.Register} component={Register} />
+      <Stack.Screen name={Consts.ScreenIds.Register} component={Register}/>
+    </StackRegister.Navigator>
+  );
+};
+
+const DirectForgot = () => {
+  return (
+    <StackRegister.Navigator
+      initialRouteName={Consts.ScreenIds.ForgotPassword}
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <Stack.Screen name={Consts.ScreenIds.ForgotPassword} component={ForgotPassword}/>
     </StackRegister.Navigator>
   );
 };
@@ -280,6 +288,10 @@ const Routes = () => {
         <Stack.Screen
           name={Consts.ScreenIds.Register}
           component={DirectRegister}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.ForgotPassword}
+          component={DirectForgot}
         />
         <Stack.Screen
           name={Consts.ScreenIds.OTP}

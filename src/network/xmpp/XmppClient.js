@@ -8,6 +8,7 @@ import chatAction from '../../redux/actions/chatAction';
 const {client, xml, jid} = require('@xmpp/client');
 const debug = require('@xmpp/debug');
 import reduxStore from '../../redux/config/redux';
+import Sound from 'react-native-sound';
 
 export default class XmppClient {
   static lstMsg = {};
@@ -16,6 +17,7 @@ export default class XmppClient {
   // static needReconnect = false;
   static currentRoomId = null;
   static filePath = null;
+  static ringtone = null;
 
   static connectXmppServer = () => {
     if (!DataLocal.userInfo.id || !DataLocal.accessToken) return;
@@ -299,6 +301,16 @@ export default class XmppClient {
         };
         this.lstMsg[fromSplit[0]].push(msg);
         this.saveLastMsg(fromSplit[0], msg);
+
+        Sound.setCategory('Playback');
+        this.ringtone = new Sound(
+          'message.mp3',
+          Sound.MAIN_BUNDLE,
+          error => {
+            console.log('error', error);
+            this.ringtone.play(() => {});
+          },
+        );
         reduxStore.store.dispatch(chatAction.updateMessage(this.lstMsg));
       }
     }

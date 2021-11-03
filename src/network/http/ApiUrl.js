@@ -70,6 +70,9 @@ export const UpdatePassword = appUrl +'/accounts/reset-password';
 //Personal
 export const PersonalDataUrl = appUrl + '/accounts/info';
 
+// Warning
+export const WaringUrl = appUrl + '/notifications';
+
 /// url: string, obj: object
 export function assignUrlParams(url, obj) {
   if (!obj) {

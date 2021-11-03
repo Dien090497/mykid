@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.borderInputText,
     borderRadius: 10,
+    height: ScaleHeight.medium * 1.2,
   },
   viewTob: {
     position: 'absolute',
@@ -39,13 +40,19 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
-    height: ScaleHeight.medium,
+    height: ScaleHeight.medium * 1.2,
     width:'100%',
     marginTop: ScaleHeight.small * 1.5,
   },
   txt: {
     fontSize: FontSize.small,
     color: Colors.white
+  },
+  txtInput: {
+    marginLeft: 10,
+    color: Colors.black,
+    width: '85%',
+    fontSize: FontSize.small,
   }
 });
 export default styles;

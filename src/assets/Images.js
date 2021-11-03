@@ -119,6 +119,12 @@ export default {
 
  //
   icAlarmClocks: require('./images/ic_alarm_clooks.png'),
+  icNodeBook: require('./images/ic_nodebook.png'),
 
-  icNodeBook: require('./images/ic_nodebook.png')
+  //Warning
+  icLowBattery: require('./images/ic_low_battery.png'),
+  icFullBattery: require('./images/ic_full_battery.png'),
+  icOutZone: require('./images/ic_out_zone.png'),
+  icInZone: require('./images/ic_in_zone.png'),
+  icSOS: require('./images/ic_sos.png'),
 }

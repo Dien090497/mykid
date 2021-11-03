@@ -137,7 +137,7 @@ export default function OTP({navigation, route}) {
               marginLeft: '2%'
             }}
           >
-            <Text style={{fontSize: 14, color: Colors.white}}>Lấy mã</Text>
+            <Text style={{fontSize: 14, color: Colors.white}}>{t('common:getCode')}</Text>
           </TouchableOpacity>
         ) : (
           <View

@@ -190,7 +190,7 @@ export default function RoomChat({navigation, route}) {
   }
 
   const gotoDeleteMessage = () => {
-    navigation.navigate(Consts.ScreenIds.DeleteMessage);
+    navigation.navigate(Consts.ScreenIds.DeleteMessage, {roomInfo: roomInfo});
   };
 
   const onResponderStart = async (e) => {

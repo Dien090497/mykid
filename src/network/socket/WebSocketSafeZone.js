@@ -42,9 +42,17 @@ export default class WebSocketSafeZone {
       this.onError(error);
     };
     this.ws.onclose = () =>
-      this.reconnect
-        ? this._handleWebSocketSetup()
-        : this.onClose();
+      this.onClose();
+  };
+
+  static ping = async () => {
+    console.log('WebSocketSafeZone Ping');
+    await this.ws.send(encoder.encode('').buffer, true);
+    setTimeout(() => {
+      if (this.reconnect) {
+        this.ping();
+      }
+    }, 3000)
   };
 
   static onOpen = async () => {
@@ -65,6 +73,9 @@ export default class WebSocketSafeZone {
       'destination:/user/queue/unsafe-locations\n' +
       'content-length:0\n' +
       '\n\0';
+    await this.ws.send(encoder.encode(command).buffer, true);
+
+    this.ping();
   };
 
   static onClose = () => {
