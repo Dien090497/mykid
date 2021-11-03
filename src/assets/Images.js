@@ -60,6 +60,7 @@ export default {
   bgHome: require('./images/home/bg_home.png'),
   icShow: require('./images/ic_show.png'),
   icWarning: require('./images/home/ic_warning.png'),
+  icTransport: require('./images/home/ic_transfer.png'),
 
   //RewardPoints
   icAdd: require('./images/rewardoints/ic_add.png'),
@@ -126,4 +127,10 @@ export default {
   icOutZone: require('./images/ic_out_zone.png'),
   icInZone: require('./images/ic_in_zone.png'),
   icSOS: require('./images/ic_sos.png'),
+
+  //Health
+  icHealthHeart: require('./images/ic_health_heart.png'),
+  icHealthStep: require('./images/ic_health_step.png'),
+  icHealthCalo: require('./images/ic_health_calo.png'),
+
 }

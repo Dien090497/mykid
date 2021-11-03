@@ -267,16 +267,6 @@ async function handleResp(response, autoShowMsg, success, failure, refLoading, r
 
   if (httpStatusCode < 200 || httpStatusCode > 299) {
     if (httpStatusCode === 403 || httpStatusCode === 401) {
-      // await DataLocal.removeAccessToken();
-
-      // anonymousLogin(refLoading);
-
-      if (result.meta) {
-        // if (result.meta.code === 'LXA-4015') {
-        //   showAlert(OTHER_LOGIN);
-        //   return;
-        // }
-      }
 
       if (autoShowMsg) {
         if (refNotification) refNotification.current.open(i18next.t('errorMsg:TOKEN_EXPIRED_MSG'));

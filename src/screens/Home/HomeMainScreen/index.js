@@ -102,6 +102,9 @@ export default function HomeMainScreen() {
   const pressWarning = () => {
     navigation.navigate(Consts.ScreenIds.Warning);
   };
+  const pressHealth = () => {
+    navigation.navigate(Consts.ScreenIds.Health);
+  };
   const pressPaying = () => {
     navigation.navigate(Consts.ScreenIds.Paying);
   };
@@ -287,6 +290,17 @@ export default function HomeMainScreen() {
               <Text style={styles.buttonText}>{t('common:home_warning')}</Text>
             </TouchableOpacity>
           </View>
+          <View style={styles.buttonContainerL}>
+            <TouchableOpacity
+              {...buttonProps}
+              style={styles.button}
+              onPress={pressHealth}>
+              <View style={styles.bgIcon}>
+                <Image source={Images.icTransport} style={styles.icon} />
+              </View>
+              <Text style={styles.buttonText}>{t('common:home_transport')}</Text>
+            </TouchableOpacity>
+          </View>
           <View style={styles.buttonContainerR}>
             <TouchableOpacity
               {...buttonProps}
@@ -299,7 +313,6 @@ export default function HomeMainScreen() {
             </TouchableOpacity>
           </View>
         </View>
-
       </ScrollView>
       <LoadingIndicator ref={refLoading} />
       <NotificationModal ref={refNotification} />

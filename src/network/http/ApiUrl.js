@@ -73,6 +73,9 @@ export const PersonalDataUrl = appUrl + '/accounts/info';
 // Warning
 export const WaringUrl = appUrl + '/notifications';
 
+// Health
+export const HealthUrl = appUrl + '/walking-time-modes';
+
 /// url: string, obj: object
 export function assignUrlParams(url, obj) {
   if (!obj) {
