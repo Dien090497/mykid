@@ -102,6 +102,9 @@ export default function HomeMainScreen() {
   const pressWarning = () => {
     navigation.navigate(Consts.ScreenIds.Warning);
   };
+  const pressPaying = () => {
+    navigation.navigate(Consts.ScreenIds.Paying);
+  };
   const buttonProps = { activeOpacity: 0.8 };
 
   const handleChange = async (index) => {
@@ -284,7 +287,19 @@ export default function HomeMainScreen() {
               <Text style={styles.buttonText}>{t('common:home_warning')}</Text>
             </TouchableOpacity>
           </View>
+          <View style={styles.buttonContainerR}>
+            <TouchableOpacity
+              {...buttonProps}
+              style={styles.button}
+              onPress={pressPaying}>
+              <View style={styles.bgIcon}>
+                <Image source={Images.icSetting} style={styles.icon} />
+              </View>
+              <Text style={styles.buttonText}>{t('common:payInCash')}</Text>
+            </TouchableOpacity>
+          </View>
         </View>
+
       </ScrollView>
       <LoadingIndicator ref={refLoading} />
       <NotificationModal ref={refNotification} />

@@ -30,12 +30,22 @@ const ForgotPassword = ({navigation}) => {
   const [isActive, setIsActive] = useState(false);
   const [otpSent, setOtpSent] = useState(false);
 
+  const editPhone = () => {
+    if (phone[0] === '0') {
+      return '+84' + phone.substring(1);
+    }
+    if (phone[0] === '8') {
+      return ('+84' + phone.substring(2));
+    }
+  }
+
   const sendTo = () => {
+    let isPhone = editPhone();
     if (!phoneTest1(phone)) {
       refNotification.current.open(t('common:error_phone'))
       return;
     }
-    getOtpResettingApi(phone, {
+    getOtpResettingApi(isPhone, {
         success: res => {
           setCheck(true);
           setIsActive(true);
@@ -58,12 +68,12 @@ const ForgotPassword = ({navigation}) => {
       return;
     }
     const data = {
-      phone: phone,
+      phone: editPhone(),
       otp: otp
     }
     getVerificationOtpApi(data, {
       success: res => {
-        navigation.navigate(Consts.ScreenIds.UpdatePassword, {phone: phone})
+        navigation.navigate(Consts.ScreenIds.UpdatePassword, {phone: editPhone()})
       },
       refNotification
     })

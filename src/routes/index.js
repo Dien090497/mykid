@@ -56,6 +56,8 @@ import EditDevice from '../screens/Profile/DeviceManager/EditDevice'
 import InfoKits from '../screens/Home/InfoKids';
 import ForgotPassword from '../screens/auth/ForgotPassword';
 import UpdatePassword from '../screens/auth/ForgotPassword/UpdatePassword';
+import Paying from "../screens/Paying";
+import Card from "../screens/Paying/Card";
 import {useTranslation} from 'react-i18next';
 
 const Tab = createBottomTabNavigator();
@@ -338,6 +340,14 @@ const Routes = () => {
         <Stack.Screen
           name={Consts.ScreenIds.Warning}
           component={Warning}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.Paying}
+          component={Paying}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.Card}
+          component={Card}
         />
         <Stack.Screen name={Consts.ScreenIds.Contacts} component={Contacts} />
         <Stack.Screen name={Consts.ScreenIds.Members} component={Members} />

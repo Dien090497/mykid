@@ -9,14 +9,12 @@ import {
 } from 'react-native';
 import React, {useLayoutEffect, useRef, useState} from 'react';
 import {getOtpApi} from '../../../network/UserInfoService';
-import {passwordTest1, phoneTest1 } from '../../../functions/utils';
-
+import {passwordTest1, phoneTest1} from '../../../functions/utils';
 import Consts from '../../../functions/Consts';
 import CustomInput from '../../../components/inputRegister';
-import {String} from '../../../assets/strings/String';
 import {styles} from './styles';
 import {CheckBox} from 'react-native-elements';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 import NotificationModal from '../../../components/NotificationModal'
 
 const Register = ({navigation}) => {
@@ -31,7 +29,7 @@ const Register = ({navigation}) => {
   const [showUserVerification, setShowUserVerification] = useState(true);
   const [checkbox, setCheckbox] = useState(false);
   const [submitActive, setSubmitActive] = useState(false);
-  const { t } = useTranslation();
+  const {t} = useTranslation();
 
   useLayoutEffect(() => {
     setSubmitActive(phone && pass)
@@ -57,7 +55,17 @@ const Register = ({navigation}) => {
     setShowUserVerification(!showUserVerification);
   };
 
+  const editPhone = () => {
+    if (phone[0] === '0') {
+      return '+84' + phone.substring(1);
+    }
+    if (phone[0] === '8') {
+      return ('+84' + phone.substring(2));
+    }
+  }
+
   const oncRegister = () => {
+    editPhone(phone);
     if (!checkbox) {
       refNotification.current.open(t('common:error_message'))
       return;
@@ -74,10 +82,9 @@ const Register = ({navigation}) => {
       refNotification.current.open(t('common:error_pass1'))
       return;
     }
-
-    getOtpApi(phone, {
+    getOtpApi(editPhone(), {
         success: res => {
-          navigation.navigate(Consts.ScreenIds.OTP, {phone: phone, pass: pass, check: true})
+          navigation.navigate(Consts.ScreenIds.OTP, {phone: editPhone(), pass: pass, check: true})
         },
         refNotification,
       }
@@ -151,7 +158,7 @@ const Register = ({navigation}) => {
           </View>
         </View>
       </TouchableWithoutFeedback>
-      <NotificationModal ref = {refNotification} />
+      <NotificationModal ref={refNotification}/>
     </KeyboardAvoidingView>
   );
 };
