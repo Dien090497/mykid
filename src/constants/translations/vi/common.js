@@ -304,6 +304,12 @@ export default {
   txtForgotPassWord1: '1.Xin vui lòng nhập số điện thoại hợp lệ để nhận mã xác minh.',
   txtForgotPassWord2: '2. Nhập xác nhận thiết lập lại mật khẩu mã xác minh là  thành công.',
   inputTxt: 'Vui lòng nhập số điện thoại của bạn',
+  txtContinue : 'Tiếp tục',
+  getCode: 'Lấy mã',
+  successPassword: 'Cập nhật mật khẩu thành công',
+  newPassword: 'Nhập mật khẩu mới',
+  isNewPassword: 'Nhập lại mật khẩu mới',
+  updatePassword: 'Cập nhật mật khẩu',
 
   //Warning
   txtSOS: ' đang trong tình trạng khẩn cấp. Bạn vui lòng chú ý theo dõi',
@@ -311,11 +317,25 @@ export default {
   txtInSafeZone: ' đã đi vào vùng an toàn. Vui lòng kiểm tra trên ứng dụng',
   txtFullBattery: 'Đồng hồ đã sạc đầy. Vui lòng tháo sạc',
   txtLowBattery: 'Cảnh báo Pin yếu',
-  
-  txtContinue : 'Tiếp tục',
-  getCode: 'Lấy mã',
-  successPassword: 'Cập nhật mật khẩu thành công',
-  newPassword: 'Nhập mật khẩu mới',
-  isNewPassword: 'Nhập lại mật khẩu mới',
-  updatePassword: 'Cập nhật mật khẩu'
+
+  //Paying
+  payInCash: 'Nạp tiền',
+  accountInfo: 'Thông tin tài khoản',
+  package: 'Gói cước',
+  deadline: 'Ngày hết hạn',
+  ori_account: 'Tài khoản gốc',
+  free_intranet_voice: 'Thoại nội mạng miễn phí',
+  free_offline_voice: 'Thoại ngoại mạng miễn phí',
+  free_data_traffic: 'Lưu lượng data miễn phí',
+  more_money: 'Nạp thêm tiền',
+  txt_phone: 'Số điện thoại của đồng hồ: ',
+  cardCode: 'Mã thẻ cào Viettel',
+  card: 'Thẻ cào',
+  importCard: 'Nhập mã thẻ cào',
+  more_card: 'Nạp thẻ',
+  txtContent: 'Để gia hạn sử dụng dịch vụ, quý khách vui lòng ' +
+    'duy trì tài khoản gốc tối thiểu 30.000đ với gói MyKid30, ' +
+    '50.000đ đối với gói MyKID50',
+  error_card: 'Vui lòng nhập mã thẻ cào!',
+
 };

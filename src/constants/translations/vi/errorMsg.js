@@ -31,6 +31,8 @@ export default {
   // common
   exceedNicknameLength: 'Vượt quá số lượng ký tự cho phép',
   downloadFailed: 'Tải dữ liệu không thành công',
+  playAudioFail: 'Tệp ghi âm bị lỗi',
+  recordingFail: 'Thời gian ghi âm quá ngắn',
 
   // server associated
   clientServerCommunicationProb: 'Lỗi trong quá trình giao tiếp với máy chủ',

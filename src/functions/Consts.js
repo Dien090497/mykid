@@ -1,6 +1,5 @@
 import {Dimensions, StatusBar} from 'react-native';
 import {RFPercentage} from 'react-native-responsive-fontsize';
-import DetailHealth from '../screens/Health/DetailHealth';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight =
@@ -54,6 +53,7 @@ const ScreenIds = {
   Warning: 'Warning',
   Health: 'Health',
   DetailHealth: 'DetailHealth',
+  Paying: 'Paying',
 
   // Auth
   Login: 'Login',
@@ -76,6 +76,9 @@ const ScreenIds = {
 
   //Maps
   Maps: 'Maps',
+
+  //Paying
+  Card: 'Card',
 
   //VideoCall
   ListDevice: 'ListDevice',

@@ -75,6 +75,10 @@ export const styles = StyleSheet.create({
     width: 40,
     height: 40,
   },
+  icAudio: {
+    width: 40,
+    height: 40,
+  },
   icCamera: {
     marginTop: 12,
     width: 40,

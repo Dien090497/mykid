@@ -4,12 +4,15 @@ import {
   PermissionsAndroid,
 } from 'react-native';
 import { AudioRecorder, AudioUtils } from 'react-native-audio';
-import AudioRecorderPlayer, {
-  AVEncoderAudioQualityIOSType,
-  AVEncodingOption,
-  AudioEncoderAndroidType,
-  AudioSourceAndroidType,
-} from 'react-native-audio-recorder-player';
+import AudioRecord from 'react-native-audio-record';
+ 
+const options = {
+  sampleRate: 8000,  // default 44100
+  channels: 1,        // 1 or 2, default 1
+  bitsPerSample: 16,  // 8 or 16, default 16
+  audioSource: 6,     // android only (see below)
+  wavFile: 'test.wav' // default 'audio.wav'
+};
 
 
 export default class RecorderComponent extends Component {
@@ -28,13 +31,17 @@ export default class RecorderComponent extends Component {
       paused: false,
       stoppedRecording: false,
       finished: false,
-      audioPath: AudioUtils.DocumentDirectoryPath + '/test.aac',
+      audioPath: AudioUtils.DocumentDirectoryPath + (Platform.OS === 'ios' ? '/test.aac' : '/test.aac'),
       hasPermission: undefined,
     };
 
     this._isMounted = false;
-    this.audioRecorderPlayer = new AudioRecorderPlayer();
-    this.audioRecorderPlayer.setSubscriptionDuration(0.1); // optional. Default is 0.5
+    AudioRecord.init(options);
+
+    AudioRecord.on('data', data => {
+      // base64-encoded audio data chunks
+      // console.log(data);
+    });
   }
 
   prepareRecordingPath(audioPath){
@@ -99,7 +106,11 @@ export default class RecorderComponent extends Component {
 
   async _stop() {
     if (Platform.OS === 'android') {
-      await this.onStopRecord();
+      // stop recording
+      this.state.audioPath = await AudioRecord.stop();
+      if (this.props.onStopRecord) {
+        this.props.onStopRecord('file://' + this.state.audioPath);
+      }
       return;
     }
 
@@ -145,34 +156,7 @@ export default class RecorderComponent extends Component {
       console.warn(err);
       return;
     }
-
-    const audioSet = {
-      AudioEncoderAndroid: AudioEncoderAndroidType.AAC,
-      AudioSourceAndroid: AudioSourceAndroidType.MIC,
-      AVEncoderAudioQualityKeyIOS: AVEncoderAudioQualityIOSType.medium,
-      AVNumberOfChannelsKeyIOS: 2,
-      AVFormatIDKeyIOS: AVEncodingOption.aac,
-    };
-    //? Default path
-    const uri = await this.audioRecorderPlayer.startRecorder(
-      this.state.audioPath,
-      audioSet,
-    );
-
-    this.audioRecorderPlayer.addRecordBackListener(async (e) => {
-      this._isMounted && this.setState({
-        recordSecs: e.currentPosition,
-        recordTime: this.audioRecorderPlayer.mmssss(
-          Math.floor(e.currentPosition),
-        ),
-      });
-      if (Math.floor(e.currentPosition) > 15000) {
-        await this.onStopRecord();
-      }
-      // if (this.props.recordBackListener) {
-      //   this.props.recordBackListener(e);
-      // }
-    });
+    AudioRecord.start();
   };
   
   onStopRecord = async () => {

@@ -14,6 +14,11 @@ export default class WebSocketSafeZone {
   static reconnect = false;
   static navigationRef = null;
 
+  static PATTERN = [
+    0, 500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170,
+    40, 500,
+  ];
+
   static setReconnect(autoReconnect) {
     this.reconnect = !!autoReconnect;
     // this._handleWebSocketSetup();
@@ -46,7 +51,7 @@ export default class WebSocketSafeZone {
   };
 
   static ping = async () => {
-    console.log('WebSocketSafeZone Ping');
+    // console.log('WebSocketSafeZone Ping');
     await this.ws.send(encoder.encode('').buffer, true);
     setTimeout(() => {
       if (this.reconnect) {
@@ -103,7 +108,7 @@ export default class WebSocketSafeZone {
                 .replace('\u0000', '')
                 .replace('\\u0000', ''),
             );
-            Vibration.vibrate(PATTERN, true);
+            Vibration.vibrate(this.PATTERN, true);
             AlertDropHelper.show(
               Consts.dropdownAlertType.ERROR,
               'MyKid',

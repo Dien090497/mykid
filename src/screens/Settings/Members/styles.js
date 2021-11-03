@@ -1,8 +1,9 @@
 import Consts, {FontSize, ScaleHeight} from '../../../functions/Consts';
 
 import {Colors} from '../../../assets/colors/Colors';
-import {StyleSheet,Dimensions} from 'react-native';
-const {width,height} = Dimensions.get("window");
+import {StyleSheet, Dimensions} from 'react-native';
+
+const {width, height} = Dimensions.get("window");
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -21,8 +22,8 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 10,
     backgroundColor: Colors.white,
-    height: width*0.07,
-    width: width*0.07,
+    height: width * 0.07,
+    width: width * 0.07,
   },
   avatar: {
     justifyContent: 'center',
@@ -34,12 +35,12 @@ export const styles = StyleSheet.create({
   },
   itemContainer: {
     backgroundColor: Colors.white,
-    marginBottom: height*0.02,
-    marginHorizontal: width*0.04,
+    marginBottom: height * 0.02,
+    marginHorizontal: width * 0.04,
     padding: 10,
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius:width*0.02,
+    borderRadius: width * 0.02,
     shadowColor: 'rgba(25,25,25, 0.5)',
     shadowOffset: {
       width: 0,
@@ -55,26 +56,26 @@ export const styles = StyleSheet.create({
   },
   headerContainer: {
     backgroundColor: Colors.white,
-    marginHorizontal: width*0.02,
+    marginHorizontal: width * 0.02,
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 15,
     marginBottom: 1,
-    borderRadius: width*0.03,
+    borderRadius: width * 0.03,
   },
   headerText: {
     padding: 10,
     fontWeight: 'normal',
     fontSize: 16,
-    color:Colors.colorHeader
+    color: Colors.colorHeader
   },
   smallButton: {
     borderWidth: 1,
     borderRadius: 12,
     borderColor: Colors.red,
     backgroundColor: Colors.white,
-    width: width*0.3,
-    height: height*0.05,
+    width: width * 0.3,
+    height: height * 0.05,
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -86,30 +87,30 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 5,
     width: '75%',
-    marginLeft: width*0.02
+    marginLeft: width * 0.02
   },
   username: {
     padding: 2,
     fontWeight: 'bold',
-    fontSize: height*0.025,
+    fontSize: height * 0.025,
     color: Colors.grayTxt,
   },
   otherInfoText: {
     padding: 2,
-    fontSize: height*0.02,
+    fontSize: height * 0.02,
     color: Colors.grayTxt
   },
   rowItem: {
     flexDirection: 'row',
     marginTop: 8,
-    height: ScaleHeight.xxtraBig*1.5-ScaleHeight.xxtraBig,
-    marginHorizontal: width*0.06
+    height: ScaleHeight.xxtraBig * 1.5 - ScaleHeight.xxtraBig,
+    marginHorizontal: width * 0.06
   },
   rowItem2: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    width:'5%'
+    width: '5%'
   },
   containerView: {
     flexDirection: 'row',
@@ -119,10 +120,10 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   imageView: {
-    height: ScaleHeight.medium* 1.2,
-    width: ScaleHeight.medium* 1.2,
-    justifyContent:  'center',
-    marginTop: -height*0.04,
+    height: ScaleHeight.medium * 1.2,
+    width: ScaleHeight.medium * 1.2,
+    justifyContent: 'center',
+    marginTop: -height * 0.04,
   },
   textView: {
     flexDirection: 'row',
@@ -139,13 +140,13 @@ export const styles = StyleSheet.create({
     alignItems: 'center'
   },
   modal: {
-    flex:1,
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.3);',
     width: '100%',
     height: '100%',
-    flexDirection:'column'
+    flexDirection: 'column'
   },
   tobModal: {
     flexDirection: 'column',
@@ -170,4 +171,4 @@ export const styles = StyleSheet.create({
     fontWeight: '500'
   },
 
-  });
+});
