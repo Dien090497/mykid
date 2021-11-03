@@ -316,6 +316,8 @@ export default {
   txtInSafeZone: ' has entered the safe zone. Please check on the app',
   txtFullBattery: 'The watch is fully charged. Please remove the charger',
   txtLowBattery: 'Low battery warning',
+
+  //pay in cash
   payInCash: 'Pay in cash', //to do,
   accountInfo: 'Account information', //to do,
   package: 'Package', // to do
@@ -328,4 +330,11 @@ export default {
   card: 'Scratch card', // to do
   txt_phone: 'The phone number of the clock:', // to do
   cardCode: 'Viettel scratch card code', //to do
+  importCard: 'enter scratch card code', //to do
+  more_card: 'More card', // to do,
+  txtContent: 'To extend the service, please maintain the original ' +
+    'account of at least VND 30,000 with MyKid30 package,' +
+    ' VND 50,000 for MyKID50 plan', // to do
+  error_card: 'Please enter the scratch card code!', // to do
+
 };
