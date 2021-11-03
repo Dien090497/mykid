@@ -13,41 +13,39 @@ import {
   View,
   TextInput, StatusBar, Modal,
 } from 'react-native';
-import React, { useLayoutEffect, useRef, useState } from 'react';
-import { passwordTest } from '../../../functions/utils';
-import { useDispatch, useSelector } from 'react-redux';
+import React, {useLayoutEffect, useRef, useState} from 'react';
+import {passwordTest} from '../../../functions/utils';
+import {useDispatch, useSelector} from 'react-redux';
 
-import { Colors } from '../../../assets/colors/Colors';
+import {Colors} from '../../../assets/colors/Colors';
 import Consts from '../../../functions/Consts';
 import Images from '../../../assets/Images';
 import LoadingIndicator from '../../../components/LoadingIndicator';
-import { String } from '../../../assets/strings/String';
-import { getListDeviceApi } from '../../../network/DeviceService';
-import { styles } from './styles';
-import { CheckBox } from 'react-native-elements';
+import {getListDeviceApi} from '../../../network/DeviceService';
+import {styles} from './styles';
+import {CheckBox} from 'react-native-elements';
 import DataLocal from '../../../data/dataLocal';
-import { useTranslation } from 'react-i18next';
-import { WheelPicker } from 'react-native-wheel-picker-android';
+import {useTranslation} from 'react-i18next';
+import {WheelPicker} from 'react-native-wheel-picker-android';
 import NotificationModal from '../../../components/NotificationModal'
 
 const LANGUAGES = [
-  { code: 'en', label: 'English' },
-  { code: 'vi', label: 'Việt Nam' }
+  {code: 'en', label: 'English'},
+  {code: 'vi', label: 'Việt Nam'}
 ];
 const NAME_LANGUAGE = ['English', 'Việt Nam'];
 
-const Login = ({ navigation }) => {
+const Login = ({navigation}) => {
   const dispatch = useDispatch();
   const loggedInUserInfo = useSelector((state) => state.loginReducer.dataInfo);
-
-  const [email, setEmail] = useState('');
+  const [isPhone, setIsPhone] = useState('');
   const [password, setPassword] = useState('');
   const [checkbox, setCheckbox] = useState(false);
-  const [showModal,setShowModal] = useState(false);
-  const [indexLanguage,setIndexLanguage] = useState(0);
+  const [showModal, setShowModal] = useState(false);
+  const [indexLanguage, setIndexLanguage] = useState(0);
   const refLoading = useRef();
   const refNotification = useRef();
-  const { t, i18n } = useTranslation();
+  const {t, i18n} = useTranslation();
 
   useLayoutEffect(() => {
     onLoggedIn();
@@ -68,7 +66,7 @@ const Login = ({ navigation }) => {
   const onNavigate = async (resData) => {
     let devices = resData.data.filter(val => val.status === 'ACTIVE');
     if (devices.length === 0) {
-      navigation.navigate(Consts.ScreenIds.AddDeviceScreen, { isShowAlert: resData.data.length > 0 });
+      navigation.navigate(Consts.ScreenIds.AddDeviceScreen, {isShowAlert: resData.data.length > 0});
     } else {
       if (DataLocal.deviceIndex >= devices.length) {
         DataLocal.deviceIndex = 0;
@@ -80,21 +78,31 @@ const Login = ({ navigation }) => {
     }
   };
 
-  const onChangeGmail = (text) => {
-    setEmail(text);
+  const onChangePhone = (text) => {
+    setIsPhone(text);
   };
 
   const onChangePassword = (text) => {
     setPassword(text);
   };
 
+  const editPhone = () => {
+    if (isPhone[0] === '0') {
+      return '+84' + isPhone.substring(1);
+    }
+    if (isPhone[0] === '8') {
+      return ('+84' + isPhone.substring(2));
+    }
+  }
+
   const onSubmit = () => {
+    let phone = editPhone(isPhone);
     if (checkbox) {
       if (!passwordTest(password)) {
         refNotification.current.open(t('common:txtNotification'))
         return;
       }
-      dispatch(Actions.actionLogin({ email, password, refLoading, refNotification }));
+      dispatch(Actions.actionLogin({phone, password, refLoading, refNotification}));
     } else {
       Alert.alert(t('common:notification'), t('common:error_message'));
     }
@@ -118,13 +126,13 @@ const Login = ({ navigation }) => {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <ScrollView>
           <ImageBackground source={Images.bgLogin} style={styles.image} resizeMode='stretch'>
-            <Image source={Images.bannerLogin} style={styles.banner} />
+            <Image source={Images.bannerLogin} style={styles.banner}/>
             <Text style={styles.title}>{t('common:login')}</Text>
             <TextInput
-              placeholder={t('common:header_account') + ':'}
+              placeholder={t('common:header_account')}
               placeholderTextColor='#B5B4B4'
-              onChangeText={onChangeGmail}
-              value={email}
+              onChangeText={onChangePhone}
+              value={isPhone}
               style={styles.textInput}
               keyboardType={'phone-pad'}
             />
@@ -137,10 +145,10 @@ const Login = ({ navigation }) => {
               style={styles.textInput}
             />
             <View style={styles.ViewResetPass}>
-              <View />
+              <View/>
               <TouchableOpacity
                 onPress={() => navigation.navigate(Consts.ScreenIds.ForgotPassword)}
-                style={{position:'absolute', left: 0}}
+                style={{position: 'absolute', left: 0}}
               >
                 <Text
                   style={[styles.txtRegister, {color: 'rgba(95, 95, 95, 1)'}]}>{t('common:forgotPassword')}</Text>
@@ -160,9 +168,9 @@ const Login = ({ navigation }) => {
               </TouchableOpacity>
             </View>
 
-            <View style={{ marginTop: 15, flexDirection: 'row', marginBottom: 20 }}>
+            <View style={{marginTop: 15, flexDirection: 'row', marginBottom: 20}}>
               <CheckBox checkedColor={Colors.colorMain} uncheckedColor={Colors.colorMain} checked={checkbox}
-                        onPress={() => setCheckbox(!checkbox)} />
+                        onPress={() => setCheckbox(!checkbox)}/>
               <Text style={styles.txt_Policy}>{t('common:acceptMy')}
                 <Text> </Text>
                 <Text style={styles.txtPolicy} onPress={() => console.log('hello')}>{t('common:agreement')}</Text>
@@ -176,10 +184,15 @@ const Login = ({ navigation }) => {
               width: '100%',
               marginTop: 10,
               justifyContent: 'center',
-              alignItems:'flex-end',
+              alignItems: 'flex-end',
             }}>
-              <TouchableOpacity onPress={() =>{ setShowModal(true)}}>
-                <Text>{t('common:txtLanguage')}<Text style={{color: Colors.colorMain,textDecorationLine: 'underline',}}>{DataLocal.language ==='vi'? 'Việt Nam':'English'}</Text></Text>
+              <TouchableOpacity onPress={() => {
+                setShowModal(true)
+              }}>
+                <Text>{t('common:txtLanguage')}<Text style={{
+                  color: Colors.colorMain,
+                  textDecorationLine: 'underline',
+                }}>{DataLocal.language === 'vi' ? 'Việt Nam' : 'English'}</Text></Text>
               </TouchableOpacity>
             </View>
           </ImageBackground>
@@ -191,7 +204,9 @@ const Login = ({ navigation }) => {
         animationType='slide'
       >
         <View style={styles.modalView}>
-          <TouchableOpacity style={styles.modalViewTob} onPress={()=>{setShowModal(false)}}/>
+          <TouchableOpacity style={styles.modalViewTob} onPress={() => {
+            setShowModal(false)
+          }}/>
           <View style={styles.wheelPickerView}>
             <View style={styles.tobWheel}>
               <TouchableOpacity style={styles.confirmView} onPress={setChooseLanguage}>
@@ -211,8 +226,8 @@ const Login = ({ navigation }) => {
           </View>
         </View>
       </Modal>
-      <LoadingIndicator ref={refLoading} />
-      <NotificationModal ref = {refNotification} />
+      <LoadingIndicator ref={refLoading}/>
+      <NotificationModal ref={refNotification}/>
     </KeyboardAvoidingView>
   );
 };
