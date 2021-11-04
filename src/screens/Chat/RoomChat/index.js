@@ -57,6 +57,7 @@ export default function RoomChat({navigation, route}) {
   const [timerCount, setTimerCount] = useState();
   const { t } = useTranslation();
   let sheet = null;
+  let recordTimeout = null;
 
   const dataMock = [
     {
@@ -212,8 +213,8 @@ export default function RoomChat({navigation, route}) {
     setIsRecording(true);
     await refRecorder.current._record();
     setTimerCount(getTime());
-    setTimeout(() => {
-      if (getTime() - timerCount >= 14) {
+    recordTimeout = setTimeout(() => {
+      if (recordTimeout && refRecorder.current && getTime() - timerCount >= 14) {
         setIsRecording(false);
         refRecorder.current._stop().then();
       }
@@ -234,9 +235,10 @@ export default function RoomChat({navigation, route}) {
   }
 
   const onStopRecord = (url) => {
+    clearTimeout(recordTimeout);
     setIsRecording(false);
     setTimerCount(getTime());
-    if (getTime() - timerCount < 3) {
+    if (getTime() - timerCount < 2) {
       SimpleToast.show(t('errorMsg:recordingFail'));
     } else {
       showLoading(refLoading);

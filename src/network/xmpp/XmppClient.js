@@ -231,7 +231,7 @@ export default class XmppClient {
           if (Object.hasOwnProperty.call(this.lstMsg, key)) {
             const lst = this.lstMsg[key];
             if (lst.length > 0) {
-              this.saveLastMsg(key, lst[0]);
+              this.saveLastMsg(key, lst[lst.length - 1]);
             }
           }
         }
