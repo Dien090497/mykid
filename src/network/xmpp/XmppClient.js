@@ -15,7 +15,6 @@ export default class XmppClient {
   static lstMsg = {};
   static lstRoom = [];
   static clientXmpp = null;
-  // static needReconnect = false;
   static currentRoomId = null;
   static filePath = null;
   static ringtone = null;
@@ -78,7 +77,7 @@ export default class XmppClient {
     for (const roomInfo of this.lstRoom) {
       this.lstMsg[roomInfo.roomAddress] = [];
       await this.joinRoom(roomInfo.roomAddress);
-      await this.getHistory(50);
+      await this.getHistory(roomInfo.flagTime);
     }
   }
 
@@ -132,7 +131,7 @@ export default class XmppClient {
     await clientXmpp.send(message);
   }
 
-  static async getHistory(maxLength) {
+  static async getHistory(flagTime) {
     let message = xml('iq', 
       {
         id: generateRandomId() + ':history',
@@ -140,25 +139,24 @@ export default class XmppClient {
         to: this.currentRoomId
       }, xml('query', 
         {
-          xmlns: 'urn:xmpp:mam:2'
+          xmlns: 'urn:xmpp:mam:2',
+          queryid: generateRandomId() + ':queryid'
         }, xml('x', 
           {
             type: 'submit',
-            xmlns: 'urn:xmpp:mam:2'
+            xmlns: 'jabber:x:data'
           }, xml('field',
             {
               var: 'FORM_TYPE'
             }, xml('value',
               {}, 'urn:xmpp:mam:2'
             ),
-          ),
-        ), xml('set',
-          {
-            xmlns: 'http://jabber.org/protocol/rsm'
-          }, xml('before',
-            {},
-          ), xml('max', 
-            {}, maxLength.toString()
+          ), xml('field',
+            {
+              var: 'start'
+            }, xml('value',
+              {}, flagTime
+            ),
           ),
         ),
       ),
@@ -266,7 +264,7 @@ export default class XmppClient {
       const message = forwarded.getChild('message');
       if (!message) return;
   
-      const date = delay?.attrs.stamp ? new Date(delay?.attrs.stamp) : undefined;
+      const time = delay?.attrs.stamp ? new Date(delay?.attrs.stamp) : undefined;
       let body = message.getChildText('body');
       const fromSplit = message.attrs.from.split('/');
       if (!this.lstMsg[fromSplit[0]]) {
@@ -286,12 +284,19 @@ export default class XmppClient {
         } else if (body.startsWith('text')) {
           body = body.substr(5);
         }
+
+        const length = this.lstMsg[fromSplit[0]].length;
+        let date = time.toLocaleDateString();
+        if (length > 0 && this.lstMsg[fromSplit[0]][length - 1].time.toLocaleDateString() === date) {
+          date = null;
+        }
         
         this.lstMsg[fromSplit[0]].push({
           from: fromSplit[1],
           body: body,
           type: type,
-          time: date
+          time: time,
+          date: date
         })
       }
     }
@@ -316,16 +321,20 @@ export default class XmppClient {
         } else if (body.startsWith('text')) {
           body = body.substr(5);
         }
+        const length = this.lstMsg[fromSplit[0]].length;
+        let date = (new Date()).toLocaleDateString();
+        if (length > 0 && this.lstMsg[fromSplit[0]][length - 1].time.toLocaleDateString() === date) {
+          date = null;
+        }
         const msg = {
           from: fromSplit[1],
           body: body,
           type: type,
-          time: new Date()
+          time: new Date(),
+          date: date
         };
         this.lstMsg[fromSplit[0]].push(msg);
         this.saveLastMsg(fromSplit[0], msg);
-
-
 
         if (msg.from !== `${DataLocal.userInfo.id}@${AppConfig.dev.rootDomain}`) {
           Sound.setCategory('Playback');

@@ -9,7 +9,6 @@ import {
 } from 'react-native'
 import Header from '../../../components/Header';
 import {getListDeviceApi} from '../../../network/DeviceService';
-import DataLocal from '../../../data/dataLocal';
 import Images from '../../../assets/Images';
 import {Colors} from '../../../assets/colors/Colors';
 import LoadingIndicator from '../../../components/LoadingIndicator';
@@ -18,6 +17,7 @@ import {styles} from './styles';
 import { useTranslation } from 'react-i18next';
 import NotificationModal from "../../../components/NotificationModal";
 import XmppClient from '../../../network/xmpp/XmppClient';
+import { deleteHistoryApi } from '../../../network/ChatService';
 
 export default function DeleteMessage({navigation, route}) {
   const refLoading = useRef();
@@ -97,12 +97,29 @@ export default function DeleteMessage({navigation, route}) {
     });
   };
 
+  const deleteHistory = () => {
+    deleteHistoryApi(roomInfo.id, {
+      success: res => {
+      },
+      failure: error => {
+      },
+      refLoading: refLoading,
+      refNotification: refNotification
+    });
+  };
+
   const refeshDelete = () => {
     getListDevice();
   }
 
   const gotoMember = () => {
     navigation.navigate(Consts.ScreenIds.Members, {Delete: refeshDelete});
+  }
+
+  const onDeleteHistory = () => {
+    deleteHistory();
+    XmppClient.cleanCurrentHistory();
+    navigation.navigate(Consts.ScreenIds.Chat);
   }
 
   const renderFlatlist = (itemFlatlist) => {
@@ -173,7 +190,9 @@ export default function DeleteMessage({navigation, route}) {
                 <View style={styles.tob}>
                   <TouchableOpacity
                     style={[styles.smallButton, {backgroundColor: Colors.white}]}
-                    onPress={() => setOnModal(false)}
+                    onPress={() => {
+                      setOnModal(false);
+                    }}
                   >
                     <Text
                       style={[styles.smallButtonText, {color: Colors.red}]}>
@@ -185,8 +204,7 @@ export default function DeleteMessage({navigation, route}) {
                   <TouchableOpacity
                     style={[styles.smallButton, {backgroundColor: Colors.red}]}
                     onPress={() => {
-                      XmppClient.cleanCurrentHistory();
-                      navigation.navigate(Consts.ScreenIds.Chat);
+                      onDeleteHistory();
                     }}
                   >
                     <Text
