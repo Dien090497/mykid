@@ -35,7 +35,7 @@ const ForgotPassword = ({navigation}) => {
       return '+84' + phone.substring(1);
     }
     if (phone[0] === '8' && phone[1] === '4') {
-      return ('+84' + phone.substring(2));
+      return ('+' + phone);
     }
   }
 

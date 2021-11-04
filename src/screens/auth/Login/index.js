@@ -91,7 +91,7 @@ const Login = ({navigation}) => {
       return '+84' + phoneNumber.substring(1);
     }
     if (phoneNumber[0] === '8' && phoneNumber[1] === '4') {
-      return ('+84' + phoneNumber.substring(2));
+      return ('+' + phoneNumber);
     }
   }
 
