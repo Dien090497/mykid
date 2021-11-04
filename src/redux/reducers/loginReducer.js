@@ -1,7 +1,7 @@
 const initData = {
   dataInfo: {},
   isLoading: false,
-  isLogout: true,
+  isLogout: false,
   error: '',
 };
 
