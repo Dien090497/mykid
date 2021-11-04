@@ -57,31 +57,31 @@ export default function Health({ navigation }) {
             <Text style={[styles.subTxtTop,{color: Colors.blueHealth}]}>Calo</Text>
           </View>
         </View>
-        {/*{classConfig && classConfig.map((obj, i) => (*/}
-        {/*  <View key={i} style={styles.viewItem}>*/}
-        {/*    <TouchableOpacity style={styles.viewText}>*/}
-        {/*      <View style={styles.rowDirection}>*/}
-        {/*        {obj.from === obj.to ?*/}
-        {/*          <View style={{flex:9}}>*/}
-        {/*            <Text style={styles.txtAddTime}>{t('common:textAddTime')}</Text>*/}
-        {/*          </View> :*/}
-        {/*          <View style={{flex:9}}>*/}
-        {/*            <Text style={styles.txtTime}>{obj.from.substring(0, 5)} - {obj.to.substring(0, 5)}</Text>*/}
-        {/*          </View>}*/}
-        {/*        <Image source={Images.icRightArrow} style={styles.icArrow}/>*/}
-        {/*      </View>*/}
-        {/*    </TouchableOpacity>*/}
-        {/*    {obj.from === obj.to ? null :*/}
-        {/*      <View style={styles.viewSwitch}>*/}
-        {/*        <Switch*/}
-        {/*          trackColor={{false: '#8E8E93', true: Colors.colorMain}}*/}
-        {/*          thumbColor={Colors.white}*/}
-        {/*          // onValueChange={() => {toggleSwitch(obj, i)}}*/}
-        {/*          value={obj.status === 'ON'}*/}
-        {/*        />*/}
-        {/*      </View>}*/}
-        {/*  </View>*/}
-        {/*))}*/}
+        {data && data.map((obj, i) => (
+          <View key={i} style={styles.viewItem}>
+            <TouchableOpacity style={styles.viewText}>
+              <View style={styles.rowDirection}>
+                {obj.from === obj.to ?
+                  <View style={{flex:9}}>
+                    <Text style={styles.txtAddTime}>{t('common:textAddTime')}</Text>
+                  </View> :
+                  <View style={{flex:9}}>
+                    <Text style={styles.txtTime}>{obj.from.substring(0, 5)} - {obj.to.substring(0, 5)}</Text>
+                  </View>}
+                <Image source={Images.icRightArrow} style={styles.icArrow}/>
+              </View>
+            </TouchableOpacity>
+            {obj.from === obj.to ? null :
+              <View style={styles.viewSwitch}>
+                <Switch
+                  trackColor={{false: '#8E8E93', true: Colors.colorMain}}
+                  thumbColor={Colors.white}
+                  // onValueChange={() => {toggleSwitch(obj, i)}}
+                  value={obj.status === 'ON'}
+                />
+              </View>}
+          </View>
+        ))}
         <TouchableOpacity style={styles.button} onPress={()=>{navigation.navigate(Consts.ScreenIds.DetailHealth)}}>
           <Text style={styles.buttonText}>Chi tiết</Text>
         </TouchableOpacity>

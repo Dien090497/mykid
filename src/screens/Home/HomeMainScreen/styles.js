@@ -3,11 +3,7 @@ import {Platform, StatusBar, StyleSheet} from 'react-native';
 
 import {Colors} from '../../../assets/colors/Colors';
 
-const itemWidth = (Const.windowWidth - 30) / 2;
 const searchHeight = Const.screenHeight / 24;
-const notifHeight = searchHeight / 1.7;
-const itemHeight = Const.screenHeight / 8;
-const tabViewHeight = Const.screenHeight;
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -148,4 +144,7 @@ export const styles = StyleSheet.create({
     justifyContent:'space-between',
     marginVertical:5
   },
+  width50:{
+    width: Const.screenWidth/2,
+  }
 });
