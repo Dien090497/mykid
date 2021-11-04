@@ -338,5 +338,6 @@ export default {
     'duy trì tài khoản gốc tối thiểu 30.000đ với gói MyKid30, ' +
     '50.000đ đối với gói MyKID50',
   error_card: 'Vui lòng nhập mã thẻ cào!',
+  error_card1: 'Thẻ nạp không đúng. Vui lòng thử lại',
 
 };

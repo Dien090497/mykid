@@ -330,12 +330,13 @@ export default {
   free_data_traffic: 'Free data traffic',
   more_money: 'Payment',
   card: 'Card code',
-  txt_phone: 'Watch phone number',
+  txt_phone: 'Watch phone number ',
   cardCode: 'Viettel card code',
   importCard: 'Enter card code',
   more_card: 'Top-up',
   txtContent: 'To renew the service, please maintain a minimum original account' +
     ' of 30,000 VND for MyKid30 package, 50,000 VND for MyKID50 package',
   error_card: 'Please enter card code!',
+  error_card1: 'Card code is incorrect. Please try again!',
 
 };
