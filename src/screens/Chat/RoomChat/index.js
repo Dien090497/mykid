@@ -357,7 +357,7 @@ export default function RoomChat({navigation, route}) {
           onContentSizeChange={() => refScrollView.current.scrollToEnd({animated: true})}>
           {chatHistory && chatHistory.map((obj, i) => (
           <View key={i}>
-            { obj.date &&
+            { obj.isShowDate &&
               <View style={[styles.viewItem, {flexDirection: 'row', justifyContent: 'center'}]}>
                 <Text style={styles.textDate}>{obj.date}</Text>
               </View>
@@ -385,7 +385,7 @@ export default function RoomChat({navigation, route}) {
                       {obj.type === 'text' &&
                       <Text style={styles.textBody}>{obj.body}</Text>
                       }
-                      <Text style={styles.textTime}>{obj.time.toLocaleTimeString()}</Text>
+                      <Text style={styles.textTime}>{obj.time}</Text>
                     </View>
                   </View>
                 }
@@ -402,7 +402,7 @@ export default function RoomChat({navigation, route}) {
                   <View style={{flexDirection: !isMe(obj) ? 'row' : 'row-reverse'}}>
                     <View style={[styles.viewContentDetail, !isMe(obj) ? {} : {backgroundColor: Colors.pinkBgMsg}]}>
                       <FastImage resizeMode={FastImage.resizeMode.cover} source={{uri: obj.body}} style={styles.icPhoto}/>
-                      <Text style={styles.textTime}>{obj.time.toLocaleTimeString()}</Text>
+                      <Text style={styles.textTime}>{obj.time}</Text>
                     </View>
                   </View>
                 </Tooltip>
