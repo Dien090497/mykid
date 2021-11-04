@@ -145,8 +145,8 @@ export default {
   changePasswordSuccess: 'Đổi mật khẩu thành công',
   changeLanguageAndTimezone: 'Cập nhật thành công',
   currentPasswordInvalid:
-    'Mật khẩu hiện tại bạn nhập không đúng định dạng (8-16 ký tự)',
-  newPasswordInvalid: 'Mật khẩu mới bạn nhập không đúng định dạng (8-16 ký tự)',
+    'Mật khẩu phải có độ dài từ 6 đến 20 ký tự bao gồm cả chữ và số',
+  newPasswordInvalid: 'Mật khẩu mới phải có độ dài từ 6 đến 20 ký tự bao gồm cả chữ và số',
   passwordConfirmInvalid: 'Mật khẩu mới và mật khẩu xác nhận không giống nhau',
   passwordDuplicated: 'Mật khẩu mới và mật khẩu cũ không được trùng nhau',
   enterOrScanCode: 'Mã đăng ký nhập / Quét',
@@ -168,9 +168,9 @@ export default {
   rejectContactSuccess: 'Từ chối thành viên thành công',
   deleteContactSuccess: 'Xóa thành viên thành công',
   deleteMessage: 'Xóa lịch sử tin nhắn',
-  arleftDeleteMessage: 'Bạn có chắc chắn muốn xóa cuộc trò chuyện của mình không?',
-  arleftDeleteDevices1: 'Bạn có chắc chắn muốn xóa thiết bị (',
-  arleftDeleteDevices2: ') không ?',
+  alertDeleteMessage: 'Bạn có chắc chắn muốn xóa cuộc trò chuyện của mình không?',
+  alertDeleteDevices1: 'Bạn có chắc chắn muốn xóa thiết bị (',
+  alertDeleteDevices2: ') không ?',
   removeContactConfirm:
     'Bạn chắc chắn huỷ liên kết tài khoản này không ?',
   maxLengthSafeAreaName: 'Vui lòng nhập 1-32 ký tự',
@@ -319,6 +319,7 @@ export default {
   txtLowBattery: 'Cảnh báo Pin yếu',
 
   //Paying
+  paying: 'NẠP TIỀN',
   payInCash: 'Nạp tiền',
   accountInfo: 'Thông tin tài khoản',
   package: 'Gói cước',
@@ -337,5 +338,6 @@ export default {
     'duy trì tài khoản gốc tối thiểu 30.000đ với gói MyKid30, ' +
     '50.000đ đối với gói MyKID50',
   error_card: 'Vui lòng nhập mã thẻ cào!',
+  error_card1: 'Thẻ nạp không đúng. Vui lòng thử lại',
 
 };

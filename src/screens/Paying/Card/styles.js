@@ -24,7 +24,6 @@ export const styles = StyleSheet.create({
     color: Colors.black,
     justifyContent: 'center',
     height: ScaleHeight.medium * 1.2,
-    padding: 10,
   },
   viewTob: {
     backgroundColor: Colors.redTitle,

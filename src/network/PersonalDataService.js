@@ -15,7 +15,7 @@ export function getPersonalDataApi (
   });
 }
 export function updatePersonalDataApi(
-  contact,
+  phoneContact,
   email,
   file,
   gender,
@@ -23,7 +23,7 @@ export function updatePersonalDataApi(
   {success, failure, autoShowMsg = true, refLoading = null, refNotification = null} = {},
 ) {
   const formData = new FormData();
-  if (contact !== null ) {formData.append("contact", contact);}
+  if (phoneContact !== null ) {formData.append("contact", phoneContact);}
   if (email !== null) {formData.append("email", email);}
   if (gender !== null) {formData.append("gender", gender);}
   if (name !== null) {formData.append("name", name);}

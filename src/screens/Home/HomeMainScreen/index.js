@@ -311,7 +311,7 @@ export default function HomeMainScreen() {
               <View style={styles.bgIcon}>
                 <Image source={Images.icSetting} style={styles.icon} />
               </View>
-              <Text style={styles.buttonText}>{t('common:payInCash')}</Text>
+              <Text style={styles.buttonText}>{t('common:paying')}</Text>
             </TouchableOpacity>
           </View>
         </View>

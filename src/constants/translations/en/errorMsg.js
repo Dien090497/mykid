@@ -28,6 +28,7 @@ export default {
   kwa4045: 'Phone must be registered (KWA-4045)',
   kwa4046: 'Phone must be unregistered (KWA-4046)',
   kwa4047: 'Invalid verification (KWA-4047)',
+  kwa4048: 'Your phone has not got OTP (KWA-4048)',
   // common
   exceedNicknameLength: 'Exceeded number of characters allowed',
   downloadFailed: 'Data download failed',
