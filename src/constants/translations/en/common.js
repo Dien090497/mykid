@@ -330,7 +330,7 @@ export default {
   free_data_traffic: 'Free data traffic',
   more_money: 'Payment',
   card: 'Card code',
-  txt_phone: 'Watch phone number ',
+  txt_phone: 'Watch phone number: ',
   cardCode: 'Viettel card code',
   importCard: 'Enter card code',
   more_card: 'Top-up',

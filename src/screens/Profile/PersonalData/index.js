@@ -217,7 +217,7 @@ export default function PersonalDate() {
                     color: 'rgba(181, 180, 180, 1)',
                     fontSize: 12
                   }]}>
-                {phone === null ? 'Chưa có' : phone}
+                {phone === null ? t('common:yetHave') : phone}
               </Text>
               <View style={{width: 35}}/>
             </View>
@@ -255,7 +255,7 @@ export default function PersonalDate() {
                     color: 'rgba(181, 180, 180, 1)',
                     fontSize: 12
                   }]}>
-                {gender === null ? 'Chưa có' : (gender === 'MALE' ? t('common:male') : t('common:female'))}
+                {gender === null ? t('common:yetHave') : (gender === 'MALE' ? t('common:male') : t('common:female'))}
               </Text>
               <TouchableOpacity
                 onPress={() => {
@@ -279,7 +279,7 @@ export default function PersonalDate() {
                     color: 'rgba(181, 180, 180, 1)',
                     fontSize: 12
                   }]}>
-                {contact === null ? 'Chưa có' : contact}
+                {contact === null ? t('common:yetHave') : contact}
               </Text>
               <TouchableOpacity
                 onPress={() => {
@@ -303,7 +303,7 @@ export default function PersonalDate() {
                     color: 'rgba(181, 180, 180, 1)',
                     fontSize: 12
                   }]}>
-                {email === null || email === '' ? 'Chưa có' : email}
+                {email === null || email === '' ? t('common:yetHave') : email}
               </Text>
               <TouchableOpacity
                 onPress={() => {
@@ -339,7 +339,7 @@ export default function PersonalDate() {
           buttonBox: {width: '100%', height: ScaleHeight.big},
           buttonText: {fontSize: 18, fontWeight: '400', fontStyle: 'normal'}
         }}
-        options={['Nam', 'Nữ', t('common:cancel')]}
+        options={[t('common:male'),t('common:female') , t('common:cancel')]}
         cancelButtonIndex={2}
         onPress={handleGenderAction}
       />

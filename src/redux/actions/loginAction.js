@@ -13,8 +13,14 @@ export const loginFailure = payload => ({
   payload,
 });
 
+export const logout = payload => ({
+  type: 'LOGOUT',
+  payload,
+});
+
 export default {
   actionLogin,
   loginSuccess,
   loginFailure,
+  logout
 };
