@@ -14,7 +14,7 @@ import {
   TextInput, StatusBar, Modal,
 } from 'react-native';
 import React, {useLayoutEffect, useRef, useState} from 'react';
-import {passwordTest} from '../../../functions/utils';
+import {passwordTest, phoneTest1} from '../../../functions/utils';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {Colors} from '../../../assets/colors/Colors';
@@ -38,7 +38,7 @@ const NAME_LANGUAGE = ['English', 'Việt Nam'];
 const Login = ({navigation}) => {
   const dispatch = useDispatch();
   const loggedInUserInfo = useSelector((state) => state.loginReducer.dataInfo);
-  const [isPhone, setIsPhone] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
   const [checkbox, setCheckbox] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -79,7 +79,7 @@ const Login = ({navigation}) => {
   };
 
   const onChangePhone = (text) => {
-    setIsPhone(text);
+    setPhoneNumber(text);
   };
 
   const onChangePassword = (text) => {
@@ -87,17 +87,21 @@ const Login = ({navigation}) => {
   };
 
   const editPhone = () => {
-    if (isPhone[0] === '0') {
-      return '+84' + isPhone.substring(1);
+    if (phoneNumber[0] === '0') {
+      return '+84' + phoneNumber.substring(1);
     }
-    if (isPhone[0] === '8') {
-      return ('+84' + isPhone.substring(2));
+    if (phoneNumber[0] === '8' && phoneNumber[1] === '4') {
+      return ('+84' + phoneNumber.substring(2));
     }
   }
 
   const onSubmit = () => {
-    let phone = editPhone(isPhone);
+    let phone = editPhone(phoneNumber);
     if (checkbox) {
+      if (!phoneTest1(phone)) {
+        refNotification.current.open(t('common:error_phone'))
+        return;
+      }
       if (!passwordTest(password)) {
         refNotification.current.open(t('common:txtNotification'))
         return;
@@ -132,12 +136,12 @@ const Login = ({navigation}) => {
               placeholder={t('common:header_account')}
               placeholderTextColor='#B5B4B4'
               onChangeText={onChangePhone}
-              value={isPhone}
+              value={phoneNumber}
               style={styles.textInput}
               keyboardType={'phone-pad'}
             />
             <TextInput
-              placeholder={t('common:header_password') + ':'}
+              placeholder={t('common:header_password')}
               placeholderTextColor='#B5B4B4'
               onChangeText={onChangePassword}
               value={password}

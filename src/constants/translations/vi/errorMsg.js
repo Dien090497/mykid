@@ -28,6 +28,7 @@ export default {
   kwa4045: 'Số điện thoại chưa được đăng ký (KWA-4045)',
   kwa4046: 'Số điện thoại đã được đăng ký (KWA-4046)',
   kwa4047: 'Xác thực không hợp lệ (KWA-4047)',
+  kwa4048: 'Số điện thoại chưa lấy mã OTP (KWA-4048)',
   // common
   exceedNicknameLength: 'Vượt quá số lượng ký tự cho phép',
   downloadFailed: 'Tải dữ liệu không thành công',
