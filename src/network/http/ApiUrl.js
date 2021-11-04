@@ -76,6 +76,8 @@ export const WaringUrl = appUrl + '/notifications';
 
 // Health
 export const HealthUrl = appUrl + '/walking-time-modes';
+//Payment
+export const checkAccount = appUrl + '/sims';
 
 /// url: string, obj: object
 export function assignUrlParams(url, obj) {

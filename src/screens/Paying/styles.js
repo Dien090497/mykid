@@ -1,8 +1,13 @@
 import {Colors} from '../../assets/colors/Colors';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 import {ScaleHeight} from "../../functions/Consts";
 
+const {height} = Dimensions.get('window');
 export const styles = StyleSheet.create({
+  viewMain: {
+    width: '90%',
+    height: height * 0.8,
+  },
   viewTxt: {
     width: '100%',
     height: ScaleHeight.medium,
@@ -28,13 +33,13 @@ export const styles = StyleSheet.create({
     elevation: 5
   },
   txt_item: {
-    fontSize: 16,
+    fontSize: ScaleHeight.medium * 1.2/4,
     color: Colors.black,
     fontWeight: '500',
     fontFamily: 'Roboto-Medium'
   },
   txt_item1: {
-    fontSize: 14,
+    fontSize: ScaleHeight.medium * 1.2/5,
     fontWeight: '400',
     position: 'absolute',
     right: 10,
@@ -51,7 +56,7 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
   },
   txtTob: {
-    fontSize: 14,
+    fontSize: ScaleHeight.medium * 1.2/4,
     color: Colors.white,
     fontWeight: '500',
   }

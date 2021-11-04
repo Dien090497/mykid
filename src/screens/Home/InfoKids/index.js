@@ -248,20 +248,20 @@ export default function InfoKits({route}) {
   }
 
   return (
-    <View style={{flex: 1, backgroundColor: Colors.white}}>
+    <View style={{flex: 1, backgroundColor: Colors.white, marginBottom: 20}}>
       <Header title={t('common:home_infoKits')}/>
       <View
         style={{
           width: '100%',
           height: '22%',
           justifyContent: 'center',
-          alignItems: 'center'
+          alignItems: 'center',
         }}>
         <Image source={route.params.avatar ? {uri: route.params.avatar} : Images.icAvatar}
-               style={{width: 130, height: 130, borderRadius: 100}}
+               style={styles.imageAvatar}
                resizeMode={route.params.avatar ? 'cover' : 'stretch'}/>
       </View>
-      <View style={{justifyContent: 'center', alignItems: 'center'}}>
+      <View style={{justifyContent: 'center', alignItems: 'center', height: '60%', marginTop: -10}}>
         <FlatList
           data={data}
           renderItem={renderFlatlist}

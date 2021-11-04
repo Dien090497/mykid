@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   text: {
-    fontSize: 14,
+    fontSize: ScaleHeight.medium * 1.2/4,
     fontWeight: '700',
     fontFamily: 'Roboto-Medium',
     color: Colors.black
@@ -37,7 +37,7 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
   },
   txtTob: {
-    fontSize: 14,
+    fontSize: ScaleHeight.medium * 1.2/4,
     color: Colors.white,
     fontWeight: '500',
   },
@@ -47,7 +47,7 @@ export const styles = StyleSheet.create({
     padding: 10,
   },
   txtContent: {
-    fontSize: 14,
+    fontSize: ScaleHeight.medium * 1.2/4,
     fontWeight: '500',
     fontStyle: 'normal',
     lineHeight: 20
