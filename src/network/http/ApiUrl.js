@@ -53,6 +53,7 @@ export const rewardsUrl = appUrl + '/rewards';
 export const  deviceUrl = appUrl + '/commands';
 // Rooms
 export const roomsUrl = appUrl + '/rooms';
+export const roomsChatUrl = appUrl + '/rooms/chat';
 
 //PhotoShoot
 export const PhotoShootUrl = appUrl + '/commands';

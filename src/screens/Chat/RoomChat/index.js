@@ -117,11 +117,16 @@ export default function RoomChat({navigation, route}) {
       setChatHistory(XmppClient.getCurrentHistory());
       XmppClient.joinRoom(route.params.roomInfo.roomAddress);
     }
-    getListDevice();
   }, []);
 
+  useLayoutEffect(() => {
+    if (roomInfo) {
+      getListDevice();
+    }
+  }, [roomInfo]);
+
   const getListDevice = () => {
-    getListDeviceApi(null, 0, 100, DataLocal.deviceId, 'ACTIVE', {
+    getListDeviceApi(null, 0, 100, roomInfo.deviceId, 'ACTIVE', {
       success: res => {
         setListMember(res.data);
       },

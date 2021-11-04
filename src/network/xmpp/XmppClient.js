@@ -15,7 +15,6 @@ export default class XmppClient {
   static lstMsg = {};
   static lstRoom = [];
   static clientXmpp = null;
-  // static needReconnect = false;
   static currentRoomId = null;
   static filePath = null;
   static ringtone = null;
@@ -78,7 +77,7 @@ export default class XmppClient {
     for (const roomInfo of this.lstRoom) {
       this.lstMsg[roomInfo.roomAddress] = [];
       await this.joinRoom(roomInfo.roomAddress);
-      await this.getHistory(50);
+      await this.getHistory(roomInfo.flagTime);
     }
   }
 
@@ -132,7 +131,7 @@ export default class XmppClient {
     await clientXmpp.send(message);
   }
 
-  static async getHistory(maxLength) {
+  static async getHistory(flagTime) {
     let message = xml('iq', 
       {
         id: generateRandomId() + ':history',
@@ -140,25 +139,24 @@ export default class XmppClient {
         to: this.currentRoomId
       }, xml('query', 
         {
-          xmlns: 'urn:xmpp:mam:2'
+          xmlns: 'urn:xmpp:mam:2',
+          queryid: generateRandomId() + ':queryid'
         }, xml('x', 
           {
             type: 'submit',
-            xmlns: 'urn:xmpp:mam:2'
+            xmlns: 'jabber:x:data'
           }, xml('field',
             {
               var: 'FORM_TYPE'
             }, xml('value',
               {}, 'urn:xmpp:mam:2'
             ),
-          ),
-        ), xml('set',
-          {
-            xmlns: 'http://jabber.org/protocol/rsm'
-          }, xml('before',
-            {},
-          ), xml('max', 
-            {}, maxLength.toString()
+          ), xml('field',
+            {
+              var: 'start'
+            }, xml('value',
+              {}, flagTime
+            ),
           ),
         ),
       ),
