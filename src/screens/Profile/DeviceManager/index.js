@@ -203,7 +203,7 @@ export default function DeviceManager({navigation}) {
           <TouchableOpacity style={styles.modal} onPress={() => setOnModal(false)}>
             <View style={styles.tobModal}>
               <View style={[styles.tobView, {marginTop: ScaleHeight.small}]}>
-                <Text style={styles.textModel}>{t('common:arleftDeleteDevices1')}{nameDevices}{t('common:arleftDeleteDevices2')}</Text>
+                <Text style={styles.textModel}>{t('common:alertDeleteDevices1')}{nameDevices}{t('common:alertDeleteDevices2')}</Text>
               </View>
               <View style={[styles.tobView, {width: '86%'}]}>
                 <View style={styles.tob}>

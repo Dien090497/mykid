@@ -59,8 +59,8 @@ const Register = ({navigation}) => {
     if (phone[0] === '0') {
       return '+84' + phone.substring(1);
     }
-    if (phone[0] === '8') {
-      return ('+84' + phone.substring(2));
+    if (phone[0] === '8' && phone[1] === '4') {
+      return ('+' + phone);
     }
   }
 
@@ -70,7 +70,7 @@ const Register = ({navigation}) => {
       refNotification.current.open(t('common:error_message'))
       return;
     }
-    if (!phoneTest1(phone)) {
+    if (!phoneTest1(editPhone())) {
       refNotification.current.open(t('common:error_phone'))
       return;
     }

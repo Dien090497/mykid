@@ -184,7 +184,7 @@ export default function DeleteMessage({navigation, route}) {
           <TouchableOpacity style={styles.modal} onPress={() => setOnModal(false)}>
             <View style={styles.tobModal}>
               <View style={[styles.tobView, {marginTop: ScaleHeight.small}]}>
-                <Text style={styles.textModel}>{t('common:arleftDeleteMessage')}</Text>
+                <Text style={styles.textModel}>{t('common:alertDeleteMessage')}</Text>
               </View>
               <View style={[styles.tobView, {width: '86%'}]}>
                 <View style={styles.tob}>

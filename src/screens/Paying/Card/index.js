@@ -18,8 +18,14 @@ export default function Card() {
   const moreCard = () => {
     if (card === '') {
       refNotification.current.open(t('common:error_card'));
+      return;
+    }
+    if (card.length < 15) {
+      refNotification.current.open(t('common:error_card1'));
+      return;
     }
   }
+
    return (
     <View style={{flex: 1, backgroundColor: Colors.white}}>
       <Header title={t('common:card')}/>
@@ -35,11 +41,13 @@ export default function Card() {
           <TextInput
             placeholderTextColor={'rgba(181, 180, 180, 1)'}
             placeholder={t('common:importCard')}
-            maxLength={6}
+            maxLength={15}
             keyboardType={'number-pad'}
             style={{
               marginHorizontal: 10,
-              color: Colors.black
+              color: Colors.black,
+              width: '100%',
+              height: '100%',
             }}
             onChangeText={(text) => onchangeCard(text)}
           />

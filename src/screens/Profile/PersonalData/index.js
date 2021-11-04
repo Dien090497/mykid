@@ -85,7 +85,17 @@ export default function PersonalDate() {
     }
   }
 
+  const editPhone = () => {
+    if (contact[0] === '0') {
+      return '+84' + contact.substring(1);
+    }
+    if (contact[0] === '8' && contact[1] === '4') {
+      return ('+' + contact);
+    }
+  }
+
   const InstallPersonalData = () => {
+    let phoneContact = editPhone();
     if (!emailTest(email)) {
       refNotification.current.open(t('common:error_email'))
       return;
@@ -94,11 +104,11 @@ export default function PersonalDate() {
       refNotification.current.open(t('common:error_name'))
       return;
     }
-    if (!phoneTest1(contact) && contact !== null) {
+    if (contact !== null && !phoneTest1(phoneContact)) {
       refNotification.current.open(t('common:error_contact'))
       return;
     }
-    updatePersonalDataApi(contact, email, avatar, gender, name, {
+    updatePersonalDataApi(phoneContact, email, avatar, gender, name, {
       success: res => {
         refNotification.current.open(t('common:EditSuccess'))
         setDisableTob(false);

@@ -170,7 +170,7 @@ export default function HomeMainScreen() {
 
       <ScrollView style={styles.body}>
         <View style={{width:'100%',height:'39%', flexDirection: 'row'}}>
-          <View style={[{ minHeight: '100%', width: '50%' }]}>
+          <View style={styles.width50}>
             <View style={[styles.buttonContainerL, { height:'50%' }]}>
               <TouchableOpacity
                 {...buttonProps}
@@ -290,7 +290,7 @@ export default function HomeMainScreen() {
               <Text style={styles.buttonText}>{t('common:home_warning')}</Text>
             </TouchableOpacity>
           </View>
-          <View style={styles.buttonContainerL}>
+          <View style={styles.buttonContainerR}>
             <TouchableOpacity
               {...buttonProps}
               style={styles.button}
@@ -301,7 +301,9 @@ export default function HomeMainScreen() {
               <Text style={styles.buttonText}>{t('common:home_transport')}</Text>
             </TouchableOpacity>
           </View>
-          <View style={styles.buttonContainerR}>
+        </View>
+        <View style={{width:'100%', height:'19.5%', flexDirection:'row'}}>
+          <View style={styles.buttonContainerL}>
             <TouchableOpacity
               {...buttonProps}
               style={styles.button}
@@ -309,7 +311,7 @@ export default function HomeMainScreen() {
               <View style={styles.bgIcon}>
                 <Image source={Images.icSetting} style={styles.icon} />
               </View>
-              <Text style={styles.buttonText}>{t('common:payInCash')}</Text>
+              <Text style={styles.buttonText}>{t('common:paying')}</Text>
             </TouchableOpacity>
           </View>
         </View>
