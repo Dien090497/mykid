@@ -52,4 +52,59 @@ export const styles = StyleSheet.create({
     fontSize: FontSize.small,
     fontFamily: 'Roboto-Medium'
   },
+  viewItem: {
+    padding: 10,
+    flexDirection: 'row',
+    width: '90%',
+    alignSelf: 'center',
+    paddingVertical: 5,
+    borderRadius: 10,
+    marginHorizontal: 5,
+    marginVertical: 10,
+    backgroundColor: Colors.white,
+    shadowColor: 'rgba(25,25,25, 0.5)',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
+  },
+  viewText: {
+    marginLeft:10,
+    flex: 1,
+    textAlign: 'left',
+    paddingVertical: 10,
+    height: ScaleHeight.big,
+    justifyContent:'center',
+    alignContent:'space-between'
+  },
+  rowDirection: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  txtAddTime: {
+    fontSize: FontSize.big,
+    fontFamily: 'Roboto',
+    color: Colors.colorHeader
+  },
+  icArrow: {
+    width: 14,
+    height: 14,
+    tintColor: '#B2B2B0',
+    resizeMode: 'contain',
+    marginLeft: 30,
+    flex:1,
+  },
+  viewSwitch: {
+    flex: 1,
+    alignItems: 'flex-end',
+    justifyContent: 'center'
+  },
+  txtTime: {
+    fontSize: FontSize.big,
+    fontFamily: 'Roboto-Medium',
+    color: Colors.grayTxt
+  },
 });

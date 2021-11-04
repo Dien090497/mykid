@@ -53,7 +53,9 @@ export default function Health({ navigation }) {
                 backgroundGradientFrom: '#fcf7f7',
                 backgroundGradientTo: '#fcf7f7',
                 color: (opacity = 0.02) => `rgba(238, 0, 51, ${opacity})`,
-
+                labelColor: (opacity = 1) => `rgba(114, 114, 114, ${opacity})`,
+                decimalPlaces: 0,
+                scrollableDotStrokeWidth: 0
               }}
               style={{
                 marginVertical: 8,
