@@ -114,6 +114,11 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     alignSelf: 'center',
   },
+  textBody: {
+    fontSize: FontSize.medium,
+    fontFamily: 'Roboto-Medium',
+    color: Colors.black,
+  },
   modal: {
     flex: 1,
     justifyContent: "flex-end",
@@ -132,5 +137,17 @@ export const styles = StyleSheet.create({
     width: 100,
     height: 100,
     alignSelf: 'center',
+  },
+  textTime: {
+    textAlign: 'right',
+    marginTop: 10,
+    fontSize: FontSize.xxtraSmall,
+    color: Colors.gray,
+    fontFamily: 'Roboto-Medium',
+  },
+  textDate: {
+    fontSize: FontSize.small,
+    fontFamily: 'Roboto-Medium',
+    color: Colors.gray,
   }
 });

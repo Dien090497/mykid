@@ -354,7 +354,13 @@ export default function RoomChat({navigation, route}) {
         <ScrollView ref={refScrollView} style={styles.container}
           onContentSizeChange={() => refScrollView.current.scrollToEnd({animated: true})}>
           {chatHistory && chatHistory.map((obj, i) => (
-            <View key={i} style={[styles.viewItem, !isMe(obj) ? {flexDirection: 'row'} : {flexDirection: 'row-reverse'}]}>
+          <View key={i}>
+            { obj.date &&
+              <View style={[styles.viewItem, {flexDirection: 'row', justifyContent: 'center'}]}>
+                <Text style={styles.textDate}>{obj.date}</Text>
+              </View>
+            }
+            <View style={[styles.viewItem, !isMe(obj) ? {flexDirection: 'row'} : {flexDirection: 'row-reverse'}]}>
               <View style={styles.viewImg}>
                 <FastImage source={getIcon(obj)} style={styles.icAvatar} resizeMode={FastImage.resizeMode.stretch} />
               </View>
@@ -375,30 +381,33 @@ export default function RoomChat({navigation, route}) {
                       </TouchableOpacity>
                       }
                       {obj.type === 'text' &&
-                      <Text>{obj.body}</Text>
+                      <Text style={styles.textBody}>{obj.body}</Text>
                       }
+                      <Text style={styles.textTime}>{obj.time.toLocaleTimeString()}</Text>
                     </View>
                   </View>
                 }
                 {obj.type === 'image' &&
                 <Tooltip toggleAction={'onLongPress'} popover={
                   <View style={styles.viewTooltip}
-                  onStartShouldSetResponder={(e) => {
+                    onStartShouldSetResponder={(e) => {
                       saveImage(obj);
                       return false;
                     }}>
-                    <Text>Lưu ảnh</Text>
+                    <Text>{t('common:savePicture')}</Text>
                   </View>
                 }>
                   <View style={{flexDirection: !isMe(obj) ? 'row' : 'row-reverse'}}>
                     <View style={[styles.viewContentDetail, !isMe(obj) ? {} : {backgroundColor: Colors.pinkBgMsg}]}>
                       <FastImage resizeMode={FastImage.resizeMode.cover} source={{uri: obj.body}} style={styles.icPhoto}/>
+                      <Text style={styles.textTime}>{obj.time.toLocaleTimeString()}</Text>
                     </View>
                   </View>
                 </Tooltip>
                 }
               </View>
             </View>
+          </View>
           ))}
         </ScrollView>
         <View style={styles.viewBottom}>
