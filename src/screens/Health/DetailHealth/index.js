@@ -94,7 +94,11 @@ export default function Health({ navigation }) {
 
   const setTargets = (title, text) => {
     if (parseInt(text) < 1) {
-      SimpleToast.show(t('common:fail'));
+      SimpleToast.show(t('common:error_health1'));
+      return;
+    }
+    if (parseInt(text) > 20000) {
+      SimpleToast.show(t('common:error_health2'));
       return;
     }
     createTarget({
