@@ -189,14 +189,14 @@ export default function RoomChat({navigation, route}) {
   };
 
   const sendMsg = () => {
-    if (isLock && text === '') return;
+    if (isLock || text === '') return;
     Keyboard.dismiss();
     setIsLock(true);
     XmppClient.sendMessage('text', text);
     setText('');
     setTimeout(() => {
       setIsLock(false);
-    }, 3000);
+    }, 5000);
   }
 
   const selectPhoto = () => {
@@ -447,7 +447,7 @@ export default function RoomChat({navigation, route}) {
           </View>
           <TouchableOpacity activeOpacity={isLock ? 1 : 0} style={styles.viewImg} onPress={isRecord ? selectPhoto : sendMsg}>
             <Image source={isRecord ? Images.icCamera : Images.icSend}
-              style={isRecord ? styles.icCamera : isLock ? [styles.icSend, {opacity: 0.5}] : styles.icSend}/>
+              style={isRecord ? styles.icCamera : isLock ? [styles.icSend, {opacity: 0.3}] : styles.icSend}/>
           </TouchableOpacity>
         </View>
       </View>

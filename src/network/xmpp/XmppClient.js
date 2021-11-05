@@ -59,10 +59,8 @@ export default class XmppClient {
     );
     await clientXmpp.send(message);
     setTimeout(() => {
-      if (this.reconnect) {
-        this.ping();
-      }
-    }, 3000)
+      this.ping();
+    }, 10000)
   };
 
   static getRooms = async () => {
@@ -95,17 +93,28 @@ export default class XmppClient {
     this.currentRoomId = roomId;
     const toAddress = [roomId, this.getNickName()].join('/');
 
-    let message = xml('presence', { to: toAddress },
-        // xml('x',
-        //   {xmlns: 'http://jabber.org/protocol/muc'},
-        //   xml('password',
-        //     {},
-        //     '1111111111',
-        //   ),
-        // ),
-      );
+    let message = xml('presence', { to: toAddress },);
     await clientXmpp.send(message);
+
+    await this.pingRoom();
   }
+
+  static pingRoom = async (isAuto = true) => {
+    const toAddress = [this.currentRoomId, this.getNickName()].join('/');
+    let message = xml('iq', {
+        to: toAddress,
+        from: this.getNickName(),
+        type: 'get',
+        id: generateRandomId() + ':ping',
+      }, xml('ping', {xmlns: 'urn:xmpp:ping'}, )
+    );
+    await clientXmpp.send(message);
+    if (isAuto) {
+      setTimeout(() => {
+        this.pingRoom();
+      }, 10000)
+    }
+  };
 
   static setRoomId(roomId) {
     this.currentRoomId = roomId;
@@ -129,6 +138,7 @@ export default class XmppClient {
       xml('body', {}, content)
     );
     await clientXmpp.send(message);
+    await this.pingRoom(false);
   }
 
   static async getHistory(flagTime) {
@@ -219,6 +229,10 @@ export default class XmppClient {
 
   static callbackStanza = async function (stanza) {
     console.log(stanza);
+    //<enabled resume="true" max="300" id="g2gCbQAAABk5ODg1ODUyNjg2NDQ5MDcyODg0MzY5MzgxbQAAAAhUwCXVzTdFdA==" xmlns="urn:xmpp:sm:3"/>
+    if (stanza.is('enabled')) {
+      console.log(stanza.attrs.id);
+    }
     if (stanza.is('iq')) {
       const result = stanza.getChild('slot', 'urn:xmpp:http:upload:0');
       if (result) {
@@ -246,12 +260,17 @@ export default class XmppClient {
       }
     }
 
-    if (!stanza.is('message')) return;
+{/* 
+  <iq xmlns="jabber:client" xml:lang="en" to="196@mykid.ttc.software/11572907895786457476399748" from="7304424985@conference.mykid.ttc.software/196@mykid.ttc.software" type="error" id="imt3cO0MeB:ping">
+<ping xmlns="urn:xmpp:ping"/>
+<error code="406" type="modify"><not-acceptable xmlns="urn:ietf:params:xml:ns:xmpp-stanzas"/><text xml:lang="en" xmlns="urn:ietf:params:xml:ns:xmpp-stanzas">Only occupants are allowed to send queries to the conference</text></error></iq> */}
+
     if (stanza.attrs.type === 'error') {
       const error = stanza.getChild('error');
       if (error && error.attrs.code === '406') {
         // TODO: test
-        SimpleToast.show('Have some error when send message');
+        if (stanza.is('message'))
+          SimpleToast.show('Have some error when send message');
         console.log('err 406 rejoin');
         // rejoin
         this.joinRoom(this.currentRoomId);
@@ -262,6 +281,7 @@ export default class XmppClient {
       //     <text xml:lang="en" xmlns="urn:ietf:params:xml:ns:xmpp-stanzas">Only occupants are allowed to send messages to the conference</text></error><body>audio:https://mykid.ttc.software:5443/upload/46901d9bc4e0990d88f09f9f8db22236c5b8c401/bAbl6v4TTEJmJpiWn8LFQxdePDpr7daEC5FRxL7T/sound.m4a</body></message>
       return;
     }
+    if (!stanza.is('message')) return;
   
     // mam result
     const result = stanza.getChild('result', 'urn:xmpp:mam:2');
