@@ -34,7 +34,7 @@ export default function PersonalDate() {
   const [inputText, setInputText] = useState('')
   const [gender, setGender] = useState();
   const [avatar, setAvatar] = useState();
-  const [contact, setContact] = useState();
+  const [contact, setContact] = useState(null);
   const [email, setEmail] = useState();
   const [name, setName] = useState();
   const [phone, setPhone] = useState();
@@ -50,11 +50,15 @@ export default function PersonalDate() {
   useLayoutEffect(() => {
     getPersonalDataApi({
       success: res => {
+        setAvatar(res.data.avatar);
+        if (res.data.phone && res.data.phone.startsWith('+84')) {
+          setPhone('0' + res.data.phone.substring(3));
+        }
         setName(res.data.name);
         setGender(res.data.gender);
-        setContact('0' + res.data.contact.substring(3));
-        setAvatar(res.data.avatar);
-        setPhone('0' + res.data.phone.substring(3));
+        if (res.data.contact && res.data.contact.startsWith('+84')) {
+          setContact('0' + res.data.contact.substring(3));
+        }
         setEmail(res.data.email);
       },
       refNotification: refNotification,
@@ -95,7 +99,10 @@ export default function PersonalDate() {
   }
 
   const InstallPersonalData = () => {
-    let phoneContact = editPhone();
+    let phoneContact = null ;
+    if (contact !== null) {
+       phoneContact = editPhone();
+    }
     if (!emailTest(email)) {
       refNotification.current.open(t('common:error_email'))
       return;
@@ -189,7 +196,7 @@ export default function PersonalDate() {
       setGender(dataGender[index]);
     }
   }
-
+console.log(phone,contact,email)
   return (
     <View style={{flex: 1, backgroundColor: Colors.white}}>
       <Header title={t('common:personalData')}/>

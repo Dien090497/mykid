@@ -158,6 +158,14 @@ export default class XmppClient {
               {}, flagTime
             ),
           ),
+        ), xml('set',
+          {
+            xmlns: 'http://jabber.org/protocol/rsm'
+          }, xml('before',
+            {},
+          ), xml('max', 
+            {}, '100'
+          ),
         ),
       ),
     );
@@ -264,7 +272,7 @@ export default class XmppClient {
       const message = forwarded.getChild('message');
       if (!message) return;
   
-      const time = delay?.attrs.stamp ? new Date(delay?.attrs.stamp) : undefined;
+      const time = delay?.attrs.stamp ? new Date(delay?.attrs.stamp) : new Date();
       let body = message.getChildText('body');
       const fromSplit = message.attrs.from.split('/');
       if (!this.lstMsg[fromSplit[0]]) {
@@ -287,16 +295,15 @@ export default class XmppClient {
 
         const length = this.lstMsg[fromSplit[0]].length;
         let date = time.toLocaleDateString();
-        if (length > 0 && this.lstMsg[fromSplit[0]][length - 1].time.toLocaleDateString() === date) {
-          date = null;
-        }
+        let isShowDate = (length === 0 || this.lstMsg[fromSplit[0]][length - 1].date !== date);
         
         this.lstMsg[fromSplit[0]].push({
           from: fromSplit[1],
           body: body,
           type: type,
-          time: time,
-          date: date
+          time: time.toLocaleTimeString(),
+          date: date,
+          isShowDate: isShowDate
         })
       }
     }
@@ -323,15 +330,14 @@ export default class XmppClient {
         }
         const length = this.lstMsg[fromSplit[0]].length;
         let date = (new Date()).toLocaleDateString();
-        if (length > 0 && this.lstMsg[fromSplit[0]][length - 1].time.toLocaleDateString() === date) {
-          date = null;
-        }
+        let isShowDate = (length === 0 || this.lstMsg[fromSplit[0]][length - 1].date !== date);
         const msg = {
           from: fromSplit[1],
           body: body,
           type: type,
-          time: new Date(),
-          date: date
+          time: (new Date()).toLocaleTimeString(),
+          date: date,
+          isShowDate: isShowDate
         };
         this.lstMsg[fromSplit[0]].push(msg);
         this.saveLastMsg(fromSplit[0], msg);

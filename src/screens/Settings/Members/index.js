@@ -177,7 +177,7 @@ export default ({navigation, route}) => {
              </View>
              <Text
                style={styles.otherInfoText}
-               children={`${t('common:account')}: ${ item.phone ? '0' + item.phone.substring(3) : ''}`}
+               children={`${t('common:account')}: ${ item.phone && item.phone.startsWith('+84') ? '0' + item.phone.substring(3) : ''}`}
              />
              <Text style={styles.otherInfoText}>
                {t('common:relationship')}{item.relationshipName}
