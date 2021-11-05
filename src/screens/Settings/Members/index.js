@@ -69,7 +69,8 @@ export default ({navigation, route}) => {
       relationship: 'SISTER'
     },
     {
-      icon: t('common:other'),
+      name: t('common:other'),
+      icon: Images.icOther,
       relationship: 'OTHER'
     },
   ];

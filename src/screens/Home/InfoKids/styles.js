@@ -48,5 +48,9 @@ export const styles = StyleSheet.create({
     right: 5,
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  imageAvatar: {
+    width: height* 0.16,
+    height: height* 0.16
   }
 });

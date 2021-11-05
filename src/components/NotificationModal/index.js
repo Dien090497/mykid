@@ -18,6 +18,9 @@ export default class NotificationModal extends Component {
   close = () => {
     if (this.state.callback) this.state.callback();
     this.setState({ ...this.state, modalVisible: false });
+    if(this.props.goBack) {
+      this.props.goBack();
+    }
   };
   actionClose = () => {
     this.close();

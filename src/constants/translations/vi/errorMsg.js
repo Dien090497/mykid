@@ -29,6 +29,21 @@ export default {
   kwa4046: 'Số điện thoại đã được đăng ký (KWA-4046)',
   kwa4047: 'Xác thực không hợp lệ (KWA-4047)',
   kwa4048: 'Số điện thoại chưa lấy mã OTP (KWA-4048)',
+  kwa4054: 'Chiều dài của điện thoại không lớn hơn 12 (KWA-4054)', // to do
+  kwa4055: 'Số điện thoại không hợp lệ (KWA-4055)',
+  kwa4056: 'Số điện thoại không tồn tại hoặc không hoạt động (KWA-4056)',// to do
+  kwa4057: 'Không tìm thấy gói dịch vụ hợp lệ (KWA-4057)',// to do
+  kwa4058: 'Gói dịch vụ không hợp lệ (KWA-4058)',// to do
+  kwa4059: 'Mã ứng dụng và id yêu cầu tồn tại (KWA-4059)',// to do
+  kwa4060: 'Xử lý thẻ điện thoại (KWA-4060)',// to do
+  kwa4061: 'Lỗi khi nhận thông tin thẻ điện thoại (KWA-4061)',// to do
+  kwa4062: 'Đã hết thời gian nhận thông tin thẻ điện thoại (KWA-4062)',// to do
+  kwa4063: 'Lỗi khi nhận thông tin thẻ điện thoại (KWA-4063)',// to do
+  kwa4064: 'Hết thời gian nạp tiền (KWA-4064)',// to do
+  kwa4065: 'Không tìm thấy SIM (KWA-4065)',// to do
+  kwa4066: 'Isdn tìm thấy (KWA-4066)',// to do
+  kwa5004: 'Không tra cứu được sim (KWA-5004)',// to do
+  kwa5002: 'Lỗi khi tra cứu sim (KWA-5002)',// to do
   // common
   exceedNicknameLength: 'Vượt quá số lượng ký tự cho phép',
   downloadFailed: 'Tải dữ liệu không thành công',

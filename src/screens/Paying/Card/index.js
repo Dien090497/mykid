@@ -5,8 +5,11 @@ import {useTranslation} from "react-i18next";
 import {styles} from "./styles";
 import {Colors} from "../../../assets/colors/Colors";
 import NotificationModal from "../../../components/NotificationModal";
+import DataLocal from "../../../data/dataLocal";
+import {onClickPayment} from '../../../network/PaymentService';
+import Consts from "../../../functions/Consts";
 
-export default function Card() {
+export default function Card({navigation,route}) {
   const {t} = useTranslation();
   const refNotification = useRef();
   const [card, setCard] = useState('');
@@ -24,6 +27,17 @@ export default function Card() {
       refNotification.current.open(t('common:error_card1'));
       return;
     }
+
+    onClickPayment(DataLocal.deviceId, card , {
+        success: res => {
+          refNotification.current.open(t('common:successPayment'), () => {
+            if (route.params && route.params.refresh) {
+              route.params.refresh();
+            }
+            navigation.navigate(Consts.ScreenIds.Paying);
+          })
+        }
+    });
   }
 
    return (
@@ -32,7 +46,7 @@ export default function Card() {
       <View style={{flex: 1, width: '90%', height: 800, alignItems: 'center', marginHorizontal: '5%'}}>
         <View style={[styles.viewTxt, {marginTop: 20}]}>
           <Text style={styles.text}>{t('common:txt_phone')}</Text>
-          <Text style={[styles.text, {color: Colors.redTitle}]}>0862319100</Text>
+          <Text style={[styles.text, {color: Colors.redTitle}]}>{route.params.phone}</Text>
         </View>
         <View style={[styles.viewTxt, {alignItems: 'center', justifyContent: 'flex-start'}]}>
           <Text style={styles.text}>{t('common:cardCode')}</Text>

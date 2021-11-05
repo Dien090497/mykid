@@ -338,5 +338,6 @@ export default {
     ' of 30,000 VND for MyKid30 package, 50,000 VND for MyKID50 package',
   error_card: 'Please enter card code!',
   error_card1: 'Card code is incorrect. Please try again!',
+  successPayment: 'Success!'
 
 };
