@@ -49,6 +49,7 @@ export default {
   fail: 'Fail',
   chooseDay: 'Select date',
   success: 'Success',
+  detail: 'Details',
   thisFunctionIsNotValid: 'Tính năng chưa được cập nhật',
   header_settings: 'Setting',
   header_contacts: 'Contacts',
@@ -221,7 +222,7 @@ export default {
   home_setting: 'SETTING',
   home_game: 'GAME',
   home_warning: 'ALERT CENTER',
-  home_transport: 'SỨC KHỎE',
+  home_transport: 'HEALTH',
   home_infoKits: 'Baby\'s information',
 
   //setting
@@ -257,7 +258,7 @@ export default {
   sendRewards: 'Successful',
 
   //DoNotDisturb
-  textAddTime: 'Time',
+  textAddTime: 'Add time',
 
   //SecretPhotoShoot
   textShoot: 'Take pictures',
@@ -338,4 +339,11 @@ export default {
     ' VND 50,000 for MyKID50 plan', // to do
   error_card: 'Please enter the scratch card code!', // to do
 
+   //Health
+  header_health: 'Healthy',
+  step: 'Steps',
+  steps: 'Steps',
+  goals: 'Goals',
+  inputNumberOfStep: 'Enter the number of steps',
+  calo: 'Calo'
 };
