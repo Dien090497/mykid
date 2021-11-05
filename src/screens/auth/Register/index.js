@@ -1,4 +1,5 @@
 import {
+  Dimensions,
   Keyboard,
   KeyboardAvoidingView,
   Platform,
@@ -17,6 +18,7 @@ import {CheckBox} from 'react-native-elements';
 import {useTranslation} from 'react-i18next';
 import NotificationModal from '../../../components/NotificationModal'
 
+const { height } = Dimensions.get('window');
 const Register = ({navigation}) => {
   const refLoading = useRef(null);
   const refNotification = useRef();
@@ -59,8 +61,8 @@ const Register = ({navigation}) => {
     if (phone[0] === '0') {
       return '+84' + phone.substring(1);
     }
-    if (phone[0] === '8') {
-      return ('+84' + phone.substring(2));
+    if (phone[0] === '8' && phone[1] === '4') {
+      return ('+' + phone);
     }
   }
 
@@ -70,7 +72,7 @@ const Register = ({navigation}) => {
       refNotification.current.open(t('common:error_message'))
       return;
     }
-    if (!phoneTest1(phone)) {
+    if (!phoneTest1(editPhone())) {
       refNotification.current.open(t('common:error_phone'))
       return;
     }
@@ -97,7 +99,7 @@ const Register = ({navigation}) => {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.container}>
           <Header title={t('common:register')}/>
-          <View style={{alignItems: 'center', height: 600, justifyContent: 'center'}}>
+          <View style={{alignItems: 'center', height: height * 0.7, justifyContent: 'center'}}>
             <View style={styles.Sty_txt}>
               <CustomInput
                 placeholder={t('common:placeholderPhone')}

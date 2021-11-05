@@ -110,7 +110,7 @@ export default {
   //
   login: 'Login',
   register: 'Register',
-  forgotPassword: 'ForgotPassword',
+  forgotPassword: 'Forgot password',
   settings: 'Setting',
   connection: 'Connecting the device',
   acceptMy: 'I have read and agree to the ',
@@ -136,18 +136,18 @@ export default {
   error_pass1: 'Password must be between 6 and 20 characters long',
   error_phone: 'Phone number format error',
   error_otp: 'Verification code must be 6 numbers',
-  error_otp1: 'Please enter the verification code',
+  error_otp1: 'Please enter the OTP code',
   registerSuccess: 'Success!',
   errorPhone: 'Length from 10-11 numbers',
   genneralInfo: 'Basic information',
   enterCurrentPassword: 'Enter current password',
   enterNewPassword: 'Enter new password',
-  reEnterNewPassword: 'Enter new password',
+  reEnterNewPassword: 'Re-type new password',
   changePasswordSuccess: 'Success',
   changeLanguageAndTimezone: 'Success',
   currentPasswordInvalid:
-    'The current password you entered is not in the correct format (8-16 characters)',
-  newPasswordInvalid: 'The new password you entered is not in the correct format (8-16 characters)',
+  'The password must be between 6 and 20 characters in length, including letters and numbers.',
+  newPasswordInvalid: 'The new password must be between 6 and 20 characters in length, including letters and numbers.',
   passwordConfirmInvalid: 'New password and confirmation password are not the same',
   passwordDuplicated: 'New password and old password cannot be the same',
   enterOrScanCode: 'Registration code / Scan',
@@ -169,9 +169,9 @@ export default {
   rejectContactSuccess: 'Reject Contact Success',
   deleteContactSuccess: 'Delete Contact Success',
   deleteMessage: 'Delete Message',
-  arleftDeleteMessage: 'Are you sure to delete this chat?',
-  arleftDeleteDevices1: 'Are you sure you want to delete the device (',
-  arleftDeleteDevices2: ')?',
+  alertDeleteMessage: 'Are you sure to delete this chat?',
+  alertDeleteDevices1: 'Are you sure you want to delete the device (',
+  alertDeleteDevices2: ')?',
   removeContactConfirm:
     'Are you sure to unlink this account?',
   maxLengthSafeAreaName: 'Please enter 1-32 characters',
@@ -299,17 +299,17 @@ export default {
   female: 'Female',
   error_info: 'Height and weight are always greater than 0',
   errorName: 'Baby name cannot be blank',
-  error_birthday: 'Your baby\'s birthday is invalid.', //to do
+  error_birthday: 'Invalid date',
 
   //ForgotPassWord
-  txtForgotPassWord1: '1.Please enter a valid phone number to receive the verification code.', // to do
-  txtForgotPassWord2: '2. Enter the password reset confirmation confirmation code is successful.', // to do
-  inputTxt: 'Please enter your phone number',//to do
-  txtContinue : 'Continue', // to do
-  getCode: 'Get a code', // to do
-  successPassword: 'Successful password updates', //to do
-  newPassword: 'Enter a new password', // to do
-  isNewPassword: 'Re-enter a new password',// to do
+  txtForgotPassWord1: '1.Please enter a valid phone number to receive the verification code.',
+  txtForgotPassWord2: '2. Enter the password reset confirmation confirmation code is successful.',
+  inputTxt: 'Please enter your phone number',
+  txtContinue : 'Continue',
+  getCode: 'Get code',
+  successPassword: 'Success!',
+  newPassword: 'Enter new password',
+  isNewPassword: 'Re-type new password',
   updatePassword: 'Update password',
 
   //Warning
@@ -320,24 +320,26 @@ export default {
   txtLowBattery: 'Low battery warning',
 
   //pay in cash
-  payInCash: 'Pay in cash', //to do,
-  accountInfo: 'Account information', //to do,
-  package: 'Package', // to do
-  deadline: 'Deadline', // to do
-  ori_account: 'Original account',// to do
-  free_intranet_voice: 'Free intranet voice', // to do
-  free_offline_voice: 'Free offline voice', // to do
-  free_data_traffic: 'Free data traffic', // to do
-  more_money: 'More money', //  to do
-  card: 'Scratch card', // to do
-  txt_phone: 'The phone number of the clock:', // to do
-  cardCode: 'Viettel scratch card code', //to do
-  importCard: 'enter scratch card code', //to do
-  more_card: 'More card', // to do,
-  txtContent: 'To extend the service, please maintain the original ' +
-    'account of at least VND 30,000 with MyKid30 package,' +
-    ' VND 50,000 for MyKID50 plan', // to do
-  error_card: 'Please enter the scratch card code!', // to do
+  paying: 'PAYMENT',
+  payInCash: 'Payment',
+  accountInfo: 'Account information',
+  package: 'Packages',
+  deadline: 'Expiration date',
+  ori_account: 'Original account',
+  free_intranet_voice: 'Free local calls',
+  free_offline_voice: 'Free external calls',
+  free_data_traffic: 'Free data traffic',
+  more_money: 'Payment',
+  card: 'Card code',
+  txt_phone: 'Watch phone number: ',
+  cardCode: 'Viettel card code',
+  importCard: 'Enter card code',
+  more_card: 'Top-up',
+  txtContent: 'To renew the service, please maintain a minimum original account' +
+    ' of 30,000 VND for MyKid30 package, 50,000 VND for MyKID50 package',
+  error_card: 'Please enter card code!',
+  error_card1: 'Card code is incorrect. Please try again!',
+  successPayment: 'Success!'
 
    //Health
   header_health: 'Healthy',

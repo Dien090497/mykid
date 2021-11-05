@@ -5,8 +5,11 @@ import {useTranslation} from "react-i18next";
 import {styles} from "./styles";
 import {Colors} from "../../../assets/colors/Colors";
 import NotificationModal from "../../../components/NotificationModal";
+import DataLocal from "../../../data/dataLocal";
+import {onClickPayment} from '../../../network/PaymentService';
+import Consts from "../../../functions/Consts";
 
-export default function Card() {
+export default function Card({navigation,route}) {
   const {t} = useTranslation();
   const refNotification = useRef();
   const [card, setCard] = useState('');
@@ -18,15 +21,32 @@ export default function Card() {
   const moreCard = () => {
     if (card === '') {
       refNotification.current.open(t('common:error_card'));
+      return;
     }
+    if (card.length < 15) {
+      refNotification.current.open(t('common:error_card1'));
+      return;
+    }
+
+    onClickPayment(DataLocal.deviceId, card , {
+        success: res => {
+          refNotification.current.open(t('common:successPayment'), () => {
+            if (route.params && route.params.refresh) {
+              route.params.refresh();
+            }
+            navigation.navigate(Consts.ScreenIds.Paying);
+          })
+        }
+    });
   }
+
    return (
     <View style={{flex: 1, backgroundColor: Colors.white}}>
       <Header title={t('common:card')}/>
       <View style={{flex: 1, width: '90%', height: 800, alignItems: 'center', marginHorizontal: '5%'}}>
         <View style={[styles.viewTxt, {marginTop: 20}]}>
           <Text style={styles.text}>{t('common:txt_phone')}</Text>
-          <Text style={[styles.text, {color: Colors.redTitle}]}>0862319100</Text>
+          <Text style={[styles.text, {color: Colors.redTitle}]}>{route.params.phone}</Text>
         </View>
         <View style={[styles.viewTxt, {alignItems: 'center', justifyContent: 'flex-start'}]}>
           <Text style={styles.text}>{t('common:cardCode')}</Text>
@@ -35,11 +55,13 @@ export default function Card() {
           <TextInput
             placeholderTextColor={'rgba(181, 180, 180, 1)'}
             placeholder={t('common:importCard')}
-            maxLength={6}
+            maxLength={15}
             keyboardType={'number-pad'}
             style={{
               marginHorizontal: 10,
-              color: Colors.black
+              color: Colors.black,
+              width: '100%',
+              height: '100%',
             }}
             onChangeText={(text) => onchangeCard(text)}
           />

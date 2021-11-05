@@ -1,7 +1,8 @@
 import {Colors} from '../../assets/colors/Colors';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 import { FontSize } from '../../functions/Consts';
 
+const {width, height} = Dimensions.get('window');
 export const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.colorMain,
@@ -17,6 +18,9 @@ export const styles = StyleSheet.create({
     textAlign: 'center'
   },
   back: {
+    padding: height * 0.005,
+    margin: -height * 0.005,
+    width: width * 0.1
   },
   iconRight: {
     height: 28,

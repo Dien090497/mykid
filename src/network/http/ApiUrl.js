@@ -53,6 +53,7 @@ export const rewardsUrl = appUrl + '/rewards';
 export const  deviceUrl = appUrl + '/commands';
 // Rooms
 export const roomsUrl = appUrl + '/rooms';
+export const roomsChatUrl = appUrl + '/rooms/chat';
 
 //PhotoShoot
 export const PhotoShootUrl = appUrl + '/commands';
@@ -77,6 +78,9 @@ export const WaringUrl = appUrl + '/notifications';
 export const HealthUrl = appUrl + '/walking-time-modes';
 export const TrackingUrl = appUrl + '/walking-time-tracking';
 export const TargetsUrl = appUrl + '/targets';
+
+//Payment
+export const checkAccount = appUrl + '/sims';
 
 /// url: string, obj: object
 export function assignUrlParams(url, obj) {

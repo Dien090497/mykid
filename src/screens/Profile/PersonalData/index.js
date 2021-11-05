@@ -34,7 +34,7 @@ export default function PersonalDate() {
   const [inputText, setInputText] = useState('')
   const [gender, setGender] = useState();
   const [avatar, setAvatar] = useState();
-  const [contact, setContact] = useState();
+  const [contact, setContact] = useState(null);
   const [email, setEmail] = useState();
   const [name, setName] = useState();
   const [phone, setPhone] = useState();
@@ -50,11 +50,15 @@ export default function PersonalDate() {
   useLayoutEffect(() => {
     getPersonalDataApi({
       success: res => {
+        setAvatar(res.data.avatar);
+        if (res.data.phone && res.data.phone.startsWith('+84')) {
+          setPhone('0' + res.data.phone.substring(3));
+        }
         setName(res.data.name);
         setGender(res.data.gender);
-        setContact('0' + res.data.contact.substring(3));
-        setAvatar(res.data.avatar);
-        setPhone('0' + res.data.phone.substring(3));
+        if (res.data.contact && res.data.contact.startsWith('+84')) {
+          setContact('0' + res.data.contact.substring(3));
+        }
         setEmail(res.data.email);
       },
       refNotification: refNotification,
@@ -85,7 +89,20 @@ export default function PersonalDate() {
     }
   }
 
+  const editPhone = () => {
+    if (contact[0] === '0') {
+      return '+84' + contact.substring(1);
+    }
+    if (contact[0] === '8' && contact[1] === '4') {
+      return ('+' + contact);
+    }
+  }
+
   const InstallPersonalData = () => {
+    let phoneContact = null ;
+    if (contact !== null) {
+       phoneContact = editPhone();
+    }
     if (!emailTest(email)) {
       refNotification.current.open(t('common:error_email'))
       return;
@@ -94,11 +111,11 @@ export default function PersonalDate() {
       refNotification.current.open(t('common:error_name'))
       return;
     }
-    if (!phoneTest1(contact) && contact !== null) {
+    if (contact !== null && !phoneTest1(phoneContact)) {
       refNotification.current.open(t('common:error_contact'))
       return;
     }
-    updatePersonalDataApi(contact, email, avatar, gender, name, {
+    updatePersonalDataApi(phoneContact, email, avatar, gender, name, {
       success: res => {
         refNotification.current.open(t('common:EditSuccess'))
         setDisableTob(false);
@@ -179,7 +196,7 @@ export default function PersonalDate() {
       setGender(dataGender[index]);
     }
   }
-
+console.log(phone,contact,email)
   return (
     <View style={{flex: 1, backgroundColor: Colors.white}}>
       <Header title={t('common:personalData')}/>
@@ -207,7 +224,7 @@ export default function PersonalDate() {
                     color: 'rgba(181, 180, 180, 1)',
                     fontSize: 12
                   }]}>
-                {phone === null ? 'Chưa có' : phone}
+                {phone === null ? t('common:yetHave') : phone}
               </Text>
               <View style={{width: 35}}/>
             </View>
@@ -245,7 +262,7 @@ export default function PersonalDate() {
                     color: 'rgba(181, 180, 180, 1)',
                     fontSize: 12
                   }]}>
-                {gender === null ? 'Chưa có' : (gender === 'MALE' ? t('common:male') : t('common:female'))}
+                {gender === null ? t('common:yetHave') : (gender === 'MALE' ? t('common:male') : t('common:female'))}
               </Text>
               <TouchableOpacity
                 onPress={() => {
@@ -269,7 +286,7 @@ export default function PersonalDate() {
                     color: 'rgba(181, 180, 180, 1)',
                     fontSize: 12
                   }]}>
-                {contact === null ? 'Chưa có' : contact}
+                {contact === null ? t('common:yetHave') : contact}
               </Text>
               <TouchableOpacity
                 onPress={() => {
@@ -293,7 +310,7 @@ export default function PersonalDate() {
                     color: 'rgba(181, 180, 180, 1)',
                     fontSize: 12
                   }]}>
-                {email === null || email === '' ? 'Chưa có' : email}
+                {email === null || email === '' ? t('common:yetHave') : email}
               </Text>
               <TouchableOpacity
                 onPress={() => {
@@ -329,7 +346,7 @@ export default function PersonalDate() {
           buttonBox: {width: '100%', height: ScaleHeight.big},
           buttonText: {fontSize: 18, fontWeight: '400', fontStyle: 'normal'}
         }}
-        options={['Nam', 'Nữ', t('common:cancel')]}
+        options={[t('common:male'),t('common:female') , t('common:cancel')]}
         cancelButtonIndex={2}
         onPress={handleGenderAction}
       />

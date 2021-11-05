@@ -1,4 +1,3 @@
-
 export default {
   // APP
   kwa4001: 'Incorrect account (KWA-4001)',
@@ -28,6 +27,23 @@ export default {
   kwa4045: 'Phone must be registered (KWA-4045)',
   kwa4046: 'Phone must be unregistered (KWA-4046)',
   kwa4047: 'Invalid verification (KWA-4047)',
+  kwa4048: 'Your phone has not got OTP (KWA-4048)',
+  kwa4054: 'Length of phone not greater than 12 (KWA-4054)',
+  kwa4055: 'Invalid phone number (KWA-4055)',
+  kwa4056: 'Phone number not exist or not active (KWA-4056)',
+  kwa4057: 'Valid service package not found (KWA-4057)',
+  kwa4058: 'Invalid service package (KWA-4058)',
+  kwa4059: 'App code and request id exist (KWA-4059)',
+  kwa4060: 'Processing phone card (KWA-4060)',
+  kwa4061: 'Error getting phone card info (KWA-4061)',
+  kwa4062: 'Time out getting phone card info (KWA-4062)',
+  kwa4063: 'Error getting phone card info (KWA-4063)',
+  kwa4064: 'Time out topping up (KWA-4064)',
+  kwa4065: 'SIM not found (KWA-4065)',
+  kwa4066: 'Isdn found (KWA-4066)',
+  kwa5004: 'Failed to look up sim (KWA-5004)',
+  kwa5002: 'Error looking up sim (KWA-5002)',
+
   // common
   exceedNicknameLength: 'Exceeded number of characters allowed',
   downloadFailed: 'Data download failed',

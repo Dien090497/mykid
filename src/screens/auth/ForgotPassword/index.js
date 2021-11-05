@@ -34,18 +34,18 @@ const ForgotPassword = ({navigation}) => {
     if (phone[0] === '0') {
       return '+84' + phone.substring(1);
     }
-    if (phone[0] === '8') {
-      return ('+84' + phone.substring(2));
+    if (phone[0] === '8' && phone[1] === '4') {
+      return ('+' + phone);
     }
   }
 
   const sendTo = () => {
-    let isPhone = editPhone();
-    if (!phoneTest1(phone)) {
+    let phoneNumber = editPhone();
+    if (!phoneTest1(phoneNumber)) {
       refNotification.current.open(t('common:error_phone'))
       return;
     }
-    getOtpResettingApi(isPhone, {
+    getOtpResettingApi(phoneNumber, {
         success: res => {
           setCheck(true);
           setIsActive(true);
@@ -59,7 +59,7 @@ const ForgotPassword = ({navigation}) => {
   }
 
   const isContinue = () => {
-    if (!phoneTest1(phone)) {
+    if (!phoneTest1(editPhone())) {
       refNotification.current.open(t('common:error_phone'))
       return;
     }

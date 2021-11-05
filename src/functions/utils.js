@@ -29,7 +29,7 @@ export function passwordTest(pass) {
 }
 
 export function phoneTest1(phone) {
-  return /^(0|84)[\d]{9,10}$/.test(phone);
+  return /^(\+84)[\d]{9}$/.test(phone);
 }
 
 export function passwordTest1(pass) {

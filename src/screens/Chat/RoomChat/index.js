@@ -57,6 +57,7 @@ export default function RoomChat({navigation, route}) {
   const [timerCount, setTimerCount] = useState();
   const { t } = useTranslation();
   let sheet = null;
+  let recordTimeout = null;
 
   const dataMock = [
     {
@@ -117,11 +118,16 @@ export default function RoomChat({navigation, route}) {
       setChatHistory(XmppClient.getCurrentHistory());
       XmppClient.joinRoom(route.params.roomInfo.roomAddress);
     }
-    getListDevice();
   }, []);
 
+  useLayoutEffect(() => {
+    if (roomInfo) {
+      getListDevice();
+    }
+  }, [roomInfo]);
+
   const getListDevice = () => {
-    getListDeviceApi(null, 0, 100, DataLocal.deviceId, 'ACTIVE', {
+    getListDeviceApi(null, 0, 100, roomInfo.deviceId, 'ACTIVE', {
       success: res => {
         setListMember(res.data);
       },
@@ -183,14 +189,14 @@ export default function RoomChat({navigation, route}) {
   };
 
   const sendMsg = () => {
-    if (isLock && text === '') return;
+    if (isLock || text === '') return;
     Keyboard.dismiss();
     setIsLock(true);
     XmppClient.sendMessage('text', text);
     setText('');
     setTimeout(() => {
       setIsLock(false);
-    }, 3000);
+    }, 5000);
   }
 
   const selectPhoto = () => {
@@ -207,8 +213,8 @@ export default function RoomChat({navigation, route}) {
     setIsRecording(true);
     await refRecorder.current._record();
     setTimerCount(getTime());
-    setTimeout(() => {
-      if (getTime() - timerCount >= 14) {
+    recordTimeout = setTimeout(() => {
+      if (recordTimeout && refRecorder.current && getTime() - timerCount >= 14) {
         setIsRecording(false);
         refRecorder.current._stop().then();
       }
@@ -229,9 +235,10 @@ export default function RoomChat({navigation, route}) {
   }
 
   const onStopRecord = (url) => {
+    clearTimeout(recordTimeout);
     setIsRecording(false);
     setTimerCount(getTime());
-    if (getTime() - timerCount < 3) {
+    if (getTime() - timerCount < 2) {
       SimpleToast.show(t('errorMsg:recordingFail'));
     } else {
       showLoading(refLoading);
@@ -349,7 +356,13 @@ export default function RoomChat({navigation, route}) {
         <ScrollView ref={refScrollView} style={styles.container}
           onContentSizeChange={() => refScrollView.current.scrollToEnd({animated: true})}>
           {chatHistory && chatHistory.map((obj, i) => (
-            <View key={i} style={[styles.viewItem, !isMe(obj) ? {flexDirection: 'row'} : {flexDirection: 'row-reverse'}]}>
+          <View key={i}>
+            { obj.isShowDate &&
+              <View style={[styles.viewItem, {flexDirection: 'row', justifyContent: 'center'}]}>
+                <Text style={styles.textDate}>{obj.date}</Text>
+              </View>
+            }
+            <View style={[styles.viewItem, !isMe(obj) ? {flexDirection: 'row'} : {flexDirection: 'row-reverse'}]}>
               <View style={styles.viewImg}>
                 <FastImage source={getIcon(obj)} style={styles.icAvatar} resizeMode={FastImage.resizeMode.stretch} />
               </View>
@@ -370,30 +383,33 @@ export default function RoomChat({navigation, route}) {
                       </TouchableOpacity>
                       }
                       {obj.type === 'text' &&
-                      <Text>{obj.body}</Text>
+                      <Text style={styles.textBody}>{obj.body}</Text>
                       }
+                      <Text style={styles.textTime}>{obj.time}</Text>
                     </View>
                   </View>
                 }
                 {obj.type === 'image' &&
                 <Tooltip toggleAction={'onLongPress'} popover={
                   <View style={styles.viewTooltip}
-                  onStartShouldSetResponder={(e) => {
+                    onStartShouldSetResponder={(e) => {
                       saveImage(obj);
                       return false;
                     }}>
-                    <Text>Lưu ảnh</Text>
+                    <Text>{t('common:savePicture')}</Text>
                   </View>
                 }>
                   <View style={{flexDirection: !isMe(obj) ? 'row' : 'row-reverse'}}>
                     <View style={[styles.viewContentDetail, !isMe(obj) ? {} : {backgroundColor: Colors.pinkBgMsg}]}>
                       <FastImage resizeMode={FastImage.resizeMode.cover} source={{uri: obj.body}} style={styles.icPhoto}/>
+                      <Text style={styles.textTime}>{obj.time}</Text>
                     </View>
                   </View>
                 </Tooltip>
                 }
               </View>
             </View>
+          </View>
           ))}
         </ScrollView>
         <View style={styles.viewBottom}>
@@ -431,7 +447,7 @@ export default function RoomChat({navigation, route}) {
           </View>
           <TouchableOpacity activeOpacity={isLock ? 1 : 0} style={styles.viewImg} onPress={isRecord ? selectPhoto : sendMsg}>
             <Image source={isRecord ? Images.icCamera : Images.icSend}
-              style={isRecord ? styles.icCamera : isLock ? [styles.icSend, {opacity: 0.5}] : styles.icSend}/>
+              style={isRecord ? styles.icCamera : isLock ? [styles.icSend, {opacity: 0.3}] : styles.icSend}/>
           </TouchableOpacity>
         </View>
       </View>

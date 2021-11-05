@@ -22,6 +22,7 @@ import NotificationModal from '../../../components/NotificationModal';
 export default function HomeMainScreen() {
   const navigation = useNavigation();
   const commonInfoReducer = useSelector(state => state.commonInfoReducer);
+  const logout = useSelector(state => state.loginReducer.isLogout);
   const refLoading = useRef();
   const refNotification = useRef();
   const [showMenu, setShowMenu] = useState(false);
@@ -48,6 +49,12 @@ export default function HomeMainScreen() {
       refNotification,
     });
   }
+
+  useEffect(() => {
+    if (logout) {
+      navigation.replace(Consts.ScreenIds.Login);
+    }
+  }, [logout]);
 
   useEffect(() => {
     if (isFocused) {
@@ -311,7 +318,7 @@ export default function HomeMainScreen() {
               <View style={styles.bgIcon}>
                 <Image source={Images.icSetting} style={styles.icon} />
               </View>
-              <Text style={styles.buttonText}>{t('common:payInCash')}</Text>
+              <Text style={styles.buttonText}>{t('common:paying')}</Text>
             </TouchableOpacity>
           </View>
         </View>
