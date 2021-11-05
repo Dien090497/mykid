@@ -27,24 +27,13 @@ export default class DatePickerModal extends Component {
     this.setState({ modalVisible: false });
   };
 
-  onFromSelected = (timeSelect) => {
-    let time = timeSelect;
-    time.setSeconds(0);
-    this.setState({ time: time });
-  };
-
   onSubmit = () => {
     this.state.saveConfigFunc(this.state.time);
     this.hideModal();
   };
-
-  getMinutes = () => {
-    let minutes = [];
-    for (let i = 0; i < 60; i++) {
-      minutes.push(i < 10 ? '0' + i.toString() : i.toString());
-    }
-    return minutes;
-  };
+  onChangeDate = (date) =>{
+    this.setState({ ...this.state, time: date});
+  }
 
   render() {
     return (
@@ -60,7 +49,7 @@ export default class DatePickerModal extends Component {
                 <DatePicker mode={'date'}
                             date={this.state.time}
                             locale={DataLocal.language}
-                            onDateChange={date => { this.setState(...this.state, this.time = date)}}
+                            onDateChange={date => { this.onChangeDate(date) }}
                 />
                 }
               </View>

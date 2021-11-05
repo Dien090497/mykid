@@ -21,7 +21,7 @@ export default class PeriodModal extends Component {
   }
 
   openModal = (from, to, saveConfig) => {
-    this.setState({ modalVisible: true, from: new Date(), to: new Date(), saveConfigFunc: saveConfig });
+    this.setState({ modalVisible: true, from: from, to: to, saveConfigFunc: saveConfig });
   };
 
   hideModal = () => {
@@ -52,7 +52,6 @@ export default class PeriodModal extends Component {
       config.from = splitFrom[4];
       config.to = splitTo[4];
     }
-    config.status = 'ON';
     this.state.saveConfigFunc(config);
     this.hideModal();
   };

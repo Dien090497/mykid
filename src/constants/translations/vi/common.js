@@ -49,6 +49,7 @@ export default {
   fail: 'Thất bại',
   chooseDay: 'Chọn ngày',
   success: 'Thành công',
+  detail: 'Chi tiết',
   thisFunctionIsNotValid: 'Tính năng chưa được cập nhật',
   header_settings: 'Thiết lập',
   header_contacts: 'Danh bạ',
@@ -339,6 +340,15 @@ export default {
     '50.000đ đối với gói MyKID50',
   error_card: 'Vui lòng nhập mã thẻ cào!',
   error_card1: 'Thẻ nạp không đúng. Vui lòng thử lại!',
-  successPayment: 'Nạp thẻ thành công'
+  successPayment: 'Nạp thẻ thành công',
 
+  //Health
+  header_health: 'Sức khỏe',
+  step: 'Bước',
+  steps: 'Bước chân',
+  goals: 'Đặt mục tiêu',
+  inputNumberOfStep: 'Nhập số bước chân',
+  calo: 'Calo',
+  error_health1: 'Số bước chân mục tiêu phải lớn hơn 0',
+  error_health2: 'Số bước chân mục tiêu bé hơn 20.000 bước',
 };

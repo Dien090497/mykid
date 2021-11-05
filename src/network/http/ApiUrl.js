@@ -76,6 +76,9 @@ export const WaringUrl = appUrl + '/notifications';
 
 // Health
 export const HealthUrl = appUrl + '/walking-time-modes';
+export const TrackingUrl = appUrl + '/walking-time-tracking';
+export const TargetsUrl = appUrl + '/targets';
+
 //Payment
 export const checkAccount = appUrl + '/sims';
 

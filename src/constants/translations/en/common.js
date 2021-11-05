@@ -49,6 +49,7 @@ export default {
   fail: 'Fail',
   chooseDay: 'Select date',
   success: 'Success',
+  detail: 'Details',
   thisFunctionIsNotValid: 'Tính năng chưa được cập nhật',
   header_settings: 'Setting',
   header_contacts: 'Contacts',
@@ -221,7 +222,7 @@ export default {
   home_setting: 'SETTING',
   home_game: 'GAME',
   home_warning: 'ALERT CENTER',
-  home_transport: 'SỨC KHỎE',
+  home_transport: 'HEALTH',
   home_infoKits: 'Baby\'s information',
 
   //setting
@@ -257,7 +258,7 @@ export default {
   sendRewards: 'Successful',
 
   //DoNotDisturb
-  textAddTime: 'Time',
+  textAddTime: 'Add time',
 
   //SecretPhotoShoot
   textShoot: 'Take pictures',
@@ -338,6 +339,15 @@ export default {
     ' of 30,000 VND for MyKid30 package, 50,000 VND for MyKID50 package',
   error_card: 'Please enter card code!',
   error_card1: 'Card code is incorrect. Please try again!',
-  successPayment: 'Success!'
+  successPayment: 'Success!',
 
+   //Health
+  header_health: 'Healthy',
+  step: 'Steps',
+  steps: 'Steps',
+  goals: 'Goals',
+  inputNumberOfStep: 'Enter the number of steps',
+  calo: 'Calo',
+  error_health1: 'Số bước chân mục tiêu phải lớn hơn 0',
+  error_health2: 'Số bước chân mục tiêu bé hơn 20.000 bước',
 };
