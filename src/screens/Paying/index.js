@@ -1,17 +1,24 @@
-import React, {useLayoutEffect, useRef} from "react";
+import React, {useLayoutEffect, useRef, useState} from "react";
 import {View, Text, TouchableOpacity} from "react-native";
 import Header from '../../components/Header';
 import {useTranslation} from "react-i18next";
 import {Colors} from "../../assets/colors/Colors";
 import {styles} from "./styles";
 import Consts from "../../functions/Consts";
-import {getInfoApi} from '../../network/Payment';
+import {getInfoApi} from '../../network/PaymentService';
 import DataLocal from "../../data/dataLocal";
 import NotificationModal from "../../components/NotificationModal";
 
 export default function Paying({navigation}) {
   const {t} = useTranslation();
   const refNotification = useRef();
+  const [phone, setPhone] = useState();
+  const [packet, setPacket] = useState();
+  const [expiredDate, setExpiredDate] = useState();
+  const [oriAccount, setOriAccount] = useState();
+  const [freeIntranet, setFreeIntranet] = useState();
+  const [freeOffline, setFreeOffline] = useState();
+  const [freeData, setFreeData] = useState();
   useLayoutEffect(() => {
     getInfo();
   },[]);
@@ -19,17 +26,24 @@ export default function Paying({navigation}) {
   const getInfo = () => {
     getInfoApi(DataLocal.deviceId, {
       success: res => {
-        console.log('Data----', res.data.meta.code);
-      },
-      failure: error => {
-        const code = error.split(' ');
-        console.log(code[code.length -1 ])
-
-        // navigation.navigate(Consts.ScreenIds.HomeMainScreen)
+        setPacket(res.data.productCode);
+        setExpiredDate(res.data.expiredDate.slice(0,10));
+        setOriAccount(res.data.mainBalance);
+        setFreeIntranet(res.data.onNetBalance);
+        setFreeOffline(res.data.offNetBalance);
+        setFreeData(res.data.dataBalance);
+        if (res.data.devicePhone && res.data.devicePhone.startsWith('+84')) {
+          setPhone('0' + res.data.devicePhone.substring(3));
+        }
       },
       refNotification
     })
   }
+
+  const refreshInfo = () => {
+    getInfo();
+  }
+
   return (
     <View style={{flex: 1, alignItems: 'center', marginBottom: 20}}>
       <Header title={t('common:payInCash')}/>
@@ -49,7 +63,7 @@ export default function Paying({navigation}) {
            </View>
           <View style={{width: '30%', justifyContent: 'center'}}>
             <Text style={styles.txt_item1}>
-              {t('common:package')}
+              {packet}
             </Text>
           </View>
         </View>
@@ -61,7 +75,7 @@ export default function Paying({navigation}) {
           </View>
           <View style={{width: '30%', justifyContent: 'center'}}>
             <Text style={styles.txt_item1}>
-              {t('common:deadline')}
+              {expiredDate}
             </Text>
           </View>
         </View>
@@ -73,7 +87,7 @@ export default function Paying({navigation}) {
           </View>
           <View style={{width: '30%', justifyContent: 'center'}}>
             <Text style={styles.txt_item1}>
-              {t('common:ori_account')}
+              {oriAccount}
             </Text>
           </View>
         </View>
@@ -85,7 +99,7 @@ export default function Paying({navigation}) {
           </View>
           <View style={{width: '30%', justifyContent: 'center'}}>
             <Text style={styles.txt_item1}>
-              {t('common:free_intranet_voice')}
+              {freeIntranet}
             </Text>
           </View>
         </View>
@@ -97,7 +111,7 @@ export default function Paying({navigation}) {
           </View>
           <View style={{width: '30%', justifyContent: 'center'}}>
             <Text style={styles.txt_item1}>
-              {t('common:free_offline_voice')}
+              {freeOffline}
             </Text>
           </View>
         </View>
@@ -109,17 +123,17 @@ export default function Paying({navigation}) {
           </View>
           <View style={{width: '30%', justifyContent: 'center'}}>
             <Text style={styles.txt_item1}>
-              {t('common:free_data_traffic')}
+              {freeData}
             </Text>
           </View>
         </View>
         <TouchableOpacity
           style={styles.viewTob}
-          onPress={() => navigation.navigate(Consts.ScreenIds.Card)}
+          onPress={() => navigation.navigate(Consts.ScreenIds.Card, {phone: phone, refresh: refreshInfo})}
         >
           <Text style={styles.txtTob}>{t('common:more_money')}</Text>
         </TouchableOpacity>
-        <NotificationModal ref={refNotification}/>
+        <NotificationModal ref={refNotification} goBack={() => navigation.goBack()}/>
       </View>
     </View>
   );
