@@ -108,7 +108,7 @@ const Login = ({navigation}) => {
       }
       dispatch(Actions.actionLogin({phone, password, refLoading, refNotification}));
     } else {
-      Alert.alert(t('common:notification'), t('common:error_message'));
+      refNotification.current.open(t('common:error_message'))
     }
   };
 
