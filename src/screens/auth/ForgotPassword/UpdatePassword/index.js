@@ -2,7 +2,7 @@ import {View, Text, TouchableOpacity, TextInput, Image} from 'react-native';
 import React, {useRef, useState} from 'react';
 import {Colors} from '../../../../assets/colors/Colors';
 import LoadingIndicator from '../../../../components/LoadingIndicator';
-import {passwordTest1} from '../../../../functions/utils';
+import { passwordTest } from "../../../../functions/utils";
 import {useTranslation} from 'react-i18next';
 import styles from "./styles";
 import Images from "../../../../assets/Images";
@@ -25,7 +25,7 @@ export default function UpdatePassword({navigation, route}) {
       return;
     }
 
-    if (!passwordTest1(pass)) {
+    if (!passwordTest(pass)) {
       refNotification.current.open(t('common:error_pass1'))
       return;
     }

@@ -25,7 +25,8 @@ export function emailTest(email) {
   );
 }
 export function passwordTest(pass) {
-  return /^[\x20-\x7E\p{L}]{6,20}$/.test(pass);
+  return /^(?=.*[A-Za-z])(?=.*\d)[^\sÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼẾỀỂưăạảấầẩẫậắằẳẵặẹẻẽềếểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵýỷỹ]{6,20}$/.test(pass);
+  // return /^[\x20-\x7E\p{L}]{6,20}$/.test(pass);
 }
 
 export function phoneTest1(phone) {

@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import React, {useLayoutEffect, useRef, useState} from 'react';
 import {getOtpApi} from '../../../network/UserInfoService';
-import {passwordTest1, phoneTest1} from '../../../functions/utils';
+import { passwordTest, phoneTest1 } from "../../../functions/utils";
 import Consts from '../../../functions/Consts';
 import CustomInput from '../../../components/inputRegister';
 import {styles} from './styles';
@@ -80,7 +80,7 @@ const Register = ({navigation}) => {
       refNotification.current.open(t('common:error_pass'))
       return;
     }
-    if (!passwordTest1(pass)) {
+    if (!passwordTest(pass)) {
       refNotification.current.open(t('common:error_pass1'))
       return;
     }
