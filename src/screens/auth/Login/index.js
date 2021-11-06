@@ -1,7 +1,6 @@
 import * as Actions from '../../../redux/actions';
 
 import {
-  Alert,
   Image,
   ImageBackground,
   Keyboard,
