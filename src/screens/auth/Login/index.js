@@ -30,10 +30,10 @@ import {WheelPicker} from 'react-native-wheel-picker-android';
 import NotificationModal from '../../../components/NotificationModal'
 
 const LANGUAGES = [
-  {code: 'en', label: 'English'},
-  {code: 'vi', label: 'Việt Nam'}
+  {code: 'vi', label: 'Việt Nam'},
+  {code: 'en', label: 'English'}
 ];
-const NAME_LANGUAGE = ['English', 'Việt Nam'];
+const NAME_LANGUAGE = [ 'Việt Nam', 'English' ];
 
 const Login = ({navigation}) => {
   const dispatch = useDispatch();
@@ -48,7 +48,11 @@ const Login = ({navigation}) => {
   const {t, i18n} = useTranslation();
 
   useLayoutEffect(() => {
+    for (const key in LANGUAGES) {
+      if (LANGUAGES[key].code === DataLocal.language) setIndexLanguage(parseInt(key));
+    }
     onLoggedIn();
+
   }, [loggedInUserInfo]);
 
   const onLoggedIn = async () => {
