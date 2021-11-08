@@ -316,7 +316,7 @@ export default function HomeMainScreen() {
               style={styles.button}
               onPress={pressPaying}>
               <View style={styles.bgIcon}>
-                <Image source={Images.icSetting} style={styles.icon} />
+                <Image source={Images.icPayment} style={styles.icon} />
               </View>
               <Text style={styles.buttonText}>{t('common:paying')}</Text>
             </TouchableOpacity>
