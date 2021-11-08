@@ -125,7 +125,6 @@ export default function DeviceManager({navigation}) {
   }
 
   const renderItem  = ({item, index}) => {
-    console.log(item)
     const relationship = dataMock.filter(val => val.relationship === item.relationship);
     const icon = relationship.length > 0 ? relationship[0].icon : dataMock[6].icon;
     relationship[0].name ? item.relationshipName = relationship[0].name: null;
@@ -163,7 +162,7 @@ export default function DeviceManager({navigation}) {
             <Text style={[styles.textSettings, {color: Colors.grayTextTitleColor, fontSize: 12}]}>{item.deviceCode}</Text>
           </View>
              <TouchableOpacity  style={styles.btnDelete} onPress={ () => showModal(item)}>
-               <Text style={[styles.textChange, {color: Colors.redTitle}]}>Xóa</Text>
+               <Text style={[styles.textChange, {color: Colors.redTitle}]}>{t('common:delete')}</Text>
              </TouchableOpacity>
         </View>
       );
