@@ -37,7 +37,6 @@ export const styles = StyleSheet.create({
   chartView:{
     width:'100%',
     height: 290,
-    alignItems: 'center',
     backgroundColor: '#fcf7f7'
   },
   headerCharView:{
