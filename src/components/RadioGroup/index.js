@@ -27,12 +27,14 @@ class RadioGroup extends Component {
             <View key={key}  style={styles.listView}>
               {this.state.checked == key ? (
                 <TouchableOpacity style={styles.btn}>
-                 <View style={{width:'108%'}}>
+                 <View style={{width:'100%'}}>
                    <Text style={styles.textView}>
                      {data.text}
                    </Text>
                  </View>
-                  <Image style={styles.img} source={Images.icUncheck} resizeMode={'stretch'}/>
+                  <View style={{width: '14%', justifyContent: 'center',alignItems: 'flex-end'}}>
+                    <Image style={styles.img} source={Images.icUncheck} resizeMode={'stretch'}/>
+                  </View>
                 </TouchableOpacity>
               ) : (
                 <TouchableOpacity
@@ -41,12 +43,14 @@ class RadioGroup extends Component {
                     this.props.updateTimeZoneSelect(data.value);
                   }}
                   style={styles.btn}>
-                 <View style={{width:'108%'}}>
+                 <View style={{width:'100%'}}>
                    <Text>
                      {data.text}
                    </Text>
                  </View>
-                  <Image style={styles.img} source={Images.icClickCancel} resizeMode={'stretch'}/>
+                  <View style={{width: '14%', justifyContent: 'center',alignItems: 'flex-end'}}>
+                    <Image style={styles.img} source={Images.icClickCancel} resizeMode={'stretch'}/>
+                  </View>
                 </TouchableOpacity>
               )}
             </View>

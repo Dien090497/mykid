@@ -22,7 +22,7 @@ export default function OffDevice() {
         refNotification.current.open(t('common:submitSuccess'))
       },
       refLoading: refLoading,
-      refNotification: refNotification``
+      refNotification: refNotification
     });
   }
 
