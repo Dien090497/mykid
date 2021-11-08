@@ -24,7 +24,7 @@ const CustomInput = (navigation) => {
         <TextInput
           placeholder={placeholder}
           placeholderTextColor={"#9D9D9D"}
-          secureTextEntry={secureTextEntry ? secureTextEntry : false}
+          secureTextEntry={secureTextEntry ? secureTextEntry : !secureTextEntry}
           keyboardType={checkKeyboard ? "number-pad" : "default"}
           onChangeText={(text) => onChangeText(text)}
           underlineColorAndroid={"transparent"}

@@ -156,7 +156,7 @@ export default function DeviceManager({navigation}) {
     else {
       return (
         <View style={styles.rowSettings}>
-          <Image source={icon} resizeMode={'contain'} style={styles.iconSetting}/>
+          <Image source={item.avatar ? {uri:item.avatar} : item.icon} resizeMode={item.avatar? 'cover' : 'stretch'} style={styles.iconSetting}/>
           <View style={{flexDirection: 'column', justifyContent: 'center'}}>
             <Text style={styles.textSettings}>{item.deviceName}</Text>
             <Text style={[styles.textSettings, {color: Colors.grayTextTitleColor, fontSize: 12}]}>{item.deviceCode}</Text>
