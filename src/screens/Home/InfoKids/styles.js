@@ -1,6 +1,7 @@
-import { Colors } from '../../../assets/colors/Colors';
-import { StyleSheet, Dimensions } from 'react-native';
-const { width, height } = Dimensions.get("window");
+import {Colors} from '../../../assets/colors/Colors';
+import {StyleSheet, Dimensions} from 'react-native';
+
+const {width, height} = Dimensions.get("window");
 
 export const styles = StyleSheet.create({
   tobMain: {
@@ -20,14 +21,14 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-    marginBottom: 15,
+    marginBottom: height * 0.015,
     marginTop: 5
   },
   tobViewMain: {
     backgroundColor: Colors.redTitle,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 40,
+    marginTop: height * 0.03,
     width: width * 0.9,
     height: height * 0.06,
     borderRadius: 12
@@ -50,7 +51,8 @@ export const styles = StyleSheet.create({
     alignItems: 'center'
   },
   imageAvatar: {
-    width: height* 0.16,
-    height: height* 0.16
+    width: height * 0.16,
+    height: height * 0.16,
+    borderRadius: height * 0.08
   }
 });

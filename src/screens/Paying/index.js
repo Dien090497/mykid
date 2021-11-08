@@ -56,72 +56,72 @@ export default function Paying({navigation}) {
           }}>{t('common:accountInfo')}</Text>
         </View>
         <View style={styles.viewItem}>
-           <View style={{width: '70%', justifyContent: 'center'}}>
+           <View style={{width: '60%', justifyContent: 'center'}}>
              <Text style={styles.txt_item}>
                {t('common:package')}
              </Text>
            </View>
-          <View style={{width: '30%', justifyContent: 'center'}}>
+          <View style={{width: '40%', justifyContent: 'center'}}>
             <Text style={styles.txt_item1}>
               {packet}
             </Text>
           </View>
         </View>
         <View style={styles.viewItem}>
-          <View style={{width: '70%', justifyContent: 'center'}}>
+          <View style={{width: '60%', justifyContent: 'center'}}>
             <Text style={styles.txt_item}>
               {t('common:deadline')}
             </Text>
           </View>
-          <View style={{width: '30%', justifyContent: 'center'}}>
+          <View style={{width: '40%', justifyContent: 'center'}}>
             <Text style={styles.txt_item1}>
               {expiredDate}
             </Text>
           </View>
         </View>
         <View style={styles.viewItem}>
-          <View style={{width: '70%', justifyContent: 'center'}}>
+          <View style={{width: '60%', justifyContent: 'center'}}>
             <Text style={styles.txt_item}>
               {t('common:ori_account')}
             </Text>
           </View>
-          <View style={{width: '30%', justifyContent: 'center'}}>
+          <View style={{width: '40%', justifyContent: 'center'}}>
             <Text style={styles.txt_item1}>
               {oriAccount}
             </Text>
           </View>
         </View>
         <View style={styles.viewItem}>
-          <View style={{width: '70%', justifyContent: 'center'}}>
+          <View style={{width: '60%', justifyContent: 'center'}}>
             <Text style={styles.txt_item}>
               {t('common:free_intranet_voice')}
             </Text>
           </View>
-          <View style={{width: '30%', justifyContent: 'center'}}>
+          <View style={{width: '40%', justifyContent: 'center'}}>
             <Text style={styles.txt_item1}>
               {freeIntranet}
             </Text>
           </View>
         </View>
         <View style={styles.viewItem}>
-          <View style={{width: '70%', justifyContent: 'center'}}>
+          <View style={{width: '60%', justifyContent: 'center'}}>
             <Text style={styles.txt_item}>
               {t('common:free_offline_voice')}
             </Text>
           </View>
-          <View style={{width: '30%', justifyContent: 'center'}}>
+          <View style={{width: '40%', justifyContent: 'center'}}>
             <Text style={styles.txt_item1}>
               {freeOffline}
             </Text>
           </View>
         </View>
         <View style={styles.viewItem}>
-          <View style={{width: '70%', justifyContent: 'center'}}>
+          <View style={{width: '60%', justifyContent: 'center'}}>
             <Text style={styles.txt_item}>
               {t('common:free_data_traffic')}
             </Text>
           </View>
-          <View style={{width: '30%', justifyContent: 'center'}}>
+          <View style={{width: '40%', justifyContent: 'center'}}>
             <Text style={styles.txt_item1}>
               {freeData}
             </Text>

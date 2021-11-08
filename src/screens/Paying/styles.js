@@ -13,11 +13,11 @@ export const styles = StyleSheet.create({
     height: ScaleHeight.medium,
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 20
+    marginVertical: height * 0.02
   },
   viewItem: {
     backgroundColor: Colors.white,
-    marginBottom: 20,
+    marginBottom: height * 0.02,
     height: ScaleHeight.medium * 1.2,
     padding: 10,
     flexDirection: 'row',
@@ -33,13 +33,13 @@ export const styles = StyleSheet.create({
     elevation: 5
   },
   txt_item: {
-    fontSize: ScaleHeight.medium * 1.2/4,
+    fontSize: ScaleHeight.medium * 1.2/3.5,
     color: Colors.black,
     fontWeight: '500',
     fontFamily: 'Roboto-Medium'
   },
   txt_item1: {
-    fontSize: ScaleHeight.medium * 1.2/5,
+    fontSize: ScaleHeight.medium * 1.2/4,
     fontWeight: '400',
     position: 'absolute',
     right: 10,
@@ -47,7 +47,7 @@ export const styles = StyleSheet.create({
   },
   viewTob: {
     backgroundColor: Colors.redTitle,
-    marginVertical: 20,
+    marginVertical: height * 0.02,
     height: ScaleHeight.medium * 1.2,
     padding: 10,
     flexDirection: 'row',

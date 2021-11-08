@@ -74,6 +74,10 @@ export default function InfoKits({route}) {
       isTextName: weights + '',
       inputText: t('common:enterWeight')
     },
+    {
+      id: '6',
+      name: t('common:save')
+    }
   ];
 
   const dataGender = [
@@ -218,31 +222,40 @@ export default function InfoKits({route}) {
 
   const renderFlatlist = (itemFlatlist) => {
     return (
-      <View style={{flex: 1}}>
-        <View style={styles.tobMain}>
-          <Text style={styles.text}> {itemFlatlist.item.name} </Text>
-          <View style={styles.viewImage}>
-            <Text
-              style={
-                [styles.text, {
-                  color: 'rgba(181, 180, 180, 1)',
-                  fontSize: 12
-                }]}>
-              {itemFlatlist.item.textName}
-            </Text>
-            <TouchableOpacity
-              onPress={() => {
-                OnMoDal(itemFlatlist)
-              }}
-            >
-              <Image
-                source={Images.icEditProfile}
-                style={[styles.image, {width: 40, height: 40, borderRadius: 20}]}
-                resizeMode={'contain'}
-              />
-            </TouchableOpacity>
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        {itemFlatlist.item.id !== '6' ? (
+          <View style={styles.tobMain}>
+            <Text style={styles.text}> {itemFlatlist.item.name} </Text>
+            <View style={styles.viewImage}>
+              <Text
+                style={
+                  [styles.text, {
+                    color: 'rgba(181, 180, 180, 1)',
+                    fontSize: 12
+                  }]}>
+                {itemFlatlist.item.textName}
+              </Text>
+              <TouchableOpacity
+                onPress={() => {
+                  OnMoDal(itemFlatlist)
+                }}
+              >
+                <Image
+                  source={Images.icEditProfile}
+                  style={[styles.image, {width: 40, height: 40, borderRadius: 20}]}
+                  resizeMode={'contain'}
+                />
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
+        ):(
+          <TouchableOpacity
+            style={(!disableTob ? [styles.tobViewMain , {backgroundColor: 'rgba(181, 180, 180, 1)'}]: styles.tobViewMain)}
+            onPress={InstallInfo} disabled={!disableTob}
+          >
+            <Text style={[styles.text, {color: Colors.white}]}>{t('common:save')}</Text>
+          </TouchableOpacity>
+        )}
       </View>
     );
   }
@@ -261,19 +274,13 @@ export default function InfoKits({route}) {
                style={styles.imageAvatar}
                resizeMode={route.params.avatar ? 'cover' : 'stretch'}/>
       </View>
-      <View style={{justifyContent: 'center', alignItems: 'center', height: '60%', marginTop: -10}}>
+      <View style={{justifyContent: 'center', alignItems: 'center', height: '75%', marginTop: -10}}>
         <FlatList
           data={data}
           renderItem={renderFlatlist}
           keyExtractor={item => item.id}
-          style={{paddingTop: 15}}
+          style={{paddingVertical: 15}}
         />
-        <TouchableOpacity
-          style={(!disableTob ? [styles.tobViewMain , {backgroundColor: 'rgba(181, 180, 180, 1)'}]: styles.tobViewMain)}
-          onPress={InstallInfo} disabled={!disableTob}
-        >
-          <Text style={[styles.text, {color: Colors.white}]}>{t('common:save')}</Text>
-        </TouchableOpacity>
       </View>
       <ModalConfirmInput
         ref={refModalInput}
