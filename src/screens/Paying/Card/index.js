@@ -7,7 +7,7 @@ import {Colors} from "../../../assets/colors/Colors";
 import NotificationModal from "../../../components/NotificationModal";
 import DataLocal from "../../../data/dataLocal";
 import {onClickPayment} from '../../../network/PaymentService';
-import Consts from "../../../functions/Consts";
+import Consts, {ScaleHeight} from "../../../functions/Consts";
 
 export default function Card({navigation,route}) {
   const {t} = useTranslation();
@@ -62,6 +62,7 @@ export default function Card({navigation,route}) {
               color: Colors.black,
               width: '100%',
               height: '100%',
+              fontSize:  ScaleHeight.medium * 1.2/4
             }}
             onChangeText={(text) => onchangeCard(text)}
           />

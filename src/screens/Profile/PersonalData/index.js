@@ -210,7 +210,8 @@ console.log(phone,contact,email)
               }}>
                 <Image
                   source={check ? {uri: avatar} : avatar ? {uri: avatar} : Images.icAvatar}
-                  style={[styles.image, {width: 40, height: 40, borderRadius: 20}]}
+                  style={styles.image1}
+                  resizeMode={'center'}
                 />
               </TouchableOpacity>
             </View>
@@ -226,7 +227,7 @@ console.log(phone,contact,email)
                   }]}>
                 {phone === null ? t('common:yetHave') : phone}
               </Text>
-              <View style={{width: 35}}/>
+              <View style={styles.view}/>
             </View>
           </View>
           <View style={styles.tobMain}>

@@ -1,4 +1,4 @@
-import React, { useRef, useState,useEffect } from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import {
   Text,
   View,
@@ -13,14 +13,15 @@ import {
 } from '../../../network/EacesDropingService';
 import DataLocal from '../../../data/dataLocal';
 import LoadingIndicator from '../../../components/LoadingIndicator';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 import NotificationModal from '../../../components/NotificationModal';
+import {phoneTest1} from "../../../functions/utils";
 
-export  default function EacesDroping(){
-  const [number,setNumber] =useState('');
+export default function EacesDroping() {
+  const [number, setNumber] = useState('');
   const refLoading = useRef();
   const refNotification = useRef();
-  const { t } = useTranslation();
+  const {t} = useTranslation();
   useEffect(() => {
     getPhoneApi(DataLocal.deviceId, {
       success: res => {
@@ -30,51 +31,59 @@ export  default function EacesDroping(){
       refNotification: refNotification,
     });
   }, []);
-  const checkNumber = (number)=> {
-    if (number.length <= 9 || number.length >= 12) {
-      refNotification.current.open(t('common:errorPhone'))
-    }
-    else {
+  const checkNumber = () => {
+    if (!phoneTest1(editPhone())) {
+      refNotification.current.open(t('common:error_phone'))
+    } else {
       eacesDropingApi();
     }
   }
-  const eacesDropingApi  = ()=>{
-    const body ={
-      phoneNumber: number
+  const editPhone = () => {
+    if (number[0] === '0') {
+      return '+84' + number.substring(1);
     }
-    setEacesDropApi(DataLocal.deviceId,body,{
-      success: res =>{
+    if (number[0] === '8' && number[1] === '4') {
+      return ('+' + number);
+    }
+  }
+
+  const eacesDropingApi = () => {
+    const body = {
+      phoneNumber: editPhone()
+    }
+    setEacesDropApi(DataLocal.deviceId, body, {
+      success: res => {
         refNotification.current.open(t('common:addDeviceSuccess'))
       },
-      refLoading:refLoading,
+      refLoading: refLoading,
       refNotification: refNotification,
     })
   }
-  return(
+  return (
     <View style={styles.viewContainer}>
-      <Header title={t('common:hender_eacesDroping')} />
-       <View style={styles.viewInput}>
-           <View style={styles.viewInputText}>
-               <TextInput
-                 scrollEnabled={true}
-                 underlineColorAndroid={'transparent'}
-                 style={styles.inputText}
-                 value={number}
-                 keyboardType={'number-pad'}
-                 placeholder={t('common:header_account')}
-                 placeholderTextColor='#B5B4B4'
-                 disableFullscreenUI
-                 onChangeText={(text => setNumber(text))}
-               />
-           </View>
-            <TouchableOpacity style={styles.tob}
-              onPress={()=>checkNumber(number)}
-            >
-                  <Text style={styles.text}>{t('common:confirm')}</Text>
-            </TouchableOpacity>
-       </View>
-      <LoadingIndicator ref={refLoading} />
-      <NotificationModal ref={refNotification} />
+      <Header title={t('common:hender_eacesDroping')}/>
+      <View style={styles.viewInput}>
+        <View style={styles.viewInputText}>
+          <TextInput
+            scrollEnabled={true}
+            underlineColorAndroid={'transparent'}
+            style={styles.inputText}
+            value={number}
+            keyboardType={'number-pad'}
+            placeholder={t('common:header_account')}
+            placeholderTextColor='#B5B4B4'
+            disableFullscreenUI
+            onChangeText={(text => setNumber(text))}
+          />
+        </View>
+        <TouchableOpacity style={styles.tob}
+                          onPress={() => checkNumber(number)}
+        >
+          <Text style={styles.text}>{t('common:confirm')}</Text>
+        </TouchableOpacity>
+      </View>
+      <LoadingIndicator ref={refLoading}/>
+      <NotificationModal ref={refNotification}/>
     </View>
   );
 }
