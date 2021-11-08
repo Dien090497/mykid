@@ -2,7 +2,7 @@ import {StyleSheet, Dimensions} from "react-native";
 import {ScaleHeight} from "../../../functions/Consts";
 import {Colors} from "../../../assets/colors/Colors";
 
-const {width, height} = Dimensions.get('window');
+const {height} = Dimensions.get('window');
 export const styles = StyleSheet.create({
   viewTxt: {
     width: '100%',
@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   text: {
-    fontSize: ScaleHeight.medium * 1.2/3.5,
+    fontSize: ScaleHeight.medium * 1.2 / 3.5,
     fontWeight: '700',
     fontFamily: 'Roboto-Medium',
     color: Colors.black
@@ -38,7 +38,7 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
   },
   txtTob: {
-    fontSize: ScaleHeight.medium * 1.2/3.5,
+    fontSize: ScaleHeight.medium * 1.2 / 3.5,
     color: Colors.white,
     fontWeight: '500',
   },
@@ -48,9 +48,9 @@ export const styles = StyleSheet.create({
     padding: 10,
   },
   txtContent: {
-    fontSize: ScaleHeight.medium * 1.2/3.5,
+    fontSize: ScaleHeight.medium * 1.2 / 3.5,
     fontWeight: '500',
     fontStyle: 'normal',
-    lineHeight: 30
+    lineHeight: height * 0.035
   }
 })

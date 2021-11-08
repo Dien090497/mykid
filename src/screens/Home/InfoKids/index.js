@@ -242,7 +242,7 @@ export default function InfoKits({route}) {
               >
                 <Image
                   source={Images.icEditProfile}
-                  style={[styles.image, {width: 40, height: 40, borderRadius: 20}]}
+                  style={styles.image}
                   resizeMode={'contain'}
                 />
               </TouchableOpacity>

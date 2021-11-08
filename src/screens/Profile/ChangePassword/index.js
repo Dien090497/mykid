@@ -79,10 +79,10 @@ const ChangePassword = ({ navigation }) => {
               onChangeText={(text) => { setCurrentPassword(text) }}
               value={currentPassword}
               notification={false}
-              show={false}
+              show={true}
               secureTextEntry={showCurrentPassword}
               txtnotification={t('common:enterCurrentPassword')}
-              onChange={() => { setShowCurrentPassword(!showNewPassword) }}
+              onChange={() => { setShowCurrentPassword(!showCurrentPassword) }}
               icon
               maxLength={16}
             />

@@ -36,17 +36,17 @@ export const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     fontWeight: '500',
-    color: Colors.black
+    color: Colors.black,
+    marginHorizontal: height * 0.007
   },
   image: {
-    width: 30,
-    height: 30,
-    marginLeft: 5
+    width: height * 0.04,
+    height: height * 0.04
   },
   viewImage: {
     flexDirection: 'row',
     position: 'absolute',
-    right: 5,
+    right:  width * 0.02,
     justifyContent: 'center',
     alignItems: 'center'
   },

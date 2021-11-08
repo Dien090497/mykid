@@ -36,7 +36,8 @@ export const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     fontWeight: '500',
-    color: Colors.black
+    color: Colors.black,
+    marginHorizontal: height * 0.007
   },
   image: {
     width: height * 0.04,
