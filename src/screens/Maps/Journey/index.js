@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import React, {
-  useCallback,
   useEffect,
   useRef,
   useState,
@@ -18,7 +17,6 @@ import { getJourneyApi, getLocationDeviceApi } from '../../../network/DeviceServ
 
 import {Colors} from '../../../assets/colors/Colors';
 import DataLocal from '../../../data/dataLocal';
-import DatePicker from 'react-native-date-picker';
 import Header from '../../../components/Header';
 import Images from '../../../assets/Images';
 import LoadingIndicator from '../../../components/LoadingIndicator';
@@ -26,7 +24,8 @@ import styles from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import TimePickerModal from '../../../components/TimePickerModal';
 import { useTranslation } from 'react-i18next';
-import NotificationModal from '../../../components/NotificationModal'
+import NotificationModal from '../../../components/NotificationModal';
+import DatePickerModal from "../../../components/DatePickerModal";
 
 const roundMinutes = (date = new Date()) => {
   var minute = date.getMinutes();
@@ -56,12 +55,8 @@ export default ({}) => {
   const [deviceInfo, setDeviceInfo] = useState({location: {lat: 26.013197, lng: 105.78073}});
   const refLoading = useRef();
   const { t } = useTranslation();
-  const [openDatePicker, setOpenDatePicker] = useState(false)
   const refNotification = useRef();
-
-  const toggleModalDate = useCallback(() => {
-    setOpenDatePicker(prev => !prev);
-  }, []);
+  const refDatePicker = useRef();
 
   const headerScreen = () => {
     let title = t('common:journey').toLocaleLowerCase();
@@ -128,26 +123,6 @@ export default ({}) => {
     });
   }, []);
 
-  const datePicker = () => {
-    return(
-      <DatePicker
-        mode={'date'}
-        modal
-        open={openDatePicker}
-        date={date}
-        onConfirm={(time) => {
-          setOpenDatePicker(false)
-          setDate(time);
-        }}
-        onCancel={() => {
-          setOpenDatePicker(false)
-        }}
-        title={'Chọn ngày'}
-        cancelText={t('common:cancel')}
-        confirmText={t('common:confirm')}
-      />
-    );
-  }
 
   const renderFilter = () => {
     return (
@@ -157,7 +132,7 @@ export default ({}) => {
           <TouchableOpacity
             style={styles.containerTime}
             onPress={()=>{
-              toggleModalDate();
+              refDatePicker.current.openModal(date,(config)=>{setDate(config)})
             }}>
             <Text
               children={convertDateTimeToString(date).date}
@@ -248,10 +223,10 @@ export default ({}) => {
           ))}
         </MapView>
       </View>
-      {datePicker()}
       <TimePickerModal ref={refTime}/>
       <LoadingIndicator ref={refLoading} />
       <NotificationModal ref={refNotification} />
+      <DatePickerModal ref={refDatePicker} />
     </KeyboardAvoidingView>
   );
 };
