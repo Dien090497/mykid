@@ -35,7 +35,7 @@ export default function DeviceManager({navigation}) {
     date.setHours(0,0,0,0);
     getNotification({
       deviceId: DataLocal.deviceId,
-      startDate: encodeURIComponent( new Date(date - 86400000 * 30 ).toISOString()),
+      startDate: encodeURIComponent( new Date(date - 86400000 * 29 ).toISOString()),
       page: page,
       size: sizePage,
       sort: encodeURIComponent('createdAt:DESC')

@@ -78,6 +78,15 @@ export default function Health({ navigation }) {
       datasets: [
         {
           data: [0, 0, 0, 0, 0, 0, 0],
+          colors: [
+            (opacity = 1) => `#EE0033`,
+            (opacity = 1) => `#EE0033`,
+            (opacity = 1) => `#EE0033`,
+            (opacity = 1) => `#EE0033`,
+            (opacity = 1) => `#EE0033`,
+            (opacity = 1) => `#EE0033`,
+            (opacity = 1) => `#EE0033`,
+          ]
         },
       ],
     };
@@ -88,7 +97,6 @@ export default function Health({ navigation }) {
         }
       }
     });
-    console.log(data)
     setListTracking(data);
   };
 
@@ -147,10 +155,16 @@ export default function Health({ navigation }) {
                 labelColor: (opacity = 1) => `rgba(114, 114, 114, ${opacity})`,
                 decimalPlaces: 0,
                 scrollableDotStrokeWidth: 0,
+                barPercentage: 0.8
               }}
               style={{
                 marginVertical: 8,
               }}
+              fromZero={true}
+              withCustomBarColorFromData={true}
+              flatColor={true}
+              showValuesOnTopOfBars={true}
+              segments={2}
             />}
           </View>
           <View style={styles.line} />
