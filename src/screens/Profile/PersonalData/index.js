@@ -211,7 +211,7 @@ console.log(phone,contact,email)
                 <Image
                   source={check ? {uri: avatar} : avatar ? {uri: avatar} : Images.icAvatar}
                   style={styles.image1}
-                  resizeMode={'center'}
+                  resizeMode={'cover'}
                 />
               </TouchableOpacity>
             </View>

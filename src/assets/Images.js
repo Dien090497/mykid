@@ -53,6 +53,7 @@ export default {
   icFindDevice: require('./images/home/ic_find_device.png'),
   icJourney: require('./images/home/ic_journey.png'),
   icSetting: require('./images/home/ic_setting.png'),
+  icPayment: require('./images/home/ic_payment.png'),
   icVideoCall: require('./images/home/ic_video_call.png'),
   icSoundSetting: require('./images/home/ic_sound_setting.png'),
   icSafeZone: require('./images/home/ic_safe_zone.png'),

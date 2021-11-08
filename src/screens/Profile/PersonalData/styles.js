@@ -44,7 +44,8 @@ export const styles = StyleSheet.create({
   },
   image1: {
     width: height * 0.05,
-    height: height * 0.05
+    height: height * 0.05,
+    borderRadius: height * 0.05
   },
   viewAvatar: {
     flexDirection: 'row',

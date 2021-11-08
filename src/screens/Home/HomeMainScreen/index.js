@@ -141,13 +141,13 @@ export default function HomeMainScreen() {
               <View style={styles.menuSelect}>
                 <Image source={Images.icShow} style={styles.iconShowMenu} resizeMode='stretch' />
                 <View onStartShouldSetResponder={()=>{ setShowMenu(true)}}>
-                  <Text style={styles.textMenuShow}>{devices && devices[selectedIndex].deviceName}</Text>
+                  <Text style={styles.textMenuShow}>{devices && devices[selectedIndex] && devices[selectedIndex].deviceName}</Text>
                 </View>
                 <View onStartShouldSetResponder={()=>{
                   navigation.navigate(Consts.ScreenIds.InfoKits, devices[selectedIndex].avatar ? {avatar: devices[selectedIndex].avatar} : {avatar: null})
                 }}>
                   <Image
-                    source={devices && devices[selectedIndex].avatar ? { uri: devices[selectedIndex].avatar } : Images.icOther}
+                    source={devices && devices[selectedIndex] && devices[selectedIndex].avatar ? { uri: devices[selectedIndex].avatar } : Images.icOther}
                     style={styles.avatar} resizeMode='cover' />
                   </View>
               </View>}
@@ -316,7 +316,7 @@ export default function HomeMainScreen() {
               style={styles.button}
               onPress={pressPaying}>
               <View style={styles.bgIcon}>
-                <Image source={Images.icSetting} style={styles.icon} />
+                <Image source={Images.icPayment} style={styles.icon} />
               </View>
               <Text style={styles.buttonText}>{t('common:paying')}</Text>
             </TouchableOpacity>
