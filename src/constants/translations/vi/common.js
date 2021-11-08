@@ -316,8 +316,8 @@ export default {
   txtSOS: ' đang trong tình trạng khẩn cấp. Bạn vui lòng chú ý theo dõi',
   txtOutSafeZone: ' đã ra khỏi vùng an toàn. Vui lòng kiểm tra trên ứng dụng',
   txtInSafeZone: ' đã đi vào vùng an toàn. Vui lòng kiểm tra trên ứng dụng',
-  txtFullBattery: 'Đồng hồ đã sạc đầy. Vui lòng tháo sạc',
-  txtLowBattery: 'Cảnh báo Pin yếu',
+  txtFullBattery: ' Đồng hồ đã sạc đầy. Vui lòng tháo sạc',
+  txtLowBattery: ' Cảnh báo Pin yếu',
 
   //Paying
   paying: 'NẠP TIỀN',

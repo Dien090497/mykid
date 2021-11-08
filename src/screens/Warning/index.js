@@ -13,15 +13,33 @@ import LoadingIndicator from '../../components/LoadingIndicator';
 import { getNotification } from '../../network/WarningService';
 import Images from '../../assets/Images';
 import Moment from 'moment';
+import DataLocal from "../../data/dataLocal";
+let page = 0;
+const sizePage = 50;
 
 export default function DeviceManager({navigation}) {
   const refLoading = useRef();
   const refNotification = useRef();
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
   const { t } = useTranslation();
 
   useLayoutEffect(()=>{
-    getNotification(0,100,{
+    getData();
+    return () => {
+      page = 0;
+    }
+  },[])
+
+  const getData = () =>{
+    const date = new Date();
+    date.setHours(0,0,0,0);
+    getNotification({
+      deviceId: DataLocal.deviceId,
+      startDate: encodeURIComponent( new Date(date - 86400000 * 30 ).toISOString()),
+      page: page,
+      size: sizePage,
+      sort: encodeURIComponent('createdAt:DESC')
+    },{
       success: res =>{
         const resData = res.data;
         for (const key in resData) {
@@ -39,31 +57,40 @@ export default function DeviceManager({navigation}) {
           }
           if (resData[key].type === 'FULL_BATTERY'){
             resData[key].icon = Images.icFullBattery;
-            resData[key].content = t('common:txtFullBattery');
+            resData[key].content = resData[key].deviceName+ t('common:txtFullBattery');
           }
           if (resData[key].type === 'LOW_BATTERY'){
             resData[key].icon = Images.icLowBattery;
-            resData[key].content = t('common:txtLowBattery');
+            resData[key].content = resData[key].deviceName+ t('common:txtLowBattery');
           }
         }
-        setData(res.data)
+        const newData = Object.assign([], data)
+        setData(newData.concat(resData));
       },
       refLoading,
       refNotification,
     })
-  },[])
+  }
+
 
   const renderItem = (item) => {
-    return(
-      <View style={styles.itemFlatList}>
-        <Image
-          source={item.item.icon}
-          style={styles.iconItem} resizeMode={'stretch'}/>
-        <Text numberOfLines={5} style={styles.contentItem}>{item.item.content}</Text>
-        <Text style={styles.itemTime}>{Moment(item.item.createdAt).format('HH:mm:ss DD-MM-yyyy')}</Text>
-      </View>
-    )
+    if (DataLocal.deviceId === item.item.deviceId){
+      return(
+        <View style={styles.itemFlatList}>
+          <Image
+            source={item.item.icon}
+            style={styles.iconItem} resizeMode={'stretch'}/>
+          <Text numberOfLines={5} style={styles.contentItem}>{item.item.content}</Text>
+          <Text style={styles.itemTime}>{Moment(item.item.createdAt).format('HH:mm:ss DD-MM-yyyy')}</Text>
+        </View>
+      )
+    }
   }
+
+  const handleLoadMore = () => {
+    page++;
+    getData();
+  };
 
   return (
     <View style={styles.contain}>
@@ -72,6 +99,7 @@ export default function DeviceManager({navigation}) {
       <FlatList data={data}
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
+                onEndReached={() =>{handleLoadMore()}}
       />
       <LoadingIndicator ref={refLoading}/>
       <NotificationModal ref={refNotification}/>
