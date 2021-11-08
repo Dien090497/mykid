@@ -17,19 +17,19 @@ import {ScaleHeight} from '../../../functions/Consts';
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import DataLocal from '../../../data/dataLocal';
 import {getInfoApi, setInfoKitsApi} from '../../../network/InfoKidsService';
-import DatePicker from 'react-native-date-picker';
 import { useTranslation } from 'react-i18next';
 import NotificationModal from '../../../components/NotificationModal';
+import DatePickerModal from "../../../components/DatePickerModal";
 
 export default function InfoKits({route}) {
   let sheet = null;
   const refLoading = useRef();
   const refModalInput = useRef();
   const refNotification = useRef();
+  const refDatepicker = useRef();
   const [title, setTitle] = useState('');
   const [inputText, setInputText] = useState('')
   const [gender, setGender] = useState('');
-  const [modalDate, setModalDate] = useState(false);
   const [name, setName] = useState('');
   const [birthdays, setBirthday] = useState('');
   const [weights, setWeight] = useState(0);
@@ -171,7 +171,11 @@ export default function InfoKits({route}) {
     setTitle(item.item.name)
     setInputText(item.item.inputText)
     if (item.item.id === '2') {
-      setModalDate(true)
+      refDatepicker.current.openModal(date,(config)=>{
+        setDisableTob(true);
+        setDate(config);
+        setCheck(true);
+      })
     } else if (item.item.id === '3') {
       Keyboard.dismiss();
       sheet.show();
@@ -186,29 +190,6 @@ export default function InfoKits({route}) {
         }, item.item.textName, false);
       }
     }
-  }
-
-  const datePicker = () => {
-    return (
-      <DatePicker
-        mode={'date'}
-        modal
-        open={modalDate}
-        date={date}
-        onConfirm={(time) => {
-          setModalDate(false);
-          setDisableTob(true);
-          setDate(time);
-          setCheck(true);
-        }}
-        onCancel={() => {
-          setModalDate(false)
-        }}
-        title={t('common:chooseDay')}
-        cancelText={t('common:cancel')}
-        confirmText={t('common:member_approval')}
-      />
-    );
   }
 
   const checkDate = () => {
@@ -301,8 +282,8 @@ export default function InfoKits({route}) {
           t('common:cancel')]}
         onPress={handleGenderAction}
       />
-      {datePicker()}
       <LoadingIndicator ref={refLoading}/>
+      <DatePickerModal ref={refDatepicker}/>
       <NotificationModal ref={refNotification }/>
     </View>
   );
