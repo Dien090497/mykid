@@ -46,9 +46,10 @@ const AddDeviceScreen = ({ navigation, route }) => {
     console.log(qr);
   };
 
-  const onPlaceChosen = (data) => {
-    setData(data)
+  const onPlaceChosen = (config) => {
+    setData(config)
   };
+
   const onRelationship = () => {
     navigation.navigate(Consts.ScreenIds.Relationship, {
       data: data,
@@ -151,6 +152,7 @@ const AddDeviceScreen = ({ navigation, route }) => {
             placeholder={t('common:deviceNickname')}
             onChangeText={name => setDeviceName(name)}
             placeholderTextColor='#B5B4B4'
+            maxLength={10}
             style={styles.textInput} />
         </View>
         <TouchableOpacity style={styles.input} onPress={() => onRelationship()}>
