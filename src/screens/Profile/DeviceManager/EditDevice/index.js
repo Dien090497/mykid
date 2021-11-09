@@ -39,6 +39,8 @@ export default function EditDevice({ navigation, route }) {
     setData(route.params.data);
   },[]);
 
+  console.log(data)
+
   const onRelationship = () => {
     navigation.navigate(Consts.ScreenIds.Relationship, { data: data, onSetRelationship: onPlaceChosen });
   };

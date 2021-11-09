@@ -127,8 +127,9 @@ export default function DeviceManager({navigation}) {
   const renderItem  = ({item, index}) => {
     const relationship = dataMock.filter(val => val.relationship === item.relationship);
     const icon = relationship.length > 0 ? relationship[0].icon : dataMock[6].icon;
-    relationship[0].name ? item.relationshipName = relationship[0].name: null;
     item.icon = icon;
+    !item.relationshipName ? item.relationshipName = relationship[0].name : null
+    console.log(item);
     if (checkDelete) {
       return (
         <View style={styles.rowSettings}>
