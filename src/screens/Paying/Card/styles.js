@@ -1,5 +1,5 @@
 import {StyleSheet, Dimensions} from "react-native";
-import {ScaleHeight} from "../../../functions/Consts";
+import { FontSize, ScaleHeight } from "../../../functions/Consts";
 import {Colors} from "../../../assets/colors/Colors";
 
 const {height} = Dimensions.get('window');
@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
     fontSize: ScaleHeight.medium * 1.2 / 3.5,
     fontWeight: '700',
     fontFamily: 'Roboto-Medium',
-    color: Colors.black
+    color: Colors.grayTxt
   },
   viewInput: {
     width: '100%',
@@ -48,9 +48,10 @@ export const styles = StyleSheet.create({
     padding: 10,
   },
   txtContent: {
-    fontSize: ScaleHeight.medium * 1.2 / 3.5,
-    fontWeight: '500',
+    fontSize: FontSize.xtraSmall,
+    fontFamily: 'Roboto-Medium',
     fontStyle: 'normal',
-    lineHeight: height * 0.035
+    lineHeight: height * 0.035,
+    color: Colors.grayTxt
   }
 })
