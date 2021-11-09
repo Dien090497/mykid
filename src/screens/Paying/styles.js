@@ -4,8 +4,12 @@ import {ScaleHeight} from "../../functions/Consts";
 
 const {height} = Dimensions.get('window');
 export const styles = StyleSheet.create({
+  body:{
+    flex: 1,
+    backgroundColor: Colors.white
+  },
   viewMain: {
-    width: '90%',
+    width: '100%',
     height: height * 0.8,
   },
   viewTxt: {
@@ -16,6 +20,7 @@ export const styles = StyleSheet.create({
     marginVertical: height * 0.02
   },
   viewItem: {
+    width: '90%',
     backgroundColor: Colors.white,
     marginBottom: height * 0.02,
     height: ScaleHeight.medium * 1.2,
@@ -30,11 +35,12 @@ export const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 5
+    elevation: 5,
+    alignSelf:'center'
   },
   txt_item: {
     fontSize: ScaleHeight.medium * 1.2/3.5,
-    color: Colors.black,
+    color: Colors.grayTextColor,
     fontWeight: '500',
     fontFamily: 'Roboto-Medium'
   },
@@ -43,17 +49,20 @@ export const styles = StyleSheet.create({
     fontWeight: '400',
     position: 'absolute',
     right: 10,
-    color: Colors.black,
+    color: Colors.grayTextColor,
   },
   viewTob: {
-    backgroundColor: Colors.redTitle,
+    width: '90%',
+    alignSelf:'center',
+    backgroundColor: Colors.colorMain,
     marginVertical: height * 0.02,
-    height: ScaleHeight.medium * 1.2,
+    height: ScaleHeight.medium,
     padding: 10,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
+    marginBottom: 30
   },
   txtTob: {
     fontSize: ScaleHeight.medium * 1.2/4,

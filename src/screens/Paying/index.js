@@ -1,5 +1,5 @@
 import React, {useLayoutEffect, useRef, useState} from "react";
-import {View, Text, TouchableOpacity} from "react-native";
+import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import Header from '../../components/Header';
 import {useTranslation} from "react-i18next";
 import {Colors} from "../../assets/colors/Colors";
@@ -45,9 +45,9 @@ export default function Paying({navigation}) {
   }
 
   return (
-    <View style={{flex: 1, alignItems: 'center', marginBottom: 20}}>
+    <View style={styles.body}>
       <Header title={t('common:payInCash')}/>
-      <View style={styles.viewMain}>
+      <ScrollView style={styles.viewMain}>
         <View style={styles.viewTxt}>
           <Text style={{
             color: Colors.redTitle,
@@ -133,8 +133,8 @@ export default function Paying({navigation}) {
         >
           <Text style={styles.txtTob}>{t('common:more_money')}</Text>
         </TouchableOpacity>
-        <NotificationModal ref={refNotification} goBack={() => navigation.goBack()}/>
-      </View>
+      </ScrollView>
+      <NotificationModal ref={refNotification} goBack={() => navigation.goBack()}/>
     </View>
   );
 }

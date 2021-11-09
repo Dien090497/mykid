@@ -157,7 +157,6 @@ export default function HomeMainScreen() {
           >
             {devices && devices.map((obj, i) => {
               const isSelectDevice = obj.deviceId === DataLocal.deviceId;
-              console.log(obj)
               return (
                 <View key={i.toString()} style={{ paddingHorizontal: 10 }}>
                   <View style={styles.viewMenuDrop} onStartShouldSetResponder={() => {
