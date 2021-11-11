@@ -61,7 +61,7 @@ export default function EacesDroping() {
   }
   return (
     <View style={styles.viewContainer}>
-      <Header title={t('common:hender_eacesDroping')}/>
+      <Header title={t('common:header_soundGuardian')}/>
       <View style={styles.viewInput}>
         <View style={styles.viewInputText}>
           <TextInput

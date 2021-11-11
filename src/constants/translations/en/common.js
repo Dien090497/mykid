@@ -70,7 +70,7 @@ export default {
   header_soundSettings: 'Ringtone setting',
   header_alarmClock: 'Alarm',
   header_alarmSetting: 'Alarm setting',
-  hender_eacesDroping: 'Sound Guardian',
+  header_soundGuardian: 'Sound Guardian',
   header_reward_points: 'Rewards',
   header_doNotDisturb: 'Do Not Disturb',
   header_language_timezone: 'Language and Time Zone',
@@ -224,6 +224,9 @@ export default {
   home_warning: 'ALERT CENTER',
   home_transport: 'HEALTH',
   home_infoKits: 'Baby\'s information',
+  home_soundGuardian: 'SOUND GUARDIAN',
+  home_reward: 'REWARDS',
+  home_secretPhotoShoot: 'REMOTE PHOTO',
 
   //setting
   setting_contact: 'Contacts',
@@ -305,7 +308,7 @@ export default {
   txtForgotPassWord1: '1.Please enter a valid phone number to receive the verification code.',
   txtForgotPassWord2: '2. Enter the password reset confirmation confirmation code is successful.',
   inputTxt: 'Please enter your phone number',
-  txtContinue : 'Continue',
+  txtContinue: 'Continue',
   getCode: 'Get code',
   successPassword: 'Success!',
   newPassword: 'Enter new password',
