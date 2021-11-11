@@ -68,7 +68,7 @@ export const Colors = {
   backgroundVideoCallError: '#53535F',
   grayBgBtnHome: '#F0F0F0',
   grayBg: '#E5E5E5',
-    grayTextColor: '#5F5F5F',
+  grayTextColor: '#5F5F5F',
   grayTextTitleColor: '#B5B4B4',
   grayBgMsg: '#F3F3F3',
   pinkBgMsg: '#FEF0F3',

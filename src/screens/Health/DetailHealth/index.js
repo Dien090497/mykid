@@ -19,6 +19,7 @@ import LoadingIndicator from '../../../components/LoadingIndicator';
 import { useTranslation } from 'react-i18next';
 import ModalConfirmInput from '../../../components/ModalConfirmInput';
 import SimpleToast from 'react-native-simple-toast';
+import Moment from 'moment';
 
 export default function Health({ navigation }) {
   const refDate = useRef();
@@ -64,16 +65,18 @@ export default function Health({ navigation }) {
       });
   };
 
+  console.log(listTracking);
+
   const convertData = (arr) => {
     const data = {
       labels: [
-        new Date(date - 86400000 * 6).toISOString().slice(5, 10),
-        new Date(date - 86400000 * 5).toISOString().slice(5, 10),
-        new Date(date - 86400000 * 4).toISOString().slice(5, 10),
-        new Date(date - 86400000 * 3).toISOString().slice(5, 10),
-        new Date(date - 86400000 * 2).toISOString().slice(5, 10),
-        new Date(date - 86400000).toISOString().slice(5, 10),
-        date.toISOString().slice(5, 10),
+        Moment(new Date(date - 86400000 * 6)).format('DD/MM/yyyy HH:mm Z').slice(0, 5),
+        Moment(new Date(date - 86400000 * 5)).format('DD/MM/yyyy HH:mm Z').slice(0, 5),
+        Moment(new Date(date - 86400000 * 4)).format('DD/MM/yyyy HH:mm Z').slice(0, 5),
+        Moment(new Date(date - 86400000 * 3)).format('DD/MM/yyyy HH:mm Z').slice(0, 5),
+        Moment(new Date(date - 86400000 * 2)).format('DD/MM/yyyy HH:mm Z').slice(0, 5),
+        Moment(new Date(date - 86400000)).format('DD/MM/yyyy HH:mm Z').slice(0, 5),
+        Moment(date).format('DD/MM/yyyy HH:mm Z').slice(0, 5),
       ],
       datasets: [
         {
@@ -92,7 +95,8 @@ export default function Health({ navigation }) {
     };
     data.labels.map((obj, i) => {
       for (const key in arr) {
-        if (arr[key].dateTracking.slice(5) === obj){
+        const time = Moment(new Date( arr[key].dateTracking)).format('DD/MM/yyyy HH:mm Z').slice(0, 5);
+        if (time === obj){
           data.datasets[0].data[i] = arr[key].steps
         }
       }
@@ -127,24 +131,24 @@ export default function Health({ navigation }) {
       <ScrollView>
         <View style={styles.main}>
           <TouchableOpacity style={styles.dateBtn} onPress={changeDate}>
-            <Text style={styles.txtDate}>{date.toISOString().slice(0, 10)}</Text>
+            <Text style={styles.txtDate}>{Moment(date).format('DD/MM/yyyy HH:mm Z').slice(0, 10)}</Text>
             <Image source={Images.icCalendar} style={styles.iconDate} />
           </TouchableOpacity>
           <View style={styles.chartView}>
             <View style={styles.headerCharView}>
               <Text style={styles.txtHeaderChartView}>{t('common:steps')}</Text>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={[styles.txtHeaderChartView, { marginRight: 5 }]}>{(goals ? goals : '0') + '/10000'}</Text>
+                <Text style={[styles.txtHeaderChartView, { marginRight: 5 }]}>{(goals ? goals : '0') + '/20000'}</Text>
                 <TouchableOpacity style={styles.iconHeaderChartView} onPress={() => {
                   refInput.current.open('', () => {
-                  }, 100, true);
+                  }, goals, true);
                 }}>
                   <Image source={Images.icTransport} style={{ height: 30, width: 30 }} />
                 </TouchableOpacity>
               </View>
             </View>
             {listTracking.labels && <BarChart
-              width={Dimensions.get('window').width * 0.95}
+              width={Dimensions.get('window').width}
               height={220}
               data={listTracking}
               chartConfig={{
@@ -155,7 +159,12 @@ export default function Health({ navigation }) {
                 labelColor: (opacity = 1) => `rgba(114, 114, 114, ${opacity})`,
                 decimalPlaces: 0,
                 scrollableDotStrokeWidth: 0,
-                barPercentage: 0.8
+                barPercentage: 0.8,
+                propsForBackgroundLines: {
+                  strokeWidth: 0.1,
+                  stroke: Colors.colorTextPlus,
+                  strokeDasharray: '0',
+                },
               }}
               style={{
                 marginVertical: 8,
@@ -164,7 +173,8 @@ export default function Health({ navigation }) {
               withCustomBarColorFromData={true}
               flatColor={true}
               showValuesOnTopOfBars={true}
-              segments={2}
+              segments={4}
+              showBarTops={false}
             />}
           </View>
           <View style={styles.line} />
