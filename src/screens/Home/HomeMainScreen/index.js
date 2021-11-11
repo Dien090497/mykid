@@ -90,8 +90,8 @@ export default function HomeMainScreen() {
     navigation.navigate(Consts.ScreenIds.ElectronicFence);
   };
 
-  const pressAlarm = () => {
-    navigation.navigate(Consts.ScreenIds.SoundSettings);
+  const pressSoundGuardian = () => {
+    navigation.navigate(Consts.ScreenIds.EacesDroping);
   };
 
   const pressFindDevice = () => {
@@ -115,6 +115,16 @@ export default function HomeMainScreen() {
   const pressPaying = () => {
     navigation.navigate(Consts.ScreenIds.Paying);
   };
+
+  const pressSecretPhotoShoot = () => {
+    navigation.navigate(Consts.ScreenIds.SecretPhotoShoot);
+  };
+
+  const RewardPoints = () => {
+    navigation.navigate(Consts.ScreenIds.RewardPoints);
+  };
+
+
   const buttonProps = { activeOpacity: 0.8 };
 
   const handleChange = async (index) => {
@@ -228,11 +238,11 @@ export default function HomeMainScreen() {
             <TouchableOpacity
               {...buttonProps}
               style={styles.button}
-              onPress={pressAlarm}>
+              onPress={pressSoundGuardian}>
               <View style={styles.bgIcon}>
-                <Image source={Images.icSoundSetting} style={styles.icon} />
+                <Image source={Images.icChieldFill} style={styles.icon} />
               </View>
-              <Text style={styles.buttonText}>{t('common:home_alarm')}</Text>
+              <Text style={styles.buttonText}>{t('common:home_soundGuardian')}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -291,7 +301,7 @@ export default function HomeMainScreen() {
               style={styles.button}
               onPress={pressWarning}>
               <View style={styles.bgIcon}>
-                <Image source={Images.icWarning} style={styles.icon} />
+                <Image source={Images.icWarning} style={[styles.icon, {height: 30}]} />
               </View>
               <Text style={styles.buttonText}>{t('common:home_warning')}</Text>
             </TouchableOpacity>
@@ -320,7 +330,32 @@ export default function HomeMainScreen() {
               <Text style={styles.buttonText}>{t('common:paying')}</Text>
             </TouchableOpacity>
           </View>
+          <View style={styles.buttonContainerR}>
+            <TouchableOpacity
+              {...buttonProps}
+              style={styles.button}
+              onPress={pressSecretPhotoShoot}>
+              <View style={styles.bgIcon}>
+                <Image source={Images.icShootPhoto} style={[styles.icon, {height: 30}]} />
+              </View>
+              <Text style={styles.buttonText}>{t('common:home_secretPhotoShoot')}</Text>
+            </TouchableOpacity>
+          </View>
         </View>
+        <View style={{width:'100%', height:'19.5%', flexDirection:'row'}}>
+          <View style={styles.buttonContainerL}>
+            <TouchableOpacity
+              {...buttonProps}
+              style={styles.button}
+              onPress={RewardPoints}>
+              <View style={styles.bgIcon}>
+                <Image source={Images.icReward} style={[styles.icon, {height: 30}]} />
+              </View>
+              <Text style={styles.buttonText}>{t('common:home_reward')}</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
       </ScrollView>
       <LoadingIndicator ref={refLoading} />
       <NotificationModal ref={refNotification} />

@@ -114,6 +114,8 @@ export const styles = StyleSheet.create({
   bgIcon: {
     width: 40,
     height: 40,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   menuSelect:{
     flexDirection:'row',

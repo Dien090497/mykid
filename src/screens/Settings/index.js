@@ -38,16 +38,6 @@ export default ({navigation, route}) => {
       ),
     },
     {
-      key: 'RewardPoints',
-      title: t('common:header_reward_points'),
-      onPress: () => {
-        navigation.navigate(Consts.ScreenIds.RewardPoints);
-      },
-      icon: (
-        <Image source={Images.icReward} style={{width: 24, height: 22}} resizeMode={'stretch'}/>
-      ),
-    },
-    {
       key: 'DoNotDisturb',
       title: t('common:header_doNotDisturb'),
       onPress: () => {
@@ -68,23 +58,13 @@ export default ({navigation, route}) => {
       ),
     },
     {
-      key: 'EacesDroping',
-      title: t('common:hender_eacesDroping'),
+      key: 'SoundSettings',
+      title: t('common:header_soundSettings'),
       onPress: () => {
-        navigation.navigate(Consts.ScreenIds.EacesDroping);
+        navigation.navigate(Consts.ScreenIds.SoundSettings);
       },
       icon: (
-        <Image source={Images.icChieldFill} style={{width: 40, height: 40}} resizeMode={'stretch'}/>
-      ),
-    },
-    {
-      key: 'SecretPhotoShoot',
-      title: t('common:header_secret_shoot'),
-      onPress: () => {
-        navigation.navigate(Consts.ScreenIds.SecretPhotoShoot);
-      },
-      icon: (
-         <Image source={Images.icShootPhoto} style={{width: 24, height: 20}} resizeMode={'stretch'}/>
+        <Image source={Images.icSoundSetting} style={{width: 40, height: 40}} resizeMode={'stretch'}/>
       ),
     },
     {

@@ -9,10 +9,8 @@ const CustomInput = (navigation) => {
   const {
     value,
     onChangeText,
-    number,
     secureTextEntry,
     placeholder,
-    notification,
     icon,
     onChange,
     maxLength,
@@ -24,7 +22,7 @@ const CustomInput = (navigation) => {
         <TextInput
           placeholder={placeholder}
           placeholderTextColor={"#9D9D9D"}
-          secureTextEntry={secureTextEntry ? secureTextEntry : !secureTextEntry}
+          secureTextEntry={secureTextEntry}
           keyboardType={checkKeyboard ? "number-pad" : "default"}
           onChangeText={(text) => onChangeText(text)}
           underlineColorAndroid={"transparent"}

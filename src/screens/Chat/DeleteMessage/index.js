@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState} from 'react';
+import React, {useLayoutEffect, useRef, useState} from 'react';
 import {
   Text,
   TouchableOpacity,
@@ -14,10 +14,11 @@ import {Colors} from '../../../assets/colors/Colors';
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import Consts, {ScaleHeight} from '../../../functions/Consts';
 import {styles} from './styles';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 import NotificationModal from "../../../components/NotificationModal";
 import XmppClient from '../../../network/xmpp/XmppClient';
-import { deleteHistoryApi } from '../../../network/ChatService';
+import {deleteHistoryApi} from '../../../network/ChatService';
+import DataLocal from "../../../data/dataLocal";
 
 export default function DeleteMessage({navigation, route}) {
   const refLoading = useRef();
@@ -26,7 +27,8 @@ export default function DeleteMessage({navigation, route}) {
   const [loading, setLoading] = useState(false);
   const [onModal, setOnModal] = useState(false);
   const [roomInfo, setRoomInfo] = useState(route.params.roomInfo);
-  const { t } = useTranslation();
+  const [checkAdmin, setCheckAdmin] = useState(false);
+  const {t} = useTranslation();
 
   const dataMock = [
     {
@@ -86,7 +88,7 @@ export default function DeleteMessage({navigation, route}) {
   }, []);
 
   const getListDevice = () => {
-    getListDeviceApi(null, 0, 100, roomInfo.deviceId, 'ACTIVE', {
+    getListDeviceApi(null, 0, 100, DataLocal.deviceId, 'ACTIVE', {
       success: res => {
         setListMember(res.data);
       },
@@ -131,20 +133,27 @@ export default function DeleteMessage({navigation, route}) {
         itemFlatlist.item.relationshipName = dataMock[i].name;
       }
     }
+    if (DataLocal.userInfo.phone === itemFlatlist.item.phone && itemFlatlist.item.admin) {
+      setCheckAdmin(true);
+    }
     return (
       <View style={styles.itemView}>
         <View>
-          {itemFlatlist.item.relationship !== 'DELETE' ?
+          {itemFlatlist.item.relationship === 'DELETE' ?
             (
+              <View>
+                {checkAdmin &&
+                <TouchableOpacity style={{alignItems: 'center'}} onPress={gotoMember}>
+                  <Image style={styles.icon} source={icon} resizeMode={'stretch'}/>
+                  <Text style={styles.textItem}>{itemFlatlist.item.relationshipName}</Text>
+                </TouchableOpacity>
+                }
+              </View>
+            ) : (
               <View style={{alignItems: 'center'}}>
                 <Image style={styles.icon} source={icon} resizeMode={'stretch'}/>
                 <Text style={styles.textItem}>{itemFlatlist.item.relationshipName}</Text>
               </View>
-            ) : (
-              <TouchableOpacity style={{alignItems: 'center'}} onPress={gotoMember}>
-                <Image style={styles.icon} source={icon} resizeMode={'stretch'}/>
-                <Text style={styles.textItem}>{itemFlatlist.item.relationshipName}</Text>
-              </TouchableOpacity>
             )}
         </View>
       </View>
