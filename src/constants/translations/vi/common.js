@@ -197,6 +197,8 @@ export default {
   takePhoto: 'Chụp ảnh',
   selectPhoto: 'Chọn ảnh',
   journey: 'Hành trình',
+  location: 'Vị trí: ',
+  coordinates: 'Tọa độ: ',
 
   palaceHolderSafeZone: 'Thêm vùng an toàn',
 
