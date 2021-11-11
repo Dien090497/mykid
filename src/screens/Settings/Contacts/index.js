@@ -14,7 +14,6 @@ import {
   setBlockUnknownApi,
   setSOSApi,
 } from '../../../network/ContactService';
-import { showConfirmation} from '../../../functions/utils';
 import {Colors} from '../../../assets/colors/Colors';
 import DataLocal from '../../../data/dataLocal';
 import Header from '../../../components/Header';
@@ -24,10 +23,12 @@ import {styles} from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import NotificationModal from '../../../components/NotificationModal';
+import ModalConfirm from '../../../components/ModalConfirm';
 
 export default ({navigation, route}) => {
   const refLoading = useRef();
   const refNotification = useRef();
+  const refConfirm = useRef();
   const [isBlocking, setIsBlocking] = useState(false);
   const [dataContacts, setDataContacts] = useState(null);
   const { t } = useTranslation();
@@ -63,30 +64,24 @@ export default ({navigation, route}) => {
   };
 
   const removeContact = item => {
-    //call remove Contact
     if (item.sosNumber) {
       refNotification.current.open(t('common:message_remove_contact_sos'))
       return;
     }
-
-    showConfirmation(t('common:removeContactConfirm'), {
-      acceptStr: t('common:member_approval'),
-      cancelStr: t('common:back'),
-      response: () => {
-        deletePhoneBookApi(
-          DataLocal.deviceId,
-          {
-            phoneNumber: item.phoneNumber,
+    refConfirm.current.open(t('common:removeContactConfirm'),() => {
+      deletePhoneBookApi(
+        DataLocal.deviceId,
+        {
+          phoneNumber: item.phoneNumber,
+        },
+        {
+          success: res => {
+            setDataContacts(res.data);
           },
-          {
-            success: res => {
-              setDataContacts(res.data);
-            },
-            refLoading: refLoading,
-            refNotification: refNotification,
-          },
-        );
-      },
+          refLoading: refLoading,
+          refNotification: refNotification,
+        },
+      );
     });
   };
   const renderItem = ({item, index}) => {
@@ -162,8 +157,8 @@ export default ({navigation, route}) => {
           <Text style={styles.txtBlockContact}>{t('common:blockOther')}</Text>
           <View style={styles.containerSwitch}>
             <Switch
-              trackColor={{false: Colors.gray, true: '#81b0ff'}}
-              // thumbColor={isBlocking ? '#f5dd4b' : '#f4f3f4'}
+              trackColor={{false: Colors.gray, true: Colors.colorMain}}
+              thumbColor={'#f4f3f4'}
               ios_backgroundColor='#3e3e3e'
               onValueChange={toggleSwitch}
               value={isBlocking}
@@ -176,6 +171,7 @@ export default ({navigation, route}) => {
       </View>
       <NotificationModal ref={refNotification} />
       <LoadingIndicator ref={refLoading} />
+      <ModalConfirm ref={refConfirm} />
     </View>
   );
 };

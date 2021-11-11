@@ -38,7 +38,8 @@ export const styles = StyleSheet.create({
   textInput:{
     fontSize: FontSize.small,
     padding: 10,
-    flex: 1
+    flex: 1,
+    color: Colors.black
   },
   btnSubmit:{
     backgroundColor: Colors.colorMain,

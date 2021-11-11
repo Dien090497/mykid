@@ -351,6 +351,6 @@ export default {
   goals: 'Goals',
   inputNumberOfStep: 'Enter the number of steps',
   calo: 'Calo',
-  error_health1: 'Số bước chân mục tiêu phải lớn hơn 0',
-  error_health2: 'Số bước chân mục tiêu bé hơn 20.000 bước',
+  error_health1: 'Step target must be greater than 0',
+  error_health2: 'Step target mustn\'t be more than 20000',
 };
