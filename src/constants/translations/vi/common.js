@@ -70,7 +70,7 @@ export default {
   header_soundSettings: 'Cài đặt chuông',
   header_alarmClock: 'Báo thức',
   header_alarmSetting: 'Cài đặt báo thức',
-  hender_eacesDroping: 'Nghe lén (Giám sát từ xa)',
+  header_soundGuardian: 'Nghe lén (Giám sát từ xa)',
   header_reward_points: 'Tặng phần thưởng',
   header_doNotDisturb: 'Chế độ lớp học',
   header_language_timezone: 'Ngôn ngữ và múi giờ',
@@ -226,6 +226,9 @@ export default {
   home_warning: 'CẢNH BÁO',
   home_transport: 'SỨC KHỎE',
   home_infoKits: 'Thông tin của bé',
+  home_soundGuardian: 'NGHE LÉN (GIÁM SÁT TỪ XA)',
+  home_reward: 'TẶNG PHẦN THƯỞNG',
+  home_secretPhotoShoot: 'Chụp ảnh từ xa',
 
   //setting
   setting_contact: 'Danh bạ',
@@ -352,5 +355,5 @@ export default {
   inputNumberOfStep: 'Nhập số bước chân',
   calo: 'Calo',
   error_health1: 'Số bước chân mục tiêu phải lớn hơn 0',
-  error_health2: 'Số bước chân mục tiêu bé hơn 20.000 bước',
+  error_health2: 'Số bước chân mục tiêu lớn hơn 20.000 bước',
 };

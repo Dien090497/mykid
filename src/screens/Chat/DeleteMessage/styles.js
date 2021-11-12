@@ -13,9 +13,9 @@ export const styles = StyleSheet.create({
   flatListContainer: {
     flexDirection: 'column',
     width: '90%',
+    maxHeight: height * 0.6,
     alignContent: 'center',
     paddingVertical: 10,
-    height: 'auto',
     alignItems: 'center',
     marginHorizontal: width* 0.02,
     borderRadius: 10,
