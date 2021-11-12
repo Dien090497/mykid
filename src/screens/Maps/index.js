@@ -7,7 +7,6 @@ import {
 } from 'react-native';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import React, {useEffect, useRef, useState} from 'react';
-import {convertDateTimeToString} from '../../functions/utils.js';
 import {
   getListDeviceApi,
   getLocationDeviceApi,
