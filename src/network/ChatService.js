@@ -14,10 +14,10 @@ export function getRoomsApi(
   });
 }
 
-export function deleteHistoryApi( roomId,
+export function deleteHistoryApi( deviceCode,
   {success, failure, autoShowMsg = true, refLoading = null, refNotification = null} = {},
 ) {
-  const url = [roomsChatUrl, roomId].join('/');
+  const url = [roomsChatUrl, deviceCode].join('/');
   return dele(url, {
     success,
     failure,
