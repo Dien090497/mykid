@@ -42,7 +42,7 @@ export default {
   kwa4064: 'Hết thời gian nạp tiền (KWA-4064)',// to do
   kwa4065: 'Không tìm thấy SIM (KWA-4065)',// to do
   kwa4066: 'Isdn tìm thấy (KWA-4066)',// to do
-  kwa4067: 'Đồng hồ chưa được lắp sim (KWA-4067)',// to do
+  kwa4067: 'Đồng hồ chưa lắp SIM hoặc gói cước SIM không hợp lệ. Vui lòng kiểm tra lại! (KWA-4067)',// to do
   kwa5004: 'Không tra cứu được sim (KWA-5004)',// to do
   kwa5002: 'Lỗi khi tra cứu sim (KWA-5002)',// to do
   // common

@@ -41,7 +41,7 @@ export default {
   kwa4064: 'Time out topping up (KWA-4064)',
   kwa4065: 'SIM not found (KWA-4065)',
   kwa4066: 'Isdn found (KWA-4066)',
-  kwa4067: 'Invalid sim (KWA-4067)',
+  kwa4067: 'No SIM card installed or SIM package is not suitable. Please check again (KWA-4067)',
   kwa5004: 'Failed to look up sim (KWA-5004)',
   kwa5002: 'Error looking up sim (KWA-5002)',
 

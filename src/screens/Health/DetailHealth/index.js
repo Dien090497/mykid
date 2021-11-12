@@ -168,6 +168,8 @@ export default function Health({ navigation }) {
               }}
               style={{
                 marginVertical: 8,
+                paddingRight:50,
+                borderRadius: 16,
               }}
               fromZero={true}
               withCustomBarColorFromData={true}

@@ -226,9 +226,9 @@ export default {
   home_warning: 'CẢNH BÁO',
   home_transport: 'SỨC KHỎE',
   home_infoKits: 'Thông tin của bé',
-  home_soundGuardian: 'NGHE LÉN (GIÁM SÁT TỪ XA)',
+  home_soundGuardian: 'NGHE LÉN\n(GIÁM SÁT TỪ XA)',
   home_reward: 'TẶNG PHẦN THƯỞNG',
-  home_secretPhotoShoot: 'Chụp ảnh từ xa',
+  home_secretPhotoShoot: 'CHỤP ẢNH TỪ XA',
 
   //setting
   setting_contact: 'Danh bạ',
@@ -355,5 +355,5 @@ export default {
   inputNumberOfStep: 'Nhập số bước chân',
   calo: 'Calo',
   error_health1: 'Số bước chân mục tiêu phải lớn hơn 0',
-  error_health2: 'Số bước chân mục tiêu lớn hơn 20.000 bước',
+  error_health2: 'Số bước chân mục tiêu không được lớn hơn 20.000 bước',
 };

@@ -96,7 +96,8 @@ export default ({navigation, route}) => {
     lat: locationDevice?.location?.lat,
     lng: locationDevice?.location?.lng
   }).then(res => {
-    setLocationName(res[0].formattedAddress);
+    const address = [res[0].streetNumber +' '+ res[0].streetName, res[0].subAdminArea, res[0].adminArea].join(', ')
+    setLocationName(address);
   }).catch(err => console.log(err))
 
   return (

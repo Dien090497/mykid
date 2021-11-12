@@ -105,6 +105,7 @@ export const styles = StyleSheet.create({
     color: Colors.black,
     fontFamily: 'Roboto-Regular',
     padding: 5,
+    textAlign: 'center'
   },
   icon: {
     height: 40,

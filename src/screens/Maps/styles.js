@@ -151,6 +151,7 @@ export const styles = StyleSheet.create({
     marginBottom: 6,
   },
   txtLocation: {
+    width: '70%',
     fontSize: FontSize.small,
     fontFamily:'Roboto-Medium',
     color: Colors.grayTxt,
