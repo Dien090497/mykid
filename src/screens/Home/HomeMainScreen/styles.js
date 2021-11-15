@@ -1,8 +1,9 @@
 import Const, {FontSize, ScaleHeight} from '../../../functions/Consts';
-import {Platform, StatusBar, StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 
 import {Colors} from '../../../assets/colors/Colors';
 
+const {height} = Dimensions.get('window');
 const searchHeight = Const.screenHeight / 24;
 export const styles = StyleSheet.create({
   container: {
@@ -25,7 +26,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginVertical: 10,
+    marginVertical: height * 0.008,
   },
   support: {
     flexDirection: 'row',
@@ -83,15 +84,13 @@ export const styles = StyleSheet.create({
   },
   buttonContainerL: {
     width: Const.screenWidth/2,
-    minHeight: '19.5%',
-    padding: 5,
-    paddingLeft: 10
+    padding: '1%',
+    paddingLeft: '2%'
   },
   buttonContainerR: {
     width: Const.screenWidth/2,
-    minHeight: '19.5%',
-    padding: 5,
-    paddingRight: 10
+    padding: '1%',
+    paddingRight: '2%'
   },
   button: {
     flex: 1,
@@ -101,19 +100,24 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.grayBgBtnHome
   },
   buttonText: {
-    fontSize: FontSize.medium,
+    fontSize: FontSize.medium * 0.9,
     color: Colors.black,
     fontFamily: 'Roboto-Regular',
-    padding: 5,
+    padding: '1%',
   },
   icon: {
-    height: 40,
+    height: height * 0.06,
+    aspectRatio: 1,
+    resizeMode: 'stretch',
+  },
+  icon1: {
+    height: height * 0.04,
     aspectRatio: 1,
     resizeMode: 'stretch',
   },
   bgIcon: {
-    width: 40,
-    height: 40,
+    width: height * 0.06,
+    height: height * 0.06,
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -148,5 +152,6 @@ export const styles = StyleSheet.create({
   },
   width50:{
     width: Const.screenWidth/2,
+    padding: '1%'
   }
 });

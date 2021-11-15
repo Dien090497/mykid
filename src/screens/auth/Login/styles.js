@@ -3,7 +3,7 @@ import {Dimensions, StyleSheet} from 'react-native';
 
 import {Colors} from '../../../assets/colors/Colors';
 
-const { width} = Dimensions.get("window");
+const {width} = Dimensions.get("window");
 const height = Consts.windowHeight;
 
 export const styles = StyleSheet.create({
@@ -19,31 +19,33 @@ export const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    height:height,
+    height: 'auto',
+    minHeight: height * 0.96,
+    width: width,
     paddingHorizontal: 20,
     alignItems: "center"
   },
-  banner:{
-    width:'100%',
-    height:height*0.25,
-    resizeMode:'stretch',
-    marginHorizontal:16,
-    marginVertical:30,
+  banner: {
+    width: '100%',
+    height: height * 0.25,
+    resizeMode: 'stretch',
+    marginHorizontal: height * 0.016,
+    marginVertical: height * 0.025,
   },
-  title:{
-    fontFamily:'Roboto-Medium',
+  title: {
+    fontFamily: 'Roboto-Medium',
     fontSize: FontSize.xxtraBig,
     color: '#5F5F5F',
   },
-  textInput:{
-    width:'100%',
+  textInput: {
+    width: '100%',
     backgroundColor: "#FFF",
     borderRadius: 10,
-    borderWidth:1,
-    color:Colors.black,
-    borderColor:'#E7E7E7',
-    paddingHorizontal:10,
-    marginTop:20,
+    borderWidth: 1,
+    color: Colors.black,
+    borderColor: '#E7E7E7',
+    paddingHorizontal: 10,
+    marginTop: height * 0.02,
     fontSize: FontSize.xtraSmall,
     height: ScaleHeight.medium
   },
@@ -51,25 +53,25 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     justifyContent: "space-between",
-    marginVertical:15
+    marginVertical: height * 0.015
   },
   txtRegister: {
     color: '#EE0033',
     marginRight: 5,
     textDecorationLine: "underline",
     textDecorationStyle: 'solid',
-    fontSize:FontSize.small,
+    fontSize: FontSize.small,
   },
-  btnSubmit:{
+  btnSubmit: {
     backgroundColor: Colors.colorMain,
-    borderRadius:10,
-    alignItems:'center',
-    justifyContent:'center',
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
     height: ScaleHeight.medium
   },
-  textSubmit:{
-    fontFamily:'Roboto-Medium',
-    fontSize:FontSize.small,
+  textSubmit: {
+    fontFamily: 'Roboto-Medium',
+    fontSize: FontSize.small,
     color: Colors.white
   },
   Sty_iconCheckbox: {
@@ -90,21 +92,21 @@ export const styles = StyleSheet.create({
     borderColor: '#FFFFFF',
   },
   txtPolicy: {
-    fontFamily:'Roboto-Medium',
+    fontFamily: 'Roboto-Medium',
     fontSize: FontSize.xtraSmall,
     color: Colors.colorMain,
     textDecorationLine: "underline",
   },
   txt_Policy: {
     fontSize: FontSize.xtraSmall,
-    marginTop: 15,
-    marginLeft: -10,
-    width: width - 60,
-    color:'#808080'
+    marginTop: height * 0.015,
+    marginLeft: -width * 0.03,
+    width: width - width * 0.12,
+    color: '#808080',
   },
   modalView: {
-    flex:1,
-    flexDirection:'column'
+    flex: 1,
+    flexDirection: 'column'
   },
   modalViewTob: {
     width: '100%',
@@ -140,4 +142,18 @@ export const styles = StyleSheet.create({
     width: "100%",
     height: height / 4
   },
+  viewConfirm: {
+    width: '100%',
+    marginTop: height * 0.01,
+    justifyContent: 'center',
+  },
+  viewCheckBox: {
+    flexDirection: 'row',
+    marginVertical: height * 0.018
+  },
+  viewLanguage: {
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+  }
 });

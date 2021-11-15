@@ -185,51 +185,51 @@ export default function HomeMainScreen() {
       </View>
 
       <ScrollView style={styles.body}>
-        <View style={{width:'100%',height:'39%', flexDirection: 'row'}}>
+        <View style={{width: '100%', height: '49.5%', flexDirection: 'row'}}>
           <View style={styles.width50}>
-            <View style={[styles.buttonContainerL, { height:'50%' }]}>
+            <View style={[styles.buttonContainerL, {height: '50%', width: '101%', marginBottom: '1.5%'}]}>
               <TouchableOpacity
                 {...buttonProps}
                 style={styles.button}
                 onPress={pressMap}>
                 <View style={styles.bgIcon}>
-                  <Image source={Images.icMap} style={styles.icon} />
+                  <Image source={Images.icMap} style={styles.icon}/>
                 </View>
                 <Text style={styles.buttonText}>{t('common:home_gps')}</Text>
               </TouchableOpacity>
             </View>
-            <View style={[styles.buttonContainerL, {height:'50%' }]}>
+            <View style={[styles.buttonContainerL, {height: '50%', width: '101%'}]}>
               <TouchableOpacity
                 {...buttonProps}
                 style={styles.button}
                 onPress={pressJourney}>
                 <View style={styles.bgIcon}>
-                  <Image source={Images.icJourney} style={styles.icon} />
+                  <Image source={Images.icJourney} style={styles.icon}/>
                 </View>
                 <Text style={styles.buttonText}>{t('common:home_journey')}</Text>
               </TouchableOpacity>
             </View>
           </View>
-          <View style={[styles.buttonContainerR, { minHeight: '39%' }]}>
+          <View style={[styles.buttonContainerR, {minHeight: '48%', marginTop: '0.5%'}]}>
             <TouchableOpacity
               {...buttonProps}
               style={styles.button}
               onPress={pressVideoCall}>
               <View style={styles.bgIcon}>
-                <Image source={Images.icVideoCall} style={styles.icon} />
+                <Image source={Images.icVideoCall} style={styles.icon}/>
               </View>
               <Text style={styles.buttonText}>{t('common:home_videoCall')}</Text>
             </TouchableOpacity>
           </View>
         </View>
-        <View style={{width:'100%', height:'19.5%', flexDirection:'row'}}>
+        <View style={{width: '100%', height: '25%', flexDirection: 'row'}}>
           <View style={styles.buttonContainerL}>
             <TouchableOpacity
               {...buttonProps}
               style={styles.button}
               onPress={pressSafeArea}>
               <View style={styles.bgIcon}>
-                <Image source={Images.icSafeZone} style={styles.icon} />
+                <Image source={Images.icSafeZone} style={styles.icon}/>
               </View>
               <Text style={styles.buttonText}>{t('common:home_safeArea')}</Text>
             </TouchableOpacity>
@@ -240,20 +240,20 @@ export default function HomeMainScreen() {
               style={styles.button}
               onPress={pressSoundGuardian}>
               <View style={styles.bgIcon}>
-                <Image source={Images.icChieldFill} style={styles.icon} />
+                <Image source={Images.icChieldFill} style={styles.icon}/>
               </View>
               <Text style={styles.buttonText}>{t('common:home_soundGuardian')}</Text>
             </TouchableOpacity>
           </View>
         </View>
-        <View style={{width:'100%', height:'19.5%', flexDirection:'row'}}>
+        <View style={{width: '100%', height: '25%', flexDirection: 'row'}}>
           <View style={styles.buttonContainerL}>
             <TouchableOpacity
               {...buttonProps}
               style={styles.button}
               onPress={pressAlarmClock}>
               <View style={styles.bgIcon}>
-                <Image source={Images.icAlarm} style={styles.icon} />
+                <Image source={Images.icAlarm} style={styles.icon}/>
               </View>
               <Text style={styles.buttonText}>{t('common:home_alarmClock')}</Text>
             </TouchableOpacity>
@@ -264,20 +264,20 @@ export default function HomeMainScreen() {
               style={styles.button}
               onPress={pressChat}>
               <View style={styles.bgIcon}>
-                <Image source={Images.icChat} style={styles.icon} />
+                <Image source={Images.icChat} style={styles.icon}/>
               </View>
               <Text style={styles.buttonText}>{t('common:home_chat')}</Text>
             </TouchableOpacity>
           </View>
         </View>
-        <View style={{width:'100%', height:'19.5%', flexDirection:'row'}}>
+        <View style={{width: '100%', height: '25%', flexDirection: 'row'}}>
           <View style={styles.buttonContainerL}>
             <TouchableOpacity
               {...buttonProps}
               style={styles.button}
               onPress={pressFindDevice}>
               <View style={styles.bgIcon}>
-                <Image source={Images.icFindDevice} style={styles.icon} />
+                <Image source={Images.icFindDevice} style={styles.icon}/>
               </View>
               <Text style={styles.buttonText}>{t('common:home_findDevice')}</Text>
             </TouchableOpacity>
@@ -288,20 +288,20 @@ export default function HomeMainScreen() {
               style={styles.button}
               onPress={pressSettings}>
               <View style={styles.bgIcon}>
-                <Image source={Images.icSetting} style={styles.icon} />
+                <Image source={Images.icSetting} style={styles.icon}/>
               </View>
               <Text style={styles.buttonText}>{t('common:home_setting')}</Text>
             </TouchableOpacity>
           </View>
         </View>
-        <View style={{width:'100%', height:'19.5%', flexDirection:'row'}}>
+        <View style={{width: '100%', height: '25%', flexDirection: 'row'}}>
           <View style={styles.buttonContainerL}>
             <TouchableOpacity
               {...buttonProps}
               style={styles.button}
               onPress={pressWarning}>
               <View style={styles.bgIcon}>
-                <Image source={Images.icWarning} style={[styles.icon, {height: 30}]} />
+                <Image source={Images.icWarning} style={[styles.icon, {height: 30}]}/>
               </View>
               <Text style={styles.buttonText}>{t('common:home_warning')}</Text>
             </TouchableOpacity>
@@ -312,20 +312,20 @@ export default function HomeMainScreen() {
               style={styles.button}
               onPress={pressHealth}>
               <View style={styles.bgIcon}>
-                <Image source={Images.icTransport} style={styles.icon} />
+                <Image source={Images.icTransport} style={styles.icon}/>
               </View>
               <Text style={styles.buttonText}>{t('common:home_transport')}</Text>
             </TouchableOpacity>
           </View>
         </View>
-        <View style={{width:'100%', height:'19.5%', flexDirection:'row'}}>
+        <View style={{width: '100%', height: '25%', flexDirection: 'row'}}>
           <View style={styles.buttonContainerL}>
             <TouchableOpacity
               {...buttonProps}
               style={styles.button}
               onPress={pressPaying}>
               <View style={styles.bgIcon}>
-                <Image source={Images.icPayment} style={styles.icon} />
+                <Image source={Images.icPayment} style={styles.icon}/>
               </View>
               <Text style={styles.buttonText}>{t('common:paying')}</Text>
             </TouchableOpacity>
@@ -336,20 +336,20 @@ export default function HomeMainScreen() {
               style={styles.button}
               onPress={pressSecretPhotoShoot}>
               <View style={styles.bgIcon}>
-                <Image source={Images.icShootPhoto} style={[styles.icon, {height: 30}]} />
+                <Image source={Images.icShootPhoto} style={styles.icon1}/>
               </View>
               <Text style={styles.buttonText}>{t('common:home_secretPhotoShoot')}</Text>
             </TouchableOpacity>
           </View>
         </View>
-        <View style={{width:'100%', height:'19.5%', flexDirection:'row'}}>
+        <View style={{width: '100%', height: '25%', flexDirection: 'row'}}>
           <View style={styles.buttonContainerL}>
             <TouchableOpacity
               {...buttonProps}
               style={styles.button}
               onPress={RewardPoints}>
               <View style={styles.bgIcon}>
-                <Image source={Images.icReward} style={[styles.icon, {height: 30}]} />
+                <Image source={Images.icReward} style={styles.icon1}/>
               </View>
               <Text style={styles.buttonText}>{t('common:home_reward')}</Text>
             </TouchableOpacity>
@@ -357,8 +357,8 @@ export default function HomeMainScreen() {
         </View>
 
       </ScrollView>
-      <LoadingIndicator ref={refLoading} />
-      <NotificationModal ref={refNotification} />
+      <LoadingIndicator ref={refLoading}/>
+      <NotificationModal ref={refNotification}/>
     </View>
   );
 }
