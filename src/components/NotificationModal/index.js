@@ -37,7 +37,7 @@ export default class NotificationModal extends Component {
           <View style={styles.modal}>
             <View style={styles.tobModal}>
               <View style={styles.viewTitle}>
-                <Text style={styles.title}>MyKid</Text>
+                <Text style={styles.title}>V - Kid Pro</Text>
               </View>
               <View style={styles.tobView}>
                 <Text style={styles.textModel}>{this.state.title}</Text>

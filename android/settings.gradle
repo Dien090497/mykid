@@ -1,4 +1,4 @@
-rootProject.name = 'V - Kid Pro'
+rootProject.name = 'MyKid'
 include ':app'
 include ':react-native-audio-record'
 project(':react-native-audio-record').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-audio-record/android')
