@@ -38,6 +38,7 @@ import {useIsFocused} from '@react-navigation/native';
 import {keepScreenAwake} from '../../functions/utils';
 import { useTranslation } from 'react-i18next';
 import NotificationModal from "../../components/NotificationModal";
+import { checkCameraPermission, checkMicrophonePermission } from '../../functions/permissions';
 
 const initialState = {
   data: [],
@@ -225,7 +226,14 @@ const ListDeviceScreen = () => {
   useEffect(() => {
     dispatch({type: 'loading', payload: {page}});
   }, [page]);
-  const onPressCall = item => () => {
+
+  const onPressCall = item => async () => {
+    const microGranted = await checkMicrophonePermission();
+    const cameraGranted = await checkCameraPermission();
+    if (!microGranted || !cameraGranted) {
+      return;
+    }
+    
     createVideoCallApi(
       // DataLocal.deviceId,
       {deviceId: item.deviceId},

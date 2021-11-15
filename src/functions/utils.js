@@ -51,7 +51,7 @@ export function convertCountdownTime(seconds) {
 
 export function showAlert(msg, {close, needCheckDuplicate = true} = {}) {
   setTimeout(() => {
-    Alert.alert('MyKid', msg, [
+    Alert.alert('V - Kid Pro', msg, [
       {
         text: i18next.t('common:accept'),
         onPress: () => {
@@ -65,7 +65,7 @@ export function showAlert(msg, {close, needCheckDuplicate = true} = {}) {
 }
 
 export function showConfirmation(msg, {acceptStr, cancelStr, response} = {}) {
-  Alert.alert('MyKid', msg, [
+  Alert.alert('V - Kid Pro', msg, [
     {
       text: acceptStr || i18next.t('common:accept'),
       onPress: () => {
