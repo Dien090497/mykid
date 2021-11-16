@@ -137,9 +137,8 @@ export default ({navigation, route}) => {
             }}
             style={styles.containerDevice}>
             <View style={styles.containerLastTime}>
-              <Text style={styles.txtNameDevice}>{'infoDevice.deviceName'}</Text>
+              <Text style={styles.txtNameDevice}>{infoDevice.deviceName}</Text>
               <Text style={styles.txtTime}>
-                {/*convertDateTimeToString(locationDevice.reportedAt).dateTimeStr*/}
                 {Moment(new Date(locationDevice.reportedAt)).format('HH:mm DD/MM/yyyy')}
               </Text>
             </View>

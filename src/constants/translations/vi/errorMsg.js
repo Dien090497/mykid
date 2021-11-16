@@ -65,5 +65,5 @@ export default {
   // http
   TOKEN_EXPIRED_MSG: 'Phiên đăng nhập của bạn đã hết. Vui lòng đăng nhập lại',
   OTHER_LOGIN: 'Bạn đã đăng nhập trên thiết bị khác.',
-  UNEXPECTED_ERROR_MSG: 'Không kết nối được với server. Vui lòng thử lại sau!',
+  UNEXPECTED_ERROR_MSG: 'Không kết nối được với server.\nVui lòng thử lại sau!',
 }
