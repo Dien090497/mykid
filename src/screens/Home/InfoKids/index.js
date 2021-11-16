@@ -242,7 +242,7 @@ export default function InfoKits({route}) {
   }
 
   return (
-    <View style={{flex: 1, backgroundColor: Colors.white, marginBottom: 20}}>
+    <View style={styles.viewContainer}>
       <Header title={t('common:home_infoKits')}/>
       <View
         style={{
