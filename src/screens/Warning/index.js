@@ -102,7 +102,7 @@ export default function DeviceManager({navigation}) {
                 onEndReached={() =>{handleLoadMore()}}
       />
       <LoadingIndicator ref={refLoading}/>
-      <NotificationModal ref={refNotification}/>
+      <NotificationModal ref={refNotification} goBack={() => navigation.goBack()}/>
     </View>
   );
 }

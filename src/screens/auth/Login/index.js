@@ -131,7 +131,7 @@ const Login = ({navigation}) => {
       style={styles.container}>
       <StatusBar backgroundColor={Colors.white} barStyle='dark-content' animated={true}/>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <ScrollView>
+        <View style={{flex: 1}}>
           <ImageBackground source={Images.bgLogin} style={styles.image} resizeMode='stretch'>
             <Image source={Images.bannerLogin} style={styles.banner}/>
             <Text style={styles.title}>{t('common:login')}</Text>
@@ -165,17 +165,13 @@ const Login = ({navigation}) => {
                   style={styles.txtRegister}>{t('common:register')}</Text>
               </TouchableOpacity>
             </View>
-            <View style={{
-              width: '100%',
-              marginTop: 10,
-              justifyContent: 'center',
-            }}>
+            <View style={styles.viewConfirm}>
               <TouchableOpacity onPress={onSubmit} style={styles.btnSubmit}>
                 <Text style={styles.textSubmit}>{t('common:login')}</Text>
               </TouchableOpacity>
             </View>
 
-            <View style={{marginTop: 15, flexDirection: 'row', marginBottom: 20}}>
+            <View style={styles.viewCheckBox}>
               <CheckBox checkedColor={Colors.colorMain} uncheckedColor={Colors.colorMain} checked={checkbox}
                         onPress={() => setCheckbox(!checkbox)}/>
               <Text style={styles.txt_Policy}>{t('common:acceptMy')}
@@ -187,12 +183,7 @@ const Login = ({navigation}) => {
               </Text>
             </View>
 
-            <View style={{
-              width: '100%',
-              marginTop: 10,
-              justifyContent: 'center',
-              alignItems: 'flex-end',
-            }}>
+            <View style={styles.viewLanguage}>
               <TouchableOpacity onPress={() => {
                 setShowModal(true)
               }}>
@@ -203,7 +194,7 @@ const Login = ({navigation}) => {
               </TouchableOpacity>
             </View>
           </ImageBackground>
-        </ScrollView>
+        </View>
       </TouchableWithoutFeedback>
       <Modal
         visible={showModal}

@@ -100,7 +100,7 @@ export default function DeleteMessage({navigation, route}) {
   };
 
   const deleteHistory = () => {
-    deleteHistoryApi(roomInfo.id, {
+    deleteHistoryApi(roomInfo.deviceId, {
       success: res => {
       },
       failure: error => {
