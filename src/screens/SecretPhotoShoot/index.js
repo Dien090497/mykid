@@ -1,4 +1,4 @@
-import { FlatList, Platform, RefreshControl, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Image, Platform, RefreshControl, Text, TouchableOpacity, View } from "react-native";
 import React, { useLayoutEffect, useRef, useState } from 'react';
 
 import Header from '../../components/Header';
@@ -183,9 +183,9 @@ export default ({ navigation }) => {
                           onPressIn={()=>{
                             setSelectItem(item.item);
                           }}>
-          <FastImage
+          <Image
             source={{ uri: item.item.url }}
-            resizeMode={FastImage.resizeMode.stretch}
+            resizeMode={'stretch'}
             style={styles.imageItem}
           />
           {isSetting ? <FastImage

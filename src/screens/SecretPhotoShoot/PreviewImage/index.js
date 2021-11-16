@@ -132,7 +132,10 @@ export default class PreviewImage extends Component {
             <TouchableOpacity onPress={this.hideModal} style={{alignSelf:'flex-end', marginRight:-25, marginBottom: 5}}>
               <Image source={Images.icClose} style={styles.icClose} resizeMode='contain' />
             </TouchableOpacity>
-            <FastImage source={{uri:this.state.url}} style={[styles.image,{transform: [{ rotate: this.state.rotate+'deg' }]}]} resizeMode={FastImage.resizeMode.stretch} />
+            <Image
+              source={{uri:this.state.url}}
+              style={[styles.image,{transform: [{ rotate: this.state.rotate+'deg' }]}]}
+              resizeMode={'stretch'} />
             <Text style={styles.txtDate}>{this.state.time}</Text>
             <Text style={styles.txtDes}>{this.state.text}</Text>
             <View style={styles.groupBtn}>
