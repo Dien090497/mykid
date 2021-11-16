@@ -103,6 +103,7 @@ export const styles = StyleSheet.create({
     fontSize: FontSize.medium * 0.9,
     color: Colors.black,
     fontFamily: 'Roboto-Regular',
+    textAlign: 'center',
     padding: '1%',
   },
   icon: {
