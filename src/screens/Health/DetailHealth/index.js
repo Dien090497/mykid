@@ -77,11 +77,13 @@ export default function Health({ navigation }) {
         Moment(new Date(date - 86400000 * 2)).format('DD/MM/yyyy HH:mm Z').slice(0, 5),
         Moment(new Date(date - 86400000)).format('DD/MM/yyyy HH:mm Z').slice(0, 5),
         Moment(date).format('DD/MM/yyyy HH:mm Z').slice(0, 5),
+        ''
       ],
       datasets: [
         {
-          data: [0, 0, 0, 0, 0, 0, 0],
+          data: [0, 0, 0, 0, 0, 0, 0, null],
           colors: [
+            (opacity = 1) => `#EE0033`,
             (opacity = 1) => `#EE0033`,
             (opacity = 1) => `#EE0033`,
             (opacity = 1) => `#EE0033`,
@@ -159,7 +161,7 @@ export default function Health({ navigation }) {
                 labelColor: (opacity = 1) => `rgba(114, 114, 114, ${opacity})`,
                 decimalPlaces: 0,
                 scrollableDotStrokeWidth: 0,
-                barPercentage: 0.8,
+                // barPercentage: 0.8,
                 propsForBackgroundLines: {
                   strokeWidth: 0.1,
                   stroke: Colors.colorTextPlus,
@@ -168,7 +170,7 @@ export default function Health({ navigation }) {
               }}
               style={{
                 marginVertical: 8,
-                paddingRight:50,
+                paddingRight:60,
               }}
               fromZero={true}
               withCustomBarColorFromData={true}
