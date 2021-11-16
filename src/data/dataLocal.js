@@ -4,11 +4,13 @@ const accessTokenKey = 'ACCESS_TOKEN';
 const deviceIdKey = 'DEVICE_ID_';
 const deviceIndexKey = 'DEVICE_Active_';
 const languageKey = 'LANGUAGE';
+const simKey = 'SIM';
 let accessToken = null;
 let userInfo = null;
 let deviceIndex = 0;
 let deviceId = 0;
 let language = null;
+let haveSim = true;
 
 async function saveAccessToken(value) {
   try {
@@ -108,6 +110,31 @@ async function saveLanguage(language) {
   }
 }
 
+async function loadHaveSim() {
+  if (DataLocal.haveSim) return;
+  try {
+    const value = await AsyncStorage.getItem(simKey, '');
+    if (value !== null && value !== undefined) {
+      DataLocal.haveSim = value.toString();
+    } else {
+      DataLocal.haveSim = false;
+    }
+  } catch(e) {
+    console.log(e);
+    DataLocal.haveSim = false;
+  }
+}
+
+async function saveHaveSim(sim) {
+  try {
+    DataLocal.haveSim = sim;
+    return await AsyncStorage.setItem(simKey, sim);
+  } catch (e) {
+    console.log(e);
+    return false;
+  }
+}
+
 async function removeAll() {
   await removeAccessToken();
 }
@@ -128,11 +155,15 @@ const DataLocal = {
   saveLanguage,
   loadLanguage,
 
+  saveHaveSim,
+  loadHaveSim,
+
   accessToken,
   userInfo,
   deviceIndex,
   deviceId,
-  language
+  language,
+  haveSim,
 };
 
 export default DataLocal;

@@ -149,6 +149,8 @@ export default function Health({ navigation }) {
     })
   }
 
+  console.log(DataLocal.haveSim)
+
   return (
     <View style={styles.body}>
       <Header title={t('common:header_health')} />
@@ -200,7 +202,13 @@ export default function Health({ navigation }) {
         </TouchableOpacity>
       </ScrollView>
       <LoadingIndicator ref={refLoading} />
-      <NotificationModal ref={refNotification} />
+      <NotificationModal ref={refNotification}
+                         goBack = {()=>{
+                           if (DataLocal.haveSim === false){
+                             DataLocal.saveHaveSim(true);
+                             navigation.replace(Consts.ScreenIds.Tabs);
+                           }
+                         }}/>
       <FromToTimeModal ref={refFromToTime} />
     </View>
   );
