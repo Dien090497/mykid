@@ -7,7 +7,6 @@ import {
 } from 'react-native';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import React, {useEffect, useRef, useState} from 'react';
-import {convertDateTimeToString} from '../../functions/utils.js';
 import {
   getListDeviceApi,
   getLocationDeviceApi,
@@ -21,14 +20,8 @@ import LoadingIndicator from '../../components/LoadingIndicator';
 import {styles} from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
-
-const markerDaughter = {
-  latitude: 21.0076485,
-  longitude: 105.8236356,
-  title: 'Con gái',
-  battery: 80,
-  lastUpdated: '10-09-2021 21:30:18',
-};
+import Geocoder from 'react-native-geocoder';
+import Moment from 'moment';
 
 const initialRegion = {
   latitude: 21.030653,
@@ -43,6 +36,7 @@ export default ({navigation, route}) => {
   const refNotification = useRef(null);
   const [locationDevice, setLocationDevice] = useState(null);
   const [infoDevice, setInfoDevice] = useState(null);
+  const [locationName, setLocationName] = useState('');
   const { t } = useTranslation();
 
   const getLocationDevice = async () => {
@@ -97,6 +91,14 @@ export default ({navigation, route}) => {
     };
   };
 
+  Geocoder.geocodePosition({
+    lat: locationDevice?.location?.lat,
+    lng: locationDevice?.location?.lng
+  }).then(res => {
+    const address = [res[0].streetNumber +' '+ res[0].streetName, res[0].subAdminArea, res[0].adminArea].join(', ')
+    setLocationName(address);
+  }).catch(err => console.log(err))
+
   return (
     <View
       style={[styles.container, {paddingBottom: useSafeAreaInsets().bottom}]}>
@@ -134,30 +136,24 @@ export default ({navigation, route}) => {
                 });
             }}
             style={styles.containerDevice}>
-            <View style={styles.container}>
-              <Text
-                style={styles.txtNameDevice}
-                children={infoDevice.deviceName}
-              />
-
-              <Text
-                style={styles.txtLocation}
-                children={`Toạ độ: ${locationDevice?.location?.lat}, ${locationDevice?.location?.lng}`} />
+            <View style={styles.containerLastTime}>
+              <Text style={styles.txtNameDevice}>{'infoDevice.deviceName'}</Text>
+              <Text style={styles.txtTime}>
+                {/*convertDateTimeToString(locationDevice.reportedAt).dateTimeStr*/}
+                {Moment(new Date(locationDevice.reportedAt)).format('HH:mm DD/MM/yyyy')}
+              </Text>
+            </View>
+            <View style={styles.containerLastTime}>
+              <Text style={styles.txtLocation}>{t('common:location')}{locationName}</Text>
+              <Text style={styles.txtTime}>{locationDevice.type}</Text>
             </View>
 
             <View style={styles.containerLastTime}>
-              <Text
-                style={styles.txtTime}
-                children={
-                  convertDateTimeToString(locationDevice.reportedAt).dateTimeStr
-                }
-              />
-
+              <Text style={styles.txtLocation}>{t('common:coordinates')}{`${locationDevice?.location?.lat}, ${locationDevice?.location?.lng}`}</Text>
               <View style={styles.containerBattery}>
-                <Text
-                  style={{fontSize: FontSize.small, color: Colors.gray}}
-                  children={`${locationDevice.power || 0}%`}
-                />
+                <Text style={{fontSize: FontSize.small, color: Colors.gray}}>
+                  {`${locationDevice.power || 0}%`}
+                </Text>
                 <Image source={Images.icBattery} style={styles.icBattery} />
               </View>
             </View>

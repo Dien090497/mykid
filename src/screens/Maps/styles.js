@@ -151,6 +151,7 @@ export const styles = StyleSheet.create({
     marginBottom: 6,
   },
   txtLocation: {
+    width: '70%',
     fontSize: FontSize.small,
     fontFamily:'Roboto-Medium',
     color: Colors.grayTxt,
@@ -159,7 +160,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop:15
+    marginVertical:5
   },
   txtTime: {
     fontSize: FontSize.small,

@@ -197,6 +197,8 @@ export default {
   takePhoto: 'Take a photo',
   selectPhoto: 'Select photo',
   journey: 'History Record',
+  location: 'Location: ',
+  coordinates: 'Coordinates: ',
 
   palaceHolderSafeZone: 'Add safety zone',
 
