@@ -374,7 +374,7 @@ export default ({navigation, route}) => {
               <>
                 <Marker
                   coordinate={newLocationSafeArea}
-                  title={'Khu vực an toàn'}
+                  title={t('common:safeArea')}
                   draggable
                   onDragEnd={event => {
                     const {latitude, longitude} = event.nativeEvent.coordinate;
@@ -386,7 +386,7 @@ export default ({navigation, route}) => {
                     }
                   }}>
                   <Image
-                    source={Images.icWatchMarker}
+                    source={Images.icMarkerDefault}
                     style={styles.icMarker}
                   />
                 </Marker>

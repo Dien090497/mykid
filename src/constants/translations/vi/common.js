@@ -199,6 +199,7 @@ export default {
   journey: 'Hành trình',
   location: 'Vị trí: ',
   coordinates: 'Tọa độ: ',
+  safeArea: 'Khu vực an toàn',
 
   palaceHolderSafeZone: 'Thêm vùng an toàn',
 

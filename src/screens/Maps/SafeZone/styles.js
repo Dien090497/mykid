@@ -176,7 +176,8 @@ const styles = StyleSheet.create({
   icMarker: {
     width: 30,
     height: 30,
-    resizeMode: 'contain'
+    resizeMode: 'contain',
+    tintColor: Colors.colorMain
   },
   containerNote: {
     position: 'absolute',
