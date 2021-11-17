@@ -483,9 +483,9 @@ export default function RoomChat({navigation, route}) {
         ref={o => sheet = o}
         title={t('common:selectPhoto')}
         options={[
-          t('common:selectPhotoLibrary'),
-          t('common:takePhoto'),
-          t('common:cancel'),
+          <Text style={{fontSize: 18, fontFamily: 'Roboto', color: Colors.grayTextColor}}>{t('common:selectPhotoLibrary')}</Text>,
+          <Text style={{fontSize: 18, fontFamily: 'Roboto', color: Colors.grayTextColor}}>{t('common:takePhoto')}</Text>,
+          <Text style={{fontSize: 18, fontFamily: 'Roboto', color: Colors.colorMain}}>{t('common:cancel')}</Text>,
         ]}
         cancelButtonIndex={2}
         onPress={handleImageAction}

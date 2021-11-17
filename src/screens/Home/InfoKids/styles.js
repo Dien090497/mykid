@@ -4,6 +4,11 @@ import {StyleSheet, Dimensions} from 'react-native';
 const {width, height} = Dimensions.get("window");
 
 export const styles = StyleSheet.create({
+  viewContainer: {
+    flex: 1,
+    backgroundColor: Colors.white,
+    paddingBottom: height * 0.03
+  },
   tobMain: {
     backgroundColor: Colors.white,
     width: width * 0.9,

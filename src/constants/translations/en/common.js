@@ -199,6 +199,7 @@ export default {
   journey: 'History Record',
   location: 'Location: ',
   coordinates: 'Coordinates: ',
+  safeArea: 'SAFETY ZONE',
 
   palaceHolderSafeZone: 'Add safety zone',
 

@@ -65,5 +65,5 @@ export default {
   // http
   TOKEN_EXPIRED_MSG: 'Your login session has expired. Please login again',
   OTHER_LOGIN: 'You are signed in on another device.',
-  UNEXPECTED_ERROR_MSG: 'Can not connect to server. Please try later!',
+  UNEXPECTED_ERROR_MSG: 'Can not connect to server.\nPlease try later!',
 };

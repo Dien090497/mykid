@@ -264,6 +264,8 @@ PODS:
     - React-Core
   - react-native-fetch-blob (0.10.6):
     - React-Core
+  - react-native-geocoder (0.5.0):
+    - React
   - react-native-geolocation-service (5.3.0-beta.2):
     - React
   - react-native-google-maps (0.29.3):
@@ -430,6 +432,7 @@ DEPENDENCIES:
   - "react-native-cameraroll (from `../node_modules/@react-native-community/cameraroll`)"
   - react-native-date-picker (from `../node_modules/react-native-date-picker`)
   - react-native-fetch-blob (from `../node_modules/react-native-fetch-blob`)
+  - react-native-geocoder (from `../node_modules/react-native-geocoder`)
   - react-native-geolocation-service (from `../node_modules/react-native-geolocation-service`)
   - react-native-google-maps (from `../node_modules/react-native-maps`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
@@ -540,6 +543,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-date-picker"
   react-native-fetch-blob:
     :path: "../node_modules/react-native-fetch-blob"
+  react-native-geocoder:
+    :path: "../node_modules/react-native-geocoder"
   react-native-geolocation-service:
     :path: "../node_modules/react-native-geolocation-service"
   react-native-google-maps:
@@ -654,6 +659,7 @@ SPEC CHECKSUMS:
   react-native-cameraroll: 60ac50a5209777cbccfe8d7a62d0743a9da87060
   react-native-date-picker: da6c4f85945a2c087c569c7ac52851819ed24218
   react-native-fetch-blob: 0cbdf9764c75d9438c162427395f4bc35a857d5a
+  react-native-geocoder: 757427682892bb256f3b3745858cc90eba148a8e
   react-native-geolocation-service: 94c7d2ffdbbf4dd431241e0c8e37d491ebd41430
   react-native-google-maps: d6a30377b40a338bd09d6ad36ce48dc5d12b5792
   react-native-image-picker: 5a7dd93d4f9dd0d910da5dde3707fd96f70d03b3
@@ -697,6 +703,6 @@ SPEC CHECKSUMS:
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   Yoga: aa0cb45287ebe1004c02a13f279c55a95f1572f4
 
-PODFILE CHECKSUM: 48272c7946e0a650b835bc3c2030831664dd4b2a
+PODFILE CHECKSUM: 06c6d062882717436342d1965561a08e186f983e
 
 COCOAPODS: 1.10.1

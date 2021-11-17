@@ -1,4 +1,4 @@
-import Consts ,{ FontSize,ScaleHeight } from '../../../functions/Consts';
+import Consts, {FontSize, ScaleHeight} from '../../../functions/Consts';
 import {Dimensions, StyleSheet} from 'react-native';
 
 import {Colors} from '../../../assets/colors/Colors';
@@ -149,11 +149,15 @@ export const styles = StyleSheet.create({
   },
   viewCheckBox: {
     flexDirection: 'row',
-    marginVertical: height * 0.018
+    width: width - width * 0.1,
+    marginHorizontal: height * 0.04
   },
   viewLanguage: {
     width: '100%',
     justifyContent: 'center',
     alignItems: 'flex-end',
+  },
+  checkBox: {
+    marginLeft: -width * 0.048
   }
 });

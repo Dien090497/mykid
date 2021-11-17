@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
   body: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    marginBottom: 20,
+    marginVertical: 20,
     width: '100%'
   },
   content: {
@@ -46,27 +46,34 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     width: '100%',
-    backgroundColor: Colors.grayInput,
-    paddingVertical: 10
+    backgroundColor: Colors.white,
+    paddingVertical: 10,
+    marginBottom: 20
   },
   txtCancel: {
-    fontSize: FontSize.medium,
+    fontSize: FontSize.small,
     fontFamily: 'Roboto-Medium',
-    color: Colors.lightGray,
+    color: Colors.colorMain,
   },
   txtAccept: {
-    fontSize: FontSize.medium,
+    fontSize: FontSize.small,
     fontFamily: 'Roboto-Medium',
-    color: Colors.blueButton
+    color: Colors.white
   },
   btnCancel: {
-    width: '25%',
-    alignItems: 'flex-start',
-    paddingLeft: 10
+    width: '40%',
+    alignItems: 'center',
+    borderColor: Colors.colorMain,
+    borderWidth: 1,
+    borderRadius: 10,
+    height: 40,
+    justifyContent: 'center'
   },
   btnAccept: {
-    width: '25%',
-    alignItems: 'flex-end',
-    paddingRight: 10
+    borderRadius: 10,
+    backgroundColor: Colors.colorMain,
+    width: '40%',
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 });

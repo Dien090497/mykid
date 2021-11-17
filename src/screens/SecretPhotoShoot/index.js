@@ -19,6 +19,8 @@ import { Colors } from '../../assets/colors/Colors';
 import { useTranslation } from 'react-i18next';
 import NotificationModal from "../../components/NotificationModal";
 import { checkPhotoLibraryWritePermission } from "../../functions/permissions";
+let page = 0;
+const sizePage = 30;
 
 export default ({ navigation }) => {
   const refLoading = useRef();
@@ -34,12 +36,15 @@ export default ({ navigation }) => {
 
   useLayoutEffect(() => {
     getListImage();
+    return () =>{
+      page = 0;
+    }
   }, []);
 
   const getListImage = () => {
-    GetListImage(DataLocal.deviceId, 0, 100, {
+    GetListImage(DataLocal.deviceId, 0, 30, {
         success: res => {
-          if (res.data.length === data.length){
+          if (res.data === data){
             SimpleToast.show(t('common:txtNotHaveNewPicture'));
             return;
           }
@@ -82,6 +87,7 @@ export default ({ navigation }) => {
       DeleteImages(DataLocal.deviceId, ids,
         {
           success: res => {
+            page = 0;
             getListImage();
           },
           refLoading,
@@ -107,7 +113,11 @@ export default ({ navigation }) => {
 
   const action = () => {
     return (
-      <ActionSheet options={[t('common:delete'), t('common:savePicture'), t('common:cancel')]}
+      <ActionSheet options={[
+        <Text style={{fontSize: 18, fontFamily: 'Roboto', color: Colors.grayTextColor}}>{t('common:delete')}</Text>,
+        <Text style={{fontSize: 18, fontFamily: 'Roboto', color: Colors.grayTextColor}}>{t('common:savePicture')}</Text>,
+        <Text style={{fontSize: 18, fontFamily: 'Roboto', color: Colors.colorMain}}>{t('common:cancel')}</Text>,
+      ]}
                    onPress={handleImageAction}
                    cancelButtonIndex={2}
                    ref={o => sheet = o}
@@ -122,6 +132,7 @@ export default ({ navigation }) => {
           DeleteImages(DataLocal.deviceId, [selectItem.id],
             {
               success: res => {
+                page = 0;
                 getListImage();
               },
               refLoading,
@@ -172,6 +183,7 @@ export default ({ navigation }) => {
     return (
       <View style={styles.itemList}>
         <TouchableOpacity style={styles.imageList}
+                          activeOpacity={1}
                           onPress={() => {
                             touchImage(item);
                           }}
@@ -209,6 +221,22 @@ export default ({ navigation }) => {
     setIsSetting(!isSetting);
   };
 
+  const loadMore = () =>{
+    page++;
+    GetListImage(DataLocal.deviceId, page, sizePage, {
+        success: res => {
+          res.data.map(item => {
+            item.isChoose = false;
+          });
+          const newData = Object.assign([], data)
+          setData(newData.concat(res.data));
+        },
+        refLoading,
+        refNotification,
+      },
+    );
+  }
+
   return (
     <View
       style={styles.container}>
@@ -224,9 +252,14 @@ export default ({ navigation }) => {
           renderItem={renderItem}
           keyExtractor={item => item.id}
           numColumns={3}
+          onEndReached={() =>{loadMore()}}
           refreshControl={
             <RefreshControl
-              onRefresh={getListImage}
+              onRefresh={() =>{
+                page = 0;
+                getListImage();
+              }
+              }
               refreshing={false} />
           }
         />

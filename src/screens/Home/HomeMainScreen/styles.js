@@ -120,7 +120,8 @@ export const styles = StyleSheet.create({
     width: height * 0.06,
     height: height * 0.06,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginBottom: height * 0.01
   },
   menuSelect:{
     flexDirection:'row',

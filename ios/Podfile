@@ -45,6 +45,8 @@ pod 'react-native-google-maps', :path => rn_maps_path
   pod 'RNAudioRecorderPlayer', :path => '../node_modules/react-native-audio-recorder-player'
 
   pod 'RNAudioRecord', :path => '../node_modules/react-native-audio-record'
+  
+  pod 'react-native-geocoder', :path => "../node_modules/react-native-geocoder"
 
   target 'MyKidTests' do
     inherit! :complete
