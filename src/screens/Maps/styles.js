@@ -13,7 +13,7 @@ const followHeight =
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'transparent',
+    backgroundColor: Colors.transparent,
   },
   header: {
     width: '95%',

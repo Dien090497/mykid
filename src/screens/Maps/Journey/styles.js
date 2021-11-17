@@ -3,7 +3,10 @@ import {FontSize} from '../../../functions/Consts';
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
-  container: {flex: 1, backgroundColor: 'transparent'},
+  container: {
+    flex: 1, 
+    backgroundColor: Colors.white
+  },
   mainView: {
     flex: 1,
     backgroundColor: '#EFF0F1',
