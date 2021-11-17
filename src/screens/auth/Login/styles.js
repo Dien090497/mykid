@@ -103,6 +103,7 @@ export const styles = StyleSheet.create({
     marginLeft: -width * 0.03,
     width: width - width * 0.12,
     color: '#808080',
+    alignItems: 'center'
   },
   modalView: {
     flex: 1,
@@ -150,7 +151,8 @@ export const styles = StyleSheet.create({
   viewCheckBox: {
     flexDirection: 'row',
     width: width - width * 0.1,
-    marginHorizontal: height * 0.04
+    marginHorizontal: height * 0.04,
+    alignItems: 'center'
   },
   viewLanguage: {
     width: '100%',
