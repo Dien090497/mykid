@@ -359,7 +359,7 @@ function checkFailure(result, refNotification) {
   const code = meta.code.toLowerCase().split('-').join('');
 
   if (code === 'kwa4067'){
-    DataLocal.saveHaveSim(false);
+    DataLocal.saveHaveSim('0');
   }
 
   if (Object.keys(errorMsg).includes(code)) {

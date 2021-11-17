@@ -10,7 +10,7 @@ let userInfo = null;
 let deviceIndex = 0;
 let deviceId = 0;
 let language = null;
-let haveSim = true;
+let haveSim = '1';
 
 async function saveAccessToken(value) {
   try {
@@ -117,18 +117,18 @@ async function loadHaveSim() {
     if (value !== null && value !== undefined) {
       DataLocal.haveSim = value.toString();
     } else {
-      DataLocal.haveSim = false;
+      DataLocal.haveSim = '0';
     }
   } catch(e) {
     console.log(e);
-    DataLocal.haveSim = false;
+    DataLocal.haveSim = '0';
   }
 }
 
 async function saveHaveSim(sim) {
   try {
     DataLocal.haveSim = sim;
-    return await AsyncStorage.setItem(simKey, sim);
+    return await AsyncStorage.setItem(simKey, sim.toString());
   } catch (e) {
     console.log(e);
     return false;
