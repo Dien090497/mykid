@@ -6,7 +6,7 @@ const {width, height} = Dimensions.get('window');
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.transparent,
+    backgroundColor: Colors.white,
   },
   scroll: {
     flex: 1,
