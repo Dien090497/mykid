@@ -49,13 +49,13 @@ export default ({ navigation }) => {
     <View
       style={[styles.container, { paddingBottom: useSafeAreaInsets().bottom }]}>
       <Header title={t('common:header_reward_points')} />
-      <ScrollView style={styles.scroll}>
+      <View style={styles.scroll}>
         <View style={styles.mainView}>
           <View style={styles.imgHeart}>
             <Image source={Images.icHeart} style={[styles.iconHeart]} />
           </View>
           <Text style={styles.text}>{t('common:rewardPoints_text')}</Text>
-          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+          <View style={styles.viewPoint}>
             <TouchableOpacity
               onPress={minusPoint}
               style={styles.btn}>
@@ -74,7 +74,7 @@ export default ({ navigation }) => {
             <Text style={styles.textSubmit}>{t('common:confirm')}</Text>
           </TouchableOpacity>
         </View>
-      </ScrollView>
+      </View>
       <LoadingIndicator ref={refLoading} />
       <NotificationModal ref={refNotification} />
     </View>

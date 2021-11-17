@@ -32,7 +32,7 @@ const LANGUAGES = [
   {code: 'vi', label: 'Việt Nam'},
   {code: 'en', label: 'English'}
 ];
-const NAME_LANGUAGE = [ 'Việt Nam', 'English' ];
+const NAME_LANGUAGE = ['Việt Nam', 'English'];
 
 const Login = ({navigation}) => {
   const dispatch = useDispatch();
@@ -172,8 +172,14 @@ const Login = ({navigation}) => {
             </View>
 
             <View style={styles.viewCheckBox}>
-              <CheckBox checkedColor={Colors.colorMain} uncheckedColor={Colors.colorMain} checked={checkbox}
-                        onPress={() => setCheckbox(!checkbox)}/>
+              <View style={styles.checkBox}>
+                <CheckBox
+                  checkedColor={Colors.colorMain}
+                  uncheckedColor={Colors.colorMain}
+                  checked={checkbox}
+                  onPress={() => setCheckbox(!checkbox)}
+                />
+              </View>
               <Text style={styles.txt_Policy}>{t('common:acceptMy')}
                 <Text> </Text>
                 <Text style={styles.txtPolicy} onPress={() => console.log('hello')}>{t('common:agreement')}</Text>
