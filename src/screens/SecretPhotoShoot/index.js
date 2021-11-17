@@ -113,7 +113,11 @@ export default ({ navigation }) => {
 
   const action = () => {
     return (
-      <ActionSheet options={[t('common:delete'), t('common:savePicture'), t('common:cancel')]}
+      <ActionSheet options={[
+        <Text style={{fontSize: 18, fontFamily: 'Roboto', color: Colors.grayTextColor}}>{t('common:delete')}</Text>,
+        <Text style={{fontSize: 18, fontFamily: 'Roboto', color: Colors.grayTextColor}}>{t('common:savePicture')}</Text>,
+        <Text style={{fontSize: 18, fontFamily: 'Roboto', color: Colors.colorMain}}>{t('common:cancel')}</Text>,
+      ]}
                    onPress={handleImageAction}
                    cancelButtonIndex={2}
                    ref={o => sheet = o}
@@ -179,6 +183,7 @@ export default ({ navigation }) => {
     return (
       <View style={styles.itemList}>
         <TouchableOpacity style={styles.imageList}
+                          activeOpacity={1}
                           onPress={() => {
                             touchImage(item);
                           }}

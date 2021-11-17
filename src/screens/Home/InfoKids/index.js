@@ -273,13 +273,14 @@ export default function InfoKits({route}) {
         ref={o => sheet = o}
         styles={{
           buttonBox: {width: '100%', height: ScaleHeight.big },
-          buttonText: {fontSize: 18, fontWeight: '400', fontStyle: 'normal'}
+          buttonText: {fontSize: 18, fontFamily: 'Roboto'}
         }}
         cancelButtonIndex={2}
         options={[
-          t('common:male'),
-          t('common:female'),
-          t('common:cancel')]}
+          <Text style={{fontSize: 18, fontFamily: 'Roboto', color: Colors.grayTextColor}}>{t('common:male')}</Text>,
+          <Text style={{fontSize: 18, fontFamily: 'Roboto', color: Colors.grayTextColor}}>{t('common:female')}</Text>,
+          <Text style={{fontSize: 18, fontFamily: 'Roboto', color: Colors.colorMain}}>{t('common:cancel')}</Text>,
+        ]}
         onPress={handleGenderAction}
       />
       <LoadingIndicator ref={refLoading}/>

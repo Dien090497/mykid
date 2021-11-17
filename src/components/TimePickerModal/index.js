@@ -53,15 +53,6 @@ export default class TimePickerModal extends Component {
         visible={this.state.modalVisible}>
         <TouchableOpacity style={styles.bottomView} onPress={this.hideModal}>
           <TouchableOpacity style={styles.containerModal} activeOpacity={1}>
-            <View style={styles.header}>
-              <TouchableOpacity style={styles.btnCancel} onPress={this.hideModal}>
-                <Text style={styles.txtCancel}>{i18next.t('common:cancel')}</Text>
-              </TouchableOpacity>
-              <View style={{width: '50%'}}/>
-              <TouchableOpacity style={styles.btnAccept} onPress={this.onSubmit}>
-                <Text style={styles.txtAccept}>{i18next.t('common:accept')}</Text>
-              </TouchableOpacity>
-            </View>
             <View style={styles.body}>
               <View style={[styles.viewTime, Platform.OS !== 'ios' ? {height: 150, paddingTop: 20} : {}]}>
                 { this.state.time &&
@@ -71,6 +62,14 @@ export default class TimePickerModal extends Component {
                             minutes={this.getMinutes()}/>
                 }
               </View>
+            </View>
+            <View style={styles.header}>
+              <TouchableOpacity style={styles.btnCancel} onPress={this.hideModal}>
+                <Text style={styles.txtCancel}>{i18next.t('common:cancel')}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.btnAccept} onPress={this.onSubmit}>
+                <Text style={styles.txtAccept}>{i18next.t('common:accept')}</Text>
+              </TouchableOpacity>
             </View>
           </TouchableOpacity>
         </TouchableOpacity>
