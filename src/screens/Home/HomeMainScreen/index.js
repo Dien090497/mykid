@@ -16,6 +16,7 @@ import { useIsFocused, useNavigation } from '@react-navigation/native';
 import XmppClient from '../../../network/xmpp/XmppClient';
 import WebSocketSafeZone from '../../../network/socket/WebSocketSafeZone';
 import WebSocketVideoCall from '../../../network/socket/WebSocketVideoCall';
+import WebSocketCheckSim from '../../../network/socket/WebSocketCheckSim';
 import { useTranslation } from 'react-i18next';
 import NotificationModal from '../../../components/NotificationModal';
 
@@ -37,6 +38,8 @@ export default function HomeMainScreen() {
     WebSocketSafeZone._handleWebSocketSetup(navigation);
     WebSocketVideoCall.setReconnect(true);
     WebSocketVideoCall._handleWebSocketSetup(navigation);
+    WebSocketCheckSim.setReconnect(true);
+    WebSocketCheckSim._handleWebSocketSetup(navigation);
     getListDevices();
   }, []);
 
