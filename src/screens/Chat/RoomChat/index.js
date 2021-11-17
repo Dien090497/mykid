@@ -348,6 +348,14 @@ export default function RoomChat({navigation, route}) {
     return dataMock[6].icon;
   };
 
+  const gotoHomeScreen = () => {
+    if (DataLocal.haveSim === '0') {
+      DataLocal.saveHaveSim('1').then(r =>
+        navigation.navigate(Consts.ScreenIds.Tabs)
+      );
+    }
+  }
+
   return (
     <KeyboardAvoidingView style={styles.contain}
       behavior={Platform.OS === 'ios' ? 'padding' : ''}>
@@ -476,7 +484,7 @@ export default function RoomChat({navigation, route}) {
         </View>
       </View>}
       <LoadingIndicator ref={refLoading}/>
-      <NotificationModal ref={refNotification}/>
+      <NotificationModal ref={refNotification} goBack={gotoHomeScreen}/>
       <RecorderComponent ref={refRecorder} onStopRecord={onStopRecord} recordBackListener={recordBackListener}/>
       <AudioPlayerComponent ref={refAudioPlayer} onStopPlayer={onStopPlayer}/>
       <ActionSheet

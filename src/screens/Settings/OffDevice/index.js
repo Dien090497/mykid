@@ -10,8 +10,9 @@ import DataLocal from '../../../data/dataLocal';
 import ModalConfirm from '../../../components/ModalConfirm';
 import NotificationModal from '../../../components/NotificationModal';
 import { useTranslation } from 'react-i18next';
+import Consts from "../../../functions/Consts";
 
-export default function OffDevice() {
+export default function OffDevice({navigation}) {
   const refModel = useRef();
   const refLoading = useRef();
   const refNotification = useRef();
@@ -24,6 +25,14 @@ export default function OffDevice() {
       refLoading: refLoading,
       refNotification: refNotification
     });
+  }
+
+  const gotoHomeScreen = () => {
+    if (DataLocal.haveSim === '0') {
+      DataLocal.saveHaveSim('1').then(r =>
+        navigation.navigate(Consts.ScreenIds.Tabs)
+      );
+    }
   }
 
   return (
@@ -40,7 +49,7 @@ export default function OffDevice() {
          ref={refModel}
       />
       <LoadingIndicator  ref={refLoading} />
-      <NotificationModal ref={refNotification} />
+      <NotificationModal ref={refNotification} goBack={gotoHomeScreen}/>
     </View>
   );
 }

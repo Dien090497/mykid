@@ -19,6 +19,7 @@ import { Colors } from '../../assets/colors/Colors';
 import { useTranslation } from 'react-i18next';
 import NotificationModal from "../../components/NotificationModal";
 import { checkPhotoLibraryWritePermission } from "../../functions/permissions";
+import Consts from "../../functions/Consts";
 let page = 0;
 const sizePage = 30;
 
@@ -237,6 +238,14 @@ export default ({ navigation }) => {
     );
   }
 
+  const gotoHomeScreen = () => {
+    if (DataLocal.haveSim === '0') {
+      DataLocal.saveHaveSim('1').then(r =>
+        navigation.navigate(Consts.ScreenIds.Tabs)
+      );
+    }
+  }
+
   return (
     <View
       style={styles.container}>
@@ -278,7 +287,7 @@ export default ({ navigation }) => {
       <PreViewImage ref={refImage} />
       <ModalConfirm ref={refConfirm} />
       <LoadingIndicator ref={refLoading} />
-      <NotificationModal ref={refNotification} />
+      <NotificationModal ref={refNotification} goBack={gotoHomeScreen}/>
     </View>
   );
 };

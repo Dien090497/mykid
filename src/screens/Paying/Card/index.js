@@ -40,6 +40,14 @@ export default function Card({navigation,route}) {
     });
   }
 
+  const gotoHomeScreen = () => {
+    if (DataLocal.haveSim === '0') {
+      DataLocal.saveHaveSim('1').then(r =>
+        navigation.navigate(Consts.ScreenIds.Tabs)
+      );
+    }
+  }
+
    return (
     <View style={{flex: 1, backgroundColor: Colors.white}}>
       <Header title={t('common:card')}/>
@@ -73,7 +81,7 @@ export default function Card({navigation,route}) {
         <View style = {styles.viewContent}>
            <Text style={styles.txtContent}>{t('common:txtContent')}</Text>
         </View>
-        <NotificationModal ref = {refNotification}/>
+        <NotificationModal ref = {refNotification} goBack={gotoHomeScreen}/>
       </View>
     </View>
   );

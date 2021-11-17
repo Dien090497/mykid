@@ -160,6 +160,14 @@ export default function DeleteMessage({navigation, route}) {
     );
   };
 
+  const gotoHomeScreen = () => {
+    if (DataLocal.haveSim === '0') {
+      DataLocal.saveHaveSim('1').then(r =>
+        navigation.navigate(Consts.ScreenIds.Tabs)
+      );
+    }
+  }
+
   return (
     <View style={styles.containerView}>
       <Header title={`${t('common:familyGroupInformation')} (${roomInfo ? roomInfo.deviceName : ''})`}/>
@@ -228,7 +236,7 @@ export default function DeleteMessage({navigation, route}) {
         </View>
       </Modal>
       <LoadingIndicator ref={refLoading}/>
-      <NotificationModal ref={refNotification}/>
+      <NotificationModal ref={refNotification} goBack={gotoHomeScreen}/>
     </View>
   );
 }

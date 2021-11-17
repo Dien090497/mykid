@@ -20,6 +20,7 @@ import { useTranslation } from 'react-i18next';
 import ModalConfirmInput from '../../../components/ModalConfirmInput';
 import SimpleToast from 'react-native-simple-toast';
 import Moment from 'moment';
+import Consts from "../../../functions/Consts";
 
 export default function Health({ navigation }) {
   const refDate = useRef();
@@ -127,6 +128,15 @@ export default function Health({ navigation }) {
       refNotification,
     });
   };
+
+  const gotoHomeScreen = () => {
+    if (DataLocal.haveSim === '0') {
+      DataLocal.saveHaveSim('1').then(r =>
+        navigation.navigate(Consts.ScreenIds.Tabs)
+      );
+    }
+  }
+
   return (
     <View style={styles.body}>
       <Header title={t('common:header_health')} />
@@ -204,7 +214,7 @@ export default function Health({ navigation }) {
       </ScrollView>
       <DatePickerModal ref={refDate} />
       <LoadingIndicator ref={refLoading} />
-      <NotificationModal ref={refNotification} />
+      <NotificationModal ref={refNotification} goBack={gotoHomeScreen}/>
       <ModalConfirmInput
         ref={refInput}
         title={t('common:goals')}

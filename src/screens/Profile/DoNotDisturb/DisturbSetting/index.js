@@ -13,6 +13,8 @@ import { TimePicker } from 'react-native-wheel-picker-android';
 import { Colors } from '../../../../assets/colors/Colors';
 import { useTranslation } from 'react-i18next';
 import NotificationModal from '../../../../components/NotificationModal'
+import DataLocal from "../../../../data/dataLocal";
+import Consts from "../../../../functions/Consts";
 
 export default function DoNotDisturb({ navigation, route }) {
   const refLoading = useRef();
@@ -126,6 +128,14 @@ export default function DoNotDisturb({ navigation, route }) {
     navigation.goBack();
   };
 
+  const gotoHomeScreen = () => {
+    if (DataLocal.haveSim === '0') {
+      DataLocal.saveHaveSim('1').then(r =>
+        navigation.navigate(Consts.ScreenIds.Tabs)
+      );
+    }
+  }
+
   return (
     <View style={styles.contain}>
       <Header title={t('common:header_doNotDisturb')} />
@@ -175,7 +185,7 @@ export default function DoNotDisturb({ navigation, route }) {
         </View>
       </ScrollView>
       <NotificationModal ref={refNotification}/>
-      <LoadingIndicator ref={refLoading} />
+      <LoadingIndicator ref={refLoading} goBack={gotoHomeScreen}/>
     </View>
   );
 }
