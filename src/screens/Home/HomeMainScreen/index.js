@@ -46,6 +46,7 @@ export default function HomeMainScreen() {
   const getListDevices = () =>{
     getListDeviceApi(DataLocal.userInfo.id, Consts.pageDefault, 100, '', 'ACTIVE', {
       success: resData => {
+        DataLocal.saveHaveSim(resData.data[selectedIndex].validSim ? '1' : '0')
         setDevices(resData.data);
       },
       refLoading,
@@ -74,93 +75,93 @@ export default function HomeMainScreen() {
   }, [commonInfoReducer]);
 
   const pressMap = () => {
-    if (devices[selectedIndex].validSim === false) {
+    if (DataLocal.haveSim === '0') {
       return refNotification.current.open(t('errorMsg:kwa4067'));
     }
     navigation.navigate(Consts.ScreenIds.Maps);
   };
 
   const pressChat = () => {
-    if (devices[selectedIndex].validSim === false) {
+    if (DataLocal.haveSim === '0') {
       return refNotification.current.open(t('errorMsg:kwa4067'));
     }
     navigation.navigate(Consts.ScreenIds.Chat);
   };
 
   const pressVideoCall = () => {
-    if (devices[selectedIndex].validSim === false) {
+    if (DataLocal.haveSim === '0') {
       return refNotification.current.open(t('errorMsg:kwa4067'));
     }
     navigation.navigate(Consts.ScreenIds.ListDevice);
   };
 
   const pressJourney = () => {
-    if (devices[selectedIndex].validSim === false) {
+    if (DataLocal.haveSim === '0') {
       return refNotification.current.open(t('errorMsg:kwa4067'));
     }
     navigation.navigate(Consts.ScreenIds.JourneyHistory);
   };
 
   const pressSafeArea = () => {
-    if (devices[selectedIndex].validSim === false) {
+    if (DataLocal.haveSim === '0') {
       return refNotification.current.open(t('errorMsg:kwa4067'));
     }
     navigation.navigate(Consts.ScreenIds.ElectronicFence);
   };
 
   const pressSoundGuardian = () => {
-    if (devices[selectedIndex].validSim === false) {
+    if (DataLocal.haveSim === '0') {
       return refNotification.current.open(t('errorMsg:kwa4067'));
     }
     navigation.navigate(Consts.ScreenIds.EacesDroping);
   };
 
   const pressFindDevice = () => {
-    if (devices[selectedIndex].validSim === false) {
+    if (DataLocal.haveSim === '0') {
       return refNotification.current.open(t('errorMsg:kwa4067'));
     }
     navigation.navigate(Consts.ScreenIds.FindDevice);
   };
 
   const pressAlarmClock = () => {
-    if (devices[selectedIndex].validSim === false) {
+    if (DataLocal.haveSim === '0') {
       return refNotification.current.open(t('errorMsg:kwa4067'));
     }
     navigation.navigate(Consts.ScreenIds.AlarmClock);
   };
 
   const pressSettings = () => {
-    navigation.navigate(Consts.ScreenIds.Settings, {validSim: devices[selectedIndex].validSim});
+    navigation.navigate(Consts.ScreenIds.Settings);
   };
 
   const pressWarning = () => {
-    if (devices[selectedIndex].validSim === false) {
+    if (DataLocal.haveSim === '0') {
       return refNotification.current.open(t('errorMsg:kwa4067'));
     }
     navigation.navigate(Consts.ScreenIds.Warning);
   };
   const pressHealth = () => {
-    if (devices[selectedIndex].validSim === false) {
+    if (DataLocal.haveSim === '0') {
       return refNotification.current.open(t('errorMsg:kwa4067'));
     }
     navigation.navigate(Consts.ScreenIds.Health);
   };
   const pressPaying = () => {
-    if (devices[selectedIndex].validSim === false) {
+    if (DataLocal.haveSim === '0') {
       return refNotification.current.open(t('errorMsg:kwa4067'));
     }
     navigation.navigate(Consts.ScreenIds.Paying);
   };
 
   const pressSecretPhotoShoot = () => {
-    if (devices[selectedIndex].validSim === false) {
+    if (DataLocal.haveSim === '0') {
       return refNotification.current.open(t('errorMsg:kwa4067'));
     }
     navigation.navigate(Consts.ScreenIds.SecretPhotoShoot);
   };
 
   const RewardPoints = () => {
-    if (devices[selectedIndex].validSim === false) {
+    if (DataLocal.haveSim === '0') {
       return refNotification.current.open(t('errorMsg:kwa4067'));
     }
     navigation.navigate(Consts.ScreenIds.RewardPoints);

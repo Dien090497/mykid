@@ -10,9 +10,10 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Images from '../../assets/Images';
 import NotificationModal from '../../components/NotificationModal';
 import { useTranslation } from 'react-i18next';
+import DataLocal from "../../data/dataLocal";
 
 const {width} = Dimensions.get('window');
-export default ({navigation, route}) => {
+export default ({navigation}) => {
   const refLoading = useRef();
   const { t } = useTranslation();
   const refNotification = useRef();
@@ -41,7 +42,7 @@ export default ({navigation, route}) => {
       key: 'DoNotDisturb',
       title: t('common:header_doNotDisturb'),
       onPress: () => {
-        if (!route.params.validSim) {
+        if (DataLocal.haveSim === '0') {
           return refNotification.current.open(t('errorMsg:kwa4067'));
         }
         navigation.navigate(Consts.ScreenIds.DoNotDisturb);
@@ -54,7 +55,7 @@ export default ({navigation, route}) => {
       key: 'LanguageTimeZone',
       title: t('common:header_language_timezone'),
       onPress: () => {
-        if (!route.params.validSim) {
+        if (DataLocal.haveSim === '0') {
           return refNotification.current.open(t('errorMsg:kwa4067'));
         }
         navigation.navigate(Consts.ScreenIds.LanguageTimeZone);
@@ -67,7 +68,7 @@ export default ({navigation, route}) => {
       key: 'SoundSettings',
       title: t('common:header_soundSettings'),
       onPress: () => {
-        if (!route.params.validSim) {
+        if (DataLocal.haveSim === '0') {
           return refNotification.current.open(t('errorMsg:kwa4067'));
         }
         navigation.navigate(Consts.ScreenIds.SoundSettings);
@@ -80,7 +81,7 @@ export default ({navigation, route}) => {
       key: 'RemoteDevices',
       title: t('common:header_remoteDevices'),
       onPress: () => {
-        if (!route.params.validSim) {
+        if (DataLocal.haveSim === '0') {
           return refNotification.current.open(t('errorMsg:kwa4067'));
         }
         navigation.navigate(Consts.ScreenIds.OffDevice);
@@ -93,7 +94,7 @@ export default ({navigation, route}) => {
       key: 'RemoteStart',
       title: t('common:header_remoteStart'),
       onPress: () => {
-        if (!route.params.validSim) {
+        if (DataLocal.haveSim === '0') {
           return refNotification.current.open(t('errorMsg:kwa4067'));
         }
         navigation.navigate(Consts.ScreenIds.RestartDevice);

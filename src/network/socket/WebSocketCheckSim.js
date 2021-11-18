@@ -4,7 +4,7 @@ import { wsCheckSim } from "../http/ApiUrl";
 import * as encoding from 'text-encoding';
 var encoder = new encoding.TextEncoder();
 
-export default class WebSocketSafeZone {
+export default class WebSocketCheckSim {
   static ws = null;
   static reconnect = false;
   static navigationRef = null;
@@ -37,7 +37,6 @@ export default class WebSocketSafeZone {
   };
 
   static ping = async () => {
-    // console.log('WebSocketSafeZone Ping');
     await this.ws.send(encoder.encode('').buffer, true);
     setTimeout(() => {
       if (this.reconnect) {
@@ -61,7 +60,7 @@ export default class WebSocketSafeZone {
     command =
       'SUBSCRIBE\n' +
       'id:' + generateRandomId(10) + '\n' +
-      'destination:/' + DataLocal.deviceId + '/sim-controller/upsertUsingPOST_3\n' +
+      'destination:/user/queue/sims\n' +
       'content-length:0\n' +
       '\n\0';
     await this.ws.send(encoder.encode(command).buffer, true);
@@ -79,49 +78,21 @@ export default class WebSocketSafeZone {
   };
 
   static onMessage = message => {
-    console.log('==============>>>>>>',message)
-    // if (DataLocal.accessToken !== null && message.data) {
-    //   const split = message.data.split('\n');
-    //   if (
-    //     split[0] === 'MESSAGE' &&
-    //     split.length > 4 &&
-    //     split[2] === 'destination:/user/queue/unsafe-locations'
-    //   ) {
-    //     const data = split.filter(val => val.includes('{'));
-    //     if (data.length > 0) {
-    //       if (split[1] === 'event:UNSAFE_LOCATION') {
-    //         const infoDevice = JSON.parse(
-    //           split[split.length - 1]
-    //             .replace('\u0000', '')
-    //             .replace('\\u0000', ''),
-    //         );
-    //         Vibration.vibrate(this.PATTERN, true);
-    //         AlertDropHelper.show(
-    //           Consts.dropdownAlertType.ERROR,
-    //           'MyKid',
-    //           `Thiết bị ${infoDevice.deviceCode} ra khỏi vùng an toàn `,
-    //         );
-    //         Sound.setCategory('Playback');
-    //         this.ringtone = new Sound(
-    //           'nof_default.mp3',
-    //           Sound.MAIN_BUNDLE,
-    //           error => {
-    //             console.log('error', error);
-    //             this.ringtone.play(() => {});
-    //             this.ringtone.setNumberOfLoops(5);
-    //           },
-    //         );
-    //         this.navigationRef.navigate(Consts.ScreenIds.ElectronicFence, {
-    //           data: infoDevice,
-    //         });
-    //         setTimeout(() => {
-    //           Vibration.cancel();
-    //           if (this.ringtone) this.ringtone.stop();
-    //         }, 1000 * 15);
-    //       }
-    //     }
-    //   }
-    //   console.log(message, 'WebSocketSafeZone Message');
-    // }
+    if (DataLocal.accessToken !== null && message.data) {
+      const split = message.data.split('\n');
+      if (
+        split[0] === 'MESSAGE' &&
+        split.length > 4 &&
+        split[2] === 'destination:/user/queue/sims'
+      ) {
+        const data = JSON.parse(
+          split[split.length - 1].replace('\u0000', '').replace('\\u0000', ''),
+        );
+        if (data && data.deviceId === DataLocal.deviceId){
+          DataLocal.saveHaveSim(data.isValid ? '1' : '0').then(r => console.log('SIM',DataLocal.haveSim))
+        }
+      }
+      console.log(message, 'WebSocketSafeZone Message');
+    }
   };
 }
