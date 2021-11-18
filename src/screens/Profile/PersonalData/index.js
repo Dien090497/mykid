@@ -10,7 +10,7 @@ import Images from '../../../assets/Images';
 import {Colors} from '../../../assets/colors/Colors';
 import {styles} from './styles';
 import ModalConfirmInput from '../../../components/ModalConfirmInput';
-import ActionSheet from '@alessiocancian/react-native-actionsheet';
+import ActionSheetCustom from '@alessiocancian/react-native-actionsheet';
 import {
   checkCameraPermission,
   checkPhotoLibraryReadPermission,
@@ -341,7 +341,7 @@ console.log(phone,contact,email)
         title={title}
         inputText={inputText}
       />
-      <ActionSheet
+      <ActionSheetCustom
         ref={o => sheet1 = o}
         styles={{
           buttonBox: {width: '100%', height: ScaleHeight.big},
@@ -351,7 +351,7 @@ console.log(phone,contact,email)
         cancelButtonIndex={2}
         onPress={handleGenderAction}
       />
-      <ActionSheet
+      <ActionSheetCustom
         ref={o => sheet = o}
         styles={{
           buttonBox: {width: '100%', height: ScaleHeight.big},

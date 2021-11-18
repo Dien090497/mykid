@@ -10,7 +10,7 @@ import {
   View,
 } from 'react-native';
 import {styles} from './styles';
-import ActionSheet from '@alessiocancian/react-native-actionsheet';
+import ActionSheetCustom from '@alessiocancian/react-native-actionsheet';
 import FastImage from 'react-native-fast-image';
 import Header from '../../../components/Header';
 import LoadingIndicator from '../../../components/LoadingIndicator';
@@ -348,6 +348,14 @@ export default function RoomChat({navigation, route}) {
     return dataMock[6].icon;
   };
 
+  const gotoHomeScreen = () => {
+    if (DataLocal.haveSim === '0') {
+      DataLocal.saveHaveSim('1').then(r =>
+        navigation.navigate(Consts.ScreenIds.Tabs)
+      );
+    }
+  }
+
   return (
     <KeyboardAvoidingView style={styles.contain}
       behavior={Platform.OS === 'ios' ? 'padding' : ''}>
@@ -476,10 +484,10 @@ export default function RoomChat({navigation, route}) {
         </View>
       </View>}
       <LoadingIndicator ref={refLoading}/>
-      <NotificationModal ref={refNotification}/>
+      <NotificationModal ref={refNotification} goBack={gotoHomeScreen}/>
       <RecorderComponent ref={refRecorder} onStopRecord={onStopRecord} recordBackListener={recordBackListener}/>
       <AudioPlayerComponent ref={refAudioPlayer} onStopPlayer={onStopPlayer}/>
-      <ActionSheet
+      <ActionSheetCustom
         ref={o => sheet = o}
         title={t('common:selectPhoto')}
         options={[

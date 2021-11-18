@@ -21,6 +21,7 @@ import RadioGroup from '../../../components/RadioGroup';
 import {WheelPicker} from 'react-native-wheel-picker-android';
 import { useTranslation } from 'react-i18next';
 import NotificationModal from '../../../components/NotificationModal';
+import Consts from "../../../functions/Consts";
 
 export default function LanguageTimeZone({navigation, route}) {
   const refLoading = useRef();
@@ -102,6 +103,14 @@ export default function LanguageTimeZone({navigation, route}) {
     setCheck(false);
   }
 
+  const gotoHomeScreen = () => {
+    if (DataLocal.haveSim === '0') {
+      DataLocal.saveHaveSim('1').then(r =>
+        navigation.navigate(Consts.ScreenIds.Tabs)
+      );
+    }
+  }
+
   return (
     <View style={[styles.container, {paddingBottom: useSafeAreaInsets().bottom}]}>
       <Header title={t('common:header_language_timezone')} />
@@ -162,7 +171,7 @@ export default function LanguageTimeZone({navigation, route}) {
         </View>
       </Modal>
       <LoadingIndicator ref={refLoading} />
-      <NotificationModal ref={refNotification} />
+      <NotificationModal ref={refNotification} goBack={gotoHomeScreen}/>
     </View>
   );
 }

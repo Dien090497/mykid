@@ -9,7 +9,7 @@ import FastImage from 'react-native-fast-image';
 import PreViewImage from './PreviewImage';
 import { DeleteImages, DoSecretShoot, GetListImage } from '../../network/SecretPhotoShootService';
 import DataLocal from '../../data/dataLocal';
-import ActionSheet from '@alessiocancian/react-native-actionsheet';
+import ActionSheetCustom from '@alessiocancian/react-native-actionsheet';
 import ModalConfirm from '../../components/ModalConfirm';
 import CameraRoll from '@react-native-community/cameraroll';
 import RNFetchBlob from 'react-native-fetch-blob';
@@ -19,6 +19,7 @@ import { Colors } from '../../assets/colors/Colors';
 import { useTranslation } from 'react-i18next';
 import NotificationModal from "../../components/NotificationModal";
 import { checkPhotoLibraryWritePermission } from "../../functions/permissions";
+import Consts from "../../functions/Consts";
 let page = 0;
 const sizePage = 30;
 
@@ -113,7 +114,7 @@ export default ({ navigation }) => {
 
   const action = () => {
     return (
-      <ActionSheet options={[
+      <ActionSheetCustom options={[
         <Text style={{fontSize: 18, fontFamily: 'Roboto', color: Colors.grayTextColor}}>{t('common:delete')}</Text>,
         <Text style={{fontSize: 18, fontFamily: 'Roboto', color: Colors.grayTextColor}}>{t('common:savePicture')}</Text>,
         <Text style={{fontSize: 18, fontFamily: 'Roboto', color: Colors.colorMain}}>{t('common:cancel')}</Text>,
@@ -237,6 +238,14 @@ export default ({ navigation }) => {
     );
   }
 
+  const gotoHomeScreen = () => {
+    if (DataLocal.haveSim === '0') {
+      DataLocal.saveHaveSim('1').then(r =>
+        navigation.navigate(Consts.ScreenIds.Tabs)
+      );
+    }
+  }
+
   return (
     <View
       style={styles.container}>
@@ -278,7 +287,7 @@ export default ({ navigation }) => {
       <PreViewImage ref={refImage} />
       <ModalConfirm ref={refConfirm} />
       <LoadingIndicator ref={refLoading} />
-      <NotificationModal ref={refNotification} />
+      <NotificationModal ref={refNotification} goBack={gotoHomeScreen}/>
     </View>
   );
 };

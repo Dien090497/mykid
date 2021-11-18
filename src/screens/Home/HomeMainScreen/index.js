@@ -16,6 +16,7 @@ import { useIsFocused, useNavigation } from '@react-navigation/native';
 import XmppClient from '../../../network/xmpp/XmppClient';
 import WebSocketSafeZone from '../../../network/socket/WebSocketSafeZone';
 import WebSocketVideoCall from '../../../network/socket/WebSocketVideoCall';
+import WebSocketCheckSim from '../../../network/socket/WebSocketCheckSim';
 import { useTranslation } from 'react-i18next';
 import NotificationModal from '../../../components/NotificationModal';
 
@@ -37,12 +38,15 @@ export default function HomeMainScreen() {
     WebSocketSafeZone._handleWebSocketSetup(navigation);
     WebSocketVideoCall.setReconnect(true);
     WebSocketVideoCall._handleWebSocketSetup(navigation);
+    WebSocketCheckSim.setReconnect(true);
+    WebSocketCheckSim._handleWebSocketSetup(navigation);
     getListDevices();
   }, []);
 
   const getListDevices = () =>{
     getListDeviceApi(DataLocal.userInfo.id, Consts.pageDefault, 100, '', 'ACTIVE', {
       success: resData => {
+        DataLocal.saveHaveSim(resData.data[selectedIndex].validSim ? '1' : '0')
         setDevices(resData.data);
       },
       refLoading,
@@ -71,34 +75,58 @@ export default function HomeMainScreen() {
   }, [commonInfoReducer]);
 
   const pressMap = () => {
+    if (DataLocal.haveSim === '0') {
+      return refNotification.current.open(t('errorMsg:kwa4067'));
+    }
     navigation.navigate(Consts.ScreenIds.Maps);
   };
 
   const pressChat = () => {
+    if (DataLocal.haveSim === '0') {
+      return refNotification.current.open(t('errorMsg:kwa4067'));
+    }
     navigation.navigate(Consts.ScreenIds.Chat);
   };
 
   const pressVideoCall = () => {
+    if (DataLocal.haveSim === '0') {
+      return refNotification.current.open(t('errorMsg:kwa4067'));
+    }
     navigation.navigate(Consts.ScreenIds.ListDevice);
   };
 
   const pressJourney = () => {
+    if (DataLocal.haveSim === '0') {
+      return refNotification.current.open(t('errorMsg:kwa4067'));
+    }
     navigation.navigate(Consts.ScreenIds.JourneyHistory);
   };
 
   const pressSafeArea = () => {
+    if (DataLocal.haveSim === '0') {
+      return refNotification.current.open(t('errorMsg:kwa4067'));
+    }
     navigation.navigate(Consts.ScreenIds.ElectronicFence);
   };
 
   const pressSoundGuardian = () => {
+    if (DataLocal.haveSim === '0') {
+      return refNotification.current.open(t('errorMsg:kwa4067'));
+    }
     navigation.navigate(Consts.ScreenIds.EacesDroping);
   };
 
   const pressFindDevice = () => {
+    if (DataLocal.haveSim === '0') {
+      return refNotification.current.open(t('errorMsg:kwa4067'));
+    }
     navigation.navigate(Consts.ScreenIds.FindDevice);
   };
 
   const pressAlarmClock = () => {
+    if (DataLocal.haveSim === '0') {
+      return refNotification.current.open(t('errorMsg:kwa4067'));
+    }
     navigation.navigate(Consts.ScreenIds.AlarmClock);
   };
 
@@ -107,20 +135,35 @@ export default function HomeMainScreen() {
   };
 
   const pressWarning = () => {
+    if (DataLocal.haveSim === '0') {
+      return refNotification.current.open(t('errorMsg:kwa4067'));
+    }
     navigation.navigate(Consts.ScreenIds.Warning);
   };
   const pressHealth = () => {
+    if (DataLocal.haveSim === '0') {
+      return refNotification.current.open(t('errorMsg:kwa4067'));
+    }
     navigation.navigate(Consts.ScreenIds.Health);
   };
   const pressPaying = () => {
+    if (DataLocal.haveSim === '0') {
+      return refNotification.current.open(t('errorMsg:kwa4067'));
+    }
     navigation.navigate(Consts.ScreenIds.Paying);
   };
 
   const pressSecretPhotoShoot = () => {
+    if (DataLocal.haveSim === '0') {
+      return refNotification.current.open(t('errorMsg:kwa4067'));
+    }
     navigation.navigate(Consts.ScreenIds.SecretPhotoShoot);
   };
 
   const RewardPoints = () => {
+    if (DataLocal.haveSim === '0') {
+      return refNotification.current.open(t('errorMsg:kwa4067'));
+    }
     navigation.navigate(Consts.ScreenIds.RewardPoints);
   };
 

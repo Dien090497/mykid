@@ -11,7 +11,7 @@ import Consts from '../../../../functions/Consts';
 import { Colors } from '../../../../assets/colors/Colors';
 import LoadingIndicator from '../../../../components/LoadingIndicator';
 import React, { useLayoutEffect, useRef, useState } from 'react';
-import ActionSheet from '@alessiocancian/react-native-actionsheet';
+import ActionSheetCustom from '@alessiocancian/react-native-actionsheet';
 import ModalConfirm from '../../../../components/ModalConfirm';
 import {
   checkCameraPermission,
@@ -162,7 +162,7 @@ export default function EditDevice({ navigation, route }) {
       <LoadingIndicator ref={refLoading} />
       <ModalConfirm ref={refConfirm} />
       <NotificationModal ref={refNotification} />
-      <ActionSheet
+      <ActionSheetCustom
         ref={o => sheet = o}
         title={t('common:selectPhoto')}
         options={[

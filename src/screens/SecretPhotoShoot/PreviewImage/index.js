@@ -4,6 +4,8 @@ import { styles } from './styles';
 import { Colors } from '../../../assets/colors/Colors';
 import Images from '../../../assets/Images';
 import FastImage from 'react-native-fast-image';
+import DataLocal from "../../../data/dataLocal";
+import Consts from "../../../functions/Consts";
 
 export default class PreviewImage extends Component {
   constructor(props) {

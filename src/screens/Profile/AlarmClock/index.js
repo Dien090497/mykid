@@ -88,6 +88,14 @@ export default function AlarmClock({navigation}) {
     }
   }
 
+  const gotoHomeScreen = () => {
+    if (DataLocal.haveSim === '0') {
+      DataLocal.saveHaveSim('1').then(r =>
+        navigation.navigate(Consts.ScreenIds.Tabs)
+      );
+    }
+  }
+
   return (
     <View style={styles.contain}>
       <Header title={t('common:header_alarmClock')} />
@@ -120,7 +128,7 @@ export default function AlarmClock({navigation}) {
         </ScrollView>
       </View>
       <LoadingIndicator ref={refLoading} />
-      <NotificationModal ref={refNotification} />
+      <NotificationModal ref={refNotification} goBack={gotoHomeScreen}/>
     </View>
   );
 }

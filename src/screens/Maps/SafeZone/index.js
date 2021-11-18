@@ -18,7 +18,7 @@ import {
 } from '../../../network/SafeZoneService';
 import {Colors} from '../../../assets/colors/Colors';
 import DataLocal from '../../../data/dataLocal';
-import {FontSize} from '../../../functions/Consts';
+import Consts, {FontSize} from '../../../functions/Consts';
 import Geolocation from 'react-native-geolocation-service';
 import Header from '../../../components/Header';
 import Images from '../../../assets/Images';
@@ -27,6 +27,7 @@ import styles from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import NotificationModal from '../../../components/NotificationModal';
+import {useNavigation} from '@react-navigation/native';
 
 const initialRegion = {
   latitude: 21.030653,
@@ -319,6 +320,14 @@ export default ({navigation, route}) => {
     );
   };
 
+  const gotoHomeScreen = () => {
+    if (DataLocal.haveSim === '0') {
+      DataLocal.saveHaveSim('1').then(r =>
+        navigation.navigate(Consts.ScreenIds.Tabs)
+      );
+    }
+  }
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -415,7 +424,7 @@ export default ({navigation, route}) => {
       </View>
       {removeModal()}
       <LoadingIndicator ref={refLoading} />
-      <NotificationModal ref={refNotification} />
+      <NotificationModal ref={refNotification} goBack={gotoHomeScreen}/>
     </KeyboardAvoidingView>
   );
 };
@@ -432,6 +441,7 @@ const ViewAddOrEditArea = ({
   const [range, setRange] = useState(area?.radius || 200);
   const { t } = useTranslation();
   const refNotification = useRef();
+  const {navigation} = useNavigation();
   const renderIncrementOrDecrement = (type = 'increment', onPress) => {
     return (
       <TouchableOpacity
@@ -473,6 +483,14 @@ const ViewAddOrEditArea = ({
       });
     }
   };
+
+  const gotoHomeScreen = () => {
+    if (DataLocal.haveSim === '0') {
+      DataLocal.saveHaveSim('1').then(r =>
+        navigation.navigate(Consts.ScreenIds.Tabs)
+      );
+    }
+  }
 
   return (
     <View>
@@ -531,7 +549,7 @@ const ViewAddOrEditArea = ({
           <Text children={t('common:back')} style={[styles.txtBack,{color:Colors.black}]} />
         </TouchableOpacity>
       </View>
-      <NotificationModal ref={refNotification} />
+      <NotificationModal ref={refNotification} goBack={gotoHomeScreen}/>
     </View>
   );
 };
