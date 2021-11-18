@@ -26,7 +26,9 @@ export default function EacesDroping({navigation}) {
   useEffect(() => {
     getPhoneApi(DataLocal.deviceId, {
       success: res => {
-        setNumber(res.data.phoneNumber)
+        if (res.data.phoneNumber && res.data.phoneNumber.startsWith('+84')) {
+          setNumber('0' + res.data.contact.substring(3));
+        }
       },
       refLoading: refLoading,
       refNotification: refNotification,
