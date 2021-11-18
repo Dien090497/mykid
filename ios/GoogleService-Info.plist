@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1011408496446-epitfdkamgmm0thsbc4vesuqd9q0le85.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1011408496446-epitfdkamgmm0thsbc4vesuqd9q0le85</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>1011408496446-0udt1icjteb9itb4vnrqskp67882gjuv.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBfXz8gv5WadGgdfXOA2xCi4UPO7DxkQKY</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1011408496446</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.ttc.mykid</string>
+	<key>PROJECT_ID</key>
+	<string>smartwatch-55f74</string>
+	<key>STORAGE_BUCKET</key>
+	<string>smartwatch-55f74.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1011408496446:ios:83fa4370711c4f33a92e6f</string>
+</dict>
+</plist>

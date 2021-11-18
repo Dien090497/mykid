@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "1011408496446",
+    "project_id": "smartwatch-55f74",
+    "storage_bucket": "smartwatch-55f74.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1011408496446:android:a7bbee29e9db1214a92e6f",
+        "android_client_info": {
+          "package_name": "com.mykid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1011408496446-0udt1icjteb9itb4vnrqskp67882gjuv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mykid",
+            "certificate_hash": "94744bc230f30438919cbc081d563c9b05669b7e"
+          }
+        },
+        {
+          "client_id": "1011408496446-ppeccnv337f0m3268qq3i9cfooi0d9sj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjjxHY8K7FkCjxE6vkUioUdbQD42ksTyQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1011408496446-ppeccnv337f0m3268qq3i9cfooi0d9sj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1011408496446-epitfdkamgmm0thsbc4vesuqd9q0le85.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ttc.mykid"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1011408496446:android:6d7ac4d72bef2a34a92e6f",
+        "android_client_info": {
+          "package_name": "com.ttc.watch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1011408496446-ppeccnv337f0m3268qq3i9cfooi0d9sj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjjxHY8K7FkCjxE6vkUioUdbQD42ksTyQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1011408496446-ppeccnv337f0m3268qq3i9cfooi0d9sj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1011408496446-epitfdkamgmm0thsbc4vesuqd9q0le85.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ttc.mykid"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
