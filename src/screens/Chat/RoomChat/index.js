@@ -10,7 +10,7 @@ import {
   View,
 } from 'react-native';
 import {styles} from './styles';
-import ActionSheetCustom from '@alessiocancian/react-native-actionsheet';
+import ActionSheet, { ActionSheetCustom } from '@alessiocancian/react-native-actionsheet';
 import FastImage from 'react-native-fast-image';
 import Header from '../../../components/Header';
 import LoadingIndicator from '../../../components/LoadingIndicator';

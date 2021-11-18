@@ -11,7 +11,7 @@ import Consts from '../../../../functions/Consts';
 import { Colors } from '../../../../assets/colors/Colors';
 import LoadingIndicator from '../../../../components/LoadingIndicator';
 import React, { useLayoutEffect, useRef, useState } from 'react';
-import ActionSheetCustom from '@alessiocancian/react-native-actionsheet';
+import { ActionSheetCustom } from '@alessiocancian/react-native-actionsheet';
 import ModalConfirm from '../../../../components/ModalConfirm';
 import {
   checkCameraPermission,

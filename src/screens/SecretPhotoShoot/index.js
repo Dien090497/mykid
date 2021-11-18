@@ -9,7 +9,7 @@ import FastImage from 'react-native-fast-image';
 import PreViewImage from './PreviewImage';
 import { DeleteImages, DoSecretShoot, GetListImage } from '../../network/SecretPhotoShootService';
 import DataLocal from '../../data/dataLocal';
-import ActionSheetCustom from '@alessiocancian/react-native-actionsheet';
+import { ActionSheetCustom } from '@alessiocancian/react-native-actionsheet';
 import ModalConfirm from '../../components/ModalConfirm';
 import CameraRoll from '@react-native-community/cameraroll';
 import RNFetchBlob from 'react-native-fetch-blob';

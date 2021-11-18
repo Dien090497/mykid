@@ -10,7 +10,7 @@ import Images from '../../../assets/Images';
 import {Colors} from '../../../assets/colors/Colors';
 import {styles} from './styles';
 import ModalConfirmInput from '../../../components/ModalConfirmInput';
-import ActionSheetCustom from '@alessiocancian/react-native-actionsheet';
+import { ActionSheetCustom } from '@alessiocancian/react-native-actionsheet';
 import {
   checkCameraPermission,
   checkPhotoLibraryReadPermission,

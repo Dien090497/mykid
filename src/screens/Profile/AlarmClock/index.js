@@ -24,13 +24,13 @@ export default function AlarmClock({navigation}) {
   const [alarmConfig, setAlarmConfig] = useState();
   const { t } = useTranslation();
   const dayOfWeeks = [
+    t('common:sun'),
     t('common:monDay'),
     t('common:tueDay'),
     t('common:wed'),
     t('common:thu'),
     t('common:fri'),
-    t('common:sat'),
-    t('common:sun')
+    t('common:sat')
   ];
 
   useLayoutEffect(() => {

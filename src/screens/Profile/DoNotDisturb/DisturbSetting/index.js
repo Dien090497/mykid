@@ -29,13 +29,13 @@ export default function DoNotDisturb({ navigation, route }) {
     to: null,
   });
   const [dayOfWeeks, setDayOfWeeks] = useState([
-    { day: t('common:monDay'), value: 1, isOn: route.params.config.period[0] ==='1' ? true : false },
-    { day: t('common:tueDay'), value: 2, isOn: route.params.config.period[1] ==='1' ? true : false },
-    { day: t('common:wed'), value: 3, isOn: route.params.config.period[2] ==='1' ? true : false },
-    { day: t('common:thu'), value: 4, isOn: route.params.config.period[3] ==='1' ? true : false },
-    { day: t('common:fri'), value: 5, isOn: route.params.config.period[4] ==='1' ? true : false },
-    { day: t('common:sat'), value: 6, isOn: route.params.config.period[5] ==='1' ? true : false },
-    { day: t('common:sun'), value: 7, isOn: route.params.config.period[6] ==='1' ? true : false },
+    { day: t('common:sun'), value: 7, isOn: route.params.config.period[0] ==='1' ? true : false },
+    { day: t('common:monDay'), value: 1, isOn: route.params.config.period[1] ==='1' ? true : false },
+    { day: t('common:tueDay'), value: 2, isOn: route.params.config.period[2] ==='1' ? true : false },
+    { day: t('common:wed'), value: 3, isOn: route.params.config.period[3] ==='1' ? true : false },
+    { day: t('common:thu'), value: 4, isOn: route.params.config.period[4] ==='1' ? true : false },
+    { day: t('common:fri'), value: 5, isOn: route.params.config.period[5] ==='1' ? true : false },
+    { day: t('common:sat'), value: 6, isOn: route.params.config.period[6] ==='1' ? true : false },
   ]);
 
   useEffect(() => {
