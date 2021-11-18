@@ -9,7 +9,7 @@ import FastImage from 'react-native-fast-image';
 import PreViewImage from './PreviewImage';
 import { DeleteImages, DoSecretShoot, GetListImage } from '../../network/SecretPhotoShootService';
 import DataLocal from '../../data/dataLocal';
-import ActionSheet from '@alessiocancian/react-native-actionsheet';
+import ActionSheetCustom from '@alessiocancian/react-native-actionsheet';
 import ModalConfirm from '../../components/ModalConfirm';
 import CameraRoll from '@react-native-community/cameraroll';
 import RNFetchBlob from 'react-native-fetch-blob';
@@ -114,7 +114,7 @@ export default ({ navigation }) => {
 
   const action = () => {
     return (
-      <ActionSheet options={[
+      <ActionSheetCustom options={[
         <Text style={{fontSize: 18, fontFamily: 'Roboto', color: Colors.grayTextColor}}>{t('common:delete')}</Text>,
         <Text style={{fontSize: 18, fontFamily: 'Roboto', color: Colors.grayTextColor}}>{t('common:savePicture')}</Text>,
         <Text style={{fontSize: 18, fontFamily: 'Roboto', color: Colors.colorMain}}>{t('common:cancel')}</Text>,
