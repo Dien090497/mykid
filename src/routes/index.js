@@ -73,10 +73,10 @@ const styles = StyleSheet.create({
   },
   tabLabel: {
     fontSize: FontSize.small,
-    marginBottom: 50 - ((ScaleHeight.small - 15) * 3)
+    marginBottom: ScaleHeight.medium * 1.3 - ((ScaleHeight.small - 15) * 3)
   },
   bottomHeightAndroid: {
-    height: ScaleHeight.xxtraBig - 10,
+    height: ScaleHeight.xxtraBig * 0.8,
   },
 });
 

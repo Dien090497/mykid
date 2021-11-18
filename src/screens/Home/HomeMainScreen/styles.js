@@ -92,6 +92,20 @@ export const styles = StyleSheet.create({
     padding: '1%',
     paddingRight: '2%'
   },
+  buttonContainerL1: {
+    width: Const.screenWidth/3,
+    padding: '1%',
+    paddingLeft: '2%'
+  },
+  buttonContainer: {
+    width: Const.screenWidth/3,
+    padding: '1%',
+  },
+  buttonContainerR1: {
+    width: Const.screenWidth/3,
+    padding: '1%',
+    paddingRight: '2%'
+  },
   button: {
     flex: 1,
     borderRadius: 8,
@@ -100,25 +114,25 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.grayBgBtnHome
   },
   buttonText: {
-    fontSize: FontSize.medium * 0.9,
+    fontSize: FontSize.small * 0.7,
     color: Colors.black,
     fontFamily: 'Roboto-Regular',
     textAlign: 'center',
     padding: '1%',
   },
   icon: {
-    height: height * 0.06,
+    height: height * 0.05,
     aspectRatio: 1,
     resizeMode: 'stretch',
   },
   icon1: {
-    height: height * 0.04,
+    height: height * 0.035,
     aspectRatio: 1,
     resizeMode: 'stretch',
   },
   bgIcon: {
-    width: height * 0.06,
-    height: height * 0.06,
+    width: height * 0.05,
+    height: height * 0.05,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: height * 0.01
@@ -154,6 +168,7 @@ export const styles = StyleSheet.create({
   },
   width50:{
     width: Const.screenWidth/2,
-    padding: '1%'
+    padding: '1%',
+    flexDirection: 'row'
   }
 });
