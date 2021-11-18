@@ -252,11 +252,11 @@ export default function HomeMainScreen() {
               <TouchableOpacity
                 {...buttonProps}
                 style={[styles.button, {marginTop: '6%'}]}
-                onPress={pressAlarmClock}>
+                onPress={pressSafeArea}>
                 <View style={styles.bgIcon}>
-                  <Image source={Images.icAlarm} style={styles.icon}/>
+                  <Image source={Images.icSafeZone} style={styles.icon}/>
                 </View>
-                <Text style={styles.buttonText}>{t('common:home_alarmClock')}</Text>
+                <Text style={styles.buttonText}>{t('common:home_safeArea')}</Text>
               </TouchableOpacity>
             </View>
             <View style={[styles.buttonContainerR, {height: '100%', width: '49%'}]}>
@@ -280,7 +280,16 @@ export default function HomeMainScreen() {
               </TouchableOpacity>
             </View>
           </View>
-          <View style={[styles.buttonContainerR, {minHeight: '38%', marginTop: '0.5%'}]}>
+          <View style={[styles.buttonContainerR, {height: '98%', marginTop: '0.5%'}]}>
+            <TouchableOpacity
+              {...buttonProps}
+              style={[styles.button, {marginBottom: '6%'}]}
+              onPress={pressVideoCall}>
+              <View style={styles.bgIcon}>
+                <Image source={Images.icVideoCall} style={styles.icon}/>
+              </View>
+              <Text style={styles.buttonText}>{t('common:home_videoCall')}</Text>
+            </TouchableOpacity>
             <TouchableOpacity
               {...buttonProps}
               style={styles.button}
@@ -297,11 +306,11 @@ export default function HomeMainScreen() {
             <TouchableOpacity
               {...buttonProps}
               style={styles.button}
-              onPress={pressSafeArea}>
+              onPress={pressAlarmClock}>
               <View style={styles.bgIcon}>
-                <Image source={Images.icSafeZone} style={styles.icon}/>
+                <Image source={Images.icAlarm} style={styles.icon}/>
               </View>
-              <Text style={styles.buttonText}>{t('common:home_safeArea')}</Text>
+              <Text style={styles.buttonText}>{t('common:home_alarmClock')}</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.buttonContainer}>

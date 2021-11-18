@@ -55,7 +55,7 @@ export default {
   'header_contacts': 'Contacts',
   'header_addContact': 'Add contact',
   'header_members': 'Member Management',
-  'header_maps': 'Map',
+  'header_maps': 'Location',
   'header_addDevice': 'Add device',
   'header_editDevice': 'Edit device information',
   'header_QRCode': 'Scan',
@@ -70,7 +70,7 @@ export default {
   'header_soundSettings': 'Ringtone setting',
   'header_alarmClock': 'Alarm',
   'header_alarmSetting': 'Alarm setting',
-  'header_soundGuardian': 'Sound Guardian',
+  'header_soundGuardian': 'Remote call',
   'header_reward_points': 'Rewards',
   'header_doNotDisturb': 'Do Not Disturb',
   'header_language_timezone': 'Language and Time Zone',
@@ -213,7 +213,7 @@ export default {
   'enter_phone_number': 'Please enter phone number',
 
   //home
-  'home_gps': 'MAP',
+  'home_gps': 'LOCATION',
   'home_videoCall': 'VIDEO CALL',
   'home_journey': 'HISTORY RECORD',
   'home_chat': 'CHAT',
@@ -227,7 +227,7 @@ export default {
   'home_warning': 'ALERT CENTER',
   'home_transport': 'HEALTH',
   'home_infoKits': 'Baby\'s information',
-  'home_soundGuardian': 'SOUND GUARDIAN',
+  'home_soundGuardian': 'REMOTE CALL',
   'home_reward': 'REWARDS',
   'home_secretPhotoShoot': 'REMOTE PHOTO',
 
