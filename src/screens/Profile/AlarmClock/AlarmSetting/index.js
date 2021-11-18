@@ -25,13 +25,13 @@ export default function AlarmSetting({navigation, route}) {
   const [time, setTime] = useState();
   const { t } = useTranslation();
   const [dayOfWeeks, setdayOfWeeks] = useState([
+    {day: t('common:sun'), value: 7, isOn: false},
     {day: t('common:monDay'), value: 1, isOn: false},
     {day: t('common:tueDay'), value: 2, isOn: false},
     {day: t('common:wed'), value: 3, isOn: false},
     {day: t('common:thu'), value: 4, isOn: false},
     {day: t('common:fri'), value: 5, isOn: false},
     {day: t('common:sat'), value: 6, isOn: false},
-    {day: t('common:sun'), value: 7, isOn: false},
   ]);
 
   useLayoutEffect(() => {
