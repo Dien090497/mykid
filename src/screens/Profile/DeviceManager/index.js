@@ -12,7 +12,7 @@ import DataLocal from '../../../data/dataLocal';
 import Header from '../../../components/Header';
 import Images from '../../../assets/Images';
 import LoadingIndicator from '../../../components/LoadingIndicator';
-import {deleteDevicesApi, getListDeviceApi} from '../../../network/DeviceService';
+import {deleteDevicesApi, getListDeviceApi, getNumberDevices} from '../../../network/DeviceService';
 import {styles} from './styles';
 import {Colors} from '../../../assets/colors/Colors';
 import reduxStore from '../../../redux/config/redux'
@@ -28,6 +28,7 @@ export default function DeviceManager({navigation}) {
   const [idCancel, setIdCancel] = useState();
   const [loading, setLoading] = useState(false);
   const [nameDevices, setNameDevices] = useState();
+  const [numberDevices, setNumberDevices] = useState();
   const refLoading = useRef();
   const refNotification = useRef();
   const { t } = useTranslation();
@@ -72,6 +73,7 @@ export default function DeviceManager({navigation}) {
 
   useLayoutEffect(() => {
     getListDevice();
+    numDevices();
     setCheckDelete(true)
   }, []);
 
@@ -109,11 +111,23 @@ export default function DeviceManager({navigation}) {
     setNameDevices(item.deviceName)
   }
 
+  const numDevices = () => {
+    getNumberDevices(DataLocal.deviceId, {
+      success: res => {
+        if (res.data)
+        {
+          setNumberDevices(res.data);
+        }
+      }
+    });
+  }
+
   const deleteDevices = idCancel => {
     setOnModal(false);
     deleteDevicesApi(idCancel, {
       success: res => {
         getListDevice();
+        numDevices();
       },
       refLoading,
       refNotification,
@@ -202,7 +216,11 @@ export default function DeviceManager({navigation}) {
           <TouchableOpacity style={styles.modal} onPress={() => setOnModal(false)}>
             <View style={styles.tobModal}>
               <View style={[styles.tobView, {marginTop: ScaleHeight.small}]}>
-                <Text style={styles.textModel}>{t('common:alertDeleteDevices1')}{nameDevices}{t('common:alertDeleteDevices2')}</Text>
+                {parseInt(numberDevices) > 2 ? (
+                  <Text style={styles.textModel}>{t('common:alertDeleteDevices1')}{nameDevices}{t('common:alertDeleteDevices2')}</Text>
+                ):(
+                  <Text style={styles.textModel}>oke</Text>
+                )}
               </View>
               <View style={[styles.tobView, {width: '86%'}]}>
                 <View style={styles.tob}>

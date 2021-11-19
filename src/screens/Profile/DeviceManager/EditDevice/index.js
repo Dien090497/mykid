@@ -31,7 +31,6 @@ export default function EditDevice({ navigation, route }) {
   const refConfirm = useRef();
   const refNotification = useRef();
   const [data, setData] = useState(null);
-  const [avatar, setAvatar] = useState(null);
   const { t } = useTranslation();
   let sheet = null;
 
@@ -51,50 +50,6 @@ export default function EditDevice({ navigation, route }) {
     setData(newData);
   };
 
-  const handleImageAction = async (index) => {
-    switch (index) {
-      case 0:
-        const granted = await checkPhotoLibraryReadPermission();
-        if (granted) {
-          launchImageLibrary({
-            mediaType: 'photo',
-          }, resp => {
-            resizeImg(resp);
-          });
-        }
-        break;
-      case 1:
-        const cameraGranted = await checkCameraPermission();
-        const photosGranted = await checkPhotoLibraryWritePermission();
-        if (cameraGranted && photosGranted) {
-          launchCamera({
-            mediaType: 'photo',
-            cameraType: 'front',
-            saveToPhotos: false,
-          }, resp => {
-            resizeImg(resp);
-          });
-        }
-        break;
-    }
-  }
-  const resizeImg = (imagePickerResponse) => {
-    if (imagePickerResponse.uri) {
-      showLoading(refLoading);
-      resizeImage(imagePickerResponse).then(uri => {
-        hideLoading(refLoading);
-        if (uri) {
-          setAvatar(uri);
-        }
-      });
-    }
-  };
-
-  const selectPhoto = () => {
-    Keyboard.dismiss();
-    sheet.show();
-  }
-
   const deleteConfirm = () => {
     const result = Object.assign({},data);
     if (result.relationship !== 'OTHER'){
@@ -106,7 +61,6 @@ export default function EditDevice({ navigation, route }) {
       result.icon,
       result.relationship,
       result.relationshipName,
-      avatar,
       {success: res =>{
           route.params.onRefresh()
           navigation.goBack();
@@ -123,18 +77,10 @@ export default function EditDevice({ navigation, route }) {
     setData(result)
   }
 
-
   return (
     <View style={styles.contain}>
       <Header title={t('common:header_editDevice')} />
       <View style={{ flex: 1, marginHorizontal: 20 }}>
-        <TouchableOpacity style={styles.viewAvatar} onPress={selectPhoto}>
-          <Text style={styles.containText}>{t('common:textAvatar')}</Text>
-          <View>
-            {data &&
-            <Image source={avatar? {uri:avatar} : data.avatar ? { uri: data.avatar } : data.icon} resizeMode='cover' style={styles.avatar} />}
-          </View>
-        </TouchableOpacity>
         <View style={styles.viewContain}>
           <Text style={styles.containText}>{t('common:textDeviceNane')}</Text>
           {data && <TextInput style={styles.textNickName}
@@ -162,17 +108,6 @@ export default function EditDevice({ navigation, route }) {
       <LoadingIndicator ref={refLoading} />
       <ModalConfirm ref={refConfirm} />
       <NotificationModal ref={refNotification} />
-      <ActionSheetCustom
-        ref={o => sheet = o}
-        title={t('common:selectPhoto')}
-        options={[
-          <Text style={{fontSize: 18, fontFamily: 'Roboto', color: Colors.grayTextColor}}>{t('common:selectPhotoLibrary')}</Text>,
-          <Text style={{fontSize: 18, fontFamily: 'Roboto', color: Colors.grayTextColor}}>{t('common:takePhoto')}</Text>,
-          <Text style={{fontSize: 18, fontFamily: 'Roboto', color: Colors.colorMain}}>{t('common:cancel')}</Text>,
-        ]}
-        cancelButtonIndex={2}
-        onPress={handleImageAction}
-      />
     </View>
   );
 }

@@ -230,6 +230,7 @@ export default {
   'home_soundGuardian': 'REMOTE CALL',
   'home_reward': 'REWARDS',
   'home_secretPhotoShoot': 'REMOTE PHOTO',
+  'home_phone': 'CALL', // TO DO
 
   //setting
   'setting_contact': 'Contacts',
@@ -306,6 +307,7 @@ export default {
   'error_info': 'Height and weight are always greater than 0',
   'errorName': 'Baby name cannot be blank',
   'error_birthday': 'Invalid date',
+  'changeAvatar': 'Change Avatar',
 
   //ForgotPassWord
   'txtForgotPassWord1': '1.Please enter a valid phone number to receive the verification code.',

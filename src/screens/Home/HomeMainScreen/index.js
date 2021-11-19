@@ -46,7 +46,6 @@ export default function HomeMainScreen() {
   const getListDevices = () => {
     getListDeviceApi(DataLocal.userInfo.id, Consts.pageDefault, 100, '', 'ACTIVE', {
       success: resData => {
-        DataLocal.saveHaveSim(resData.data[selectedIndex].validSim ? '1' : '0')
         setDevices(resData.data);
       },
       refLoading,
@@ -213,6 +212,7 @@ export default function HomeMainScreen() {
           >
             {devices && devices.map((obj, i) => {
               const isSelectDevice = obj.deviceId === DataLocal.deviceId;
+              DataLocal.saveHaveSim(devices[selectedIndex].validSim ? '1' : '0');
               return (
                 <View key={i.toString()} style={{paddingHorizontal: 10}}>
                   <View style={styles.viewMenuDrop} onStartShouldSetResponder={() => {
@@ -293,11 +293,11 @@ export default function HomeMainScreen() {
             <TouchableOpacity
               {...buttonProps}
               style={styles.button}
-              onPress={pressVideoCall}>
+            >
               <View style={styles.bgIcon}>
-                <Image source={Images.icVideoCall} style={styles.icon}/>
+                <Image source={Images.ic_local_phone} style={styles.icon}/>
               </View>
-              <Text style={styles.buttonText}>{t('common:home_videoCall')}</Text>
+              <Text style={styles.buttonText}>{t('common:home_phone')}</Text>
             </TouchableOpacity>
           </View>
         </View>

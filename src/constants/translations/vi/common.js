@@ -230,6 +230,7 @@ export default {
   'home_soundGuardian': 'NGHE TỪ XA',
   'home_reward': 'TẶNG PHẦN THƯỞNG',
   'home_secretPhotoShoot': 'CHỤP ẢNH TỪ XA',
+  'home_phone': 'GỌI NGAY',
 
   //setting
   'setting_contact': 'Danh bạ',
@@ -306,6 +307,7 @@ export default {
   'error_info': 'Chiều cao và cân nặng luôn lớn hơn 0',
   'error_birthday': 'Ngày sinh của bé khộng hợp lệ',
   'errorName': 'Tên bé không được để trống',
+  'changeAvatar': 'Đổi ảnh đại diện',
 
   //ForgotPassWord
   'txtForgotPassWord1': '1.Xin vui lòng nhập số điện thoại hợp lệ để nhận mã xác minh.',
