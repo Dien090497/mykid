@@ -16,7 +16,6 @@ import FastImage from 'react-native-fast-image';
 import XmppClient from '../../network/xmpp/XmppClient';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import DataLocal from "../../data/dataLocal";
 
 export default function Chat({navigation}) {
   const refLoading = useRef();

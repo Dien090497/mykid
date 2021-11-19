@@ -420,6 +420,7 @@ export default function RoomChat({navigation, route}) {
           </View>
           ))}
         </ScrollView>
+        { roomInfo && roomInfo.type === 'FAMILY' &&
         <View style={styles.viewBottom}>
           <TouchableOpacity style={styles.viewImg} onPress={() => {toggleRecord(!isRecord)}}>
             <Image source={isRecord ? Images.icKeyboard: Images.icRecord} style={isRecord ? styles.icKeyboard : styles.icRecord}/>
@@ -458,6 +459,7 @@ export default function RoomChat({navigation, route}) {
               style={isRecord ? styles.icCamera : isLock ? [styles.icSend, {opacity: 0.3}] : styles.icSend}/>
           </TouchableOpacity>
         </View>
+        }
       </View>
       { isRecording &&
       <View style={{
