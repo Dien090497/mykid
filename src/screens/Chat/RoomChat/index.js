@@ -318,6 +318,10 @@ export default function RoomChat({navigation, route}) {
             })
 
         })
+        .catch(err => {
+          SimpleToast.show(t('common:savePictureFail'))
+          console.log('err:', err)
+        });
     }
   }
 
