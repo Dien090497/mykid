@@ -161,7 +161,7 @@ export default ({navigation, route}) => {
                 <Text style={{fontSize: FontSize.small, color: Colors.gray}}>
                   {`${locationDevice.power || 0}%`}
                 </Text>
-                <Image source={Images.icBattery} style={styles.icBattery} />
+                <Image source={(locationDevice.power || 0) > 20 ? Images.icBattery : Images.icLowBattery} style={(locationDevice.power || 0) > 20 ? styles.icBattery : styles.icLowBattery} />
               </View>
             </View>
           </TouchableOpacity>
