@@ -5,6 +5,7 @@ const deviceIdKey = 'DEVICE_ID_';
 const deviceIndexKey = 'DEVICE_Active_';
 const languageKey = 'LANGUAGE';
 let accessToken = null;
+let tokenFirebase = null;
 let userInfo = null;
 let deviceIndex = 0;
 let deviceId = 0;
@@ -30,6 +31,31 @@ async function removeAccessToken() {
   try {
     DataLocal.accessToken = null;
     return AsyncStorage.removeItem(accessTokenKey);
+  } catch(e){
+    console.log(e);
+  }
+}
+
+async function saveTokenFirebase(value) {
+  try {
+    return AsyncStorage.setItem(tokenFirebase, value);
+  } catch(e) {
+    console.log(e);
+  }
+}
+
+async function getTokenFirebase() {
+  try {
+    return AsyncStorage.getItem(tokenFirebase, '');
+  } catch(e) {
+    console.log(e);
+  }
+}
+
+async function removeTokenFirebase() {
+  try {
+    DataLocal.tokenFirebase = null;
+    return AsyncStorage.removeItem(tokenFirebase);
   } catch(e){
     console.log(e);
   }
@@ -119,6 +145,10 @@ const DataLocal = {
   removeAccessToken,
   getAccessToken,
 
+  saveTokenFirebase,
+  removeTokenFirebase,
+  getTokenFirebase,
+
   saveDeviceId,
   loadDeviceId,
 
@@ -129,6 +159,7 @@ const DataLocal = {
   loadLanguage,
 
   accessToken,
+  tokenFirebase,
   userInfo,
   deviceIndex,
   deviceId,

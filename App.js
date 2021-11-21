@@ -1,5 +1,5 @@
 import {StatusBar} from "react-native";
-import React, { useEffect} from 'react';
+import React, { useEffect, useRef } from "react";
 import {AlertDropHelper} from './src/functions/AlertDropHelper';
 import {Colors} from './src/assets/colors/Colors';
 import DropdownAlert from 'react-native-dropdownalert';
@@ -10,9 +10,10 @@ import redux from './src/redux/config/redux';
 import './src/constants/IMLocalize';
 import {fcmService} from './src/FCMService'
 import {localNotificationService} from './src/LocalNotificationService'
+import DataLocal from "./src/data/dataLocal";
 
 export default function App() {
-
+  const routeRef = useRef();
   useEffect(() => {
     fcmService.registerAppWithFCM()
     fcmService.register(onRegister, onNotification, onOpenNotification)
@@ -20,6 +21,8 @@ export default function App() {
 
     function onRegister(token) {
       console.log("[App] onRegister: ", token)
+      DataLocal.tokenFirebase = token;
+      DataLocal.saveAccessToken(token);
     }
 
     function onNotification(notify) {
@@ -39,7 +42,7 @@ export default function App() {
 
     function onOpenNotification(notify) {
       console.log("[App] onOpenNotification: ", notify)
-      alert("Open Notification: " + notify.body)
+      routeRef.current.roadToMsgFromNotify(notify);
     }
 
     return () => {
@@ -53,7 +56,7 @@ export default function App() {
   return (
       <SafeAreaProvider>
         <Provider store={redux.store}>
-          <Routes />
+          <Routes ref = {routeRef}/>
           <DropdownAlert
             closeInterval={15000}
             updateStatusBar={false}

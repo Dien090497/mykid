@@ -28,6 +28,7 @@ function* postLoginAction(phone, password, refLoading, refNotification) {
 
       saveUserDataFromToken(token).then(userInfo => {
         reduxStore.store.dispatch(loginAction.loginSuccess(userInfo));
+
       });
     } else {
       yield put({type: 'LOGIN_FAILURE', payload: response.failure});

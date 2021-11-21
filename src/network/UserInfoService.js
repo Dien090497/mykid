@@ -18,6 +18,13 @@ export function loginService(body, autoShowMsg = true, refLoading = null, refNot
   return post(loginUrl, { body, autoShowMsg, refLoading, refNotification });
 }
 
+export function createTokenFirebase(token, autoShowMsg = false, refLoading = null, refNotification = null) {
+  let body = {
+    token,
+  };
+  return post(createTokenFirebase, { body, autoShowMsg, refLoading, refNotification });
+}
+
 export function createAccountApi(data, { success, failure, autoShowMsg = true, refLoading = null, refNotification = null }) {
   let body = {
     email: data.email,
