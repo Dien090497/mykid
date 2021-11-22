@@ -60,7 +60,6 @@ export function editDeviceApi(
   icon,
   relationship,
   relationshipName,
-  avatar,
   { success, failure, autoShowMsg = true, refLoading = null, refNotification = null } = {},
 ) {
   const formData = new FormData();
@@ -68,13 +67,6 @@ export function editDeviceApi(
   formData.append("icon", icon);
   formData.append("relationship", relationship);
   relationshipName ? formData.append("relationshipName", relationshipName) : null;
-  if (avatar) {
-    formData.append("file", {
-      uri: Platform.OS === "android" ? avatar : avatar.replace("file://", "/"),
-      type: "image/jpeg",
-      name: "123",
-    });
-  }
   const url = [listDeviceUrl, id].join("/");
   return upload(url, formData, { success, failure, autoShowMsg, refLoading, refNotification });
 }

@@ -1,4 +1,4 @@
-import {Image, ScrollView, StatusBar, Text, TouchableOpacity, View} from "react-native";
+import {Image, Linking, StatusBar, Text, TouchableOpacity, View} from "react-native";
 import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
 
 import {Menu, MenuDivider} from 'react-native-material-menu';
@@ -293,6 +293,9 @@ export default function HomeMainScreen() {
             <TouchableOpacity
               {...buttonProps}
               style={styles.button}
+              onPress={()=>{
+                Linking.openURL(`tel:${'0859994546'}`)
+              }}
             >
               <View style={styles.bgIcon}>
                 <Image source={Images.ic_local_phone} style={styles.icon}/>

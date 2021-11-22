@@ -98,13 +98,14 @@ export default function InfoKits({route}) {
     getInfo();
   }, []);
 
-  useLayoutEffect(() => {
-    setAvatar(route.params.avatar);
-  },[]);
+  // useLayoutEffect(() => {
+  //   setAvatar(route.params.avatar);
+  // },[]);
 
   const getInfo = () => {
     getInfoApi(DataLocal.deviceId, {
       success: res => {
+        setAvatar(res.data.avatar);
         setName(res.data.name);
         setBirthday(res.data.birthday);
         setGender(res.data.gender);
