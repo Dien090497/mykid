@@ -22,7 +22,7 @@ export default function App() {
     function onRegister(token) {
       console.log("[App] onRegister: ", token)
       DataLocal.tokenFirebase = token;
-      DataLocal.saveTokenFirebase(token);
+      // DataLocal.saveTokenFirebase(token);
     }
 
     function onNotification(notify) {
