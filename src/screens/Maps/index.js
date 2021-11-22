@@ -117,6 +117,7 @@ export default ({navigation, route}) => {
           style={styles.container}
           provider={PROVIDER_GOOGLE}
           showsUserLocation={true}
+          mapType={'satellite'}
           region={getRegion()}>
           {locationDevice && infoDevice && (
             <Marker

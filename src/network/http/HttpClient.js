@@ -218,6 +218,29 @@ export async function upload(
   return handleResp(response, autoShowMsg, success, failure, refLoading, refNotification);
 }
 
+export async function upload2(
+  url, formData, {success, failure, autoShowMsg = true, refLoading = null, refNotification = null} = {}) {
+  showLoading(refLoading);
+
+  let headers = await getHeaders(null);
+  headers['Content-Type'] = 'multipart/form-data';
+
+  let response;
+  try {
+    console.log(url)
+    console.log(formData)
+    response = await client.post(url, formData, {
+      headers,
+      timeout: TIMEOUT_CONNECT,
+      responseType: 'json',
+    });
+  } catch (error) {
+    response = await error.response;
+  }
+  hideLoading(refLoading);
+  return handleResp(response, autoShowMsg, success, failure, refLoading, refNotification);
+}
+
 export async function uploadFile(
   url, {
     body,

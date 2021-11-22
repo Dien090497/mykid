@@ -11,15 +11,7 @@ import Consts from '../../../../functions/Consts';
 import { Colors } from '../../../../assets/colors/Colors';
 import LoadingIndicator from '../../../../components/LoadingIndicator';
 import React, { useLayoutEffect, useRef, useState } from 'react';
-import { ActionSheetCustom } from '@alessiocancian/react-native-actionsheet';
 import ModalConfirm from '../../../../components/ModalConfirm';
-import {
-  checkCameraPermission,
-  checkPhotoLibraryReadPermission,
-  checkPhotoLibraryWritePermission,
-} from '../../../../functions/permissions';
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-import { hideLoading, resizeImage, showLoading } from '../../../../functions/utils';
 import {editDeviceApi} from '../../../../network/DeviceService';
 import { useTranslation } from 'react-i18next';
 import DataLocal from '../../../../data/dataLocal';
@@ -32,7 +24,6 @@ export default function EditDevice({ navigation, route }) {
   const refNotification = useRef();
   const [data, setData] = useState(null);
   const { t } = useTranslation();
-  let sheet = null;
 
   useLayoutEffect(() => {
     setData(route.params.data);

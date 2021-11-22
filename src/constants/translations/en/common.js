@@ -170,6 +170,7 @@ export default {
   'deleteContactSuccess': 'Delete Contact Success',
   'deleteMessage': 'Delete Message',
   'alertDeleteMessage': 'Are you sure to delete this chat?',
+  'alertDeleteDevices':'Kết nối đồng hồ sẽ khôi phục về cài đặt gốc và xóa toàn bộ dữ liệu',
   'alertDeleteDevices1': 'Are you sure you want to delete the device (',
   'alertDeleteDevices2': ')?',
   'removeContactConfirm':
