@@ -172,6 +172,13 @@ export default function HomeMainScreen() {
     await DataLocal.saveDeviceId(devices[index].deviceId);
   };
 
+  const onCall = () => {
+    if (DataLocal.haveSim === '0') {
+      return refNotification.current.open(t('errorMsg:kwa4067'));
+    }
+    Linking.openURL(`tel:${'0' + devices[selectedIndex].isdn.substring(3)}`)
+  }
+
   return (
     <View style={styles.container}>
       <StatusBar translucent backgroundColor='transparent'/>
@@ -291,9 +298,7 @@ export default function HomeMainScreen() {
            <TouchableOpacity
               {...buttonProps}
               style={[styles.button, {marginRight: '2%'}]}
-              onPress={()=>{
-                Linking.openURL(`tel:${'0859994546'}`)
-              }}
+              onPress={onCall}
             >
               <View style={styles.bgIcon}>
                 <Image source={Images.ic_local_phone} style={styles.icon}/>
