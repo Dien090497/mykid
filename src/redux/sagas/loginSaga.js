@@ -29,10 +29,10 @@ function* postLoginAction(phone, password, refLoading, refNotification) {
 
       saveUserDataFromToken(token).then(userInfo => {
         reduxStore.store.dispatch(loginAction.loginSuccess(userInfo));
-         // createTokenFirebase(DataLocal.tokenFirebase, {
-         //   success: resData => {
-         //   },
-         //  }).then();
+         createTokenFirebase(DataLocal.tokenFirebase, {
+           success: resData => {
+           },
+          }).then();
       });
     } else {
       yield put({type: 'LOGIN_FAILURE', payload: response.failure});
