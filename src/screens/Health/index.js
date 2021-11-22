@@ -36,7 +36,7 @@ export default function Health({ navigation }) {
     getData();
   }, []);
 
-  const getData = () =>{
+  const getData = () => {
     getListWalkingTime(DataLocal.deviceId, {
       success: res => {
         const d = []
@@ -51,12 +51,12 @@ export default function Health({ navigation }) {
     walkingTimeTracking(
       {
         deviceId: DataLocal.deviceId,
-        startDate: new Date().toISOString().slice(0,10),
-        endDate: new Date().toISOString().slice(0,10),
+        startDate: new Date().toISOString().slice(0, 10),
+        endDate: new Date().toISOString().slice(0, 10),
         page: 0,
         size: 100
-      },{
-        success: res =>{
+      }, {
+        success: res => {
           setTracking(res.data);
         },
         refLoading,
@@ -65,16 +65,16 @@ export default function Health({ navigation }) {
     )
   }
 
-  const updateTime = (obj, i) =>{
-    const body ={
+  const updateTime = (obj, i) => {
+    const body = {
       deviceId: obj.deviceId,
-      startTime: obj.startTime.slice(0,5),
-      endTime: obj.endTime.slice(0,5),
+      startTime: obj.startTime.slice(0, 5),
+      endTime: obj.endTime.slice(0, 5),
       active: obj.active
     }
-    updateWalkingMode(obj.id, body,{
-      success: res=>{
-        const newData = Object.assign([],data);
+    updateWalkingMode(obj.id, body, {
+      success: res => {
+        const newData = Object.assign([], data);
         newData[i] = res.data
         setData(newData)
       },
@@ -83,8 +83,8 @@ export default function Health({ navigation }) {
     });
   }
 
-  const setTimeItem = (obj, i) =>{
-    if (obj){
+  const setTimeItem = (obj, i) => {
+    if (obj) {
       const from = obj.startTime.split(':');
       const to = obj.endTime.split(':');
       const timeFrom = new Date();
@@ -94,15 +94,15 @@ export default function Health({ navigation }) {
       timeTo.setHours(to[0]);
       timeTo.setMinutes(to[1]);
       refFromToTime.current.openModal(timeFrom, timeTo,
-        (config)=>{
+        (config) => {
           updateWalkingMode(obj.id, {
             deviceId: obj.deviceId,
-            startTime: config.from.slice(0,5),
-            endTime: config.to.slice(0,5),
+            startTime: config.from.slice(0, 5),
+            endTime: config.to.slice(0, 5),
             active: obj.active
-          },{
-            success: res=>{
-              const newData = Object.assign([],data);
+          }, {
+            success: res => {
+              const newData = Object.assign([], data);
               newData[i] = res.data
               setData(newData)
             },
@@ -113,8 +113,8 @@ export default function Health({ navigation }) {
     } else {
       refFromToTime.current.openModal(new Date(), new Date(),
         (config) => {
-          const timeFrom = config.from.slice(0,5);
-          const timeTo = config.to.slice(0,5);
+          const timeFrom = config.from.slice(0, 5);
+          const timeTo = config.to.slice(0, 5);
           createWalkingMode(
             {
               deviceId: DataLocal.deviceId,
@@ -122,8 +122,8 @@ export default function Health({ navigation }) {
               endTime: timeTo,
             },
             {
-              success: res =>{
-                const newData = Object.assign([],data);
+              success: res => {
+                const newData = Object.assign([], data);
                 newData[i] = res.data
                 setData(newData)
               },
@@ -136,11 +136,11 @@ export default function Health({ navigation }) {
     }
   }
 
-  const toggleSwitch = (obj, i) =>{
+  const toggleSwitch = (obj, i) => {
     let active = obj.active === 0 ? 1 : 0;
-    updateActiveWalkingMode(obj.id, {deviceId: obj.deviceId ,active: active},{
-      success: res=>{
-        const newData = Object.assign([],data);
+    updateActiveWalkingMode(obj.id, {deviceId: obj.deviceId, active: active}, {
+      success: res => {
+        const newData = Object.assign([], data);
         newData[i] = res.data
         setData(newData)
       },
@@ -149,37 +149,50 @@ export default function Health({ navigation }) {
     })
   }
 
+  const gotoHomeScreen = () => {
+    if (DataLocal.haveSim === '0') {
+      DataLocal.saveHaveSim('1').then(r =>
+        navigation.navigate(Consts.ScreenIds.Tabs)
+      );
+    }
+  }
+
   return (
     <View style={styles.body}>
-      <Header title={t('common:header_health')} />
+      <Header title={t('common:header_health')}/>
       <ScrollView>
         <View style={styles.viewTop}>
           <View style={styles.viewCount}>
-            <Image source={Images.icHealthHeart} style={styles.icon} resizeMode={'stretch'} />
-            <Text style={[styles.txtTop, { color: Colors.greenHealth }]}>{tracking && (tracking[0] ? tracking[0].distance : '0')}</Text>
-            <Text style={[styles.subTxtTop, { color: Colors.greenHealth }]}>m</Text>
+            <Image source={Images.icHealthHeart} style={styles.icon} resizeMode={'stretch'}/>
+            <Text
+              style={[styles.txtTop, {color: Colors.greenHealth}]}>{tracking && (tracking[0] ? tracking[0].distance : '0')}</Text>
+            <Text style={[styles.subTxtTop, {color: Colors.greenHealth}]}>m</Text>
           </View>
           <View style={styles.viewCount}>
-            <Image source={Images.icHealthStep} style={styles.iconMid} resizeMode={'stretch'} />
-            <Text style={[styles.txtTop, { color: Colors.orangeHealth }]}>{tracking && (tracking[0] ? tracking[0].steps : '0')}</Text>
-            <Text style={[styles.subTxtTop, { color: Colors.orangeHealth }]}>{t('common:step')}</Text>
+            <Image source={Images.icHealthStep} style={styles.iconMid} resizeMode={'stretch'}/>
+            <Text
+              style={[styles.txtTop, {color: Colors.orangeHealth}]}>{tracking && (tracking[0] ? tracking[0].steps : '0')}</Text>
+            <Text style={[styles.subTxtTop, {color: Colors.orangeHealth}]}>{t('common:step')}</Text>
           </View>
           <View style={styles.viewCount}>
-            <Image source={Images.icHealthCalo} style={styles.icon} resizeMode={'stretch'} />
-            <Text style={[styles.txtTop, { color: Colors.blueHealth }]}>{tracking && (tracking[0] ? tracking[0].calo : '0')}</Text>
-            <Text style={[styles.subTxtTop, { color: Colors.blueHealth }]}>{t('common:calo')}</Text>
+            <Image source={Images.icHealthCalo} style={styles.icon} resizeMode={'stretch'}/>
+            <Text
+              style={[styles.txtTop, {color: Colors.blueHealth}]}>{tracking && (tracking[0] ? tracking[0].calo : '0')}</Text>
+            <Text style={[styles.subTxtTop, {color: Colors.blueHealth}]}>{t('common:calo')}</Text>
           </View>
         </View>
         {data && data.map((obj, i) => (
           <View key={i} style={styles.viewItem}>
-            <TouchableOpacity style={styles.viewText} onPress={() =>{setTimeItem(obj, i)}}>
+            <TouchableOpacity style={styles.viewText} onPress={() => {
+              setTimeItem(obj, i)
+            }}>
               <View style={styles.rowDirection}>
                 {!obj ?
-                  <View style={{flex:9}}>
+                  <View style={{flex: 9}}>
                     <Text style={styles.txtAddTime}>{t('common:textAddTime')}</Text>
                   </View> :
-                  <View style={{flex:9}}>
-                    <Text style={styles.txtTime}>{obj.startTime.slice(0,5) +' - ' + obj.endTime.slice(0,5)}</Text>
+                  <View style={{flex: 9}}>
+                    <Text style={styles.txtTime}>{obj.startTime.slice(0, 5) + ' - ' + obj.endTime.slice(0, 5)}</Text>
                   </View>}
                 <Image source={Images.icRightArrow} style={styles.icArrow}/>
               </View>
@@ -189,19 +202,26 @@ export default function Health({ navigation }) {
                 <Switch
                   trackColor={{false: '#8E8E93', true: Colors.colorMain}}
                   thumbColor={Colors.white}
-                  onValueChange={() => {toggleSwitch(obj, i)}}
+                  onValueChange={() => {
+                    toggleSwitch(obj, i)
+                  }}
                   value={obj.active === 1}
                 />
               </View>}
           </View>
         ))}
-        <TouchableOpacity style={styles.button} onPress={()=>{navigation.navigate(Consts.ScreenIds.DetailHealth)}}>
+        <TouchableOpacity style={styles.button} onPress={() => {
+          navigation.navigate(Consts.ScreenIds.DetailHealth)
+        }}>
           <Text style={styles.buttonText}>{t('common:detail')}</Text>
         </TouchableOpacity>
       </ScrollView>
-      <LoadingIndicator ref={refLoading} />
-      <NotificationModal ref={refNotification} />
-      <FromToTimeModal ref={refFromToTime} />
+      <LoadingIndicator ref={refLoading}/>
+      <NotificationModal
+        ref={refNotification}
+        goBack={gotoHomeScreen}
+      />
+      <FromToTimeModal ref={refFromToTime}/>
     </View>
   );
 }

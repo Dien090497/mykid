@@ -17,6 +17,7 @@ import { TimePicker } from 'react-native-wheel-picker-android';
 import { setAlarmApi } from '../../../../network/AlarmService';
 import { useTranslation } from 'react-i18next';
 import NotificationModal from '../../../../components/NotificationModal';
+import Consts from "../../../../functions/Consts";
 
 export default function AlarmSetting({navigation, route}) {
   const refLoading = useRef();
@@ -25,13 +26,13 @@ export default function AlarmSetting({navigation, route}) {
   const [time, setTime] = useState();
   const { t } = useTranslation();
   const [dayOfWeeks, setdayOfWeeks] = useState([
+    {day: t('common:sun'), value: 7, isOn: false},
     {day: t('common:monDay'), value: 1, isOn: false},
     {day: t('common:tueDay'), value: 2, isOn: false},
     {day: t('common:wed'), value: 3, isOn: false},
     {day: t('common:thu'), value: 4, isOn: false},
     {day: t('common:fri'), value: 5, isOn: false},
     {day: t('common:sat'), value: 6, isOn: false},
-    {day: t('common:sun'), value: 7, isOn: false},
   ]);
 
   useLayoutEffect(() => {
@@ -110,6 +111,14 @@ export default function AlarmSetting({navigation, route}) {
       const obj = Object.assign({}, config);
       obj.time = split[4];
       setConfig(obj);
+    }
+  }
+
+  const gotoHomeScreen = () => {
+    if (DataLocal.haveSim === '0') {
+      DataLocal.saveHaveSim('1').then(r =>
+        navigation.navigate(Consts.ScreenIds.Tabs)
+      );
     }
   }
 
@@ -200,7 +209,7 @@ export default function AlarmSetting({navigation, route}) {
         </View>
       </ScrollView>
       <LoadingIndicator ref={refLoading} />
-      <NotificationModal ref={refNotification} />
+      <NotificationModal ref={refNotification} goBack={gotoHomeScreen}/>
     </View>
   );
 }

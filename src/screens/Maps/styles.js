@@ -173,6 +173,11 @@ export const styles = StyleSheet.create({
     marginLeft: 4,
     tintColor: Colors.greenText,
   },
+  icLowBattery: {
+    width: 30,
+    height: 20,
+    marginLeft: 4,
+  },
   icMarker: {width: 30, height: 30, resizeMode: 'contain'},
   containerGetLocation: {
     width: 40,

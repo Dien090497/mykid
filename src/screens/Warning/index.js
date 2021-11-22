@@ -14,6 +14,7 @@ import { getNotification } from '../../network/WarningService';
 import Images from '../../assets/Images';
 import Moment from 'moment';
 import DataLocal from "../../data/dataLocal";
+import Consts from "../../functions/Consts";
 let page = 0;
 const sizePage = 50;
 
@@ -92,6 +93,14 @@ export default function DeviceManager({navigation}) {
     getData();
   };
 
+  const gotoHomeScreen = () => {
+    if (DataLocal.haveSim === '0') {
+      DataLocal.saveHaveSim('1').then(r =>
+        navigation.navigate(Consts.ScreenIds.Tabs)
+      );
+    }
+  }
+
   return (
     <View style={styles.contain}>
       <Header title={t('common:header_warning')}
@@ -102,7 +111,7 @@ export default function DeviceManager({navigation}) {
                 onEndReached={() =>{handleLoadMore()}}
       />
       <LoadingIndicator ref={refLoading}/>
-      <NotificationModal ref={refNotification} goBack={() => navigation.goBack()}/>
+      <NotificationModal ref={refNotification} goBack={gotoHomeScreen}/>
     </View>
   );
 }

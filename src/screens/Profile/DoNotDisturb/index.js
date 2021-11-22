@@ -24,13 +24,13 @@ export default function DoNotDisturb({navigation}) {
   const [classConfig, setClassConfig] = useState();
   const { t } = useTranslation();
   const dayOfWeeks = [
+    t('common:sun'),
     t('common:monDay'),
     t('common:tueDay'),
     t('common:wed'),
     t('common:thu'),
     t('common:fri'),
-    t('common:sat'),
-    t('common:sun')
+    t('common:sat')
   ];
 
   useLayoutEffect(() => {
@@ -88,6 +88,14 @@ export default function DoNotDisturb({navigation}) {
     return dayOfWeek
   }
 
+  const gotoHomeScreen = () => {
+    if (DataLocal.haveSim === '0') {
+      DataLocal.saveHaveSim('1').then(r =>
+        navigation.navigate(Consts.ScreenIds.Tabs)
+      );
+    }
+  }
+
   return (
     <View style={styles.contain}>
       <Header title={t('common:header_doNotDisturb')} />
@@ -129,7 +137,7 @@ export default function DoNotDisturb({navigation}) {
         </TouchableOpacity>
       </ScrollView>
       <LoadingIndicator ref={refLoading} />
-      <NotificationModal ref={refNotification} />
+      <NotificationModal ref={refNotification} goBack={gotoHomeScreen}/>
     </View>
   );
 }

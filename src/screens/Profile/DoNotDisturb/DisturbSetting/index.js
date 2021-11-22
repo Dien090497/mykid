@@ -13,6 +13,8 @@ import { TimePicker } from 'react-native-wheel-picker-android';
 import { Colors } from '../../../../assets/colors/Colors';
 import { useTranslation } from 'react-i18next';
 import NotificationModal from '../../../../components/NotificationModal'
+import DataLocal from "../../../../data/dataLocal";
+import Consts from "../../../../functions/Consts";
 
 export default function DoNotDisturb({ navigation, route }) {
   const refLoading = useRef();
@@ -27,13 +29,13 @@ export default function DoNotDisturb({ navigation, route }) {
     to: null,
   });
   const [dayOfWeeks, setDayOfWeeks] = useState([
-    { day: t('common:monDay'), value: 1, isOn: route.params.config.period[0] ==='1' ? true : false },
-    { day: t('common:tueDay'), value: 2, isOn: route.params.config.period[1] ==='1' ? true : false },
-    { day: t('common:wed'), value: 3, isOn: route.params.config.period[2] ==='1' ? true : false },
-    { day: t('common:thu'), value: 4, isOn: route.params.config.period[3] ==='1' ? true : false },
-    { day: t('common:fri'), value: 5, isOn: route.params.config.period[4] ==='1' ? true : false },
-    { day: t('common:sat'), value: 6, isOn: route.params.config.period[5] ==='1' ? true : false },
-    { day: t('common:sun'), value: 7, isOn: route.params.config.period[6] ==='1' ? true : false },
+    { day: t('common:sun'), value: 7, isOn: route.params.config.period[0] ==='1' ? true : false },
+    { day: t('common:monDay'), value: 1, isOn: route.params.config.period[1] ==='1' ? true : false },
+    { day: t('common:tueDay'), value: 2, isOn: route.params.config.period[2] ==='1' ? true : false },
+    { day: t('common:wed'), value: 3, isOn: route.params.config.period[3] ==='1' ? true : false },
+    { day: t('common:thu'), value: 4, isOn: route.params.config.period[4] ==='1' ? true : false },
+    { day: t('common:fri'), value: 5, isOn: route.params.config.period[5] ==='1' ? true : false },
+    { day: t('common:sat'), value: 6, isOn: route.params.config.period[6] ==='1' ? true : false },
   ]);
 
   useEffect(() => {
@@ -126,6 +128,14 @@ export default function DoNotDisturb({ navigation, route }) {
     navigation.goBack();
   };
 
+  const gotoHomeScreen = () => {
+    if (DataLocal.haveSim === '0') {
+      DataLocal.saveHaveSim('1').then(r =>
+        navigation.navigate(Consts.ScreenIds.Tabs)
+      );
+    }
+  }
+
   return (
     <View style={styles.contain}>
       <Header title={t('common:header_doNotDisturb')} />
@@ -175,7 +185,7 @@ export default function DoNotDisturb({ navigation, route }) {
         </View>
       </ScrollView>
       <NotificationModal ref={refNotification}/>
-      <LoadingIndicator ref={refLoading} />
+      <LoadingIndicator ref={refLoading} goBack={gotoHomeScreen}/>
     </View>
   );
 }

@@ -44,6 +44,14 @@ export default function Paying({navigation}) {
     getInfo();
   }
 
+  const gotoHomeScreen = () => {
+    if (DataLocal.haveSim === '0') {
+      DataLocal.saveHaveSim('1').then(r =>
+        navigation.navigate(Consts.ScreenIds.Tabs)
+      );
+    }
+  }
+
   return (
     <View style={styles.body}>
       <Header title={t('common:payInCash')}/>
@@ -134,7 +142,10 @@ export default function Paying({navigation}) {
           <Text style={styles.txtTob}>{t('common:more_money')}</Text>
         </TouchableOpacity>
       </ScrollView>
-      <NotificationModal ref={refNotification} goBack={() => navigation.goBack()}/>
+      <NotificationModal
+        ref={refNotification}
+        goBack={gotoHomeScreen}
+      />
     </View>
   );
 }

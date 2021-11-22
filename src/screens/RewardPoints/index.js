@@ -10,6 +10,7 @@ import { setRewardsApi, getRewardsApi } from '../../network/RewardsService.js';
 import DataLocal from '../../data/dataLocal';
 import { useTranslation } from 'react-i18next';
 import NotificationModal from '../../components/NotificationModal';
+import Consts from "../../functions/Consts";
 
 export default ({ navigation }) => {
   const [point, setPoint] = useState(0);
@@ -45,6 +46,15 @@ export default ({ navigation }) => {
       refNotification,
     })
   };
+
+  const gotoHomeScreen = () => {
+    if (DataLocal.haveSim === '0') {
+      DataLocal.saveHaveSim('1').then(r =>
+        navigation.navigate(Consts.ScreenIds.Tabs)
+      );
+    }
+  }
+
   return (
     <View
       style={[styles.container, { paddingBottom: useSafeAreaInsets().bottom }]}>
@@ -76,7 +86,7 @@ export default ({ navigation }) => {
         </View>
       </View>
       <LoadingIndicator ref={refLoading} />
-      <NotificationModal ref={refNotification} />
+      <NotificationModal ref={refNotification} goBack={gotoHomeScreen}/>
     </View>
   );
 };

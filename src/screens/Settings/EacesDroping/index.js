@@ -16,8 +16,9 @@ import LoadingIndicator from '../../../components/LoadingIndicator';
 import {useTranslation} from 'react-i18next';
 import NotificationModal from '../../../components/NotificationModal';
 import {phoneTest1} from "../../../functions/utils";
+import Consts from "../../../functions/Consts";
 
-export default function EacesDroping() {
+export default function EacesDroping({navigation}) {
   const [number, setNumber] = useState('');
   const refLoading = useRef();
   const refNotification = useRef();
@@ -25,7 +26,9 @@ export default function EacesDroping() {
   useEffect(() => {
     getPhoneApi(DataLocal.deviceId, {
       success: res => {
-        setNumber(res.data.phoneNumber)
+        if (res.data.phoneNumber && res.data.phoneNumber.startsWith('+84')) {
+          setNumber('0' + res.data.contact.substring(3));
+        }
       },
       refLoading: refLoading,
       refNotification: refNotification,
@@ -59,6 +62,15 @@ export default function EacesDroping() {
       refNotification: refNotification,
     })
   }
+
+  const gotoHomeScreen = () => {
+    if (DataLocal.haveSim === '0') {
+      DataLocal.saveHaveSim('1').then(r =>
+        navigation.navigate(Consts.ScreenIds.Tabs)
+      );
+    }
+  }
+
   return (
     <View style={styles.viewContainer}>
       <Header title={t('common:header_soundGuardian')}/>
@@ -83,7 +95,7 @@ export default function EacesDroping() {
         </TouchableOpacity>
       </View>
       <LoadingIndicator ref={refLoading}/>
-      <NotificationModal ref={refNotification}/>
+      <NotificationModal ref={refNotification} goBack={gotoHomeScreen}/>
     </View>
   );
 }

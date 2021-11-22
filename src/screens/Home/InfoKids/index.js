@@ -12,7 +12,7 @@ import Images from '../../../assets/Images';
 import {Colors} from '../../../assets/colors/Colors';
 import {styles} from './styles';
 import ModalConfirmInput from '../../../components/ModalConfirmInput';
-import ActionSheet from '@alessiocancian/react-native-actionsheet';
+import { ActionSheetCustom } from '@alessiocancian/react-native-actionsheet';
 import {ScaleHeight} from '../../../functions/Consts';
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import DataLocal from '../../../data/dataLocal';
@@ -269,7 +269,7 @@ export default function InfoKits({route}) {
         inputText={inputText}
         onPressYes={setInfo}
       />
-      <ActionSheet
+      <ActionSheetCustom
         ref={o => sheet = o}
         styles={{
           buttonBox: {width: '100%', height: ScaleHeight.big },
