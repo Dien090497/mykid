@@ -153,13 +153,13 @@ export default ({navigation, route}) => {
             </View>
             <View style={styles.containerLastTime}>
               <Text style={styles.txtLocation}>{t('common:location')}{locationName}</Text>
-              <Text style={styles.txtTime}>{locationDevice.type}</Text>
+              <Text style={[styles.txtTime,{flex: 1 ,fontSize: FontSize.xxtraSmall}]}>{locationDevice.type + ' ('+ t('common:discrepancy') + (locationDevice.type === 'GPS' ? '50m)' : locationDevice.type === 'WIFI' ? '100m)' : '1000m)')}</Text>
             </View>
 
             <View style={styles.containerLastTime}>
-              <Text style={styles.txtLocation}>{t('common:coordinates')}{`${locationDevice?.location?.lat}, ${locationDevice?.location?.lng}`}</Text>
+              <Text style={[styles.txtLocation,{width: '80%'}]}>{t('common:coordinates')}{`${locationDevice?.location?.lat}, ${locationDevice?.location?.lng}`}</Text>
               <View style={styles.containerBattery}>
-                <Text style={{fontSize: FontSize.small, color: Colors.gray}}>
+                <Text style={{fontSize: FontSize.xxtraSmall, color: Colors.gray}}>
                   {`${locationDevice.power || 0}%`}
                 </Text>
                 <Image source={(locationDevice.power || 0) > 20 ? Images.icBattery : Images.icLowBattery} style={(locationDevice.power || 0) > 20 ? styles.icBattery : styles.icLowBattery} />

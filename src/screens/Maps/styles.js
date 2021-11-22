@@ -151,8 +151,8 @@ export const styles = StyleSheet.create({
     marginBottom: 6,
   },
   txtLocation: {
-    width: '70%',
-    fontSize: FontSize.small,
+    width: '50%',
+    fontSize: FontSize.xxtraSmall,
     fontFamily:'Roboto-Medium',
     color: Colors.grayTxt,
   },
@@ -163,8 +163,9 @@ export const styles = StyleSheet.create({
     marginVertical:5
   },
   txtTime: {
-    fontSize: FontSize.small,
-    color: Colors.grayTxt
+    fontSize: FontSize.xtraSmall,
+    color: Colors.grayTxt,
+    textAlign: 'center'
   },
   containerBattery: {flexDirection: 'row', alignItems: 'center'},
   icBattery: {

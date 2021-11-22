@@ -50,6 +50,7 @@ export default {
   'chooseDay': 'Select date',
   'success': 'Success',
   'detail': 'Details',
+  'discrepancy': 'Discrepancy - ',
   'thisFunctionIsNotValid': 'Tính năng chưa được cập nhật',
   'header_settings': 'Setting',
   'header_contacts': 'Contacts',
