@@ -26,6 +26,7 @@ import TimePickerModal from '../../../components/TimePickerModal';
 import { useTranslation } from 'react-i18next';
 import NotificationModal from '../../../components/NotificationModal';
 import DatePickerModal from "../../../components/DatePickerModal";
+import Consts from "../../../functions/Consts";
 
 const roundMinutes = (date = new Date()) => {
   var minute = date.getMinutes();
@@ -45,7 +46,7 @@ const toDateDefault = () => {
   return roundMinutes();
 };
 
-export default ({}) => {
+export default ({navigation}) => {
   const refMap = useRef(null);
   const refTime = useRef();
   const [listSafeArea, setListSafeArea] = useState([]);
@@ -185,6 +186,14 @@ export default ({}) => {
     );
   };
 
+  const gotoHomeScreen = () => {
+    if (DataLocal.haveSim === '0') {
+      DataLocal.saveHaveSim('1').then(r =>
+        navigation.navigate(Consts.ScreenIds.Tabs)
+      );
+    }
+  }
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -225,7 +234,7 @@ export default ({}) => {
       </View>
       <TimePickerModal ref={refTime}/>
       <LoadingIndicator ref={refLoading} />
-      <NotificationModal ref={refNotification} />
+      <NotificationModal ref={refNotification} goBack={gotoHomeScreen}/>
       <DatePickerModal ref={refDatePicker} />
     </KeyboardAvoidingView>
   );

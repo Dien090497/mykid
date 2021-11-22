@@ -99,6 +99,14 @@ export default ({navigation, route}) => {
     setLocationName(address);
   }).catch(err => console.log(err))
 
+  const gotoHomeScreen = () => {
+    if (DataLocal.haveSim === '0') {
+      DataLocal.saveHaveSim('1').then(r =>
+        navigation.navigate(Consts.ScreenIds.Tabs)
+      );
+    }
+  }
+
   return (
     <View
       style={[styles.container, {paddingBottom: useSafeAreaInsets().bottom}]}>
@@ -153,7 +161,7 @@ export default ({navigation, route}) => {
                 <Text style={{fontSize: FontSize.small, color: Colors.gray}}>
                   {`${locationDevice.power || 0}%`}
                 </Text>
-                <Image source={Images.icBattery} style={styles.icBattery} />
+                <Image source={(locationDevice.power || 0) > 20 ? Images.icBattery : Images.icLowBattery} style={(locationDevice.power || 0) > 20 ? styles.icBattery : styles.icLowBattery} />
               </View>
             </View>
           </TouchableOpacity>
@@ -166,7 +174,7 @@ export default ({navigation, route}) => {
         </TouchableOpacity>
       </View>
       <LoadingIndicator ref={refLoading} />
-      <NotificationModal ref={refNotification } />
+      <NotificationModal ref={refNotification } goBack={gotoHomeScreen}/>
     </View>
   );
 };

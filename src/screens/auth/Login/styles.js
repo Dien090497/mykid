@@ -99,10 +99,10 @@ export const styles = StyleSheet.create({
   },
   txt_Policy: {
     fontSize: FontSize.xtraSmall,
-    marginTop: height * 0.015,
     marginLeft: -width * 0.03,
     width: width - width * 0.12,
     color: '#808080',
+    alignItems: 'center'
   },
   modalView: {
     flex: 1,
@@ -150,7 +150,9 @@ export const styles = StyleSheet.create({
   viewCheckBox: {
     flexDirection: 'row',
     width: width - width * 0.1,
-    marginHorizontal: height * 0.04
+    marginHorizontal: height * 0.04,
+    marginTop: height * 0.012,
+    alignItems: 'center'
   },
   viewLanguage: {
     width: '100%',

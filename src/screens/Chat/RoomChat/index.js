@@ -10,7 +10,7 @@ import {
   View,
 } from 'react-native';
 import {styles} from './styles';
-import ActionSheet from '@alessiocancian/react-native-actionsheet';
+import ActionSheet, { ActionSheetCustom } from '@alessiocancian/react-native-actionsheet';
 import FastImage from 'react-native-fast-image';
 import Header from '../../../components/Header';
 import LoadingIndicator from '../../../components/LoadingIndicator';
@@ -318,6 +318,10 @@ export default function RoomChat({navigation, route}) {
             })
 
         })
+        .catch(err => {
+          SimpleToast.show(t('common:savePictureFail'))
+          console.log('err:', err)
+        });
     }
   }
 
@@ -347,6 +351,14 @@ export default function RoomChat({navigation, route}) {
     }
     return dataMock[6].icon;
   };
+
+  const gotoHomeScreen = () => {
+    if (DataLocal.haveSim === '0') {
+      DataLocal.saveHaveSim('1').then(r =>
+        navigation.navigate(Consts.ScreenIds.Tabs)
+      );
+    }
+  }
 
   return (
     <KeyboardAvoidingView style={styles.contain}
@@ -412,6 +424,7 @@ export default function RoomChat({navigation, route}) {
           </View>
           ))}
         </ScrollView>
+        { roomInfo && roomInfo.type === 'FAMILY' &&
         <View style={styles.viewBottom}>
           <TouchableOpacity style={styles.viewImg} onPress={() => {toggleRecord(!isRecord)}}>
             <Image source={isRecord ? Images.icKeyboard: Images.icRecord} style={isRecord ? styles.icKeyboard : styles.icRecord}/>
@@ -450,6 +463,7 @@ export default function RoomChat({navigation, route}) {
               style={isRecord ? styles.icCamera : isLock ? [styles.icSend, {opacity: 0.3}] : styles.icSend}/>
           </TouchableOpacity>
         </View>
+        }
       </View>
       { isRecording &&
       <View style={{
@@ -476,10 +490,10 @@ export default function RoomChat({navigation, route}) {
         </View>
       </View>}
       <LoadingIndicator ref={refLoading}/>
-      <NotificationModal ref={refNotification}/>
+      <NotificationModal ref={refNotification} goBack={gotoHomeScreen}/>
       <RecorderComponent ref={refRecorder} onStopRecord={onStopRecord} recordBackListener={recordBackListener}/>
       <AudioPlayerComponent ref={refAudioPlayer} onStopPlayer={onStopPlayer}/>
-      <ActionSheet
+      <ActionSheetCustom
         ref={o => sheet = o}
         title={t('common:selectPhoto')}
         options={[

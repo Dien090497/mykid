@@ -9,8 +9,9 @@ import ModalConfirm from '../../../components/ModalConfirm';
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import { useTranslation } from 'react-i18next';
 import NotificationModal from '../../../components/NotificationModal'
+import Consts from "../../../functions/Consts";
 
-export default function restartDevice() {
+export default function restartDevice({navigation}) {
   const refModel = useRef();
   const refLoading = useRef();
   const refNotification = useRef();
@@ -24,6 +25,14 @@ export default function restartDevice() {
       refNotification: refNotification,
     });
   };
+
+  const gotoHomeScreen = () => {
+    if (DataLocal.haveSim === '0') {
+      DataLocal.saveHaveSim('1').then(r =>
+        navigation.navigate(Consts.ScreenIds.Tabs)
+      );
+    }
+  }
 
   return (
     <View style={{ flex: 1, backgroundColor: Colors.white, alignItems: 'center' }}>
@@ -41,7 +50,7 @@ export default function restartDevice() {
         ref={refModel}
       />
       <NotificationModal ref={refNotification} />
-      <LoadingIndicator ref={refLoading} />
+      <LoadingIndicator ref={refLoading} goBack={gotoHomeScreen}/>
     </View>
   );
 }

@@ -13,6 +13,7 @@ import { getSoundModesApi, setSoundModesApi } from '../../../network/UserInfoSer
 import DataLocal from '../../../data/dataLocal';
 import { useTranslation } from 'react-i18next';
 import NotificationModal from "../../../components/NotificationModal";
+import Consts from "../../../functions/Consts";
 
 const {width, height} = Dimensions.get('window');
 export default function SoundSettings({navigation}) {
@@ -67,6 +68,14 @@ export default function SoundSettings({navigation}) {
     }
   }
 
+  const gotoHomeScreen = () => {
+    if (DataLocal.haveSim === '0') {
+      DataLocal.saveHaveSim('1').then(r =>
+        navigation.navigate(Consts.ScreenIds.Tabs)
+      );
+    }
+  }
+
   return (
     <View style={styles.contain}>
       <Header title={t('common:header_soundSettings')} />
@@ -106,7 +115,7 @@ export default function SoundSettings({navigation}) {
         </RadioForm>
       </View>
       <LoadingIndicator ref={refLoading} />
-      <NotificationModal ref={refNotification} />
+      <NotificationModal ref={refNotification} goBack={gotoHomeScreen}/>
     </View>
   );
 }

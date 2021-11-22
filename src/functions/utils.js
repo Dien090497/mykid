@@ -189,6 +189,7 @@ export async function saveUserDataFromToken(token) {
   DataLocal.userInfo = userInfo;
   await DataLocal.loadDeviceIndex();
   await DataLocal.loadDeviceId();
+  await DataLocal.loadHaveSim();
   await DataLocal.saveAccessToken(token);
   await createTokenFirebase(DataLocal.tokenFirebase,{
     success: resData => {},
