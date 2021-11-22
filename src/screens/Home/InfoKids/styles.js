@@ -48,6 +48,10 @@ export const styles = StyleSheet.create({
     width: height * 0.04,
     height: height * 0.04
   },
+  image1: {
+    width: height * 0.03,
+    height: height * 0.03
+  },
   viewImage: {
     flexDirection: 'row',
     position: 'absolute',
@@ -58,6 +62,7 @@ export const styles = StyleSheet.create({
   imageAvatar: {
     width: height * 0.16,
     height: height * 0.16,
-    borderRadius: height * 0.08
+    borderRadius: height * 0.08,
+    marginTop: height * 0.02
   }
 });

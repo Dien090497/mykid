@@ -1,4 +1,4 @@
-import {Image, ScrollView, StatusBar, Text, TouchableOpacity, View} from "react-native";
+import {Image, Linking, StatusBar, Text, TouchableOpacity, View} from "react-native";
 import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
 
 import {Menu, MenuDivider} from 'react-native-material-menu';
@@ -46,7 +46,6 @@ export default function HomeMainScreen() {
   const getListDevices = () => {
     getListDeviceApi(DataLocal.userInfo.id, Consts.pageDefault, 100, '', 'ACTIVE', {
       success: resData => {
-        DataLocal.saveHaveSim(resData.data[selectedIndex].validSim ? '1' : '0')
         setDevices(resData.data);
       },
       refLoading,
@@ -213,6 +212,7 @@ export default function HomeMainScreen() {
           >
             {devices && devices.map((obj, i) => {
               const isSelectDevice = obj.deviceId === DataLocal.deviceId;
+              DataLocal.saveHaveSim(devices[selectedIndex].validSim ? '1' : '0');
               return (
                 <View key={i.toString()} style={{paddingHorizontal: 10}}>
                   <View style={styles.viewMenuDrop} onStartShouldSetResponder={() => {
@@ -252,11 +252,11 @@ export default function HomeMainScreen() {
               <TouchableOpacity
                 {...buttonProps}
                 style={[styles.button, {marginTop: '6%'}]}
-                onPress={pressAlarmClock}>
+                onPress={pressSafeArea}>
                 <View style={styles.bgIcon}>
-                  <Image source={Images.icAlarm} style={styles.icon}/>
+                  <Image source={Images.icSafeZone} style={styles.icon}/>
                 </View>
-                <Text style={styles.buttonText}>{t('common:home_alarmClock')}</Text>
+                <Text style={styles.buttonText}>{t('common:home_safeArea')}</Text>
               </TouchableOpacity>
             </View>
             <View style={[styles.buttonContainerR, {height: '100%', width: '49%'}]}>
@@ -280,15 +280,27 @@ export default function HomeMainScreen() {
               </TouchableOpacity>
             </View>
           </View>
-          <View style={[styles.buttonContainerR, {minHeight: '38%', marginTop: '0.5%'}]}>
+          <View style={[styles.buttonContainerR, {height: '98%', marginTop: '0.5%'}]}>
             <TouchableOpacity
               {...buttonProps}
-              style={styles.button}
+              style={[styles.button, {marginBottom: '6%'}]}
               onPress={pressVideoCall}>
               <View style={styles.bgIcon}>
                 <Image source={Images.icVideoCall} style={styles.icon}/>
               </View>
               <Text style={styles.buttonText}>{t('common:home_videoCall')}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              {...buttonProps}
+              style={styles.button}
+              onPress={()=>{
+                Linking.openURL(`tel:${'0859994546'}`)
+              }}
+            >
+              <View style={styles.bgIcon}>
+                <Image source={Images.ic_local_phone} style={styles.icon}/>
+              </View>
+              <Text style={styles.buttonText}>{t('common:home_phone')}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -297,11 +309,11 @@ export default function HomeMainScreen() {
             <TouchableOpacity
               {...buttonProps}
               style={styles.button}
-              onPress={pressSafeArea}>
+              onPress={pressAlarmClock}>
               <View style={styles.bgIcon}>
-                <Image source={Images.icSafeZone} style={styles.icon}/>
+                <Image source={Images.icAlarm} style={styles.icon}/>
               </View>
-              <Text style={styles.buttonText}>{t('common:home_safeArea')}</Text>
+              <Text style={styles.buttonText}>{t('common:home_alarmClock')}</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.buttonContainer}>

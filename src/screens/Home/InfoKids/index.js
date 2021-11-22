@@ -20,15 +20,24 @@ import {getInfoApi, setInfoKitsApi} from '../../../network/InfoKidsService';
 import { useTranslation } from 'react-i18next';
 import NotificationModal from '../../../components/NotificationModal';
 import DatePickerModal from "../../../components/DatePickerModal";
+import {
+  checkCameraPermission,
+  checkPhotoLibraryReadPermission,
+  checkPhotoLibraryWritePermission
+} from "../../../functions/permissions";
+import {launchCamera, launchImageLibrary} from "react-native-image-picker";
+import {hideLoading, resizeImage, showLoading} from "../../../functions/utils";
 
 export default function InfoKits({route}) {
   let sheet = null;
+  let sheet1 = null;
   const refLoading = useRef();
   const refModalInput = useRef();
   const refNotification = useRef();
   const refDatepicker = useRef();
   const [title, setTitle] = useState('');
   const [inputText, setInputText] = useState('')
+  const [avatar, setAvatar] = useState(null);
   const [gender, setGender] = useState('');
   const [name, setName] = useState('');
   const [birthdays, setBirthday] = useState('');
@@ -89,9 +98,14 @@ export default function InfoKits({route}) {
     getInfo();
   }, []);
 
+  // useLayoutEffect(() => {
+  //   setAvatar(route.params.avatar);
+  // },[]);
+
   const getInfo = () => {
     getInfoApi(DataLocal.deviceId, {
       success: res => {
+        setAvatar(res.data.avatar);
         setName(res.data.name);
         setBirthday(res.data.birthday);
         setGender(res.data.gender);
@@ -139,6 +153,7 @@ export default function InfoKits({route}) {
     const height = parseInt(heights);
     const weight = parseInt(weights);
     let body = {
+      avatar,
       birthday,
       gender,
       height,
@@ -201,6 +216,50 @@ export default function InfoKits({route}) {
    }
   }
 
+  const OnActionSheet = () => {
+      sheet1.show();
+  }
+
+  const handleImageAction = async (index) => {
+    switch (index) {
+      case 0:
+        const granted = await checkPhotoLibraryReadPermission();
+        if (granted) {
+          launchImageLibrary({
+            mediaType: 'photo',
+          }, resp => {
+            resizeImg(resp);
+          });
+        }
+        break;
+      case 1:
+        const cameraGranted = await checkCameraPermission();
+        const photosGranted = await checkPhotoLibraryWritePermission();
+        if (cameraGranted && photosGranted) {
+          launchCamera({
+            mediaType: 'photo',
+            cameraType: 'front',
+            saveToPhotos: false,
+          }, resp => {
+            resizeImg(resp);
+          });
+        }
+        break;
+    }
+  }
+  const resizeImg = (imagePickerResponse) => {
+    if (imagePickerResponse.uri) {
+      showLoading(refLoading);
+      resizeImage(imagePickerResponse).then(uri => {
+        hideLoading(refLoading);
+        if (uri) {
+          setAvatar(uri);
+          setDisableTob(true);
+        }
+      });
+    }
+  };
+
   const renderFlatlist = (itemFlatlist) => {
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -247,13 +306,19 @@ export default function InfoKits({route}) {
       <View
         style={{
           width: '100%',
-          height: '22%',
+          height: '28%',
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        <Image source={route.params.avatar ? {uri: route.params.avatar} : Images.icAvatar}
+        <Image source={avatar ? {uri: avatar} : Images.icAvatar}
                style={styles.imageAvatar}
-               resizeMode={route.params.avatar ? 'cover' : 'stretch'}/>
+               resizeMode={avatar ? 'cover' : 'stretch'}/>
+         <View style={{flexDirection: 'row', marginTop: '4%', alignItems: 'center', justifyContent: 'center'}}>
+           <TouchableOpacity onPress={OnActionSheet}>
+             <Image source={Images.icShootPhoto} style={styles.image1} resizeMode={'center'}/>
+           </TouchableOpacity>
+           <Text style={{marginLeft: '2%'}}>{t('common:changeAvatar')}</Text>
+         </View>
       </View>
       <View style={{justifyContent: 'center', alignItems: 'center', height: '75%', marginTop: -10}}>
         <FlatList
@@ -282,6 +347,20 @@ export default function InfoKits({route}) {
           <Text style={{fontSize: 18, fontFamily: 'Roboto', color: Colors.colorMain}}>{t('common:cancel')}</Text>,
         ]}
         onPress={handleGenderAction}
+      />
+      <ActionSheetCustom
+        ref={o => sheet1 = o}
+        styles={{
+          buttonBox: {width: '100%', height: ScaleHeight.big},
+          buttonText: {fontSize: 18, fontWeight: '400', fontStyle: 'normal'}
+        }}
+        options={[
+          t('common:selectPhotoLibrary'),
+          t('common:takePhoto'),
+          t('common:cancel'),
+        ]}
+        cancelButtonIndex={2}
+        onPress={handleImageAction}
       />
       <LoadingIndicator ref={refLoading}/>
       <DatePickerModal ref={refDatepicker}/>

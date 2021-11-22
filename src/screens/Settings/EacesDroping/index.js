@@ -24,16 +24,9 @@ export default function EacesDroping({navigation}) {
   const refNotification = useRef();
   const {t} = useTranslation();
   useEffect(() => {
-    getPhoneApi(DataLocal.deviceId, {
-      success: res => {
-        if (res.data.phoneNumber && res.data.phoneNumber.startsWith('+84')) {
-          setNumber('0' + res.data.contact.substring(3));
-        }
-      },
-      refLoading: refLoading,
-      refNotification: refNotification,
-    });
+    setPhone()
   }, []);
+
   const checkNumber = () => {
     if (!phoneTest1(editPhone())) {
       refNotification.current.open(t('common:error_phone'))
@@ -68,6 +61,12 @@ export default function EacesDroping({navigation}) {
       DataLocal.saveHaveSim('1').then(r =>
         navigation.navigate(Consts.ScreenIds.Tabs)
       );
+    }
+  }
+
+  const setPhone = () => {
+    if (DataLocal.userInfo.phone && DataLocal.userInfo.phone.startsWith('+84')) {
+      setNumber('0' + DataLocal.userInfo.phone.substring(3));
     }
   }
 
