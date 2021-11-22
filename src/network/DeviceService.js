@@ -135,6 +135,20 @@ export function getJourneyApi(
   });
 }
 
+export function getNumberDevices(
+  deviceId,
+  { success, failure, autoShowMsg = true, refLoading = null, refNotification = null },
+) {
+  const url = [listDeviceUrl, deviceId, "total-account"].join("/");
+  return get(url, {
+    success,
+    failure,
+    autoShowMsg,
+    refLoading,
+    refNotification
+  });
+}
+
 export function deleteDevicesApi(
   deviceId,
   { success, failure, autoShowMsg = true, refLoading = null, refNotification = null },

@@ -62,6 +62,7 @@ export default {
   icShow: require('./images/ic_show.png'),
   icWarning: require('./images/home/ic_warning.png'),
   icTransport: require('./images/home/ic_transfer.png'),
+  ic_local_phone: require('./images/home/ic_local_phone.png'),
 
   //RewardPoints
   icAdd: require('./images/rewardoints/ic_add.png'),

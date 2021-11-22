@@ -55,7 +55,7 @@ export default {
   'header_contacts': 'Danh bạ',
   'header_addContact': 'Thêm liên lạc',
   'header_members': 'Danh sách thành viên',
-  'header_maps': 'Bản đồ',
+  'header_maps': 'Định vị',
   'header_addDevice': 'Thêm thiết bị',
   'header_editDevice': 'Chỉnh sửa thông tin thiết bị',
   'header_QRCode': 'Quét mã',
@@ -70,7 +70,7 @@ export default {
   'header_soundSettings': 'Cài đặt chuông',
   'header_alarmClock': 'Báo thức',
   'header_alarmSetting': 'Cài đặt báo thức',
-  'header_soundGuardian': 'Nghe lén',
+  'header_soundGuardian': 'Nghe từ xa',
   'header_reward_points': 'Tặng phần thưởng',
   'header_doNotDisturb': 'Chế độ lớp học',
   'header_language_timezone': 'Ngôn ngữ và múi giờ',
@@ -199,7 +199,7 @@ export default {
   'journey': 'Hành trình',
   'location': 'Vị trí: ',
   'coordinates': 'Tọa độ: ',
-  'safeArea': 'Khu vực an toàn',
+  'safeArea': 'Vùng an toàn',
 
   'palaceHolderSafeZone': 'Thêm vùng an toàn',
 
@@ -213,11 +213,11 @@ export default {
   'enter_phone_number': 'Vui lòng nhập số điện thoại',
 
   //home
-  'home_gps': 'BẢN ĐỒ',
+  'home_gps': 'ĐỊNH VỊ',
   'home_videoCall': 'VIDEO CALL',
   'home_journey': 'HÀNH TRÌNH',
   'home_chat': 'TIN NHẮN',
-  'home_safeArea': 'KHU VỰC AN TOÀN',
+  'home_safeArea': 'VÙNG AN TOÀN',
   'home_alarm': 'CÀI ĐẶT CHUÔNG',
   'home_findDevice': 'TÌM THIẾT BỊ ',
   'home_alarmClock': 'BÁO THỨC',
@@ -227,9 +227,10 @@ export default {
   'home_warning': 'CẢNH BÁO',
   'home_transport': 'SỨC KHỎE',
   'home_infoKits': 'Thông tin của bé',
-  'home_soundGuardian': 'NGHE LÉN',
+  'home_soundGuardian': 'NGHE TỪ XA',
   'home_reward': 'TẶNG PHẦN THƯỞNG',
   'home_secretPhotoShoot': 'CHỤP ẢNH TỪ XA',
+  'home_phone': 'GỌI NGAY',
 
   //setting
   'setting_contact': 'Danh bạ',
@@ -306,6 +307,7 @@ export default {
   'error_info': 'Chiều cao và cân nặng luôn lớn hơn 0',
   'error_birthday': 'Ngày sinh của bé khộng hợp lệ',
   'errorName': 'Tên bé không được để trống',
+  'changeAvatar': 'Đổi ảnh đại diện',
 
   //ForgotPassWord
   'txtForgotPassWord1': '1.Xin vui lòng nhập số điện thoại hợp lệ để nhận mã xác minh.',

@@ -88,7 +88,7 @@ export default function DeleteMessage({navigation, route}) {
   }, []);
 
   const getListDevice = () => {
-    getListDeviceApi(null, 0, 100, DataLocal.deviceId, 'ACTIVE', {
+    getListDeviceApi(null, 0, 100, roomInfo.deviceId, 'ACTIVE', {
       success: res => {
         setListMember(res.data);
       },
