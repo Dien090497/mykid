@@ -22,7 +22,7 @@ export default function App() {
     function onRegister(token) {
       console.log("[App] onRegister: ", token)
       DataLocal.tokenFirebase = token;
-      DataLocal.saveAccessToken(token);
+      DataLocal.saveTokenFirebase(token);
     }
 
     function onNotification(notify) {
@@ -42,7 +42,9 @@ export default function App() {
 
     function onOpenNotification(notify) {
       console.log("[App] onOpenNotification: ", notify)
-      routeRef.current.roadToMsgFromNotify(notify);
+      if (notify && notify.type === 'CHAT'){
+        routeRef.current.roadToMsgFromNotify(notify);
+      }
     }
 
     return () => {
