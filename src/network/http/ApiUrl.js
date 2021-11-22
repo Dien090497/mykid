@@ -28,7 +28,7 @@ export const deleteDeviceUrl = appUrl + '/account-devices/devices';
 export const alarmUrl = appUrl + '/alarms';
 
 //tokenfirebase
-export const createTokenFirebase = appUrl + '/app-tokens';
+export const createTokenFirebaseUrl = appUrl + '/app-tokens';
 
 // Class mode
 export const classModesUrl = appUrl + '/class-modes';

@@ -9,7 +9,7 @@ import {
   accountDetailUrl,
   getOtpReset,
   getVerificationOtp,
-  UpdatePassword
+  UpdatePassword, createTokenFirebaseUrl,
 } from "./http/ApiUrl";
 import { generateRandomId } from "../functions/utils";
 import { post, get, put } from "./http/HttpClient";
@@ -22,7 +22,7 @@ export function createTokenFirebase(token, autoShowMsg = false, refLoading = nul
   let body = {
     token,
   };
-  return post(createTokenFirebase, { body, autoShowMsg, refLoading, refNotification });
+  return post(createTokenFirebaseUrl, { body, autoShowMsg, refLoading, refNotification });
 }
 
 export function createAccountApi(data, { success, failure, autoShowMsg = true, refLoading = null, refNotification = null }) {
