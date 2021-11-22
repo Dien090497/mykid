@@ -39,4 +39,5 @@ i18n
       escapeValue: false,
     },
     defaultNS: 'common',
+    compatibilityJSON: 'v3'
   });
