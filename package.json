@@ -59,6 +59,7 @@
     "react-native-material-menu": "^2.0.0",
     "react-native-modal-datetime-picker": "^11.0.0",
     "react-native-permissions": "^3.0.5",
+    "react-native-progress": "^5.0.0",
     "react-native-responsive-fontsize": "0.5.1",
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.4.0",

@@ -22,6 +22,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import Geocoder from 'react-native-geocoder';
 import Moment from 'moment';
+import * as Progress from 'react-native-progress';
 
 const initialRegion = {
   latitude: 21.030653,
@@ -34,20 +35,27 @@ export default ({navigation, route}) => {
   const refMap = useRef(null);
   const refLoading = useRef(null);
   const refNotification = useRef(null);
-  const [locationDevice, setLocationDevice] = useState(null);
-  const [infoDevice, setInfoDevice] = useState(null);
+  const [locationDevice, setLocationDevice] = useState([]);
+  const [infoDevice, setInfoDevice] = useState([]);
+  const [listDeviceID, setListDeviceID] = useState([]);
   const [locationName, setLocationName] = useState('');
+  const [indexSelect, setIndexSelect] = useState(DataLocal.deviceIndex);
+  const [isCount, setIsCount] = useState(false);
+  const [timeCount, setTimeCount] = useState(0);
   const { t } = useTranslation();
+  let timer = 0;
 
   const getLocationDevice = async () => {
     try {
-      if (!infoDevice) {
-        getListDeviceApi(null, 0, 100, DataLocal.deviceId, '', {
+      if (!infoDevice.length > 0) {
+        getListDeviceApi(DataLocal.userInfo.id, 0, 100, '', 'ACTIVE', {
           success: res => {
-            const device = res.data.find(
-              val => val.deviceId === DataLocal.deviceId,
-            );
-            setInfoDevice(device);
+            const listID = [];
+            res.data.map((obj,i) =>{
+              listID.push(obj.deviceId);
+            })
+            setListDeviceID(listID);
+            setInfoDevice(res.data);
           },
           // refLoading: refLoading,
           refNotification: refNotification,
@@ -55,7 +63,20 @@ export default ({navigation, route}) => {
       }
       getLocationDeviceApi(DataLocal.deviceId, {
         success: res => {
-          setLocationDevice(res.data);
+          const dataaaaa = {
+            accuracy: 21,
+            location: {
+              lat: 21.030653,
+              lng: 105.84713
+            },
+            power: 30,
+            reportedAt: '2021-10-18T06:50:50Z',
+            type: 'GPS'
+          }
+          const listLocation =[];
+          listLocation.push(dataaaaa);
+          listLocation.push(res.data);
+          setLocationDevice(listLocation);
           const {lat, lng} = res.data?.location;
           if (lat && lng) {
             refMap.current.animateCamera({
@@ -80,20 +101,14 @@ export default ({navigation, route}) => {
         navigation.replace(Consts.ScreenIds.DeviceManager);
       }))
     }
+    return ()=>{
+      setIsCount(false);
+    }
   }, []);
 
-  const getRegion = () => {
-    if (!locationDevice) return initialRegion;
-    return {
-      ...initialRegion,
-      latitude: locationDevice?.location?.lat,
-      longitude: locationDevice?.location?.lng,
-    };
-  };
-
   Geocoder.geocodePosition({
-    lat: locationDevice?.location?.lat,
-    lng: locationDevice?.location?.lng
+    lat: locationDevice[indexSelect]?.location?.lat,
+    lng: locationDevice[indexSelect]?.location?.lng
   }).then(res => {
     const address = [res[0].streetNumber +' '+ res[0].streetName, res[0].subAdminArea, res[0].adminArea].join(', ')
     setLocationName(address);
@@ -107,6 +122,22 @@ export default ({navigation, route}) => {
     }
   }
 
+  const getTime = () => {
+    return Math.floor(Date.now() / 1000);
+  };
+
+  const refreshCountdown = () => {
+    setTimeout(() => {
+      if (timer - getTime() <= 0) {
+        setIsCount(false)
+      } else {
+        setTimeCount(timer - getTime())
+        refreshCountdown();
+      }
+    }, 200)
+  };
+
+
   return (
     <View
       style={[styles.container, {paddingBottom: useSafeAreaInsets().bottom}]}>
@@ -117,24 +148,30 @@ export default ({navigation, route}) => {
           style={styles.container}
           provider={PROVIDER_GOOGLE}
           showsUserLocation={true}
-          mapType={'satellite'}
-          region={getRegion()}>
-          {locationDevice && infoDevice && (
-            <Marker
-              coordinate={{
-                latitude: locationDevice?.location?.lat,
-                longitude: locationDevice?.location?.lng,
-              }}
-              title={infoDevice.deviceName}>
-              <Image source={Images.icWatchMarker} style={styles.icMarker} />
-            </Marker>
+          mapType={'hybrid'}>
+          {locationDevice.length > 0 && infoDevice.length > 0 && (
+            locationDevice.map((obj,i)=>{
+              return(
+                <Marker
+                  onPress={()=>{
+                    setIndexSelect(i);
+                  }}
+                  coordinate={{
+                    latitude: obj?.location?.lat,
+                    longitude: obj?.location?.lng,
+                  }}
+                  title={infoDevice[i].deviceName}>
+                  <Image source={Images.icMarkerDefault} style={[styles.icMarker,{tintColor: Colors.colorMain}]}/>
+                </Marker>
+              )
+            })
           )}
         </MapView>
 
-        {locationDevice && infoDevice && (
+        {locationDevice.length > 0 && infoDevice.length > 0 && (
           <TouchableOpacity
             onPress={() => {
-              const {lat, lng} = locationDevice?.location;
+              const {lat, lng} = locationDevice[indexSelect]?.location;
               if (lat && lng)
                 refMap.current.animateCamera({
                   center: {
@@ -146,23 +183,23 @@ export default ({navigation, route}) => {
             }}
             style={styles.containerDevice}>
             <View style={styles.containerLastTime}>
-              <Text style={styles.txtNameDevice}>{infoDevice.deviceName}</Text>
+              <Text style={styles.txtNameDevice}>{infoDevice[indexSelect].deviceName}</Text>
               <Text style={styles.txtTime}>
-                {Moment(new Date(locationDevice.reportedAt)).format('HH:mm DD/MM/yyyy')}
+                {Moment(new Date(locationDevice[indexSelect].reportedAt)).format('HH:mm DD/MM/yyyy')}
               </Text>
             </View>
             <View style={styles.containerLastTime}>
               <Text style={styles.txtLocation}>{t('common:location')}{locationName}</Text>
-              <Text style={styles.txtTime}>{locationDevice.type}</Text>
+              <Text style={[styles.txtTime,{flex: 1 ,fontSize: FontSize.xxtraSmall*0.8, textAlign: 'right'}]}>{locationDevice[indexSelect].type + ' ('+ t('common:discrepancy') + (locationDevice[indexSelect].type === 'GPS' ? '50m)' : locationDevice[indexSelect].type === 'WIFI' ? '100m)' : '1000m)')}</Text>
             </View>
 
             <View style={styles.containerLastTime}>
-              <Text style={styles.txtLocation}>{t('common:coordinates')}{`${locationDevice?.location?.lat}, ${locationDevice?.location?.lng}`}</Text>
+              <Text style={[styles.txtLocation,{width: '80%'}]}>{t('common:coordinates')}{`${locationDevice[indexSelect]?.location?.lat}, ${locationDevice[indexSelect]?.location?.lng}`}</Text>
               <View style={styles.containerBattery}>
-                <Text style={{fontSize: FontSize.small, color: Colors.gray}}>
-                  {`${locationDevice.power || 0}%`}
+                <Text style={{fontSize: FontSize.xxtraSmall, color: Colors.gray}}>
+                  {`${locationDevice[indexSelect].power || 0}%`}
                 </Text>
-                <Image source={(locationDevice.power || 0) > 20 ? Images.icBattery : Images.icLowBattery} style={(locationDevice.power || 0) > 20 ? styles.icBattery : styles.icLowBattery} />
+                <Image source={(locationDevice[indexSelect].power || 0) > 20 ? Images.icBattery : Images.icLowBattery} style={(locationDevice[indexSelect].power || 0) > 20 ? styles.icBattery : styles.icLowBattery} />
               </View>
             </View>
           </TouchableOpacity>
@@ -170,8 +207,31 @@ export default ({navigation, route}) => {
 
         <TouchableOpacity
           style={styles.containerGetLocation}
-          onPress={getLocationDevice}>
-          <Image source={Images.icWatchMarker} style={styles.icMarker} />
+          onPress={()=>{
+            if (isCount) {
+              return;
+            }else {
+              timer = getTime() + 60;
+              setIsCount(true);
+              refreshCountdown();
+              getLocationDevice();
+            }
+          }}>
+          {isCount ?
+              <View>
+                <Progress.Circle
+                  size={40}
+                  indeterminate={false}
+                  color={Colors.colorMain}
+                  showsText={true}
+                  progress={timeCount/60}
+                  borderWidth={0}
+                  formatText={() => {
+                    return timeCount.toString();
+                  }}
+                  textStyle={{fontSize: FontSize.xxtraSmall, fontFamily: 'Roboto-Medium'}}
+                />
+              </View> : <Image source={Images.icWatchMarker} style={styles.icMarker} />}
         </TouchableOpacity>
       </View>
       <LoadingIndicator ref={refLoading} />
