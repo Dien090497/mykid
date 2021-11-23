@@ -264,6 +264,7 @@ export default {
   'familyGroupInformation': 'Thông tin nhóm gia đình',
   'talkWithFriends': 'Tin nhắn của con với bạn',
   'talk': 'Trò chuyện',
+  'friend': 'Bạn',
 
   //RewardPoints
   'rewardPoints_text': 'Bé làm 1 việc tốt,hãy thưởng bé 1 điểm',

@@ -264,6 +264,7 @@ export default {
   'familyGroupInformation': 'Family group information',
   'talkWithFriends': 'Your child\'s messages to friends',
   'talk': 'Conversation',
+  'friend': 'Friend',
 
   //RewardPoints
   'rewardPoints_text': 'Send a reward!',

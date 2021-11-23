@@ -121,13 +121,13 @@ export default function RoomChat({navigation, route}) {
   }, []);
 
   useLayoutEffect(() => {
-    if (roomInfo && roomInfo.type === 'FAMILY') {
+    if (roomInfo) {
       getListDevice();
     }
   }, [roomInfo]);
 
   const getListDevice = () => {
-    getListDeviceApi(null, 0, 100, roomInfo.deviceId, 'ACTIVE', {
+    getListDeviceApi(roomInfo.type === 'FAMILY' ? null : DataLocal.userInfo.id, 0, 100, roomInfo.type === 'FAMILY' ? roomInfo.deviceId : '', 'ACTIVE', {
       success: res => {
         setListMember(res.data);
       },
@@ -294,7 +294,8 @@ export default function RoomChat({navigation, route}) {
   }
 
   const isMe = (obj) => {
-    return obj.from === `${DataLocal.userInfo.id}@${AppConfig.dev.rootDomain}`;
+    return roomInfo.type === 'FAMILY' ? obj.from === `${DataLocal.userInfo.id}@${AppConfig.dev.rootDomain}`
+            : obj.from === roomInfo.deviceId;
   };
 
   const saveImage = (obj) => {
@@ -326,30 +327,56 @@ export default function RoomChat({navigation, route}) {
   }
 
   const getName = (obj) => {
-    const uid = obj.from.split('@')[0];
-    if (uid === 'terminal_mykid' && roomInfo.deviceName) {
-      return roomInfo.deviceName;
+    if (roomInfo.type === 'FAMILY') {
+      const uid = obj.from.split('@')[0];
+      if (uid === 'terminal_mykid' && roomInfo.deviceName) {
+        return roomInfo.deviceName;
+      }
+      const mems = listMember.filter(mem => mem.accountId.toString() === uid);
+      if (mems.length > 0) {
+        if (mems[0].relationship === 'OTHER') return mems[0].relationshipName;
+        const relationship = dataMock.filter(val => val.relationship === mems[0].relationship);
+        if (relationship.length > 0) return relationship[0].name;
+      }
+      return uid;
+    } else {
+      const mems = listMember.filter(mem => mem.deviceCode.toString() === obj.from);
+      if (mems.length > 0) {
+        if (roomInfo.deviceId === null) {
+          const info = Object.assign({}, roomInfo);
+          info.deviceId = obj.from;
+          setRoomInfo(info);
+        }
+        return mems[0].deviceName;
+      }
+      return t('common:friend');
     }
-    const mems = listMember.filter(mem => mem.accountId.toString() === uid);
-    if (mems.length > 0) {
-      if (mems[0].relationship === 'OTHER') return mems[0].relationshipName;
-      const relationship = dataMock.filter(val => val.relationship === mems[0].relationship);
-      if (relationship.length > 0) return relationship[0].name;
-    }
-    return uid;
   };
 
   const getIcon = (obj) => {
-    const uid = obj.from.split('@')[0];
-    if (uid === 'terminal_mykid' && roomInfo.avatar) {
-      return {uri: roomInfo.avatar}
+    if (roomInfo.type === 'FAMILY') {
+      const uid = obj.from.split('@')[0];
+      if (uid === 'terminal_mykid' && roomInfo.avatar) {
+        return {uri: roomInfo.avatar}
+      }
+      const mems = listMember.filter(mem => mem.accountId.toString() === uid);
+      if (mems.length > 0) {
+        const relationship = dataMock.filter(val => val.relationship === mems[0].relationship);
+        return relationship.length > 0 ? relationship[0].icon : dataMock[6].icon;
+      }
+      return dataMock[6].icon;
+    } else {
+      const mems = listMember.filter(mem => mem.deviceCode.toString() === obj.from);
+      if (mems.length > 0) {
+        if (roomInfo.deviceId === null) {
+          const info = Object.assign({}, roomInfo);
+          info.deviceId = obj.from;
+          setRoomInfo(info);
+        }
+        return {uri: mems[0].avatar};
+      }
+      return dataMock[6].icon;
     }
-    const mems = listMember.filter(mem => mem.accountId.toString() === uid);
-    if (mems.length > 0) {
-      const relationship = dataMock.filter(val => val.relationship === mems[0].relationship);
-      return relationship.length > 0 ? relationship[0].icon : dataMock[6].icon;
-    }
-    return dataMock[6].icon;
   };
 
   const gotoHomeScreen = () => {
@@ -363,10 +390,11 @@ export default function RoomChat({navigation, route}) {
   return (
     <KeyboardAvoidingView style={styles.contain}
       behavior={Platform.OS === 'ios' ? 'padding' : ''}>
-      {roomInfo &&
-      <Header title={ roomInfo.type === 'FAMILY' ? `${roomInfo.deviceName || ''} ${t('common:familyGroup')} (${listMember.length})`
-                      : `${t('common:talkWithFriends')} (${roomInfo.roomName || '0'})`}
+      {roomInfo && roomInfo.type === 'FAMILY' &&
+      <Header title={ `${roomInfo.deviceName || ''} ${t('common:familyGroup')} (${listMember.length})`}
        right rightIcon={Images.icGroup} rightAction={() => {gotoDeleteMessage()}}/>}
+      {roomInfo && roomInfo.type !== 'FAMILY' &&
+      <Header title={`${t('common:talkWithFriends')} (${roomInfo.roomName || '0'})`}/>}
       <View style={styles.container}>
         <ScrollView ref={refScrollView} style={styles.container}
           onContentSizeChange={() => refScrollView.current.scrollToEnd({animated: true})}>
@@ -382,8 +410,8 @@ export default function RoomChat({navigation, route}) {
                 <FastImage source={getIcon(obj)} style={styles.icAvatar} resizeMode={FastImage.resizeMode.stretch} />
               </View>
               <View style={styles.viewContent}>
-                { !isMe(obj) &&
-                  <Text style={styles.txtTitle}>{getName(obj)}</Text>
+                { (!isMe(obj) || roomInfo.type !== 'FAMILY') &&
+                  <Text style={[styles.txtTitle, isMe(obj) ? {textAlign: 'right'} : {}]}>{getName(obj)}</Text>
                 }
                 {obj.type !== 'image' &&
                 <View style={{flexDirection: !isMe(obj) ? 'row' : 'row-reverse'}}>
