@@ -65,11 +65,6 @@ export default function SplashScreen() {
       </View>
       <View style={styles.bottomContainer}>
         {!syncFailed && <Text style={{color: 'grey', padding: 10}}>{msg}</Text>}
-        {
-          syncFailed &&
-          <Text style={{padding: 10}} onPress={retrySync}>{String.resync}</Text>
-        }
-        {/* {isLoading && <ActivityIndicator style={{marginTop: 20}} animating={true}/>} */}
       </View>
       <NotificationModal ref={refNotification} />
     </View>

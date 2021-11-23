@@ -44,7 +44,7 @@ export default {
   icEmptyContact: require('./images/ic_empty_contacts.png'),
   icMarkerDefault: require('./images/ic_marker_default.png'),
   icCancelMember: require('./images/ic_cancel_member.png'),
-  icMobile: require('./images/mobile.png'),
+  icMobile: require('./images/ic_mobile.png'),
 
   //homeScreen
   icHomeOn: require('./images/main/ic_home_on.png'),
