@@ -19,6 +19,7 @@ const AddDeviceScreen = ({ navigation, route }) => {
   const [submitActive, setSubmitActive] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [contentModal, setContentModal] = useState('');
+  const [devicesNumber, setDevicenNumber] = useState('');
   const { t } = useTranslation();
   const [data, setData] = useState(
     {
@@ -152,6 +153,16 @@ const AddDeviceScreen = ({ navigation, route }) => {
             placeholder={t('common:deviceNickname')}
             onChangeText={name => setDeviceName(name)}
             placeholderTextColor='#B5B4B4'
+            maxLength={10}
+            style={styles.textInput} />
+        </View>
+        <View style={[styles.input,{marginBottom:20}]}>
+            <Image style={[styles.iconInput,{height:'60%'}]} source={Images.icMobile} resizeMode='contain' />
+          <TextInput
+            placeholder={t('common:deviceNumber')}
+            onChangeText={text => setDevicenNumber(text.replace(/[^0-9]/g, ''))}
+            placeholderTextColor='#B5B4B4'
+            keyboardType={'number-pad'}
             maxLength={10}
             style={styles.textInput} />
         </View>

@@ -88,9 +88,6 @@ export default function HomeMainScreen() {
   };
 
   const pressVideoCall = () => {
-    if (DataLocal.haveSim === '0') {
-      return refNotification.current.open(t('errorMsg:kwa4067'));
-    }
     navigation.navigate(Consts.ScreenIds.ListDevice);
   };
 
@@ -175,6 +172,13 @@ export default function HomeMainScreen() {
     await DataLocal.saveDeviceId(devices[index].deviceId);
   };
 
+  const onCall = () => {
+    if (DataLocal.haveSim === '0') {
+      return refNotification.current.open(t('errorMsg:kwa4067'));
+    }
+    Linking.openURL(`tel:${'0' + devices[selectedIndex].isdn.substring(3)}`)
+  }
+
   return (
     <View style={styles.container}>
       <StatusBar translucent backgroundColor='transparent'/>
@@ -237,12 +241,12 @@ export default function HomeMainScreen() {
             <View style={[styles.buttonContainerL, {
               height: '100%',
               width: '49%',
-              marginBottom: '1.5%',
-              marginRight: '3%'
+              marginBottom: '1%',
+              marginRight: '2%'
             }]}>
               <TouchableOpacity
                 {...buttonProps}
-                style={[styles.button, {marginBottom: '6%'}]}
+                style={[styles.button, {marginBottom: '4%'}]}
                 onPress={pressMap}>
                 <View style={styles.bgIcon}>
                   <Image source={Images.icMap} style={styles.icon}/>
@@ -251,7 +255,7 @@ export default function HomeMainScreen() {
               </TouchableOpacity>
               <TouchableOpacity
                 {...buttonProps}
-                style={[styles.button, {marginTop: '6%'}]}
+                style={[styles.button, {marginTop: '4%'}]}
                 onPress={pressSafeArea}>
                 <View style={styles.bgIcon}>
                   <Image source={Images.icSafeZone} style={styles.icon}/>
@@ -262,7 +266,7 @@ export default function HomeMainScreen() {
             <View style={[styles.buttonContainerR, {height: '100%', width: '49%'}]}>
               <TouchableOpacity
                 {...buttonProps}
-                style={[styles.button, {marginBottom: '6%'}]}
+                style={[styles.button, {marginBottom: '4%'}]}
                 onPress={pressJourney}>
                 <View style={styles.bgIcon}>
                   <Image source={Images.icJourney} style={styles.icon}/>
@@ -271,7 +275,7 @@ export default function HomeMainScreen() {
               </TouchableOpacity>
               <TouchableOpacity
                 {...buttonProps}
-                style={[styles.button, {marginTop: '6%'}]}
+                style={[styles.button, {marginTop: '4%'}]}
                 onPress={pressChat}>
                 <View style={styles.bgIcon}>
                   <Image source={Images.icChat} style={styles.icon}/>
@@ -280,28 +284,37 @@ export default function HomeMainScreen() {
               </TouchableOpacity>
             </View>
           </View>
-          <View style={[styles.buttonContainerR, {height: '98%', marginTop: '0.5%'}]}>
+          <View style={[styles.buttonContainerR, {height: '100%', marginTop: '0.5%'}]}>
             <TouchableOpacity
               {...buttonProps}
-              style={[styles.button, {marginBottom: '6%'}]}
+              style={[styles.button, {marginBottom: '4%', height: '48%'}]}
               onPress={pressVideoCall}>
               <View style={styles.bgIcon}>
                 <Image source={Images.icVideoCall} style={styles.icon}/>
               </View>
               <Text style={styles.buttonText}>{t('common:home_videoCall')}</Text>
             </TouchableOpacity>
-            <TouchableOpacity
+           <View style={{flexDirection: 'row', height: '48%'}}>
+           <TouchableOpacity
               {...buttonProps}
-              style={styles.button}
-              onPress={()=>{
-                Linking.openURL(`tel:${'0859994546'}`)
-              }}
+              style={[styles.button, {marginRight: '2%'}]}
+              onPress={onCall}
             >
               <View style={styles.bgIcon}>
                 <Image source={Images.ic_local_phone} style={styles.icon}/>
               </View>
               <Text style={styles.buttonText}>{t('common:home_phone')}</Text>
             </TouchableOpacity>
+            <TouchableOpacity
+              {...buttonProps}
+              style={[styles.button, {marginLeft: '2%'}]}
+            >
+              <View style={styles.bgIcon}>
+                <Image source={Images.icSMS} style={styles.icon}/>
+              </View>
+              <Text style={styles.buttonText}>{t('common:home_sms')}</Text>
+            </TouchableOpacity>
+           </View>
           </View>
         </View>
         <View style={{width: '100%', height: '20%', flexDirection: 'row'}}>
