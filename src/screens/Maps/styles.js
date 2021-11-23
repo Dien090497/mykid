@@ -179,7 +179,11 @@ export const styles = StyleSheet.create({
     height: 20,
     marginLeft: 4,
   },
-  icMarker: {width: 30, height: 30, resizeMode: 'contain'},
+  icMarker: {
+    width: 30,
+    height: 30,
+    resizeMode: 'contain'
+  },
   containerGetLocation: {
     width: 40,
     height: 40,

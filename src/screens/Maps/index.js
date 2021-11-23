@@ -34,20 +34,24 @@ export default ({navigation, route}) => {
   const refMap = useRef(null);
   const refLoading = useRef(null);
   const refNotification = useRef(null);
-  const [locationDevice, setLocationDevice] = useState(null);
-  const [infoDevice, setInfoDevice] = useState(null);
+  const [locationDevice, setLocationDevice] = useState([]);
+  const [infoDevice, setInfoDevice] = useState([]);
+  const [listDeviceID, setListDeviceID] = useState([]);
   const [locationName, setLocationName] = useState('');
+  const [indexSelect, setIndexSelect] = useState(DataLocal.deviceIndex);
   const { t } = useTranslation();
 
   const getLocationDevice = async () => {
     try {
-      if (!infoDevice) {
-        getListDeviceApi(null, 0, 100, DataLocal.deviceId, '', {
+      if (!infoDevice.length > 0) {
+        getListDeviceApi(DataLocal.userInfo.id, 0, 100, '', 'ACTIVE', {
           success: res => {
-            const device = res.data.find(
-              val => val.deviceId === DataLocal.deviceId,
-            );
-            setInfoDevice(device);
+            const listID = [];
+            res.data.map((obj,i) =>{
+              listID.push(obj.deviceId);
+            })
+            setListDeviceID(listID);
+            setInfoDevice(res.data);
           },
           // refLoading: refLoading,
           refNotification: refNotification,
@@ -55,7 +59,20 @@ export default ({navigation, route}) => {
       }
       getLocationDeviceApi(DataLocal.deviceId, {
         success: res => {
-          setLocationDevice(res.data);
+          const dataaaaa = {
+            accuracy: 21,
+            location: {
+              lat: 21.030653,
+              lng: 105.84713
+            },
+            power: 30,
+            reportedAt: '2021-10-18T06:50:50Z',
+            type: 'GPS'
+          }
+          const listLocation =[];
+          listLocation.push(dataaaaa);
+          listLocation.push(res.data);
+          setLocationDevice(listLocation);
           const {lat, lng} = res.data?.location;
           if (lat && lng) {
             refMap.current.animateCamera({
@@ -83,17 +100,17 @@ export default ({navigation, route}) => {
   }, []);
 
   const getRegion = () => {
-    if (!locationDevice) return initialRegion;
+    if (locationDevice.length < 1) return initialRegion;
     return {
       ...initialRegion,
-      latitude: locationDevice?.location?.lat,
-      longitude: locationDevice?.location?.lng,
+      latitude: locationDevice[indexSelect]?.location?.lat,
+      longitude: locationDevice[indexSelect]?.location?.lng,
     };
   };
 
   Geocoder.geocodePosition({
-    lat: locationDevice?.location?.lat,
-    lng: locationDevice?.location?.lng
+    lat: locationDevice[indexSelect]?.location?.lat,
+    lng: locationDevice[indexSelect]?.location?.lng
   }).then(res => {
     const address = [res[0].streetNumber +' '+ res[0].streetName, res[0].subAdminArea, res[0].adminArea].join(', ')
     setLocationName(address);
@@ -119,22 +136,29 @@ export default ({navigation, route}) => {
           showsUserLocation={true}
           mapType={'satellite'}
           region={getRegion()}>
-          {locationDevice && infoDevice && (
-            <Marker
-              coordinate={{
-                latitude: locationDevice?.location?.lat,
-                longitude: locationDevice?.location?.lng,
-              }}
-              title={infoDevice.deviceName}>
-              <Image source={Images.icWatchMarker} style={styles.icMarker} />
-            </Marker>
+          {locationDevice.length > 0 && infoDevice.length > 0 && (
+            locationDevice.map((obj,i)=>{
+              return(
+                <Marker
+                  onPress={()=>{
+                    setIndexSelect(i);
+                  }}
+                  coordinate={{
+                    latitude: obj?.location?.lat,
+                    longitude: obj?.location?.lng,
+                  }}
+                  title={infoDevice[i].deviceName}>
+                  <Image source={Images.icMarkerDefault} style={[styles.icMarker,{tintColor: Colors.colorMain}]}/>
+                </Marker>
+              )
+            })
           )}
         </MapView>
 
-        {locationDevice && infoDevice && (
+        {locationDevice.length > 0 && infoDevice.length > 0 && (
           <TouchableOpacity
             onPress={() => {
-              const {lat, lng} = locationDevice?.location;
+              const {lat, lng} = locationDevice[indexSelect]?.location;
               if (lat && lng)
                 refMap.current.animateCamera({
                   center: {
@@ -146,23 +170,23 @@ export default ({navigation, route}) => {
             }}
             style={styles.containerDevice}>
             <View style={styles.containerLastTime}>
-              <Text style={styles.txtNameDevice}>{infoDevice.deviceName}</Text>
+              <Text style={styles.txtNameDevice}>{infoDevice[indexSelect].deviceName}</Text>
               <Text style={styles.txtTime}>
-                {Moment(new Date(locationDevice.reportedAt)).format('HH:mm DD/MM/yyyy')}
+                {Moment(new Date(locationDevice[indexSelect].reportedAt)).format('HH:mm DD/MM/yyyy')}
               </Text>
             </View>
             <View style={styles.containerLastTime}>
               <Text style={styles.txtLocation}>{t('common:location')}{locationName}</Text>
-              <Text style={[styles.txtTime,{flex: 1 ,fontSize: FontSize.xxtraSmall}]}>{locationDevice.type + ' ('+ t('common:discrepancy') + (locationDevice.type === 'GPS' ? '50m)' : locationDevice.type === 'WIFI' ? '100m)' : '1000m)')}</Text>
+              <Text style={[styles.txtTime,{flex: 1 ,fontSize: FontSize.xxtraSmall*0.8, textAlign: 'right'}]}>{locationDevice[indexSelect].type + ' ('+ t('common:discrepancy') + (locationDevice[indexSelect].type === 'GPS' ? '50m)' : locationDevice[indexSelect].type === 'WIFI' ? '100m)' : '1000m)')}</Text>
             </View>
 
             <View style={styles.containerLastTime}>
-              <Text style={[styles.txtLocation,{width: '80%'}]}>{t('common:coordinates')}{`${locationDevice?.location?.lat}, ${locationDevice?.location?.lng}`}</Text>
+              <Text style={[styles.txtLocation,{width: '80%'}]}>{t('common:coordinates')}{`${locationDevice[indexSelect]?.location?.lat}, ${locationDevice[indexSelect]?.location?.lng}`}</Text>
               <View style={styles.containerBattery}>
                 <Text style={{fontSize: FontSize.xxtraSmall, color: Colors.gray}}>
-                  {`${locationDevice.power || 0}%`}
+                  {`${locationDevice[indexSelect].power || 0}%`}
                 </Text>
-                <Image source={(locationDevice.power || 0) > 20 ? Images.icBattery : Images.icLowBattery} style={(locationDevice.power || 0) > 20 ? styles.icBattery : styles.icLowBattery} />
+                <Image source={(locationDevice[indexSelect].power || 0) > 20 ? Images.icBattery : Images.icLowBattery} style={(locationDevice[indexSelect].power || 0) > 20 ? styles.icBattery : styles.icLowBattery} />
               </View>
             </View>
           </TouchableOpacity>
