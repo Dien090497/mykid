@@ -6,9 +6,10 @@ import {
 } from '../../functions/utils';
 import {ErrorMsg} from '../../assets/strings/ErrorMsg';
 import loginAction from '../actions/loginAction';
-import {loginService} from '../../network/UserInfoService';
+import { createTokenFirebase, loginService } from "../../network/UserInfoService";
 import reduxStore from '../config/redux';
 import SimpleToast from "react-native-simple-toast";
+import DataLocal from "../../data/dataLocal";
 
 function* postLoginAction(phone, password, refLoading, refNotification) {
   try {
@@ -28,6 +29,10 @@ function* postLoginAction(phone, password, refLoading, refNotification) {
 
       saveUserDataFromToken(token).then(userInfo => {
         reduxStore.store.dispatch(loginAction.loginSuccess(userInfo));
+         createTokenFirebase(DataLocal.tokenFirebase, {
+           success: resData => {
+           },
+          }).then();
       });
     } else {
       yield put({type: 'LOGIN_FAILURE', payload: response.failure});

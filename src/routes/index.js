@@ -6,7 +6,7 @@ import {
 //tab bar
 import Consts, {FontSize, ScaleHeight} from '../functions/Consts';
 import {Platform} from 'react-native';
-import React, {useEffect} from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
 import {isReadyRef, navigationRef} from './RootNavigation';
 
 import AddDeviceScreen from '../screens/Profile/AddDeviceScreen';
@@ -62,6 +62,7 @@ import UpdatePassword from '../screens/auth/ForgotPassword/UpdatePassword';
 import Paying from "../screens/Paying";
 import Card from "../screens/Paying/Card";
 import {useTranslation} from 'react-i18next';
+import DataLocal from "../data/dataLocal";
 
 const Tab = createBottomTabNavigator();
 
@@ -193,13 +194,19 @@ const DirectForgot = () => {
 };
 
 const Stack = createStackNavigator();
-const Routes = () => {
+function Routes ({},ref){
   useEffect(() => {
     return () => {
       isReadyRef.current = false;
     };
   });
-
+  useImperativeHandle(ref, () => ({
+    roadToMsgFromNotify: (notify) => {
+      if (DataLocal.accessToken != null){
+        // navigationRef.navigate(Consts.ScreenIds.RoomChat);
+      }
+    }
+  }));
   return (
     <NavigationContainer
       ref={navigationRef}
@@ -374,5 +381,4 @@ const Routes = () => {
     </NavigationContainer>
   );
 };
-
-export default Routes;
+export default forwardRef(Routes);

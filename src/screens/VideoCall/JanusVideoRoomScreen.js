@@ -169,7 +169,7 @@ class JanusVideoRoomScreen extends React.Component {
             style={{
               flex: 1,
               width: '100%',
-              height: '100%',
+              height: '50%',
             }}
             objectFit={'cover'}
             streamURL={
@@ -183,8 +183,10 @@ class JanusVideoRoomScreen extends React.Component {
           <RTCView
             style={{
               position: 'absolute',
-              width: Consts.windowWidth / 3,
-              height: (Consts.screenHeight * 90) / 100 / 4,
+              width: '100%',
+              height: '50%',
+              // width: Consts.windowWidth / 3,
+              // height: (Consts.screenHeight * 90) / 100 / 4,
               right: 5,
               bottom: (Consts.screenHeight * 10) / 100,
             }}

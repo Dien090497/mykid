@@ -44,7 +44,7 @@ export default {
   icEmptyContact: require('./images/ic_empty_contacts.png'),
   icMarkerDefault: require('./images/ic_marker_default.png'),
   icCancelMember: require('./images/ic_cancel_member.png'),
-  // icMobile: require('./images/mobile.png'),
+  icMobile: require('./images/mobile.png'),
 
   //homeScreen
   icHomeOn: require('./images/main/ic_home_on.png'),
@@ -64,7 +64,7 @@ export default {
   icWarning: require('./images/home/ic_warning.png'),
   icTransport: require('./images/home/ic_transfer.png'),
   ic_local_phone: require('./images/home/ic_local_phone.png'),
-  // icSMS: require('./images/home/ic_sms.png'),
+  icSMS: require('./images/home/ic_sms.png'),
 
   //RewardPoints
   icAdd: require('./images/rewardoints/ic_add.png'),
