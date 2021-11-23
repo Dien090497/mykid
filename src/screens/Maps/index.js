@@ -41,7 +41,7 @@ export default ({navigation, route}) => {
   const [locationName, setLocationName] = useState('');
   const [indexSelect, setIndexSelect] = useState(DataLocal.deviceIndex);
   const [isCount, setIsCount] = useState(false);
-  const [timeCount, setTimeCount] = useState(0);
+  const [timeCount, setTimeCount] = useState(60);
   const { t } = useTranslation();
   let timer = 0;
 
@@ -63,7 +63,8 @@ export default ({navigation, route}) => {
       }
       getLocationDeviceApi(DataLocal.deviceId, {
         success: res => {
-          const dataaaaa = {
+          const listLocation =[];
+          listLocation.push({
             accuracy: 21,
             location: {
               lat: 21.030653,
@@ -72,12 +73,10 @@ export default ({navigation, route}) => {
             power: 30,
             reportedAt: '2021-10-18T06:50:50Z',
             type: 'GPS'
-          }
-          const listLocation =[];
-          listLocation.push(dataaaaa);
+          });
           listLocation.push(res.data);
           setLocationDevice(listLocation);
-          const {lat, lng} = res.data?.location;
+          const {lat, lng} = listLocation[indexSelect]?.location;
           if (lat && lng) {
             refMap.current.animateCamera({
               center: {
@@ -136,7 +135,6 @@ export default ({navigation, route}) => {
       }
     }, 200)
   };
-
 
   return (
     <View
@@ -206,6 +204,7 @@ export default ({navigation, route}) => {
         )}
 
         <TouchableOpacity
+          activeOpacity={1}
           style={styles.containerGetLocation}
           onPress={()=>{
             if (isCount) {
@@ -213,25 +212,24 @@ export default ({navigation, route}) => {
             }else {
               timer = getTime() + 60;
               setIsCount(true);
-              refreshCountdown();
-              getLocationDevice();
+              getLocationDevice().then(r => refreshCountdown());
             }
           }}>
           {isCount ?
-              <View>
-                <Progress.Circle
-                  size={40}
-                  indeterminate={false}
-                  color={Colors.colorMain}
-                  showsText={true}
-                  progress={timeCount/60}
-                  borderWidth={0}
-                  formatText={() => {
-                    return timeCount.toString();
-                  }}
-                  textStyle={{fontSize: FontSize.xxtraSmall, fontFamily: 'Roboto-Medium'}}
-                />
-              </View> : <Image source={Images.icWatchMarker} style={styles.icMarker} />}
+            <View>
+              <Progress.Circle
+                size={40}
+                indeterminate={false}
+                color={Colors.colorMain}
+                showsText={true}
+                progress={timeCount/60}
+                borderWidth={0}
+                formatText={() => {
+                  return timeCount.toString();
+                }}
+                textStyle={{fontSize: FontSize.xxtraSmall, fontFamily: 'Roboto-Medium'}}
+              />
+            </View> : <Image source={Images.icWatchMarker} style={styles.icMarker} />}
         </TouchableOpacity>
       </View>
       <LoadingIndicator ref={refLoading} />
