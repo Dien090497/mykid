@@ -89,7 +89,8 @@ export default class WebSocketCheckSim {
           split[split.length - 1].replace('\u0000', '').replace('\\u0000', ''),
         );
         if (data && data.deviceId === DataLocal.deviceId){
-          DataLocal.saveHaveSim(data.isValid ? '1' : '0').then(r => console.log('SIM',DataLocal.haveSim))
+          const checkSim = data.isValid ? '1' : '0';
+          DataLocal.haveSim === checkSim ? null : DataLocal.saveHaveSim(checkSim).then(r => console.log('SIM',DataLocal.haveSim))
         }
       }
       console.log(message, 'WebSocketSafeZone Message');
