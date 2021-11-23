@@ -88,4 +88,11 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'Roboto-Bold'
   },
+  textInput: {
+    width: '100%',
+    backgroundColor: "#FFF",
+    color: Colors.black,
+    borderColor: '#E7E7E7',
+    fontSize: FontSize.xtraSmall,
+  }
 });

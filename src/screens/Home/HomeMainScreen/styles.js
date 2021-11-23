@@ -168,7 +168,8 @@ export const styles = StyleSheet.create({
   },
   width50:{
     width: Const.screenWidth/2,
-    padding: '1%',
+    paddingLeft: '1%',
+    paddingTop: '1%',
     flexDirection: 'row'
   }
 });

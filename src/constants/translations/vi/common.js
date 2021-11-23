@@ -153,6 +153,7 @@ export default {
   'passwordDuplicated': 'Mật khẩu mới và mật khẩu cũ không được trùng nhau',
   'enterOrScanCode': 'Mã đăng ký nhập / Quét',
   'deviceNickname': 'Biệt danh thiết bị',
+  'deviceNumber': 'Nhập số điện thoại của đồng hồ',
   'iAm': 'Tôi là ',
   'ofHe': ' của bạn ấy',
   'addDeviceSuccess': 'Kết nối thiết bị thành công',
@@ -233,6 +234,7 @@ export default {
   'home_reward': 'TẶNG PHẦN THƯỞNG',
   'home_secretPhotoShoot': 'CHỤP ẢNH TỪ XA',
   'home_phone': 'GỌI NGAY',
+  'home_sms': 'SMS',
 
   //setting
   'setting_contact': 'Danh bạ',

@@ -153,6 +153,7 @@ export default {
   'passwordDuplicated': 'New password and old password cannot be the same',
   'enterOrScanCode': 'Registration code / Scan',
   'deviceNickname': 'Device Nickname',
+  'deviceNumber': 'Devices Number', // to do
   'iAm': 'I am ',
   'ofHe': 'his',
   'addDeviceSuccess': 'Success',
@@ -233,6 +234,7 @@ export default {
   'home_reward': 'REWARDS',
   'home_secretPhotoShoot': 'REMOTE PHOTO',
   'home_phone': 'CALL', // TO DO
+  'home_sms': 'SMS',
 
   //setting
   'setting_contact': 'Contacts',
