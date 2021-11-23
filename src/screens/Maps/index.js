@@ -22,6 +22,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import Geocoder from 'react-native-geocoder';
 import Moment from 'moment';
+import * as Progress from 'react-native-progress';
 
 const initialRegion = {
   latitude: 21.030653,
@@ -39,7 +40,10 @@ export default ({navigation, route}) => {
   const [listDeviceID, setListDeviceID] = useState([]);
   const [locationName, setLocationName] = useState('');
   const [indexSelect, setIndexSelect] = useState(DataLocal.deviceIndex);
+  const [isCount, setIsCount] = useState(false);
+  const [timeCount, setTimeCount] = useState(0);
   const { t } = useTranslation();
+  let timer = 0;
 
   const getLocationDevice = async () => {
     try {
@@ -97,16 +101,10 @@ export default ({navigation, route}) => {
         navigation.replace(Consts.ScreenIds.DeviceManager);
       }))
     }
+    return ()=>{
+      setIsCount(false);
+    }
   }, []);
-
-  const getRegion = () => {
-    if (locationDevice.length < 1) return initialRegion;
-    return {
-      ...initialRegion,
-      latitude: locationDevice[indexSelect]?.location?.lat,
-      longitude: locationDevice[indexSelect]?.location?.lng,
-    };
-  };
 
   Geocoder.geocodePosition({
     lat: locationDevice[indexSelect]?.location?.lat,
@@ -124,6 +122,22 @@ export default ({navigation, route}) => {
     }
   }
 
+  const getTime = () => {
+    return Math.floor(Date.now() / 1000);
+  };
+
+  const refreshCountdown = () => {
+    setTimeout(() => {
+      if (timer - getTime() <= 0) {
+        setIsCount(false)
+      } else {
+        setTimeCount(timer - getTime())
+        refreshCountdown();
+      }
+    }, 200)
+  };
+
+
   return (
     <View
       style={[styles.container, {paddingBottom: useSafeAreaInsets().bottom}]}>
@@ -134,8 +148,7 @@ export default ({navigation, route}) => {
           style={styles.container}
           provider={PROVIDER_GOOGLE}
           showsUserLocation={true}
-          mapType={'satellite'}
-          region={getRegion()}>
+          mapType={'hybrid'}>
           {locationDevice.length > 0 && infoDevice.length > 0 && (
             locationDevice.map((obj,i)=>{
               return(
@@ -194,8 +207,31 @@ export default ({navigation, route}) => {
 
         <TouchableOpacity
           style={styles.containerGetLocation}
-          onPress={getLocationDevice}>
-          <Image source={Images.icWatchMarker} style={styles.icMarker} />
+          onPress={()=>{
+            if (isCount) {
+              return;
+            }else {
+              timer = getTime() + 60;
+              setIsCount(true);
+              refreshCountdown();
+              getLocationDevice();
+            }
+          }}>
+          {isCount ?
+              <View>
+                <Progress.Circle
+                  size={40}
+                  indeterminate={false}
+                  color={Colors.colorMain}
+                  showsText={true}
+                  progress={timeCount/60}
+                  borderWidth={0}
+                  formatText={() => {
+                    return timeCount.toString();
+                  }}
+                  textStyle={{fontSize: FontSize.xxtraSmall, fontFamily: 'Roboto-Medium'}}
+                />
+              </View> : <Image source={Images.icWatchMarker} style={styles.icMarker} />}
         </TouchableOpacity>
       </View>
       <LoadingIndicator ref={refLoading} />
