@@ -121,7 +121,7 @@ export default function RoomChat({navigation, route}) {
   }, []);
 
   useLayoutEffect(() => {
-    if (roomInfo) {
+    if (roomInfo && roomInfo.type === 'FAMILY') {
       getListDevice();
     }
   }, [roomInfo]);
@@ -363,7 +363,10 @@ export default function RoomChat({navigation, route}) {
   return (
     <KeyboardAvoidingView style={styles.contain}
       behavior={Platform.OS === 'ios' ? 'padding' : ''}>
-      <Header title={`${roomInfo ? roomInfo.deviceName : ''} ${t('common:familyGroup')} (${listMember.length})`} right rightIcon={Images.icGroup} rightAction={() => {gotoDeleteMessage()}}/>
+      {roomInfo &&
+      <Header title={ roomInfo.type === 'FAMILY' ? `${roomInfo.deviceName || ''} ${t('common:familyGroup')} (${listMember.length})`
+                      : `${t('common:talkWithFriends')} (${roomInfo.roomName || '0'})`}
+       right rightIcon={Images.icGroup} rightAction={() => {gotoDeleteMessage()}}/>}
       <View style={styles.container}>
         <ScrollView ref={refScrollView} style={styles.container}
           onContentSizeChange={() => refScrollView.current.scrollToEnd({animated: true})}>

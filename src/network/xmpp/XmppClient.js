@@ -73,6 +73,7 @@ export default class XmppClient {
 
   static loadAllHistory = async () => {
     for (const roomInfo of this.lstRoom) {
+      // if (roomInfo.type === 'FAMILY') continue;
       this.lstMsg[roomInfo.roomAddress] = [];
       await this.joinRoom(roomInfo.roomAddress);
       await this.getHistory(roomInfo.flagTime);
