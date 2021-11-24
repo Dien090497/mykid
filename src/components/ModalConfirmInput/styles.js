@@ -89,5 +89,15 @@ export const styles = StyleSheet.create ({
     borderColor: 'rgba(231, 231, 231, 1)',
     alignItems: 'center',
     flexDirection: 'row'
+  },
+  image: {
+    width: width * 0.06,
+    height: width * 0.06
+  },
+  viewImage: {
+    width: '12%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'flex-start'
   }
 })
