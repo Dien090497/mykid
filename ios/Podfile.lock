@@ -740,15 +740,15 @@ SPEC CHECKSUMS:
   GoogleUtilities: 684ee790a24f73ebb2d1d966e9711c203f2a4237
   libwebp: 98a37e597e40bfdb4c911fc98f2c53d0b12d05fc
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
-  Permission-Camera: ac603073e4128e51e6ca3c39129778f05b4082fa
-  Permission-Contacts: 4bd4bdbbcec21ce0175e02cc4925070a773204cf
-  Permission-LocationAccuracy: c008fa8c4a90fcb6e33f465c2a8684e92d93b794
-  Permission-LocationAlways: 0704c3bcce11f98f8d6ddf34c49c65893ec64b09
-  Permission-LocationWhenInUse: e1168a583654f1d2d34d3a18c4c6518ce409ad2a
-  Permission-MediaLibrary: ca07553882f0533f67739cdea7486c369b6556f0
-  Permission-Microphone: f795f37089f6de4c71ae147b32770a5ebfdee08c
-  Permission-PhotoLibrary: 0748c1a490fad126dfe36dbea8234dedfe59cc27
-  Permission-PhotoLibraryAddOnly: 224d33cea3c2f1f8982a2a4e343c0726fba3acf9
+  Permission-Camera: 24c37a846ff69e0eb7fd4264346550850d5b707a
+  Permission-Contacts: 8e964a7bc2e71b8377af9d007699344294d3f333
+  Permission-LocationAccuracy: bdcb49d8a0112f5e09cb9860a28f69cbfa65fbbe
+  Permission-LocationAlways: 92bf7638da5852ddba7c29fda18ecd0ac246c813
+  Permission-LocationWhenInUse: 1c1f3c5dc7e33029c0a4a0846b97b4bf89d3244b
+  Permission-MediaLibrary: 01085a7e58d0ffc5a6ecba2ba7874404e8ac10db
+  Permission-Microphone: 4667fe94d91ca063175966062186ade404ed57d1
+  Permission-PhotoLibrary: 48e58291bd650b4f197cf542dad53f41dea4e84f
+  Permission-PhotoLibraryAddOnly: 90b427e4a2acd37d1128618704b53364d73826c2
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   RCT-Folly: 0dd9e1eb86348ecab5ba76f910b56f4b5fef3c46
   RCTRequired: 6cf071ab2adfd769014b3d94373744ee6e789530
@@ -761,24 +761,24 @@ SPEC CHECKSUMS:
   React-jsi: 12913c841713a15f64eabf5c9ad98592c0ec5940
   React-jsiexecutor: 43f2542aed3c26e42175b339f8d37fe3dd683765
   React-jsinspector: 41e58e5b8e3e0bf061fdf725b03f2144014a8fb0
-  react-native-amr: af4d21502ea980ebbb5b5c2a22e4c3365d496af1
-  react-native-background-timer: 17ea5e06803401a379ebf1f20505b793ac44d0fe
-  react-native-cameraroll: 2957f2bce63ae896a848fbe0d5352c1bd4d20866
+  react-native-amr: 2ccf019ead866401070e31f8e3cd85b2e4f394b2
+  react-native-background-timer: 117fffdc9b0d6f144444bb49029f94275a45fdb5
+  react-native-cameraroll: 60ac50a5209777cbccfe8d7a62d0743a9da87060
   react-native-date-picker: da6c4f85945a2c087c569c7ac52851819ed24218
   react-native-fetch-blob: 0cbdf9764c75d9438c162427395f4bc35a857d5a
   react-native-geocoder: 757427682892bb256f3b3745858cc90eba148a8e
   react-native-geolocation-service: 94c7d2ffdbbf4dd431241e0c8e37d491ebd41430
   react-native-google-maps: d6a30377b40a338bd09d6ad36ce48dc5d12b5792
-  react-native-image-picker: 31971f6184e7c1dcb4fc1f122e1ba2c3fb11ef1e
-  react-native-image-resizer: d9fb629a867335bdc13230ac2a58702bb8c8828f
-  react-native-keep-awake: afad8a51dfef9fe9655a6344771be32c8596d774
+  react-native-image-picker: 5a7dd93d4f9dd0d910da5dde3707fd96f70d03b3
+  react-native-image-resizer: 506412a2bdd70dde64a61e13505ce10f61a04369
+  react-native-keep-awake: eba3137546b10003361b37c761f6c429b59814ae
   react-native-maps: 41d01d8e0afcebe32bec9eea3bd945adc1b18f7a
-  react-native-safe-area-context: f0906bf8bc9835ac9a9d3f97e8bde2a997d8da79
-  react-native-select-contact: f88ccd9dbee6c4d1c32507291b431cf558a2ed42
-  react-native-simple-toast: bf002828cf816775a6809f7a9ec3907509bce11f
+  react-native-safe-area-context: e471852c5ed67eea4b10c5d9d43c1cebae3b231d
+  react-native-select-contact: 7ed15ace95f78491ed058932c3556a63a54f3133
+  react-native-simple-toast: b986e6c1befdc211af3df1bae293278a44e32990
   react-native-spinkit: da294fd828216ad211fe36a5c14c1e09f09e62db
   react-native-webrtc: 77b969fe6bc5b7c93b455f93a13698812fb8bb4e
-  react-native-webview: 193d233c29eacce1f42ca2637dab7ba79c25a6de
+  react-native-webview: 1f56115845c98f0a59dfbbac685797c014a821be
   React-perflogger: fd28ee1f2b5b150b00043f0301d96bd417fdc339
   React-RCTActionSheet: 7f3fa0855c346aa5d7c60f9ced16e067db6d29fa
   React-RCTAnimation: 2119a18ee26159004b001bc56404ca5dbaae6077
@@ -793,21 +793,21 @@ SPEC CHECKSUMS:
   ReactCommon: eafed38eec7b591c31751bfa7494801618460459
   ReactNativeCameraKit: 89ed1f2470b56e18e15dd0e1a37bebca3f2da2de
   RNAudio: cae2991f2dccb75163f260b60da8051717b959fa
-  RNAudioRecord: 162fee3b8fb628773ec704bf0333823125be2ed7
-  RNAudioRecorderPlayer: 324ca2b805e95e57107dfc0c6c45709f716a06fd
-  RNCallKeep: 3ac23a8074aa4b25901a437ee4c6fcbbd7509bfd
-  RNCAsyncStorage: e8b8d6320a0dd90eb610fb0d0b1ef90596697c69
+  RNAudioRecord: f38c2caac4bbbc34f24563869745110970f1dfe3
+  RNAudioRecorderPlayer: 2ae3bdbf328dd8e288bd72b8665c02b5a24fecdb
+  RNCallKeep: b2e1c0a6498a943a3538c07e85c51882f18aeaa3
+  RNCAsyncStorage: 0f655864a81214d1c5a9bf0faf79d86dc25c383e
   RNCPicker: f7a40b21b915b7a187624d52f52b7bc2f73ea413
-  RNCPushNotificationIOS: 87b8d16d3ede4532745e05b03c42cff33a36cc45
-  RNDateTimePicker: 7658208086d86d09e1627b5c34ba0cf237c60140
-  RNDeviceInfo: 0400a6d0c94186d1120c3cbd97b23abc022187a9
+  RNCPushNotificationIOS: 089da3b657e1e3d464f38195fd2e3069608ef5af
+  RNDateTimePicker: c9911be59b1f8670b9f244b85af3a7c295e175ed
+  RNDeviceInfo: 417b2ef4456c13a9d50ad8c57895eea837b735a8
   RNFastImage: 1f2cab428712a4baaf78d6169eaec7f622556dd7
   RNFBApp: dda844e7084b590eb3d9bec1b2115cabbe4bc40e
   RNFBMessaging: 037ec36b58b6f68e9b2ae83c189eb388eaf48822
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
-  RNPermissions: 7043bacbf928eae25808275cfe73799b8f618911
+  RNPermissions: 3e5bb8afd93c787681bbacbf54d586a6272ecc92
   RNScreens: 21b73c94c9117e1110a79ee0ee80c93ccefed8ce
-  RNSound: 27e8268bdb0a1f191f219a33267f7e0445e8d62f
+  RNSound: 9253013eeaa051eab63d354fd4654f7aa67c82f0
   RNSVG: 551acb6562324b1d52a4e0758f7ca0ec234e278f
   RNVectorIcons: 31cebfcf94e8cf8686eb5303ae0357da64d7a5a4
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
