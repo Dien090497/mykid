@@ -40,6 +40,7 @@ export default function SMS({navigation}) {
 
   const handleChange = async (index) => {
     setSelectedIndex(index);
+    getBrands(devices[index].deviceId)
   };
 
   const getBrands = (deviceId) => {
