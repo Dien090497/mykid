@@ -45,7 +45,7 @@ export default ({navigation, route}) => {
       getLocationDeviceApi(listID, {
         success: res => {
           DataLocal.deviceIndex + 1 > res.data.length ? setIndexSelect(0) : null;
-          infoDevice.map((obj,i)=>{
+          infoDevice.map((obj)=>{
             for (const objElement of res.data) {
               objElement.deviceId === obj.deviceId ? objElement.avatar = obj.avatar : null;
             }

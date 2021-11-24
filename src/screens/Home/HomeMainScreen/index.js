@@ -79,7 +79,7 @@ export default function HomeMainScreen() {
       return refNotification.current.open(t('errorMsg:kwa4067'));
     }
     checkLocationPermission().then((location) => {
-      if (location) 
+      if (location)
        return navigation.navigate(Consts.ScreenIds.Maps,{listDevices: devices});
     })
   };
