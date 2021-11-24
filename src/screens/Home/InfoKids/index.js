@@ -302,25 +302,25 @@ export default function InfoKits({route}) {
 
   return (
     <View style={styles.viewContainer}>
-      <Header title={t('common:home_infoKits')}/>
-      <View
+      <Header title={t('common:home_infoKits')} />
+      <TouchableOpacity
         style={{
           width: '100%',
           height: '28%',
           justifyContent: 'center',
           alignItems: 'center',
-        }}>
-        <Image source={avatar ? {uri: avatar} : Images.icAvatar}
-               style={styles.imageAvatar}
-               resizeMode={avatar ? 'cover' : 'stretch'}/>
-         <View style={{flexDirection: 'row', marginTop: '4%', alignItems: 'center', justifyContent: 'center'}}>
-           <TouchableOpacity onPress={OnActionSheet}>
-             <Image source={Images.icShootPhoto} style={styles.image1} resizeMode={'center'}/>
-           </TouchableOpacity>
-           <Text style={{marginLeft: '2%'}}>{t('common:changeAvatar')}</Text>
-         </View>
-      </View>
-      <View style={{justifyContent: 'center', alignItems: 'center', height: '75%', marginTop: -10}}>
+        }}
+        onPress={OnActionSheet}
+      >
+        <Image source={avatar ? { uri: avatar } : Images.icAvatar}
+          style={styles.imageAvatar}
+          resizeMode={avatar ? 'cover' : 'stretch'} />
+        <View style={{ flexDirection: 'row', marginTop: '4%', alignItems: 'center', justifyContent: 'center' }}>
+          <Image source={Images.icShootPhoto} style={styles.image1} resizeMode={'stretch'} />
+          <Text style={{ marginLeft: '2%' }}>{t('common:changeAvatar')}</Text>
+        </View>
+      </TouchableOpacity>
+      <View style={{ justifyContent: 'center', alignItems: 'center', height: '75%', marginTop: -10 }}>
         <FlatList
           data={data}
           renderItem={renderFlatlist}

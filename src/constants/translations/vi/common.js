@@ -171,7 +171,7 @@ export default {
   'rejectContactSuccess': 'Từ chối thành viên thành công',
   'deleteContactSuccess': 'Xóa thành viên thành công',
   'deleteMessage': 'Xóa lịch sử tin nhắn',
-  'alertDeleteDevices':'Kết nối đồng hồ sẽ khôi phục về cài đặt gốc và xóa toàn bộ dữ liệu',
+  'alertDeleteDevices':'Hủy kết nối đồng hồ sẽ khôi phục về cài đặt gốc và xóa toàn bộ dữ liệu',
   'alertDeleteMessage': 'Bạn có chắc chắn muốn xóa cuộc trò chuyện của mình không?',
   'alertDeleteDevices1': 'Bạn có chắc chắn muốn xóa thiết bị (',
   'alertDeleteDevices2': ') không ?',
