@@ -80,6 +80,7 @@ export default {
   'header_remoteDevices': 'Tắt thiết bị từ xa',
   'header_remoteStart': 'Khởi động lại từ xa',
   'header_warning': 'Cảnh báo',
+  'header_sms': 'SMS',
 
   // Codepush
   'codepushChecking': 'Đang kiểm tra bản cập nhật...',

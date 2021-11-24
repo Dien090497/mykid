@@ -179,6 +179,10 @@ export default function HomeMainScreen() {
     Linking.openURL(`tel:${'0' + devices[selectedIndex].isdn.substring(3)}`)
   }
 
+  const onSMS = () => {
+    navigation.navigate(Consts.ScreenIds.SMS);
+  }
+
   return (
     <View style={styles.container}>
       <StatusBar translucent backgroundColor='transparent'/>
@@ -308,6 +312,7 @@ export default function HomeMainScreen() {
             <TouchableOpacity
               {...buttonProps}
               style={[styles.button, {marginLeft: '2%'}]}
+              onPress={onSMS}
             >
               <View style={styles.bgIcon}>
                 <Image source={Images.icSMS} style={styles.icon}/>

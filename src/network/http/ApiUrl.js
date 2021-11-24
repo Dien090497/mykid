@@ -86,6 +86,9 @@ export const TargetsUrl = appUrl + '/targets';
 //Payment
 export const checkAccount = appUrl + '/sims';
 
+// SMS
+export const smsUrl = appUrl + '/sms-messages';
+
 /// url: string, obj: object
 export function assignUrlParams(url, obj) {
   if (!obj) {

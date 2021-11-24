@@ -80,6 +80,7 @@ export default {
   'header_remoteDevices': 'Remote Shutdown',
   'header_remoteStart': 'Remote Restart',
   'header_warning': 'Alert Center',
+  'header_sms': 'SMS',
 
   // Codepush
   'codepushChecking': 'Checking...',

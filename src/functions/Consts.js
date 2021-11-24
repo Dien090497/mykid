@@ -84,6 +84,8 @@ const ScreenIds = {
   ListDevice: 'ListDevice',
   ElectronicFence: 'ElectronicFence',
   JourneyHistory: 'JourneyHistory',
+  SMS: 'SMS',
+  SMSDetail: 'SMSDetail'
 };
 const heights = {};
 for (let index = 0; index < 100; index++) {
