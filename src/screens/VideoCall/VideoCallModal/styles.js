@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   },
   containerFooter: {
     height: '10%',
-    backgroundColor: '#494954',
+    backgroundColor: Colors.blackTransparent,
     justifyContent: 'center',
     alignItems: 'center',
   },
