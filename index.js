@@ -12,3 +12,8 @@ messaging().setBackgroundMessageHandler(async remoteMessage => {
 });
 
 AppRegistry.registerComponent(appName, () => App);
+AppRegistry.registerHeadlessTask('RNCallKeepBackgroundMessage', () => ({ name, callUUID, handle }) => {
+  // Make your call here
+console.log('TNT ', 'log videocall incoming');
+  return Promise.resolve();
+});
