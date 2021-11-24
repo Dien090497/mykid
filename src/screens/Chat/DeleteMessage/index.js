@@ -145,14 +145,14 @@ export default function DeleteMessage({navigation, route}) {
                 {checkAdmin &&
                 <TouchableOpacity style={{alignItems: 'center'}} onPress={gotoMember}>
                   <Image style={styles.icon} source={icon} resizeMode={'stretch'}/>
-                  <Text style={styles.textItem}>{itemFlatlist.item.relationshipName}</Text>
+                  <Text style={styles.textItem} numberOfLines={1}>{itemFlatlist.item.relationshipName}</Text>
                 </TouchableOpacity>
                 }
               </View>
             ) : (
               <View style={{alignItems: 'center'}}>
                 <Image style={styles.icon} source={icon} resizeMode={'stretch'}/>
-                <Text style={styles.textItem}>{itemFlatlist.item.relationshipName}</Text>
+                <Text style={styles.textItem}  numberOfLines={1}>{itemFlatlist.item.relationshipName}</Text>
               </View>
             )}
         </View>

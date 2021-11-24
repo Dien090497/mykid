@@ -173,7 +173,7 @@ export default {
   'deleteContactSuccess': 'Delete Contact Success',
   'deleteMessage': 'Delete Message',
   'alertDeleteMessage': 'Are you sure to delete this chat?',
-  'alertDeleteDevices':'Kết nối đồng hồ sẽ khôi phục về cài đặt gốc và xóa toàn bộ dữ liệu',
+  'alertDeleteDevices':'Disconnecting the watch will restore its factory settings and delete all data',
   'alertDeleteDevices1': 'Are you sure you want to delete the device (',
   'alertDeleteDevices2': ')?',
   'removeContactConfirm':
@@ -289,7 +289,7 @@ export default {
   'cameraUnavailable': 'Camera not available on your device',
   'photoLibraryUnavailable': 'Gallery is not available on your device',
   'microphoneUnavailable': 'Microphone is not available on your device',
-  'cameraDenied': 'Camera access is denied.\nPlease go to settings to grant access',
+  'cameraDenied': 'GPS access is denied.\nPlease go to settings to grant access',
   'photoLibraryReadDenied': 'Photo gallery access denied.\nPlease open settings to grant access',
   'photoLibraryReadLimit': 'Photo gallery access is limited.\nPlease open settings to grant access \'All photos\'',
   'photoLibraryWriteDenied': 'Permission to write pictures is denied.\nPlease open settings to grant permissio',

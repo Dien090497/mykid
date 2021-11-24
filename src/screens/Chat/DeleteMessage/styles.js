@@ -73,7 +73,7 @@ export const styles = StyleSheet.create({
   },
   textItem: {
     color: Colors.black,
-    fontSize: 15,
+    fontSize: width * 0.035,
     marginTop: width* 0.01
   },
   itemLeft: {
