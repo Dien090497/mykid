@@ -73,8 +73,8 @@ export default class ModalConfirmInput extends Component {
                     underlineColorAndroid={'transparent'}
                     onChangeText={(text) => this.isChangeText(text)}
                   />
-                  <TouchableOpacity onPress={() => this.setState({text: ''})}>
-                    <Image source={Images.icClose} style={{width: 22, height: 22}} resizeMode={'stretch'}/>
+                  <TouchableOpacity onPress={() => this.setState({text: ''})} style={styles.viewImage}>
+                    <Image source={Images.icClose} style={styles.image} resizeMode={'stretch'}/>
                   </TouchableOpacity>
                 </View>
               </View>

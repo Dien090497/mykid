@@ -167,7 +167,7 @@ const Relationship = ({ navigation, route }) => {
                   }}
                   source={item.icon}
                 />
-                <Text>{item.name}</Text>
+                <Text style={styles.text} numberOfLines={1}>{item.name}</Text>
               </TouchableOpacity>
             );
           }}

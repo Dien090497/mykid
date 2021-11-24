@@ -115,5 +115,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'Roboto-Bold'
   },
+  text: {
+    fontSize: width * 0.035,
+    color: Colors.black
+  }
 });
 export default styles;
