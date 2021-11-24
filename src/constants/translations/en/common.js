@@ -50,6 +50,7 @@ export default {
   'chooseDay': 'Select date',
   'success': 'Success',
   'detail': 'Details',
+  'discrepancy': 'Deviation rate - ',
   'thisFunctionIsNotValid': 'Tính năng chưa được cập nhật',
   'header_settings': 'Setting',
   'header_contacts': 'Contacts',
@@ -262,6 +263,9 @@ export default {
   'familyGroup': 'family group',
   'talkWithFamily': 'Family group information',
   'familyGroupInformation': 'Family group information',
+  'talkWithFriends': 'Your child\'s messages to friends',
+  'talk': 'Conversation',
+  'friend': 'Friend',
 
   //RewardPoints
   'rewardPoints_text': 'Send a reward!',

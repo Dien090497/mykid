@@ -48,7 +48,8 @@ export default function Chat({navigation}) {
         {devices && devices.map((obj, i) => (
           <View key={i}>
             <View style={styles.viewTitleRoom}>
-              <Text style={styles.txtTitleRoom}>{obj.deviceName ? obj.deviceName : ''}</Text>
+              <Text style={styles.txtTitleRoom}>{obj.type === 'FAMILY' ? (obj.deviceName ? obj.deviceName : '')
+                                                  : `${t('common:talkWithFriends')} (${obj.roomName || '0'})`}</Text>
             </View>
             <TouchableOpacity style={styles.viewItem} onPress={() => {toggleChat(obj, i);}}>
               <View style={styles.viewImg}>
@@ -56,7 +57,8 @@ export default function Chat({navigation}) {
               </View>
               <View style={styles.viewText}>
                 <View style={styles.rowDirection}>
-                  <Text style={styles.txtTitle}>{obj.roomName ? obj.roomName : t('common:talkWithFamily')}</Text>
+                  <Text style={styles.txtTitle}>{obj.type === 'FAMILY' ? (obj.roomName ? obj.roomName : t('common:talkWithFamily'))
+                                                  : t('common:talk')}</Text>
                 </View>
                 <Text style={styles.txtContent}>{obj.lastMsg ? `[${obj.lastMsg.type}]` : ''}</Text>
               </View>

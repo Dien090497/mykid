@@ -50,6 +50,7 @@ export default {
   'chooseDay': 'Chọn ngày',
   'success': 'Thành công',
   'detail': 'Chi tiết',
+  'discrepancy': 'Độ chênh lệch - ',
   'thisFunctionIsNotValid': 'Tính năng chưa được cập nhật',
   'header_settings': 'Thiết lập',
   'header_contacts': 'Danh bạ',
@@ -262,6 +263,9 @@ export default {
   'familyGroup': 'nhóm gia đình',
   'talkWithFamily': 'Trò chuyện nhóm gia đình',
   'familyGroupInformation': 'Thông tin nhóm gia đình',
+  'talkWithFriends': 'Tin nhắn của con với bạn',
+  'talk': 'Trò chuyện',
+  'friend': 'Bạn',
 
   //RewardPoints
   'rewardPoints_text': 'Bé làm 1 việc tốt,hãy thưởng bé 1 điểm',

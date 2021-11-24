@@ -60,7 +60,7 @@ export default class XmppClient {
     await clientXmpp.send(message);
     setTimeout(() => {
       this.ping();
-    }, 10000)
+    }, 44444)
   };
 
   static getRooms = async () => {
@@ -73,6 +73,7 @@ export default class XmppClient {
 
   static loadAllHistory = async () => {
     for (const roomInfo of this.lstRoom) {
+      // if (roomInfo.type === 'FAMILY') continue;
       this.lstMsg[roomInfo.roomAddress] = [];
       await this.joinRoom(roomInfo.roomAddress);
       await this.getHistory(roomInfo.flagTime);
@@ -96,11 +97,11 @@ export default class XmppClient {
     let message = xml('presence', { to: toAddress },);
     await clientXmpp.send(message);
 
-    await this.pingRoom();
+    await this.pingRoom(roomId);
   }
 
-  static pingRoom = async (isAuto = true) => {
-    const toAddress = [this.currentRoomId, this.getNickName()].join('/');
+  static pingRoom = async (roomId, isAuto = true) => {
+    const toAddress = [roomId, this.getNickName()].join('/');
     let message = xml('iq', {
         to: toAddress,
         from: this.getNickName(),
@@ -111,8 +112,8 @@ export default class XmppClient {
     await clientXmpp.send(message);
     if (isAuto) {
       setTimeout(() => {
-        this.pingRoom();
-      }, 10000)
+        this.pingRoom(roomId);
+      }, 22222)
     }
   };
 
@@ -130,7 +131,7 @@ export default class XmppClient {
 
   static async sendMessage(typeMsg, msg) {
     //typeMsg: text | audio | image
-    const content = [typeMsg, msg].join(':');
+    const content = [typeMsg, msg].join('|');
     let message = xml('message', { 
         type: 'groupchat',
         to: this.currentRoomId
@@ -138,7 +139,7 @@ export default class XmppClient {
       xml('body', {}, content)
     );
     await clientXmpp.send(message);
-    await this.pingRoom(false);
+    await this.pingRoom( this.currentRoomId, false);
   }
 
   static async getHistory(flagTime) {
@@ -275,10 +276,6 @@ export default class XmppClient {
         // rejoin
         this.joinRoom(this.currentRoomId);
       }
-      // <message xmlns="jabber:client" xml:lang="en" to="162@mykid.ttc.software/1171796266918910368535781" from="7304425285@conference.mykid.ttc.software" type="error">
-      //   <error code="406" type="modify">
-      //     <not-acceptable xmlns="urn:ietf:params:xml:ns:xmpp-stanzas"/>
-      //     <text xml:lang="en" xmlns="urn:ietf:params:xml:ns:xmpp-stanzas">Only occupants are allowed to send messages to the conference</text></error><body>audio:https://mykid.ttc.software:5443/upload/46901d9bc4e0990d88f09f9f8db22236c5b8c401/bAbl6v4TTEJmJpiWn8LFQxdePDpr7daEC5FRxL7T/sound.m4a</body></message>
       return;
     }
     if (!stanza.is('message')) return;
@@ -299,28 +296,16 @@ export default class XmppClient {
         this.lstMsg[fromSplit[0]] = [];
       }
       if (body && fromSplit.length > 1) {
-        // const bodySplit = body.split(':');
-        // message is a mam message
-        let type = 'text';
-        if (body.startsWith('audio')) {
-          body = body.substr(6);
-          type = 'audio';
-        } else if (body.startsWith('image')) {
-          body = body.substr(6);
-          FastImage.preload([{uri: body}]);
-          type = 'image';
-        } else if (body.startsWith('text')) {
-          body = body.substr(5);
-        }
+        const bodySplit = body.split('|');
 
         const length = this.lstMsg[fromSplit[0]].length;
         let date = time.toLocaleDateString();
         let isShowDate = (length === 0 || this.lstMsg[fromSplit[0]][length - 1].date !== date);
         
         this.lstMsg[fromSplit[0]].push({
-          from: fromSplit[1],
-          body: body,
-          type: type,
+          from: bodySplit.length > 2 ? bodySplit[1]: fromSplit[1],
+          body: bodySplit[bodySplit.length - 1],
+          type: bodySplit[0],
           time: time.toLocaleTimeString(),
           date: date,
           isShowDate: isShowDate
@@ -337,24 +322,14 @@ export default class XmppClient {
         this.lstMsg[fromSplit[0]] = [];
       }
       if (body && fromSplit.length > 1) {
-        let type = 'text';
-        if (body.startsWith('audio')) {
-          body = body.substr(6);
-          type = 'audio';
-        } else if (body.startsWith('image')) {
-          body = body.substr(6);
-          FastImage.preload([{uri: body}]);
-          type = 'image';
-        } else if (body.startsWith('text')) {
-          body = body.substr(5);
-        }
+        const bodySplit = body.split('|');
         const length = this.lstMsg[fromSplit[0]].length;
         let date = (new Date()).toLocaleDateString();
         let isShowDate = (length === 0 || this.lstMsg[fromSplit[0]][length - 1].date !== date);
         const msg = {
-          from: fromSplit[1],
-          body: body,
-          type: type,
+          from: bodySplit.length > 2 ? bodySplit[1]: fromSplit[1],
+          body: bodySplit[bodySplit.length - 1],
+          type: bodySplit[0],
           time: (new Date()).toLocaleTimeString(),
           date: date,
           isShowDate: isShowDate
