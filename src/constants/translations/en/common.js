@@ -365,4 +365,5 @@ export default {
   'calo': 'Calo',
   'error_health1': 'Step target must be greater than 0',
   'error_health2': 'Step target mustn\'t be more than 20000',
+  'textHealth': 'Distance and calories calculated based on baby\'s information',
 };

@@ -72,12 +72,14 @@ export function editDeviceApi(
 }
 
 export function getLocationDeviceApi(
-  deviceId,
+  deviceIds,
   { success, failure, autoShowMsg = true, refLoading = null, refNotification = null } = {},
 ) {
-  const url = [locationDeviceUrl, deviceId].join("/");
-  return get(url, {
-    params: null,
+  let params = {
+    deviceIds
+  };
+  return get(locationDeviceUrl, {
+    params: params,
     success,
     failure,
     autoShowMsg,
