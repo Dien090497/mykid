@@ -12,7 +12,6 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import {convertDateTimeToString} from '../../../functions/utils';
 import { getJourneyApi, getLocationDeviceApi } from '../../../network/DeviceService';
 
 import {Colors} from '../../../assets/colors/Colors';
@@ -27,6 +26,7 @@ import { useTranslation } from 'react-i18next';
 import NotificationModal from '../../../components/NotificationModal';
 import DatePickerModal from "../../../components/DatePickerModal";
 import Consts from "../../../functions/Consts";
+import Moment from 'moment';
 
 const roundMinutes = (date = new Date()) => {
   var minute = date.getMinutes();
@@ -104,11 +104,17 @@ export default ({navigation}) => {
     );
   };
 
+  const setDateTime = (config) =>{
+    const deadTime = new Date( new Date() -(86400000 * 90)).getTime();
+    if (config.getTime() < deadTime) return refNotification.current.open(t('common:errorChooseDate'));
+    setDate(config);
+  }
+
   useEffect(() => {
-    getLocationDeviceApi(DataLocal.deviceId, {
+    getLocationDeviceApi([DataLocal.deviceId], {
       success: res => {
-        setDeviceInfo(res.data);
-        const {lat, lng} = res.data?.location;
+        setDeviceInfo(res.data[0]);
+        const {lat, lng} = res.data[0]?.location;
         if (lat && lng) {
           refMap.current.animateCamera({
             center: {
@@ -124,7 +130,6 @@ export default ({navigation}) => {
     });
   }, []);
 
-
   const renderFilter = () => {
     return (
       <View style={styles.wrapperFilter}>
@@ -133,12 +138,11 @@ export default ({navigation}) => {
           <TouchableOpacity
             style={styles.containerTime}
             onPress={()=>{
-              refDatePicker.current.openModal(date,(config)=>{setDate(config)})
+              refDatePicker.current.openModal(date,(config)=>{setDateTime(config)})
             }}>
-            <Text
-              children={convertDateTimeToString(date).date}
-              style={styles.txtTime}
-            />
+            <Text style={styles.txtTime}>
+              {Moment(date).format('DD/MM/yyyy')}
+            </Text>
           </TouchableOpacity>
           <View style={styles.containerHour}>
             <Text style={{fontFamily:'Roboto-Medium', marginRight:10}} children={t('common:from')} />
@@ -147,16 +151,13 @@ export default ({navigation}) => {
                 refTime.current.openModal(
                   fromDate,
                   (date)=>{
-                    console.log(date)
                     setFromDate(date);
                   })
               }}
               style={[styles.containerTime]}>
-              <Text
-                style={styles.txtTime}
-                children={(fromDate.getHours()<10? '0'+fromDate.getHours() : fromDate.getHours())+':'+(fromDate.getMinutes()<10 ? '0'+fromDate.getMinutes() : fromDate.getMinutes())}
-                marginTop={5}
-              />
+              <Text style={styles.txtTime}>
+                {Moment(fromDate).format('HH:mm')}
+              </Text>
             </TouchableOpacity>
           </View>
           <View style={styles.containerHour}>
@@ -166,16 +167,13 @@ export default ({navigation}) => {
                 refTime.current.openModal(
                   toDate,
                   (date)=>{
-                    console.log(date)
                     setToDate(date);
                   })
               }}
               style={[styles.containerTime]}>
-              <Text
-                style={styles.txtTime}
-                children={(toDate.getHours() < 10 ? '0'+toDate.getHours() : toDate.getHours())+':'+(toDate.getMinutes()<10 ? '0'+toDate.getMinutes() : toDate.getMinutes())}
-                marginTop={5}
-              />
+              <Text style={styles.txtTime}>
+                {Moment(toDate).format('HH:mm')}
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -206,8 +204,6 @@ export default ({navigation}) => {
         <MapView
           ref={refMap}
           style={styles.container}
-          // provider={PROVIDER_GOOGLE}
-          showsUserLocation={true}
           >
           <Marker
             coordinate={{
@@ -216,17 +212,20 @@ export default ({navigation}) => {
             }}>
             <Image source={Images.icWatchMarker} style={{ width: 30, height: 30, resizeMode: 'contain' }} />
           </Marker>
-          {listSafeArea.map(val => (
-            <View key={val.id}>
+          {listSafeArea.map((val,i) => (
+            <View key={i}>
               <Marker
                 coordinate={{
                   latitude: val.location.lat,
                   longitude: val.location.lng,
                 }}>
-                <Image
-                  source={Images.icMarkerDefault}
-                  style={styles.icMarker}
-                />
+                <View style={{alignItems: 'center'}}>
+                  <Text>{i}</Text>
+                  <Image
+                    source={Images.icMarkerDefault}
+                    style={[styles.icMarker,val.type === 'GPS' ? {tintColor: 'blue'}: val.type === 'WIFI' ? {tintColor: 'yellow'} : {tintColor: 'origin'}]}
+                  />
+                </View>
               </Marker>
             </View>
           ))}
