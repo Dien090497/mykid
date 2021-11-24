@@ -54,19 +54,24 @@ export default ({navigation, route}) => {
           DataLocal.deviceIndex + 1 > res.data.length ? setIndexSelect(0) : null;
           infoDevice.map((obj)=>{
             for (const objElement of res.data) {
-              objElement.deviceId === obj.deviceId ? objElement.avatar = obj.avatar : null;
+              if (objElement.deviceId === obj.deviceId){
+                objElement.avatar = obj.avatar;
+                objElement.deviceName = obj.deviceName;
+              }
             }
           })
           setLocationDevice(res.data);
-          const {lat, lng} = res.data[indexSelect]? res.data[indexSelect].location : res.data[0].location;
-          if (lat && lng) {
-            refMap.current.animateCamera({
-              center: {
-                latitude: lat,
-                longitude: lng,
-              },
-              zoom: 15,
-            });
+          if (res.data.length > 0) {
+            const {lat, lng} = res.data[indexSelect] ? res.data[indexSelect].location : res.data[0].location;
+            if (lat && lng) {
+              refMap.current.animateCamera({
+                center: {
+                  latitude: lat,
+                  longitude: lng,
+                },
+                zoom: 15,
+              });
+            }
           }
           timer = getTime() + 60;
           setIsCount(true);
@@ -97,13 +102,15 @@ export default ({navigation, route}) => {
     }
   }, []);
 
-  Geocoder.geocodePosition({
-    lat: locationDevice[indexSelect]?.location?.lat,
-    lng: locationDevice[indexSelect]?.location?.lng
-  }).then(res => {
-    const address = [res[0].streetNumber +' '+ res[0].streetName, res[0].subAdminArea, res[0].adminArea].join(', ')
-    setLocationName(address);
-  }).catch(err => console.log(err))
+  if (locationDevice && locationDevice[indexSelect] && locationDevice[indexSelect].location) {
+    Geocoder.geocodePosition({
+      lat: locationDevice[indexSelect].location.lat,
+      lng: locationDevice[indexSelect].location.lng
+    }).then(res => {
+      const address = [res[0].streetNumber +' '+ res[0].streetName, res[0].subAdminArea, res[0].adminArea].join(', ')
+      setLocationName(address);
+    }).catch(err => console.log(err))
+  }
 
   const gotoHomeScreen = () => {
     if (DataLocal.haveSim === '0') {
@@ -145,7 +152,6 @@ export default ({navigation, route}) => {
       { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
     );
   }
-  console.log(locationDevice);
 
   const handleWebSocketSetup = () => {
 
@@ -240,10 +246,11 @@ export default ({navigation, route}) => {
           style={styles.container}
           provider={PROVIDER_GOOGLE}
           mapType={mapType ? 'standard' : 'hybrid'}>
-          {locationDevice.length > 0 && infoDevice.length > 0 && (
+          {locationDevice.length > 0 && (
             locationDevice.map((obj,i)=>{
               return(
                 <Marker
+                  key={i}
                   onPress={()=>{
                     setIndexSelect(i);
                   }}
@@ -251,7 +258,7 @@ export default ({navigation, route}) => {
                     latitude: obj?.location?.lat,
                     longitude: obj?.location?.lng,
                   }}
-                  title={infoDevice[i].deviceName}>
+                  title={obj.deviceName}>
                   <View style={{alignItems: 'center'}}>
                     <Image source={{uri: obj.avatar}} style={[styles.avatar]} resizeMode={'cover'}/>
                     <View style={{height:5}}/>
@@ -278,7 +285,7 @@ export default ({navigation, route}) => {
             }}
             style={styles.containerDevice}>
             <View style={styles.containerLastTime}>
-              <Text style={styles.txtNameDevice}>{infoDevice[indexSelect].deviceName}</Text>
+              <Text style={styles.txtNameDevice}>{locationDevice[indexSelect].deviceName}</Text>
               <Text style={styles.txtTime}>
                 {Moment(new Date(locationDevice[indexSelect].reportedAt)).format('HH:mm DD/MM/yyyy')}
               </Text>

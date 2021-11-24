@@ -80,6 +80,7 @@ export default {
   'header_remoteDevices': 'Remote Shutdown',
   'header_remoteStart': 'Remote Restart',
   'header_warning': 'Alert Center',
+  'header_sms': 'SMS',
 
   // Codepush
   'codepushChecking': 'Checking...',
@@ -203,7 +204,7 @@ export default {
   'location': 'Location: ',
   'coordinates': 'Coordinates: ',
   'safeArea': 'SAFETY ZONE',
-
+  'errorChooseDate': 'Không quá 30 ngày',
   'palaceHolderSafeZone': 'Add safety zone',
 
   //member

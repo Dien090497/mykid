@@ -80,6 +80,7 @@ export default {
   'header_remoteDevices': 'Tắt thiết bị từ xa',
   'header_remoteStart': 'Khởi động lại từ xa',
   'header_warning': 'Cảnh báo',
+  'header_sms': 'SMS',
 
   // Codepush
   'codepushChecking': 'Đang kiểm tra bản cập nhật...',
@@ -203,7 +204,7 @@ export default {
   'location': 'Vị trí: ',
   'coordinates': 'Tọa độ: ',
   'safeArea': 'Vùng an toàn',
-
+  'errorChooseDate': 'Không quá 30 ngày',
   'palaceHolderSafeZone': 'Thêm vùng an toàn',
 
   //member
