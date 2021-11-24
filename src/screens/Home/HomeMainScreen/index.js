@@ -77,7 +77,7 @@ export default function HomeMainScreen() {
     if (DataLocal.haveSim === '0') {
       return refNotification.current.open(t('errorMsg:kwa4067'));
     }
-    navigation.navigate(Consts.ScreenIds.Maps);
+    navigation.navigate(Consts.ScreenIds.Maps,{listDevices: devices});
   };
 
   const pressChat = () => {
