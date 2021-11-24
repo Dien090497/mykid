@@ -54,15 +54,17 @@ export default ({navigation, route}) => {
             }
           })
           setLocationDevice(res.data);
-          const {lat, lng} = res.data[indexSelect]? res.data[indexSelect].location : res.data[0].location;
-          if (lat && lng) {
-            refMap.current.animateCamera({
-              center: {
-                latitude: lat,
-                longitude: lng,
-              },
-              zoom: 15,
-            });
+          if (res.data.length > 0) {
+            const {lat, lng} = res.data[indexSelect] ? res.data[indexSelect].location : res.data[0].location;
+            if (lat && lng) {
+              refMap.current.animateCamera({
+                center: {
+                  latitude: lat,
+                  longitude: lng,
+                },
+                zoom: 15,
+              });
+            }
           }
           timer = getTime() + 60;
           setIsCount(true);
@@ -87,13 +89,15 @@ export default ({navigation, route}) => {
     }
   }, []);
 
-  Geocoder.geocodePosition({
-    lat: locationDevice[indexSelect]?.location?.lat,
-    lng: locationDevice[indexSelect]?.location?.lng
-  }).then(res => {
-    const address = [res[0].streetNumber +' '+ res[0].streetName, res[0].subAdminArea, res[0].adminArea].join(', ')
-    setLocationName(address);
-  }).catch(err => console.log(err))
+  if (locationDevice && locationDevice[indexSelect] && locationDevice[indexSelect].location) {
+    Geocoder.geocodePosition({
+      lat: locationDevice[indexSelect].location.lat,
+      lng: locationDevice[indexSelect].location.lng
+    }).then(res => {
+      const address = [res[0].streetNumber +' '+ res[0].streetName, res[0].subAdminArea, res[0].adminArea].join(', ')
+      setLocationName(address);
+    }).catch(err => console.log(err))
+  }
 
   const gotoHomeScreen = () => {
     if (DataLocal.haveSim === '0') {
