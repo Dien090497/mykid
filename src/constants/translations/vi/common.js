@@ -204,7 +204,7 @@ export default {
   'location': 'Vị trí: ',
   'coordinates': 'Tọa độ: ',
   'safeArea': 'Vùng an toàn',
-
+  'errorChooseDate': 'Không quá 30 ngày',
   'palaceHolderSafeZone': 'Thêm vùng an toàn',
 
   //member
