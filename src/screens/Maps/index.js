@@ -21,6 +21,13 @@ import Geocoder from 'react-native-geocoder';
 import Moment from 'moment';
 import * as Progress from 'react-native-progress';
 import Geolocation from 'react-native-geolocation-service';
+import { wsCheckLocation } from '../../network/http/ApiUrl';
+import { generateRandomId } from '../../functions/utils';
+import * as encoding from 'text-encoding';
+
+const encoder = new encoding.TextEncoder();
+let ws = null;
+let reconnect = false;
 
 export default ({navigation, route}) => {
   const refMap = useRef(null);
@@ -72,6 +79,8 @@ export default ({navigation, route}) => {
   };
 
   useEffect(() => {
+    handleWebSocketSetup();
+    setReconnect(true)
     !isCount ? initCameraMap() : null;
     if (DataLocal.deviceId) getLocationDevice();
     else {
@@ -81,6 +90,10 @@ export default ({navigation, route}) => {
     }
     return ()=>{
       setIsCount(false);
+      disconnect();
+      setReconnect(false)
+      ws = null;
+      reconnect = false;
     }
   }, []);
 
@@ -133,6 +146,89 @@ export default ({navigation, route}) => {
     );
   }
   console.log(locationDevice);
+
+  const handleWebSocketSetup = () => {
+
+    ws = new WebSocket(wsCheckLocation);
+    ws.onopen = () => {
+      onOpen();
+    };
+    ws.onmessage = event => {
+      onMessage(event);
+    };
+    ws.onerror = error => {
+      onError(error);
+    };
+    ws.onclose = () =>
+      onClose();
+  };
+
+  const setReconnect = (setReconnect) => {
+    reconnect = !!setReconnect;
+  }
+
+  const disconnect = () => {
+    reconnect = false;
+    ws.close();
+  }
+
+  const ping = async () => {
+    await ws.send(encoder.encode('').buffer, true);
+    setTimeout(() => {
+      if (reconnect) {
+        ping();
+      }
+    }, 3000)
+  };
+
+  const onOpen = async () => {
+    console.log('Websocket Location Open!');
+    let command =
+      'CONNECT\n' +
+      'accept-version:1.2\n' +
+      'host:mykid.ttc.software\n' +
+      'authorization:Bearer ' +
+      DataLocal.accessToken +
+      '\n' +
+      'content-length:0\n' +
+      '\n\0';
+    await ws.send(encoder.encode(command).buffer, true);
+    command =
+      'SUBSCRIBE\n' +
+      'id:' + generateRandomId(10) + '\n' +
+      'destination:/user/queue/locations\n' +
+      'content-length:0\n' +
+      '\n\0';
+    await ws.send(encoder.encode(command).buffer, true);
+
+    await ping();
+  };
+
+  const onClose = () => {
+    console.log('Websocket Location Close!');
+  };
+
+  const onError = error => {
+    console.log(JSON.stringify(error));
+    console.log(error, 'Websocket Location Error!');
+  };
+
+  const onMessage = message => {
+    if (DataLocal.accessToken !== null && message.data) {
+      const split = message.data.split('\n');
+      if (
+        split[0] === 'MESSAGE' &&
+        split.length > 4 &&
+        split[2] === 'destination:/user/queue/locations'
+      ) {
+        const data = JSON.parse(
+          split[split.length - 1].replace('\u0000', '').replace('\\u0000', ''),
+        );
+        console.log(data)
+      }
+      console.log(message, 'WebSocket Location Message');
+    }
+  };
 
   return (
     <View
@@ -189,7 +285,9 @@ export default ({navigation, route}) => {
             </View>
             <View style={styles.containerLastTime}>
               <Text style={styles.txtLocation}>{t('common:location')}{locationName}</Text>
-              <Text style={[styles.txtTime,{flex: 1 ,fontSize: FontSize.xxtraSmall*0.8, textAlign: 'right'}]}>{locationDevice[indexSelect].type + ' ('+ t('common:discrepancy') + (locationDevice[indexSelect].type === 'GPS' ? '50m)' : locationDevice[indexSelect].type === 'WIFI' ? '100m)' : '1000m)')}</Text>
+              <Text style={[styles.txtTime,{flex: 1 ,fontSize: FontSize.xxtraSmall*0.8, textAlign: 'right'}]}>
+                {locationDevice[indexSelect].type + ' ('+ t('common:discrepancy') + locationDevice[indexSelect].maxAccuracy + 'm)'}
+              </Text>
             </View>
 
             <View style={styles.containerLastTime}>

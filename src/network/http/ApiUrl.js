@@ -9,6 +9,7 @@ export const streamUrl = hostUrl + '/kwstream-core/v1';
 export const wsUrl = 'wss://mykid.ttc.software/kwstream-core/v1/ws';
 export const wsSafeZoneUrl = 'wss://mykid.ttc.software/kwapp-core/v1/ws';
 export const wsCheckSim = 'wss://mykid.ttc.software/kwapp-core/v1/ws';
+export const wsCheckLocation = 'wss://mykid.ttc.software/kwapp-core/v1/ws';
 export const wssXmppUrl = 'wss://' + appConfig.xmppServer + '/ws';
 
 // Account
