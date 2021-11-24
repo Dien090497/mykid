@@ -67,7 +67,7 @@ class FCMService {
         .onNotificationOpenedApp(remoteMessage => {
             console.log('[FCMService] onNotificationOpenedApp Notification caused app to open from background state:',remoteMessage)
             if (remoteMessage) {
-                const notification = remoteMessage.notification
+                const notification = remoteMessage.data
                 onOpenNotification(notification)
                 // this.removeDeliveredNotification(notification.notificationId)
             }
@@ -80,7 +80,7 @@ class FCMService {
             console.log('[FCMService] getInitialNotification Notification caused app to open from quit state:',remoteMessage)
 
             if (remoteMessage) {
-                const notification = remoteMessage.notification
+                const notification = remoteMessage.data
                 onOpenNotification(notification)
                 //  this.removeDeliveredNotification(notification.notificationId)
             }
