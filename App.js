@@ -1,5 +1,14 @@
-import {StatusBar} from "react-native";
-import React, { useEffect, useRef } from "react";
+import {
+  StatusBar,
+  Platform,
+  TouchableOpacity,
+  Text,
+  View,
+  ScrollView,
+  StyleSheet,
+  PermissionsAndroid,
+} from "react-native";
+import React, { useEffect, useRef, useState } from "react";
 import {AlertDropHelper} from './src/functions/AlertDropHelper';
 import {Colors} from './src/assets/colors/Colors';
 import DropdownAlert from 'react-native-dropdownalert';
@@ -11,9 +20,141 @@ import './src/constants/IMLocalize';
 import {fcmService} from './src/FCMService'
 import {localNotificationService} from './src/LocalNotificationService'
 import DataLocal from "./src/data/dataLocal";
+import uuid from 'uuid';
+import RNCallKeep from 'react-native-callkeep';
+RNCallKeep.setup({
+  ios: {
+    appName: 'MyKid',
+  },
+  android: {
+    alertTitle: 'Permissions required',
+    alertDescription: 'This application needs to access your phone accounts',
+    cancelButton: 'Cancel',
+    okButton: 'ok',
+    foregroundService: {
+      channelId: 'com.mykid',
+      channelName: 'Foreground service for my app',
+      notificationTitle: 'My app is running on background',
+      notificationIcon: 'Path to the resource icon of the notification',
+    },
+  },
+}).then();
 
 export default function App() {
   const routeRef = useRef();
+let currentCallId = null;
+  // Initialise RNCallKeep
+  const setup = () => {
+    const options = {
+      ios: {
+        appName: 'ReactNativeMykid',
+        imageName: 'sim_icon',
+        supportsVideo: true,
+        maximumCallGroups: '1',
+        maximumCallsPerCallGroup: '1'
+      },
+      android: {
+        alertTitle: 'Permissions Required',
+        alertDescription:
+          'This application needs to access your phone calling accounts to make calls',
+        cancelButton: 'Cancel',
+        okButton: 'ok',
+        imageName: 'sim_icon',
+        foregroundService: {
+          channelId: 'com.mykid',
+          channelName: 'Foreground service for my app',
+          notificationTitle: 'My app is running on background',
+          notificationIcon: 'Path to the resource icon of the notification',
+        },
+      }
+    };
+
+    try {
+      RNCallKeep.setup(options);
+      RNCallKeep.setAvailable(true); // Only used for Android, see doc above.
+    } catch (err) {
+      console.error('initializeCallKeep error:', err.message);
+    }
+  }
+
+  // Use startCall to ask the system to start a call - Initiate an outgoing call from this point
+  const startCall = ({ id,handle, localizedCallerName }) => {
+    // Your normal start call action
+    RNCallKeep.startCall(id, handle, localizedCallerName);
+  };
+
+  const reportEndCallWithUUID = (callUUID, reason) => {
+    RNCallKeep.reportEndCallWithUUID(callUUID, reason);
+  }
+
+  // Event Listener Callbacks
+
+  const didReceiveStartCallAction = (data) => {
+    let { handle, callUUID, name } = data;
+    // Get this event after the system decides you can start a call
+    // You can now start a call from within your app
+  };
+
+  const onAnswerCallAction = (data) => {
+    let { callUUID } = data;
+    // Called when the user answers an incoming call
+  };
+
+  const onEndCallAction = (data) => {
+    let { callUUID } = data;
+    RNCallKeep.endCall(this.getCurrentCallId());
+
+    this.currentCallId = null;
+  };
+
+  // Currently iOS only
+  const onIncomingCallDisplayed = (data) => {
+    let { error } = data;
+    // You will get this event after RNCallKeep finishes showing incoming call UI
+    // You can check if there was an error while displaying
+  };
+
+  const onToggleMute = (data) => {
+    let { muted, callUUID } = data;
+    // Called when the system or user mutes a call
+  };
+
+  const onToggleHold = (data) => {
+    let { hold, callUUID } = data;
+    // Called when the system or user holds a call
+  };
+
+  const onDTMFAction = (data) => {
+    let { digits, callUUID } = data;
+    // Called when the system or user performs a DTMF action
+  };
+
+  const audioSessionActivated = (data) => {
+    // you might want to do following things when receiving this event:
+    // - Start playing ringback if it is an outgoing call
+  };
+
+  const getCurrentCallId = () => {
+    if (currentCallId) {
+      currentCallId = uuid.v4();
+    }
+
+    return currentCallId;
+  };
+
+  function initCallKeep() {
+    RNCallKeep.addEventListener('didReceiveStartCallAction', didReceiveStartCallAction);
+    RNCallKeep.addEventListener('answerCall', onAnswerCallAction);
+    RNCallKeep.addEventListener('endCall', onEndCallAction);
+    RNCallKeep.addEventListener('didDisplayIncomingCall', onIncomingCallDisplayed);
+    RNCallKeep.addEventListener('didPerformSetMutedCallAction', onToggleMute);
+    RNCallKeep.addEventListener('didToggleHoldCallAction', onToggleHold);
+    RNCallKeep.addEventListener('didPerformDTMFAction',onDTMFAction);
+    RNCallKeep.addEventListener('didActivateAudioSession', audioSessionActivated);
+    setup();
+  }
+
+  // fire base msg
   useEffect(() => {
     fcmService.registerAppWithFCM()
     fcmService.register(onRegister, onNotification, onOpenNotification)
@@ -44,9 +185,13 @@ export default function App() {
       console.log("[App] onOpenNotification: ", notify)
       if (notify && notify.type === 'CHAT'){
         routeRef.current.roadToMsgFromNotify(notify);
+      }else if(notify && notify.type === 'VIDEO_CALL'){
+        console.log("[App] onOpenNotification: VIDEO_CALL", notify)
+        startCall(notify.id,notify.relationship,notify.relationship);
       }
     }
 
+    initCallKeep();
     return () => {
       console.log("[App] unRegister")
       fcmService.unRegister()
@@ -56,10 +201,10 @@ export default function App() {
   }, [])
 
   return (
-      <SafeAreaProvider>
+    <SafeAreaProvider>
         <Provider store={redux.store}>
-          <Routes ref = {routeRef}/>
-          <DropdownAlert
+         <Routes ref = {routeRef}/>
+         <DropdownAlert
             closeInterval={15000}
             updateStatusBar={false}
             warnColor={Colors.yellow}
