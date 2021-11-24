@@ -65,24 +65,6 @@ export default function Health({ navigation }) {
     )
   }
 
-  const updateTime = (obj, i) => {
-    const body = {
-      deviceId: obj.deviceId,
-      startTime: obj.startTime.slice(0, 5),
-      endTime: obj.endTime.slice(0, 5),
-      active: obj.active
-    }
-    updateWalkingMode(obj.id, body, {
-      success: res => {
-        const newData = Object.assign([], data);
-        newData[i] = res.data
-        setData(newData)
-      },
-      refLoading,
-      refNotification,
-    });
-  }
-
   const setTimeItem = (obj, i) => {
     if (obj) {
       const from = obj.startTime.split(':');
@@ -161,6 +143,9 @@ export default function Health({ navigation }) {
     <View style={styles.body}>
       <Header title={t('common:header_health')}/>
       <ScrollView>
+        <View style={styles.viewTextTop}>
+          <Text style={styles.textTop}>{t('common:textHealth')}</Text>
+        </View>
         <View style={styles.viewTop}>
           <View style={styles.viewCount}>
             <Image source={Images.icHealthHeart} style={styles.icon} resizeMode={'stretch'}/>

@@ -1,4 +1,4 @@
-import {Image, Linking, StatusBar, Text, TouchableOpacity, View} from "react-native";
+import {Image, Linking, StatusBar, Text, TouchableOpacity, View} from 'react-native';
 import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
 
 import {Menu, MenuDivider} from 'react-native-material-menu';
@@ -19,6 +19,7 @@ import WebSocketVideoCall from '../../../network/socket/WebSocketVideoCall';
 import WebSocketCheckSim from '../../../network/socket/WebSocketCheckSim';
 import {useTranslation} from 'react-i18next';
 import NotificationModal from '../../../components/NotificationModal';
+import { checkLocationPermission } from '../../../functions/permissions';
 
 export default function HomeMainScreen() {
   const navigation = useNavigation();
@@ -77,7 +78,10 @@ export default function HomeMainScreen() {
     if (DataLocal.haveSim === '0') {
       return refNotification.current.open(t('errorMsg:kwa4067'));
     }
-    navigation.navigate(Consts.ScreenIds.Maps);
+    checkLocationPermission().then((location) => {
+      if (location)
+       return navigation.navigate(Consts.ScreenIds.Maps,{listDevices: devices});
+    })
   };
 
   const pressChat = () => {
@@ -177,6 +181,10 @@ export default function HomeMainScreen() {
       return refNotification.current.open(t('errorMsg:kwa4067'));
     }
     Linking.openURL(`tel:${'0' + devices[selectedIndex].isdn.substring(3)}`)
+  }
+
+  const onSMS = () => {
+    navigation.navigate(Consts.ScreenIds.SMS);
   }
 
   return (
@@ -308,6 +316,7 @@ export default function HomeMainScreen() {
             <TouchableOpacity
               {...buttonProps}
               style={[styles.button, {marginLeft: '2%'}]}
+              onPress={onSMS}
             >
               <View style={styles.bgIcon}>
                 <Image source={Images.icSMS} style={styles.icon}/>

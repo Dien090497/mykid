@@ -50,6 +50,7 @@ export default {
   'chooseDay': 'Chọn ngày',
   'success': 'Thành công',
   'detail': 'Chi tiết',
+  'discrepancy': 'Độ chênh lệch - ',
   'thisFunctionIsNotValid': 'Tính năng chưa được cập nhật',
   'header_settings': 'Thiết lập',
   'header_contacts': 'Danh bạ',
@@ -79,6 +80,7 @@ export default {
   'header_remoteDevices': 'Tắt thiết bị từ xa',
   'header_remoteStart': 'Khởi động lại từ xa',
   'header_warning': 'Cảnh báo',
+  'header_sms': 'SMS',
 
   // Codepush
   'codepushChecking': 'Đang kiểm tra bản cập nhật...',
@@ -170,7 +172,7 @@ export default {
   'rejectContactSuccess': 'Từ chối thành viên thành công',
   'deleteContactSuccess': 'Xóa thành viên thành công',
   'deleteMessage': 'Xóa lịch sử tin nhắn',
-  'alertDeleteDevices':'Kết nối đồng hồ sẽ khôi phục về cài đặt gốc và xóa toàn bộ dữ liệu',
+  'alertDeleteDevices':'Hủy kết nối đồng hồ sẽ khôi phục về cài đặt gốc và xóa toàn bộ dữ liệu',
   'alertDeleteMessage': 'Bạn có chắc chắn muốn xóa cuộc trò chuyện của mình không?',
   'alertDeleteDevices1': 'Bạn có chắc chắn muốn xóa thiết bị (',
   'alertDeleteDevices2': ') không ?',
@@ -202,7 +204,7 @@ export default {
   'location': 'Vị trí: ',
   'coordinates': 'Tọa độ: ',
   'safeArea': 'Vùng an toàn',
-
+  'errorChooseDate': 'Không quá 30 ngày',
   'palaceHolderSafeZone': 'Thêm vùng an toàn',
 
   //member
@@ -287,7 +289,7 @@ export default {
   'cameraUnavailable': 'Máy ảnh không khả dụng trên thiết bị của bạn',
   'photoLibraryUnavailable': 'Thư viện ảnh không khả dụng trên thiết bị của bạn',
   'microphoneUnavailable': 'Mic không khả dụng trên thiết bị của bạn',
-  'cameraDenied': 'Quyền truy cập máy ảnh bị từ chối.\nVui lòng vào cài đặt để cấp quyền truy cập',
+  'cameraDenied': 'Quyền truy cập GPS bị từ chối.\nVui lòng vào cài đặt để cấp quyền truy cập',
   'photoLibraryReadDenied': 'Quyền truy cập thư viện ảnh bị từ chối.\nVui lòng mở cài đặt để cấp quyền truy cập',
   'photoLibraryReadLimit': 'Quyền truy cập thư viện ảnh bị giới hạn.\nVui lòng mở cài đặt để cấp quyền truy cập \'Tất cả ảnh\'',
   'photoLibraryWriteDenied': 'Quyền ghi ảnh bị từ chối.\nVui lòng mở cài đặt để cấp quyền',
@@ -365,4 +367,5 @@ export default {
   'calo': 'Calo',
   'error_health1': 'Số bước chân mục tiêu phải lớn hơn 0',
   'error_health2': 'Số bước chân mục tiêu lớn hơn 20.000 bước',
+  'textHealth': 'Quãng đường và Calo tính tương đối dựa theo thông tin của bé',
 };

@@ -66,6 +66,19 @@ export async function checkCameraPermission() {
   return false;
 }
 
+export async function checkLocationPermission() {
+  const msgs = [i18next.t('common:cameraUnavailable'), i18next.t('common:cameraDenied')];
+  if (Platform.OS === 'ios') {
+    const result = await check(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
+    return handlePermissionResp(result, PERMISSIONS.IOS.LOCATION_WHEN_IN_USE, msgs);
+  } else if (Platform.OS === 'android') {
+    const result = await check(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
+    return handlePermissionResp(result, PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION, msgs);
+  }
+
+  return false;
+}
+
 async function handlePermissionResp(result, permission, listMsg = []) {
     console.log(result);
     console.log(permission);

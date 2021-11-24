@@ -50,6 +50,7 @@ export default {
   'chooseDay': 'Select date',
   'success': 'Success',
   'detail': 'Details',
+  'discrepancy': 'Deviation rate - ',
   'thisFunctionIsNotValid': 'Tính năng chưa được cập nhật',
   'header_settings': 'Setting',
   'header_contacts': 'Contacts',
@@ -79,6 +80,7 @@ export default {
   'header_remoteDevices': 'Remote Shutdown',
   'header_remoteStart': 'Remote Restart',
   'header_warning': 'Alert Center',
+  'header_sms': 'SMS',
 
   // Codepush
   'codepushChecking': 'Checking...',
@@ -171,7 +173,7 @@ export default {
   'deleteContactSuccess': 'Delete Contact Success',
   'deleteMessage': 'Delete Message',
   'alertDeleteMessage': 'Are you sure to delete this chat?',
-  'alertDeleteDevices':'Kết nối đồng hồ sẽ khôi phục về cài đặt gốc và xóa toàn bộ dữ liệu',
+  'alertDeleteDevices':'Disconnecting the watch will restore its factory settings and delete all data',
   'alertDeleteDevices1': 'Are you sure you want to delete the device (',
   'alertDeleteDevices2': ')?',
   'removeContactConfirm':
@@ -202,7 +204,7 @@ export default {
   'location': 'Location: ',
   'coordinates': 'Coordinates: ',
   'safeArea': 'SAFETY ZONE',
-
+  'errorChooseDate': 'Không quá 30 ngày',
   'palaceHolderSafeZone': 'Add safety zone',
 
   //member
@@ -287,7 +289,7 @@ export default {
   'cameraUnavailable': 'Camera not available on your device',
   'photoLibraryUnavailable': 'Gallery is not available on your device',
   'microphoneUnavailable': 'Microphone is not available on your device',
-  'cameraDenied': 'Camera access is denied.\nPlease go to settings to grant access',
+  'cameraDenied': 'GPS access is denied.\nPlease go to settings to grant access',
   'photoLibraryReadDenied': 'Photo gallery access denied.\nPlease open settings to grant access',
   'photoLibraryReadLimit': 'Photo gallery access is limited.\nPlease open settings to grant access \'All photos\'',
   'photoLibraryWriteDenied': 'Permission to write pictures is denied.\nPlease open settings to grant permissio',
@@ -364,4 +366,5 @@ export default {
   'calo': 'Calo',
   'error_health1': 'Step target must be greater than 0',
   'error_health2': 'Step target mustn\'t be more than 20000',
+  'textHealth': 'Distance and calories calculated based on baby\'s information',
 };

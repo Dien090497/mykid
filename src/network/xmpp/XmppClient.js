@@ -60,7 +60,7 @@ export default class XmppClient {
     await clientXmpp.send(message);
     setTimeout(() => {
       this.ping();
-    }, 10000)
+    }, 44444)
   };
 
   static getRooms = async () => {
@@ -97,11 +97,11 @@ export default class XmppClient {
     let message = xml('presence', { to: toAddress },);
     await clientXmpp.send(message);
 
-    await this.pingRoom();
+    await this.pingRoom(roomId);
   }
 
-  static pingRoom = async (isAuto = true) => {
-    const toAddress = [this.currentRoomId, this.getNickName()].join('/');
+  static pingRoom = async (roomId, isAuto = true) => {
+    const toAddress = [roomId, this.getNickName()].join('/');
     let message = xml('iq', {
         to: toAddress,
         from: this.getNickName(),
@@ -112,8 +112,8 @@ export default class XmppClient {
     await clientXmpp.send(message);
     if (isAuto) {
       setTimeout(() => {
-        this.pingRoom();
-      }, 10000)
+        this.pingRoom(roomId);
+      }, 22222)
     }
   };
 
@@ -139,7 +139,7 @@ export default class XmppClient {
       xml('body', {}, content)
     );
     await clientXmpp.send(message);
-    await this.pingRoom(false);
+    await this.pingRoom( this.currentRoomId, false);
   }
 
   static async getHistory(flagTime) {

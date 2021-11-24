@@ -156,16 +156,6 @@ const AddDeviceScreen = ({ navigation, route }) => {
             maxLength={10}
             style={styles.textInput} />
         </View>
-        <View style={[styles.input,{marginBottom:20}]}>
-            <Image style={[styles.iconInput,{height:'60%'}]} source={Images.icMobile} resizeMode='contain' />
-          <TextInput
-            placeholder={t('common:deviceNumber')}
-            onChangeText={text => setDevicenNumber(text.replace(/[^0-9]/g, ''))}
-            placeholderTextColor='#B5B4B4'
-            keyboardType={'number-pad'}
-            maxLength={10}
-            style={styles.textInput} />
-        </View>
         <TouchableOpacity style={styles.input} onPress={() => onRelationship()}>
           <Image style={[styles.iconInput,{height:'60%'}]} source={data.icon} resizeMode='contain' />
           <Text style={styles.textInput}>{DataLocal.language === 'vi' ? t('common:iAm') + data.name + ' ' + t('common:ofHe') : t('common:iAm') + t('common:ofHe') + ' ' + data.name  } </Text>

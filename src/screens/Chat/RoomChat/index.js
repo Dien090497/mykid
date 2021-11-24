@@ -474,7 +474,7 @@ export default function RoomChat({navigation, route}) {
             <View style={styles.toInput}>
               <TextInput
                 numberOfLines={1}
-                maxLength={20}
+                maxLength={160}
                 autoCompleteType={'off'}
                 importantForAutofill={'off'}
                 autoCorrect={false}

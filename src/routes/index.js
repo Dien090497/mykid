@@ -50,6 +50,8 @@ import PersonalData from '../screens/Profile/PersonalData';
 import Warning from '../screens/Warning'
 import Health from '../screens/Health'
 import DetailHealth from '../screens/Health/DetailHealth'
+import SMS from '../screens/SMS'
+import SMSDetail from '../screens/SMS/SMSDetail'
 
 import {createStackNavigator} from '@react-navigation/stack';
 import LanguageTimeZone from '../screens/Profile/LanguageTimeZone';
@@ -325,6 +327,14 @@ function Routes ({},ref){
         <Stack.Screen
           name={Consts.ScreenIds.Chat}
           component={Chat}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.SMS}
+          component={SMS}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.SMSDetail}
+          component={SMSDetail}
         />
         <Stack.Screen
           name={Consts.ScreenIds.RoomChat}

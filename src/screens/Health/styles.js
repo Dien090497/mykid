@@ -28,13 +28,21 @@ export const styles = StyleSheet.create({
     fontFamily: 'Roboto',
     fontSize: FontSize.small
   },
+  viewTextTop:{
+    marginVertical: 10,
+    width: '100%',
+    alignItems:'center'
+  },
+  textTop:{
+    fontSize: FontSize.xxtraSmall,
+    color: Colors.colorHeader
+  },
   viewTop:{
     flexDirection:'row',
     justifyContent:'space-evenly',
     alignItems: 'center',
     width: '100%',
     backgroundColor: 'rgba(240, 240, 240, 0.5)',
-    marginTop:15
   },
   button: {
     marginTop: 40,
