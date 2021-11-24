@@ -45,6 +45,7 @@ export default {
   icMarkerDefault: require('./images/ic_marker_default.png'),
   icCancelMember: require('./images/ic_cancel_member.png'),
   icMobile: require('./images/ic_mobile.png'),
+  icMapType: require('./images/ic_map_type.png'),
 
   //homeScreen
   icHomeOn: require('./images/main/ic_home_on.png'),

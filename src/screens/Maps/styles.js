@@ -182,7 +182,13 @@ export const styles = StyleSheet.create({
   icMarker: {
     width: 30,
     height: 30,
-    resizeMode: 'contain'
+    resizeMode: 'contain',
+  },
+  avatar: {
+    width: 40,
+    height: 40,
+    resizeMode: 'contain',
+    borderRadius: 20,
   },
   containerGetLocation: {
     width: 40,

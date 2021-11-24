@@ -21,7 +21,6 @@ import Geocoder from 'react-native-geocoder';
 import Moment from 'moment';
 import * as Progress from 'react-native-progress';
 import Geolocation from 'react-native-geolocation-service';
-import { checkLocationPermission } from "../../functions/permissions";
 
 export default ({navigation, route}) => {
   const refMap = useRef(null);
@@ -32,6 +31,7 @@ export default ({navigation, route}) => {
   const [indexSelect, setIndexSelect] = useState(DataLocal.deviceIndex);
   const [isCount, setIsCount] = useState(false);
   const [timeCount, setTimeCount] = useState(60);
+  const [mapType, setMapType] = useState(true);
   const { t } = useTranslation();
   const infoDevice = route.params.listDevices;
   let timer = 0;
@@ -44,8 +44,14 @@ export default ({navigation, route}) => {
       })
       getLocationDeviceApi(listID, {
         success: res => {
+          DataLocal.deviceIndex + 1 > res.data.length ? setIndexSelect(0) : null;
+          infoDevice.map((obj)=>{
+            for (const objElement of res.data) {
+              objElement.deviceId === obj.deviceId ? objElement.avatar = obj.avatar : null;
+            }
+          })
           setLocationDevice(res.data);
-          const {lat, lng} = res.data[indexSelect]?.location;
+          const {lat, lng} = res.data[indexSelect]? res.data[indexSelect].location : res.data[0].location;
           if (lat && lng) {
             refMap.current.animateCamera({
               center: {
@@ -110,27 +116,23 @@ export default ({navigation, route}) => {
   };
 
   const initCameraMap = () =>{
-    checkLocationPermission().then(r =>
-      {
-        Geolocation.getCurrentPosition(
-          (position) => {
-            refMap.current.animateCamera({
-              center: {
-                latitude: position.coords.latitude,
-                longitude: position.coords.longitude   ,
-              },
-              zoom: 15,
-            });
+    Geolocation.getCurrentPosition(
+      (position) => {
+        refMap.current.animateCamera({
+          center: {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude   ,
           },
-          (error) => {
-            console.log('GeolocationERROR',error);
-          },
-          { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
-        );
-      }
-    )
+          zoom: 15,
+        });
+      },
+      (error) => {
+        console.log('GeolocationERROR',error);
+      },
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+    );
   }
-
+  console.log(locationDevice);
 
   return (
     <View
@@ -141,7 +143,7 @@ export default ({navigation, route}) => {
           ref={refMap}
           style={styles.container}
           provider={PROVIDER_GOOGLE}
-          mapType={'hybrid'}>
+          mapType={mapType ? 'standard' : 'hybrid'}>
           {locationDevice.length > 0 && infoDevice.length > 0 && (
             locationDevice.map((obj,i)=>{
               return(
@@ -154,14 +156,18 @@ export default ({navigation, route}) => {
                     longitude: obj?.location?.lng,
                   }}
                   title={infoDevice[i].deviceName}>
-                  <Image source={Images.icMarkerDefault} style={[styles.icMarker,{tintColor: Colors.colorMain}]}/>
+                  <View style={{alignItems: 'center'}}>
+                    <Image source={{uri: obj.avatar}} style={[styles.avatar]} resizeMode={'cover'}/>
+                    <View style={{height:5}}/>
+                    <Image source={Images.icMarkerDefault} style={[styles.icMarker,{tintColor: Colors.colorMain}]}/>
+                  </View>
                 </Marker>
               )
             })
           )}
         </MapView>
 
-        {locationDevice.length > 0 && infoDevice.length > 0 && (
+        {locationDevice.length > 0 && locationDevice[indexSelect] && (
           <TouchableOpacity
             onPress={() => {
               const {lat, lng} = locationDevice[indexSelect]?.location;
@@ -221,6 +227,14 @@ export default ({navigation, route}) => {
               />
             </View> : <Image source={Images.icWatchMarker} style={styles.icMarker} />}
         </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.containerGetLocation,{ left: 10}]}
+            activeOpacity={1}
+            onPress={()=>{
+                setMapType(!mapType)
+            }}>
+            <Image source={Images.icMapType} style={styles.icMarker} />
+          </TouchableOpacity>
       </View>
       <LoadingIndicator ref={refLoading} />
       <NotificationModal ref={refNotification } goBack={gotoHomeScreen}/>
