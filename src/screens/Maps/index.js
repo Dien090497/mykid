@@ -7,10 +7,7 @@ import {
 } from 'react-native';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import React, {useEffect, useRef, useState} from 'react';
-import {
-  getListDeviceApi,
-  getLocationDeviceApi,
-} from '../../network/DeviceService';
+import { getLocationDeviceApi, } from '../../network/DeviceService';
 import NotificationModal from '../../components/NotificationModal';
 import {Colors} from '../../assets/colors/Colors';
 import DataLocal from '../../data/dataLocal';
@@ -23,61 +20,32 @@ import { useTranslation } from 'react-i18next';
 import Geocoder from 'react-native-geocoder';
 import Moment from 'moment';
 import * as Progress from 'react-native-progress';
-
-const initialRegion = {
-  latitude: 21.030653,
-  longitude: 105.84713,
-  latitudeDelta: 0.0922,
-  longitudeDelta: 0.0421,
-};
+import Geolocation from 'react-native-geolocation-service';
+import { checkLocationPermission } from "../../functions/permissions";
 
 export default ({navigation, route}) => {
   const refMap = useRef(null);
   const refLoading = useRef(null);
   const refNotification = useRef(null);
   const [locationDevice, setLocationDevice] = useState([]);
-  const [infoDevice, setInfoDevice] = useState([]);
-  const [listDeviceID, setListDeviceID] = useState([]);
   const [locationName, setLocationName] = useState('');
   const [indexSelect, setIndexSelect] = useState(DataLocal.deviceIndex);
   const [isCount, setIsCount] = useState(false);
-  const [timeCount, setTimeCount] = useState(0);
+  const [timeCount, setTimeCount] = useState(60);
   const { t } = useTranslation();
+  const infoDevice = route.params.listDevices;
   let timer = 0;
 
   const getLocationDevice = async () => {
     try {
-      if (!infoDevice.length > 0) {
-        getListDeviceApi(DataLocal.userInfo.id, 0, 100, '', 'ACTIVE', {
-          success: res => {
-            const listID = [];
-            res.data.map((obj,i) =>{
-              listID.push(obj.deviceId);
-            })
-            setListDeviceID(listID);
-            setInfoDevice(res.data);
-          },
-          // refLoading: refLoading,
-          refNotification: refNotification,
-        });
-      }
-      getLocationDeviceApi(DataLocal.deviceId, {
+      const listID = [];
+      infoDevice.map((obj)=>{
+        listID.push(obj.deviceId);
+      })
+      getLocationDeviceApi(listID, {
         success: res => {
-          const dataaaaa = {
-            accuracy: 21,
-            location: {
-              lat: 21.030653,
-              lng: 105.84713
-            },
-            power: 30,
-            reportedAt: '2021-10-18T06:50:50Z',
-            type: 'GPS'
-          }
-          const listLocation =[];
-          listLocation.push(dataaaaa);
-          listLocation.push(res.data);
-          setLocationDevice(listLocation);
-          const {lat, lng} = res.data?.location;
+          setLocationDevice(res.data);
+          const {lat, lng} = res.data[indexSelect]?.location;
           if (lat && lng) {
             refMap.current.animateCamera({
               center: {
@@ -87,6 +55,9 @@ export default ({navigation, route}) => {
               zoom: 15,
             });
           }
+          timer = getTime() + 60;
+          setIsCount(true);
+          refreshCountdown();
         },
         refLoading: refLoading,
         refNotification: refNotification,
@@ -95,6 +66,7 @@ export default ({navigation, route}) => {
   };
 
   useEffect(() => {
+    !isCount ? initCameraMap() : null;
     if (DataLocal.deviceId) getLocationDevice();
     else {
       refNotification.current.open(t('errorMsg:updateDeviceDefault',()=>{
@@ -137,6 +109,28 @@ export default ({navigation, route}) => {
     }, 200)
   };
 
+  const initCameraMap = () =>{
+    checkLocationPermission().then(r =>
+      {
+        Geolocation.getCurrentPosition(
+          (position) => {
+            refMap.current.animateCamera({
+              center: {
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude   ,
+              },
+              zoom: 15,
+            });
+          },
+          (error) => {
+            console.log('GeolocationERROR',error);
+          },
+          { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+        );
+      }
+    )
+  }
+
 
   return (
     <View
@@ -147,7 +141,6 @@ export default ({navigation, route}) => {
           ref={refMap}
           style={styles.container}
           provider={PROVIDER_GOOGLE}
-          showsUserLocation={true}
           mapType={'hybrid'}>
           {locationDevice.length > 0 && infoDevice.length > 0 && (
             locationDevice.map((obj,i)=>{
@@ -206,32 +199,27 @@ export default ({navigation, route}) => {
         )}
 
         <TouchableOpacity
+          activeOpacity={1}
           style={styles.containerGetLocation}
           onPress={()=>{
-            if (isCount) {
-              return;
-            }else {
-              timer = getTime() + 60;
-              setIsCount(true);
-              refreshCountdown();
-              getLocationDevice();
-            }
+            if (isCount) return;
+            getLocationDevice();
           }}>
           {isCount ?
-              <View>
-                <Progress.Circle
-                  size={40}
-                  indeterminate={false}
-                  color={Colors.colorMain}
-                  showsText={true}
-                  progress={timeCount/60}
-                  borderWidth={0}
-                  formatText={() => {
-                    return timeCount.toString();
-                  }}
-                  textStyle={{fontSize: FontSize.xxtraSmall, fontFamily: 'Roboto-Medium'}}
-                />
-              </View> : <Image source={Images.icWatchMarker} style={styles.icMarker} />}
+            <View>
+              <Progress.Circle
+                size={40}
+                indeterminate={false}
+                color={Colors.colorMain}
+                showsText={true}
+                progress={timeCount/60}
+                borderWidth={0}
+                formatText={() => {
+                  return timeCount.toString();
+                }}
+                textStyle={{fontSize: FontSize.xxtraSmall, fontFamily: 'Roboto-Medium'}}
+              />
+            </View> : <Image source={Images.icWatchMarker} style={styles.icMarker} />}
         </TouchableOpacity>
       </View>
       <LoadingIndicator ref={refLoading} />
