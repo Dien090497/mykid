@@ -47,7 +47,10 @@ export default ({navigation, route}) => {
           DataLocal.deviceIndex + 1 > res.data.length ? setIndexSelect(0) : null;
           infoDevice.map((obj)=>{
             for (const objElement of res.data) {
-              objElement.deviceId === obj.deviceId ? objElement.avatar = obj.avatar : null;
+              if (objElement.deviceId === obj.deviceId){
+                objElement.avatar = obj.avatar;
+                objElement.deviceName = obj.deviceName;
+              }
             }
           })
           setLocationDevice(res.data);
@@ -132,7 +135,6 @@ export default ({navigation, route}) => {
       { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
     );
   }
-  console.log(locationDevice);
 
   return (
     <View
@@ -144,10 +146,11 @@ export default ({navigation, route}) => {
           style={styles.container}
           provider={PROVIDER_GOOGLE}
           mapType={mapType ? 'standard' : 'hybrid'}>
-          {locationDevice.length > 0 && infoDevice.length > 0 && (
+          {locationDevice.length > 0 && (
             locationDevice.map((obj,i)=>{
               return(
                 <Marker
+                  key={i}
                   onPress={()=>{
                     setIndexSelect(i);
                   }}
@@ -155,7 +158,7 @@ export default ({navigation, route}) => {
                     latitude: obj?.location?.lat,
                     longitude: obj?.location?.lng,
                   }}
-                  title={infoDevice[i].deviceName}>
+                  title={obj.deviceName}>
                   <View style={{alignItems: 'center'}}>
                     <Image source={{uri: obj.avatar}} style={[styles.avatar]} resizeMode={'cover'}/>
                     <View style={{height:5}}/>
@@ -182,7 +185,7 @@ export default ({navigation, route}) => {
             }}
             style={styles.containerDevice}>
             <View style={styles.containerLastTime}>
-              <Text style={styles.txtNameDevice}>{infoDevice[indexSelect].deviceName}</Text>
+              <Text style={styles.txtNameDevice}>{locationDevice[indexSelect].deviceName}</Text>
               <Text style={styles.txtTime}>
                 {Moment(new Date(locationDevice[indexSelect].reportedAt)).format('HH:mm DD/MM/yyyy')}
               </Text>

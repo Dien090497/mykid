@@ -205,13 +205,13 @@ export default ({navigation}) => {
           ref={refMap}
           style={styles.container}
           >
-          <Marker
+          {deviceInfo &&<Marker
             coordinate={{
               latitude: deviceInfo.location.lat,
               longitude: deviceInfo.location.lng,
             }}>
             <Image source={Images.icWatchMarker} style={{ width: 30, height: 30, resizeMode: 'contain' }} />
-          </Marker>
+          </Marker>}
           {listSafeArea.map((val,i) => (
             <View key={i}>
               <Marker
