@@ -11,6 +11,7 @@ import { checkCameraPermission } from '../../../functions/permissions';
 import { useTranslation } from 'react-i18next';
 import DataLocal from '../../../data/dataLocal';
 import NotificationModal from '../../../components/NotificationModal';
+import { Colors } from '../../../assets/colors/Colors';
 
 const AddDeviceScreen = ({ navigation, route }) => {
   const refNotification = useRef();
@@ -165,7 +166,7 @@ const AddDeviceScreen = ({ navigation, route }) => {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={addDevice}
-          style={styles.viewButton}>
+          style={[styles.viewButton, submitActive ? {} : {backgroundColor: Colors.gray}]}>
           <Text style={styles.textSubmit}>{t('common:confirm')}</Text>
         </TouchableOpacity>
       </ScrollView>
