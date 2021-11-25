@@ -92,18 +92,18 @@ export default ({navigation, route}) => {
         navigation.replace(Consts.ScreenIds.DeviceManager);
       }))
     }
+
+    return ()=>{
+      setIsCount(false);
+      disconnect();
+      setReconnect(false)
+    }
   }, []);
 
   useEffect(() => {
     if (!locationDevices.length > 0 || ws) return;
     handleWebSocketSetup();
     setReconnect(true)
-
-    // return ()=>{
-    //   setIsCount(false);
-    //   disconnect();
-    //   setReconnect(false)
-    // }
   }, [locationDevices]);
 
   if (locationDevices && locationDevices[indexSelect] && locationDevices[indexSelect].location) {
@@ -186,9 +186,7 @@ export default ({navigation, route}) => {
   const ping = async () => {
     await ws.send(encoder.encode('').buffer, true);
     setTimeout(() => {
-      if (reconnect) {
         ping();
-      }
     }, 3000)
   };
 
@@ -331,7 +329,6 @@ export default ({navigation, route}) => {
           onPress={()=>{
             if (isCount) return;
             getLocationDevice();
-            handleWebSocketSetup();
           }}>
           {isCount ?
             <View>
