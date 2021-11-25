@@ -22,24 +22,6 @@ import {localNotificationService} from './src/LocalNotificationService'
 import DataLocal from "./src/data/dataLocal";
 import uuid from 'uuid';
 import RNCallKeep from 'react-native-callkeep';
-RNCallKeep.setup({
-  ios: {
-    appName: 'MyKid',
-  },
-  android: {
-    alertTitle: 'Permissions required',
-    alertDescription: 'This application needs to access your phone accounts',
-    cancelButton: 'Cancel',
-    okButton: 'ok',
-    foregroundService: {
-      channelId: 'com.mykid',
-      channelName: 'Foreground service for my app',
-      notificationTitle: 'My app is running on background',
-      notificationIcon: 'Path to the resource icon of the notification',
-    },
-  },
-}).then();
-
 export default function App() {
   const routeRef = useRef();
 let currentCallId = null;
@@ -102,7 +84,7 @@ let currentCallId = null;
 
   const onEndCallAction = (data) => {
     let { callUUID } = data;
-    RNCallKeep.endCall(this.getCurrentCallId());
+    RNCallKeep.endCall(data.id);
 
     this.currentCallId = null;
   };
@@ -112,6 +94,8 @@ let currentCallId = null;
     let { error } = data;
     // You will get this event after RNCallKeep finishes showing incoming call UI
     // You can check if there was an error while displaying
+    RNCallKeep.displayIncomingCall(data.id, data.relationship, data.relationship, 'generic', true, null);
+
   };
 
   const onToggleMute = (data) => {
@@ -187,7 +171,8 @@ let currentCallId = null;
         routeRef.current.roadToMsgFromNotify(notify);
       }else if(notify && notify.type === 'VIDEO_CALL'){
         console.log("[App] onOpenNotification: VIDEO_CALL", notify)
-        startCall(notify.id,notify.relationship,notify.relationship);
+        // startCall(notify.id,notify.relationship,notify.relationship);
+        onIncomingCallDisplayed(notify);
       }
     }
 
