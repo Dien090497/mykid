@@ -385,7 +385,7 @@ function checkFailure(result, refNotification) {
     DataLocal.saveHaveSim('0');
   }
 
-  if (Object.keys(errorMsg).includes(code)) {
+  if (Object.keys(errorMsg) === code) {
     if (refNotification) return refNotification.current.open(i18next.t('errorMsg:'+code));
     else return SimpleToast.show(i18next.t('errorMsg:'+code));
   }
