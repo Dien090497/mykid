@@ -21,15 +21,7 @@ const VideoCallModal = ({visible, device, toggleModal, pickUp, data}) => {
   };
   return (
     <Modal visible={visible} animationType="fade" transparent={true}>
-      <JanusVideoRoomScreen
-        ref={refJanusVideoRoomScreen}
-        pickUp={pickUp}
-        server={data.streamUrl}
-        roomId={data.id}
-        password={data.password}
-        accountId={data.caller.accountId}
-        relationship={data.caller.relationship}
-      />
+      
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
           <Text
@@ -38,6 +30,15 @@ const VideoCallModal = ({visible, device, toggleModal, pickUp, data}) => {
           />
           <Text children={t('common:video_call')} style={styles.txtVideoCall} />
         </View>
+        <JanusVideoRoomScreen
+        ref={refJanusVideoRoomScreen}
+        pickUp={pickUp}
+        server={data.streamUrl}
+        roomId={data.id}
+        password={data.password}
+        accountId={data.caller.accountId}
+        relationship={data.caller.relationship}
+      />
         <View style={styles.containerFooter}>
           <TouchableOpacity
             style={styles.containerCancel}

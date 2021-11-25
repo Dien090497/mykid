@@ -189,6 +189,7 @@ dependencies {
     implementation project(":react-native-audio-record")
     implementation project(":react-native-geocoder")
     implementation project(':react-native-push-notification')
+    implementation project(':react-native-callkeep')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules

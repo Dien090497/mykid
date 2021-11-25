@@ -22,6 +22,7 @@ import {localNotificationService} from './src/LocalNotificationService'
 import DataLocal from "./src/data/dataLocal";
 import uuid from 'uuid';
 import RNCallKeep from 'react-native-callkeep';
+import XmppClient from "./src/network/xmpp/XmppClient";
 RNCallKeep.setup({
   ios: {
     appName: 'MyKid',
@@ -179,6 +180,9 @@ let currentCallId = null;
         notify,
         options
       )
+      if (notify && notify.type === 'DEVICE_ACCEPTED') {
+        XmppClient.updateRooms();
+      }
     }
 
     function onOpenNotification(notify) {
