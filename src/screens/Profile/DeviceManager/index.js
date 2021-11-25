@@ -19,6 +19,7 @@ import reduxStore from '../../../redux/config/redux'
 import commonInfoAction from '../../../redux/actions/commonInfoAction';
 import { useTranslation } from 'react-i18next';
 import NotificationModal from "../../../components/NotificationModal";
+import XmppClient from '../../../network/xmpp/XmppClient';
 
 export default function DeviceManager({navigation}) {
   const [selectedIndex, setSelectedIndex] = useState(DataLocal.deviceIndex);
@@ -128,6 +129,7 @@ export default function DeviceManager({navigation}) {
       success: res => {
         getListDevice();
         numDevices();
+        XmppClient.removeRoom(idCancel);
       },
       refLoading,
       refNotification,

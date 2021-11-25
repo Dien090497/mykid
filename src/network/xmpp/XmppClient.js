@@ -58,6 +58,12 @@ export default class XmppClient {
       ),
     );
     await clientXmpp.send(message);
+
+    // ping all room
+    for (const roomInfo of this.lstRoom) {
+      await this.pingRoom(roomInfo.roomAddress);
+    }
+
     setTimeout(() => {
       this.ping();
     }, 44444)
@@ -69,6 +75,30 @@ export default class XmppClient {
         this.lstRoom = resData.data;
       },
     });
+  };
+
+  static updateRooms = () => {
+    getRoomsApi({
+      success: resData => {
+        const lstRoomNew = resData.data;
+        if (!lstRoomNew || lstRoomNew.length == 0) return;
+        for (const roomInfo of lstRoomNew) {
+          if (this.lstMsg[roomInfo.roomAddress] && this.lstMsg[roomInfo.roomAddress].length > 0) continue;
+          this.lstMsg[roomInfo.roomAddress] = [];
+          this.joinRoom(roomInfo.roomAddress).then();
+          this.getHistory(roomInfo.flagTime).then();
+          this.lstRoom.push(roomInfo);
+        }
+      },
+    }).then();
+  };
+
+  static removeRoom = (deviceId) => {
+    const lst = this.lstRoom.filter(val => val.deviceId === deviceId);
+    this.lstRoom = this.lstRoom.filter(val => val.deviceId !== deviceId);
+    if (lst.length > 0) {
+      this.lstMsg[lst[0].roomAddress] = [];
+    }
   };
 
   static loadAllHistory = async () => {
@@ -96,8 +126,6 @@ export default class XmppClient {
 
     let message = xml('presence', { to: toAddress },);
     await clientXmpp.send(message);
-
-    await this.pingRoom(roomId);
   }
 
   static pingRoom = async (roomId, isAuto = true) => {
@@ -110,11 +138,6 @@ export default class XmppClient {
       }, xml('ping', {xmlns: 'urn:xmpp:ping'}, )
     );
     await clientXmpp.send(message);
-    if (isAuto) {
-      setTimeout(() => {
-        this.pingRoom(roomId);
-      }, 22222)
-    }
   };
 
   static setRoomId(roomId) {
