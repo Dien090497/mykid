@@ -224,7 +224,7 @@ export default function HomeMainScreen() {
           >
             {devices && devices.map((obj, i) => {
               const isSelectDevice = obj.deviceId === DataLocal.deviceId;
-              DataLocal.saveHaveSim(devices[selectedIndex].validSim ? '1' : '0');
+              {devices[selectedIndex] && DataLocal.saveHaveSim(devices[selectedIndex].validSim ? '1' : '0');}
               return (
                 <View key={i.toString()} style={{paddingHorizontal: 10}}>
                   <View style={styles.viewMenuDrop} onStartShouldSetResponder={() => {

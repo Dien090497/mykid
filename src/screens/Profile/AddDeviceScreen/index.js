@@ -20,7 +20,6 @@ const AddDeviceScreen = ({ navigation, route }) => {
   const [submitActive, setSubmitActive] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [contentModal, setContentModal] = useState('');
-  const [devicesNumber, setDevicenNumber] = useState('');
   const { t } = useTranslation();
   const [data, setData] = useState(
     {
@@ -69,14 +68,14 @@ const AddDeviceScreen = ({ navigation, route }) => {
             setDeviceCode('');
             setDeviceName('');
           } else if (resp.data.status === 'ACTIVE') {
-            if (route.params && route.params.onRefresh) {
+            if (route.params && route.params.onRefresh()) {
               route.params.onRefresh();
               navigation.goBack();
             } else {
               navigation.navigate(Consts.ScreenIds.Tabs);
             }
             refNotification.current.open(t('common:addDeviceSuccess'),()=>{
-              if (route.params && route.params.onRefresh) {
+              if (route.params && route.params.onRefresh()) {
                 route.params.onRefresh();
                 navigation.goBack();
               } else {
