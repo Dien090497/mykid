@@ -215,6 +215,10 @@ export default {
   'empty_contact': 'Bạn cần thêm các số điện thoại vào danh bạ',
   'enter_relationship': 'Vui lòng nhập mối quan hệ với trẻ',
   'enter_phone_number': 'Vui lòng nhập số điện thoại',
+  'listSOS': 'Danh sách SOS',
+  'listMember': 'Danh bạ thiết bị',
+  'chooseSOS': 'Chọn số SOS',
+
 
   //home
   'home_gps': 'ĐỊNH VỊ',

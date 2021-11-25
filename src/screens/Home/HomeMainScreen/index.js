@@ -344,7 +344,7 @@ export default function HomeMainScreen() {
               style={styles.button}
               onPress={RewardPoints}>
               <View style={styles.bgIcon}>
-                <Image source={Images.icReward} style={styles.icon1}/>
+                <Image source={Images.icReward} style={styles.icon}/>
               </View>
               <Text style={styles.buttonText}>{t('common:home_reward')}</Text>
             </TouchableOpacity>
@@ -355,7 +355,7 @@ export default function HomeMainScreen() {
               style={styles.button}
               onPress={pressSecretPhotoShoot}>
               <View style={styles.bgIcon}>
-                <Image source={Images.icShootPhoto} style={styles.icon1}/>
+                <Image source={Images.icShootPhoto} style={styles.icon}/>
               </View>
               <Text style={styles.buttonText}>{t('common:home_secretPhotoShoot')}</Text>
             </TouchableOpacity>
@@ -415,7 +415,7 @@ export default function HomeMainScreen() {
               style={styles.button}
               onPress={pressWarning}>
               <View style={styles.bgIcon}>
-                <Image source={Images.icWarning} style={[styles.icon, {height: 30}]}/>
+                <Image source={Images.icWarning} style={styles.icon}/>
               </View>
               <Text style={styles.buttonText}>{t('common:home_warning')}</Text>
             </TouchableOpacity>

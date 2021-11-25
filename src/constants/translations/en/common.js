@@ -215,6 +215,10 @@ export default {
   'empty_contact': 'You need to add phone numbers to your contacts',
   'enter_relationship': 'Please enter relationship with child',
   'enter_phone_number': 'Please enter phone number',
+  'choose': 'Choose',
+  'listSOS': 'List SOS', // todo
+  'listMember': 'List Devices',// todo
+  'chooseSOS': 'Select numbers SOS',
 
   //home
   'home_gps': 'LOCATION',

@@ -2,6 +2,7 @@ import Consts, {FontSize} from '../../../functions/Consts';
 
 import {Colors} from '../../../assets/colors/Colors';
 import {StyleSheet} from 'react-native';
+import { ScreenWidth } from 'react-native-elements/dist/helpers';
 
 const searchHeight = Consts.screenHeight / 24;
 const screenWidth = Consts.screenWidth
@@ -143,11 +144,9 @@ export const styles = StyleSheet.create({
     fontSize: FontSize.small
   },
   containerRemove: {
-    borderWidth: 1,
     paddingHorizontal: 30,
     paddingVertical: 5,
     borderRadius: 10,
-    borderColor: Colors.colorMain,
     backgroundColor: Colors.white,
   },
   txtRemove: {
@@ -234,5 +233,34 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  wrapContainer: {flex: 1},
+  wrapContainer: {
+    flex: 1
+  },
+  icon: {
+    width: ScreenWidth * 0.05,
+    height: ScreenWidth * 0.05
+  },
+  icon1: {
+    width: ScreenWidth * 0.08,
+    height: ScreenWidth * 0.08
+  },
+  icon2: {
+    width: ScreenWidth * 0.06,
+    height: ScreenWidth * 0.06
+  },
+  viewModal: {
+    flexDirection: 'column',
+    width: '90%',
+    height: '70%',
+    backgroundColor: Colors.white,
+    borderRadius: 10,
+    borderColor: 'red',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  textModal: {
+    fontSize: 16,
+    overflow: 'hidden',
+    fontFamily: 'Roboto-Medium',
+  },
 });
