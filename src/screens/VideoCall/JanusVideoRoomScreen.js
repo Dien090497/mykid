@@ -10,6 +10,7 @@ import React from 'react';
 import {StatusBar, View} from 'react-native';
 import {Janus, JanusVideoRoomPlugin} from 'react-native-janus';
 import Consts from '../../functions/Consts';
+import { Colors } from '../../assets/colors/Colors';
 
 Janus.setDependencies({
   RTCPeerConnection,
@@ -158,7 +159,7 @@ class JanusVideoRoomScreen extends React.Component {
           flex: 1,
           width: '100%',
           height: '100%',
-          backgroundColor: '#53535F',
+          backgroundColor: Colors.black,
           justifyContent: 'flex-end',
           alignContent: 'flex-end',
           alignItems: 'flex-end',
@@ -167,9 +168,13 @@ class JanusVideoRoomScreen extends React.Component {
         {this.state.publishers.length > 0 && (
           <RTCView
             style={{
-              flex: 1,
-              width: '100%',
+              flex: this.state.publishers.length > 1 ? 0.5 : 1,
+              width: '90%',
               height: '50%',
+              alignSelf: 'center',
+              borderRadius: 10,
+              borderColor: Colors.gray,
+              borderWidth: 1
             }}
             objectFit={'cover'}
             streamURL={
@@ -181,11 +186,17 @@ class JanusVideoRoomScreen extends React.Component {
         )}
         {this.state.publishers.length > 1 && (
           <RTCView
-            style={{
-              position: 'absolute',
-              width: '100%',
-              height: '50%',
-            }}
+          style={{
+            marginTop: '5%',
+            flex: 0.5,
+            width: '90%',
+            height: '50%',
+            alignSelf: 'center',
+            backgroundColor: 'white',
+            borderRadius: 10,
+            borderColor: Colors.gray,
+            borderWidth: 1
+          }}
             objectFit={'cover'}
             streamURL={this.state.publishers[0].stream.toURL()}
           />

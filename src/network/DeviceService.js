@@ -184,3 +184,17 @@ export function restartDeviceApi(
     refNotification
   });
 }
+
+export function startWebSocket(
+  deviceId,
+  { success, failure, autoShowMsg = true, refLoading = null, refNotification = null } = {},
+) {
+  const url = [locationDeviceUrl, deviceId, "host-position"].join("/");
+  return post(url, {
+    success,
+    failure,
+    autoShowMsg,
+    refLoading,
+    refNotification
+  });
+}
