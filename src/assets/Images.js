@@ -104,6 +104,7 @@ export default {
   icWorldFill: require('./images/ic_world_fill.png'),
   icTurnOff: require('./images/ic_turn_off.png'),
   icRestart: require('./images/ic_restart.png'),
+  icInstallPosition: require('./images/ic_position.png'),
   //personal
   icPersonal: require('./images/ic_personal.png'),
   icChangePass: require('./images/ic_change_pass.png'),

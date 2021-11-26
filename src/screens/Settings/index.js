@@ -103,6 +103,19 @@ export default ({navigation}) => {
         <Image source={Images.icRemoteStart} style={{width: 40, height: 40}} resizeMode={'stretch'}/>
       ),
     },
+    {
+      key: 'InstallPosition',
+      title: t('common:header_installPosition'),
+      onPress: () => {
+        if (DataLocal.haveSim === '0') {
+          return refNotification.current.open(t('errorMsg:kwa4067'));
+        }
+        navigation.navigate(Consts.ScreenIds.InstallPosition);
+      },
+      icon: (
+        <Image source={Images.icInstallPosition} style={{width: 40, height: 40}} resizeMode={'stretch'}/>
+      ),
+    },
   ];
   const renderItem = ({item}) => {
     return (

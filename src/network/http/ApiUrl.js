@@ -90,6 +90,9 @@ export const checkAccount = appUrl + '/sims';
 // SMS
 export const smsUrl = appUrl + '/sms-messages';
 
+// InstallPosition
+export const positionModeuRL = appUrl + '/position-configs';
+
 /// url: string, obj: object
 export function assignUrlParams(url, obj) {
   if (!obj) {

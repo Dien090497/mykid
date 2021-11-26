@@ -81,6 +81,7 @@ export default {
   'header_remoteStart': 'Remote Restart',
   'header_warning': 'Alert Center',
   'header_sms': 'SMS',
+  'header_installPosition': 'Cài đặt định vị',
 
   // Codepush
   'codepushChecking': 'Checking...',
@@ -367,4 +368,13 @@ export default {
   'error_health1': 'Step target must be greater than 0',
   'error_health2': 'Step target mustn\'t be more than 20000',
   'textHealth': 'Distance and calories calculated based on baby\'s information',
+
+   //InstallPosition
+   'turn': 'Turn',
+   'off': 'Off',
+   'turn_off_gps': 'Turn gps positioning on and off',
+   'cycle': 'Positioning cycle',
+   '1_minute': '1 Minute',
+   '10_minute': '10 Minute',
+   '60_minute': '60 Minute',
 };
