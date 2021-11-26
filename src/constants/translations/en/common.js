@@ -50,6 +50,7 @@ export default {
   'chooseDay': 'Select date',
   'success': 'Success',
   'detail': 'Details',
+  'empty': 'Empty',
   'discrepancy': 'Deviation rate - ',
   'thisFunctionIsNotValid': 'Tính năng chưa được cập nhật',
   'header_settings': 'Setting',

@@ -32,45 +32,52 @@ export default ({navigation, route}) => {
   const refConfirm = useRef();
   const [isBlocking, setIsBlocking] = useState(false);
   const [dataContacts, setDataContacts] = useState(null);
-  const [onModel, setOnMoel] = useState(false);
+  const [onModel, setOnModel] = useState(false);
+  const [listSOS, setListSOS] = useState([])
+  const [indexSOS, setIndexSOS] = useState(null)
   const [choose, setChoose] = useState(false);
-  const [phone1, setPhone1] = useState('');
-  const [phone2, setPhone2] = useState('');
-  const [phone3, setPhone3] = useState('');
-  const [name1, setName1] = useState('');
-  const [name2, setName2] = useState('');
-  const [name3, setName3] = useState('');
-  const [numberSOS, setNumberSOS] = useState();
   const { t } = useTranslation();
 
   useEffect(() => {
     getListContactPhoneApi(DataLocal.deviceId, {
       success: res => {
-        if (res.data) {
-          setDataContacts(res.data);
-          setIsBlocking(!!res.data.blockUnknown);
-        }
+        refreshData(res.data)
       },
       refLoading: refLoading,
       refNotification: refNotification,
     });
   }, []);
 
-  const changeSOS = (item, index) => {
-    //call API changeSOS
+  const refreshData = (data) => {
+    if (data) {
+      const sos = [{},{},{}];
+      data.phones.map(obj=>{
+        if (!!obj.sosIndex){
+          sos[obj.sosIndex-1] = obj
+        }
+      })
+      setDataContacts(data);
+      setListSOS(sos);
+      setIsBlocking(!!data.blockUnknown);
+    }
+  }
+
+  const changeSOS = (item) => {
     setSOSApi(
       DataLocal.deviceId,
       {
+        index: indexSOS+1,
         phoneNumber: item.phoneNumber,
       },
       {
         success: res => {
-          setDataContacts(res.data);
+          refreshData(res.data)
         },
         refLoading: refLoading,
         refNotification: refNotification,
       },
     );
+    setOnModel(false)
   };
 
   const removeContact = item => {
@@ -94,70 +101,10 @@ export default ({navigation, route}) => {
       );
     });
   };
-  const renderItem = ({item, index}) => {
-    return (
-      <TouchableOpacity
-        activeOpacity={0.9}
-        style={styles.containerItemContact}
-        key={item.name}
-        onPress={item.onPress}>
-        <View style={styles.wrap}>
-          <View>
-            <Image source={Images.icOther} style={{width:30 , height: 30}} resizeMode = {'stretch'}/>
-          </View>
-          {/* <View style={styles.containerSOS}>
-            <Text style={styles.txtSOS}>SOS</Text>
-            <TouchableOpacity
-              style={styles.containerChangeSOS}
-              onPress={() => changeSOS(item, index)}>
-              {item.sosNumber && <View style={styles.containerSelected} />}
-            </TouchableOpacity>
-          </View> */}
-          <View style={{flex: 1}}>
-            <Text style={styles.titleText}>{item.name}</Text>
-            <Text style={styles.phoneText}>{item.phoneNumber}</Text>
-          </View>
-          <TouchableOpacity
-            style={[styles.containerRemove, {width: '15%', justifyContent: 'center', alignItems: 'center'}]}
-            onPress={() => removeContact(item)}>
-              <Image source={Images.icDelete} style={styles.icon1} resizeMode={'stretch'}/>
-          </TouchableOpacity>
-        </View>
-      </TouchableOpacity>
-    );
-  };
-
-  const renderItemModal = ({item, index}) => {
-    return (
-      <TouchableOpacity
-        activeOpacity={0.9}
-        style={styles.containerItemContact}
-        key={item.name}
-        onPress={item.onPress}>
-        <TouchableOpacity style={styles.wrap}  onPress={() => closeModal(item,index)}>
-          <View>
-            <Image source={Images.icOther} style={{width:30 , height: 30}} resizeMode = {'stretch'}/>
-          </View>
-          <View style={{width: '80%'}}>
-            <Text style={styles.titleText}>{item.name}</Text>
-            <Text style={styles.phoneText}>{item.phoneNumber}</Text>
-          </View>
-          <TouchableOpacity
-            style={{justifyContent: 'center', alignItems: 'center', width: '10%'}}
-           >
-              <Image source={choose === index ? Images.ic_Choose : Images.icCan} 
-                     style={styles.icon1}
-                     resizeMode={'stretch'}
-              />
-          </TouchableOpacity>
-        </TouchableOpacity>
-      </TouchableOpacity>
-    );
-  };
 
   const pressAddNew = () => {
     navigation.navigate(Consts.ScreenIds.AddNewContact, {
-      onGoBack: data => setDataContacts(data),
+      onGoBack: data => refreshData(data),
     });
   };
 
@@ -171,28 +118,84 @@ export default ({navigation, route}) => {
     });
   };
 
-  const isModel = (SOS) => {
-    setOnMoel(true);
-    setNumberSOS(SOS);
+  const addSOS = (index) => {
+    if (listSOS[index].sosIndex) return;
+    setIndexSOS(index)
+    setOnModel(true);
   }
 
-  const closeModal = (item) => {
-    // setChoose(index);
-    console.log('item',item)
-    // setOnMoel(false);
-    // if(numberSOS === 'SOS1') {
-    //   setPhone1(dataContacts?.phones[choose]?.phoneNumber)
-    //   setName1(dataContacts?.phones[choose]?.name)
-    // }
-    // else if(numberSOS === 'SOS2') {
-    //   setPhone2(dataContacts?.phones[choose]?.phoneNumber)
-    //   setName2(dataContacts?.phones[choose]?.name)
-    // }
-    // else {
-    //   setPhone3(dataContacts?.phones[choose]?.phoneNumber)
-    //   setName3(dataContacts?.phones[choose]?.name)
-    // }
+  const removeSOS = (index) => {
+    if (!listSOS[index].sosIndex) return ;
+    const newListSOS = Object.assign([],listSOS);
+    const listCheck = newListSOS.filter(value => value.sosIndex)
+    if (listCheck.length <= 1 ) return refNotification.current.open('Không thể xóa do chỉ có một số SOS');
+    setSOSApi(
+      DataLocal.deviceId,
+      {
+        index: 0,
+        phoneNumber: listSOS[index].phoneNumber,
+      },
+      {
+        success: res => {
+          refreshData(res.data)
+        },
+        refLoading: refLoading,
+        refNotification: refNotification,
+      },
+    );
   }
+
+  const renderItem = ({item, index}) => {
+    return (
+      <TouchableOpacity
+        activeOpacity={0.9}
+        style={styles.containerItemContact}
+        key={item.name}
+        onPress={item.onPress}>
+        <View style={styles.wrap}>
+          <View>
+            <Image source={item.url ? {uri: item.url}: Images.icOther} style={{width:40 , height: 40, borderRadius: 2000}} resizeMode = {'cover'}/>
+          </View>
+          <View style={{flex: 1, paddingHorizontal: 10}}>
+            <Text style={styles.titleText}>{item.name}</Text>
+            <Text style={styles.phoneText}>{item.phoneNumber}</Text>
+          </View>
+          <TouchableOpacity
+            style={[styles.containerRemove, {width: '15%', justifyContent: 'center', alignItems: 'center'}]}
+            onPress={() => removeContact(item)}>
+            <Image source={Images.icDelete} style={styles.icon1} resizeMode={'stretch'}/>
+          </TouchableOpacity>
+        </View>
+      </TouchableOpacity>
+    );
+  };
+
+  const renderItemModal = ({item, index}) => {
+    return (
+      !item.sosIndex ?
+        <TouchableOpacity
+          activeOpacity={0.9}
+          style={styles.containerItemContact}
+          key={item.name}
+          onPress={item.onPress}>
+          <TouchableOpacity style={styles.wrap}  onPress={() => changeSOS(item,index)}>
+            <View>
+              <Image source={Images.icOther} style={{width:30 , height: 30}} resizeMode = {'stretch'}/>
+            </View>
+            <View style={{width: '80%'}}>
+              <Text style={styles.titleText}>{item.name}</Text>
+              <Text style={styles.phoneText}>{item.phoneNumber}</Text>
+            </View>
+            <TouchableOpacity
+              style={{justifyContent: 'center', alignItems: 'center', width: '10%'}}>
+              <Image source={choose === index ? Images.ic_Choose : Images.icCan}
+                     style={styles.icon1}
+                     resizeMode={'stretch'} />
+            </TouchableOpacity>
+          </TouchableOpacity>
+        </TouchableOpacity> : null
+    );
+  };
 
   return (
     <View
@@ -201,91 +204,44 @@ export default ({navigation, route}) => {
       <View style={styles.mainView}>
         <View style={{ width: '90%', height: '40%' }}>
           <Text style={{ marginLeft: '5%',fontSize: 16, fontWeight: '500', marginVertical: '1%' }}>{t('common:listSOS')}</Text>
-          <View
-            activeOpacity={0.9}
-            style={[styles.containerItemContact, {width: '100%', height: '25%'}]}
-          >
-            <View style={styles.wrap}>
-              <View style={styles.containerSOS}>
-                <Text style={styles.txtSOS}>SOS1</Text>
+          {listSOS.length>0 && listSOS.map((obj,i)=>{
+            return(
+              <View
+                key={i}
+                activeOpacity={0.9}
+                style={[styles.containerItemContact, {width: '100%', height: '25%'}]}>
+                <View style={styles.wrap}>
+                  <View style={styles.containerSOS}>
+                    <Text style={styles.txtSOS}>{'SOS'+(i+1)}</Text>
+                  </View>
+                  {obj.name && obj.phoneNumber ? <View style={{ flex: 0.8, paddingHorizontal: 10 }}>
+                    <Text style={styles.titleText}>{obj.name}</Text>
+                    <Text style={styles.phoneText}>{obj.phoneNumber}</Text>
+                  </View> :
+                    <View style={{ flex: 0.8, paddingHorizontal: 10 }}>
+                      <Text style={styles.txtNull}>{t('common:empty')}</Text>
+                    </View>}
+                  <TouchableOpacity
+                    onPress={()=>{removeSOS(i)}}
+                    style= {{width: '15%', height: '100%', justifyContent: 'center', alignItems: 'center'}}>
+                      <Image source={Images.icDeleteMember} style={styles.icon} resizeMode={'stretch'}/>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    activeOpacity={1}
+                    onPress={() => addSOS(i)}
+                    style= {{width: '15%', height: '100%', justifyContent: 'center', alignItems: 'center'}}>
+                    <Image source={Images.icAddMember} style={[styles.icon,obj.sosIndex ? {tintColor: Colors.grayTxt} : null]} resizeMode={'stretch'}/>
+                  </TouchableOpacity>
+                </View>
               </View>
-              <View style={{ flex: 0.8 }}>
-                <Text style={styles.titleText}>{name1}</Text>
-                <Text style={styles.phoneText}>{phone1}</Text>
-              </View>
-              <TouchableOpacity
-                // onPress={isModel}
-                style= {{width: '8%', height: '100%', justifyContent: 'center', alignItems: 'center'}}
-              >
-                <Image source={Images.icDeleteMember} style={styles.icon} resizeMode={'stretch'}/>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => isModel('SOS1')}
-                style= {{width: '8%', height: '100%', justifyContent: 'center', alignItems: 'center'}}
-              >
-                 <Image source={Images.icAddMember} style={styles.icon} resizeMode={'stretch'}/>
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View
-            activeOpacity={0.9}
-            style={[styles.containerItemContact, {width: '100%', height: '25%'}]}
-          >
-            <View style={styles.wrap}>
-              <View style={styles.containerSOS}>
-                <Text style={styles.txtSOS}>SOS2</Text>
-              </View>
-              <View style={{ flex: 0.8 }}>
-                <Text style={styles.titleText}>{name2}</Text>
-                <Text style={styles.phoneText}>{phone2}</Text>
-              </View>
-              <TouchableOpacity
-                // onPress={isModel}
-                style= {{width: '8%', height: '100%', justifyContent: 'center', alignItems: 'center'}}
-              >
-                <Image source={Images.icDelete} style={styles.icon1} resizeMode={'stretch'}/>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => isModel('SOS2')}
-                style= {{width: '8%', height: '100%', justifyContent: 'center', alignItems: 'center'}}
-              >
-                 <Image source={Images.icAddMember} style={styles.icon} resizeMode={'stretch'}/>
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View
-            activeOpacity={0.9}
-            style={[styles.containerItemContact, {width: '100%', height: '25%'}]}
-          >
-            <View style={styles.wrap}>
-              <View style={styles.containerSOS}>
-                <Text style={styles.txtSOS}>SOS3</Text>
-              </View>
-              <View style={{ flex: 0.8 }}>
-                <Text style={styles.titleText}>{name3}</Text>
-                <Text style={styles.phoneText}>{phone3}</Text>
-              </View>
-              <TouchableOpacity
-                style= {{width: '8%', height: '100%', justifyContent: 'center', alignItems: 'center'}}
-              >
-                <Image source={Images.icDelete} style={styles.icon1} resizeMode={'stretch'}/>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => isModel('SOS3')}
-                style= {{width: '8%', height: '100%', justifyContent: 'center', alignItems: 'center'}}
-              >
-                 <Image source={Images.icAddMember} style={styles.icon} resizeMode={'stretch'}/>
-              </TouchableOpacity>
-            </View>
-          </View>
+            )
+          })}
        </View>
        <Text style={{ marginLeft: '5%',fontSize: 16, fontWeight: '500', marginVertical: '1%', marginTop: '5%' }}>{t('common:listMember')}</Text>
         <FlatList
           data={dataContacts?.phones || []}
           style={styles.wrapContainer}
-          contentContainerStyle={
-            !dataContacts?.phones?.length && styles.wrapContainer
-          }
+          contentContainerStyle={!dataContacts?.phones?.length && styles.wrapContainer}
           renderItem={renderItem}
           keyExtractor={item => item.name}
           ListEmptyComponent={
@@ -318,9 +274,8 @@ export default ({navigation, route}) => {
       <Modal
          visible={onModel}
          transparent={true}
-         animationType={'none'}
-      >
-         <TouchableOpacity 
+         animationType={'none'}>
+         <TouchableOpacity
           style={{
             flex: 1,
             justifyContent: 'center',
@@ -330,8 +285,7 @@ export default ({navigation, route}) => {
             height: '100%',
             flexDirection: 'column'
           }}
-          onPress={() => setOnMoel(false)}
-          >
+          onPress={() => setOnModel(false)}>
           <View style={styles.viewModal}>
             <View style={{ alignItems: 'center' }}>
               <Text style={styles.textItem}>{t('common:chooseSOS')}</Text>

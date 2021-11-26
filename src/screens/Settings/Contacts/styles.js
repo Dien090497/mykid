@@ -24,7 +24,6 @@ export const styles = StyleSheet.create({
     textAlign: 'left',
     color: Colors.grayTxt,
     flex: 0.8,
-    paddingHorizontal: 10,
     fontFamily:'Roboto-Medium'
   },
   phoneText: {
@@ -33,10 +32,13 @@ export const styles = StyleSheet.create({
     textAlign: 'left',
     color: Colors.grayTxt,
     flex: 0.8,
-    paddingHorizontal: 10,
     fontFamily: 'Roboto'
   },
-
+  txtNull:{
+    fontSize: FontSize.small,
+    fontFamily: 'Roboto',
+    color: '#c4c4c4'
+  },
   iconProfile: {
     width: 'auto',
     height: '75%',
@@ -171,7 +173,9 @@ export const styles = StyleSheet.create({
   },
   txtSOS: {
     fontSize: FontSize.xtraSmall,
-    color: 'red'
+    color: Colors.colorMain,
+    fontFamily: 'Roboto-Medium'
+
   },
   containerSOS: {
     flex: 0.2,

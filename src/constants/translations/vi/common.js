@@ -50,6 +50,7 @@ export default {
   'chooseDay': 'Chọn ngày',
   'success': 'Thành công',
   'detail': 'Chi tiết',
+  'empty': 'Trống',
   'discrepancy': 'Độ chênh lệch - ',
   'thisFunctionIsNotValid': 'Tính năng chưa được cập nhật',
   'header_settings': 'Thiết lập',
