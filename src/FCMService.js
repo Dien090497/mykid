@@ -69,9 +69,9 @@ class FCMService {
             console.log('[FCMService] onNotificationOpenedApp Notification caused app to open from background state:',remoteMessage)
             if (remoteMessage) {
                 const notification = remoteMessage.data
-                if(convertMulLanguage(remoteMessage.data.type) !== ''){
-                    notification.body = convertMulLanguage(remoteMessage.data.type);
-                }
+                // if(convertMulLanguage(remoteMessage.data.type) !== ''){
+                //     notification.body = convertMulLanguage(remoteMessage.data.type);
+                // }
                 onOpenNotification(notification);
                 // this.removeDeliveredNotification(notification.notificationId)
             }
@@ -85,9 +85,9 @@ class FCMService {
 
             if (remoteMessage) {
                 const notification = remoteMessage.data
-                if(convertMulLanguage(remoteMessage.data.type) !== ''){
-                    notification.body = convertMulLanguage(remoteMessage.data.type);
-                }
+                // if(convertMulLanguage(remoteMessage.data.type) !== ''){
+                //     notification.body = convertMulLanguage(remoteMessage.data.type);
+                // }
                 onOpenNotification(notification);
                 //  this.removeDeliveredNotification(notification.notificationId)
             }
@@ -104,9 +104,9 @@ class FCMService {
                 //     notification = remoteMessage.notification
                 // }
                 const notification = remoteMessage.data
-                if(convertMulLanguage(remoteMessage.data.type) !== ''){
-                    notification.body = convertMulLanguage(remoteMessage.data.type);
-                }
+                // if(convertMulLanguage(remoteMessage.data.type) !== ''){
+                //     notification.body = convertMulLanguage(remoteMessage.data.type);
+                // }
                 onOpenNotification(notification);
             }
         });
