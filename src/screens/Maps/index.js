@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import React, {useEffect, useRef, useState} from 'react';
-import { getLocationDeviceApi, } from '../../network/DeviceService';
+import { getLocationDeviceApi, startWebSocket } from '../../network/DeviceService';
 import NotificationModal from '../../components/NotificationModal';
 import {Colors} from '../../assets/colors/Colors';
 import DataLocal from '../../data/dataLocal';
@@ -21,12 +21,19 @@ import Geocoder from 'react-native-geocoder';
 import Moment from 'moment';
 import * as Progress from 'react-native-progress';
 import Geolocation from 'react-native-geolocation-service';
+import { wsCheckLocation } from '../../network/http/ApiUrl';
+import { generateRandomId } from '../../functions/utils';
+import * as encoding from 'text-encoding';
+
+const encoder = new encoding.TextEncoder();
+let ws = null;
+let reconnect = false;
 
 export default ({navigation, route}) => {
   const refMap = useRef(null);
   const refLoading = useRef(null);
   const refNotification = useRef(null);
-  const [locationDevice, setLocationDevice] = useState([]);
+  const [locationDevices, setLocationDevices] = useState([]);
   const [locationName, setLocationName] = useState('');
   const [indexSelect, setIndexSelect] = useState(DataLocal.deviceIndex);
   const [isCount, setIsCount] = useState(false);
@@ -36,12 +43,14 @@ export default ({navigation, route}) => {
   const infoDevice = route.params.listDevices;
   let timer = 0;
 
-  const getLocationDevice = async () => {
-    try {
+  const getLocationDevice = () => {
       const listID = [];
       infoDevice.map((obj)=>{
         listID.push(obj.deviceId);
       })
+      for (const obj of infoDevice) {
+        startWebSocket(obj.deviceId,{autoShowMsg:false})
+      }
       getLocationDeviceApi(listID, {
         success: res => {
           DataLocal.deviceIndex + 1 > res.data.length ? setIndexSelect(0) : null;
@@ -53,7 +62,7 @@ export default ({navigation, route}) => {
               }
             }
           })
-          setLocationDevice(res.data);
+          setLocationDevices(res.data);
           if (res.data.length > 0) {
             const {lat, lng} = res.data[indexSelect] ? res.data[indexSelect].location : res.data[0].location;
             if (lat && lng) {
@@ -73,7 +82,6 @@ export default ({navigation, route}) => {
         refLoading: refLoading,
         refNotification: refNotification,
       });
-    } catch (error) {}
   };
 
   useEffect(() => {
@@ -84,15 +92,24 @@ export default ({navigation, route}) => {
         navigation.replace(Consts.ScreenIds.DeviceManager);
       }))
     }
+
     return ()=>{
       setIsCount(false);
+      disconnect();
+      setReconnect(false)
     }
   }, []);
 
-  if (locationDevice && locationDevice[indexSelect] && locationDevice[indexSelect].location) {
+  useEffect(() => {
+    if (!locationDevices.length > 0 || ws) return;
+    handleWebSocketSetup();
+    setReconnect(true)
+  }, [locationDevices]);
+
+  if (locationDevices && locationDevices[indexSelect] && locationDevices[indexSelect].location) {
     Geocoder.geocodePosition({
-      lat: locationDevice[indexSelect].location.lat,
-      lng: locationDevice[indexSelect].location.lng
+      lat: locationDevices[indexSelect].location.lat,
+      lng: locationDevices[indexSelect].location.lng
     }).then(res => {
       const address = [res[0].streetNumber +' '+ res[0].streetName, res[0].subAdminArea, res[0].adminArea].join(', ')
       setLocationName(address);
@@ -140,6 +157,99 @@ export default ({navigation, route}) => {
     );
   }
 
+  const handleWebSocketSetup = () => {
+
+    ws = new WebSocket(wsCheckLocation);
+    ws.onopen = () => {
+      onOpen();
+    };
+    ws.onmessage = event => {
+      onMessage(event);
+    };
+    ws.onerror = error => {
+      onError(error);
+    };
+    ws.onclose = () =>
+      onClose();
+  };
+
+  const setReconnect = (setReconnect) => {
+    reconnect = !!setReconnect;
+  }
+
+  const disconnect = () => {
+    reconnect = false;
+    ws.close();
+    ws = null;
+  }
+
+  const ping = async () => {
+    await ws.send(encoder.encode('').buffer, true);
+    setTimeout(() => {
+        ping();
+    }, 3000)
+  };
+
+  const onOpen = async () => {
+    console.log('Websocket Location Open!');
+    let command =
+      'CONNECT\n' +
+      'accept-version:1.2\n' +
+      'host:mykid.ttc.software\n' +
+      'authorization:Bearer ' +
+      DataLocal.accessToken +
+      '\n' +
+      'content-length:0\n' +
+      '\n\0';
+    await ws.send(encoder.encode(command).buffer, true);
+    command =
+      'SUBSCRIBE\n' +
+      'id:' + generateRandomId(10) + '\n' +
+      'destination:/user/queue/locations\n' +
+      'content-length:0\n' +
+      '\n\0';
+    await ws.send(encoder.encode(command).buffer, true);
+
+    ping();
+  };
+
+  const onClose = () => {
+    console.log('Websocket Location Close!');
+  };
+
+  const onError = error => {
+    console.log(JSON.stringify(error));
+    console.log(error, 'Websocket Location Error!');
+  };
+
+  const onMessage = message => {
+    if (locationDevices && DataLocal.accessToken !== null && message.data) {
+      const split = message.data.split('\n');
+      if (
+        split[0] === 'MESSAGE' &&
+        split.length > 4 &&
+        split[2] === 'destination:/user/queue/locations'
+      ) {
+        const data = JSON.parse(
+          split[split.length - 1].replace('\u0000', '').replace('\\u0000', ''),
+        );
+        const newData = Object.assign([], locationDevices);
+        for (const obj of newData) {
+          if (data.deviceId === obj.deviceId){
+            obj.location = data.location;
+            obj.type = data.type;
+            obj.maxAccuracy = data.maxAccuracy;
+            obj.power = data.power;
+            obj.reportedAt = data.reportedAt;
+          }
+        }
+        console.log(newData)
+        setLocationDevices(newData)
+      }
+      console.log(message, 'WebSocket Location Message');
+    }
+  };
+
   return (
     <View
       style={[styles.container, {paddingBottom: useSafeAreaInsets().bottom}]}>
@@ -150,8 +260,8 @@ export default ({navigation, route}) => {
           style={styles.container}
           provider={PROVIDER_GOOGLE}
           mapType={mapType ? 'standard' : 'hybrid'}>
-          {locationDevice.length > 0 && (
-            locationDevice.map((obj,i)=>{
+          {locationDevices.length > 0 && (
+            locationDevices.map((obj,i)=>{
               return(
                 <Marker
                   key={i}
@@ -174,10 +284,10 @@ export default ({navigation, route}) => {
           )}
         </MapView>
 
-        {locationDevice.length > 0 && locationDevice[indexSelect] && (
+        {locationDevices.length > 0 && locationDevices[indexSelect] && (
           <TouchableOpacity
             onPress={() => {
-              const {lat, lng} = locationDevice[indexSelect]?.location;
+              const {lat, lng} = locationDevices[indexSelect]?.location;
               if (lat && lng)
                 refMap.current.animateCamera({
                   center: {
@@ -189,23 +299,25 @@ export default ({navigation, route}) => {
             }}
             style={styles.containerDevice}>
             <View style={styles.containerLastTime}>
-              <Text style={styles.txtNameDevice}>{locationDevice[indexSelect].deviceName}</Text>
+              <Text style={styles.txtNameDevice}>{locationDevices[indexSelect].deviceName}</Text>
               <Text style={styles.txtTime}>
-                {Moment(new Date(locationDevice[indexSelect].reportedAt)).format('HH:mm DD/MM/yyyy')}
+                {Moment(new Date(locationDevices[indexSelect].reportedAt)).format('HH:mm DD/MM/yyyy')}
               </Text>
             </View>
             <View style={styles.containerLastTime}>
               <Text style={styles.txtLocation}>{t('common:location')}{locationName}</Text>
-              <Text style={[styles.txtTime,{flex: 1 ,fontSize: FontSize.xxtraSmall*0.8, textAlign: 'right'}]}>{locationDevice[indexSelect].type + ' ('+ t('common:discrepancy') + (locationDevice[indexSelect].type === 'GPS' ? '50m)' : locationDevice[indexSelect].type === 'WIFI' ? '100m)' : '1000m)')}</Text>
+              <Text style={[styles.txtTime,{flex: 1 ,fontSize: FontSize.xxtraSmall*0.8, textAlign: 'right'}]}>
+                {locationDevices[indexSelect].type + ' ('+ t('common:discrepancy') + locationDevices[indexSelect].maxAccuracy + 'm)'}
+              </Text>
             </View>
 
             <View style={styles.containerLastTime}>
-              <Text style={[styles.txtLocation,{width: '80%'}]}>{t('common:coordinates')}{`${locationDevice[indexSelect]?.location?.lat}, ${locationDevice[indexSelect]?.location?.lng}`}</Text>
+              <Text style={[styles.txtLocation,{width: '80%'}]}>{t('common:coordinates')}{`${locationDevices[indexSelect]?.location?.lat}, ${locationDevices[indexSelect]?.location?.lng}`}</Text>
               <View style={styles.containerBattery}>
                 <Text style={{fontSize: FontSize.xxtraSmall, color: Colors.gray}}>
-                  {`${locationDevice[indexSelect].power || 0}%`}
+                  {`${locationDevices[indexSelect].power || 0}%`}
                 </Text>
-                <Image source={(locationDevice[indexSelect].power || 0) > 20 ? Images.icBattery : Images.icLowBattery} style={(locationDevice[indexSelect].power || 0) > 20 ? styles.icBattery : styles.icLowBattery} />
+                <Image source={(locationDevices[indexSelect].power || 0) > 20 ? Images.icBattery : Images.icLowBattery} style={(locationDevices[indexSelect].power || 0) > 20 ? styles.icBattery : styles.icLowBattery} />
               </View>
             </View>
           </TouchableOpacity>

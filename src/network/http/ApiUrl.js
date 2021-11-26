@@ -9,6 +9,7 @@ export const streamUrl = hostUrl + '/kwstream-core/v1';
 export const wsUrl = 'wss://mykid.ttc.software/kwstream-core/v1/ws';
 export const wsSafeZoneUrl = 'wss://mykid.ttc.software/kwapp-core/v1/ws';
 export const wsCheckSim = 'wss://mykid.ttc.software/kwapp-core/v1/ws';
+export const wsCheckLocation = 'wss://mykid.ttc.software/kwapp-core/v1/ws';
 export const wssXmppUrl = 'wss://' + appConfig.xmppServer + '/ws';
 
 // Account
@@ -88,6 +89,9 @@ export const checkAccount = appUrl + '/sims';
 
 // SMS
 export const smsUrl = appUrl + '/sms-messages';
+
+// InstallPosition
+export const positionModeuRL = appUrl + '/position-configs';
 
 /// url: string, obj: object
 export function assignUrlParams(url, obj) {

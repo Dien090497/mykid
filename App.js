@@ -1,12 +1,5 @@
 import {
   StatusBar,
-  Platform,
-  TouchableOpacity,
-  Text,
-  View,
-  ScrollView,
-  StyleSheet,
-  PermissionsAndroid,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import {AlertDropHelper} from './src/functions/AlertDropHelper';
@@ -16,33 +9,18 @@ import {Provider} from 'react-redux';
 import Routes from './src/routes';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import redux from './src/redux/config/redux';
+import reduxStore from './src/redux/config/redux'
+import commonInfoAction from './src/redux/actions/commonInfoAction';
 import './src/constants/IMLocalize';
 import {fcmService} from './src/FCMService'
 import {localNotificationService} from './src/LocalNotificationService'
 import DataLocal from "./src/data/dataLocal";
 import uuid from 'uuid';
 import RNCallKeep from 'react-native-callkeep';
-RNCallKeep.setup({
-  ios: {
-    appName: 'MyKid',
-  },
-  android: {
-    alertTitle: 'Permissions required',
-    alertDescription: 'This application needs to access your phone accounts',
-    cancelButton: 'Cancel',
-    okButton: 'ok',
-    foregroundService: {
-      channelId: 'com.mykid',
-      channelName: 'Foreground service for my app',
-      notificationTitle: 'My app is running on background',
-      notificationIcon: 'Path to the resource icon of the notification',
-    },
-  },
-}).then();
-
+import XmppClient from "./src/network/xmpp/XmppClient";
+import Consts from "./src/functions/Consts";
 export default function App() {
   const routeRef = useRef();
-let currentCallId = null;
   // Initialise RNCallKeep
   const setup = () => {
     const options = {
@@ -102,7 +80,7 @@ let currentCallId = null;
 
   const onEndCallAction = (data) => {
     let { callUUID } = data;
-    RNCallKeep.endCall(this.getCurrentCallId());
+    RNCallKeep.endCall(data.id);
 
     this.currentCallId = null;
   };
@@ -112,6 +90,8 @@ let currentCallId = null;
     let { error } = data;
     // You will get this event after RNCallKeep finishes showing incoming call UI
     // You can check if there was an error while displaying
+    RNCallKeep.displayIncomingCall(data.id, data.relationship, data.relationship, 'generic', true, null);
+
   };
 
   const onToggleMute = (data) => {
@@ -132,14 +112,6 @@ let currentCallId = null;
   const audioSessionActivated = (data) => {
     // you might want to do following things when receiving this event:
     // - Start playing ringback if it is an outgoing call
-  };
-
-  const getCurrentCallId = () => {
-    if (currentCallId) {
-      currentCallId = uuid.v4();
-    }
-
-    return currentCallId;
   };
 
   function initCallKeep() {
@@ -179,15 +151,24 @@ let currentCallId = null;
         notify,
         options
       )
+      if (notify && notify.type === 'DEVICE_ACCEPTED') {
+        XmppClient.updateRooms();
+      }
     }
 
     function onOpenNotification(notify) {
       console.log("[App] onOpenNotification: ", notify)
-      if (notify && notify.type === 'CHAT'){
-        routeRef.current.roadToMsgFromNotify(notify);
-      }else if(notify && notify.type === 'VIDEO_CALL'){
+      if (notify && (notify.type === 'LOW_BATTERY' || notify.type === 'FULL_BATTERY')){
+        reduxStore.store.dispatch(commonInfoAction.navigate({navigate: Consts.ScreenIds.Warning, deviceId: null}));
+      } else if (notify && notify.type === 'OUT_OF_SAFE_ZONE'){
+        reduxStore.store.dispatch(commonInfoAction.navigate({navigate: Consts.ScreenIds.ElectronicFence, deviceId: null}));
+      } else if (notify && notify.type === 'CHAT'){
+        reduxStore.store.dispatch(commonInfoAction.navigate({navigate: Consts.ScreenIds.Chat, deviceId: null}));
+        // routeRef.current.roadToMsgFromNotify(notify);
+      } else if(notify && notify.type === 'VIDEO_CALL'){
         console.log("[App] onOpenNotification: VIDEO_CALL", notify)
-        startCall(notify.id,notify.relationship,notify.relationship);
+        // startCall(notify.id,notify.relationship,notify.relationship);
+        onIncomingCallDisplayed(notify);
       }
     }
 

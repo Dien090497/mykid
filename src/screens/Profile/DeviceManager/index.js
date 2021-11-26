@@ -19,6 +19,7 @@ import reduxStore from '../../../redux/config/redux'
 import commonInfoAction from '../../../redux/actions/commonInfoAction';
 import { useTranslation } from 'react-i18next';
 import NotificationModal from "../../../components/NotificationModal";
+import XmppClient from '../../../network/xmpp/XmppClient';
 
 export default function DeviceManager({navigation}) {
   const [selectedIndex, setSelectedIndex] = useState(DataLocal.deviceIndex);
@@ -128,6 +129,7 @@ export default function DeviceManager({navigation}) {
       success: res => {
         getListDevice();
         numDevices();
+        XmppClient.removeRoom(idCancel);
       },
       refLoading,
       refNotification,
@@ -216,7 +218,7 @@ export default function DeviceManager({navigation}) {
           <TouchableOpacity style={styles.modal} onPress={() => setOnModal(false)}>
             <View style={styles.tobModal}>
               <View style={[styles.tobView, {marginTop: ScaleHeight.small}]}>
-                {parseInt(numberDevices) >= 7 ? (
+                {parseInt(numberDevices) >= 2 ? (
                   <Text style={styles.textModel}>{t('common:alertDeleteDevices1')}{nameDevices}{t('common:alertDeleteDevices2')}</Text>
                 ):(
                   <Text style={styles.textModel}>{t('common:alertDeleteDevices')}</Text>

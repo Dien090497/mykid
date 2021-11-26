@@ -67,11 +67,13 @@ export default function HomeMainScreen() {
   }, [isFocused]);
 
   useLayoutEffect(() => {
-    if (commonInfoReducer.selectDevice === null || commonInfoReducer.selectDevice === undefined) {
-      return;
+    if (commonInfoReducer.selectDevice !== null && commonInfoReducer.selectDevice !== undefined) {
+      setSelectedIndex(commonInfoReducer.selectDevice);
+      reduxStore.store.dispatch(commonInfoAction.reset());
+    } else if (commonInfoReducer.navigate !== null && commonInfoReducer.navigate !== undefined) {
+      navigation.navigate(commonInfoReducer.navigate);
+      reduxStore.store.dispatch(commonInfoAction.reset());
     }
-    setSelectedIndex(commonInfoReducer.selectDevice);
-    reduxStore.store.dispatch(commonInfoAction.reset());
   }, [commonInfoReducer]);
 
   const pressMap = () => {
@@ -224,7 +226,7 @@ export default function HomeMainScreen() {
           >
             {devices && devices.map((obj, i) => {
               const isSelectDevice = obj.deviceId === DataLocal.deviceId;
-              DataLocal.saveHaveSim(devices[selectedIndex].validSim ? '1' : '0');
+              {devices[selectedIndex] && DataLocal.saveHaveSim(devices[selectedIndex].validSim ? '1' : '0');}
               return (
                 <View key={i.toString()} style={{paddingHorizontal: 10}}>
                   <View style={styles.viewMenuDrop} onStartShouldSetResponder={() => {

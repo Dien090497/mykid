@@ -66,4 +66,14 @@ export default {
   'TOKEN_EXPIRED_MSG': 'Phiên đăng nhập của bạn đã hết. Vui lòng đăng nhập lại',
   'OTHER_LOGIN': 'Bạn đã đăng nhập trên thiết bị khác.',
   'UNEXPECTED_ERROR_MSG': 'Không kết nối được với server.\nVui lòng thử lại sau!',
+
+  //fire base message
+  'LOW_BATTERY' : 'Đồng hồ cảnh báo pin yếu. Vui lòng lắp sạc',
+  'FULL_BATTERY' : 'Đồng hồ đã sạc đầy. Vui lòng tháo sạc',
+  'OUT_OF_SAFE_ZONE' : 'Đồng hồ đã ra khỏi vùng an toàn. Vui lòng kiểm tra trên ứng dụng',
+  'IN_SAFE_ZONE' : 'Đồng hồ đã đi vào vùng an toàn. Vui lòng kiểm tra trên ứng dụng',
+  'CHAT' : 'Bạn có tin nhắn mới',
+  'VIDEO_CALL' : 'Bạn có cuộc gọi từ',
+  'DEVICE_ACCEPTED' : 'Kết nối đồng hồ đã được duyệt',
+  'DEVICE_REJECTED' : 'Kết nối đồng hồ đã bị từ chối',
 }

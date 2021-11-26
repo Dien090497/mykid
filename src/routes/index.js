@@ -56,6 +56,7 @@ import SMSDetail from '../screens/SMS/SMSDetail'
 import {createStackNavigator} from '@react-navigation/stack';
 import LanguageTimeZone from '../screens/Profile/LanguageTimeZone';
 import OffDevice from '../screens/Settings/OffDevice';
+import InstallPosition from '../screens/Settings/InstallPosition';
 import StartDevice from '../screens/Settings/RestartDevice';
 import EditDevice from '../screens/Profile/DeviceManager/EditDevice'
 import InfoKits from '../screens/Home/InfoKids';
@@ -275,6 +276,10 @@ function Routes ({},ref){
         <Stack.Screen
           name={Consts.ScreenIds.DoNotDisturb}
           component={DoNotDisturb}
+        />
+         <Stack.Screen
+          name={Consts.ScreenIds.InstallPosition}
+          component={InstallPosition}
         />
         <Stack.Screen
           name={Consts.ScreenIds.DisturbSetting}

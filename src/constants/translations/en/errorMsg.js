@@ -66,4 +66,14 @@ export default {
   'TOKEN_EXPIRED_MSG': 'Your login session has expired. Please login again',
   'OTHER_LOGIN': 'You are signed in on another device.',
   'UNEXPECTED_ERROR_MSG': 'Can not connect to server.\nPlease try later!',
+
+  //fire base message
+  'LOW_BATTERY' : 'Low battery warning. Please install charger',
+  'FULL_BATTERY' : 'Fully charged. Please remove charger',
+  'OUT_OF_SAFE_ZONE' : 'The watch is out of the safe zone. Please check on the app',
+  'IN_SAFE_ZONE' : 'The watch has entered the safe zone. Please check on the app',
+  'CHAT' : 'A new message',
+  'VIDEO_CALL' : 'You have a call from',
+  'DEVICE_ACCEPTED' : 'Approved watch connection',
+  'DEVICE_REJECTED' : 'Refused watch connection ',
 };

@@ -82,6 +82,7 @@ export default {
   'header_remoteStart': 'Khởi động lại từ xa',
   'header_warning': 'Cảnh báo',
   'header_sms': 'SMS',
+  'header_installPosition': 'Chu kỳ định vị',
 
   // Codepush
   'codepushChecking': 'Đang kiểm tra bản cập nhật...',
@@ -326,7 +327,7 @@ export default {
   'txtForgotPassWord1': '1.Xin vui lòng nhập số điện thoại hợp lệ để nhận mã xác minh.',
   'txtForgotPassWord2': '2. Nhập xác nhận thiết lập lại mật khẩu mã xác minh là  thành công.',
   'inputTxt': 'Vui lòng nhập số điện thoại của bạn',
-  'txtContinue ': 'Tiếp tục',
+  'txtContinue': 'Tiếp tục',
   'getCode': 'Lấy mã',
   'successPassword': 'Cập nhật mật khẩu thành công',
   'newPassword': 'Nhập mật khẩu mới',
@@ -373,4 +374,13 @@ export default {
   'error_health1': 'Số bước chân mục tiêu phải lớn hơn 0',
   'error_health2': 'Số bước chân mục tiêu lớn hơn 20.000 bước',
   'textHealth': 'Quãng đường và Calo tính tương đối dựa theo thông tin của bé',
+
+  //InstallPosition
+  'turn': 'Bật',
+  'off': 'Tắt',
+  'turn_off_gps': 'Tắt bật định vị theo GPS',
+  'cycle': 'Chu kì định vị',
+  '1_minute': '1 Phút',
+  '10_minute': '10 Phút',
+  '60_minute': '60 Phút',
 };

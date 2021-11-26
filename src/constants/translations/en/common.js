@@ -82,6 +82,7 @@ export default {
   'header_remoteStart': 'Remote Restart',
   'header_warning': 'Alert Center',
   'header_sms': 'SMS',
+  'header_installPosition': 'Tracking Frequency', 
 
   // Codepush
   'codepushChecking': 'Checking...',
@@ -372,4 +373,13 @@ export default {
   'error_health1': 'Step target must be greater than 0',
   'error_health2': 'Step target mustn\'t be more than 20000',
   'textHealth': 'Distance and calories calculated based on baby\'s information',
+
+   //InstallPosition
+   'turn': 'Turn',
+   'off': 'Off',
+   'turn_off_gps': 'On/off GPS tracking',
+   'cycle': 'Location cycle',
+   '1_minute': 'Update every 1 min',
+   '10_minute': 'Update every 10 min',
+   '60_minute': 'Update every 1 hour',
 };
