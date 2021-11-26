@@ -131,7 +131,7 @@ export default ({navigation, route}) => {
     if (!listSOS[index].sosIndex) return ;
     const newListSOS = Object.assign([],listSOS);
     const listCheck = newListSOS.filter(value => value.sosIndex)
-    if (listCheck.length <= 1 ) return refNotification.current.open('Không thể xóa do chỉ có một số SOS');
+    if (listCheck.length <= 1 ) return refNotification.current.open(t('common:canNotDeleteSOS'));
     setSOSApi(
       DataLocal.deviceId,
       {
@@ -148,7 +148,7 @@ export default ({navigation, route}) => {
     );
   }
 
-  const renderItem = ({item, index}) => {
+  const renderItem = ({item}) => {
     return (
       <TouchableOpacity
         activeOpacity={0.9}

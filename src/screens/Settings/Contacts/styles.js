@@ -20,19 +20,15 @@ export const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: FontSize.medium,
-    textAlignVertical: 'center',
     textAlign: 'left',
     color: Colors.grayTxt,
-    flex: 0.8,
     fontFamily:'Roboto-Medium'
   },
   phoneText: {
     fontSize: FontSize.xtraSmall,
-    textAlignVertical: 'center',
     textAlign: 'left',
     color: Colors.grayTxt,
-    flex: 0.8,
-    fontFamily: 'Roboto'
+    fontFamily: 'Roboto',
   },
   txtNull:{
     fontSize: FontSize.small,

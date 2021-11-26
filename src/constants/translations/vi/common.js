@@ -208,6 +208,7 @@ export default {
   'safeArea': 'Vùng an toàn',
   'errorChooseDate': 'Không quá 30 ngày',
   'palaceHolderSafeZone': 'Thêm vùng an toàn',
+  'canNotDeleteSOS': 'Không thể xóa do chỉ có một số SOS',
 
   //member
   'member_refresh': 'Làm mới',

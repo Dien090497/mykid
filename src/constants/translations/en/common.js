@@ -208,6 +208,7 @@ export default {
   'safeArea': 'SAFETY ZONE',
   'errorChooseDate': 'Không quá 30 ngày',
   'palaceHolderSafeZone': 'Add safety zone',
+  'canNotDeleteSOS': 'Can\'t delete because there is only one SOS phone number',
 
   //member
   'member_refresh': 'Refresh',
