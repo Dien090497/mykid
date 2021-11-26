@@ -68,11 +68,12 @@ export default {
   'UNEXPECTED_ERROR_MSG': 'Can not connect to server.\nPlease try later!',
 
   //fire base message
-  'LOW_BATTERY, FULL_BATTERY' : 'thông báo ở đây',
-  'OUT_OF_SAFE_ZONE, IN_SAFE_ZONE' : 'thông báo ở đây',
-  'CHAT' : 'thông báo ở đây',
-  'VIDEO_CALL' : 'thông báo ở đây',
-  'DEVICE_ACCEPTED' : 'thông báo ở đây',
-  'DEVICE_REJECTED' : 'thông báo ở đây',
-
+  'LOW_BATTERY' : 'Low battery warning. Please install charger',
+  'FULL_BATTERY' : 'Fully charged. Please remove charger',
+  'OUT_OF_SAFE_ZONE' : 'The watch is out of the safe zone. Please check on the app',
+  'IN_SAFE_ZONE' : 'The watch has entered the safe zone. Please check on the app',
+  'CHAT' : 'A new message',
+  'VIDEO_CALL' : 'You have a call from',
+  'DEVICE_ACCEPTED' : 'Approved watch connection',
+  'DEVICE_REJECTED' : 'Refused watch connection ',
 };
