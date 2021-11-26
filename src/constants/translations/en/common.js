@@ -81,7 +81,7 @@ export default {
   'header_remoteStart': 'Remote Restart',
   'header_warning': 'Alert Center',
   'header_sms': 'SMS',
-  'header_installPosition': 'Positioning cycle', // todo
+  'header_installPosition': 'Tracking Frequency', 
 
   // Codepush
   'codepushChecking': 'Checking...',
@@ -374,7 +374,7 @@ export default {
    'off': 'Off',
    'turn_off_gps': 'On/off GPS tracking',
    'cycle': 'Location cycle',
-   '1_minute': '1 Minute',
-   '10_minute': '10 Minute',
-   '60_minute': '60 Minute',
+   '1_minute': 'Update every 1 min',
+   '10_minute': 'Update every 10 min',
+   '60_minute': 'Update every 1 hour',
 };
