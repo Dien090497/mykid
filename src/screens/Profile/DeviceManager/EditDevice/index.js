@@ -55,8 +55,8 @@ export default function EditDevice({ navigation, route }) {
       result.relationshipName,
       {
         success: res => {
-          route.params.onRefresh()
-          navigation.goBack();
+          route.params.onRefresh();
+          refNotification.current.open(t('common:EditSuccess'), () => navigation.goBack());
         }
         , refLoading,
         refNotification,

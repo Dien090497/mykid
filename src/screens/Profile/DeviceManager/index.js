@@ -218,7 +218,7 @@ export default function DeviceManager({navigation}) {
           <TouchableOpacity style={styles.modal} onPress={() => setOnModal(false)}>
             <View style={styles.tobModal}>
               <View style={[styles.tobView, {marginTop: ScaleHeight.small}]}>
-                {parseInt(numberDevices) >= 7 ? (
+                {parseInt(numberDevices) >= 2 ? (
                   <Text style={styles.textModel}>{t('common:alertDeleteDevices1')}{nameDevices}{t('common:alertDeleteDevices2')}</Text>
                 ):(
                   <Text style={styles.textModel}>{t('common:alertDeleteDevices')}</Text>
