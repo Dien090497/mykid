@@ -160,46 +160,59 @@ class JanusVideoRoomScreen extends React.Component {
           width: '100%',
           height: '100%',
           backgroundColor: Colors.black,
-          justifyContent: 'flex-end',
-          alignContent: 'flex-end',
-          alignItems: 'flex-end',
+          justifyContent: 'center',
+          alignContent: 'center',
+          alignItems: 'center',
         }}>
         <StatusBar translucent={true} barStyle={'light-content'} />
         {this.state.publishers.length > 0 && (
-          <RTCView
-            style={{
-              flex: this.state.publishers.length > 1 ? 0.5 : 1,
-              width: '90%',
-              height: '50%',
-              alignSelf: 'center',
-              borderRadius: 10,
-              borderColor: Colors.gray,
-              borderWidth: 1
-            }}
-            objectFit={'cover'}
-            streamURL={
-              this.state.publishers.length > 1
-                ? this.state.publishers[1].stream.toURL()
-                : this.state.publishers[0].stream.toURL()
-            }
-          />
+          <View style={{
+            flex: this.state.publishers.length > 1 ? 0.5 : 1,
+            width: '90%',
+            height: '50%',
+            borderRadius: 10,
+            overflow: 'hidden'
+          }}>
+            <RTCView
+              style={{
+                flex: 1,
+                width: '100%',
+                height: '100%',
+                alignSelf: 'center',
+                borderColor: Colors.gray,
+                borderWidth: 1
+              }}
+              objectFit={'cover'}
+              streamURL={
+                this.state.publishers.length > 1
+                  ? this.state.publishers[1].stream.toURL()
+                  : this.state.publishers[0].stream.toURL()
+              }
+            />
+          </View>
         )}
         {this.state.publishers.length > 1 && (
-          <RTCView
-          style={{
-            marginTop: '5%',
+          <View style={{
             flex: 0.5,
             width: '90%',
             height: '50%',
-            alignSelf: 'center',
-            backgroundColor: 'white',
             borderRadius: 10,
-            borderColor: Colors.gray,
-            borderWidth: 1
-          }}
-            objectFit={'cover'}
-            streamURL={this.state.publishers[0].stream.toURL()}
-          />
+            overflow: 'hidden',
+            marginTop: '5%',
+          }}>
+            <RTCView
+              style={{
+                flex: 1,
+                width: '100%',
+                alignSelf: 'center',
+                backgroundColor: 'white',
+                borderColor: Colors.gray,
+                borderWidth: 1
+              }}
+              objectFit={'cover'}
+              streamURL={this.state.publishers[0].stream.toURL()}
+            />
+          </View>
         )}
       </View>
     );
