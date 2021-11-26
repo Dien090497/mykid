@@ -81,7 +81,7 @@ export default {
   'header_remoteStart': 'Remote Restart',
   'header_warning': 'Alert Center',
   'header_sms': 'SMS',
-  'header_installPosition': 'Cài đặt định vị',
+  'header_installPosition': 'Positioning cycle', // todo
 
   // Codepush
   'codepushChecking': 'Checking...',
@@ -372,8 +372,8 @@ export default {
    //InstallPosition
    'turn': 'Turn',
    'off': 'Off',
-   'turn_off_gps': 'Turn gps positioning on and off',
-   'cycle': 'Positioning cycle',
+   'turn_off_gps': 'On/off GPS tracking',
+   'cycle': 'Location cycle',
    '1_minute': '1 Minute',
    '10_minute': '10 Minute',
    '60_minute': '60 Minute',

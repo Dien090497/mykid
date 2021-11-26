@@ -81,7 +81,7 @@ export default {
   'header_remoteStart': 'Khởi động lại từ xa',
   'header_warning': 'Cảnh báo',
   'header_sms': 'SMS',
-  'header_installPosition': 'Cài đặt định vị',
+  'header_installPosition': 'Chu kỳ định vị',
 
   // Codepush
   'codepushChecking': 'Đang kiểm tra bản cập nhật...',

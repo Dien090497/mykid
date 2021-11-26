@@ -25,7 +25,7 @@ export default ({navigation}) => {
         navigation.navigate(Consts.ScreenIds.Contacts);
       },
       icon: (
-        <Image source={Images.icPhoneBook} style={{width: 24.33, height: 28.33}} resizeMode={'stretch'}/>
+        <Image source={Images.icPhoneBook} style={{width: 40, height: 40}} resizeMode={'stretch'}/>
       ),
     },
     {
@@ -61,7 +61,7 @@ export default ({navigation}) => {
         navigation.navigate(Consts.ScreenIds.LanguageTimeZone);
       },
       icon: (
-        <Image source={Images.icWorldFill} style={{width: 30.65, height: 27.87}} resizeMode={'stretch'}/>
+        <Image source={Images.icWorldFill} style={{width: 40, height: 40}} resizeMode={'stretch'}/>
       ),
     },
     {
@@ -87,7 +87,7 @@ export default ({navigation}) => {
         navigation.navigate(Consts.ScreenIds.OffDevice);
       },
       icon: (
-        <Image source={Images.icSubtract} style={{width: 26, height: 26}} resizeMode={'stretch'}/>
+        <Image source={Images.icSubtract} style={{width: 40, height: 40}} resizeMode={'stretch'}/>
       ),
     },
     {
