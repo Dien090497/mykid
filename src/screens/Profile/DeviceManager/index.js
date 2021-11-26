@@ -85,6 +85,9 @@ export default function DeviceManager({navigation}) {
   const getListDevice = async () => {
     getListDeviceApi(DataLocal.userInfo.id, Consts.pageDefault, 100, '', 'ACTIVE', {
       success: resData => {
+        if (resData.data.length <= 0) {
+          return navigation.replace(Consts.ScreenIds.Splash)
+        }
         setDevices(resData.data);
       },
       refLoading,
@@ -130,6 +133,7 @@ export default function DeviceManager({navigation}) {
         getListDevice();
         numDevices();
         XmppClient.removeRoom(idCancel);
+        handleChange(0);
       },
       refLoading,
       refNotification,
