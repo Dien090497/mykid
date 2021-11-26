@@ -1,12 +1,5 @@
 import {
   StatusBar,
-  Platform,
-  TouchableOpacity,
-  Text,
-  View,
-  ScrollView,
-  StyleSheet,
-  PermissionsAndroid,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import {AlertDropHelper} from './src/functions/AlertDropHelper';
@@ -25,7 +18,6 @@ import RNCallKeep from 'react-native-callkeep';
 import XmppClient from "./src/network/xmpp/XmppClient";
 export default function App() {
   const routeRef = useRef();
-let currentCallId = null;
   // Initialise RNCallKeep
   const setup = () => {
     const options = {
@@ -117,14 +109,6 @@ let currentCallId = null;
   const audioSessionActivated = (data) => {
     // you might want to do following things when receiving this event:
     // - Start playing ringback if it is an outgoing call
-  };
-
-  const getCurrentCallId = () => {
-    if (currentCallId) {
-      currentCallId = uuid.v4();
-    }
-
-    return currentCallId;
   };
 
   function initCallKeep() {

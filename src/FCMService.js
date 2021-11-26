@@ -1,5 +1,6 @@
 import messaging from '@react-native-firebase/messaging'
 import {Platform} from 'react-native';
+import { convertMulLanguage } from "./functions/utils";
 
 class FCMService {
 
@@ -68,7 +69,10 @@ class FCMService {
             console.log('[FCMService] onNotificationOpenedApp Notification caused app to open from background state:',remoteMessage)
             if (remoteMessage) {
                 const notification = remoteMessage.data
-                onOpenNotification(notification)
+                if(convertMulLanguage(remoteMessage.data.type) !== ''){
+                    notification.body = convertMulLanguage(remoteMessage.data.type);
+                }
+                onOpenNotification(notification);
                 // this.removeDeliveredNotification(notification.notificationId)
             }
         });
@@ -81,7 +85,10 @@ class FCMService {
 
             if (remoteMessage) {
                 const notification = remoteMessage.data
-                onOpenNotification(notification)
+                if(convertMulLanguage(remoteMessage.data.type) !== ''){
+                    notification.body = convertMulLanguage(remoteMessage.data.type);
+                }
+                onOpenNotification(notification);
                 //  this.removeDeliveredNotification(notification.notificationId)
             }
         });
@@ -96,7 +103,11 @@ class FCMService {
                 // } else {
                 //     notification = remoteMessage.notification
                 // }
-                onNotification(remoteMessage.data)
+                const notification = remoteMessage.data
+                if(convertMulLanguage(remoteMessage.data.type) !== ''){
+                    notification.body = convertMulLanguage(remoteMessage.data.type);
+                }
+                onOpenNotification(notification);
             }
         });
 

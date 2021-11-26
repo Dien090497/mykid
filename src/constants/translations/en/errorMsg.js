@@ -66,4 +66,13 @@ export default {
   'TOKEN_EXPIRED_MSG': 'Your login session has expired. Please login again',
   'OTHER_LOGIN': 'You are signed in on another device.',
   'UNEXPECTED_ERROR_MSG': 'Can not connect to server.\nPlease try later!',
+
+  //fire base message
+  'LOW_BATTERY, FULL_BATTERY' : 'thông báo ở đây',
+  'OUT_OF_SAFE_ZONE, IN_SAFE_ZONE' : 'thông báo ở đây',
+  'CHAT' : 'thông báo ở đây',
+  'VIDEO_CALL' : 'thông báo ở đây',
+  'DEVICE_ACCEPTED' : 'thông báo ở đây',
+  'DEVICE_REJECTED' : 'thông báo ở đây',
+
 };

@@ -8,6 +8,7 @@ import AppConfig from '../data/AppConfig';
 import ImageResizer from 'react-native-image-resizer';
 import i18next from 'i18next';
 import SimpleToast from "react-native-simple-toast";
+import { useTranslation } from "react-i18next";
 
 const addCommas = (num, style) => {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, style);
@@ -166,6 +167,16 @@ export function sortByName(list) {
   });
 }
 
+export function convertMulLanguage(key) {
+    let value ='';
+    const {t} = useTranslation();
+    try {
+      value = t(`common:${key}`)
+    }catch (e){
+
+    }
+    return value;
+}
 export function parseTokenToObject(token) {
   if (!token) {
     return null;
