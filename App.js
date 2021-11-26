@@ -1,12 +1,5 @@
 import {
   StatusBar,
-  Platform,
-  TouchableOpacity,
-  Text,
-  View,
-  ScrollView,
-  StyleSheet,
-  PermissionsAndroid,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import {AlertDropHelper} from './src/functions/AlertDropHelper';
@@ -16,6 +9,8 @@ import {Provider} from 'react-redux';
 import Routes from './src/routes';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import redux from './src/redux/config/redux';
+import reduxStore from './src/redux/config/redux'
+import commonInfoAction from './src/redux/actions/commonInfoAction';
 import './src/constants/IMLocalize';
 import {fcmService} from './src/FCMService'
 import {localNotificationService} from './src/LocalNotificationService'
@@ -23,6 +18,7 @@ import DataLocal from "./src/data/dataLocal";
 import uuid from 'uuid';
 import RNCallKeep from 'react-native-callkeep';
 import XmppClient from "./src/network/xmpp/XmppClient";
+import Consts from "./src/functions/Consts";
 export default function App() {
   const routeRef = useRef();
 let currentCallId = null;
@@ -171,9 +167,14 @@ let currentCallId = null;
 
     function onOpenNotification(notify) {
       console.log("[App] onOpenNotification: ", notify)
-      if (notify && notify.type === 'CHAT'){
-        routeRef.current.roadToMsgFromNotify(notify);
-      }else if(notify && notify.type === 'VIDEO_CALL'){
+      if (notify && (notify.type === 'LOW_BATTERY' || notify.type === 'FULL_BATTERY')){
+        reduxStore.store.dispatch(commonInfoAction.navigate({navigate: Consts.ScreenIds.Warning, deviceId: null}));
+      } else if (notify && notify.type === 'OUT_OF_SAFE_ZONE'){
+        reduxStore.store.dispatch(commonInfoAction.navigate({navigate: Consts.ScreenIds.ElectronicFence, deviceId: null}));
+      } else if (notify && notify.type === 'CHAT'){
+        reduxStore.store.dispatch(commonInfoAction.navigate({navigate: Consts.ScreenIds.Chat, deviceId: null}));
+        // routeRef.current.roadToMsgFromNotify(notify);
+      } else if(notify && notify.type === 'VIDEO_CALL'){
         console.log("[App] onOpenNotification: VIDEO_CALL", notify)
         // startCall(notify.id,notify.relationship,notify.relationship);
         onIncomingCallDisplayed(notify);

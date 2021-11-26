@@ -67,11 +67,13 @@ export default function HomeMainScreen() {
   }, [isFocused]);
 
   useLayoutEffect(() => {
-    if (commonInfoReducer.selectDevice === null || commonInfoReducer.selectDevice === undefined) {
-      return;
+    if (commonInfoReducer.selectDevice !== null && commonInfoReducer.selectDevice !== undefined) {
+      setSelectedIndex(commonInfoReducer.selectDevice);
+      reduxStore.store.dispatch(commonInfoAction.reset());
+    } else if (commonInfoReducer.navigate !== null && commonInfoReducer.navigate !== undefined) {
+      navigation.navigate(commonInfoReducer.navigate);
+      reduxStore.store.dispatch(commonInfoAction.reset());
     }
-    setSelectedIndex(commonInfoReducer.selectDevice);
-    reduxStore.store.dispatch(commonInfoAction.reset());
   }, [commonInfoReducer]);
 
   const pressMap = () => {
