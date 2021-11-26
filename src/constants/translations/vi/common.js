@@ -376,7 +376,7 @@ export default {
   'textHealth': 'Quãng đường và Calo tính tương đối dựa theo thông tin của bé',
 
   //InstallPosition
-  'turn': 'Bật',
+  'on': 'Bật',
   'off': 'Tắt',
   'turn_off_gps': 'Tắt bật định vị theo GPS',
   'cycle': 'Chu kì định vị',

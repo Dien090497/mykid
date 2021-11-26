@@ -82,7 +82,7 @@ export default {
   'header_remoteStart': 'Remote Restart',
   'header_warning': 'Alert Center',
   'header_sms': 'SMS',
-  'header_installPosition': 'Tracking Frequency', 
+  'header_installPosition': 'Tracking Frequency',
 
   // Codepush
   'codepushChecking': 'Checking...',
@@ -375,8 +375,8 @@ export default {
   'textHealth': 'Distance and calories calculated based on baby\'s information',
 
    //InstallPosition
-   'turn': 'Turn',
-   'off': 'Off',
+   'on': 'Turn on',
+   'off': 'Turn off',
    'turn_off_gps': 'On/off GPS tracking',
    'cycle': 'Location cycle',
    '1_minute': 'Update every 1 min',
