@@ -25,6 +25,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import NotificationModal from '../../../components/NotificationModal';
 import ModalConfirm from '../../../components/ModalConfirm';
+import SimpleToast from 'react-native-simple-toast';
 
 export default ({navigation, route}) => {
   const refLoading = useRef();
@@ -35,7 +36,6 @@ export default ({navigation, route}) => {
   const [onModel, setOnModel] = useState(false);
   const [listSOS, setListSOS] = useState([])
   const [indexSOS, setIndexSOS] = useState(null)
-  const [choose, setChoose] = useState(false);
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -52,6 +52,7 @@ export default ({navigation, route}) => {
     if (data) {
       const sos = [{},{},{}];
       data.phones.map(obj=>{
+        obj.choose = false;
         if (!!obj.sosIndex){
           sos[obj.sosIndex-1] = obj
         }
@@ -62,11 +63,14 @@ export default ({navigation, route}) => {
     }
   }
 
-  const changeSOS = (item) => {
+  const changeSOS = (item, index) => {
+    const newListConcat = Object.assign({},dataContacts);
+    newListConcat.phones[index].choose = true;
+    setDataContacts(newListConcat);
     setSOSApi(
       DataLocal.deviceId,
       {
-        index: indexSOS+1,
+        index: indexSOS + 1,
         phoneNumber: item.phoneNumber,
       },
       {
@@ -76,12 +80,11 @@ export default ({navigation, route}) => {
         refLoading: refLoading,
         refNotification: refNotification,
       },
-    );
-    setOnModel(false)
+    ).then(r => setOnModel(false));
   };
 
   const removeContact = item => {
-    if (item.sosNumber) {
+    if (item.sosIndex) {
       refNotification.current.open(t('common:message_remove_contact_sos'))
       return;
     }
@@ -132,12 +135,12 @@ export default ({navigation, route}) => {
     setSOSApi(
       DataLocal.deviceId,
       {
-        index: 0,
         phoneNumber: listSOS[index].phoneNumber,
       },
       {
         success: res => {
           refreshData(res.data)
+          SimpleToast.show(t('common:success'))
         },
         refLoading: refLoading,
         refNotification: refNotification,
@@ -177,22 +180,22 @@ export default ({navigation, route}) => {
           activeOpacity={0.9}
           style={styles.containerItemContact}
           key={item.name}
-          onPress={item.onPress}>
-          <TouchableOpacity style={styles.wrap}  onPress={() => changeSOS(item,index)}>
+          onPress={() => changeSOS(item,index)}>
+          <View style={styles.wrap}>
             <View>
-              <Image source={Images.icOther} style={{width:30 , height: 30}} resizeMode = {'stretch'}/>
+              <Image source={Images.icOther} style={{width:40 , height: 40}} resizeMode = {'stretch'}/>
             </View>
-            <View style={{width: '80%'}}>
+            <View style={{width: '80%', paddingHorizontal: 10}}>
               <Text style={styles.titleText}>{item.name}</Text>
               <Text style={styles.phoneText}>{item.phoneNumber}</Text>
             </View>
-            <TouchableOpacity
+            <View
               style={{justifyContent: 'center', alignItems: 'center', width: '10%'}}>
-              <Image source={choose === index ? Images.ic_Choose : Images.icCan}
+              <Image source={item.choose ? Images.ic_Choose : Images.icCan}
                      style={styles.icon1}
                      resizeMode={'stretch'} />
-            </TouchableOpacity>
-          </TouchableOpacity>
+            </View>
+          </View>
         </TouchableOpacity> : null
     );
   };

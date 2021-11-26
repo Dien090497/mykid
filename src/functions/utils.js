@@ -33,6 +33,10 @@ export function phoneTest1(phone) {
   return /^(\+84)[\d]{9}$/.test(phone);
 }
 
+export function phoneTest2(phone) {
+  return /^(0)[\d]{9}$/.test(phone);
+}
+
 export function passwordTest1(pass) {
   return /^(?=.*[A-Za-z])(?=.*\d)[^\s]{6,20}$/.test(pass);
 }

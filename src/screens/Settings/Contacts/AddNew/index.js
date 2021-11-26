@@ -24,7 +24,7 @@ import { useTranslation } from 'react-i18next';
 import { ActionSheetCustom } from '@alessiocancian/react-native-actionsheet';
 import NotificationModal from '../../../../components/NotificationModal';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-import { hideLoading, resizeImage, showLoading } from '../../../../functions/utils';
+import { hideLoading, phoneTest2, resizeImage, showLoading } from '../../../../functions/utils';
 import { ScaleHeight } from '../../../../functions/Consts';
 import {
   checkCameraPermission,
@@ -69,13 +69,14 @@ export default ({ navigation, route }) => {
   };
 
   const saveContact = async () => {
+    if (!phoneTest2(phone)) {
+      return refNotification.current.open(t('common:error_phone'));
+    }
     if (!relationship.trim().length) {
-      refNotification.current.open(t('common:enter_relationship'));
-      return;
+      return refNotification.current.open(t('common:enter_relationship'));
     }
     if (!phone.trim().length) {
-      refNotification.current.open(t('common:enter_phone_number'));
-      return;
+      return refNotification.current.open(t('common:enter_phone_number'));
     }
     addPhoneBookApi(
       DataLocal.deviceId,
@@ -96,8 +97,6 @@ export default ({ navigation, route }) => {
       },
     );
   };
-
-  console.log(route.params.onGoBack());
 
   const OnActionSheet = () => {
     sheet1.show();
@@ -147,23 +146,21 @@ export default ({ navigation, route }) => {
       style={[styles.container, { paddingBottom: useSafeAreaInsets().bottom }]}>
       <Header title={t('common:header_addContact')} />
       <View style={styles.mainView}>
-        <TouchableOpacity
+        <View
           style={{
-            width: '100%',
-            height: '28%',
             justifyContent: 'center',
             alignItems: 'center',
-          }}
-          onPress={OnActionSheet}
-        >
-          <Image source={avatar ? { uri: avatar } : Images.icAvatar}
-                 style={styles.imageAvatar}
-                 resizeMode={avatar ? 'cover' : 'stretch'} />
-          <View style={{ flexDirection: 'row', marginTop: '4%', alignItems: 'center', justifyContent: 'center' }}>
-            <Image source={Images.icShootPhoto} style={styles.icon} resizeMode={'stretch'} />
-            <Text style={{ marginLeft: '2%' }}>{t('common:changeAvatar')}</Text>
-          </View>
-        </TouchableOpacity>
+          }}>
+          <TouchableOpacity style={{ alignItems:'center'}} onPress={OnActionSheet}>
+            <Image source={avatar ? { uri: avatar } : Images.icAvatar}
+                   style={styles.imageAvatar}
+                   resizeMode={avatar ? 'cover' : 'stretch'} />
+            <View style={{ flexDirection: 'row', marginTop: '4%', alignItems: 'center', justifyContent: 'center' }}>
+              <Image source={Images.icShootPhoto} style={styles.icon} resizeMode={'stretch'} />
+              <Text style={{ marginLeft: '2%' }}>{t('common:changeAvatar')}</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View
             style={styles.mainContent}>
@@ -173,7 +170,7 @@ export default ({ navigation, route }) => {
                 style={styles.textInput}
                 disableFullscreenUI
                 value={relationship}
-                placeholder={'Mối quan hệ với trẻ'}
+                placeholder={t('common:enter_relationship')}
                 onChangeText={text => setRelationship(text)}
                 placeholderTextColor={Colors.grayTextTitleColor}
               />
@@ -185,7 +182,7 @@ export default ({ navigation, route }) => {
                 style={styles.textInput}
                 disableFullscreenUI
                 value={phone}
-                placeholder={'Nhập số điện thoại'}
+                placeholder={t('common:textContact')}
                 onChangeText={text => setPhone(text)}
                 keyboardType={'phone-pad'}
                 placeholderTextColor={Colors.grayTextTitleColor} />
