@@ -50,6 +50,7 @@ export default {
   'chooseDay': 'Chọn ngày',
   'success': 'Thành công',
   'detail': 'Chi tiết',
+  'empty': 'Trống',
   'discrepancy': 'Độ chênh lệch - ',
   'thisFunctionIsNotValid': 'Tính năng chưa được cập nhật',
   'header_settings': 'Thiết lập',
@@ -207,6 +208,7 @@ export default {
   'safeArea': 'Vùng an toàn',
   'errorChooseDate': 'Không quá 30 ngày',
   'palaceHolderSafeZone': 'Thêm vùng an toàn',
+  'canNotDeleteSOS': 'Không thể xóa do chỉ có một số SOS',
 
   //member
   'member_refresh': 'Làm mới',
@@ -216,6 +218,10 @@ export default {
   'empty_contact': 'Bạn cần thêm các số điện thoại vào danh bạ',
   'enter_relationship': 'Vui lòng nhập mối quan hệ với trẻ',
   'enter_phone_number': 'Vui lòng nhập số điện thoại',
+  'listSOS': 'Danh sách SOS',
+  'listMember': 'Danh bạ thiết bị',
+  'chooseSOS': 'Chọn số SOS',
+
 
   //home
   'home_gps': 'ĐỊNH VỊ',
@@ -371,7 +377,7 @@ export default {
   'textHealth': 'Quãng đường và Calo tính tương đối dựa theo thông tin của bé',
 
   //InstallPosition
-  'turn': 'Bật',
+  'on': 'Bật',
   'off': 'Tắt',
   'turn_off_gps': 'Tắt bật định vị theo GPS',
   'cycle': 'Chu kì định vị',

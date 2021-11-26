@@ -46,6 +46,10 @@ export default {
   icCancelMember: require('./images/ic_cancel_member.png'),
   icMobile: require('./images/ic_mobile.png'),
   icMapType: require('./images/ic_map_type.png'),
+  icAddMember: require('./images/ic_add_member.png'),
+  ic_Choose: require('./images/ic_choose.png'), 
+  icCan: require('./images/ic_can.png'), 
+  icDeleteMember: require('./images/ic_delete_member.png'), 
 
   //homeScreen
   icHomeOn: require('./images/main/ic_home_on.png'),

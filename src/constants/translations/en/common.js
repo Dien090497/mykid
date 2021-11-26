@@ -50,6 +50,7 @@ export default {
   'chooseDay': 'Select date',
   'success': 'Success',
   'detail': 'Details',
+  'empty': 'Empty',
   'discrepancy': 'Deviation rate - ',
   'thisFunctionIsNotValid': 'Tính năng chưa được cập nhật',
   'header_settings': 'Setting',
@@ -81,7 +82,7 @@ export default {
   'header_remoteStart': 'Remote Restart',
   'header_warning': 'Alert Center',
   'header_sms': 'SMS',
-  'header_installPosition': 'Tracking Frequency', 
+  'header_installPosition': 'Tracking Frequency',
 
   // Codepush
   'codepushChecking': 'Checking...',
@@ -207,6 +208,7 @@ export default {
   'safeArea': 'SAFETY ZONE',
   'errorChooseDate': 'Không quá 30 ngày',
   'palaceHolderSafeZone': 'Add safety zone',
+  'canNotDeleteSOS': 'Can\'t delete because there is only one SOS phone number',
 
   //member
   'member_refresh': 'Refresh',
@@ -216,6 +218,10 @@ export default {
   'empty_contact': 'You need to add phone numbers to your contacts',
   'enter_relationship': 'Please enter relationship with child',
   'enter_phone_number': 'Please enter phone number',
+  'choose': 'Choose',
+  'listSOS': 'List SOS', // todo
+  'listMember': 'List Devices',// todo
+  'chooseSOS': 'Select numbers SOS',
 
   //home
   'home_gps': 'LOCATION',
@@ -370,8 +376,8 @@ export default {
   'textHealth': 'Distance and calories calculated based on baby\'s information',
 
    //InstallPosition
-   'turn': 'Turn',
-   'off': 'Off',
+   'on': 'Turn on',
+   'off': 'Turn off',
    'turn_off_gps': 'On/off GPS tracking',
    'cycle': 'Location cycle',
    '1_minute': 'Update every 1 min',

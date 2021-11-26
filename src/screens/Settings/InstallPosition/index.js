@@ -13,8 +13,8 @@ import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'reac
 import { Colors } from '../../../assets/colors/Colors';
 import DataLocal from '../../../data/dataLocal';
 import { useTranslation } from 'react-i18next';
-import NotificationModal from "../../../components/NotificationModal";
-import Consts from "../../../functions/Consts";
+import NotificationModal from '../../../components/NotificationModal';
+import Consts from '../../../functions/Consts';
 
 const { width, height } = Dimensions.get('window');
 export default function InstallPosition({ navigation }) {
@@ -26,7 +26,7 @@ export default function InstallPosition({ navigation }) {
     const { t } = useTranslation();
 
     const radio_props = [
-        { label: t('common:turn'), value: true },
+        { label: t('common:om'), value: true },
         { label: t('common:off'), value: false },
     ];
 
