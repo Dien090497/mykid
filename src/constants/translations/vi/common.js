@@ -206,7 +206,7 @@ export default {
   'location': 'Vị trí: ',
   'coordinates': 'Tọa độ: ',
   'safeArea': 'Vùng an toàn',
-  'errorChooseDate': 'Không quá 30 ngày',
+  'errorChooseDate': 'Vui lòng chọn khoảng thời gian nhỏ hơn 3 tháng',
   'palaceHolderSafeZone': 'Thêm vùng an toàn',
   'canNotDeleteSOS': 'Không thể xóa do chỉ có một số SOS',
 
