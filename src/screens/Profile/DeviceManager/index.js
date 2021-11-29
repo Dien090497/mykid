@@ -18,7 +18,7 @@ import {Colors} from '../../../assets/colors/Colors';
 import reduxStore from '../../../redux/config/redux'
 import commonInfoAction from '../../../redux/actions/commonInfoAction';
 import { useTranslation } from 'react-i18next';
-import NotificationModal from "../../../components/NotificationModal";
+import NotificationModal from '../../../components/NotificationModal';
 import XmppClient from '../../../network/xmpp/XmppClient';
 
 export default function DeviceManager({navigation}) {
