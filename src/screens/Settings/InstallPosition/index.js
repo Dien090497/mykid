@@ -26,7 +26,7 @@ export default function InstallPosition({ navigation }) {
     const { t } = useTranslation();
 
     const radio_props = [
-        { label: t('common:om'), value: true },
+        { label: t('common:on'), value: true },
         { label: t('common:off'), value: false },
     ];
 

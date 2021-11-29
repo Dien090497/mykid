@@ -18,7 +18,7 @@ import {Colors} from '../../../assets/colors/Colors';
 import reduxStore from '../../../redux/config/redux'
 import commonInfoAction from '../../../redux/actions/commonInfoAction';
 import { useTranslation } from 'react-i18next';
-import NotificationModal from "../../../components/NotificationModal";
+import NotificationModal from '../../../components/NotificationModal';
 import XmppClient from '../../../network/xmpp/XmppClient';
 
 export default function DeviceManager({navigation}) {
@@ -27,9 +27,8 @@ export default function DeviceManager({navigation}) {
   const [devices, setDevices] = useState([])
   const [onModal, setOnModal] = useState(false);
   const [idCancel, setIdCancel] = useState();
-  const [loading, setLoading] = useState(false);
   const [nameDevices, setNameDevices] = useState();
-  const [numberDevices, setNumberDevices] = useState();
+  const [numberDevices, setNumberDevices] = useState(null);
   const refLoading = useRef();
   const refNotification = useRef();
   const { t } = useTranslation();
@@ -74,7 +73,6 @@ export default function DeviceManager({navigation}) {
 
   useLayoutEffect(() => {
     getListDevice();
-    numDevices();
     setCheckDelete(true)
   }, []);
 
@@ -110,13 +108,14 @@ export default function DeviceManager({navigation}) {
   }
 
   const showModal = (item) => {
-    setOnModal(true);
+    numDevices(item.deviceId);
     setIdCancel(item.deviceId);
     setNameDevices(item.deviceName)
+    setOnModal(true);
   }
 
-  const numDevices = () => {
-    getNumberDevices(DataLocal.deviceId, {
+  const numDevices = (deviceId) => {
+    getNumberDevices(deviceId, {
       success: res => {
         if (res.data)
         {
@@ -131,7 +130,6 @@ export default function DeviceManager({navigation}) {
     deleteDevicesApi(idCancel, {
       success: res => {
         getListDevice();
-        numDevices();
         XmppClient.removeRoom(idCancel);
         handleChange(0);
       },
@@ -207,7 +205,7 @@ export default function DeviceManager({navigation}) {
           keyExtractor={(_, index) => index.toString()}
           refreshControl={
             <RefreshControl
-              refreshing={loading}
+              refreshing={false}
               onRefresh={refesh}
             />
           }
@@ -216,13 +214,12 @@ export default function DeviceManager({navigation}) {
       <Modal
         visible={onModal}
         transparent={true}
-        animationType={'none'}
-      >
+        animationType={'none'}>
         <View style={styles.itemLeft}>
           <TouchableOpacity style={styles.modal} onPress={() => setOnModal(false)}>
             <View style={styles.tobModal}>
               <View style={[styles.tobView, {marginTop: ScaleHeight.small}]}>
-                {parseInt(numberDevices) >= 2 ? (
+                {numberDevices && parseInt(numberDevices) >= 2 ? (
                   <Text style={styles.textModel}>{t('common:alertDeleteDevices1')}{nameDevices}{t('common:alertDeleteDevices2')}</Text>
                 ):(
                   <Text style={styles.textModel}>{t('common:alertDeleteDevices')}</Text>
@@ -232,7 +229,10 @@ export default function DeviceManager({navigation}) {
                 <View style={styles.tob}>
                   <TouchableOpacity
                     style={[styles.smallButton, {backgroundColor: Colors.white}]}
-                    onPress={() => setOnModal(false)}
+                    onPress={() => {
+                      setOnModal(false);
+                      setNumberDevices(null);
+                    }}
                   >
                     <Text
                       style={[styles.smallButtonText, {color: Colors.red}]}>

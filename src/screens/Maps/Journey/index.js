@@ -85,7 +85,7 @@ export default ({navigation}) => {
       {
         success: resData => {
           if (!resData.data.content.length) {
-            refNotification.current.open(`${deviceInfo.deviceName} - ${t('common:history_empty')}`)
+            refNotification.current.open(t('common:history_empty'))
           } else {
             setListSafeArea(resData.data.content);
             const {lat, lng} = resData.data.content[0].location;
