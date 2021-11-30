@@ -223,7 +223,7 @@ export default ({navigation}) => {
                   <Text>{i}</Text>
                   <Image
                     source={Images.icMarkerDefault}
-                    style={[styles.icMarker,val.type === 'GPS' ? {tintColor: 'blue'}: val.type === 'WIFI' ? {tintColor: 'yellow'} : {tintColor: 'origin'}]}
+                    style={[styles.icMarker,val.type === 'GPS' ? {tintColor: 'blue'}: val.type === 'WIFI' ? {tintColor: '#b900da'} : {tintColor: 'origin'}]}
                   />
                 </View>
               </Marker>

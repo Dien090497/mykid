@@ -206,7 +206,7 @@ export default {
   'location': 'Location: ',
   'coordinates': 'Coordinates: ',
   'safeArea': 'SAFETY ZONE',
-  'errorChooseDate': 'Không quá 30 ngày',
+  'errorChooseDate': 'Please use range between 3 months',
   'palaceHolderSafeZone': 'Add safety zone',
   'canNotDeleteSOS': 'Can\'t delete because there is only one SOS phone number',
 
