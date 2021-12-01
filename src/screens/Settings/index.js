@@ -116,6 +116,19 @@ export default ({navigation}) => {
         <Image source={Images.icInstallPosition} style={{width: 40, height: 40}} resizeMode={'stretch'}/>
       ),
     },
+    {
+      key: 'DisconnectClock',
+      title: t('common:header_disconnectClock'),
+      onPress: () => {
+        if (DataLocal.haveSim === '0') {
+          return refNotification.current.open(t('errorMsg:kwa4067'));
+        }
+        navigation.navigate(Consts.ScreenIds.DisconnectClock);
+      },
+      icon: (
+        <Image source={Images.icDisconnectClock} style={{width: 40, height: 40}} resizeMode={'stretch'}/>
+      ),
+    },
   ];
   const renderItem = ({item}) => {
     return (

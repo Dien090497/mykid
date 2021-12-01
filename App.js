@@ -168,11 +168,11 @@ export default function App() {
       } else if(notify && notify.type === 'VIDEO_CALL'){
         console.log("[App] onOpenNotification: VIDEO_CALL", notify)
         // startCall(notify.id,notify.relationship,notify.relationship);
-        onIncomingCallDisplayed(notify);
+        // onIncomingCallDisplayed(notify);
       }
     }
 
-    initCallKeep();
+    // initCallKeep();
     return () => {
       console.log("[App] unRegister")
       fcmService.unRegister()
