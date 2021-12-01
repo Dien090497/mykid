@@ -83,6 +83,7 @@ export default {
   'header_warning': 'Cảnh báo',
   'header_sms': 'SMS',
   'header_installPosition': 'Chế độ tiết kiệm pin',
+  'header_disconnectClock': 'Ngắt kết nối đồng hồ',
 
   // Codepush
   'codepushChecking': 'Đang kiểm tra bản cập nhật...',
@@ -327,6 +328,7 @@ export default {
   'changeAvatar': 'Đổi ảnh đại diện',
   'errorHeight': 'Chiều cao của bé không được vượt quá 200cm!',
   'errorWeight': 'Cân nặng của bé không được vượt quá 100kg!',
+  'phoneKids': 'Số điện thoại của bé',
 
   //ForgotPassWord
   'txtForgotPassWord1': '1.Xin vui lòng nhập số điện thoại hợp lệ để nhận mã xác minh.',

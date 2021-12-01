@@ -44,6 +44,9 @@ export const styles = StyleSheet.create({
     color: Colors.black,
     marginHorizontal: height * 0.007
   },
+  view: {
+    width: height * 0.04,
+  },
   image: {
     width: height * 0.04,
     height: height * 0.04
