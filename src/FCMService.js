@@ -72,7 +72,7 @@ class FCMService {
                 // if(convertMulLanguage(remoteMessage.data.type) !== ''){
                 //     notification.body = convertMulLanguage(remoteMessage.data.type);
                 // }
-                onOpenNotification(notification);
+                onNotification(notification);
                 // this.removeDeliveredNotification(notification.notificationId)
             }
         });
@@ -107,7 +107,7 @@ class FCMService {
                 // if(convertMulLanguage(remoteMessage.data.type) !== ''){
                 //     notification.body = convertMulLanguage(remoteMessage.data.type);
                 // }
-                onOpenNotification(notification);
+                onNotification(notification);
             }
         });
 
