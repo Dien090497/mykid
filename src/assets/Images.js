@@ -110,6 +110,7 @@ export default {
   icRestart: require('./images/ic_restart.png'),
   icInstallPosition: require('./images/ic_position.png'),
   icDisconnectClock: require('./images/ic_disconnectClock.png'),
+  icDisconnect:  require('./images/ic_disconnect.png'),
   //personal
   icPersonal: require('./images/ic_personal.png'),
   icChangePass: require('./images/ic_change_pass.png'),

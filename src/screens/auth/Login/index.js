@@ -37,6 +37,7 @@ const NAME_LANGUAGE = ['Việt Nam', 'English'];
 const Login = ({navigation}) => {
   const dispatch = useDispatch();
   const loggedInUserInfo = useSelector((state) => state.loginReducer.dataInfo);
+  const isLogout = useSelector((state) => state.loginReducer.isLogout);
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
   const [checkbox, setCheckbox] = useState(true);
@@ -52,10 +53,11 @@ const Login = ({navigation}) => {
     }
     onLoggedIn();
 
-  }, [loggedInUserInfo]);
+  }, [loggedInUserInfo, isLogout]);
 
+    console.log('isLogout',isLogout);
   const onLoggedIn = async () => {
-    if (loggedInUserInfo.id && checkbox) {
+    if (loggedInUserInfo.id && checkbox && !isLogout) {
       getListDeviceApi(loggedInUserInfo.id, Consts.pageDefault, 100, '', '', {
         success: resData => {
           onNavigate(resData);

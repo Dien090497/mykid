@@ -389,4 +389,7 @@ export default {
    '1_minute': 'Update every 1 min',
    '10_minute': 'Update every 10 min',
    '60_minute': 'Update every 1 hour',
+
+  //DisconnectClock
+  'alertDisconnectClock': 'All data and connection to the watch will be deleted. The watch will return to the state default. Are you sure you want to do it?'
 };
