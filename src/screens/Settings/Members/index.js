@@ -78,6 +78,7 @@ export default ({navigation, route}) => {
   const getListDevice = () => {
     getListDeviceApi(null, 0, 100, DataLocal.deviceId, '', {
       success: res => {
+        console.log('res',res)
         const adminMem = res.data.filter(val => val.admin === true);
         if (adminMem.length > 0) {
           setAdmin(adminMem[0]);
@@ -170,9 +171,9 @@ export default ({navigation, route}) => {
            </View>
            <View style={styles.info}>
              <View style={styles.textView}>
-               <Text style={styles.username}>{item.deviceName}</Text>
+               <Text style={styles.username}>{item.accountName}</Text>
                { item.accountId===DataLocal.userInfo.id? (
-                 <Text style={[styles.username, {color: Colors.red}]}>(tôi)</Text>
+                 <Text style={[styles.username, {color: Colors.red}]}>({t('common:me')})</Text>
                ): null}
              </View>
              <Text

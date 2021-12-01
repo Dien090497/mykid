@@ -10,12 +10,17 @@ import {
   getOtpReset,
   getVerificationOtp,
   UpdatePassword, createTokenFirebaseUrl,
+  logoutUrl
 } from "./http/ApiUrl";
 import { generateRandomId } from "../functions/utils";
 import { post, get, put } from "./http/HttpClient";
 
 export function loginService(body, autoShowMsg = true, refLoading = null, refNotification = null) {
   return post(loginUrl, { body, autoShowMsg, refLoading, refNotification });
+}
+
+export function logoutService({success, failure,autoShowMsg = true, refLoading = null, refNotification = null}) {
+  return post(logoutUrl, {success, failure,autoShowMsg, refLoading, refNotification });
 }
 
 export function createTokenFirebase(token, autoShowMsg = false, refLoading = null, refNotification = null) {

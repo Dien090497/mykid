@@ -82,7 +82,7 @@ export default {
   'header_remoteStart': 'Remote Restart',
   'header_warning': 'Alert Center',
   'header_sms': 'SMS',
-  'header_installPosition': 'Tracking Frequency',
+  'header_installPosition': 'Battery saver mode',
 
   // Codepush
   'codepushChecking': 'Checking...',
@@ -243,6 +243,7 @@ export default {
   'home_secretPhotoShoot': 'REMOTE PHOTO',
   'home_phone': 'CALL', // TO DO
   'home_sms': 'SMS',
+  'me': 'Me',
 
   //setting
   'setting_contact': 'Contacts',
@@ -251,9 +252,10 @@ export default {
   'device_connected_not_found': 'No connected device found',
   'call_busy': 'Busy',
   'call_back': 'Call back',
-  'alerfTurnOffDevice': 'Do you really want to turn off this device?',
-  'alerfRestartDevice': 'Are you sure you want to restart your device?',
+  'alertTurnOffDevice': 'Do you really want to turn off this device?',
+  'alertRestartDevice': 'Are you sure you want to restart your device?',
   'submitSuccess': 'Successfully!',
+  'alertLogout': 'Do you want to logout?',
 
   // find device
   'find_device_note0': 'Check device location anytime, anywhere.',
@@ -323,6 +325,8 @@ export default {
   'errorName': 'Baby name cannot be blank',
   'error_birthday': 'Invalid date',
   'changeAvatar': 'Change Avatar',
+  'errorHeight': 'Chiều cao của bé không được vượt quá 200cm!',
+  'errorWeight': 'Cân nặng của bé không được vượt quá 100kg!',
 
   //ForgotPassWord
   'txtForgotPassWord1': '1.Please enter a valid phone number to receive the verification code.',
@@ -373,13 +377,13 @@ export default {
   'calo': 'Calo',
   'error_health1': 'Step target must be greater than 0',
   'error_health2': 'Step target mustn\'t be more than 20000',
-  'textHealth': 'Distance and calories calculated based on baby\'s information',
-
+  'textHealth': 'Distance and calories are calculated based on the baby\'s information. Parents, please update your child\'s information correctly for accurate results',
+  'textRadio': 'Count steps',//to do
    //InstallPosition
    'on': 'Turn on',
    'off': 'Turn off',
    'turn_off_gps': 'On/off GPS tracking',
-   'cycle': 'Location cycle',
+   'cycle': 'Tracking frequency in gps',
    '1_minute': 'Update every 1 min',
    '10_minute': 'Update every 10 min',
    '60_minute': 'Update every 1 hour',

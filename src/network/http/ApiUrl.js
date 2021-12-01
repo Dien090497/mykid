@@ -14,6 +14,7 @@ export const wssXmppUrl = 'wss://' + appConfig.xmppServer + '/ws';
 
 // Account
 export const loginUrl = appUrl + '/auth/login';
+export const logoutUrl = appUrl + '/auth/logout';
 export const forgotPasswordUrl = appUrl + '/auth/password';
 export const createAccountUrl = appUrl + '/accounts';
 export const changePasswordUrl = appUrl + '/accounts/password';
