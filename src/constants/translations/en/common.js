@@ -385,7 +385,7 @@ export default {
    'on': 'Turn on',
    'off': 'Turn off',
    'turn_off_gps': 'On/off GPS tracking',
-   'cycle': 'Tracking frequency in gps',
+   'cycle': 'Tracking frequency in GPS',
    '1_minute': 'Update every 1 min',
    '10_minute': 'Update every 10 min',
    '60_minute': 'Update every 1 hour',

@@ -388,7 +388,7 @@ export default {
   'on': 'Bật',
   'off': 'Tắt',
   'turn_off_gps': 'Tắt bật định vị theo GPS',
-  'cycle': 'Chu kỳ định vị theo gps',
+  'cycle': 'Chu kỳ định vị theo GPS',
   '1_minute': '1 Phút',
   '10_minute': '10 Phút',
   '60_minute': '60 Phút',
