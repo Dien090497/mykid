@@ -85,7 +85,7 @@ export default ({navigation}) => {
       {
         success: resData => {
           if (!resData.data.content.length) {
-            refNotification.current.open(`${deviceInfo.deviceName} - ${t('common:history_empty')}`)
+            refNotification.current.open(t('common:history_empty'))
           } else {
             setListSafeArea(resData.data.content);
             const {lat, lng} = resData.data.content[0].location;
@@ -223,7 +223,7 @@ export default ({navigation}) => {
                   <Text>{i}</Text>
                   <Image
                     source={Images.icMarkerDefault}
-                    style={[styles.icMarker,val.type === 'GPS' ? {tintColor: 'blue'}: val.type === 'WIFI' ? {tintColor: 'yellow'} : {tintColor: 'origin'}]}
+                    style={[styles.icMarker,val.type === 'GPS' ? {tintColor: 'blue'}: val.type === 'WIFI' ? {tintColor: '#b900da'} : {tintColor: 'origin'}]}
                   />
                 </View>
               </Marker>

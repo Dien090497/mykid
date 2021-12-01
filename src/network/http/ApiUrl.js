@@ -14,6 +14,7 @@ export const wssXmppUrl = 'wss://' + appConfig.xmppServer + '/ws';
 
 // Account
 export const loginUrl = appUrl + '/auth/login';
+export const logoutUrl = appUrl + '/auth/logout';
 export const forgotPasswordUrl = appUrl + '/auth/password';
 export const createAccountUrl = appUrl + '/accounts';
 export const changePasswordUrl = appUrl + '/accounts/password';
@@ -89,6 +90,9 @@ export const checkAccount = appUrl + '/sims';
 
 // SMS
 export const smsUrl = appUrl + '/sms-messages';
+
+// InstallPosition
+export const positionModeuRL = appUrl + '/position-configs';
 
 /// url: string, obj: object
 export function assignUrlParams(url, obj) {

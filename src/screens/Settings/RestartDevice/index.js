@@ -40,7 +40,7 @@ export default function restartDevice({navigation}) {
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <TouchableOpacity
           onPress={() => {
-            refModel.current.open(t('common:alerfRestartDevice'), restartDevice);
+            refModel.current.open(t('common:alertRestartDevice'), restartDevice);
           }}
         >
           <Image source={Images.icRestart} resizeMode={'stretch'} style={{ width: 190, height: 190 }} />

@@ -125,11 +125,6 @@ export const styles = StyleSheet.create({
     aspectRatio: 1,
     resizeMode: 'stretch',
   },
-  icon1: {
-    height: height * 0.035,
-    aspectRatio: 1,
-    resizeMode: 'stretch',
-  },
   bgIcon: {
     width: height * 0.05,
     height: height * 0.05,

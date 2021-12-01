@@ -40,7 +40,7 @@ export default function OffDevice({navigation}) {
       <Header title={t('common:header_remoteDevices')}/>
      <View style={{flex:1, alignItems: 'center', justifyContent: 'center'}}>
        <TouchableOpacity
-         onPress={() => {refModel.current.open(t('common:alerfTurnOffDevice'), turnOffDevice); }}
+         onPress={() => {refModel.current.open(t('common:alertTurnOffDevice'), turnOffDevice); }}
        >
          <Image source={Images.icTurnOff} resizeMode={'stretch'} style={{width: 190, height: 190}}/>
        </TouchableOpacity>

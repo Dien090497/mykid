@@ -35,7 +35,9 @@ export const styles = StyleSheet.create({
   },
   textTop:{
     fontSize: FontSize.xxtraSmall,
-    color: Colors.colorHeader
+    color: Colors.colorHeader,
+    textAlign: 'center',
+    paddingHorizontal: 10
   },
   viewTop:{
     flexDirection:'row',
@@ -45,7 +47,7 @@ export const styles = StyleSheet.create({
     backgroundColor: 'rgba(240, 240, 240, 0.5)',
   },
   button: {
-    marginTop: 40,
+    marginTop: 15,
     marginBottom: 40,
     height: ScaleHeight.medium,
     backgroundColor: Colors.red,
@@ -88,6 +90,14 @@ export const styles = StyleSheet.create({
     justifyContent:'center',
     alignContent:'space-between'
   },
+  viewRadio: {
+    height: ScaleHeight.big,
+    alignItems:'center',
+    flexDirection: 'row',
+    width: '90%',
+    marginHorizontal: '5%',
+    marginBottom: -10
+  },
   rowDirection: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -102,13 +112,13 @@ export const styles = StyleSheet.create({
     height: 14,
     tintColor: '#B2B2B0',
     resizeMode: 'contain',
-    marginLeft: 30,
+    marginLeft: 35,
     flex:1,
   },
   viewSwitch: {
     flex: 1,
     alignItems: 'flex-end',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   txtTime: {
     fontSize: FontSize.big,

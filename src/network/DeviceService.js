@@ -1,4 +1,4 @@
-import { dele, get, path, post, upload } from "./http/HttpClient";
+import { dele, get, path, post, put } from "./http/HttpClient";
 import { deleteDeviceUrl, deviceUrl, listDeviceUrl, locationDeviceUrl } from "./http/ApiUrl";
 import Consts from "../functions/Consts";
 import { Platform } from "react-native";
@@ -62,13 +62,15 @@ export function editDeviceApi(
   relationshipName,
   { success, failure, autoShowMsg = true, refLoading = null, refNotification = null } = {},
 ) {
-  const formData = new FormData();
-  formData.append("deviceName", deviceName);
-  formData.append("icon", icon);
-  formData.append("relationship", relationship);
-  relationshipName ? formData.append("relationshipName", relationshipName) : null;
+  let body = {
+    id,
+    deviceName,
+    icon,
+    relationship,
+    relationshipName,
+  };  
   const url = [listDeviceUrl, id].join("/");
-  return upload(url, formData, { success, failure, autoShowMsg, refLoading, refNotification });
+  return put(url, { body,success, failure, autoShowMsg, refLoading, refNotification });
 }
 
 export function getLocationDeviceApi(
