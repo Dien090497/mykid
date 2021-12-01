@@ -59,6 +59,7 @@ export default function Health({ navigation }) {
       }, {
         success: res => {
           setTracking(res.data);
+          console.log('ress', res);
         },
         refLoading,
         refNotification,

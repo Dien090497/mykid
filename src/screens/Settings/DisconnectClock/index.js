@@ -12,6 +12,8 @@ import DataLocal from "../../../data/dataLocal";
 import Consts from "../../../functions/Consts";
 import ModalConfirm from "../../../components/ModalConfirm";
 import LoadingIndicator from "../../../components/LoadingIndicator";
+import NotificationModal from "../../../components/NotificationModal";
+import {disconnectClockApi} from "../../../network/DeviceService";
 
 export default function DisconnectClock({navigation}) {
   const { t } = useTranslation();
@@ -19,8 +21,14 @@ export default function DisconnectClock({navigation}) {
   const refLoading = useRef();
   const refNotification = useRef();
 
-  const disconnectClock= () => {
+  const disconnectClock = () => {
+    disconnectClockApi(DataLocal.deviceId, {
+      success: res => {
 
+      },
+      refNotification,
+      refLoading
+    });
   }
 
   const gotoHomeScreen = () => {
@@ -41,6 +49,7 @@ export default function DisconnectClock({navigation}) {
         <Image source={Images.icDisconnect} style={{width: '50%'}} resizeMode={'center'}/>
       </TouchableOpacity>
       <ModalConfirm ref={refModel} />
+      <NotificationModal ref={refNotification} goBack={gotoHomeScreen}/>
       <LoadingIndicator  ref={refLoading} />
     </View>
   );

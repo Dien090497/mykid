@@ -94,6 +94,9 @@ export const smsUrl = appUrl + '/sms-messages';
 // InstallPosition
 export const positionModeuRL = appUrl + '/position-configs';
 
+//DisconnectClock
+export const disconnectUrl = appUrl + '/devices';
+
 /// url: string, obj: object
 export function assignUrlParams(url, obj) {
   if (!obj) {
