@@ -21,6 +21,9 @@ import {logoutService} from '../../network/UserInfoService'
 import LoadingIndicator from "../../components/LoadingIndicator";
 import NotificationModal from "../../components/NotificationModal";
 import ModalConfirm from "../../components/ModalConfirm";
+import reduxStore from "../../redux/config/redux";
+import commonInfoAction from "../../redux/actions/commonInfoAction";
+import loginAction, {logout} from "../../redux/actions/loginAction";
 
 const {width} = Dimensions.get('window');
 export default function Profile({navigation}) {
@@ -76,6 +79,7 @@ export default function Profile({navigation}) {
   const handleLogout = () => {
     logoutService({
       success: res => {
+        reduxStore.store.dispatch(loginAction.logout(true));
         DataLocal.removeAll();
         XmppClient.disconnectXmppServer();
         WebSocketSafeZone.disconnect();

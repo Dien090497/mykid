@@ -70,7 +70,7 @@ export const styles = StyleSheet.create({
     paddingVertical: 5,
     borderRadius: 10,
     marginHorizontal: 5,
-    marginVertical: 10,
+    marginVertical: '1.5%',
     backgroundColor: Colors.white,
     shadowColor: 'rgba(25,25,25, 0.5)',
     shadowOffset: {
@@ -96,7 +96,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '90%',
     marginHorizontal: '5%',
-    marginBottom: -10
+    marginBottom: '-1.5%'
   },
   rowDirection: {
     flexDirection: 'row',
