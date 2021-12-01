@@ -60,7 +60,8 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: FontSize.xxxtraBig * 2.5,
     fontFamily: 'Roboto',
-    color: '#EE0033'
+    color: '#EE0033',
+    maxWidth: '50%'
   },
   btnSubmit: {
     backgroundColor: '#EE0033',

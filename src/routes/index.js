@@ -56,6 +56,7 @@ import SMSDetail from '../screens/SMS/SMSDetail'
 import {createStackNavigator} from '@react-navigation/stack';
 import LanguageTimeZone from '../screens/Profile/LanguageTimeZone';
 import OffDevice from '../screens/Settings/OffDevice';
+import DisconnectClock from '../screens/Settings/DisconnectClock';
 import InstallPosition from '../screens/Settings/InstallPosition';
 import StartDevice from '../screens/Settings/RestartDevice';
 import EditDevice from '../screens/Profile/DeviceManager/EditDevice'
@@ -391,6 +392,10 @@ function Routes ({},ref){
         <Stack.Screen
           name={Consts.ScreenIds.JourneyHistory}
           component={JourneyHistory}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.DisconnectClock}
+          component={DisconnectClock}
         />
       </Stack.Navigator>
     </NavigationContainer>

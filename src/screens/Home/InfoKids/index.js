@@ -86,7 +86,7 @@ export default function InfoKits({route}) {
     },
     {
       id: '6',
-      name: t('common:placeholderPhone'),
+      name: t('common:phoneKids'),
       textName: (phone && phone.startsWith('+84') && '0' + phone.substring(3)),
     },
     {
@@ -299,7 +299,9 @@ export default function InfoKits({route}) {
                       resizeMode={'contain'}
                     />
                   </TouchableOpacity>
-                ): null}
+                ): (
+                  <View style={styles.view}/>
+                )}
               </View>
             </View>
         ):(

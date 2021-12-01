@@ -39,7 +39,7 @@ const Login = ({navigation}) => {
   const loggedInUserInfo = useSelector((state) => state.loginReducer.dataInfo);
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
-  const [checkbox, setCheckbox] = useState(false);
+  const [checkbox, setCheckbox] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [indexLanguage, setIndexLanguage] = useState(0);
   const refLoading = useRef();

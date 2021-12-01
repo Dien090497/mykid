@@ -20,6 +20,7 @@ import WebSocketCheckSim from '../../../network/socket/WebSocketCheckSim';
 import {useTranslation} from 'react-i18next';
 import NotificationModal from '../../../components/NotificationModal';
 import { checkLocationPermission } from '../../../functions/permissions';
+import {logoutService} from "../../../network/UserInfoService";
 
 export default function HomeMainScreen() {
   const navigation = useNavigation();
@@ -56,6 +57,14 @@ export default function HomeMainScreen() {
 
   useEffect(() => {
     if (logout) {
+      logoutService({
+        success: res => {
+          DataLocal.removeAll();
+          XmppClient.disconnectXmppServer();
+          WebSocketSafeZone.disconnect();
+          WebSocketVideoCall.disconnect();
+        }
+      })
       navigation.replace(Consts.ScreenIds.Login);
     }
   }, [logout]);

@@ -74,6 +74,7 @@ const ScreenIds = {
   Members: 'Members',
   InfoKits: 'InfoKits',
   InstallPosition: 'InstallPosition',
+  DisconnectClock: 'DisconnectClock',
 
   //Maps
   Maps: 'Maps',
