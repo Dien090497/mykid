@@ -31,6 +31,7 @@ export default function Health({ navigation }) {
   const { t } = useTranslation();
   const [data, setData] = useState(null);
   const [tracking, setTracking] = useState(null);
+  const [isRadio, setIsRadio] = useState(false);
 
   useLayoutEffect(() => {
     getData();
@@ -166,7 +167,20 @@ export default function Health({ navigation }) {
             <Text style={[styles.subTxtTop, {color: Colors.blueHealth}]}>{t('common:calo')}</Text>
           </View>
         </View>
-        {data && data.map((obj, i) => (
+        <View style={styles.viewRadio}>
+            <Text style={styles.txtAddTime}>{t('common:textRadio')}</Text>
+          <View style={[styles.viewSwitch, {position: 'absolute', right: 10}]}>
+            <Switch
+              trackColor={{false: '#8E8E93', true: Colors.colorMain}}
+              thumbColor={Colors.white}
+              onValueChange={() => {
+                  setIsRadio(!isRadio)
+              }}
+              value={isRadio}
+            />
+          </View>
+        </View>
+        {isRadio && data && data.map((obj, i) => (
           <View key={i} style={styles.viewItem}>
             <TouchableOpacity style={styles.viewText} onPress={() => {
               setTimeItem(obj, i)

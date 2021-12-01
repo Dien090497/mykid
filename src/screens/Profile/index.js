@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {
   View,
   Image,
@@ -8,7 +8,6 @@ import {
 import {styles} from './styles';
 import Header from '../../components/Header';
 import Images from '../../assets/Images';
-import {String} from '../../assets/strings/String';
 import Consts, {FontSize} from '../../functions/Consts';
 import DataLocal from '../../data/dataLocal';
 import CustomIcon from '../../components/VectorIcons';
@@ -18,10 +17,17 @@ import XmppClient from '../../network/xmpp/XmppClient';
 import WebSocketVideoCall from '../../network/socket/WebSocketVideoCall';
 import WebSocketSafeZone from '../../network/socket/WebSocketSafeZone';
 import { useTranslation } from "react-i18next";
+import {logoutService} from '../../network/UserInfoService'
+import LoadingIndicator from "../../components/LoadingIndicator";
+import NotificationModal from "../../components/NotificationModal";
+import ModalConfirm from "../../components/ModalConfirm";
 
-const {width,height} = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 export default function Profile({navigation}) {
   const { t } = useTranslation();
+  const refModel = useRef();
+  const refLoading = useRef();
+  const refNotification = useRef();
 
   const dataProfile = [
     {
@@ -58,7 +64,7 @@ export default function Profile({navigation}) {
       key: 'LogOut',
       title: t('common:logout'),
       onPress: () => {
-        handleLogout();
+        onModal();
       },
       icon: (
         <Image source={Images.icLogout} style={{width: 40, height: 40}}/>
@@ -67,15 +73,26 @@ export default function Profile({navigation}) {
 
   ];
 
-  const handleLogout = async () => {
-    await DataLocal.removeAll();
-    await XmppClient.disconnectXmppServer();
-    WebSocketSafeZone.disconnect();
-    WebSocketVideoCall.disconnect();
-    navigation.replace(Consts.ScreenIds.Login);
+  const handleLogout = () => {
+    logoutService({
+      success: res => {
+        DataLocal.removeAll();
+        XmppClient.disconnectXmppServer();
+        WebSocketSafeZone.disconnect();
+        WebSocketVideoCall.disconnect();
+        navigation.replace(Consts.ScreenIds.Login);
+      },
+      refLoading,
+      refNotification
+    })
   };
 
-  const renderItem = ({item}) => {
+  const onModal = () => {
+    refModel.current.open(t('common:alertLogout'), handleLogout);
+}
+
+
+const renderItem = ({item}) => {
     return (
       <TouchableOpacity
         activeOpacity={0.5}
@@ -97,14 +114,6 @@ export default function Profile({navigation}) {
     );
   };
 
-  const gotoHomeScreen = () => {
-    if (DataLocal.haveSim === '0') {
-      DataLocal.saveHaveSim('1').then(r =>
-        navigation.navigate(Consts.ScreenIds.Tabs)
-      );
-    }
-  }
-
   return (
     <View
       style={[styles.container, {paddingBottom: useSafeAreaInsets().bottom}]}>
@@ -116,6 +125,9 @@ export default function Profile({navigation}) {
           keyExtractor={item => item.key}
         />
       </View>
+      <ModalConfirm ref={refModel} />
+      <LoadingIndicator ref={refLoading} />
+      <NotificationModal ref={refNotification} />
     </View>
   );
 }

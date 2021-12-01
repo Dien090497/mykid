@@ -82,7 +82,7 @@ export default {
   'header_remoteStart': 'Khởi động lại từ xa',
   'header_warning': 'Cảnh báo',
   'header_sms': 'SMS',
-  'header_installPosition': 'Chu kỳ định vị',
+  'header_installPosition': 'Chế độ tiết kiệm pin',
 
   // Codepush
   'codepushChecking': 'Đang kiểm tra bản cập nhật...',
@@ -221,6 +221,7 @@ export default {
   'listSOS': 'Danh sách SOS',
   'listMember': 'Danh bạ thiết bị',
   'chooseSOS': 'Chọn số SOS',
+  'me': 'Tôi',
 
 
   //home
@@ -251,9 +252,10 @@ export default {
   'device_connected_not_found': 'Không tìm thấy thiết bị kết nối',
   'call_busy': 'Người dùng bận',
   'call_back': 'Gọi lại',
-  'alerfTurnOffDevice': 'Bạn thực sự muốn tắt thiết bị này ?',
-  'alerfRestartDevice': 'Bạn có chắc chắn muốn khởi động thiết bị của mình không ?',
+  'alertTurnOffDevice': 'Bạn thực sự muốn tắt thiết bị này?',
+  'alertRestartDevice': 'Bạn có chắc chắn muốn khởi động thiết bị của mình không?',
   'submitSuccess': 'Gửi thành công!',
+  'alertLogout': 'Bạn có chắc chắn muốn đăng xuất không?',
 
   // find device
   'find_device_note0': 'Kiểm tra vị trí thiết bị mọi lúc, mọi nơi.',
@@ -323,6 +325,8 @@ export default {
   'error_birthday': 'Ngày sinh của bé khộng hợp lệ',
   'errorName': 'Tên bé không được để trống',
   'changeAvatar': 'Đổi ảnh đại diện',
+  'errorHeight': 'Chiều cao của bé không được vượt quá 200cm!',
+  'errorWeight': 'Cân nặng của bé không được vượt quá 100kg!',
 
   //ForgotPassWord
   'txtForgotPassWord1': '1.Xin vui lòng nhập số điện thoại hợp lệ để nhận mã xác minh.',
@@ -374,13 +378,15 @@ export default {
   'calo': 'Calo',
   'error_health1': 'Số bước chân mục tiêu phải lớn hơn 0',
   'error_health2': 'Số bước chân mục tiêu lớn hơn 20.000 bước',
-  'textHealth': 'Quãng đường và Calo tính tương đối dựa theo thông tin của bé',
+  'textHealth': 'Quãng đường và calo tính tương đối dựa theo thông tin của bé.' +
+    ' Phụ huynh vui lòng cập nhật đúng thông tin của bé để có kết quả chính xác',
+  'textRadio': 'Đếm bước chân',
 
   //InstallPosition
   'on': 'Bật',
   'off': 'Tắt',
   'turn_off_gps': 'Tắt bật định vị theo GPS',
-  'cycle': 'Chu kì định vị',
+  'cycle': 'Chu kỳ định vị theo gps',
   '1_minute': '1 Phút',
   '10_minute': '10 Phút',
   '60_minute': '60 Phút',
