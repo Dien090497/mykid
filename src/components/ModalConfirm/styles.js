@@ -37,7 +37,7 @@ export const styles = StyleSheet.create ({
   tobModal: {
     flexDirection: 'column',
     width: '85%',
-    height: '25%',
+    height: '27%',
     backgroundColor: Colors.white,
     borderRadius: 10,
     justifyContent: 'center',
