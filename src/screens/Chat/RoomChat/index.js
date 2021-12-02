@@ -410,59 +410,40 @@ export default function RoomChat({navigation, route}) {
                 <FastImage source={getIcon(obj)} style={styles.icAvatar} resizeMode={FastImage.resizeMode.stretch} />
               </View>
               <View style={styles.viewContent}>
-                { (!isMe(obj) || roomInfo.type !== 'FAMILY') &&
-                  <Text style={[styles.txtTitle, isMe(obj) ? {textAlign: 'right'} : {}]}>{getName(obj)}</Text>
-                }
+                {(!isMe(obj) || roomInfo.type !== 'FAMILY') &&
+                <Text style={[styles.txtTitle, isMe(obj) ? { textAlign: 'right' } : {}]}>{getName(obj)}</Text>}
                 {obj.type !== 'image' &&
-                <View style={{flexDirection: !isMe(obj) ? 'row' : 'row-reverse'}}>
-                    <View style={[styles.viewContentDetail, !isMe(obj) ? {} : {backgroundColor: Colors.pinkBgMsg}]}>
-                      {isMe(obj) ? <View style={{flexDirection: 'row'}}>
-                        {obj.duration &&
-                        <View  style={{ alignItems: 'flex-end', justifyContent: 'flex-end'}}>
-                          <Text style={{marginHorizontal:5}}>{obj.duration+'"'}</Text>
-                        </View>}
-                          {obj.type === 'audio' &&
-                          <TouchableOpacity onPress={() => {togglePlay(obj, i)}}>
-                            <FastImage
-                              source={!isMe(obj) ? (indexPlaying === i ? Images.aAudioLeft : Images.icAudioLeft) : (indexPlaying === i ? Images.aAudioRight : Images.icAudioRight)}
-                              resizeMode={FastImage.resizeMode.cover}
-                              style={styles.icAudio}
-                            />
-                          </TouchableOpacity>}
-                        </View> : <View style={{flexDirection: 'row'}}>
-                        {obj.type === 'audio' &&
-                        <TouchableOpacity onPress={() => {togglePlay(obj, i)}}>
-                          <FastImage
-                            source={!isMe(obj) ? (indexPlaying === i ? Images.aAudioLeft : Images.icAudioLeft) : (indexPlaying === i ? Images.aAudioRight : Images.icAudioRight)}
-                            resizeMode={FastImage.resizeMode.cover}
-                            style={styles.icAudio}
-                          />
-                        </TouchableOpacity>}
-                        {obj.duration &&
-                        <View  style={{ alignItems: 'flex-end', justifyContent: 'flex-end'}}>
-                          <Text style={{marginHorizontal:5}}>{obj.duration+'"'}</Text>
-                        </View>}
-                      </View>}
-                      {obj.type === 'text' &&
-                      <Text style={styles.textBody}>{obj.body}</Text>
-                      }
-                      <Text style={styles.textTime}>{obj.time}</Text>
+                <View style={{ flexDirection: !isMe(obj) ? 'row' : 'row-reverse' }}>
+                  <View style={[styles.viewContentDetail, !isMe(obj) ? {} : { backgroundColor: Colors.pinkBgMsg }]}>
+                    <View style={{ flexDirection: 'row' }}>
+                      {obj.type === 'audio' &&
+                      <TouchableOpacity onPress={() => {
+                        togglePlay(obj, i);}}>
+                        <FastImage
+                          source={!isMe(obj) ? (indexPlaying === i ? Images.aAudioLeft : Images.icAudioLeft) : (indexPlaying === i ? Images.aAudioRight : Images.icAudioRight)}
+                          resizeMode={FastImage.resizeMode.cover}
+                          style={styles.icAudio} />
+                      </TouchableOpacity>}
+                      {!!obj.duration && <View style={{alignItems: 'flex-end', justifyContent:'flex-end'}}><Text>{obj.duration.toString() + '"'}</Text></View>}
                     </View>
+                    {obj.type === 'text' && <Text style={styles.textBody}>{obj.body}</Text>}
+                    <Text style={styles.textTime}>{obj.time}</Text>
                   </View>
-                }
+                </View>}
                 {obj.type === 'image' &&
                 <Tooltip toggleAction={'onLongPress'} popover={
                   <View style={styles.viewTooltip}
-                    onStartShouldSetResponder={(e) => {
-                      saveImage(obj);
-                      return false;
-                    }}>
+                        onStartShouldSetResponder={(e) => {
+                          saveImage(obj);
+                          return false;
+                        }}>
                     <Text>{t('common:savePicture')}</Text>
                   </View>
                 }>
-                  <View style={{flexDirection: !isMe(obj) ? 'row' : 'row-reverse'}}>
-                    <View style={[styles.viewContentDetail, !isMe(obj) ? {} : {backgroundColor: Colors.pinkBgMsg}]}>
-                      <FastImage resizeMode={FastImage.resizeMode.cover} source={{uri: obj.body}} style={styles.icPhoto}/>
+                  <View style={{ flexDirection: !isMe(obj) ? 'row' : 'row-reverse' }}>
+                    <View style={[styles.viewContentDetail, !isMe(obj) ? {} : { backgroundColor: Colors.pinkBgMsg }]}>
+                      <FastImage resizeMode={FastImage.resizeMode.cover} source={{ uri: obj.body }}
+                                 style={styles.icPhoto} />
                       <Text style={styles.textTime}>{obj.time}</Text>
                     </View>
                   </View>
