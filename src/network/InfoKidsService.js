@@ -32,7 +32,8 @@ export function setInfoKitsApi (
       uri: Platform.OS === "android" ? body.avatar : body.avatar.replace("file://", "/"),
       type: "image/jpeg",
       name: "123",
-    })};
+    })}
+  formData.append("isdn", body.phone);
   const url = [InfoKids, deviceId].join('/');
   return upload2(url, formData, {success, failure, autoShowMsg, refLoading, refNotification });
 }

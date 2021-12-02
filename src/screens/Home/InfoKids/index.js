@@ -43,6 +43,7 @@ export default function InfoKits({route}) {
   const [birthdays, setBirthday] = useState('');
   const [weights, setWeight] = useState(0);
   const [heights, setHeight] = useState(0);
+  const [phone, setPhone] = useState();
   const [date, setDate] = useState(new Date());
   const [check, setCheck] = useState(false);
   const [disableTob, setDisableTob] = useState(false);
@@ -85,6 +86,11 @@ export default function InfoKits({route}) {
     },
     {
       id: '6',
+      name: t('common:phoneKids'),
+      textName: (phone && phone.startsWith('+84') && '0' + phone.substring(3)),
+    },
+    {
+      id: '7',
       name: t('common:save')
     }
   ];
@@ -98,10 +104,6 @@ export default function InfoKits({route}) {
     getInfo();
   }, []);
 
-  // useLayoutEffect(() => {
-  //   setAvatar(route.params.avatar);
-  // },[]);
-
   const getInfo = () => {
     getInfoApi(DataLocal.deviceId, {
       success: res => {
@@ -111,6 +113,7 @@ export default function InfoKits({route}) {
         setGender(res.data.gender);
         setWeight(res.data.weight);
         setHeight(res.data.height);
+        setPhone(res.data.isdn);
       },
       refLoading: refLoading,
       refNotification: refNotification,
@@ -127,10 +130,18 @@ export default function InfoKits({route}) {
       if( heights !== res) {
         setDisableTob(true);
       }
+      if (parseInt(res) > 200) {
+        refNotification.current.open(t('common:errorHeight'));
+        return;
+      }
       setHeight(parseInt(res));
     } else {
       if( weights !== res) {
         setDisableTob(true);
+      }
+      if (parseInt(res) > 100) {
+        refNotification.current.open(t('common:errorWeight'));
+        return;
       }
       setWeight(parseInt(res));
     }
@@ -158,7 +169,8 @@ export default function InfoKits({route}) {
       gender,
       height,
       name,
-      weight
+      weight,
+      phone
     }
     if (name === '') {
       refNotification.current.open(t('common:errorName'));
@@ -263,31 +275,35 @@ export default function InfoKits({route}) {
   const renderFlatlist = (itemFlatlist) => {
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        {itemFlatlist.item.id !== '6' ? (
-          <View style={styles.tobMain}>
-            <Text style={styles.text}> {itemFlatlist.item.name} </Text>
-            <View style={styles.viewImage}>
-              <Text
-                style={
-                  [styles.text, {
-                    color: 'rgba(181, 180, 180, 1)',
-                    fontSize: 12
-                  }]}>
-                {itemFlatlist.item.textName}
-              </Text>
-              <TouchableOpacity
-                onPress={() => {
-                  OnMoDal(itemFlatlist)
-                }}
-              >
-                <Image
-                  source={Images.icEditProfile}
-                  style={styles.image}
-                  resizeMode={'contain'}
-                />
-              </TouchableOpacity>
+        {itemFlatlist.item.id !== '7' ? (
+            <View style={styles.tobMain}>
+              <Text style={styles.text}> {itemFlatlist.item.name} </Text>
+              <View style={styles.viewImage}>
+                <Text
+                  style={
+                    [styles.text, {
+                      color: 'rgba(181, 180, 180, 1)',
+                      fontSize: 12
+                    }]}>
+                  {itemFlatlist.item.textName}
+                </Text>
+                { itemFlatlist.item.id !== '6'? (
+                  <TouchableOpacity
+                    onPress={() => {
+                      OnMoDal(itemFlatlist)
+                    }}
+                  >
+                    <Image
+                      source={Images.icEditProfile}
+                      style={styles.image}
+                      resizeMode={'contain'}
+                    />
+                  </TouchableOpacity>
+                ): (
+                  <View style={styles.view}/>
+                )}
+              </View>
             </View>
-          </View>
         ):(
           <TouchableOpacity
             style={(!disableTob ? [styles.tobViewMain , {backgroundColor: 'rgba(181, 180, 180, 1)'}]: styles.tobViewMain)}
@@ -306,7 +322,7 @@ export default function InfoKits({route}) {
       <TouchableOpacity
         style={{
           width: '100%',
-          height: '28%',
+          height: '24%',
           justifyContent: 'center',
           alignItems: 'center',
         }}

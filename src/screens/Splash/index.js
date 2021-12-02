@@ -4,7 +4,6 @@ import {
   Text
 } from 'react-native';
 import {styles} from './styles';
-import {String} from '../../assets/strings/String';
 import Consts from '../../functions/Consts';
 import {useNavigation} from '@react-navigation/core';
 import {appStatusBar} from '../../components/CommonUIComponents';
