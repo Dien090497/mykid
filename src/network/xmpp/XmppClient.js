@@ -334,23 +334,14 @@ export default class XmppClient {
           isShowDate: isShowDate,
         }
         if (msg.type === "audio"){
-          const appendExt = msg.body.split('.');
-          RNFetchBlob
-            .config({
-              fileCache : true,
-              appendExt : appendExt[appendExt.length - 1]
-            })
-            .fetch('GET', msg.body)
-            .then((res) => {
-              const whoosh = new Sound("file://" + res.path(), Sound.MAIN_BUNDLE, (error) => {
-                if (error) {
-                  console.log("failed to load the sound", error);
-                  return;
-                }
-                msg.duration = Math.round(whoosh.getDuration());
-              });
-              RNFetchBlob.fs.unlink("file://" + res.path()).catch(error => console.log('Unlink error - ',error))
-            })
+          const whoosh = new Sound(msg.body, '', (error) => {
+            if (error) {
+              console.log("failed to load the sound", error);
+              return;
+            }
+            msg.duration = Math.round(whoosh.getDuration());
+          });
+          whoosh.release();
         }
         this.lstMsg[fromSplit[0]].push(msg)
       }
@@ -359,7 +350,6 @@ export default class XmppClient {
     // msg
     let body = stanza.getChildText('body');
     if (body) {
-      console.log(body);
       const fromSplit = stanza.attrs.from.split('/');
       if (!this.lstMsg[fromSplit[0]]) {
         this.lstMsg[fromSplit[0]] = [];
@@ -378,31 +368,18 @@ export default class XmppClient {
           isShowDate: isShowDate
         };
         if (msg.type === 'audio'){
-          console.log('audio')
-          const appendExt = bodySplit[bodySplit.length - 1].split('.');
-          RNFetchBlob
-            .config({
-              fileCache : true,
-              appendExt : appendExt[appendExt.length - 1]
-            })
-            .fetch('GET', msg.body)
-            .then((res) => {
-              const whoosh = new Sound("file://" + res.path(), Sound.MAIN_BUNDLE, (error) => {
-                if (error) {
-                  console.log("failed to load the sound", error);
-                  return;
-                }
-                console.log('duration')
-                msg.duration = Math.round(whoosh.getDuration());
-                this.lstMsg[fromSplit[0]].push(msg);
-                this.saveLastMsg(fromSplit[0], msg);
-                reduxStore.store.dispatch(chatAction.updateMessage(this.lstMsg));
-              });
-              RNFetchBlob.fs.unlink("file://" + res.path()).catch(error => console.log('Unlink error - ', error))
+          const whoosh = new Sound(msg.body, '', (error) => {
+            if (error) {
+              console.log("failed to load the sound", error);
+              return;
             }
-          )
+            msg.duration = Math.round(whoosh.getDuration());
+            this.lstMsg[fromSplit[0]].push(msg);
+            this.saveLastMsg(fromSplit[0], msg);
+            reduxStore.store.dispatch(chatAction.updateMessage(this.lstMsg));
+          });
+          whoosh.release();
         }else {
-          console.log('123');
           this.lstMsg[fromSplit[0]].push(msg);
           this.saveLastMsg(fromSplit[0], msg);
           reduxStore.store.dispatch(chatAction.updateMessage(this.lstMsg));
