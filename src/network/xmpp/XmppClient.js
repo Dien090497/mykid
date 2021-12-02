@@ -10,6 +10,7 @@ const debug = require('@xmpp/debug');
 import reduxStore from '../../redux/config/redux';
 import Sound from 'react-native-sound';
 import SimpleToast from 'react-native-simple-toast';
+import RNFetchBlob from "react-native-fetch-blob";
 
 export default class XmppClient {
   static lstMsg = {};
@@ -51,7 +52,7 @@ export default class XmppClient {
         id: 'KAQWV-' + generateRandomId(),
         type: 'get',
         to: 'mykid.ttc.software'
-      }, xml('ping', 
+      }, xml('ping',
         {
           xmlns: 'urn:xmpp:ping'
         }
@@ -155,7 +156,7 @@ export default class XmppClient {
   static async sendMessage(typeMsg, msg) {
     //typeMsg: text | audio | image
     const content = [typeMsg, msg].join('|');
-    let message = xml('message', { 
+    let message = xml('message', {
         type: 'groupchat',
         to: this.currentRoomId
       },
@@ -166,16 +167,16 @@ export default class XmppClient {
   }
 
   static async getHistory(flagTime) {
-    let message = xml('iq', 
+    let message = xml('iq',
       {
         id: generateRandomId() + ':history',
         type: 'set',
         to: this.currentRoomId
-      }, xml('query', 
+      }, xml('query',
         {
           xmlns: 'urn:xmpp:mam:2',
           queryid: generateRandomId() + ':queryid'
-        }, xml('x', 
+        }, xml('x',
           {
             type: 'submit',
             xmlns: 'jabber:x:data'
@@ -197,7 +198,7 @@ export default class XmppClient {
             xmlns: 'http://jabber.org/protocol/rsm'
           }, xml('before',
             {},
-          ), xml('max', 
+          ), xml('max',
             {}, '100'
           ),
         ),
@@ -219,7 +220,7 @@ export default class XmppClient {
         id: generateRandomId() + ':sendIQ',
         type: 'get',
         to: 'upload.mykid.ttc.software'
-      }, xml('request', 
+      }, xml('request',
         {
           'content-type': file._bodyBlob._data.type,
           filename: file._bodyBlob._data.name,
@@ -284,7 +285,7 @@ export default class XmppClient {
       }
     }
 
-{/* 
+{/*
   <iq xmlns="jabber:client" xml:lang="en" to="196@mykid.ttc.software/11572907895786457476399748" from="7304424985@conference.mykid.ttc.software/196@mykid.ttc.software" type="error" id="imt3cO0MeB:ping">
 <ping xmlns="urn:xmpp:ping"/>
 <error code="406" type="modify"><not-acceptable xmlns="urn:ietf:params:xml:ns:xmpp-stanzas"/><text xml:lang="en" xmlns="urn:ietf:params:xml:ns:xmpp-stanzas">Only occupants are allowed to send queries to the conference</text></error></iq> */}
@@ -302,7 +303,7 @@ export default class XmppClient {
       return;
     }
     if (!stanza.is('message')) return;
-  
+
     // mam result
     const result = stanza.getChild('result', 'urn:xmpp:mam:2');
     if (result) {
@@ -311,7 +312,7 @@ export default class XmppClient {
       const delay = forwarded.getChild('delay', 'urn:xmpp:delay');
       const message = forwarded.getChild('message');
       if (!message) return;
-  
+
       const time = delay?.attrs.stamp ? new Date(delay?.attrs.stamp) : new Date();
       let body = message.getChildText('body');
       const fromSplit = message.attrs.from.split('/');
@@ -324,19 +325,38 @@ export default class XmppClient {
         const length = this.lstMsg[fromSplit[0]].length;
         let date = time.toLocaleDateString();
         let isShowDate = (length === 0 || this.lstMsg[fromSplit[0]][length - 1].date !== date);
-        
-        this.lstMsg[fromSplit[0]].push({
+        const msg = {
           from: bodySplit.length > 2 ? bodySplit[1]: fromSplit[1],
           body: bodySplit[bodySplit.length - 1],
           type: bodySplit[0],
           time: time.toLocaleTimeString(),
           date: date,
-          isShowDate: isShowDate
-        })
+          isShowDate: isShowDate,
+        }
+        if (msg.type === "audio"){
+          const appendExt = msg.body.split('.');
+          RNFetchBlob
+            .config({
+              fileCache : true,
+              appendExt : appendExt[appendExt.length - 1]
+            })
+            .fetch('GET', msg.body)
+            .then((res) => {
+              const whoosh = new Sound("file://" + res.path(), Sound.MAIN_BUNDLE, (error) => {
+                if (error) {
+                  console.log("failed to load the sound", error);
+                  return;
+                }
+                msg.duration = Math.round(whoosh.getDuration());
+              });
+              RNFetchBlob.fs.unlink("file://" + res.path()).catch(error => console.log('Unlink error - ',error))
+            })
+        }
+        this.lstMsg[fromSplit[0]].push(msg)
       }
     }
 
-    // msg 
+    // msg
     let body = stanza.getChildText('body');
     if (body) {
       console.log(body);
@@ -357,8 +377,36 @@ export default class XmppClient {
           date: date,
           isShowDate: isShowDate
         };
-        this.lstMsg[fromSplit[0]].push(msg);
-        this.saveLastMsg(fromSplit[0], msg);
+        if (msg.type === 'audio'){
+          console.log('audio')
+          const appendExt = bodySplit[bodySplit.length - 1].split('.');
+          RNFetchBlob
+            .config({
+              fileCache : true,
+              appendExt : appendExt[appendExt.length - 1]
+            })
+            .fetch('GET', msg.body)
+            .then((res) => {
+              const whoosh = new Sound("file://" + res.path(), Sound.MAIN_BUNDLE, (error) => {
+                if (error) {
+                  console.log("failed to load the sound", error);
+                  return;
+                }
+                console.log('duration')
+                msg.duration = Math.round(whoosh.getDuration());
+                this.lstMsg[fromSplit[0]].push(msg);
+                this.saveLastMsg(fromSplit[0], msg);
+                reduxStore.store.dispatch(chatAction.updateMessage(this.lstMsg));
+              });
+              RNFetchBlob.fs.unlink("file://" + res.path()).catch(error => console.log('Unlink error - ', error))
+            }
+          )
+        }else {
+          console.log('123');
+          this.lstMsg[fromSplit[0]].push(msg);
+          this.saveLastMsg(fromSplit[0], msg);
+          reduxStore.store.dispatch(chatAction.updateMessage(this.lstMsg));
+        }
 
         if (msg.from !== `${DataLocal.userInfo.id}@${AppConfig.dev.rootDomain}`) {
           Sound.setCategory('Playback');
@@ -371,7 +419,6 @@ export default class XmppClient {
             },
           );
         }
-        reduxStore.store.dispatch(chatAction.updateMessage(this.lstMsg));
       }
     }
   };
