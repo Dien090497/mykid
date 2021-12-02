@@ -274,7 +274,7 @@ export default ({navigation, route}) => {
                   }}
                   title={obj.deviceName}>
                   <View style={{alignItems: 'center'}}>
-                    <Image source={{uri: obj.avatar}} style={[styles.avatar]} resizeMode={'cover'}/>
+                    <Image source={obj.avatar ? {uri: obj.avatar}: Images.icOther} style={[styles.avatar]} resizeMode={'cover'}/>
                     <View style={{height:5}}/>
                     <Image source={Images.icMarkerDefault} style={[styles.icMarker,{tintColor: Colors.colorMain}]}/>
                   </View>
