@@ -415,7 +415,17 @@ export default function RoomChat({navigation, route}) {
                 {obj.type !== 'image' &&
                 <View style={{ flexDirection: !isMe(obj) ? 'row' : 'row-reverse' }}>
                   <View style={[styles.viewContentDetail, !isMe(obj) ? {} : { backgroundColor: Colors.pinkBgMsg }]}>
-                    <View style={{ flexDirection: 'row' }}>
+                    {isMe(obj) ? <View style={{ flexDirection: 'row' }}>
+                      {!!obj.duration && <View style={{alignItems: 'flex-end', justifyContent:'flex-end'}}><Text>{obj.duration.toString() + '"'}</Text></View>}
+                      {obj.type === 'audio' &&
+                      <TouchableOpacity onPress={() => {
+                        togglePlay(obj, i);}}>
+                        <FastImage
+                          source={!isMe(obj) ? (indexPlaying === i ? Images.aAudioLeft : Images.icAudioLeft) : (indexPlaying === i ? Images.aAudioRight : Images.icAudioRight)}
+                          resizeMode={FastImage.resizeMode.cover}
+                          style={styles.icAudio} />
+                      </TouchableOpacity>}
+                    </View> : <View style={{ flexDirection: 'row' }}>
                       {obj.type === 'audio' &&
                       <TouchableOpacity onPress={() => {
                         togglePlay(obj, i);}}>
@@ -425,7 +435,7 @@ export default function RoomChat({navigation, route}) {
                           style={styles.icAudio} />
                       </TouchableOpacity>}
                       {!!obj.duration && <View style={{alignItems: 'flex-end', justifyContent:'flex-end'}}><Text>{obj.duration.toString() + '"'}</Text></View>}
-                    </View>
+                    </View>}
                     {obj.type === 'text' && <Text style={styles.textBody}>{obj.body}</Text>}
                     <Text style={styles.textTime}>{obj.time}</Text>
                   </View>
