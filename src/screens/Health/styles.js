@@ -1,54 +1,54 @@
-import { Colors } from '../../assets/colors/Colors';
-import { StyleSheet, Dimensions } from 'react-native';
-import { FontSize, ScaleHeight } from "../../functions/Consts";
-const { width } = Dimensions.get("window");
+import {Colors} from '../../assets/colors/Colors';
+import {StyleSheet, Dimensions} from 'react-native';
+import {FontSize, ScaleHeight} from "../../functions/Consts";
+
+const {width, height} = Dimensions.get("window");
 
 export const styles = StyleSheet.create({
-  body:{
-    flex:1,
+  body: {
+    flex: 1,
     backgroundColor: Colors.white
   },
-  viewCount:{
+  viewCount: {
     alignItems: 'center',
-    paddingVertical:20,
+    paddingVertical: 20,
   },
-  icon:{
-    width: width/3*0.75,
-    height: width/3*0.75
+  icon: {
+    width: width / 3 * 0.75,
+    height: width / 3 * 0.75
   },
-  iconMid:{
-    width: width/3,
-    height: width/3
+  iconMid: {
+    width: width / 3,
+    height: width / 3
   },
-  txtTop:{
+  txtTop: {
     fontFamily: 'Roboto-Bold',
     fontSize: FontSize.big
   },
-  subTxtTop:{
+  subTxtTop: {
     fontFamily: 'Roboto',
     fontSize: FontSize.small
   },
-  viewTextTop:{
-    marginVertical: 10,
+  viewTextTop: {
+    marginVertical: height * 0.01,
     width: '100%',
-    alignItems:'center'
+    alignItems: 'center'
   },
-  textTop:{
+  textTop: {
     fontSize: FontSize.xxtraSmall,
     color: Colors.colorHeader,
     textAlign: 'center',
     paddingHorizontal: 10
   },
-  viewTop:{
-    flexDirection:'row',
-    justifyContent:'space-evenly',
+  viewTop: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
     width: '100%',
     backgroundColor: 'rgba(240, 240, 240, 0.5)',
   },
   button: {
-    marginTop: 15,
-    marginBottom: 40,
+    marginTop: height * 0.012,
     height: ScaleHeight.medium,
     backgroundColor: Colors.red,
     width: '90%',
@@ -82,17 +82,17 @@ export const styles = StyleSheet.create({
     elevation: 5
   },
   viewText: {
-    marginLeft:10,
+    marginLeft: 10,
     flex: 1,
     textAlign: 'left',
     paddingVertical: 10,
-    height: ScaleHeight.big,
-    justifyContent:'center',
-    alignContent:'space-between'
+    height: ScaleHeight.big * 0.9,
+    justifyContent: 'center',
+    alignContent: 'space-between'
   },
   viewRadio: {
     height: ScaleHeight.big,
-    alignItems:'center',
+    alignItems: 'center',
     flexDirection: 'row',
     width: '90%',
     marginHorizontal: '5%',
@@ -113,7 +113,7 @@ export const styles = StyleSheet.create({
     tintColor: '#B2B2B0',
     resizeMode: 'contain',
     marginLeft: 35,
-    flex:1,
+    flex: 1,
   },
   viewSwitch: {
     flex: 1,
