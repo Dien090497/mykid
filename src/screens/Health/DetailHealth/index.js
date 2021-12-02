@@ -22,6 +22,7 @@ import SimpleToast from 'react-native-simple-toast';
 import Moment from 'moment';
 import Consts from "../../../functions/Consts";
 
+const {width, height} = Dimensions.get('window');
 export default function Health({ navigation }) {
   const refDate = useRef();
   const refLoading = useRef();
@@ -155,13 +156,13 @@ export default function Health({ navigation }) {
                   refInput.current.open('', () => {
                   }, goals, true);
                 }}>
-                  <Image source={Images.icTransport} style={{ height: 30, width: 30 }} />
+                  <Image source={Images.icTransport} style={{ height: width * 0.08, width: width * 0.08 }} />
                 </TouchableOpacity>
               </View>
             </View>
             {listTracking.labels && <BarChart
               width={Dimensions.get('window').width}
-              height={220}
+              height={height * 0.32}
               data={listTracking}
               chartConfig={{
                 backgroundColor: '#FFFFFF',
@@ -179,8 +180,8 @@ export default function Health({ navigation }) {
                 },
               }}
               style={{
-                marginVertical: 8,
-                paddingRight:60,
+                marginVertical: height * 0.01,
+                paddingRight: width * 0.16,
               }}
               fromZero={true}
               withCustomBarColorFromData={true}

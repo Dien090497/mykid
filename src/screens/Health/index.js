@@ -17,6 +17,7 @@ import {
   getListWalkingTime,
   updateActiveWalkingMode,
   updateWalkingMode, walkingTimeTracking,
+  setRadioApi
 } from "../../network/HealthService";
 import DataLocal from '../../data/dataLocal';
 import LoadingIndicator from '../../components/LoadingIndicator';
@@ -41,10 +42,15 @@ export default function Health({ navigation }) {
     getListWalkingTime(DataLocal.deviceId, {
       success: res => {
         const d = []
-        d[0] = res.data[0]
-        d[1] = res.data[1]
-        d[2] = res.data[2]
+        d[0] = res.data.walkingTimeResponses[0]
+        d[1] = res.data.walkingTimeResponses[1]
+        d[2] = res.data.walkingTimeResponses[2]
         setData(d);
+        if (res.data.activeMode === 1) {
+          setIsRadio(true)
+        } else {
+          setIsRadio(false)
+        }
       },
       refLoading,
       refNotification,
@@ -59,7 +65,6 @@ export default function Health({ navigation }) {
       }, {
         success: res => {
           setTracking(res.data);
-          console.log('ress', res);
         },
         refLoading,
         refNotification,
@@ -141,6 +146,18 @@ export default function Health({ navigation }) {
     }
   }
 
+  const setRadio = () => {
+      setIsRadio(!isRadio)
+      let active = !isRadio ? 1 : 0;
+      setRadioApi(DataLocal.deviceId, active, {
+        success: res => {
+
+        },
+        refNotification,
+        refLoading
+      });
+  }
+
   return (
     <View style={styles.body}>
       <Header title={t('common:header_health')}/>
@@ -174,9 +191,7 @@ export default function Health({ navigation }) {
             <Switch
               trackColor={{false: '#8E8E93', true: Colors.colorMain}}
               thumbColor={Colors.white}
-              onValueChange={() => {
-                  setIsRadio(!isRadio)
-              }}
+              onValueChange={setRadio}
               value={isRadio}
             />
           </View>
@@ -203,7 +218,7 @@ export default function Health({ navigation }) {
                   trackColor={{false: '#8E8E93', true: Colors.colorMain}}
                   thumbColor={Colors.white}
                   onValueChange={() => {
-                    toggleSwitch(obj, i)
+                    isRadio && toggleSwitch(obj, i)
                   }}
                   value={obj.active === 1}
                 />

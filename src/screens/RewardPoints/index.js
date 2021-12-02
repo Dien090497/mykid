@@ -77,6 +77,7 @@ export default ({ navigation }) => {
                disableFullscreenUI
                underlineColorAndroid={'transparent'}
                keyboardType={'phone-pad'}
+               maxLength={2}
                onChangeText={(text) => setPoint(text.replace(/[^0-9]/g, ''))}
                value={point.toString()}
             />

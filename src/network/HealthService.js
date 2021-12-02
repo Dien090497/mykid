@@ -1,6 +1,6 @@
 import { get, post, put } from "./http/HttpClient";
 
-import { HealthUrl, TargetsUrl, TrackingUrl } from "./http/ApiUrl";
+import { HealthUrl, TargetsUrl, TrackingUrl, radioUrl } from "./http/ApiUrl";
 export function  getListWalkingTime(
   deviceId,
   {success, failure, autoShowMsg = true, refLoading = null, refNotification = null} = {},
@@ -101,6 +101,25 @@ export function createTarget(
 )
 {
   return post(TargetsUrl, {
+    body,
+    success,
+    failure,
+    autoShowMsg,
+    refLoading,
+    refNotification,
+  });
+}
+export function setRadioApi(
+  deviceId,
+  active,
+  {success, failure, autoShowMsg = true, refLoading = null, refNotification = null} = {},
+)
+{
+  let body= {
+    active
+  }
+  const url = [radioUrl, deviceId].join('/');
+  return put(url, {
     body,
     success,
     failure,
