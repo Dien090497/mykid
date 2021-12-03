@@ -1,6 +1,5 @@
-import React, {useRef, useState, useEffect} from 'react';
+import React, {useRef} from 'react';
 import {
-  Text,
   View,
   TouchableOpacity,
   Image
@@ -47,7 +46,7 @@ export default function DisconnectClock({navigation}) {
          style={{alignItems: 'center', marginTop: '-15%', justifyContent: 'center'}}
          onPress={() => {refModel.current.open(t('common:alertDisconnectClock'), disconnectClock)}}
        >
-         <Image source={Images.icDisconnect} style={{width: 190, height: 190}} resizeMode={'center'}/>
+         <Image source={Images.icDisconnect} style={{width: 190, height: 190, borderRadius: 80}} resizeMode={'stretch'}/>
        </TouchableOpacity>
      </View>
       <ModalConfirm ref={refModel} />
