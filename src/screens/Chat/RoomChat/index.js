@@ -112,11 +112,15 @@ export default function RoomChat({navigation, route}) {
   }, [isRecord]);
 
   useLayoutEffect(() => {
+    refScrollView.current.scrollToEnd({animated: true})
     if (route.params && route.params.roomInfo) {
       setRoomInfo(route.params.roomInfo);
       XmppClient.setRoomId(route.params.roomInfo.roomAddress);
       setChatHistory(XmppClient.getCurrentHistory());
       XmppClient.joinRoom(route.params.roomInfo.roomAddress);
+    }
+    return ()=>{
+      refAudioPlayer.current.onStopPlay();
     }
   }, []);
 
@@ -396,8 +400,7 @@ export default function RoomChat({navigation, route}) {
       {roomInfo && roomInfo.type !== 'FAMILY' &&
       <Header title={`${t('common:talkWithFriends')} (${roomInfo.roomName || '0'})`}/>}
       <View style={styles.container}>
-        <ScrollView ref={refScrollView} style={styles.container}
-          onContentSizeChange={() => refScrollView.current.scrollToEnd({animated: true})}>
+        <ScrollView ref={refScrollView} style={styles.container}>
           {chatHistory && chatHistory.map((obj, i) => (
           <View key={i}>
             { obj.isShowDate &&

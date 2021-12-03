@@ -116,10 +116,11 @@ export default ({navigation, route}) => {
     }).catch(err => console.log(err))
   }
 
-  const renderCircleMarker = val => {
+  const renderCircleMarker = (val,index) => {
     return (
       <Circle
-        fillColor={'rgba(156, 205, 248, 0.2)'}
+        key={index}
+        fillColor={'rgba(160, 214, 253, 0.5)'}
         center={{
           latitude: val.location.lat,
           longitude: val.location.lng,
@@ -300,7 +301,7 @@ export default ({navigation, route}) => {
           {locationDevices.length > 0 && (
             locationDevices.map((obj,i)=>{
               return(
-                renderCircleMarker(obj)
+                renderCircleMarker(obj,i)
               )
             })
           )}
