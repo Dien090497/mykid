@@ -1,6 +1,6 @@
-import Consts, {FontSize } from '../../functions/Consts';
+import Consts, {FontSize} from '../../functions/Consts';
 import {Dimensions, FlatList, Image, Text, TouchableOpacity, View} from 'react-native';
-import React, { useRef } from 'react';
+import React, {useRef} from 'react';
 import {Colors} from '../../assets/colors/Colors';
 import CustomIcon from '../../components/VectorIcons';
 import Header from '../../components/Header';
@@ -9,13 +9,13 @@ import {styles} from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Images from '../../assets/Images';
 import NotificationModal from '../../components/NotificationModal';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 import DataLocal from "../../data/dataLocal";
 
 const {width} = Dimensions.get('window');
-export default ({navigation}) => {
+export default ({navigation, route}) => {
   const refLoading = useRef();
-  const { t } = useTranslation();
+  const {t} = useTranslation();
   const refNotification = useRef();
   const dataSettings = [
     {
@@ -132,23 +132,46 @@ export default ({navigation}) => {
   ];
   const renderItem = ({item}) => {
     return (
-      <TouchableOpacity
-        activeOpacity={0.5}
-        style={styles.tobMain}
-        key={item.key}
-        onPress={item.onPress}>
-        <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
-          <View style={styles.icon}>{item.icon}</View>
-          <Text style={styles.titleText}>{item.title}</Text>
-          <View style={{flex:0.1,position: 'absolute', right: width* 0.006}}>
-            <CustomIcon
-              name={'arrow-forward-ios'}
-              iconFamily={'MaterialIcons'}
-              size={FontSize.medium}
-              color={Colors.colorImageAdmin}/>
-          </View>
-        </View>
-      </TouchableOpacity>
+      <View style={{flex: 1}}>
+        {item.key !== 'DisconnectClock' ? (
+          <TouchableOpacity
+            activeOpacity={0.5}
+            style={styles.tobMain}
+            key={item.key}
+            onPress={item.onPress}>
+            <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+              <View style={styles.icon}>{item.icon}</View>
+              <Text style={styles.titleText}>{item.title}</Text>
+              <View style={{flex: 0.1, position: 'absolute', right: width * 0.006}}>
+                <CustomIcon
+                  name={'arrow-forward-ios'}
+                  iconFamily={'MaterialIcons'}
+                  size={FontSize.medium}
+                  color={Colors.colorImageAdmin}/>
+              </View>
+            </View>
+          </TouchableOpacity>
+        ) : (
+          route.params.isAdmin &&
+          <TouchableOpacity
+            activeOpacity={0.5}
+            style={styles.tobMain}
+            key={item.key}
+            onPress={item.onPress}>
+            <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+              <View style={styles.icon}>{item.icon}</View>
+              <Text style={styles.titleText}>{item.title}</Text>
+              <View style={{flex: 0.1, position: 'absolute', right: width * 0.006}}>
+                <CustomIcon
+                  name={'arrow-forward-ios'}
+                  iconFamily={'MaterialIcons'}
+                  size={FontSize.medium}
+                  color={Colors.colorImageAdmin}/>
+              </View>
+            </View>
+          </TouchableOpacity>
+        )}
+      </View>
     );
   };
   return (
