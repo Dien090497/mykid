@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
+import MapView, { Circle, Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import React, {useEffect, useRef, useState} from 'react';
 import { getLocationDeviceApi, startWebSocket } from '../../network/DeviceService';
 import NotificationModal from '../../components/NotificationModal';
@@ -115,6 +115,21 @@ export default ({navigation, route}) => {
       setLocationName(address);
     }).catch(err => console.log(err))
   }
+
+  const renderCircleMarker = val => {
+    return (
+      <Circle
+        fillColor={'rgba(156, 205, 248, 0.2)'}
+        center={{
+          latitude: val.location.lat,
+          longitude: val.location.lng,
+        }}
+        radius={100}
+        strokeColor='#4F6D7A'
+        strokeWidth={0.1}
+      />
+    );
+  };
 
   const gotoHomeScreen = () => {
     if (DataLocal.haveSim === '0') {
@@ -279,6 +294,13 @@ export default ({navigation, route}) => {
                     <Image source={Images.icMarkerDefault} style={[styles.icMarker,{tintColor: Colors.colorMain}]}/>
                   </View>
                 </Marker>
+              )
+            })
+          )}
+          {locationDevices.length > 0 && (
+            locationDevices.map((obj,i)=>{
+              return(
+                renderCircleMarker(obj)
               )
             })
           )}

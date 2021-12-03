@@ -51,7 +51,7 @@ export default {
   'success': 'Thành công',
   'detail': 'Chi tiết',
   'empty': 'Trống',
-  'discrepancy': 'Độ chênh lệch - ',
+  'discrepancy': 'Sai số khoảng - ',
   'thisFunctionIsNotValid': 'Tính năng chưa được cập nhật',
   'header_settings': 'Thiết lập',
   'header_contacts': 'Danh bạ',
