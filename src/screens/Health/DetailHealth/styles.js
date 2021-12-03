@@ -36,7 +36,7 @@ export const styles = StyleSheet.create({
   },
   chartView:{
     width:'100%',
-    height: 290,
+    height: height * 0.372,
     backgroundColor: '#fcf7f7'
   },
   headerCharView:{
@@ -63,7 +63,7 @@ export const styles = StyleSheet.create({
   },
   line:{
     width: '90%',
-    paddingHorizontal: 30,
+    paddingHorizontal: height * 0.02,
     height: 1,
     backgroundColor: Colors.colorListRadioGroup,
     opacity: 0.2,
