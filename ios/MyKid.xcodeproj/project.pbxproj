@@ -232,7 +232,6 @@
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
 				E581A69283033B82007930BA /* [CP] Copy Pods Resources */,
-				BB5C3D2A3AE810F29DADA09A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -256,7 +255,6 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				5B2CDF3232A4DD3479A04520 /* [CP] Copy Pods Resources */,
 				171C949BD317BF391E646CDF /* [CP-User] [RNFB] Core Configuration */,
-				A1EA1763488D97F06C718F13 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -426,40 +424,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MyKid/Pods-MyKid-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A1EA1763488D97F06C718F13 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MyKid/Pods-MyKid-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MyKid/Pods-MyKid-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MyKid/Pods-MyKid-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BB5C3D2A3AE810F29DADA09A /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MyKid-MyKidTests/Pods-MyKid-MyKidTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MyKid-MyKidTests/Pods-MyKid-MyKidTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MyKid-MyKidTests/Pods-MyKid-MyKidTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E581A69283033B82007930BA /* [CP] Copy Pods Resources */ = {
