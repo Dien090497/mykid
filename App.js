@@ -1,5 +1,6 @@
 import {
-  StatusBar,
+  PermissionsAndroid,
+  StatusBar, View,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import {AlertDropHelper} from './src/functions/AlertDropHelper';
@@ -15,117 +16,80 @@ import './src/constants/IMLocalize';
 import {fcmService} from './src/FCMService'
 import {localNotificationService} from './src/LocalNotificationService'
 import DataLocal from "./src/data/dataLocal";
-import uuid from 'uuid';
 import RNCallKeep from 'react-native-callkeep';
 import XmppClient from "./src/network/xmpp/XmppClient";
 import Consts from "./src/functions/Consts";
-export default function App() {
-  const routeRef = useRef();
-  // Initialise RNCallKeep
-  const setup = () => {
-    const options = {
-      ios: {
-        appName: 'ReactNativeMykid',
-        imageName: 'sim_icon',
-        supportsVideo: true,
-        maximumCallGroups: '1',
-        maximumCallsPerCallGroup: '1'
-      },
-      android: {
-        alertTitle: 'Permissions Required',
-        alertDescription:
-          'This application needs to access your phone calling accounts to make calls',
-        cancelButton: 'Cancel',
-        okButton: 'ok',
-        imageName: 'sim_icon',
-        foregroundService: {
-          channelId: 'com.mykid',
-          channelName: 'Foreground service for my app',
-          notificationTitle: 'My app is running on background',
-          notificationIcon: 'Path to the resource icon of the notification',
-        },
-      }
-    };
+import {rejectVideoCallApi } from "./src/network/VideoCallService";
 
-    try {
-      RNCallKeep.setup(options);
-      RNCallKeep.setAvailable(true); // Only used for Android, see doc above.
-    } catch (err) {
-      console.error('initializeCallKeep error:', err.message);
+let isNotiFirebase = false;
+function setupCallKeep() {
+  const options = {
+    android: {
+      alertTitle: 'Permissions Required',
+      alertDescription:
+        'This application needs to access your phone calling accounts to make calls',
+      cancelButton: 'Cancel',
+      okButton: 'ok',
+      imageName: 'ic_launcher',
+      additionalPermissions: [PermissionsAndroid.PERMISSIONS.READ_CONTACTS],
+    },
+  };
+  try {
+    RNCallKeep.setup(options);
+    RNCallKeep.setAvailable(true); // Only used for Android, see doc above.
+  } catch (err) {
+    console.error('initializeCallKeep error:', err.message);
+  }
+}
+export function handleRemoteMessage(remoteMessage, isHeadless) {
+  isNotiFirebase = false;
+  if (remoteMessage?.data?.type === 'VIDEO_CALL') {
+    if (remoteMessage?.data?.status === 'INIT') {
+      console.log('ready...');
+      console.log(remoteMessage);
+      if (remoteMessage?.data?.id){
+        const callUUID = remoteMessage?.data?.id ;
+        setupCallKeep();
+        RNCallKeep.displayIncomingCall(
+          callUUID,
+          'Cuộc gọi đến',
+          remoteMessage?.data.deviceName,
+          'generic',
+          true,
+        );
+        RNCallKeep.addEventListener('answerCall', ({ callUUID: uuid}) => {
+          RNCallKeep.setCurrentCallActive(uuid);
+          if (isHeadless) {
+            RNCallKeep.openAppFromHeadlessMode(uuid);
+          } else {
+            console.log(uuid);
+            RNCallKeep.backToForeground();
+          }
+        });
+        RNCallKeep.addEventListener('endCall', ({ callUUID: uuid}) => {
+          RNCallKeep.setCurrentCallActive(uuid);
+          if (isHeadless) {
+            RNCallKeep.openAppFromHeadlessMode(uuid);
+          } else {
+            console.log(uuid);
+            RNCallKeep.backToForeground();
+          }
+        });
+      }
+      // Could also persist data here for later uses
+    } else if (remoteMessage?.data?.status === 'REJECTED' ||  remoteMessage?.data?.status === 'ENDED' ) {
+      isNotiFirebase = true;
+      RNCallKeep.endCall(remoteMessage?.data?.id);
     }
   }
-
-  // Use startCall to ask the system to start a call - Initiate an outgoing call from this point
-  const startCall = ({ id,handle, localizedCallerName }) => {
-    // Your normal start call action
-    RNCallKeep.startCall(id, handle, localizedCallerName);
-  };
-
-  const reportEndCallWithUUID = (callUUID, reason) => {
-    RNCallKeep.reportEndCallWithUUID(callUUID, reason);
-  }
-
-  // Event Listener Callbacks
-
-  const didReceiveStartCallAction = (data) => {
-    let { handle, callUUID, name } = data;
-    // Get this event after the system decides you can start a call
-    // You can now start a call from within your app
-  };
-
-  const onAnswerCallAction = (data) => {
-    let { callUUID } = data;
-    // Called when the user answers an incoming call
-  };
-
-  const onEndCallAction = (data) => {
-    let { callUUID } = data;
-    RNCallKeep.endCall(data.id);
-
-    this.currentCallId = null;
-  };
-
-  // Currently iOS only
-  const onIncomingCallDisplayed = (data) => {
-    let { error } = data;
-    // You will get this event after RNCallKeep finishes showing incoming call UI
-    // You can check if there was an error while displaying
-    RNCallKeep.displayIncomingCall(data.id, data.relationship, data.relationship, 'generic', true, null);
-
-  };
-
-  const onToggleMute = (data) => {
-    let { muted, callUUID } = data;
-    // Called when the system or user mutes a call
-  };
-
-  const onToggleHold = (data) => {
-    let { hold, callUUID } = data;
-    // Called when the system or user holds a call
-  };
-
-  const onDTMFAction = (data) => {
-    let { digits, callUUID } = data;
-    // Called when the system or user performs a DTMF action
-  };
-
-  const audioSessionActivated = (data) => {
-    // you might want to do following things when receiving this event:
-    // - Start playing ringback if it is an outgoing call
-  };
-
-  function initCallKeep() {
-    RNCallKeep.addEventListener('didReceiveStartCallAction', didReceiveStartCallAction);
-    RNCallKeep.addEventListener('answerCall', onAnswerCallAction);
-    RNCallKeep.addEventListener('endCall', onEndCallAction);
-    RNCallKeep.addEventListener('didDisplayIncomingCall', onIncomingCallDisplayed);
-    RNCallKeep.addEventListener('didPerformSetMutedCallAction', onToggleMute);
-    RNCallKeep.addEventListener('didToggleHoldCallAction', onToggleHold);
-    RNCallKeep.addEventListener('didPerformDTMFAction',onDTMFAction);
-    RNCallKeep.addEventListener('didActivateAudioSession', audioSessionActivated);
-    setup();
-  }
-
+}
+setupCallKeep();
+export default function App() {
+  const [visibleCall, setVisibleCall] = useState({
+    visible: false,
+    server: null,
+    data: [],
+  });
   // fire base msg
   useEffect(() => {
     fcmService.registerAppWithFCM()
@@ -171,20 +135,70 @@ export default function App() {
         // onIncomingCallDisplayed(notify);
       }
     }
-
-    // initCallKeep();
+    handleCallKeep();
     return () => {
       console.log("[App] unRegister")
       fcmService.unRegister()
       localNotificationService.unregister()
     }
-
   }, [])
 
+
+  //call keep
+  async function handleCallKeep() {
+    const extras = await RNCallKeep.getExtrasFromHeadlessMode();
+
+    if (extras) {
+      console.log('getExtrasFromHeadlessMode', extras);
+    }
+
+    const scs = await RNCallKeep.supportConnectionService();
+
+    console.log('supportConnectionService: ', scs);
+
+    RNCallKeep.addEventListener('answerCall', payload => {
+      console.log('answerCall', payload);
+      RNCallKeep.backToForeground();
+    });
+
+    RNCallKeep.addEventListener('endCall', payload => {
+      if (!isNotiFirebase){
+        rejectVideoCallApi({}, payload.callUUID, {
+          success: res => {
+          },
+        });
+      }
+      console.log('endCall', payload, );
+    });
+
+    RNCallKeep.addEventListener('didDisplayIncomingCall', payload => {
+      console.log('didDisplayIncomingCall', payload);
+    });
+  }
   return (
     <SafeAreaProvider>
         <Provider store={redux.store}>
-         <Routes ref = {routeRef}/>
+         <Routes/>
+          {/*{visibleCall.visible && (*/}
+          {/*  <VideoCallModal*/}
+          {/*    isCallKeep ={true}*/}
+          {/*    visible={visibleCall.visible}*/}
+          {/*    device={visibleCall.device}*/}
+          {/*    toggleModal={()=>{*/}
+          {/*      if(visibleCall?.data?.id){*/}
+          {/*        finishVideoCallApi({}, visibleCall?.data?.id, {*/}
+          {/*          success: res => {*/}
+          {/*          },*/}
+          {/*          refLoading: refLoading,*/}
+          {/*          refNotification: refNotification,*/}
+          {/*        });*/}
+          {/*        setVisibleCall({visible: false, device: null, data: []});*/}
+          {/*      }*/}
+          {/*    }}*/}
+          {/*    pickUp={true}*/}
+          {/*    data={visibleCall.data}*/}
+          {/*  />*/}
+          {/*)}*/}
          <DropdownAlert
             closeInterval={15000}
             updateStatusBar={false}

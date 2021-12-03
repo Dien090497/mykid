@@ -45,7 +45,7 @@
     "react-native-audio-record": "^0.2.2",
     "react-native-audio-recorder-player": "^3.2.0",
     "react-native-background-timer": "^2.4.1",
-    "react-native-callkeep": "^4.3.1",
+    "react-native-callkeep": "github:jpudysz/react-native-callkeep",
     "react-native-camera-kit": "9.0.0",
     "react-native-chart-kit": "^6.11.0",
     "react-native-date-picker": "^4.0.0",
