@@ -26,8 +26,8 @@ const styles = StyleSheet.create({
     fontSize: FontSize ? FontSize.small : 13,
   },
   Sty_iconShow: {
-    width: 25,
-    height: 25,
+    width: width * 0.07 ,
+    height: width * 0.07 ,
     tintColor: Colors.grayTextTitleColor,
   }
 });

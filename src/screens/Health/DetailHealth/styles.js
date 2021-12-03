@@ -30,8 +30,8 @@ export const styles = StyleSheet.create({
     color: Colors.colorMain
   },
   iconDate:{
-    height: ScaleHeight.medium*0.8,
-    width: ScaleHeight.medium*0.8,
+    height: ScaleHeight.medium * 0.8,
+    width: ScaleHeight.medium * 0.8,
     marginRight:5
   },
   chartView:{
@@ -41,7 +41,7 @@ export const styles = StyleSheet.create({
   },
   headerCharView:{
     width: '100%',
-    height: 40,
+    height: height * 0.052,
     justifyContent: 'space-between',
     flexDirection: 'row',
     alignItems: 'center',
@@ -49,8 +49,8 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 10
   },
   iconHeaderChartView:{
-    height: 40,
-    width: 40,
+    height: width * 0.1,
+    width: width * 0.1,
     borderWidth: 1,
     borderColor: Colors.colorMain,
     borderRadius: 10,
@@ -67,10 +67,11 @@ export const styles = StyleSheet.create({
     height: 1,
     backgroundColor: Colors.colorListRadioGroup,
     opacity: 0.2,
-    marginTop: 20
+    marginTop: height * 0.06
   },
   viewBottom:{
     flexDirection: 'row',
+    marginTop: height * 0.02
   },
   viewCount:{
     alignItems: 'center',

@@ -1,5 +1,6 @@
 import {Colors} from '../../../assets/colors/Colors';
 import {StyleSheet, Dimensions} from 'react-native';
+import {FontSize} from "../../../functions/Consts";
 
 const {width, height} = Dimensions.get("window");
 
@@ -27,7 +28,7 @@ export const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
     marginBottom: height * 0.015,
-    marginTop: 5
+    marginTop: height * 0.004
   },
   tobViewMain: {
     backgroundColor: Colors.redTitle,
@@ -39,7 +40,7 @@ export const styles = StyleSheet.create({
     borderRadius: 12
   },
   text: {
-    fontSize: 16,
+    fontSize: FontSize.big * 0.85,
     fontWeight: '500',
     color: Colors.black,
     marginHorizontal: height * 0.007

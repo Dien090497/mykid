@@ -151,7 +151,7 @@ export default function DeviceManager({navigation}) {
       return (
         <View style={styles.rowSettings}>
           <TouchableOpacity style={{flexDirection: 'row'}} onPress={()=>{editDevice(item)}}>
-            <View style={{width:40,height:40,borderRadius:20}}>
+            <View style={styles.sizeAvatar}>
               <Image source={item.avatar ? {uri:item.avatar} : item.icon} resizeMode={item.avatar? 'cover' : 'stretch'} style={styles.iconSetting}/>
             </View>
             <View style={{flexDirection: 'column', justifyContent: 'center'}}>
@@ -194,7 +194,7 @@ export default function DeviceManager({navigation}) {
       ):(
         <Header title={t('common:header_deviceManager')} right rightIcon={Images.icConfirms} rightAction={checkDeleteDevices}/>
       )}
-      <View style={styles.container}>
+      <View style={styles.contain}>
         <TouchableOpacity style={styles.rowPlus} onPress={handleAddDevice}>
           <Text style={styles.textPlus}>{'+ '}{t('common:header_addDevice')}</Text>
         </TouchableOpacity>
