@@ -1,4 +1,4 @@
-import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { Image, TextInput, Text, TouchableOpacity, View } from 'react-native';
 import React, { useEffect, useRef, useState } from 'react';
 
 import Header from '../../components/Header';
@@ -71,7 +71,16 @@ export default ({ navigation }) => {
               style={styles.btn}>
               <Image source={Images.icMinus} style={styles.iconBtn} />
             </TouchableOpacity>
-            <Text style={styles.textPoint}>{point}</Text>
+            <TextInput
+               style={styles.textPoint}
+               scrollEnabled={true}
+               disableFullscreenUI
+               underlineColorAndroid={'transparent'}
+               keyboardType={'phone-pad'}
+               maxLength={2}
+               onChangeText={(text) => setPoint(text.replace(/[^0-9]/g, ''))}
+               value={point.toString()}
+            />
             <TouchableOpacity
               style={styles.btn}
               onPress={addPoint}>

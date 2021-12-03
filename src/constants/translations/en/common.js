@@ -83,6 +83,7 @@ export default {
   'header_warning': 'Alert Center',
   'header_sms': 'SMS',
   'header_installPosition': 'Battery saver mode',
+  'header_disconnectClock': 'Disconnect the watch',
 
   // Codepush
   'codepushChecking': 'Checking...',
@@ -219,8 +220,8 @@ export default {
   'enter_relationship': 'Please enter relationship with child',
   'enter_phone_number': 'Please enter phone number',
   'choose': 'Choose',
-  'listSOS': 'List SOS', // todo
-  'listMember': 'List Devices',// todo
+  'listSOS': 'SOS list',
+  'listMember': 'Device list',
   'chooseSOS': 'Select numbers SOS',
 
   //home
@@ -325,8 +326,9 @@ export default {
   'errorName': 'Baby name cannot be blank',
   'error_birthday': 'Invalid date',
   'changeAvatar': 'Change Avatar',
-  'errorHeight': 'Chiều cao của bé không được vượt quá 200cm!',
-  'errorWeight': 'Cân nặng của bé không được vượt quá 100kg!',
+  'errorHeight': 'Baby\'s height should not exceed 200cm!',
+  'errorWeight': 'Baby\'s weight should not exceed 100kg!',
+  'phoneKids': 'Baby\'s phone number',
 
   //ForgotPassWord
   'txtForgotPassWord1': '1.Please enter a valid phone number to receive the verification code.',
@@ -383,8 +385,11 @@ export default {
    'on': 'Turn on',
    'off': 'Turn off',
    'turn_off_gps': 'On/off GPS tracking',
-   'cycle': 'Tracking frequency in gps',
+   'cycle': 'Tracking frequency in GPS',
    '1_minute': 'Update every 1 min',
    '10_minute': 'Update every 10 min',
    '60_minute': 'Update every 1 hour',
+
+  //DisconnectClock
+  'alertDisconnectClock': 'All data and connection to the watch will be deleted. The watch will return to the state default. Are you sure you want to do it?'
 };

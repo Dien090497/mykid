@@ -14,10 +14,6 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.white,
   },
-  container: {
-    flex: 1,
-    backgroundColor: Colors.white,
-  },
   rowSettings: {
     width: '88%',
     marginVertical: height* 0.015,
@@ -60,13 +56,13 @@ export const styles = StyleSheet.create({
   },
   iconSetting: {
     marginLeft: '1%',
-    height: 40,
-    width: 40,
+    height: width * 0.08,
+    width: width * 0.08,
     aspectRatio: 1,
-    borderRadius: 20
+    borderRadius: width * 0.04
   },
   textSettings: {
-    fontSize: 16,
+    fontSize: FontSize.big * 0.85,
     minWidth: '50%',
     marginLeft: '5%',
     fontFamily: 'Roboto-Medium',
@@ -138,7 +134,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   textModel: {
-    fontSize: 18,
+    fontSize: FontSize.big,
     fontStyle: 'normal',
     textAlign: 'center',
     fontWeight: '500'
@@ -167,4 +163,11 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
+  sizeAvatar: {
+    width: width * 0.08,
+    height: width * 0.08,
+    marginRight: width * 0.01,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 });

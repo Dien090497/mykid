@@ -152,6 +152,7 @@ export const styles = StyleSheet.create({
     borderRadius: 10000
   },
   textMenuDrop:{
+    width: 100,
     marginHorizontal:5,
     color: '#727272'
   },

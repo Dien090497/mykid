@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Circle, Marker } from "react-native-maps";
 import React, {
   useEffect,
   useRef,
@@ -192,6 +192,21 @@ export default ({navigation}) => {
     }
   }
 
+  const renderCircleMarker = val => {
+    return (
+      <Circle
+        fillColor={'rgba(156, 205, 248, 0.2)'}
+        center={{
+          latitude: val.location.lat,
+          longitude: val.location.lng,
+        }}
+        radius={100}
+        strokeColor='#4F6D7A'
+        strokeWidth={0.1}
+      />
+    );
+  };
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -203,15 +218,15 @@ export default ({navigation}) => {
 
         <MapView
           ref={refMap}
-          style={styles.container}
-          >
+          style={styles.container}>
           {deviceInfo &&<Marker
             coordinate={{
               latitude: deviceInfo.location.lat,
               longitude: deviceInfo.location.lng,
             }}>
-            <Image source={Images.icWatchMarker} style={{ width: 30, height: 30, resizeMode: 'contain' }} />
+            <Image source={Images.icMarkerDefault} style={{ width: 30, height: 30, resizeMode: 'contain', tintColor: Colors.colorMain }} />
           </Marker>}
+          {deviceInfo && renderCircleMarker(deviceInfo)}
           {listSafeArea.map((val,i) => (
             <View key={i}>
               <Marker

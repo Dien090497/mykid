@@ -20,6 +20,7 @@ import WebSocketCheckSim from '../../../network/socket/WebSocketCheckSim';
 import {useTranslation} from 'react-i18next';
 import NotificationModal from '../../../components/NotificationModal';
 import { checkLocationPermission } from '../../../functions/permissions';
+import {logoutService} from "../../../network/UserInfoService";
 
 export default function HomeMainScreen() {
   const navigation = useNavigation();
@@ -56,6 +57,14 @@ export default function HomeMainScreen() {
 
   useEffect(() => {
     if (logout) {
+      logoutService({
+        success: res => {
+          DataLocal.removeAll();
+          XmppClient.disconnectXmppServer();
+          WebSocketSafeZone.disconnect();
+          WebSocketVideoCall.disconnect();
+        }
+      })
       navigation.replace(Consts.ScreenIds.Login);
     }
   }, [logout]);
@@ -133,7 +142,7 @@ export default function HomeMainScreen() {
   };
 
   const pressSettings = () => {
-    navigation.navigate(Consts.ScreenIds.Settings);
+    navigation.navigate(Consts.ScreenIds.Settings, {isAdmin: devices[selectedIndex].admin});
   };
 
   const pressWarning = () => {
@@ -205,10 +214,10 @@ export default function HomeMainScreen() {
             visible={showMenu}
             anchor={
               <View style={styles.menuSelect}>
-                <Image source={Images.icShow} style={styles.iconShowMenu} resizeMode='stretch'/>
-                <View onStartShouldSetResponder={() => {
+                <View style={styles.menuSelect} onStartShouldSetResponder={() => {
                   setShowMenu(true)
                 }}>
+                  <Image source={Images.icShow} style={styles.iconShowMenu} resizeMode='stretch'/>
                   <Text
                     style={styles.textMenuShow}>{devices && devices[selectedIndex] && devices[selectedIndex].deviceName}</Text>
                 </View>

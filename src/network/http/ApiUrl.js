@@ -84,6 +84,7 @@ export const WaringUrl = appUrl + '/notifications';
 export const HealthUrl = appUrl + '/walking-time-modes';
 export const TrackingUrl = appUrl + '/walking-time-tracking';
 export const TargetsUrl = appUrl + '/targets';
+export const radioUrl = appUrl + '/walking-time-modes/devices'
 
 //Payment
 export const checkAccount = appUrl + '/sims';
@@ -93,6 +94,9 @@ export const smsUrl = appUrl + '/sms-messages';
 
 // InstallPosition
 export const positionModeuRL = appUrl + '/position-configs';
+
+//DisconnectClock
+export const disconnectUrl = appUrl + '/devices';
 
 /// url: string, obj: object
 export function assignUrlParams(url, obj) {
