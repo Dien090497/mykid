@@ -214,10 +214,10 @@ export default function HomeMainScreen() {
             visible={showMenu}
             anchor={
               <View style={styles.menuSelect}>
-                <Image source={Images.icShow} style={styles.iconShowMenu} resizeMode='stretch'/>
-                <View onStartShouldSetResponder={() => {
+                <View style={styles.menuSelect} onStartShouldSetResponder={() => {
                   setShowMenu(true)
                 }}>
+                  <Image source={Images.icShow} style={styles.iconShowMenu} resizeMode='stretch'/>
                   <Text
                     style={styles.textMenuShow}>{devices && devices[selectedIndex] && devices[selectedIndex].deviceName}</Text>
                 </View>

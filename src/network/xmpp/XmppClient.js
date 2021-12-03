@@ -1,4 +1,3 @@
-import FastImage from 'react-native-fast-image';
 import AppConfig from '../../data/AppConfig';
 import DataLocal from '../../data/dataLocal';
 import { generateRandomId } from '../../functions/utils';
@@ -10,7 +9,6 @@ const debug = require('@xmpp/debug');
 import reduxStore from '../../redux/config/redux';
 import Sound from 'react-native-sound';
 import SimpleToast from 'react-native-simple-toast';
-import RNFetchBlob from "react-native-fetch-blob";
 
 export default class XmppClient {
   static lstMsg = {};
