@@ -142,7 +142,7 @@ export default function HomeMainScreen() {
   };
 
   const pressSettings = () => {
-    navigation.navigate(Consts.ScreenIds.Settings);
+    navigation.navigate(Consts.ScreenIds.Settings, {isAdmin: devices[selectedIndex].admin});
   };
 
   const pressWarning = () => {
