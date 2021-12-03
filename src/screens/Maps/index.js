@@ -1,6 +1,7 @@
 import Consts, {FontSize} from '../../functions/Consts';
 import {
   Image,
+  Platform,
   Text,
   TouchableOpacity,
   View,
@@ -24,6 +25,7 @@ import Geolocation from 'react-native-geolocation-service';
 import { wsCheckLocation } from '../../network/http/ApiUrl';
 import { generateRandomId } from '../../functions/utils';
 import * as encoding from 'text-encoding';
+import FastImage from 'react-native-fast-image';
 
 const encoder = new encoding.TextEncoder();
 let ws = null;
@@ -101,25 +103,25 @@ export default ({navigation, route}) => {
   }, []);
 
   useEffect(() => {
+    if (locationDevices && locationDevices[indexSelect] && locationDevices[indexSelect].location) {
+      Geocoder.geocodePosition({
+        lat: locationDevices[indexSelect].location.lat,
+        lng: locationDevices[indexSelect].location.lng
+      }).then(res => {
+        const address = [res[0].streetNumber +' '+ res[0].streetName, res[0].subAdminArea, res[0].adminArea].join(', ')
+        setLocationName(address);
+      }).catch(err => console.log(err))
+    }
+
     if (!locationDevices.length > 0 || ws) return;
     handleWebSocketSetup();
     setReconnect(true)
   }, [locationDevices]);
 
-  if (locationDevices && locationDevices[indexSelect] && locationDevices[indexSelect].location) {
-    Geocoder.geocodePosition({
-      lat: locationDevices[indexSelect].location.lat,
-      lng: locationDevices[indexSelect].location.lng
-    }).then(res => {
-      const address = [res[0].streetNumber +' '+ res[0].streetName, res[0].subAdminArea, res[0].adminArea].join(', ')
-      setLocationName(address);
-    }).catch(err => console.log(err))
-  }
-
   const renderCircleMarker = (val,index) => {
     return (
-      <Circle
-        key={index}
+      <MapCircle
+        key={index.toString()}
         fillColor={'rgba(160, 214, 253, 0.5)'}
         center={{
           latitude: val.location.lat,
@@ -259,7 +261,6 @@ export default ({navigation, route}) => {
             obj.reportedAt = data.reportedAt;
           }
         }
-        console.log(newData)
         setLocationDevices(newData)
       }
       console.log(message, 'WebSocket Location Message');
@@ -290,7 +291,7 @@ export default ({navigation, route}) => {
                   }}
                   title={obj.deviceName}>
                   <View style={{alignItems: 'center'}}>
-                    <Image source={obj.avatar ? {uri: obj.avatar}: Images.icOther} style={[styles.avatar]} resizeMode={'cover'}/>
+                    <FastImage source={obj.avatar ? {uri: obj.avatar}: Images.icOther} style={[styles.avatar]} resizeMode={'cover'}/>
                     <View style={{height:5}}/>
                     <Image source={Images.icMarkerDefault} style={[styles.icMarker,{tintColor: Colors.colorMain}]}/>
                   </View>
@@ -383,3 +384,24 @@ export default ({navigation, route}) => {
     </View>
   );
 };
+
+class MapCircle extends React.Component {
+  setNativeProps(props) {
+    this.circle.setNativeProps(props);
+  }
+
+  render() {
+    if (this.circle && Platform.OS == 'ios') {
+      this.circle.setNativeProps(this.props);
+    }
+
+    return (
+      <Circle
+        {...this.props}
+        ref={ref => {
+          this.circle = ref;
+        }}
+      />
+    );
+  }
+}

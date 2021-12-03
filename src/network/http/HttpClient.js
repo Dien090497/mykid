@@ -312,9 +312,9 @@ async function handleResp(response, autoShowMsg, success, failure, refLoading, r
       return failureResponse(i18next.t('errorMsg:TOKEN_EXPIRED_MSG'), response);
     }
 
-    const err = checkFailure(result, refNotification);
+    const err = checkFailure(result);
 
-    if (err.includes('KWS-4001')) {
+    if (!!err && err.includes('KWS-4001')) {
       console.log('error KWS-4001');
     }
     else if (autoShowMsg) {
@@ -367,7 +367,7 @@ export const refreshUserToken = async (refLoading = null, refNotification = null
   return resp;
 };
 
-function checkFailure(result, refNotification) {
+function checkFailure(result) {
   let meta;
   if (result && result.code) {
     meta = result;
@@ -385,9 +385,8 @@ function checkFailure(result, refNotification) {
     DataLocal.saveHaveSim('0');
   }
 
-  if (Object.keys(errorMsg).includes(code)) {
-    if (refNotification) return refNotification.current.open(i18next.t('errorMsg:'+code));
-    else return SimpleToast.show(i18next.t('errorMsg:'+code));
+  if (!!Object.keys(errorMsg) && Object.keys(errorMsg).includes(code)) {
+    return i18next.t('errorMsg:'+code);
   }
 
   return i18next.t('errorMsg:UNEXPECTED_ERROR_MSG') + ' (' + meta.code + ')';
