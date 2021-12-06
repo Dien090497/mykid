@@ -56,7 +56,8 @@ export default ({navigation, route}) => {
   const { t } = useTranslation();
 
   const getListSafeZone = () => {
-    getListSafeZoneApi(DataLocal.deviceId, 1, 30, {
+    const devicesID = deviceOutSafeZone.deviceId ? deviceOutSafeZone.deviceId : DataLocal.deviceId;
+    getListSafeZoneApi(devicesID, 1, 30, {
       success: res => {
         setListSafeArea(res.data.content);
       },

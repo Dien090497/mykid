@@ -253,7 +253,7 @@ export default ({navigation, route}) => {
         );
         const newData = Object.assign([], locationDevices);
         for (const obj of newData) {
-          if (data.deviceId === obj.deviceId){
+          if (data.deviceId === obj.deviceId && data.location !== obj.location){
             obj.location = data.location;
             obj.type = data.type;
             obj.maxAccuracy = data.maxAccuracy;
@@ -281,6 +281,7 @@ export default ({navigation, route}) => {
             locationDevices.map((obj,i)=>{
               return(
                 <Marker
+                  zIndex={i === indexSelect ? locationDevices.length+1 : i}
                   key={i}
                   onPress={()=>{
                     setIndexSelect(i);
