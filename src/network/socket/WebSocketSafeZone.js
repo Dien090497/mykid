@@ -112,7 +112,7 @@ export default class WebSocketSafeZone {
             AlertDropHelper.show(
               Consts.dropdownAlertType.ERROR,
               'MyKid',
-              `Thiết bị ${infoDevice.deviceCode} ra khỏi vùng an toàn `,
+               DataLocal.language === 'vi' ? `Thiết bị ${infoDevice.deviceCode} ra khỏi vùng an toàn ` : `Device ${infoDevice.deviceCode} is out of the safe zone `
             );
             Sound.setCategory('Playback');
             this.ringtone = new Sound(

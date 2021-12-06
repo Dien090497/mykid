@@ -253,7 +253,7 @@ export default ({navigation, route}) => {
         );
         const newData = Object.assign([], locationDevices);
         for (const obj of newData) {
-          if (data.deviceId === obj.deviceId){
+          if (data.deviceId === obj.deviceId && data.location !== obj.location){
             obj.location = data.location;
             obj.type = data.type;
             obj.maxAccuracy = data.maxAccuracy;
@@ -278,7 +278,27 @@ export default ({navigation, route}) => {
           provider={PROVIDER_GOOGLE}
           mapType={mapType ? 'standard' : 'hybrid'}>
           {locationDevices.length > 0 && (
-            locationDevices.map((obj,i)=>{
+            Platform.OS === 'ios' ? locationDevices.map((obj,i)=>{
+              return(
+                <Marker
+                  zIndex={i === indexSelect ? locationDevices.length+1 : i}
+                  key={i}
+                  onPress={()=>{
+                    setIndexSelect(i);
+                  }}
+                  coordinate={{
+                    latitude: obj?.location?.lat,
+                    longitude: obj?.location?.lng,
+                  }}
+                  title={obj.deviceName}>
+                  <View style={{alignItems: 'center'}}>
+                    <FastImage source={obj.avatar ? {uri: obj.avatar}: Images.icOther} style={[styles.avatar]} resizeMode={'cover'}/>
+                    <View style={{height:5}}/>
+                    <Image source={Images.icMarkerDefault} style={[styles.icMarker,{tintColor: Colors.colorMain}]}/>
+                  </View>
+                </Marker>
+              )
+            }) : locationDevices.map((obj,i)=>{
               return(
                 <Marker
                   key={i}
