@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
     marginVertical: 15,
     alignItems: 'center',
     borderRadius: 10,
-    height: ScaleHeight.medium * 1.2,
+    height: ScaleHeight.medium,
     borderWidth: 1,
     borderColor: Colors.borderInputText,
   },
@@ -23,7 +23,10 @@ export const styles = StyleSheet.create({
     width: width * 0.88,
     height: ScaleHeight.medium,
     marginLeft: 10,
-    fontSize: FontSize.small
+    fontSize: FontSize.xtraSmall,
+    fontFamily: 'Roboto',
+    fontWeight: '400',
+    lineHeight: FontSize.small * 10 / 7
   },
   viewInput: {
     width: '75%',
@@ -31,14 +34,14 @@ export const styles = StyleSheet.create({
     borderColor: Colors.borderInputText,
     justifyContent: 'center',
     borderRadius: 10,
-    height: ScaleHeight.medium * 1.2,
+    height: ScaleHeight.medium ,
   },
   viewOtp: {
     width: width * 0.9,
     flexDirection: 'row',
     marginVertical: 15,
     alignItems: 'center',
-    height: ScaleHeight.medium * 1.2,
+    height: ScaleHeight.medium ,
   },
   tobOtp: {
     width: '23%',
@@ -53,20 +56,32 @@ export const styles = StyleSheet.create({
     fontSize: FontSize.small,
     fontWeight: '400',
     fontStyle: 'normal',
-    color: 'rgba(128, 128, 128, 1)'
+    color: 'rgba(128, 128, 128, 1)',
+    fontFamily: 'Roboto',
+    lineHeight: FontSize.small * 10 / 7
   },
   btnSubmit: {
     backgroundColor: Colors.colorMain,
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
-    height: ScaleHeight.medium * 1.2,
+    height: ScaleHeight.medium ,
     width: '90%',
     marginTop: ScaleHeight.small * 1.5,
   },
   textSubmit: {
     fontFamily: 'Roboto-Medium',
     fontSize: FontSize.small,
-    color: Colors.white
+    color: Colors.white,
+    fontStyle: 'normal',
+    lineHeight: FontSize.small * 10 / 7
   },
+  txtGetCode: {
+    fontSize: FontSize.small,
+    color: Colors.white,
+    fontFamily: 'Roboto',
+    fontWeight: '400',
+    fontStyle: 'normal',
+    lineHeight: FontSize.small * 10 / 7
+  }
 });

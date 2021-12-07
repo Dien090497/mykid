@@ -333,7 +333,7 @@ export default function InfoKits({route}) {
           resizeMode={avatar ? 'cover' : 'stretch'} />
         <View style={{ flexDirection: 'row', marginTop: '4%', alignItems: 'center', justifyContent: 'center' }}>
           <Image source={Images.icShootPhoto} style={styles.image1} resizeMode={'stretch'} />
-          <Text style={{ marginLeft: '2%' }}>{t('common:changeAvatar')}</Text>
+          <Text style={styles.txtAvatar}>{t('common:changeAvatar')}</Text>
         </View>
       </TouchableOpacity>
       <View style={{ justifyContent: 'center', alignItems: 'center', height: '75%', marginTop: -10 }}>
@@ -354,13 +354,13 @@ export default function InfoKits({route}) {
         ref={o => sheet = o}
         styles={{
           buttonBox: {width: '100%', height: ScaleHeight.big },
-          buttonText: {fontSize: 18, fontFamily: 'Roboto'}
+          buttonText: styles.txtAction
         }}
         cancelButtonIndex={2}
         options={[
-          <Text style={{fontSize: 18, fontFamily: 'Roboto', color: Colors.grayTextColor}}>{t('common:male')}</Text>,
-          <Text style={{fontSize: 18, fontFamily: 'Roboto', color: Colors.grayTextColor}}>{t('common:female')}</Text>,
-          <Text style={{fontSize: 18, fontFamily: 'Roboto', color: Colors.colorMain}}>{t('common:cancel')}</Text>,
+          <Text style={[styles.txtAction, {color: Colors.grayTextColor}]}>{t('common:male')}</Text>,
+          <Text style={[styles.txtAction, {color: Colors.grayTextColor}]}>{t('common:female')}</Text>,
+          <Text style={[styles.txtAction, {color: Colors.grayTextColor}]}>{t('common:cancel')}</Text>,
         ]}
         onPress={handleGenderAction}
       />
@@ -368,7 +368,7 @@ export default function InfoKits({route}) {
         ref={o => sheet1 = o}
         styles={{
           buttonBox: {width: '100%', height: ScaleHeight.big},
-          buttonText: {fontSize: 18, fontWeight: '400', fontStyle: 'normal'}
+          buttonText: styles.txtAction
         }}
         options={[
           t('common:selectPhotoLibrary'),

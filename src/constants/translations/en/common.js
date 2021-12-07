@@ -297,9 +297,11 @@ export default {
 
   // permissions
   'cameraUnavailable': 'Camera not available on your device',
+  'locationUnavailable': 'Camera not available on your device',
   'photoLibraryUnavailable': 'Gallery is not available on your device',
   'microphoneUnavailable': 'Microphone is not available on your device',
-  'cameraDenied': 'GPS access is denied.\nPlease go to settings to grant access',
+  'cameraDenied': 'Camera access is denied.\nPlease go to settings to grant access',
+  'locationDenied': 'GPS access is denied.\nPlease go to settings to grant access',
   'photoLibraryReadDenied': 'Photo gallery access denied.\nPlease open settings to grant access',
   'photoLibraryReadLimit': 'Photo gallery access is limited.\nPlease open settings to grant access \'All photos\'',
   'photoLibraryWriteDenied': 'Permission to write pictures is denied.\nPlease open settings to grant permissio',

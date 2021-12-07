@@ -40,7 +40,9 @@ export const styles = StyleSheet.create({
     color: Colors.grayTxt,
     flex: 0.8,
     paddingHorizontal: 10,
-    fontWeight: '500'
+    fontWeight: '500',
+    fontStyle: 'normal',
+    fontFamily: 'Roboto'
   },
   mainView: {
     flex: 1,

@@ -18,7 +18,10 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   Sty_input: {
-    fontSize: FontSize ? FontSize.small : 13,
+    fontSize: FontSize.xtraSmall,
+    fontFamily: 'Roboto',
+    fontWeight: '400',
+    lineHeight: FontSize.small * 10 / 7
   },
   txtNotification: {
     padding: 0,

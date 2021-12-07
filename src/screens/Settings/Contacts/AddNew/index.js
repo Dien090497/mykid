@@ -25,7 +25,7 @@ import { ActionSheetCustom } from '@alessiocancian/react-native-actionsheet';
 import NotificationModal from '../../../../components/NotificationModal';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { hideLoading, phoneTest2, resizeImage, showLoading } from '../../../../functions/utils';
-import { ScaleHeight } from '../../../../functions/Consts';
+import Consts, { ScaleHeight } from '../../../../functions/Consts';
 import {
   checkCameraPermission,
   checkPhotoLibraryReadPermission,
@@ -141,6 +141,14 @@ export default ({ navigation, route }) => {
     }
   };
 
+  const gotoHomeScreen = () => {
+    if (DataLocal.haveSim === '0') {
+      DataLocal.saveHaveSim('1').then(r =>
+        navigation.navigate(Consts.ScreenIds.Tabs)
+      );
+    }
+  }
+
   return (
     <View
       style={[styles.container, { paddingBottom: useSafeAreaInsets().bottom }]}>
@@ -157,7 +165,7 @@ export default ({ navigation, route }) => {
                    resizeMode={avatar ? 'cover' : 'stretch'} />
             <View style={{ flexDirection: 'row', marginTop: '4%', alignItems: 'center', justifyContent: 'center' }}>
               <Image source={Images.icShootPhoto} style={styles.icon} resizeMode={'stretch'} />
-              <Text style={{ marginLeft: '2%' }}>{t('common:changeAvatar')}</Text>
+              <Text style={styles.txtAvatar}>{t('common:changeAvatar')}</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -203,7 +211,7 @@ export default ({ navigation, route }) => {
         ref={o => sheet1 = o}
         styles={{
           buttonBox: { width: '100%', height: ScaleHeight.big },
-          buttonText: { fontSize: 18, fontWeight: '400', fontStyle: 'normal' },
+          buttonText: styles.txtAction,
         }}
         options={[
           t('common:selectPhotoLibrary'),
@@ -214,7 +222,7 @@ export default ({ navigation, route }) => {
         onPress={handleImageAction}
       />
       <LoadingIndicator ref={refLoading} />
-      <NotificationModal ref={refNotification} />
+      <NotificationModal ref={refNotification} goBack={gotoHomeScreen}/>
     </View>
   );
 };

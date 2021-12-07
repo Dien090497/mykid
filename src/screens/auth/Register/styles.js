@@ -16,10 +16,11 @@ export const styles = StyleSheet.create({
   },
   Sty_txt: {
     marginTop: 25,
-    width: width* 0.9,
+    width: width * 0.9,
     flexDirection: 'row',
     marginVertical: 15,
     alignItems: 'center',
+    height:  ScaleHeight.medium
   },
   Sty_iconCode: {
     width: 120,
@@ -48,20 +49,27 @@ export const styles = StyleSheet.create({
     fontSize: FontSize.xtraSmall,
     color: Colors.red,
     textDecorationLine: 'underline',
+    fontFamily: 'Roboto',
+    lineHeight: FontSize.small * 10 / 7
   },
   txtPolicy1: {
     fontWeight: '500',
     fontSize: FontSize.xtraSmall,
     color: Colors.red,
     textDecorationLine: 'underline',
-    marginLeft: -15
+    marginLeft: -15,
+    fontFamily: 'Roboto',
+    lineHeight: FontSize.small * 10 / 7
   },
   txt_Policy: {
     fontSize: FontSize.xtraSmall,
     marginTop: 15,
     marginLeft: -15,
     width: width - 55,
-    color: '#808080'
+    color: '#808080',
+    fontFamily: 'Roboto',
+    fontWeight: '400',
+    lineHeight: FontSize.small * 10 / 7
   },
   viewButton: {
     width: '96%',
@@ -76,11 +84,12 @@ export const styles = StyleSheet.create({
     justifyContent:'center',
     height: ScaleHeight.medium,
     width: width* 0.9,
-    marginTop: ScaleHeight.small* 1.5,
+    marginTop: ScaleHeight.small * 1.5,
   },
   textSubmit:{
     fontFamily:'Roboto-Medium',
     fontSize:FontSize.small,
-    color: Colors.white
+    color: Colors.white,
+    lineHeight: FontSize.small * 10 / 7
   },
 });

@@ -43,7 +43,9 @@ export const styles = StyleSheet.create({
     fontSize: FontSize.big * 0.85,
     fontWeight: '500',
     color: Colors.black,
-    marginHorizontal: height * 0.007
+    marginHorizontal: height * 0.007,
+    fontStyle: 'normal',
+    fontFamily: 'Roboto',
   },
   view: {
     width: height * 0.04,
@@ -68,5 +70,19 @@ export const styles = StyleSheet.create({
     height: height * 0.16,
     borderRadius: height * 0.08,
     marginTop: height * 0.02
+  },
+  txtAvatar: {
+    marginLeft: '2%',
+    fontSize: FontSize.xtraSmall,
+    fontFamily: 'Roboto',
+    fontWeight: '500',
+    lineHeight: FontSize.small  * 10 / 7,
+    fontStyle: 'normal'
+  },
+  txtAction: {
+    fontSize: FontSize.big,
+    fontFamily: 'Roboto',
+    fontStyle: 'normal',
+    fontWeight: '400'
   }
 });

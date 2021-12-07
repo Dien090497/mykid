@@ -297,9 +297,11 @@ export default {
 
   // permissions
   'cameraUnavailable': 'Máy ảnh không khả dụng trên thiết bị của bạn',
+  'locationUnavailable': 'Máy ảnh không khả dụng trên thiết bị của bạn',
   'photoLibraryUnavailable': 'Thư viện ảnh không khả dụng trên thiết bị của bạn',
   'microphoneUnavailable': 'Mic không khả dụng trên thiết bị của bạn',
-  'cameraDenied': 'Quyền truy cập GPS bị từ chối.\nVui lòng vào cài đặt để cấp quyền truy cập',
+  'cameraDenied': 'Quyền truy cập Camera bị từ chối.\nVui lòng vào cài đặt để cấp quyền truy cập',
+  'locationDenied': 'Quyền truy cập GPS bị từ chối.\nVui lòng vào cài đặt để cấp quyền truy cập',
   'photoLibraryReadDenied': 'Quyền truy cập thư viện ảnh bị từ chối.\nVui lòng mở cài đặt để cấp quyền truy cập',
   'photoLibraryReadLimit': 'Quyền truy cập thư viện ảnh bị giới hạn.\nVui lòng mở cài đặt để cấp quyền truy cập \'Tất cả ảnh\'',
   'photoLibraryWriteDenied': 'Quyền ghi ảnh bị từ chối.\nVui lòng mở cài đặt để cấp quyền',

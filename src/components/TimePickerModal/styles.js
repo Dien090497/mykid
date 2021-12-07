@@ -39,8 +39,9 @@ export const styles = StyleSheet.create({
 
   },
   txtSub: {
-    fontSize: 60,
-    color: Colors.blue
+    fontSize: FontSize.xxxtraBig * 2.4,
+    color: Colors.blue,
+    fontFamily: 'Roboto-Medium'
   },
   header: {
     flexDirection: 'row',

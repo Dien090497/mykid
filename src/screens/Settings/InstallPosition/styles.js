@@ -1,5 +1,5 @@
 import {StyleSheet, Dimensions} from 'react-native';
-import { FontSize } from '../../../functions/Consts';
+import { FontSize, ScaleHeight } from '../../../functions/Consts';
 import {Colors} from '../../../assets/colors/Colors';
 
 const {width, height} = Dimensions.get('window');
@@ -39,10 +39,13 @@ export const styles = StyleSheet.create({
     fontSize: FontSize.medium,
     fontFamily: 'Roboto',
     color: 'rgba(181, 180, 180, 1)',
+    fontWeight: '500',
+    fontStyle: 'normal',
+    lineHeight: FontSize.medium * 1.25
   },
    tob: {
        width: '90%',
-       height: '100%',
+       height: ScaleHeight.medium,
        borderRadius: 10,
        backgroundColor: Colors.redTitle,
        justifyContent: 'center',

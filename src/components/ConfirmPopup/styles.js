@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {Colors} from '../../assets/colors/Colors';
+import {FontSize} from "../../functions/Consts";
 
 export const styles = StyleSheet.create({
   container: {
@@ -27,12 +28,12 @@ export const styles = StyleSheet.create({
     marginBottom: 5,
   },
   textTitle: {
-    fontSize: 16,
+    fontSize: FontSize.medium,
     fontFamily: 'Roboto-Medium',
     textAlign: 'center'
   },
   textContent: {
-    fontSize: 14,
+    fontSize: FontSize.small,
     marginVertical: 10,
     fontFamily: 'Roboto-Medium',
     textAlign: 'center'
@@ -49,7 +50,7 @@ export const styles = StyleSheet.create({
     overflow: 'hidden'
   },
   noButtonText: {
-    fontSize: 18,
+    fontSize: FontSize.big,
     color: Colors.white,
     fontFamily: 'Roboto-Bold',
     textAlign: 'center',
@@ -67,7 +68,7 @@ export const styles = StyleSheet.create({
     overflow: 'hidden'
   },
   yesButtonText: {
-    fontSize: 18,
+    fontSize: FontSize.big,
     color: Colors.white,
     fontFamily: 'Roboto-Bold',
     textAlign: 'center',

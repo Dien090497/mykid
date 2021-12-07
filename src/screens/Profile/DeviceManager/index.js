@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import React, { useLayoutEffect, useRef, useState } from 'react';
 
-import Consts, {ScaleHeight} from '../../../functions/Consts';
+import Consts, {FontSize, ScaleHeight} from '../../../functions/Consts';
 import DataLocal from '../../../data/dataLocal';
 import Header from '../../../components/Header';
 import Images from '../../../assets/Images';
@@ -156,7 +156,7 @@ export default function DeviceManager({navigation}) {
             </View>
             <View style={{flexDirection: 'column', justifyContent: 'center'}}>
               <Text style={styles.textSettings}>{item.deviceName}</Text>
-              <Text style={[styles.textSettings, {color: Colors.grayTextTitleColor, fontSize: 12}]}>{item.deviceCode}</Text>
+              <Text style={[styles.textSettings, {color: Colors.grayTextTitleColor, fontSize: FontSize.xtraSmall}]}>{item.deviceCode}</Text>
             </View>
           </TouchableOpacity>
           {selectedIndex !== index ?
@@ -177,7 +177,7 @@ export default function DeviceManager({navigation}) {
           <Image source={item.avatar ? {uri:item.avatar} : item.icon} resizeMode={item.avatar? 'cover' : 'stretch'} style={styles.iconSetting}/>
           <View style={{flexDirection: 'column', justifyContent: 'center'}}>
             <Text style={styles.textSettings}>{item.deviceName}</Text>
-            <Text style={[styles.textSettings, {color: Colors.grayTextTitleColor, fontSize: 12}]}>{item.deviceCode}</Text>
+            <Text style={[styles.textSettings, {color: Colors.grayTextTitleColor, fontSize: FontSize.xtraSmall}]}>{item.deviceCode}</Text>
           </View>
              <TouchableOpacity  style={styles.btnDelete} onPress={ () => showModal(item)}>
                <Text style={[styles.textChange, {color: Colors.redTitle}]}>{t('common:delete')}</Text>

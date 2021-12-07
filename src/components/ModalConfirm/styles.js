@@ -18,8 +18,9 @@ export const styles = StyleSheet.create ({
   },
   textItem: {
     color: Colors.black,
-    fontSize: 15,
-    marginTop: width* 0.01
+    fontSize: FontSize.medium,
+    marginTop: width* 0.01,
+    fontFamily: 'Roboto-Medium'
   },
   itemLeft: {
     flex: 1,

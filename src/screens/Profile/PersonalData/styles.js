@@ -1,5 +1,6 @@
 import {Colors} from '../../../assets/colors/Colors';
 import {StyleSheet, Dimensions} from 'react-native';
+import {FontSize} from "../../../functions/Consts";
 
 const {width, height} = Dimensions.get('window');
 
@@ -34,10 +35,11 @@ export const styles = StyleSheet.create({
     borderRadius: 12
   },
   text: {
-    fontSize: 16,
+    fontSize: FontSize.medium,
     fontWeight: '500',
     color: Colors.black,
-    marginHorizontal: height * 0.007
+    marginHorizontal: height * 0.007,
+    fontFamily: 'Roboto'
   },
   image: {
     width: height * 0.04,
