@@ -1,9 +1,10 @@
-import Consts, {FontSize} from '../../../../functions/Consts';
+import Consts, {FontSize, ScaleHeight} from '../../../../functions/Consts';
 
 import {Colors} from '../../../../assets/colors/Colors';
 import {StyleSheet, Dimensions} from 'react-native';
 
 const {width, height} = Dimensions.get("window");
+
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -19,12 +20,13 @@ export const styles = StyleSheet.create({
   mainContent:{
     flex: 1,
     paddingHorizontal: 20,
+    height: ScaleHeight.medium,
     width: '100%',
     alignItems: 'center',
   },
   viewTextInput:{
     flexDirection: 'row',
-    height: 50,
+    height: ScaleHeight.medium ,
     width: '100%',
     backgroundColor: Colors.white,
     alignSelf: 'center',
@@ -38,7 +40,10 @@ export const styles = StyleSheet.create({
     fontSize: FontSize.small,
     padding: 10,
     flex: 1,
-    color: Colors.black
+    color: Colors.black,
+    fontStyle: 'normal',
+    fontFamily: 'Roboto',
+    fontWeight: '500'
   },
   btnSubmit:{
     backgroundColor: Colors.colorMain,
@@ -52,8 +57,10 @@ export const styles = StyleSheet.create({
   },
   txtSubmit:{
     color: 'white',
-    fontSize: 16,
-    fontFamily: 'Roboto-Medium'
+    fontSize: FontSize.medium,
+    fontFamily: 'Roboto-Medium',
+    fontStyle: 'normal',
+    lineHeight: FontSize.medium * 1.25
   },
   iconNodeBook:{
     height: 40,
@@ -72,4 +79,17 @@ export const styles = StyleSheet.create({
     aspectRatio: 1,
     resizeMode: 'stretch',
   },
+  txtAvatar: {
+    marginLeft: '2%',
+    fontSize: FontSize.medium,
+    fontFamily: 'Roboto',
+    fontStyle: 'normal',
+    lineHeight: FontSize.medium * 1.25
+  },
+  txtAction: {
+    fontSize: FontSize.big,
+    fontFamily: 'Roboto',
+    fontStyle: 'normal',
+    fontWeight: '400'
+  }
 });

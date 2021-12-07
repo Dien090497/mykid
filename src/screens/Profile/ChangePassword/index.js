@@ -122,7 +122,7 @@ const ChangePassword = ({navigation}) => {
                 [styles.tobSubmit, {backgroundColor: 'rgba(228, 228, 228, 1)'}] : styles.tobSubmit}
               disabled={(currentPassword === '' || newPassword === '' || newPasswordConfirm === '') ? true : false}
             >
-              <Text style={{color: Colors.white}}>{t('common:confirm')}</Text>
+              <Text style={styles.txtConfirm}>{t('common:confirm')}</Text>
             </TouchableOpacity>
           </View>
         </View>

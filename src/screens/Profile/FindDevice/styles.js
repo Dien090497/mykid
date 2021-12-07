@@ -29,7 +29,9 @@ export const styles = StyleSheet.create({
     fontSize: FontSize.medium,
     fontWeight: '400',
     color: Colors.colorTextPlus,
-    marginBottom: height* 0.015
+    marginBottom: height* 0.015,
+    fontFamily: 'Roboto',
+    lineHeight: FontSize.medium * 1.25
   },
   button: {
     height: ScaleHeight.medium,
@@ -42,8 +44,9 @@ export const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
-    fontSize: 16,
-    fontFamily: 'Roboto-Bold'
+    fontSize: FontSize.medium,
+    fontFamily: 'Roboto-Bold',
+    lineHeight: FontSize.medium * 1.25
   },
   iconClock: {
     width: 102,

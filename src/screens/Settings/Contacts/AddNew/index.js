@@ -157,7 +157,7 @@ export default ({ navigation, route }) => {
                    resizeMode={avatar ? 'cover' : 'stretch'} />
             <View style={{ flexDirection: 'row', marginTop: '4%', alignItems: 'center', justifyContent: 'center' }}>
               <Image source={Images.icShootPhoto} style={styles.icon} resizeMode={'stretch'} />
-              <Text style={{ marginLeft: '2%' }}>{t('common:changeAvatar')}</Text>
+              <Text style={styles.txtAvatar}>{t('common:changeAvatar')}</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -203,7 +203,7 @@ export default ({ navigation, route }) => {
         ref={o => sheet1 = o}
         styles={{
           buttonBox: { width: '100%', height: ScaleHeight.big },
-          buttonText: { fontSize: 18, fontWeight: '400', fontStyle: 'normal' },
+          buttonText: styles.txtAction,
         }}
         options={[
           t('common:selectPhotoLibrary'),

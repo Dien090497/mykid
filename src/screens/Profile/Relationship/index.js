@@ -14,6 +14,7 @@ import styles from './style';
 import Images from '../../../assets/Images';
 import { useTranslation } from 'react-i18next';
 import DataLocal from '../../../data/dataLocal';
+import {FontSize} from "../../../functions/Consts";
 
 const Relationship = ({ navigation, route }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -138,7 +139,7 @@ const Relationship = ({ navigation, route }) => {
           {t('common:iAm')}
           {DataLocal.language === 'vi' ? '' : t('common:ofHe')+' '}
           <Text
-            style={{ color: '#696969', fontSize: 16, fontWeight: 'bold' }}>
+            style={{ color: '#696969', fontSize: FontSize.medium, fontWeight: 'bold', fontFamily: 'Roboto' }}>
             {data && data[selectedIndex] ? data[selectedIndex].name : ''}
           </Text>
           {DataLocal.language === 'vi' ? ' '+t('common:ofHe') : ''}

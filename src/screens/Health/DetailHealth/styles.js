@@ -59,7 +59,8 @@ export const styles = StyleSheet.create({
   },
   txtHeaderChartView:{
     color: '#727272',
-    fontSize: FontSize.small
+    fontSize: FontSize.small,
+    fontFamily: 'Roboto-Medium'
   },
   line:{
     width: '90%',

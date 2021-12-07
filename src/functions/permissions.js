@@ -41,7 +41,7 @@ export async function checkPhotoLibraryReadPermission() {
 }
 
 export async function checkMicrophonePermission() {
-  const msgs = [i18next.t('common:microphoneUnavailable'), i18next.t('common:microphoneDenied')];
+  const msgs = [i18next.t('common:locationUnavailable'), i18next.t('common:locationDenied')];
   if (Platform.OS === 'ios') {
     const result = await check(PERMISSIONS.IOS.MICROPHONE);
     return handlePermissionResp(result, PERMISSIONS.IOS.MICROPHONE, msgs);
@@ -67,7 +67,7 @@ export async function checkCameraPermission() {
 }
 
 export async function checkLocationPermission() {
-  const msgs = [i18next.t('common:cameraUnavailable'), i18next.t('common:cameraDenied')];
+  const msgs = [i18next.t('common:cameraUnavailable'), i18next.t('common:locationDenied')];
   if (Platform.OS === 'ios') {
     const result = await check(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
     return handlePermissionResp(result, PERMISSIONS.IOS.LOCATION_WHEN_IN_USE, msgs);

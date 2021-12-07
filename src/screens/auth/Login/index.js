@@ -208,7 +208,7 @@ const Login = ({navigation}) => {
         visible={showModal}
         transparent={true}
         animationType='slide'
-      >
+      >x
         <View style={styles.modalView}>
           <TouchableOpacity style={styles.modalViewTob} onPress={() => {
             setShowModal(false)
