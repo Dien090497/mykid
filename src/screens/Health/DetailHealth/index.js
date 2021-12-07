@@ -31,7 +31,7 @@ export default function Health({ navigation }) {
   const [tracking, setTracking] = useState({});
   const [listTracking, setListTracking] = useState({});
   const [date, setDate] = useState(new Date());
-  const [goals, setGoals] = useState(null);
+  const [goals, setGoals] = useState(0);
   const { t } = useTranslation();
 
   useLayoutEffect(() => {
@@ -57,6 +57,7 @@ export default function Health({ navigation }) {
         setGoals(res.data.steps);
       },
       refLoading,
+      autoShowMsg: false,
     });
   }, [date]);
 
@@ -151,7 +152,7 @@ export default function Health({ navigation }) {
             <View style={styles.headerCharView}>
               <Text style={styles.txtHeaderChartView}>{t('common:steps')}</Text>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={[styles.txtHeaderChartView, { marginRight: 5 }]}>{(goals ? goals : '0') + '/20000'}</Text>
+                <Text style={[styles.txtHeaderChartView, { marginRight: 5 }]}>{goals + '/20000'}</Text>
                 <TouchableOpacity style={styles.iconHeaderChartView} onPress={() => {
                   refInput.current.open('', () => {
                   }, goals, true);
@@ -172,7 +173,6 @@ export default function Health({ navigation }) {
                 labelColor: (opacity = 1) => `rgba(114, 114, 114, ${opacity})`,
                 decimalPlaces: 0,
                 scrollableDotStrokeWidth: 0,
-                // barPercentage: 0.8,
                 propsForBackgroundLines: {
                   strokeWidth: 0.1,
                   stroke: Colors.colorTextPlus,
