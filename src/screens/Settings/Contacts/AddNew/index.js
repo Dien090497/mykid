@@ -25,7 +25,7 @@ import { ActionSheetCustom } from '@alessiocancian/react-native-actionsheet';
 import NotificationModal from '../../../../components/NotificationModal';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { hideLoading, phoneTest2, resizeImage, showLoading } from '../../../../functions/utils';
-import { ScaleHeight } from '../../../../functions/Consts';
+import Consts, { ScaleHeight } from '../../../../functions/Consts';
 import {
   checkCameraPermission,
   checkPhotoLibraryReadPermission,
@@ -141,6 +141,14 @@ export default ({ navigation, route }) => {
     }
   };
 
+  const gotoHomeScreen = () => {
+    if (DataLocal.haveSim === '0') {
+      DataLocal.saveHaveSim('1').then(r =>
+        navigation.navigate(Consts.ScreenIds.Tabs)
+      );
+    }
+  }
+
   return (
     <View
       style={[styles.container, { paddingBottom: useSafeAreaInsets().bottom }]}>
@@ -214,7 +222,7 @@ export default ({ navigation, route }) => {
         onPress={handleImageAction}
       />
       <LoadingIndicator ref={refLoading} />
-      <NotificationModal ref={refNotification} />
+      <NotificationModal ref={refNotification} goBack={gotoHomeScreen}/>
     </View>
   );
 };

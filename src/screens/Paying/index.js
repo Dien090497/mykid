@@ -4,7 +4,7 @@ import Header from '../../components/Header';
 import {useTranslation} from "react-i18next";
 import {Colors} from "../../assets/colors/Colors";
 import {styles} from "./styles";
-import Consts from "../../functions/Consts";
+import Consts , {FontSize} from "../../functions/Consts";
 import {getInfoApi} from '../../network/PaymentService';
 import DataLocal from "../../data/dataLocal";
 import NotificationModal from "../../components/NotificationModal";
@@ -60,7 +60,7 @@ export default function Paying({navigation}) {
           <Text style={{
             color: Colors.redTitle,
             fontWeight: '700',
-            fontSize: 20
+            fontSize: FontSize.xtraBig
           }}>{t('common:accountInfo')}</Text>
         </View>
         <View style={styles.viewItem}>

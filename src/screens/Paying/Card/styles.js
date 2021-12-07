@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
   viewTob: {
     backgroundColor: Colors.redTitle,
     marginVertical: height * 0.03,
-    height: ScaleHeight.medium * 1.2,
+    height: ScaleHeight.medium ,
     width: '100%',
     padding: 10,
     flexDirection: 'row',
@@ -41,6 +41,7 @@ export const styles = StyleSheet.create({
     fontSize: ScaleHeight.medium * 1.2 / 3.5,
     color: Colors.white,
     fontWeight: '500',
+    fontFamily: 'Roboto'
   },
   viewContent: {
     width: '100%',

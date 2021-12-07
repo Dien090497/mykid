@@ -22,6 +22,9 @@ export default ({navigation, route}) => {
       key: 'Contacts',
       title: t('common:setting_contact'),
       onPress: () => {
+        if (DataLocal.haveSim === '0') {
+          return refNotification.current.open(t('errorMsg:kwa4067'));
+        }
         navigation.navigate(Consts.ScreenIds.Contacts);
       },
       icon: (

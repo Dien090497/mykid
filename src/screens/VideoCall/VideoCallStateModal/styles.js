@@ -18,11 +18,13 @@ const styles = StyleSheet.create({
     fontSize: FontSize.xxxtraBig,
     color: 'white',
     fontWeight: '700',
+    fontFamily: 'Roboto'
   },
   txtVideoCall: {
     color: 'white',
     fontSize: FontSize.small,
-    marginTop: 3
+    marginTop: 3,
+    fontFamily: 'Roboto-Medium'
   },
   containerFooter: {
     height: '20%',

@@ -200,6 +200,14 @@ export default ({navigation, route}) => {
     );
   };
 
+  const gotoHomeScreen = () => {
+    if (DataLocal.haveSim === '0') {
+      DataLocal.saveHaveSim('1').then(r =>
+        navigation.navigate(Consts.ScreenIds.Tabs)
+      );
+    }
+  }
+
   return (
     <View
       style={[styles.container, {paddingBottom: useSafeAreaInsets().bottom}]}>
@@ -305,7 +313,7 @@ export default ({navigation, route}) => {
           </View>
          </TouchableOpacity>
       </Modal>
-      <NotificationModal ref={refNotification} />
+      <NotificationModal ref={refNotification} goBack={gotoHomeScreen}/>
       <LoadingIndicator ref={refLoading} />
       <ModalConfirm ref={refConfirm} />
     </View>
