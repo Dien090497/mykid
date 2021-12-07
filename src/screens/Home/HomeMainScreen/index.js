@@ -35,7 +35,7 @@ export default function HomeMainScreen() {
   const {t} = useTranslation();
 
   useLayoutEffect(() => {
-    // XmppClient.connectXmppServer();
+    XmppClient.connectXmppServer();
     WebSocketSafeZone.setReconnect(true);
     WebSocketSafeZone._handleWebSocketSetup(navigation);
     WebSocketVideoCall.setReconnect(true);
