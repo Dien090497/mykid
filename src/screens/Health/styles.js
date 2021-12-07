@@ -112,7 +112,6 @@ export const styles = StyleSheet.create({
     height: 14,
     tintColor: '#B2B2B0',
     resizeMode: 'contain',
-    marginLeft: 35,
     flex: 1,
   },
   viewSwitch: {
