@@ -25,7 +25,7 @@ export default function SMS({navigation}) {
   const [brands, setBrands] = useState([]);
   const [devices, setDevices] = useState([]);
   const [showMenu, setShowMenu] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(DataLocal.deviceIndex);
   const { t } = useTranslation();
 
   useLayoutEffect(() => {
