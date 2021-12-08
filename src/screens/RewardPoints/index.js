@@ -1,4 +1,14 @@
-import { Image, TextInput, Text, TouchableOpacity, View } from 'react-native';
+import {
+  Image,
+  TextInput,
+  Text,
+  TouchableOpacity,
+  View,
+  ScrollView,
+  KeyboardAvoidingView,
+  SafeAreaView,
+  Platform
+} from 'react-native';
 import React, { useEffect, useRef, useState } from 'react';
 
 import Header from '../../components/Header';
@@ -56,46 +66,47 @@ export default ({ navigation }) => {
   }
 
   return (
-    <View
-      style={[styles.container, { paddingBottom: useSafeAreaInsets().bottom }]}>
+    <SafeAreaView style={[styles.container, { paddingBottom: useSafeAreaInsets().bottom }]}>
       <Header title={t('common:header_reward_points')} />
-      <View style={styles.scroll}>
-        <View style={styles.mainView}>
-          <View style={styles.imgHeart}>
-            <Image source={Images.icHeart} style={[styles.iconHeart]} />
-          </View>
-          <Text style={styles.text}>{t('common:rewardPoints_text')}</Text>
-          <View style={styles.viewPoint}>
+      <KeyboardAvoidingView style={{flex: 1, width: '100%'}} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      <ScrollView style={styles.scroll}>
+          <View style={styles.mainView}>
+            <View style={styles.imgHeart}>
+              <Image source={Images.icHeart} style={[styles.iconHeart]} />
+            </View>
+            <Text style={styles.text}>{t('common:rewardPoints_text')}</Text>
+            <View style={styles.viewPoint}>
+              <TouchableOpacity
+                onPress={minusPoint}
+                style={styles.btn}>
+                <Image source={Images.icMinus} style={styles.iconBtn} />
+              </TouchableOpacity>
+              <TextInput
+                style={styles.textPoint}
+                scrollEnabled={true}
+                disableFullscreenUI
+                underlineColorAndroid={'transparent'}
+                keyboardType={'phone-pad'}
+                maxLength={2}
+                onChangeText={(text) => setPoint(text.replace(/[^0-9]/g, ''))}
+                value={point.toString()}
+              />
+              <TouchableOpacity
+                style={styles.btn}
+                onPress={addPoint}>
+                <Image source={Images.icAdd} style={styles.iconBtn} />
+              </TouchableOpacity>
+            </View>
             <TouchableOpacity
-              onPress={minusPoint}
-              style={styles.btn}>
-              <Image source={Images.icMinus} style={styles.iconBtn} />
-            </TouchableOpacity>
-            <TextInput
-               style={styles.textPoint}
-               scrollEnabled={true}
-               disableFullscreenUI
-               underlineColorAndroid={'transparent'}
-               keyboardType={'phone-pad'}
-               maxLength={2}
-               onChangeText={(text) => setPoint(text.replace(/[^0-9]/g, ''))}
-               value={point.toString()}
-            />
-            <TouchableOpacity
-              style={styles.btn}
-              onPress={addPoint}>
-              <Image source={Images.icAdd} style={styles.iconBtn} />
+              onPress={rewardsPoints}
+              style={styles.btnSubmit}>
+              <Text style={styles.textSubmit}>{t('common:confirm')}</Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity
-            onPress={rewardsPoints}
-            style={styles.btnSubmit}>
-            <Text style={styles.textSubmit}>{t('common:confirm')}</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+      </ScrollView>
+      </KeyboardAvoidingView>
       <LoadingIndicator ref={refLoading} />
       <NotificationModal ref={refNotification} goBack={gotoHomeScreen}/>
-    </View>
+    </SafeAreaView>
   );
 };

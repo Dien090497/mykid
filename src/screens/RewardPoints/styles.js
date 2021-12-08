@@ -15,6 +15,7 @@ export const styles = StyleSheet.create({
   mainView: {
     flex: 1,
     alignItems: 'center',
+    height: '100%'
   },
   imgHeart: {
     marginTop: height * 0.05,
