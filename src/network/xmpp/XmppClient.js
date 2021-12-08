@@ -65,7 +65,7 @@ export default class XmppClient {
 
     setTimeout(() => {
       this.ping();
-    }, 44444)
+    }, 3000)
   };
 
   static getRooms = async () => {
@@ -251,7 +251,7 @@ export default class XmppClient {
   }
 
   static callbackStanza = async function (stanza) {
-    console.log(stanza);
+    if (stanza.children.length > 0) console.log('STANZA',stanza.children);
     //<enabled resume="true" max="300" id="g2gCbQAAABk5ODg1ODUyNjg2NDQ5MDcyODg0MzY5MzgxbQAAAAhUwCXVzTdFdA==" xmlns="urn:xmpp:sm:3"/>
     if (stanza.is('enabled')) {
       console.log(stanza.attrs.id);
@@ -332,14 +332,21 @@ export default class XmppClient {
           isShowDate: isShowDate,
         }
         if (msg.type === "audio"){
-          const whoosh = new Sound(msg.body, '', (error) => {
-            if (error) {
-              console.log("failed to load the sound", error);
-              return;
+          DataLocal.loadDuration(bodySplit[bodySplit.length - 1]).then(result =>{
+            if (result){
+              msg.duration = result;
+            }else {
+              const whoosh = new Sound(msg.body, '', (error) => {
+                if (error) {
+                  console.log("failed to load the sound", error);
+                  return;
+                }
+                DataLocal.saveDuration(bodySplit[bodySplit.length - 1],Math.round(whoosh.getDuration()).toString())
+                msg.duration = Math.round(whoosh.getDuration());
+              });
+              whoosh.release();
             }
-            msg.duration = Math.round(whoosh.getDuration());
-          });
-          whoosh.release();
+          })
         }
         this.lstMsg[fromSplit[0]].push(msg)
       }
@@ -372,6 +379,7 @@ export default class XmppClient {
               return;
             }
             msg.duration = Math.round(whoosh.getDuration());
+            DataLocal.saveDuration(bodySplit[bodySplit.length - 1],Math.round(whoosh.getDuration()).toString())
             this.lstMsg[fromSplit[0]].push(msg);
             this.saveLastMsg(fromSplit[0], msg);
             reduxStore.store.dispatch(chatAction.updateMessage(this.lstMsg));
@@ -389,7 +397,7 @@ export default class XmppClient {
             'message.mp3',
             Sound.MAIN_BUNDLE,
             error => {
-              console.log('error', error);
+              if (error) console.log('error', error);
               this.ringtone.play(() => {});
             },
           );
