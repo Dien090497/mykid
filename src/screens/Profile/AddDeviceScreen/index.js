@@ -1,6 +1,5 @@
 import { Image, Modal, ScrollView, Text, TextInput, TouchableOpacity, View, } from 'react-native';
 import React, { useLayoutEffect, useRef, useState } from 'react';
-
 import Consts from '../../../functions/Consts';
 import Header from '../../../components/Header';
 import Images from '../../../assets/Images';

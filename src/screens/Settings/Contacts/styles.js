@@ -22,13 +22,17 @@ export const styles = StyleSheet.create({
     fontSize: FontSize.medium,
     textAlign: 'left',
     color: Colors.grayTxt,
-    fontFamily:'Roboto-Medium'
+    fontFamily:'Roboto-Medium',
+    fontStyle: 'normal',
+    lineHeight: FontSize.medium * 1.25
   },
   phoneText: {
     fontSize: FontSize.xtraSmall,
     textAlign: 'left',
     color: Colors.grayTxt,
     fontFamily: 'Roboto',
+    fontStyle: 'normal',
+    lineHeight: FontSize.medium * 1.25
   },
   txtNull:{
     fontSize: FontSize.small,
@@ -61,10 +65,12 @@ export const styles = StyleSheet.create({
   textItem: {
     marginLeft: '4%',
     marginVertical: '4%',
-    fontSize: 16,
+    fontSize: FontSize.medium,
     width: '86%',
     overflow: 'hidden',
     fontFamily: 'Roboto-Medium',
+    lineHeight: FontSize.medium * 1.25,
+    fontStyle: 'normal'
   },
   iconDetail: {
     height: '100%',
@@ -120,7 +126,9 @@ export const styles = StyleSheet.create({
   txtAdd: {
     color: 'white',
     fontSize: FontSize.small,
-    fontFamily: 'Roboto-Medium'
+    fontFamily: 'Roboto-Medium',
+    fontStyle: 'normal',
+    lineHeight: FontSize.medium * 1.25
   },
   containerSwitch: {
     flex: 0.2,
@@ -139,7 +147,11 @@ export const styles = StyleSheet.create({
   txtBlockContact: {
     flex: 0.8,
     textAlign: 'left',
-    fontSize: FontSize.small
+    fontSize: FontSize.small,
+    fontStyle: 'normal',
+    fontWeight: '500',
+    fontFamily: 'Roboto',
+    lineHeight: FontSize.medium * 1.25
   },
   containerRemove: {
     paddingHorizontal: 30,
@@ -170,8 +182,8 @@ export const styles = StyleSheet.create({
   txtSOS: {
     fontSize: FontSize.xtraSmall,
     color: Colors.colorMain,
-    fontFamily: 'Roboto-Medium'
-
+    fontFamily: 'Roboto-Medium',
+    fontStyle: 'normal'
   },
   containerSOS: {
     flex: 0.2,
@@ -263,4 +275,14 @@ export const styles = StyleSheet.create({
     overflow: 'hidden',
     fontFamily: 'Roboto-Medium',
   },
+  txtHeader: {
+    marginLeft: '5%',
+    fontSize: FontSize.small,
+    fontWeight: 'bold',
+    marginVertical: '1%' ,
+    fontStyle: 'normal',
+    lineHeight: FontSize.small * 1.25,
+    fontFamily: 'Roboto',
+    color: 'rgba(95, 95, 95, 1)'
+  }
 });

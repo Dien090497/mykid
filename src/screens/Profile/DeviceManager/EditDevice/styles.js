@@ -41,6 +41,7 @@ export const styles = StyleSheet.create({
     color: Colors.colorTextPlus,
     fontSize: FontSize.medium,
     fontFamily: "Roboto-Medium",
+    lineHeight: FontSize.medium * 1.25
   },
   viewContain: {
     borderRadius: 10,
@@ -85,8 +86,9 @@ export const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
-    fontSize: 16,
-    fontFamily: 'Roboto-Bold'
+    fontSize: FontSize.medium,
+    fontFamily: 'Roboto-Bold',
+    lineHeight: FontSize.medium * 1.25
   },
   textInput: {
     width: '100%',
@@ -94,5 +96,32 @@ export const styles = StyleSheet.create({
     color: Colors.black,
     borderColor: '#E7E7E7',
     fontSize: FontSize.xtraSmall,
+  },
+  txt: {
+    flex: 1,
+    color: Colors.black ,
+    fontSize: FontSize.small
+  },
+  txtInput: {
+    flex: 1,
+    color: Colors.colorHeader,
+    fontSize: FontSize.small,
+    fontFamily: 'Roboto',
+    fontWeight: '500'
+  },
+  txtId: {
+    color: Colors.black,
+    marginLeft: '4%',
+    fontSize: FontSize.small,
+    fontFamily: 'Roboto',
+    fontWeight: '500',
+    lineHeight: FontSize.medium * 1.25
+  },
+  txtDevices: {
+    color: Colors.colorHeader,
+    marginLeft: '1%' ,
+    fontFamily: 'Roboto',
+    fontWeight: '500',
+    lineHeight: FontSize.medium * 1.25
   }
 });

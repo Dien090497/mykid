@@ -38,10 +38,10 @@ export const styles = StyleSheet.create({
   },
   txtItemList:{
     paddingVertical:5,
-    fontFamily:'Roboto',
+    fontFamily:'Roboto-Medium',
     fontSize: FontSize.xxtraSmall,
     color: Colors.grayTextTitleColor,
-    textAlign:'center'
+    textAlign:'center',
   },
   btnSubmit:{
     backgroundColor:'#EE0033',
@@ -50,12 +50,12 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems:'center',
     justifyContent:'center',
-    height:ScaleHeight.medium,
+    height: ScaleHeight.medium,
   },
   textSubmit:{
     color: Colors.white,
     fontFamily:'Roboto-Bold',
-    fontSize:14,
+    fontSize: FontSize.small,
   },
   viewTooltip: {
     width: '100%',
@@ -63,4 +63,10 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
+  txtAction: {
+    fontSize: FontSize.big,
+    fontFamily: 'Roboto',
+    fontStyle: 'normal',
+    fontWeight: '400'
+  }
 });

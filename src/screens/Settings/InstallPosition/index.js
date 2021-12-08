@@ -185,7 +185,7 @@ export default function InstallPosition({ navigation }) {
                         </RadioForm>
                     </View>
                 }
-                <View style={{ width: '100%', alignItems: 'center', height: '6%', marginTop: '5%' }}>
+                <View style={{ width: '100%', alignItems: 'center', height: '8%', marginTop: '5%' }}>
                     <TouchableOpacity style={styles.tob} onPress={setPositionModes}>
                         <Text style={[styles.text, { color: Colors.white }]}>{t('common:save')}</Text>
                     </TouchableOpacity>

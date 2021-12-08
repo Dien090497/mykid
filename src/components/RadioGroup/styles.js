@@ -1,5 +1,6 @@
 import {StyleSheet, Dimensions} from 'react-native';
 import {Colors} from "../../assets/colors/Colors";
+import {FontSize} from "../../functions/Consts";
 
 const {width, height} = Dimensions.get('window');
 export const styles = StyleSheet.create({
@@ -29,7 +30,8 @@ export const styles = StyleSheet.create({
   },
   textView: {
     color: Colors.black,
-    fontSize: 16
+    fontSize: FontSize.medium,
+    fontFamily: 'Roboto-Medium'
   }
 
 });

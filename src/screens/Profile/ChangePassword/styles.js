@@ -79,9 +79,15 @@ export const styles = StyleSheet.create({
   tobSubmit: {
     backgroundColor: Colors.red,
     width: width * 0.88 + 10,
-    height: ScaleHeight.medium * 1.2,
+    height: ScaleHeight.medium ,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
+  },
+  txtConfirm: {
+    color: Colors.white,
+    fontSize: FontSize.medium,
+    fontFamily: 'Roboto-Medium',
+    lineHeight: FontSize.medium * 1.25
   }
 });

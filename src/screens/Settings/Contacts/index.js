@@ -200,13 +200,21 @@ export default ({navigation, route}) => {
     );
   };
 
+  const gotoHomeScreen = () => {
+    if (DataLocal.haveSim === '0') {
+      DataLocal.saveHaveSim('1').then(r =>
+        navigation.navigate(Consts.ScreenIds.Tabs)
+      );
+    }
+  }
+
   return (
     <View
       style={[styles.container, {paddingBottom: useSafeAreaInsets().bottom}]}>
       <Header title={t('common:header_contacts')} />
       <View style={styles.mainView}>
         <View style={{ width: '90%', height: '40%' }}>
-          <Text style={{ marginLeft: '5%',fontSize: 16, fontWeight: '500', marginVertical: '1%' }}>{t('common:listSOS')}</Text>
+          <Text style={styles.txtHeader}>{t('common:listSOS')}</Text>
           {listSOS.length>0 && listSOS.map((obj,i)=>{
             return(
               <View
@@ -240,7 +248,7 @@ export default ({navigation, route}) => {
             )
           })}
        </View>
-       <Text style={{ marginLeft: '5%',fontSize: 16, fontWeight: '500', marginVertical: '1%', marginTop: '5%' }}>{t('common:listMember')}</Text>
+       <Text style={[styles.txtHeader, { marginLeft: '5%', marginVertical: '1%', marginTop: '5%' }]}>{t('common:listMember')}</Text>
         <FlatList
           data={dataContacts?.phones || []}
           style={styles.wrapContainer}
@@ -305,7 +313,7 @@ export default ({navigation, route}) => {
           </View>
          </TouchableOpacity>
       </Modal>
-      <NotificationModal ref={refNotification} />
+      <NotificationModal ref={refNotification} goBack={gotoHomeScreen}/>
       <LoadingIndicator ref={refLoading} />
       <ModalConfirm ref={refConfirm} />
     </View>
