@@ -12,8 +12,7 @@ var encoder = new encoding.TextEncoder();
 export default class WebSocketCheckLogout {
   static ws = null;
   static reconnect = false;
-  static navigationRef = null;
-
+  static isConnected = false;
 
   static setReconnect(autoReconnect) {
     this.reconnect = !!autoReconnect;
@@ -24,8 +23,7 @@ export default class WebSocketCheckLogout {
     this.ws.close();
   }
 
-  static _handleWebSocketSetup = (navigation) => {
-    this.navigationRef = navigation;
+  static _handleWebSocketSetup = () => {
     this.ws = new WebSocket(wsCheckSim);
     this.ws.onopen = () => {
       this.onOpen();
@@ -68,10 +66,12 @@ export default class WebSocketCheckLogout {
       'content-length:0\n' +
       '\n\0';
     await this.ws.send(encoder.encode(command).buffer, true);
+    this.isConnected = true;
     this.ping();
   };
 
   static onClose = () => {
+    this.isConnected = false;
     console.log('Websocket Logout Close!');
   };
 

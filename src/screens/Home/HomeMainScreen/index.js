@@ -59,6 +59,10 @@ export default function HomeMainScreen() {
           WebSocketVideoCall.setReconnect(true);
           WebSocketVideoCall._handleWebSocketSetup(navigation);
         }
+        if (WebSocketCheckLogout.isConnected === false){
+          WebSocketCheckLogout.setReconnect(true);
+          WebSocketCheckLogout._handleWebSocketSetup(navigation);
+        }
       }
     });
 
