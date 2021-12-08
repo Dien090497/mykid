@@ -115,9 +115,9 @@ export default ({ navigation }) => {
   const action = () => {
     return (
       <ActionSheetCustom options={[
-        <Text style={{fontSize: 18, fontFamily: 'Roboto', color: Colors.grayTextColor}}>{t('common:delete')}</Text>,
-        <Text style={{fontSize: 18, fontFamily: 'Roboto', color: Colors.grayTextColor}}>{t('common:savePicture')}</Text>,
-        <Text style={{fontSize: 18, fontFamily: 'Roboto', color: Colors.colorMain}}>{t('common:cancel')}</Text>,
+        <Text style={[styles.txtAction, { color: Colors.grayTextColor}]}>{t('common:delete')}</Text>,
+        <Text style={[styles.txtAction, { color: Colors.grayTextColor}]}>{t('common:savePicture')}</Text>,
+        <Text style={[styles.txtAction, { color: Colors.colorMain}]}>{t('common:cancel')}</Text>,
       ]}
                    onPress={handleImageAction}
                    cancelButtonIndex={2}

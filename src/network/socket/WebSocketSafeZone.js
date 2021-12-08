@@ -12,6 +12,7 @@ export default class WebSocketSafeZone {
   static ws = null;
   static ringtone = null;
   static reconnect = false;
+  static isConnected = false;
   static navigationRef = null;
 
   static PATTERN = [
@@ -61,7 +62,7 @@ export default class WebSocketSafeZone {
   };
 
   static onOpen = async () => {
-    console.log('Websocket Open!');
+    console.log('Websocket SafeZone Open!');
     let command =
       'CONNECT\n' +
       'accept-version:1.2\n' +
@@ -79,12 +80,14 @@ export default class WebSocketSafeZone {
       'content-length:0\n' +
       '\n\0';
     await this.ws.send(encoder.encode(command).buffer, true);
+    this.isConnected = true;
 
     this.ping();
   };
 
   static onClose = () => {
-    console.log('Websocket Close!');
+    console.log('Websocket SafeZone Close!');
+    this.isConnected = false;
   };
 
   static onError = error => {
@@ -112,7 +115,7 @@ export default class WebSocketSafeZone {
             AlertDropHelper.show(
               Consts.dropdownAlertType.ERROR,
               'MyKid',
-              `Thiết bị ${infoDevice.deviceCode} ra khỏi vùng an toàn `,
+               DataLocal.language === 'vi' ? `Thiết bị ${infoDevice.deviceCode} ra khỏi vùng an toàn ` : `Device ${infoDevice.deviceCode} is out of the safe zone `
             );
             Sound.setCategory('Playback');
             this.ringtone = new Sound(

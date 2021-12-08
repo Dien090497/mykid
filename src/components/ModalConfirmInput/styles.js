@@ -51,7 +51,7 @@ export const styles = StyleSheet.create ({
     alignItems: 'center',
   },
   textModel: {
-    fontSize: 18,
+    fontSize: FontSize.big,
     fontFamily:'Roboto-Medium',
     textAlign: 'center',
     color: Colors.grayTextColor

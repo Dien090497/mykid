@@ -58,21 +58,31 @@ export const styles = StyleSheet.create({
   txtTime: {
     fontSize: FontSize.big,
     fontFamily: 'Roboto-Medium',
-    color: Colors.grayTxt
+    color: Colors.grayTxt,
+    fontStyle: 'normal',
+    fontWeight: '400'
   },
   txtAddTime: {
     fontSize: FontSize.big,
     fontFamily: 'Roboto',
-    color: Colors.colorHeader
+    color: Colors.colorHeader,
+    fontStyle: 'normal',
+    fontWeight: '400'
   },
   txtDay: {
     fontSize: FontSize.small,
     fontFamily: 'Roboto',
-    color: Colors.grayTxt
+    color: Colors.grayTxt,
+    fontStyle: 'normal',
+    fontWeight: '400',
+    lineHeight: FontSize.medium * 1.25
   },
   txtMode: {
     fontSize: FontSize.small,
     fontFamily: 'Roboto-Light',
+    fontStyle: 'normal',
+    fontWeight: '400',
+    lineHeight: FontSize.medium * 1.25
   },
   icArrow: {
     width: 14,

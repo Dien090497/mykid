@@ -67,6 +67,9 @@ export const styles = StyleSheet.create({
     fontSize: FontSize.small,
     fontFamily: 'Roboto',
     color: Colors.white,
+    lineHeight: ScaleHeight.medium * 1.25,
+    fontStyle: 'normal',
+    fontWeight: '400'
   },
   button: {
     marginTop: 40,
@@ -82,6 +85,14 @@ export const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontSize: FontSize.small,
-    fontFamily: 'Roboto-Medium'
+    fontFamily: 'Roboto-Medium',
+    lineHeight: FontSize.medium * 1.25,
+    fontStyle: 'normal'
+
   },
+  fontSize: FontSize.small,
+  fontFamily: 'Roboto-Light',
+  fontStyle: 'normal',
+  fontWeight: '400',
+  lineHeight: FontSize.medium * 1.25
 });

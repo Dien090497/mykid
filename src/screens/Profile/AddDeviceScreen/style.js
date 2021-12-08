@@ -32,11 +32,15 @@ const styles = StyleSheet.create({
     width:ScaleHeight.medium,
 
   },
-  textInput:{
-    flex:1,
-    color: Colors.black
+  textInput: {
+    flex: 1,
+    color: Colors,
+    fontStyle: 'normal',
+    fontSize: FontSize.small,
+    fontFamily: 'Roboto',
+    fontWeight: '500',
+    lineHeight: FontSize.medium * 1.25
   },
-
   modalContainer:{
     flex: 1,
     backgroundColor:'rgba(0, 0, 0, 0.3)',
@@ -53,12 +57,14 @@ const styles = StyleSheet.create({
     color: Colors.colorMain,
     marginVertical:20,
     fontFamily:'Roboto-Medium',
-    fontSize: FontSize.xtraBig
+    fontSize: FontSize.xtraBig,
+    fontWeight: '500'
   },
   contentModal:{
-    fontFamily:'Roboto',
+    fontFamily:'Roboto-Medium',
     fontSize: FontSize.xtraSmall,
-    color:'#5F5F5F'
+    color:'#5F5F5F',
+    fontWeight: '400'
   },
   btnConfirm:{
     backgroundColor:Colors.colorMain,
@@ -130,7 +136,9 @@ const styles = StyleSheet.create({
   textSubmit:{
     color: Colors.white,
     fontFamily:'Roboto-Medium',
-    fontSize: FontSize.small
+    fontSize: FontSize.small,
+    fontStyle: 'normal',
+    lineHeight: FontSize.medium * 1.25
   }
 });
 export default styles;

@@ -161,6 +161,29 @@ async function saveHaveSim(sim) {
   }
 }
 
+async function loadDuration(link) {
+  try {
+    const value = await AsyncStorage.getItem(link, '');
+    if (value !== null && value !== undefined) {
+      return value.toString();
+    } else {
+      return null;
+    }
+  } catch(e) {
+    console.log(e);
+    return null;
+  }
+}
+
+async function saveDuration(link, duration) {
+  try {
+    return await AsyncStorage.setItem(link, duration);
+  } catch (e) {
+    console.log(e);
+    return false;
+  }
+}
+
 async function removeAll() {
   await removeAccessToken();
 }
@@ -187,6 +210,9 @@ const DataLocal = {
 
   saveHaveSim,
   loadHaveSim,
+
+  saveDuration,
+  loadDuration,
 
   accessToken,
   tokenFirebase,

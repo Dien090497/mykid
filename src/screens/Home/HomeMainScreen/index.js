@@ -1,4 +1,4 @@
-import {Image, Linking, StatusBar, Text, TouchableOpacity, View} from 'react-native';
+import { AppState, Image, Linking, StatusBar, Text, TouchableOpacity, View } from "react-native";
 import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
 
 import {Menu, MenuDivider} from 'react-native-material-menu';
@@ -21,6 +21,7 @@ import {useTranslation} from 'react-i18next';
 import NotificationModal from '../../../components/NotificationModal';
 import { checkLocationPermission } from '../../../functions/permissions';
 import {logoutService} from "../../../network/UserInfoService";
+import WebSocketCheckLogout from "../../../network/socket/WebSocketCheckLogout";
 
 export default function HomeMainScreen() {
   const navigation = useNavigation();
@@ -33,6 +34,43 @@ export default function HomeMainScreen() {
   const isFocused = useIsFocused();
   const [selectedIndex, setSelectedIndex] = useState(DataLocal.deviceIndex);
   const {t} = useTranslation();
+  const appState = useRef(AppState.currentState);
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener("change", nextAppState => {
+      if (
+        appState.current.match(/inactive|background/) &&
+        nextAppState === "active"
+      ) {
+      }
+
+      appState.current = nextAppState;
+      console.log(appState.current);
+      if (appState.current === 'active'){
+        if (WebSocketSafeZone.isConnected === false){
+          WebSocketSafeZone.setReconnect(true);
+          WebSocketSafeZone._handleWebSocketSetup(navigation);
+        }
+        if (WebSocketCheckSim.isConnected === false){
+          WebSocketCheckSim.setReconnect(true);
+          WebSocketCheckSim._handleWebSocketSetup(navigation);
+        }
+        if (WebSocketVideoCall.isConnected === false){
+          WebSocketVideoCall.setReconnect(true);
+          WebSocketVideoCall._handleWebSocketSetup(navigation);
+        }
+        if (WebSocketCheckLogout.isConnected === false){
+          WebSocketCheckLogout.setReconnect(true);
+          WebSocketCheckLogout._handleWebSocketSetup(navigation);
+        }
+      }
+    });
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
+
 
   useLayoutEffect(() => {
     XmppClient.connectXmppServer();
@@ -42,6 +80,8 @@ export default function HomeMainScreen() {
     WebSocketVideoCall._handleWebSocketSetup(navigation);
     WebSocketCheckSim.setReconnect(true);
     WebSocketCheckSim._handleWebSocketSetup(navigation);
+    WebSocketCheckLogout.setReconnect(true);
+    WebSocketCheckLogout._handleWebSocketSetup(navigation);
     getListDevices();
   }, []);
 
@@ -65,7 +105,7 @@ export default function HomeMainScreen() {
           WebSocketVideoCall.disconnect();
         }
       })
-      navigation.replace(Consts.ScreenIds.Login);
+      navigation.replace(Consts.ScreenIds.Splash);
     }
   }, [logout]);
 

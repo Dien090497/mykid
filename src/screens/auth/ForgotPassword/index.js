@@ -11,7 +11,7 @@ import React, {useRef, useState} from "react";
 import Header from '../../../components/Header';
 import {styles} from "./style";
 import {useTranslation} from "react-i18next";
-import Consts from '../../../functions/Consts';
+import Consts, {FontSize} from '../../../functions/Consts';
 import {Colors} from "../../../assets/colors/Colors";
 import {getOtpResettingApi, getVerificationOtpApi} from "../../../network/UserInfoService";
 import {phoneTest1} from "../../../functions/utils";
@@ -144,7 +144,7 @@ const ForgotPassword = ({navigation}) => {
                 disabled={check}
               >
                 <Text
-                  style={{fontSize: 14, color: Colors.white}}>{check ? timerCount + 's' : t('common:getCode')}</Text>
+                  style={styles.txtGetCode}>{check ? timerCount + 's' : t('common:getCode')}</Text>
               </TouchableOpacity>
             </View>
             <View style={{marginTop: 20, width: '90%'}}>

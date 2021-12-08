@@ -25,7 +25,7 @@ import TimePickerModal from '../../../components/TimePickerModal';
 import { useTranslation } from 'react-i18next';
 import NotificationModal from '../../../components/NotificationModal';
 import DatePickerModal from "../../../components/DatePickerModal";
-import Consts from "../../../functions/Consts";
+import Consts , {FontSize} from "../../../functions/Consts";
 import Moment from 'moment';
 
 const roundMinutes = (date = new Date()) => {
@@ -145,7 +145,7 @@ export default ({navigation}) => {
             </Text>
           </TouchableOpacity>
           <View style={styles.containerHour}>
-            <Text style={{fontFamily:'Roboto-Medium', marginRight:10}} children={t('common:from')} />
+            <Text style={{fontFamily:'Roboto-Medium', marginRight:10, fontSize: FontSize.small}} children={t('common:from')} />
             <TouchableOpacity
               onPress={()=>{
                 refTime.current.openModal(
@@ -161,7 +161,7 @@ export default ({navigation}) => {
             </TouchableOpacity>
           </View>
           <View style={styles.containerHour}>
-            <Text style={{fontFamily:'Roboto-Medium', marginRight:10}} children={t('common:to')} />
+            <Text style={{fontFamily:'Roboto-Medium', marginRight:10, fontSize: FontSize.small}} children={t('common:to')} />
             <TouchableOpacity
               onPress={()=>{
                 refTime.current.openModal(

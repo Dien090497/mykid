@@ -84,8 +84,8 @@ export default function EditDevice({ navigation, route }) {
         <TouchableOpacity style={styles.input} onPress={onRelationship}>
           {data && <Image style={[styles.iconInput, { height: '60%' }]} source={data.icon} resizeMode='contain' />}
           {data &&
-            <Text style={{ flex: 1, color: Colors.black }}>{t('common:iAm')}
-              <Text style={{ fontFamily: 'Roboto-Bold' }}>
+            <Text style={styles.txt}>{t('common:iAm')}
+              <Text style={[styles.txt, { fontFamily: 'Roboto-Bold' }]}>
                 {DataLocal.language === 'vi' ? data.relationshipName : t('common:ofHe') + ' '}
               </Text>
               {DataLocal.language === 'vi' ? t('common:ofHe') + ' ' : data.relationshipName}
@@ -96,15 +96,15 @@ export default function EditDevice({ navigation, route }) {
         </TouchableOpacity>
         <View style={styles.input} >
           <Image style={[styles.iconInput, { height: '60%' }]} source={Images.icMobile} resizeMode='contain' />
-          <Text style={{ flex: 1, color: Colors.colorHeader }}>{route.params.data.isdn ? '0'+ route.params.data.isdn.substring(3) : t('common:yetHave')}</Text>
+          <Text style={styles.txtInput}>{route.params.data.isdn ? '0'+ route.params.data.isdn.substring(3) : t('common:yetHave')}</Text>
         </View>
         <View style={[styles.input, {justifyContent: 'flex-start'}]} >
-          <Text style={{color: Colors.black, marginLeft: '4%' }}>ID Đồng hồ: </Text>
-          <Text style={{color: Colors.colorHeader, marginLeft: '1%' }}>{route.params.data.deviceCode}</Text>
+          <Text style={styles.txtId}>ID Đồng hồ: </Text>
+          <Text style={styles.txtDevices}>{route.params.data.deviceCode}</Text>
         </View>
         <View style={[styles.input, {justifyContent: 'flex-start'}]} >
-          <Text style={{color: Colors.black, marginLeft: '4%' }}>IMEI đồng hồ: </Text>
-          <Text style={{color: Colors.colorHeader, marginLeft:'1%' }}>{route.params.data.imei ? route.params.data.imei : t('common:yetHave')}</Text>
+          <Text style={styles.txtId}>IMEI đồng hồ: </Text>
+          <Text style={styles.txtDevices}>{route.params.data.imei ? route.params.data.imei : t('common:yetHave')}</Text>
         </View>
         <TouchableOpacity style={styles.button} onPress={() => { deleteConfirm() }}>
           <Text style={styles.buttonText}>{t('common:confirm')}</Text>

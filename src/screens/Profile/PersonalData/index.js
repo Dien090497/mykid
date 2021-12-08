@@ -17,7 +17,7 @@ import {
   checkPhotoLibraryWritePermission
 } from '../../../functions/permissions';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import {ScaleHeight} from '../../../functions/Consts';
+import {ScaleHeight, FontSize} from '../../../functions/Consts';
 import {emailTest, hideLoading, phoneTest1, resizeImage, showLoading} from '../../../functions/utils';
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import {getPersonalDataApi, updatePersonalDataApi} from '../../../network/PersonalDataService';
@@ -223,7 +223,7 @@ console.log(phone,contact,email)
                 style={
                   [styles.text, {
                     color: 'rgba(181, 180, 180, 1)',
-                    fontSize: 12
+                    fontSize: FontSize.xtraSmall
                   }]}>
                 {phone === null ? t('common:yetHave') : phone}
               </Text>
@@ -237,7 +237,7 @@ console.log(phone,contact,email)
                 style={
                   [styles.text, {
                     color: 'rgba(181, 180, 180, 1)',
-                    fontSize: 12
+                    fontSize:  FontSize.xtraSmall
                   }]}>
                 {name === null || name === '' ? t('common:yetHave') : name}
               </Text>
@@ -261,7 +261,7 @@ console.log(phone,contact,email)
                 style={
                   [styles.text, {
                     color: 'rgba(181, 180, 180, 1)',
-                    fontSize: 12
+                    fontSize:  FontSize.xtraSmall
                   }]}>
                 {gender === null ? t('common:yetHave') : (gender === 'MALE' ? t('common:male') : t('common:female'))}
               </Text>
@@ -285,7 +285,7 @@ console.log(phone,contact,email)
                 style={
                   [styles.text, {
                     color: 'rgba(181, 180, 180, 1)',
-                    fontSize: 12
+                    fontSize: FontSize.xtraSmall
                   }]}>
                 {contact === null ? t('common:yetHave') : contact}
               </Text>
@@ -309,7 +309,7 @@ console.log(phone,contact,email)
                 style={
                   [styles.text, {
                     color: 'rgba(181, 180, 180, 1)',
-                    fontSize: 12
+                    fontSize:  FontSize.xtraSmall
                   }]}>
                 {email === null || email === '' ? t('common:yetHave') : email}
               </Text>

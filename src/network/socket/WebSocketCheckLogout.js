@@ -2,14 +2,17 @@ import DataLocal from '../../data/dataLocal';
 import { generateRandomId } from '../../functions/utils';
 import { wsCheckSim } from "../http/ApiUrl";
 import * as encoding from 'text-encoding';
+import XmppClient from "../xmpp/XmppClient";
+import WebSocketSafeZone from "./WebSocketSafeZone";
+import WebSocketVideoCall from "./WebSocketVideoCall";
+import reduxStore from "../../redux/config/redux";
+import loginAction from "../../redux/actions/loginAction";
 var encoder = new encoding.TextEncoder();
 
-export default class WebSocketCheckSim {
+export default class WebSocketCheckLogout {
   static ws = null;
   static reconnect = false;
   static isConnected = false;
-  static navigationRef = null;
-
 
   static setReconnect(autoReconnect) {
     this.reconnect = !!autoReconnect;
@@ -20,9 +23,7 @@ export default class WebSocketCheckSim {
     this.ws.close();
   }
 
-  static _handleWebSocketSetup = (navigation) => {
-    this.navigationRef = navigation;
-
+  static _handleWebSocketSetup = () => {
     this.ws = new WebSocket(wsCheckSim);
     this.ws.onopen = () => {
       this.onOpen();
@@ -47,7 +48,7 @@ export default class WebSocketCheckSim {
   };
 
   static onOpen = async () => {
-    console.log('Websocket Check Sim Open!');
+    console.log('Websocket Logout Open!');
     let command =
       'CONNECT\n' +
       'accept-version:1.2\n' +
@@ -61,42 +62,49 @@ export default class WebSocketCheckSim {
     command =
       'SUBSCRIBE\n' +
       'id:' + generateRandomId(10) + '\n' +
-      'destination:/user/queue/sims\n' +
+      'destination:/user/queue/login-session\n' +
       'content-length:0\n' +
       '\n\0';
     await this.ws.send(encoder.encode(command).buffer, true);
     this.isConnected = true;
-
     this.ping();
   };
 
   static onClose = () => {
-    console.log('Websocket Check Sim Close!');
     this.isConnected = false;
+    console.log('Websocket Logout Close!');
   };
 
   static onError = error => {
     console.log(JSON.stringify(error));
-    console.log(error, 'Websocket Check Sim Error!');
+    console.log(error, 'Websocket Logout Error!');
   };
 
   static onMessage = message => {
+    console.log('Websocket Logout Message', message);
     if (DataLocal.accessToken !== null && message.data) {
       const split = message.data.split('\n');
       if (
         split[0] === 'MESSAGE' &&
         split.length > 4 &&
-        split[2] === 'destination:/user/queue/sims'
+        split[2] === 'destination:/user/queue/login-session'
       ) {
-        const data = JSON.parse(
-          split[split.length - 1].replace('\u0000', '').replace('\\u0000', ''),
-        );
-        if (data && data.deviceId === DataLocal.deviceId){
-          const checkSim = data.isValid ? '1' : '0';
-          DataLocal.haveSim === checkSim ? null : DataLocal.saveHaveSim(checkSim).then(r => console.log('SIM',DataLocal.haveSim))
+          if (split[1] === 'event:login') {
+            const data = JSON.parse(
+              split[split.length - 1]
+                .replace('\u0000', '')
+                .replace('\\u0000', ''),
+            );
+            if (data) {
+              console.log('CheckLogout: ', data)
+              DataLocal.removeAll();
+              WebSocketSafeZone.disconnect();
+              WebSocketVideoCall.disconnect();
+              XmppClient.disconnectXmppServer();
+              reduxStore.store.dispatch(loginAction.logout());
+            }
+          }
         }
-      }
-      console.log(message, 'WebSocketSafeZone Message');
     }
   };
 }

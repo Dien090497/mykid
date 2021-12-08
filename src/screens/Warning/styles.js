@@ -29,13 +29,14 @@ export const styles = StyleSheet.create({
     height:Consts.screenHeight*0.1*0.65,
   },
   itemTime:{
-    fontFamily: 'Roboto',
+    fontFamily: 'Roboto-Medium',
     fontSize: FontSize.xxtraSmall*0.9,
-    marginRight:10
+    marginRight:10,
   },
   contentItem:{
     flex:1,
     fontSize: FontSize.xxtraSmall,
-    paddingHorizontal:10
+    paddingHorizontal:10,
+    fontFamily: 'Roboto-Medium'
   }
 });

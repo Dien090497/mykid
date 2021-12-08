@@ -38,7 +38,8 @@ export const styles = StyleSheet.create({
     fontSize: FontSize.xxtraSmall,
     color: Colors.colorHeader,
     textAlign: 'center',
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
+    fontFamily: 'Roboto-Medium'
   },
   viewTop: {
     flexDirection: 'row',
@@ -104,15 +105,14 @@ export const styles = StyleSheet.create({
   },
   txtAddTime: {
     fontSize: FontSize.big,
-    fontFamily: 'Roboto',
-    color: Colors.colorHeader
+    fontFamily: 'Roboto-Medium',
+    color: Colors.colorHeader,
   },
   icArrow: {
     width: 14,
     height: 14,
     tintColor: '#B2B2B0',
     resizeMode: 'contain',
-    marginLeft: 35,
     flex: 1,
   },
   viewSwitch: {
