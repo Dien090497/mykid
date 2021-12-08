@@ -164,7 +164,7 @@ export default function DoNotDisturb({ navigation, route }) {
           </View>
           <View style={styles.customView}>
             <View style={styles.titleCustom}>
-              <Text style={[styles.txtMode]}>{t('common:custom')}</Text>
+              <Text style={styles.txtMode}>{t('common:custom')}</Text>
             </View>
             <View style={{ flexDirection: 'row', marginVertical: 5 }}>
               {dayOfWeeks.map((day, i) => (

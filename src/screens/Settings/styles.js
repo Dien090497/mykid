@@ -37,10 +37,13 @@ export const styles = StyleSheet.create({
   titleText: {
     fontSize: FontSize.medium,
     textAlign: 'left',
-    color: Colors.grayTxt,
+    color: 'rgba(95, 95, 95, 1)',
     flex: 0.8,
     paddingHorizontal: 10,
     fontWeight: '500',
+    fontFamily: 'Roboto',
+    fontStyle: 'normal',
+    lineHeight: FontSize.medium * 1.25
   },
   mainView: {
     flex: 1,
@@ -49,7 +52,7 @@ export const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     alignContent: 'center',
-    marginTop: width* 0.02
+    marginTop: width * 0.02
   },
   icon: {
     flex: 0.1,

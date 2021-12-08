@@ -80,8 +80,8 @@ export const styles = StyleSheet.create({
   },
   txtMode: {
     fontSize: FontSize.small,
-    fontFamily: 'Roboto',
-    color: Colors.black
+    fontFamily: 'Roboto-Medium',
+    color: Colors.black,
   },
   icArrow: {
     width: 25,
@@ -99,7 +99,10 @@ export const styles = StyleSheet.create({
     fontSize: FontSize.small,
     fontFamily: 'Roboto',
     color: '#B5B4B4',
-    marginVertical:15
+    marginVertical: 15,
+    fontWeight: '400',
+    fontStyle: 'normal',
+    lineHeight: FontSize.medium * 1.25
   },
   viewMode: {
     width: '100%',
@@ -134,6 +137,7 @@ export const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontSize: FontSize.small,
-    fontFamily: 'Roboto-Medium'
+    fontFamily: 'Roboto-Medium',
+    lineHeight: FontSize.medium * 1.25
   },
 });

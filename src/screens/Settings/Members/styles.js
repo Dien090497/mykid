@@ -66,8 +66,11 @@ export const styles = StyleSheet.create({
   headerText: {
     padding: 10,
     fontWeight: 'normal',
-    fontSize: 16,
-    color: Colors.colorHeader
+    fontSize: FontSize.medium,
+    color: Colors.colorHeader,
+    fontStyle: 'normal',
+    fontFamily: 'Roboto',
+    lineHeight: FontSize.medium * 1.25
   },
   smallButton: {
     borderWidth: 1,
@@ -81,7 +84,9 @@ export const styles = StyleSheet.create({
   },
   smallButtonText: {
     fontFamily: 'Roboto-Bold',
-    fontSize: FontSize.small
+    fontSize: FontSize.small,
+    fontStyle: 'normal',
+    lineHeight: ScaleHeight.medium * 1.25
   },
   info: {
     justifyContent: 'center',
@@ -94,11 +99,16 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: height * 0.025,
     color: Colors.grayTxt,
+    fontStyle: 'normal',
+    fontFamily: 'Roboto',
   },
   otherInfoText: {
     padding: 2,
     fontSize: height * 0.02,
-    color: Colors.grayTxt
+    color: Colors.grayTxt,
+    fontStyle: 'normal',
+    fontFamily: 'Roboto',
+    fontWeight: '400'
   },
   rowItem: {
     flexDirection: 'row',
@@ -165,10 +175,11 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   textModel: {
-    fontSize: 18,
+    fontSize: FontSize.big,
     fontStyle: 'normal',
     textAlign: 'center',
-    fontWeight: '500'
+    fontWeight: '500',
+    fontFamily: 'Roboto'
   },
 
 });

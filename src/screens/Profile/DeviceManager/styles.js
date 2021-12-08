@@ -52,7 +52,8 @@ export const styles = StyleSheet.create({
     marginTop: '1%',
     fontFamily: 'Roboto-Bold',
     fontWeight: '500',
-    color: Colors.redTitle
+    color: Colors.redTitle,
+    lineHeight: FontSize.medium * 1.25
   },
   iconSetting: {
     marginLeft: '1%',
@@ -137,7 +138,8 @@ export const styles = StyleSheet.create({
     fontSize: FontSize.big,
     fontStyle: 'normal',
     textAlign: 'center',
-    fontWeight: '500'
+    fontWeight: '500',
+    fontFamily: 'Roboto'
   },
   tob: {
     width: '50%',
@@ -156,7 +158,8 @@ export const styles = StyleSheet.create({
   },
   smallButtonText: {
     fontFamily: 'Roboto-Bold',
-    fontSize: FontSize.small
+    fontSize: FontSize.small,
+    lineHeight: FontSize.medium * 1.25
   },
   TobOpacity: {
     width: '50%',

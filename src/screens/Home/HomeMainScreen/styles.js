@@ -64,12 +64,14 @@ export const styles = StyleSheet.create({
   },
   txtTitle: {
     alignSelf: 'center',
-    fontSize: 30,
+    fontSize: FontSize.xxxtraBig * 1.2,
     fontWeight: '400',
     marginBottom: 0,
     fontFamily: 'UTM Cookies',
     color: Colors.white,
     position: 'absolute',
+    fontStyle: 'normal',
+    lineHeight: FontSize.xxxtraBig * 1.6
   },
   txtNotification: {
     fontSize: 10,
@@ -119,6 +121,8 @@ export const styles = StyleSheet.create({
     fontFamily: 'Roboto-Regular',
     textAlign: 'center',
     padding: '1%',
+    fontStyle: 'normal',
+    lineHeight: FontSize.small
   },
   icon: {
     height: height * 0.05,
@@ -144,7 +148,12 @@ export const styles = StyleSheet.create({
   textMenuShow:{
     width:100,
     color: Colors.white,
-    textAlign:"center"
+    textAlign:"center",
+    fontStyle: 'normal',
+    fontSize: FontSize.xtraSmall,
+    fontFamily: 'Roboto',
+    fontWeight: '400',
+    lineHeight: FontSize.small * 10 / 7
   },
   avatar:{
     width:ScaleHeight.small,
@@ -154,7 +163,11 @@ export const styles = StyleSheet.create({
   textMenuDrop:{
     width: 100,
     marginHorizontal:5,
-    color: '#727272'
+    fontWeight: '400',
+    fontSize: FontSize.xtraSmall,
+    fontFamily: 'Roboto',
+    fontStyle: 'normal',
+    lineHeight: FontSize.small * 10 / 7
   },
   viewMenuDrop:{
     flexDirection: "row",

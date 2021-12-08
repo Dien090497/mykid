@@ -25,6 +25,8 @@ const styles = StyleSheet.create({
   txtRelationship: {
     color:'#B5B4B4',
     fontSize:FontSize.small,
+    fontFamily: 'Roboto-Medium',
+    lineHeight: FontSize.medium * 1.25
   },
   modalContainer:{
     flex: 1,
@@ -52,6 +54,8 @@ const styles = StyleSheet.create({
     paddingHorizontal:15,
     height: ScaleHeight.medium,
     color: Colors.black,
+    fontSize: FontSize.small,
+    fontFamily: 'Roboto-Medium'
   },
   groundBtnModal:{
     flexDirection:'row',

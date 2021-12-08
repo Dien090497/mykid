@@ -5,7 +5,6 @@ import {
 } from 'react-native';
 import {styles} from './styles';
 import Header from '../../../components/Header';
-import {String} from '../../../assets/strings/String';
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
 import { Colors } from '../../../assets/colors/Colors';

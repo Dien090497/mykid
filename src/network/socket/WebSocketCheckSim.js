@@ -7,6 +7,7 @@ var encoder = new encoding.TextEncoder();
 export default class WebSocketCheckSim {
   static ws = null;
   static reconnect = false;
+  static isConnected = false;
   static navigationRef = null;
 
 
@@ -64,12 +65,14 @@ export default class WebSocketCheckSim {
       'content-length:0\n' +
       '\n\0';
     await this.ws.send(encoder.encode(command).buffer, true);
+    this.isConnected = true;
 
     this.ping();
   };
 
   static onClose = () => {
     console.log('Websocket Check Sim Close!');
+    this.isConnected = false;
   };
 
   static onError = error => {

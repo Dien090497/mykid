@@ -31,13 +31,13 @@ export const styles = StyleSheet.create({
   },
   txtDate:{
     paddingVertical:5,
-    fontFamily:'Roboto',
+    fontFamily:'Roboto-Medium',
     fontSize: FontSize.xtraSmall,
     color: Colors.grayTextTitleColor
   },
   txtDes:{
     paddingVertical:5,
-    fontFamily:'Roboto',
+    fontFamily:'Roboto-Medium',
     fontSize: FontSize.small,
     color: Colors.grayTextColor
   },

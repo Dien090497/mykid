@@ -47,8 +47,12 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginTop: height * 0.02,
     fontSize: FontSize.xtraSmall,
-    height: ScaleHeight.medium
-  },
+    height: ScaleHeight.medium,
+    fontStyle: 'normal',
+    fontFamily: 'Roboto',
+    fontWeight: '400',
+    lineHeight: FontSize.small * 10 / 7
+ },
   ViewResetPass: {
     flexDirection: 'row',
     width: '100%',
@@ -61,6 +65,10 @@ export const styles = StyleSheet.create({
     textDecorationLine: "underline",
     textDecorationStyle: 'solid',
     fontSize: FontSize.small,
+    fontFamily: 'Roboto',
+    fontWeight: '400',
+    fontStyle: 'normal',
+    lineHeight: FontSize.small * 10 / 7
   },
   btnSubmit: {
     backgroundColor: Colors.colorMain,
@@ -72,7 +80,9 @@ export const styles = StyleSheet.create({
   textSubmit: {
     fontFamily: 'Roboto-Medium',
     fontSize: FontSize.small,
-    color: Colors.white
+    color: Colors.white,
+    fontStyle: 'normal',
+    lineHeight: FontSize.small * 10 / 7
   },
   Sty_iconCheckbox: {
     justifyContent: 'center',
@@ -96,13 +106,18 @@ export const styles = StyleSheet.create({
     fontSize: FontSize.xtraSmall,
     color: Colors.colorMain,
     textDecorationLine: "underline",
+    fontStyle: 'normal',
+    lineHeight: FontSize.small * 10 / 7
   },
   txt_Policy: {
     fontSize: FontSize.xtraSmall,
     marginLeft: -width * 0.03,
     width: width - width * 0.12,
     color: '#808080',
-    alignItems: 'center'
+    alignItems: 'center',
+    fontStyle: 'normal',
+    fontFamily: 'Roboto',
+    fontWeight: '500'
   },
   modalView: {
     flex: 1,
@@ -132,11 +147,13 @@ export const styles = StyleSheet.create({
   },
   textConfirm: {
     color: Colors.colorMain,
-    fontSize: FontSize.medium,
+    fontSize: FontSize.small,
     position: 'absolute',
     right: width * 0.03,
     fontWeight: '600',
     fontStyle: 'normal',
+    fontFamily: 'Roboto',
+    lineHeight: FontSize.small * 10 / 7
   },
   wheel: {
     width: "100%",

@@ -3,12 +3,12 @@ import React, {useEffect, useRef, useState} from 'react';
 import {Colors} from '../../../../assets/colors/Colors';
 import {getOtpApi, createAndLogin} from '../../../../network/UserInfoService';
 import Consts from '../../../../functions/Consts';
-import {styles} from '../styles';
+import {styles} from './styles';
 import LoadingIndicator from '../../../../components/LoadingIndicator';
 import {saveUserDataFromToken} from '../../../../functions/utils';
 import { useTranslation } from 'react-i18next';
 import NotificationModal from '../../../../components/NotificationModal'
-
+import {FontSize, ScaleHeight} from '../../../../functions/Consts';
 export default function OTP({navigation, route}) {
   const refLoading = useRef(null);
   const refNotification = useRef();
@@ -95,70 +95,37 @@ export default function OTP({navigation, route}) {
   return (
     <View style={{flex: 1, alignItems: 'center', backgroundColor: Colors.white}}>
       <Header title={t('common:submitOTP')}/>
-      <View style={{
-        width: '90%',
-        height: 45,
-        backgroundColor: Colors.white,
-        marginTop: 40,
-        flexDirection: 'row'
-      }}>
-        <View style={{
-          width: '80%',
-          height: '100%',
-          borderColor: 'rgba(231, 231, 231, 1)',
-          borderWidth: 0.5,
-          borderRadius: 10,
-          color: Colors.black,
-          justifyContent: 'center'
-        }}>
+      <View style={styles.viewContainer}>
+        <View style={styles.viewInput}>
           <TextInput
             placeholderTextColor={'rgba(181, 180, 180, 1)'}
             placeholder={t('common:importOTP')}
             maxLength={6}
             value={otp}
             keyboardType={'number-pad'}
-            style={{
-              marginHorizontal: 10,
-              color: Colors.black
-            }}
+            style={styles.textInput}
             onChangeText={isChangeOTP}
           />
         </View>
         {!check ? (
           <TouchableOpacity
             onPress={sendTo}
-            style={{
-              width: '18%',
-              backgroundColor: Colors.redTitle,
-              height: '100%',
-              justifyContent: 'center',
-              alignItems: 'center',
-              borderRadius: 10,
-              marginLeft: '2%'
-            }}
+            style={styles.tob}
           >
-            <Text style={{fontSize: 14, color: Colors.white}}>{t('common:getCode')}</Text>
+            <Text style={styles.text}>{t('common:getCode')}</Text>
           </TouchableOpacity>
         ) : (
           <View
-            style={{
-              width: '18%',
-              backgroundColor: 'rgba(228, 228, 228, 1)',
-              height: '100%',
-              justifyContent: 'center',
-              alignItems: 'center',
-              borderRadius: 10,
-              marginLeft: '2%'
-            }}
+            style={styles.viewTxt}
           >
-            <Text style={{fontSize: 14, color: Colors.white}}>{timerCount}{'s'}</Text>
+            <Text style={[styles.text, {color: 'rgba(181, 180, 180, 1)'}]}>{timerCount}{'s'}</Text>
           </View>
         )}
 
       </View>
 
-      <TouchableOpacity onPress={onRegister} style={styles.btnSubmit}>
-        <Text style={styles.textSubmit}>{t('common:register')}</Text>
+      <TouchableOpacity onPress={onRegister} style={styles.viewTob}>
+        <Text style={styles.textConfirm}>{t('common:register')}</Text>
       </TouchableOpacity>
       <NotificationModal ref = {refNotification} />
       <LoadingIndicator ref={refLoading}/>

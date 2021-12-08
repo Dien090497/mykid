@@ -64,7 +64,7 @@ export default ({navigation, route}) => {
               }
             }
           })
-          setLocationDevices(res.data);
+          if (res.data !== locationDevices) setLocationDevices(res.data);
           if (res.data.length > 0) {
             const {lat, lng} = res.data[indexSelect] ? res.data[indexSelect].location : res.data[0].location;
             if (lat && lng) {
@@ -202,6 +202,7 @@ export default ({navigation, route}) => {
   }
 
   const ping = async () => {
+    if (!ws) return;
     await ws.send(encoder.encode('').buffer, true);
     setTimeout(() => {
         ping();
@@ -209,6 +210,7 @@ export default ({navigation, route}) => {
   };
 
   const onOpen = async () => {
+    if (!ws) return;
     console.log('Websocket Location Open!');
     let command =
       'CONNECT\n' +
@@ -261,6 +263,8 @@ export default ({navigation, route}) => {
             obj.reportedAt = data.reportedAt;
           }
         }
+        if (newData===locationDevices) return;
+        console.log('123')
         setLocationDevices(newData)
       }
       console.log(message, 'WebSocket Location Message');
