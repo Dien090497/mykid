@@ -3,6 +3,7 @@ import {styles} from './styles';
 import Images from '../../assets/Images';
 import React, {Component} from 'react';
 import TimeZoneDatas from '../../assets/strings/TimeZoneDatas';
+
 class RadioGroup extends Component {
   constructor(props) {
     super(props);
@@ -12,7 +13,7 @@ class RadioGroup extends Component {
     };
   }
   updateView(timeZone) {
-    for (let i = 0; i <= this.state.radioBtnsData.length; i++) {
+    for (let i = 0; i < this.state.radioBtnsData.length; i++) {
       if (timeZone === this.state.radioBtnsData[i].value) {
         this.setState({checked: i, timeZoneSelect: timeZone});
         return;

@@ -202,6 +202,7 @@ export default ({navigation, route}) => {
   }
 
   const ping = async () => {
+    if (!ws) return;
     await ws.send(encoder.encode('').buffer, true);
     setTimeout(() => {
         ping();
@@ -209,6 +210,7 @@ export default ({navigation, route}) => {
   };
 
   const onOpen = async () => {
+    if (!ws) return;
     console.log('Websocket Location Open!');
     let command =
       'CONNECT\n' +
