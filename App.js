@@ -179,10 +179,6 @@ export default function App() {
     RNCallKeep.addEventListener("answerCall", payload => {
       console.log("answerCall", payload);
       console.log("answerCall dataVideoCall", dataVideoCall);
-      reduxStore.store.dispatch(commonInfoAction.navigate({
-        navigate: Consts.ScreenIds.ElectronicFence,
-        deviceId: null,
-      }));
       if (dataVideoCall) {
         setVisibleCall({
           visible: true,
