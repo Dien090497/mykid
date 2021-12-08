@@ -103,6 +103,10 @@ export default function RoomChat({navigation, route}) {
   useLayoutEffect(() => {
     if (chatReducer.dataInfo && roomInfo) {
       setChatHistory(chatReducer.dataInfo[roomInfo.roomAddress]);
+
+      setTimeout(() => {
+        refScrollView.current.scrollToEnd({animated: true});
+      }, 500);
     }
   }, [chatReducer]);
 
@@ -112,13 +116,16 @@ export default function RoomChat({navigation, route}) {
   }, [isRecord]);
 
   useLayoutEffect(() => {
-    refScrollView.current.scrollToEnd({animated: true})
     if (route.params && route.params.roomInfo) {
       setRoomInfo(route.params.roomInfo);
       XmppClient.setRoomId(route.params.roomInfo.roomAddress);
       setChatHistory(XmppClient.getCurrentHistory());
       XmppClient.joinRoom(route.params.roomInfo.roomAddress);
     }
+    setTimeout(() => {
+      refScrollView.current.scrollToEnd({animated: true});
+    }, 500);
+
     return ()=>{
       refAudioPlayer.current.onStopPlay();
     }
