@@ -21,6 +21,7 @@ import {useTranslation} from 'react-i18next';
 import NotificationModal from '../../../components/NotificationModal';
 import { checkLocationPermission } from '../../../functions/permissions';
 import {logoutService} from "../../../network/UserInfoService";
+import WebSocketCheckLogout from "../../../network/socket/WebSocketCheckLogout";
 
 export default function HomeMainScreen() {
   const navigation = useNavigation();
@@ -58,6 +59,10 @@ export default function HomeMainScreen() {
           WebSocketVideoCall.setReconnect(true);
           WebSocketVideoCall._handleWebSocketSetup(navigation);
         }
+        if (WebSocketCheckLogout.isConnected === false){
+          WebSocketCheckLogout.setReconnect(true);
+          WebSocketCheckLogout._handleWebSocketSetup(navigation);
+        }
       }
     });
 
@@ -75,6 +80,8 @@ export default function HomeMainScreen() {
     WebSocketVideoCall._handleWebSocketSetup(navigation);
     WebSocketCheckSim.setReconnect(true);
     WebSocketCheckSim._handleWebSocketSetup(navigation);
+    WebSocketCheckLogout.setReconnect(true);
+    WebSocketCheckLogout._handleWebSocketSetup(navigation);
     getListDevices();
   }, []);
 
@@ -98,7 +105,7 @@ export default function HomeMainScreen() {
           WebSocketVideoCall.disconnect();
         }
       })
-      navigation.replace(Consts.ScreenIds.Login);
+      navigation.replace(Consts.ScreenIds.Splash);
     }
   }, [logout]);
 
