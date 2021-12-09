@@ -39,6 +39,12 @@ export default function SMS({navigation}) {
   }, [devices]);
 
   const handleChange = async (index) => {
+    if (!!DataLocal.haveSim && refNotification && refNotification.current) {
+      setTimeout(() => {
+        refNotification.current.open(t('errorMsg:kwa4067'));
+      }, 1000);
+      return;
+    }
     setSelectedIndex(index);
     getBrands(devices[index].deviceId)
   };
@@ -50,7 +56,7 @@ export default function SMS({navigation}) {
       },
       refLoading,
       refNotification,
-    });
+    }).then();
   }
 
   const getListDevice = () => {

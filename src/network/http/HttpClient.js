@@ -12,6 +12,12 @@ import {RETRY_HTTP_REQUEST_NUMBER} from '../../data/AppConfig';
 import axios from 'axios';
 import i18next from 'i18next';
 import SimpleToast from "react-native-simple-toast";
+import XmppClient from "../xmpp/XmppClient";
+import WebSocketSafeZone from "../socket/WebSocketSafeZone";
+import WebSocketVideoCall from "../socket/WebSocketVideoCall";
+import reduxStore from '../../redux/config/redux';
+import loginAction from '../../redux/actions/loginAction'
+
 
 const TIMEOUT_CONNECT = 60000;
 
@@ -290,6 +296,12 @@ async function handleResp(response, autoShowMsg, success, failure, refLoading, r
 
   if (httpStatusCode < 200 || httpStatusCode > 299) {
     if (httpStatusCode === 403 || httpStatusCode === 401) {
+      await DataLocal.removeAll();
+      await XmppClient.disconnectXmppServer();
+      WebSocketSafeZone.disconnect();
+      WebSocketVideoCall.disconnect();
+      reduxStore.store.dispatch(loginAction.logout());
+
 
       if (autoShowMsg) {
         if (refNotification) refNotification.current.open(i18next.t('errorMsg:TOKEN_EXPIRED_MSG'));
