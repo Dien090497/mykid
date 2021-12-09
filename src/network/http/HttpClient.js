@@ -296,7 +296,6 @@ async function handleResp(response, autoShowMsg, success, failure, refLoading, r
 
   if (httpStatusCode < 200 || httpStatusCode > 299) {
     if (httpStatusCode === 403 || httpStatusCode === 401) {
-
       if (autoShowMsg) {
         if (refNotification) refNotification.current.open(i18next.t('errorMsg:TOKEN_EXPIRED_MSG'));
         else SimpleToast.show(i18next.t('errorMsg:TOKEN_EXPIRED_MSG'));
@@ -304,6 +303,10 @@ async function handleResp(response, autoShowMsg, success, failure, refLoading, r
       if (failure) {
         failure(i18next.t('errorMsg:TOKEN_EXPIRED_MSG'));
       }
+      await DataLocal.removeAll();
+      XmppClient.disconnectXmppServer();
+      WebSocketSafeZone.disconnect();
+      WebSocketVideoCall.disconnect();
       return failureResponse(i18next.t('errorMsg:TOKEN_EXPIRED_MSG'), response);
     }
 
