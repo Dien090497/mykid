@@ -85,7 +85,8 @@ export const styles = StyleSheet.create({
   menuSelect: {
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    width: '40%'
   },
   iconShowMenu: {
     width: 10,
@@ -93,9 +94,8 @@ export const styles = StyleSheet.create({
     tintColor: Colors.red
   },
   textMenuShow: {
-    width: 150,
     color: Colors.black,
-    textAlign: 'center',
+    // marginLeft: '15%',
     fontFamily: 'Roboto-Bold',
     fontSize: FontSize.big,
   },
@@ -120,7 +120,8 @@ export const styles = StyleSheet.create({
   viewModal: {
     flexDirection: 'column',
     width: '90%',
-    height: '70%',
+    height: 'auto',
+    maxHeight: '60%',
     backgroundColor: Colors.white,
     borderRadius: 10,
     borderColor: 'red',
@@ -130,10 +131,10 @@ export const styles = StyleSheet.create({
   textItem: {
     marginLeft: '4%',
     marginVertical: '4%',
-    fontSize: FontSize.medium,
+    fontSize: FontSize.big,
     width: '86%',
     overflow: 'hidden',
-    fontFamily: 'Roboto-Medium',
+    fontFamily: 'Roboto-bold',
     lineHeight: FontSize.medium * 1.25,
     fontStyle: 'normal'
   },
@@ -155,7 +156,7 @@ export const styles = StyleSheet.create({
   wrap: {
     flex: 1,
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   icon1: {
     width: ScreenWidth * 0.08,

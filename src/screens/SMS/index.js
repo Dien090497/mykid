@@ -42,9 +42,7 @@ export default function SMS({navigation}) {
 
   const handleChange = async (index) => {
     if (!DataLocal.haveSim && refNotification && refNotification.current) {
-      setTimeout(() => {
         refNotification.current.open(t('errorMsg:kwa4067'));
-      }, 1000);
       return;
     }
     setSelectedIndex(index);
@@ -78,9 +76,7 @@ export default function SMS({navigation}) {
 
   const gotoHomeScreen = () => {
     if (DataLocal.haveSim === '0') {
-      DataLocal.saveHaveSim('1').then(r =>
-        navigation.navigate(Consts.ScreenIds.Tabs)
-      );
+        navigation.navigate(Consts.ScreenIds.Tabs);
     }
   }
 
@@ -94,7 +90,7 @@ export default function SMS({navigation}) {
           onPress={() => handleChange(index)}
           >
           <View style={styles.wrap}>
-            <View style={{marginLeft: '2%', justifyContent: 'center', alignItems: 'center'}}>
+            <View style={{justifyContent: 'center', alignItems: 'center', width: '20%'}}>
               <Image source={item.avatar ? {uri: item.avatar} : Images.icOther} style={{width: ScaleHeight.medium , height: ScaleHeight.medium, borderRadius: 20}} resizeMode = {'stretch'}/>
             </View>
             <View style={{width: '80%', paddingHorizontal: 10}}>
@@ -112,12 +108,15 @@ export default function SMS({navigation}) {
       <Header title={t('common:header_sms')} />
       <View style={styles.menu}>
         <TouchableOpacity style={styles.menuSelect}>
-          <Image source={Images.icShow} style={styles.iconShowMenu} resizeMode='stretch'/>
+         <View style={{alignItems: 'center', justifyContent: 'center', width: '10%'}}>
+           <Image source={Images.icShow} style={styles.iconShowMenu} resizeMode='stretch'/>
+         </View>
           <View onStartShouldSetResponder={() => {
             setShowMenu(true)
-          }}>
-            <Text
-              style={styles.textMenuShow}>{devices && devices[selectedIndex] && devices[selectedIndex].deviceName}</Text>
+          }}
+           style={{width: '60%', justifyContent: 'center', alignItems: 'center'}}
+          >
+            <Text style={styles.textMenuShow}>{devices && devices[selectedIndex] && devices[selectedIndex].deviceName}</Text>
           </View>
           <View>
             <Image
