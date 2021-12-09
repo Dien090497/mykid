@@ -15,6 +15,9 @@ import SimpleToast from "react-native-simple-toast";
 import XmppClient from "../xmpp/XmppClient";
 import WebSocketSafeZone from "../socket/WebSocketSafeZone";
 import WebSocketVideoCall from "../socket/WebSocketVideoCall";
+import reduxStore from '../../redux/config/redux';
+import loginAction from '../../redux/actions/loginAction'
+
 
 const TIMEOUT_CONNECT = 60000;
 
@@ -301,10 +304,6 @@ async function handleResp(response, autoShowMsg, success, failure, refLoading, r
       if (failure) {
         failure(i18next.t('errorMsg:TOKEN_EXPIRED_MSG'));
       }
-      await DataLocal.removeAll();
-      XmppClient.disconnectXmppServer();
-      WebSocketSafeZone.disconnect();
-      WebSocketVideoCall.disconnect();
       return failureResponse(i18next.t('errorMsg:TOKEN_EXPIRED_MSG'), response);
     }
 
