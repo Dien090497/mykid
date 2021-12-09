@@ -296,12 +296,6 @@ async function handleResp(response, autoShowMsg, success, failure, refLoading, r
 
   if (httpStatusCode < 200 || httpStatusCode > 299) {
     if (httpStatusCode === 403 || httpStatusCode === 401) {
-      await DataLocal.removeAll();
-      await XmppClient.disconnectXmppServer();
-      WebSocketSafeZone.disconnect();
-      WebSocketVideoCall.disconnect();
-      reduxStore.store.dispatch(loginAction.logout());
-
 
       if (autoShowMsg) {
         if (refNotification) refNotification.current.open(i18next.t('errorMsg:TOKEN_EXPIRED_MSG'));

@@ -86,7 +86,8 @@ export const styles = StyleSheet.create({
     fontFamily: 'Roboto-Bold',
     fontSize: FontSize.small,
     fontStyle: 'normal',
-    lineHeight: ScaleHeight.medium * 1.25
+    lineHeight: ScaleHeight.medium ,
+    textAlign: 'center'
   },
   info: {
     justifyContent: 'center',

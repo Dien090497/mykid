@@ -1,6 +1,7 @@
 import {StyleSheet} from 'react-native';
 import { FontSize, ScaleHeight } from '../../functions/Consts';
 import {Colors} from '../../assets/colors/Colors';
+import {ScreenWidth} from "react-native-elements/dist/helpers";
 
 export const styles = StyleSheet.create({
   contain: {
@@ -84,7 +85,8 @@ export const styles = StyleSheet.create({
   menuSelect: {
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    width: '40%'
   },
   iconShowMenu: {
     width: 10,
@@ -92,9 +94,8 @@ export const styles = StyleSheet.create({
     tintColor: Colors.red
   },
   textMenuShow: {
-    width: 150,
     color: Colors.black,
-    textAlign: 'center',
+    // marginLeft: '15%',
     fontFamily: 'Roboto-Bold',
     fontSize: FontSize.big,
   },
@@ -115,5 +116,50 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     marginVertical: 5
+  },
+  viewModal: {
+    flexDirection: 'column',
+    width: '90%',
+    height: 'auto',
+    maxHeight: '60%',
+    backgroundColor: Colors.white,
+    borderRadius: 10,
+    borderColor: 'red',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  textItem: {
+    marginLeft: '4%',
+    marginVertical: '4%',
+    fontSize: FontSize.big,
+    width: '86%',
+    overflow: 'hidden',
+    fontFamily: 'Roboto-bold',
+    lineHeight: FontSize.medium * 1.25,
+    fontStyle: 'normal'
+  },
+  containerItemContact: {
+    backgroundColor: Colors.white,
+    borderRadius: 10,
+    marginVertical: 10,
+    padding: 5,
+    marginHorizontal: 20,
+    shadowColor: 'rgba(25,25,25, 0.5)',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
+  },
+  wrap: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  icon1: {
+    width: ScreenWidth * 0.08,
+    height: ScreenWidth * 0.08
   },
 });

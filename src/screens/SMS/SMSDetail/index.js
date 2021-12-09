@@ -80,7 +80,7 @@ export default function SMSDetail({navigation, route}) {
           </View>
           ))}
         </ScrollView>
-        
+
       </View>
       <LoadingIndicator ref={refLoading}/>
       <NotificationModal ref={refNotification} goBack={gotoHomeScreen}/>

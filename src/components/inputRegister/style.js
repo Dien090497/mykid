@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   txtNotification: {
     padding: 0,
     color: '#D71921',
-    fontSize: FontSize ? FontSize.small : 13,
+    fontSize: FontSize.small,
   },
   Sty_iconShow: {
     width: width * 0.07 ,

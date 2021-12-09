@@ -39,10 +39,10 @@ export default ({ navigation }) => {
   },[]);
 
   const addPoint = () => {
-    point < 99 ? setPoint(point + 1) : null;
+    parseInt(point) < 99 ? setPoint(parseInt(point) + 1) : null;
   };
   const minusPoint = () => {
-    point > 0 ? setPoint(point - 1) : null;
+    parseInt(point) > 0 ? setPoint(parseInt(point) - 1) : null;
   };
   const rewardsPoints = () => {
     const heart = {

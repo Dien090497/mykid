@@ -396,5 +396,8 @@ export default {
   '60_minute': '60 Phút',
 
   //DiconnectClock
-  'alertDisconnectClock': 'Toàn bộ dữ liệu và kết nối với đồng hồ sẽ bị xóa. Đồng hồ sẽ về trạng thái mặc định. Bạn có chắc muốn thực hiện?'
+  'alertDisconnectClock': 'Toàn bộ dữ liệu và kết nối với đồng hồ sẽ bị xóa. Đồng hồ sẽ về trạng thái mặc định. Bạn có chắc muốn thực hiện?',
+
+  //SMS
+  'listDevice': 'Chọn thiết bị'
 };
