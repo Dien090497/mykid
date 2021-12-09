@@ -41,7 +41,7 @@ export default function SMS({navigation}) {
   }, [devices]);
 
   const handleChange = async (index) => {
-    if (!!DataLocal.haveSim && refNotification && refNotification.current) {
+    if (!DataLocal.haveSim && refNotification && refNotification.current) {
       setTimeout(() => {
         refNotification.current.open(t('errorMsg:kwa4067'));
       }, 1000);
@@ -55,7 +55,6 @@ export default function SMS({navigation}) {
     setShowMenu(false);
     getBrandsApi(deviceId, {
       success: resData => {
-        console.log('getBrands', resData)
         setBrands(resData.data);
       },
       refLoading,
@@ -86,7 +85,6 @@ export default function SMS({navigation}) {
   }
 
   const renderItemModal = ({item, index}) => {
-    console.log('selectedItem', selectedIndex)
     DataLocal.saveHaveSim(devices[selectedIndex].validSim ? '1' : '0');
     return (
         <TouchableOpacity
