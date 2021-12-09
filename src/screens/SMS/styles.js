@@ -1,6 +1,7 @@
 import {StyleSheet} from 'react-native';
 import { FontSize, ScaleHeight } from '../../functions/Consts';
 import {Colors} from '../../assets/colors/Colors';
+import {ScreenWidth} from "react-native-elements/dist/helpers";
 
 export const styles = StyleSheet.create({
   contain: {
@@ -115,5 +116,49 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     marginVertical: 5
+  },
+  viewModal: {
+    flexDirection: 'column',
+    width: '90%',
+    height: '70%',
+    backgroundColor: Colors.white,
+    borderRadius: 10,
+    borderColor: 'red',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  textItem: {
+    marginLeft: '4%',
+    marginVertical: '4%',
+    fontSize: FontSize.medium,
+    width: '86%',
+    overflow: 'hidden',
+    fontFamily: 'Roboto-Medium',
+    lineHeight: FontSize.medium * 1.25,
+    fontStyle: 'normal'
+  },
+  containerItemContact: {
+    backgroundColor: Colors.white,
+    borderRadius: 10,
+    marginVertical: 10,
+    padding: 5,
+    marginHorizontal: 20,
+    shadowColor: 'rgba(25,25,25, 0.5)',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
+  },
+  wrap: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  icon1: {
+    width: ScreenWidth * 0.08,
+    height: ScreenWidth * 0.08
   },
 });
