@@ -46,9 +46,7 @@ export default function Paying({navigation}) {
 
   const gotoHomeScreen = () => {
     if (DataLocal.haveSim === '0') {
-      DataLocal.saveHaveSim('1').then(r =>
         navigation.navigate(Consts.ScreenIds.Tabs)
-      );
     }
   }
 
