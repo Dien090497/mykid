@@ -160,7 +160,7 @@ export default {
   'deviceNumber': 'Nhập số điện thoại của đồng hồ',
   'iAm': 'Tôi là ',
   'ofHe': ' của bạn ấy',
-  'addDeviceSuccess': 'Kết nối thiết bị thành công',
+  'addDeviceSuccess': 'Gửi yêu cầu gọi lại thành công, vui lòng đợi đồng hồ gọi lại trong giây lát',
   'addDeviceSuccess2':
     'Yêu cầu kết nối đã được gửi.\nVui lòng chờ admin xác nhận',
   'area': 'Area',
@@ -289,7 +289,7 @@ export default {
   'textShoot': 'Chụp hình',
   'textDeleteImage': 'Bạn có chắc chắn muốn xóa ảnh này không?',
   'txtNotHaveNewPicture': 'Không có ảnh mới',
-  'txtWaitNewPicture': 'Hướng dẫn gửi thành công. Vui lòng đợi làm mới',
+  'txtWaitNewPicture': 'Gửi yêu cầu chụp thành công, vui lòng đợi hoặc trượt xuống để làm mới',
   'savePicture': 'Lưu ảnh',
   'savePictureSuccess': 'Lưu thành công',
   'savePictureFail': 'Lưu thất bại',
@@ -351,7 +351,7 @@ export default {
   'txtLowBattery': ' Cảnh báo Pin yếu',
 
   //Paying
-  'paying': 'NẠP TIỀN',
+  'paying': 'GÓI CƯỚC V-KID',
   'payInCash': 'Nạp tiền',
   'accountInfo': 'Thông tin tài khoản',
   'package': 'Gói cước:',

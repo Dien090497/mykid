@@ -9,7 +9,7 @@ class RadioGroup extends Component {
     super(props);
     this.state = {
       radioBtnsData: TimeZoneDatas,
-      checked: 0,
+      checked: 5,
     };
   }
   updateView(timeZone) {

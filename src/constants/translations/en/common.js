@@ -160,7 +160,7 @@ export default {
   'deviceNumber': 'Devices Number', // to do
   'iAm': 'I am ',
   'ofHe': 'his',
-  'addDeviceSuccess': 'Success',
+  'addDeviceSuccess': 'Callback request sent successfully, please wait the watch to call back for a moment',
   'addDeviceSuccess2':
     'Connection request has been sent.\n Please wait for admin to confirm',
   'area': 'Area',
@@ -289,7 +289,7 @@ export default {
   'textShoot': 'Take pictures',
   'textDeleteImage': 'Are you sure you want to delete this photo?',
   'txtNotHaveNewPicture': 'Not have new picture',
-  'txtWaitNewPicture': 'Instructions for successful submission. Please wait for refresh',
+  'txtWaitNewPicture': 'Photo request sent successfully, please wait or swipe down to refresh',
   'savePicture': 'Save',
   'savePictureSuccess': 'Successful',
   'savePictureFail': 'Fail',
@@ -351,7 +351,7 @@ export default {
   'txtLowBattery': ' Low battery warning',
 
   //pay in cash
-  'paying': 'PAYMENT',
+  'paying': 'PACKAGES V-KID',
   'payInCash': 'Payment',
   'accountInfo': 'Account information',
   'package': 'Packages:',

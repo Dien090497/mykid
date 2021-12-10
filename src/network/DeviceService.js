@@ -68,7 +68,7 @@ export function editDeviceApi(
     icon,
     relationship,
     relationshipName,
-  };  
+  };
   const url = [listDeviceUrl, id].join("/");
   return put(url, { body,success, failure, autoShowMsg, refLoading, refNotification });
 }
@@ -206,7 +206,7 @@ export function disconnectClockApi(
   { success, failure, autoShowMsg = true, refLoading = null, refNotification = null } = {},
 ) {
   const url = [disconnectUrl, deviceId, "reset"].join("/");
-  return post(url, {
+  return dele(url, {
     success,
     failure,
     autoShowMsg,

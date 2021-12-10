@@ -32,7 +32,7 @@ export default function Health({ navigation }) {
   const { t } = useTranslation();
   const [data, setData] = useState(null);
   const [tracking, setTracking] = useState(null);
-  const [isRadio, setIsRadio] = useState(false);
+  const [isRadio, setIsRadio] = useState(true);
 
   useLayoutEffect(() => {
     getData();
@@ -139,11 +139,7 @@ export default function Health({ navigation }) {
   }
 
   const gotoHomeScreen = () => {
-    if (DataLocal.haveSim === '0') {
-      DataLocal.saveHaveSim('1').then(r =>
         navigation.navigate(Consts.ScreenIds.Tabs)
-      );
-    }
   }
 
   const setRadio = () => {
