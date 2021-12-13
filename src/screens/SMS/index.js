@@ -114,7 +114,6 @@ export default function SMS({navigation}) {
           <View onStartShouldSetResponder={() => {
             setShowMenu(true)
           }}
-           style={{width: '60%', justifyContent: 'center', alignItems: 'center'}}
           >
             <Text style={styles.textMenuShow}>{devices && devices[selectedIndex] && devices[selectedIndex].deviceName}</Text>
           </View>

@@ -307,6 +307,7 @@ async function handleResp(response, autoShowMsg, success, failure, refLoading, r
       XmppClient.disconnectXmppServer();
       WebSocketSafeZone.disconnect();
       WebSocketVideoCall.disconnect();
+      reduxStore.store.dispatch(loginAction.logout());
       return failureResponse(i18next.t('errorMsg:TOKEN_EXPIRED_MSG'), response);
     }
 

@@ -167,7 +167,7 @@ export default ({navigation, route}) => {
         }>
          <View style={styles.containerView}>
            <View style={styles.imageView}>
-             <Image style={styles.avatar} source={icon} />
+             <Image style={styles.avatar} source={item.accountAvatar ? item.accountAvatar : icon} />
            </View>
            <View style={styles.info}>
              <View style={styles.textView}>

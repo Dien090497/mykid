@@ -394,6 +394,7 @@ export default {
   '1_minute': '1 Phút',
   '10_minute': '10 Phút',
   '60_minute': '60 Phút',
+  'manual': 'Thủ công',
 
   //DiconnectClock
   'alertDisconnectClock': 'Toàn bộ dữ liệu và kết nối với đồng hồ sẽ bị xóa. Đồng hồ sẽ về trạng thái mặc định. Bạn có chắc muốn thực hiện?',
