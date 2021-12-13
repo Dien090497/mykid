@@ -126,6 +126,13 @@ export default function App() {
       );
       if (notify && notify.type === "DEVICE_ACCEPTED") {
         XmppClient.updateRooms();
+      } else if (notify && notify.type === "VIDEO_CALL") {
+        if (RNCallKeep.isCallActive(notify.id)) {
+          if (notify?.status === "REJECTED" || notify?.status === "ENDED") {
+            isNotiFirebase = true;
+            RNCallKeep.endCall(notify?.id + "");
+          }
+        }
       }
     }
 
@@ -221,6 +228,7 @@ export default function App() {
         }
       }
       console.log("endCall", payload);
+      setVisibleCall({ visible: false, device: null, data: [] });
       isNotiFirebase = true;
       DataLocal.removeVideoCallInfo();
     });
@@ -238,7 +246,6 @@ export default function App() {
           device={visibleCall.device}
           toggleModal={() => {
             if (visibleCall?.data?.id) {
-              setVisibleCall({ visible: false, device: null, data: [] });
               finishVideoCallApi({}, visibleCall?.data?.id, {
                 success: res => {
                 },
