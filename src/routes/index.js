@@ -22,6 +22,7 @@ import HomeMainScreen from '../screens/Home/HomeMainScreen';
 import Images from '../assets/Images';
 import JourneyHistory from '../screens/Maps/Journey';
 import ListDeviceScreen from '../screens/VideoCall';
+import FriendsList from '../screens/FriendsList';
 //auth screen
 import Login from '../screens/auth/Login';
 import Maps from '../screens/Maps';
@@ -396,6 +397,10 @@ function Routes ({},ref){
         <Stack.Screen
           name={Consts.ScreenIds.DisconnectClock}
           component={DisconnectClock}
+        />
+        <Stack.Screen
+          name={Consts.ScreenIds.FriendsList}
+          component={FriendsList}
         />
       </Stack.Navigator>
     </NavigationContainer>

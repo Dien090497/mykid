@@ -26,8 +26,9 @@ export default function InstallPosition({ navigation }) {
     const { t } = useTranslation();
 
     const radio_props = [
-        { label: t('common:on'), value: true },
-        { label: t('common:off'), value: false },
+        { label: t('common:on'), value: 1 },
+        { label: t('common:off'), value: 2 },
+        { label: t('common:manual'), value: 3 },
     ];
 
     const radio_props1 = [
@@ -143,7 +144,7 @@ export default function InstallPosition({ navigation }) {
                         ))
                     }
                 </RadioForm>
-                {mode === true &&
+                {mode === 1 &&
                     <View>
                         <View style={{ marginLeft: '5%', marginTop: '5%', width: '100%', height: '8%' }}>
                             <Text style={styles.textHeader}>{t('common:cycle')}</Text>
@@ -157,7 +158,7 @@ export default function InstallPosition({ navigation }) {
                                             index={i}
                                             isSelected={choose === obj.value}
                                             onPress={(value) => {
-                                                chooseMinute(value);
+                                               chooseMinute (value)
                                             }}
                                             borderWidth={1}
                                             buttonInnerColor={Colors.red}
@@ -172,7 +173,7 @@ export default function InstallPosition({ navigation }) {
                                             index={i}
                                             labelHorizontal={false}
                                             onPress={(value) => {
-                                                onMethodChanged(value);
+                                                chooseMinute(value);
                                             }}
                                             labelStyle={styles.labelStyle}
                                             labelWrapStyle={{ width: '88%' }}

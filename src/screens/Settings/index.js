@@ -132,6 +132,19 @@ export default ({navigation, route}) => {
         <Image source={Images.icDisconnectClock} style={{width: 40, height: 40}} resizeMode={'stretch'}/>
       ),
     },
+    {
+      key: 'FriendsList',
+      title: t('common:header_friend'),
+      onPress: () => {
+        if (DataLocal.haveSim === '0') {
+          return refNotification.current.open(t('errorMsg:kwa4067'));
+        }
+        navigation.navigate(Consts.ScreenIds.FriendsList);
+      },
+      icon: (
+        <Image source={Images.icDisconnectClock} style={{width: 40, height: 40}} resizeMode={'stretch'}/>
+      ),
+    },
   ];
   const renderItem = ({item}) => {
     return (

@@ -84,7 +84,7 @@ export default {
   'header_sms': 'SMS',
   'header_installPosition': 'Chế độ tiết kiệm pin',
   'header_disconnectClock': 'Ngắt kết nối đồng hồ',
-
+  'header_friend': 'Danh sách bạn bè',
   // Codepush
   'codepushChecking': 'Đang kiểm tra bản cập nhật...',
   'codepushDownloading': 'Đang tải bản cập nhật...',
@@ -394,6 +394,7 @@ export default {
   '1_minute': '1 Phút',
   '10_minute': '10 Phút',
   '60_minute': '60 Phút',
+  'manual': 'Thủ công',
 
   //DiconnectClock
   'alertDisconnectClock': 'Toàn bộ dữ liệu và kết nối với đồng hồ sẽ bị xóa. Đồng hồ sẽ về trạng thái mặc định. Bạn có chắc muốn thực hiện?',

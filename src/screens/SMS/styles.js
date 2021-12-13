@@ -94,10 +94,14 @@ export const styles = StyleSheet.create({
     tintColor: Colors.red
   },
   textMenuShow: {
+    width: 'auto',
     color: Colors.black,
-    // marginLeft: '15%',
-    fontFamily: 'Roboto-Bold',
-    fontSize: FontSize.big,
+    fontStyle: 'normal',
+    fontSize: FontSize.xtraSmall,
+    fontFamily: 'Roboto',
+    fontWeight: 'bold',
+    lineHeight: FontSize.small * 10 / 7,
+    marginHorizontal: '4%'
   },
   avatar: {
     width: ScaleHeight.small,
