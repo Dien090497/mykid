@@ -20,7 +20,6 @@ import RNCallKeep from "react-native-callkeep";
 import XmppClient from "./src/network/xmpp/XmppClient";
 import Consts from "./src/functions/Consts";
 import { finishVideoCallApi, rejectVideoCallApi } from "./src/network/VideoCallService";
-import videoCallAction from "./src/redux/actions/videoCallAction";
 import VideoCallModal from "./src/screens/VideoCall/VideoCallModal";
 
 let isNotiFirebase = false;
@@ -31,9 +30,9 @@ function setupCallKeep() {
     android: {
       alertTitle: "Permissions Required",
       alertDescription:
-        "This application needs to access your phone calling accounts to make calls",
-      cancelButton: "Cancel",
-      okButton: "ok",
+        "Ứng dụng này cần truy cập vào tài khoản gọi điện thoại của bạn để thực hiện cuộc gọi",
+      cancelButton: "Huỷ",
+      okButton: "Đồng ý",
       imageName: "ic_launcher",
       additionalPermissions: [PermissionsAndroid.PERMISSIONS.READ_CONTACTS],
     },
@@ -48,9 +47,9 @@ function setupCallKeep() {
 
 export function handleRemoteMessage(remoteMessage, isHeadless) {
   dataVideoCall = remoteMessage?.data;
+  DataLocal.saveVideoCallInfo(dataVideoCall);
   isNotiFirebase = false;
   if (remoteMessage?.data?.type === "VIDEO_CALL") {
-    if(!RNCallKeep.checkIfBusy()){
       if (remoteMessage?.data?.status === "INIT") {
         console.log("ready...");
         console.log(remoteMessage);
@@ -86,11 +85,8 @@ export function handleRemoteMessage(remoteMessage, isHeadless) {
         // Could also persist data here for later uses
       } else if (remoteMessage?.data?.status === "REJECTED" || remoteMessage?.data?.status === "ENDED") {
         isNotiFirebase = true;
-        RNCallKeep.endCall(remoteMessage?.data?.id+"");
+        RNCallKeep.endCall(remoteMessage?.data?.id + "");
       }
-    }else {
-      RNCallKeep.rejectCall(remoteMessage?.data?.id+"")
-    }
   }
 }
 
@@ -101,6 +97,7 @@ export default function App() {
     server: null,
     data: [],
   });
+
   const routeRef = useRef();
   // fire base msg
   useEffect(() => {
@@ -143,10 +140,9 @@ export default function App() {
         }));
       } else if (notify && notify.type === "CHAT") {
         reduxStore.store.dispatch(commonInfoAction.navigate({ navigate: Consts.ScreenIds.Chat, deviceId: null }));
-        // routeRef.current.roadToMsgFromNotify(notify);
       } else if (notify && notify.type === "VIDEO_CALL") {
         console.log("[App] onOpenNotification: VIDEO_CALL", notify);
-        if(!RNCallKeep.checkIfBusy()) {
+        if (RNCallKeep.isCallActive(notify.id)) {
           if (notify?.status === "REJECTED" || notify?.status === "ENDED") {
             isNotiFirebase = true;
             RNCallKeep.endCall(notify?.id + "");
@@ -154,7 +150,6 @@ export default function App() {
         }
       }
     }
-
     handleCallKeep();
     return () => {
       console.log("[App] unRegister");
@@ -170,6 +165,24 @@ export default function App() {
 
     if (extras) {
       console.log("getExtrasFromHeadlessMode", extras);
+      const dataCall = DataLocal?.getVideoCallInfo();
+      if (dataCall){
+        setVisibleCall({
+          visible: true,
+          device: { deviceName: dataCall?.deviceName },
+          data: {
+            id: Number(dataCall?.id),
+            status: dataCall?.status,
+            streamUrl: dataCall?.streamUrl,
+            password: dataCall?.password === "" ? null : dataCall?.password,
+            caller: {
+              accountId: Number(dataCall?.accountId),
+              relationship: dataCall?.relationship,
+              deviceName: dataCall?.deviceName,
+            },
+          },
+        });
+      }
     }
 
     const scs = await RNCallKeep.supportConnectionService();
@@ -187,9 +200,9 @@ export default function App() {
             id: Number(dataVideoCall?.id),
             status: dataVideoCall?.status,
             streamUrl: dataVideoCall?.streamUrl,
-            password: dataVideoCall?.password === ""? null :dataVideoCall?.password,
+            password: dataVideoCall?.password === "" ? null : dataVideoCall?.password,
             caller: {
-              accountId:  Number(dataVideoCall?.accountId),
+              accountId: Number(dataVideoCall?.accountId),
               relationship: dataVideoCall?.relationship,
               deviceName: dataVideoCall?.deviceName,
             },
@@ -200,7 +213,7 @@ export default function App() {
     });
     RNCallKeep.addEventListener("endCall", payload => {
       if (!isNotiFirebase) {
-        if (!visibleCall.visible){
+        if (!visibleCall.visible) {
           rejectVideoCallApi({}, payload.callUUID, {
             success: res => {
             },
@@ -208,6 +221,8 @@ export default function App() {
         }
       }
       console.log("endCall", payload);
+      isNotiFirebase = true;
+      DataLocal.removeVideoCallInfo();
     });
 
     RNCallKeep.addEventListener("didDisplayIncomingCall", payload => {
@@ -218,24 +233,23 @@ export default function App() {
   return (
     <SafeAreaProvider>
       {visibleCall.visible ?
-      <VideoCallModal
-        visible={visibleCall.visible}
-        device={visibleCall.device}
-        toggleModal={() => {
-          if (visibleCall?.data?.id) {
-            setVisibleCall({ visible: false, device: null, data: [] });
-            finishVideoCallApi({}, visibleCall?.data?.id, {
-              success: res => {
-              },
-            });
-          }
-        }}
-        pickUp={true}
-        data={visibleCall.data}
-      /> :
-
+        <VideoCallModal
+          visible={visibleCall.visible}
+          device={visibleCall.device}
+          toggleModal={() => {
+            if (visibleCall?.data?.id) {
+              setVisibleCall({ visible: false, device: null, data: [] });
+              finishVideoCallApi({}, visibleCall?.data?.id, {
+                success: res => {
+                },
+              });
+            }
+          }}
+          pickUp={true}
+          data={visibleCall.data}
+        /> :
         <Provider store={redux.store}>
-          <Routes ref={routeRef}/>
+          <Routes ref={routeRef} />
           <DropdownAlert
             closeInterval={15000}
             updateStatusBar={false}
@@ -249,7 +263,7 @@ export default function App() {
             onClose={() => AlertDropHelper.invokeOnClose()}
           />
         </Provider>}
-      </SafeAreaProvider>
+    </SafeAreaProvider>
   );
 }
 

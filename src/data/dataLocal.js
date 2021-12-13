@@ -12,7 +12,7 @@ let deviceIndex = 0;
 let deviceId = 0;
 let language = null;
 let haveSim = '1';
-
+const videoCallInfoKey = 'VIDEO_CALL_INFO';
 async function saveAccessToken(value) {
   try {
     return AsyncStorage.setItem(accessTokenKey, value);
@@ -184,6 +184,30 @@ async function saveDuration(link, duration) {
   }
 }
 
+async function saveVideoCallInfo(value) {
+  try {
+    return AsyncStorage.setItem(videoCallInfoKey, JSON.stringify(value));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+async function getVideoCallInfo() {
+  try {
+    return AsyncStorage.getItem(videoCallInfoKey, '');
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+async function removeVideoCallInfo() {
+  try {
+    return AsyncStorage.removeItem(videoCallInfoKey);
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 async function removeAll() {
   await removeAccessToken();
 }
@@ -198,6 +222,10 @@ const DataLocal = {
   saveTokenFirebase,
   removeTokenFirebase,
   getTokenFirebase,
+
+  saveVideoCallInfo,
+  getVideoCallInfo,
+  removeVideoCallInfo,
 
   saveDeviceId,
   loadDeviceId,
