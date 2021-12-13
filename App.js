@@ -28,7 +28,7 @@ let dataVideoCall = null;
 function setupCallKeep() {
   const options = {
     android: {
-      alertTitle: "Permissions Required",
+      alertTitle: "Cấp quyền cuộc gọi cho ứng dụng",
       alertDescription:
         "Ứng dụng này cần truy cập vào tài khoản gọi điện thoại của bạn để thực hiện cuộc gọi",
       cancelButton: "Huỷ",
@@ -47,9 +47,9 @@ function setupCallKeep() {
 
 export function handleRemoteMessage(remoteMessage, isHeadless) {
   dataVideoCall = remoteMessage?.data;
-  DataLocal.saveVideoCallInfo(dataVideoCall);
   isNotiFirebase = false;
-  if (remoteMessage?.data?.type === "VIDEO_CALL") {
+  DataLocal.saveVideoCallInfo(dataVideoCall).then(r => {
+    if (remoteMessage?.data?.type === "VIDEO_CALL") {
       if (remoteMessage?.data?.status === "INIT") {
         console.log("ready...");
         console.log(remoteMessage);
@@ -87,7 +87,9 @@ export function handleRemoteMessage(remoteMessage, isHeadless) {
         isNotiFirebase = true;
         RNCallKeep.endCall(remoteMessage?.data?.id + "");
       }
-  }
+    }
+  });
+
 }
 
 setupCallKeep();
@@ -108,7 +110,6 @@ export default function App() {
     function onRegister(token) {
       console.log("[App] onRegister: ", token);
       DataLocal.tokenFirebase = token;
-      // DataLocal.saveTokenFirebase(token);
     }
 
     function onNotification(notify) {
@@ -169,10 +170,9 @@ export default function App() {
   //call keep
   async function handleCallKeep() {
     const extras = await RNCallKeep.getExtrasFromHeadlessMode();
-
     if (extras) {
       console.log("getExtrasFromHeadlessMode", extras);
-      const dataCall = DataLocal?.getVideoCallInfo();
+      const dataCall = JSON.parse(DataLocal.getVideoCallInfo());
       if (dataCall){
         setVisibleCall({
           visible: true,
