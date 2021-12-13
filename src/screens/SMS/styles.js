@@ -96,7 +96,6 @@ export const styles = StyleSheet.create({
   textMenuShow: {
     width: 'auto',
     color: Colors.black,
-    textAlign:"center",
     fontStyle: 'normal',
     fontSize: FontSize.xtraSmall,
     fontFamily: 'Roboto',

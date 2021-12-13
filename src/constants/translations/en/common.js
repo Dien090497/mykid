@@ -84,6 +84,7 @@ export default {
   'header_sms': 'SMS',
   'header_installPosition': 'Battery saver mode',
   'header_disconnectClock': 'Disconnect the watch',
+  'header_friend': 'Friends List',
 
   // Codepush
   'codepushChecking': 'Checking...',

@@ -84,7 +84,7 @@ export default {
   'header_sms': 'SMS',
   'header_installPosition': 'Chế độ tiết kiệm pin',
   'header_disconnectClock': 'Ngắt kết nối đồng hồ',
-
+  'header_friend': 'Danh sách bạn bè',
   // Codepush
   'codepushChecking': 'Đang kiểm tra bản cập nhật...',
   'codepushDownloading': 'Đang tải bản cập nhật...',
