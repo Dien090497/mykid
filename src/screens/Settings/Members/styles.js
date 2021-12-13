@@ -29,9 +29,10 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Colors.white,
-    height: 50,
-    width: 50,
-    resizeMode: 'stretch'
+    height: ScaleHeight.medium * 1.2,
+    width: ScaleHeight.medium * 1.2,
+    borderRadius: ScaleHeight.medium,
+    resizeMode: 'cover'
   },
   itemContainer: {
     backgroundColor: Colors.white,
