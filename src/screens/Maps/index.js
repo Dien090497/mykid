@@ -36,7 +36,6 @@ export default ({navigation, route}) => {
   const refLoading = useRef(null);
   const refNotification = useRef(null);
   const [locationDevices, setLocationDevices] = useState([]);
-  const [locationName, setLocationName] = useState('');
   const [indexSelect, setIndexSelect] = useState(DataLocal.deviceIndex);
   const [isCount, setIsCount] = useState(false);
   const [timeCount, setTimeCount] = useState(60);
@@ -103,20 +102,24 @@ export default ({navigation, route}) => {
   }, []);
 
   useEffect(() => {
-    if (locationDevices && locationDevices[indexSelect] && locationDevices[indexSelect].location) {
-      Geocoder.geocodePosition({
-        lat: locationDevices[indexSelect].location.lat,
-        lng: locationDevices[indexSelect].location.lng
-      }).then(res => {
-        const address = [res[0].streetNumber +' '+ res[0].streetName, res[0].subAdminArea, res[0].adminArea].join(', ')
-        setLocationName(address);
-      }).catch(err => console.log(err))
-    }
-
     if (!locationDevices.length > 0 || ws) return;
     handleWebSocketSetup();
     setReconnect(true)
   }, [locationDevices]);
+
+  useEffect(() => {
+    if (locationDevices && locationDevices[indexSelect] && locationDevices[indexSelect].location && !locationDevices[indexSelect].locationName) {
+      Geocoder.geocodePosition({
+        lat: locationDevices[indexSelect].location.lat,
+        lng: locationDevices[indexSelect].location.lng
+      }).then(res => {
+        const address = [res[0].streetNumber +' '+ res[0].streetName, res[0].subAdminArea, res[0].adminArea].join(', ');
+        const locations = Object.assign([], locationDevices);
+        locations[indexSelect].locationName = address;
+        setLocationDevices(locations)
+      }).catch(err => console.log(err))
+    }
+  }, [locationDevices, indexSelect]);
 
   const renderCircleMarker = (val,index) => {
     return (
@@ -262,7 +265,6 @@ export default ({navigation, route}) => {
           }
         }
         if (newData===locationDevices) return;
-        console.log('123')
         setLocationDevices(newData)
       }
       console.log(message, 'WebSocket Location Message');
@@ -351,7 +353,7 @@ export default ({navigation, route}) => {
               </Text>
             </View>
             <View style={styles.containerLastTime}>
-              <Text style={styles.txtLocation}>{t('common:location')}{locationName}</Text>
+              <Text style={styles.txtLocation}>{t('common:location')}{locationDevices[indexSelect].locationName || ''}</Text>
               <Text style={[styles.txtTime,{flex: 1 ,fontSize: FontSize.xxtraSmall*0.8, textAlign: 'right'}]}>
                 {locationDevices[indexSelect].type + ' ('+ t('common:discrepancy') + locationDevices[indexSelect].maxAccuracy + 'm)'}
               </Text>
