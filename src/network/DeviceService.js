@@ -214,3 +214,33 @@ export function disconnectClockApi(
     refNotification
   });
 }
+
+export function getFriendsList(
+  deviceId,
+  { success, failure, autoShowMsg = true, refLoading = null, refNotification = null },
+) {
+  const url = [disconnectUrl, deviceId, "friends"].join("/");
+  return get(url, {
+    success,
+    failure,
+    autoShowMsg,
+    refLoading,
+    refNotification
+  });
+}
+
+export function deleteFriend(
+  deviceId,
+  roomId,
+  { success, failure, autoShowMsg = true, refLoading = null, refNotification = null } = {},
+) {
+  const url = [disconnectUrl, deviceId, 'friends', roomId].join("/");
+  return dele(url, {
+    success,
+    failure,
+    autoShowMsg,
+    refLoading,
+    refNotification
+  });
+}
+
