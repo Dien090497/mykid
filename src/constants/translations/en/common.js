@@ -224,6 +224,7 @@ export default {
   'listSOS': 'SOS list',
   'listMember': 'Device list',
   'chooseSOS': 'Select numbers SOS',
+  'me': 'Me',
 
   //home
   'home_gps': 'LOCATION',
@@ -245,7 +246,7 @@ export default {
   'home_secretPhotoShoot': 'REMOTE PHOTO',
   'home_phone': 'CALL', // TO DO
   'home_sms': 'SMS',
-  'me': 'Me',
+  'home_friend': 'FRIENDS LIST',
 
   //setting
   'setting_contact': 'Contacts',
@@ -395,7 +396,7 @@ export default {
    'manual': 'Manual',
 
   //DisconnectClock
-  'alertDisconnectClock': 'All data and connection to the watch will be deleted. The watch will return to the state default. Are you sure you want to do it?',
+  'alertDisconnectClock': 'The watch will disconnect all linked accounts and restore default settings. Are you sure you want to disconnect?',
 
   //SMS
   'listDevice': 'Choose a device'

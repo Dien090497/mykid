@@ -47,9 +47,9 @@ export default {
   icMobile: require('./images/ic_mobile.png'),
   icMapType: require('./images/ic_map_type.png'),
   icAddMember: require('./images/ic_add_member.png'),
-  ic_Choose: require('./images/ic_choose.png'), 
-  icCan: require('./images/ic_can.png'), 
-  icDeleteMember: require('./images/ic_delete_member.png'), 
+  ic_Choose: require('./images/ic_choose.png'),
+  icCan: require('./images/ic_can.png'),
+  icDeleteMember: require('./images/ic_delete_member.png'),
 
   //homeScreen
   icHomeOn: require('./images/main/ic_home_on.png'),
@@ -70,6 +70,7 @@ export default {
   icTransport: require('./images/home/ic_transfer.png'),
   ic_local_phone: require('./images/home/ic_local_phone.png'),
   icSMS: require('./images/home/ic_sms.png'),
+  icFriendsList: require('./images/ic_FriendList.png'),
 
   //RewardPoints
   icAdd: require('./images/rewardoints/ic_add.png'),

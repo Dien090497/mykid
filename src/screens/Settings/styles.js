@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
     padding: width* 0.012,
     marginHorizontal: width* 0.04,
     height: height* 0.08,
-    marginVertical: height* 0.01,
+    marginVertical: height* 0.008,
     justifyContent: 'center',
     shadowColor: 'rgba(25,25,25, 0.5)',
     shadowOffset: {
@@ -27,6 +27,18 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5
+  },
+  tob: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: width* 0.012,
+    marginHorizontal: width* 0.04,
+    height: height* 0.08,
+    marginVertical: height* 0.01,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: Colors.redTitle
   },
   header: {
     width: '95%',
@@ -44,6 +56,16 @@ export const styles = StyleSheet.create({
     fontFamily: 'Roboto',
     fontStyle: 'normal',
     lineHeight: FontSize.medium * 1.25
+  },
+  txtTob:{
+    fontSize: FontSize.medium,
+    textAlign: 'center',
+    paddingHorizontal: 10,
+    fontWeight: '500',
+    fontFamily: 'Roboto',
+    fontStyle: 'normal',
+    lineHeight: FontSize.medium * 1.25,
+    color: Colors.redTitle
   },
   mainView: {
     flex: 1,

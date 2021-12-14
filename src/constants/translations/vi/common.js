@@ -245,6 +245,7 @@ export default {
   'home_secretPhotoShoot': 'CHỤP ẢNH TỪ XA',
   'home_phone': 'GỌI NGAY',
   'home_sms': 'SMS',
+  'home_friend': 'DANH SÁCH BẠN BÈ',
 
   //setting
   'setting_contact': 'Danh bạ',
@@ -397,7 +398,7 @@ export default {
   'manual': 'Thủ công',
 
   //DiconnectClock
-  'alertDisconnectClock': 'Toàn bộ dữ liệu và kết nối với đồng hồ sẽ bị xóa. Đồng hồ sẽ về trạng thái mặc định. Bạn có chắc muốn thực hiện?',
+  'alertDisconnectClock': 'Đồng hồ sẽ ngắt kết nối với toàn bộ các tài khoản đã liên kết và khôi phục cài đặt gốc. Bạn có chắc chắn muốn ngắt kết nối không?',
 
   //SMS
   'listDevice': 'Chọn thiết bị',
