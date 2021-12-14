@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     flex: 1,
-    color: Colors,
+    color: Colors.black,
     fontStyle: 'normal',
     fontSize: FontSize.small,
     fontFamily: 'Roboto',

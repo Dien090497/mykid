@@ -39,7 +39,7 @@ export default function FriendsList({navigation}) {
     if (devices && devices.length > 0) {
       friendsListItem();
     }
-  }, [devices]);
+  }, [devices, selectedIndex]);
 
   const loadMore = React.useCallback(async () => {
     setLoading(true);
@@ -77,7 +77,6 @@ export default function FriendsList({navigation}) {
   }
 
   const renderItemModal = ({item, index}) => {
-    setSelectedIndex(index);
     return (
       <TouchableOpacity
         activeOpacity={0.9}
