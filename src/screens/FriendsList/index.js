@@ -1,8 +1,7 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import {
   FlatList,
-  Modal,
-  ScrollView,
+  Modal, RefreshControl,
   Text,
   TouchableOpacity,
   View,
@@ -16,29 +15,50 @@ import Consts, {ScaleHeight} from '../../functions/Consts';
 import { useTranslation } from 'react-i18next';
 import DataLocal from '../../data/dataLocal';
 import NotificationModal from '../../components/NotificationModal';
-import { getListDeviceApi } from '../../network/DeviceService';
+import { getListDeviceApi, getFriendsList, deleteFriend } from '../../network/DeviceService';
 import {Colors} from "../../assets/colors/Colors";
+import ModalConfirm from "../../components/ModalConfirm";
 
 export default function FriendsList({navigation}) {
   const refLoading = useRef();
   const refNotification = useRef();
+  const refModalConfirm = useRef();
   const [showModal, setShowModal] = useState(false);
   const [devices, setDevices] = useState([]);
+  const [friendsList, setFriendsList] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState(DataLocal.deviceIndex);
+  const [loading, setLoading] = useState(false);
   const { t } = useTranslation();
+  const [room, setRoom] = useState();
 
   useLayoutEffect(() => {
     getListDevice();
   }, []);
 
-  const handleChange = async (index) => {
-    if (!DataLocal.haveSim && refNotification && refNotification.current) {
-      refNotification.current.open(t('errorMsg:kwa4067'));
-      return;
+  useLayoutEffect(() => {
+    if (devices && devices.length > 0) {
+      friendsListItem();
     }
+  }, [devices]);
+
+  const loadMore = React.useCallback(async () => {
+    setLoading(true);
+    getListDevice();
+    setLoading(false);
+  }, []);
+
+  const handleChange = async (index) => {
     setSelectedIndex(index);
     setShowModal(false);
+    friendsListItem();
   };
+  const friendsListItem = () => {
+    getFriendsList(devices[selectedIndex].deviceId, {
+      success: res => {
+        setFriendsList(res.data)
+      }
+    });
+  }
 
   const getListDevice = () => {
     getListDeviceApi(DataLocal.userInfo.id, 0, 100, '', 'ACTIVE', {
@@ -57,7 +77,7 @@ export default function FriendsList({navigation}) {
   }
 
   const renderItemModal = ({item, index}) => {
-    DataLocal.saveHaveSim(devices[selectedIndex].validSim ? '1' : '0');
+    setSelectedIndex(index);
     return (
       <TouchableOpacity
         activeOpacity={0.9}
@@ -78,6 +98,49 @@ export default function FriendsList({navigation}) {
       </TouchableOpacity>
     );
   };
+
+  const onModal = item => {
+    setRoom(item.item.roomId)
+    refModalConfirm.current.open(t('common:alertDelete'), () => {console.log('')});
+  }
+
+  const deleteFriendItem = () => {
+    deleteFriend(devices[selectedIndex].deviceId, room, {
+      success: res => {
+        refNotification.current.open(t('common:success'));
+      }
+    })
+  }
+
+  const renderFriendsList = (item) => {
+    return(
+      <View style={styles.itemContainer}>
+          <View style={styles.containerView}>
+            <View style={styles.imageView}>
+              <Image style={styles.avatarItem} source={item.item.avatar ? {uri: item.item.avatar} : Images.icAvatar } />
+            </View>
+            <View style={styles.info}>
+              <View style={styles.textView}>
+                <Text style={styles.otherInfoText}>{'Device code: '}{item.item.deviceCode}</Text>
+              </View>
+              <Text
+                style={styles.otherInfoText}
+                children={`${t('common:account')}: ${ item.item.phone && item.item.phone.startsWith('+84') ? '0' + item.item.phone.substring(3) : ''}`}
+              />
+            </View>
+            <View style={styles.rowItem2}>
+              <TouchableOpacity
+                onPress={ () => onModal(item)}>
+                <Image
+                  style={styles.iconCancel}
+                  source={Images.icCancelMember}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.contain}>
@@ -100,8 +163,21 @@ export default function FriendsList({navigation}) {
           </View>
         </TouchableOpacity>
       </View>
-      <ScrollView style={styles.contain}>
-      </ScrollView>
+      <View style={styles.contain}>
+        {devices && devices[selectedIndex] && devices[selectedIndex].deviceName &&
+        <Text style={styles.headerText}>Danh sách bạn bè thiết bị {devices[selectedIndex].deviceName}</Text>}
+        <FlatList
+          data={friendsList}
+          renderItem={renderFriendsList}
+          keyExtractor={item => item.deviceCode}
+          refreshControl={
+            <RefreshControl
+              refreshing={loading}
+              onRefresh={loadMore}
+            />
+          }
+        />
+      </View>
       <Modal
         visible={showModal}
         transparent={true}
@@ -130,6 +206,10 @@ export default function FriendsList({navigation}) {
           </View>
         </TouchableOpacity>
       </Modal>
+      <ModalConfirm
+        ref={refModalConfirm}
+        onPressYes={deleteFriendItem}
+      />
       <LoadingIndicator ref={refLoading} />
       <NotificationModal ref={refNotification} goBack={gotoHomeScreen}/>
     </View>
