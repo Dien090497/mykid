@@ -400,5 +400,8 @@ export default {
   'alertDisconnectClock': 'Toàn bộ dữ liệu và kết nối với đồng hồ sẽ bị xóa. Đồng hồ sẽ về trạng thái mặc định. Bạn có chắc muốn thực hiện?',
 
   //SMS
-  'listDevice': 'Chọn thiết bị'
+  'listDevice': 'Chọn thiết bị',
+
+  //FriendsList:
+  'alertDelete': 'Bạn có chắc chắn hủy kết bạn này không ?'
 };
