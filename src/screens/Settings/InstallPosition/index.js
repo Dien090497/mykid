@@ -26,9 +26,8 @@ export default function InstallPosition({ navigation }) {
     const { t } = useTranslation();
 
     const radio_props = [
-        { label: t('common:on'), value: 1 },
-        { label: t('common:off'), value: 2 },
-        { label: t('common:manual'), value: 3 },
+        { label: t('common:on'), value: true },
+        { label: t('common:off'), value: false },
     ];
 
     const radio_props1 = [
@@ -144,7 +143,7 @@ export default function InstallPosition({ navigation }) {
                         ))
                     }
                 </RadioForm>
-                {mode === 1 &&
+                {mode === true &&
                     <View>
                         <View style={{ marginLeft: '5%', marginTop: '5%', width: '100%', height: '8%' }}>
                             <Text style={styles.textHeader}>{t('common:cycle')}</Text>
