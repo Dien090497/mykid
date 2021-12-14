@@ -30,6 +30,7 @@ import FastImage from 'react-native-fast-image';
 const encoder = new encoding.TextEncoder();
 let ws = null;
 let reconnect = false;
+const TIME_COUNT = 30;
 
 export default ({navigation, route}) => {
   const refMap = useRef(null);
@@ -38,7 +39,7 @@ export default ({navigation, route}) => {
   const [locationDevices, setLocationDevices] = useState([]);
   const [indexSelect, setIndexSelect] = useState(DataLocal.deviceIndex);
   const [isCount, setIsCount] = useState(false);
-  const [timeCount, setTimeCount] = useState(60);
+  const [timeCount, setTimeCount] = useState(TIME_COUNT);
   const [mapType, setMapType] = useState(true);
   const { t } = useTranslation();
   const infoDevice = route.params.listDevices;
@@ -76,9 +77,6 @@ export default ({navigation, route}) => {
               });
             }
           }
-          timer = getTime() + 60;
-          setIsCount(true);
-          refreshCountdown();
         },
         refLoading: refLoading,
         refNotification: refNotification,
@@ -113,7 +111,7 @@ export default ({navigation, route}) => {
         lat: locationDevices[indexSelect].location.lat,
         lng: locationDevices[indexSelect].location.lng
       }).then(res => {
-        const address = [res[0].streetNumber +' '+ res[0].streetName, res[0].subAdminArea, res[0].adminArea].join(', ');
+        const address = [(res[0].streetNumber || '') +' '+ res[0].streetName, res[0].subAdminArea, res[0].adminArea].join(', ');
         const locations = Object.assign([], locationDevices);
         locations[indexSelect].locationName = address;
         setLocationDevices(locations)
@@ -130,7 +128,7 @@ export default ({navigation, route}) => {
           latitude: val.location.lat,
           longitude: val.location.lng,
         }}
-        radius={100}
+        radius={Math.round(val.maxAccuracy || 10)}
         strokeColor='#4F6D7A'
         strokeWidth={0.1}
       />
@@ -294,8 +292,10 @@ export default ({navigation, route}) => {
                     latitude: obj?.location?.lat,
                     longitude: obj?.location?.lng,
                   }}
-                  title={obj.deviceName}>
+                  title={''}>
                   <View style={{alignItems: 'center'}}>
+                    <Text style={styles.textMarker}>{obj.deviceName || ''}</Text>
+                    <View style={{height:5}}/>
                     <FastImage source={obj.avatar ? {uri: obj.avatar}: Images.icOther} style={[styles.avatar]} resizeMode={'cover'}/>
                     <View style={{height:5}}/>
                     <Image source={Images.icMarkerDefault} style={[styles.icMarker,{tintColor: Colors.colorMain}]}/>
@@ -377,6 +377,9 @@ export default ({navigation, route}) => {
           onPress={()=>{
             if (isCount) return;
             getLocationDevice();
+            timer = getTime() + TIME_COUNT;
+            setIsCount(true);
+            refreshCountdown();
           }}>
           {isCount ?
             <View>
@@ -385,7 +388,7 @@ export default ({navigation, route}) => {
                 indeterminate={false}
                 color={Colors.colorMain}
                 showsText={true}
-                progress={timeCount/60}
+                progress={timeCount / TIME_COUNT}
                 borderWidth={0}
                 formatText={() => {
                   return timeCount.toString();
