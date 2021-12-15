@@ -152,7 +152,7 @@ const AddDeviceScreen = ({ navigation, route }) => {
             placeholder={t('common:deviceNickname')}
             onChangeText={name => setDeviceName(name)}
             placeholderTextColor='#B5B4B4'
-            maxLength={10}
+            maxLength={30}
             style={styles.textInput} />
         </View>
         <TouchableOpacity style={styles.input} onPress={() => onRelationship()}>

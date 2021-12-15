@@ -319,23 +319,25 @@ export default function InfoKits({route}) {
   return (
     <View style={styles.viewContainer}>
       <Header title={t('common:home_infoKits')} />
-      <TouchableOpacity
-        style={{
-          width: '100%',
-          height: '24%',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-        onPress={OnActionSheet}
-      >
-        <Image source={avatar ? { uri: avatar } : Images.icAvatar}
-          style={styles.imageAvatar}
-          resizeMode={avatar ? 'cover' : 'stretch'} />
-        <View style={{ flexDirection: 'row', marginTop: '4%', alignItems: 'center', justifyContent: 'center' }}>
-          <Image source={Images.icShootPhoto} style={styles.image1} resizeMode={'stretch'} />
-          <Text style={styles.txtAvatar}>{t('common:changeAvatar')}</Text>
-        </View>
-      </TouchableOpacity>
+     <View style={styles.viewMain}>
+       <TouchableOpacity
+         style={{
+           width: '60%',
+           height: '100%',
+           justifyContent: 'center',
+           alignItems: 'center',
+         }}
+         onPress={OnActionSheet}
+       >
+         <Image source={avatar ? { uri: avatar } : Images.icAvatar}
+                style={styles.imageAvatar}
+                resizeMode={avatar ? 'cover' : 'stretch'} />
+         <View style={{ flexDirection: 'row', marginTop: '4%', alignItems: 'center', justifyContent: 'center' }}>
+           <Image source={Images.icShootPhoto} style={styles.image1} />
+           <Text style={styles.txtAvatar}>{t('common:changeAvatar')}</Text>
+         </View>
+       </TouchableOpacity>
+     </View>
       <View style={{ justifyContent: 'center', alignItems: 'center', height: '75%', marginTop: -10 }}>
         <FlatList
           data={data}

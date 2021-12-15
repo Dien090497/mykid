@@ -159,4 +159,13 @@ export const styles = StyleSheet.create({
     height: 26,
     resizeMode: 'stretch'
   },
+  tobModal: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    width: '100%',
+    height: '100%',
+    flexDirection: 'column'
+  }
 });
