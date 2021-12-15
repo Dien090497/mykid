@@ -367,7 +367,7 @@ export default function HomeMainScreen() {
                 <View style={styles.bgIcon}>
                   <Image source={Images.icFriendsList} style={styles.icon}/>
                 </View>
-                <Text style={styles.buttonText}>{t('common:home_friend')}</Text>
+                <Text style={[styles.buttonText, {paddingHorizontal: '5%'}]}>{t('common:home_friend')}</Text>
               </TouchableOpacity>
             </View>
            <View style={{flexDirection: 'row', height: '50%'}}>
