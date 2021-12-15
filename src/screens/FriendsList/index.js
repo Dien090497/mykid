@@ -124,7 +124,7 @@ export default function FriendsList({navigation}) {
               </View>
               <Text
                 style={styles.otherInfoText}
-                children={`${t('common:account')}: ${ item.item.phone && item.item.phone.startsWith('+84') ? '0' + item.item.phone.substring(3) : ''}`}
+                children={`${t('common:contact')}: ${ item.item.phone && item.item.phone.startsWith('+84') ? '0' + item.item.phone.substring(3) : ''}`}
               />
             </View>
             <View style={styles.rowItem2}>
@@ -147,7 +147,7 @@ export default function FriendsList({navigation}) {
       <View style={styles.modal}>
         <TouchableOpacity style={styles.modalSelect}>
           <View style={{alignItems: 'center', justifyContent: 'center', width: '10%'}}>
-            <Image source={Images.icShow} style={styles.iconShowModal} resizeMode='stretch'/>
+            <Image source={Images.icShow} style={styles.iconShowModal} resizeMode='contain'/>
           </View>
           <View onStartShouldSetResponder={() => {
             setShowModal(true)
@@ -163,8 +163,6 @@ export default function FriendsList({navigation}) {
         </TouchableOpacity>
       </View>
       <View style={styles.contain}>
-        {devices && devices[selectedIndex] && devices[selectedIndex].deviceName &&
-        <Text style={styles.headerText}>Danh sách bạn bè thiết bị {devices[selectedIndex].deviceName}</Text>}
         <FlatList
           data={friendsList}
           renderItem={renderFriendsList}
@@ -182,15 +180,7 @@ export default function FriendsList({navigation}) {
         transparent={true}
         animationType={'none'}>
         <TouchableOpacity
-          style={{
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-            backgroundColor: 'rgba(0, 0, 0, 0.3)',
-            width: '100%',
-            height: '100%',
-            flexDirection: 'column'
-          }}
+          style={styles.tobModal}
           onPress={() => setShowModal(false)}>
           <View style={styles.viewModal}>
             <View style={{ alignItems: 'center' }}>
