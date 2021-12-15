@@ -291,8 +291,7 @@ export default ({navigation, route}) => {
                   coordinate={{
                     latitude: obj?.location?.lat,
                     longitude: obj?.location?.lng,
-                  }}
-                  title={''}>
+                  }}>
                   <View style={{alignItems: 'center'}}>
                     <Text style={styles.textMarker}>{obj.deviceName || ''}</Text>
                     <View style={{height:5}}/>
@@ -312,9 +311,10 @@ export default ({navigation, route}) => {
                   coordinate={{
                     latitude: obj?.location?.lat,
                     longitude: obj?.location?.lng,
-                  }}
-                  title={obj.deviceName}>
+                  }}>
                   <View style={{alignItems: 'center'}}>
+                    <Text style={styles.textMarker}>{obj.deviceName || ''}</Text>
+                    <View style={{height:5}}/>
                     <FastImage source={obj.avatar ? {uri: obj.avatar}: Images.icOther} style={[styles.avatar]} resizeMode={'cover'}/>
                     <View style={{height:5}}/>
                     <Image source={Images.icMarkerDefault} style={[styles.icMarker,{tintColor: Colors.colorMain}]}/>
