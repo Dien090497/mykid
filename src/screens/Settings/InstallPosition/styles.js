@@ -27,7 +27,8 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-    marginTop: height* 0.02
+    marginTop: height* 0.02,
+    alignItems: 'center'
   },
   labelStyle: {
     fontSize: FontSize.big,

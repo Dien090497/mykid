@@ -127,7 +127,7 @@ export const styles = StyleSheet.create({
   icon: {
     height: height * 0.05,
     aspectRatio: 1,
-    resizeMode: 'stretch',
+    resizeMode: 'contain',
   },
   bgIcon: {
     width: height * 0.05,
@@ -138,7 +138,7 @@ export const styles = StyleSheet.create({
   },
   menuSelect:{
     flexDirection:'row',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     alignItems:'center'
   },
   iconShowMenu:{
@@ -146,14 +146,15 @@ export const styles = StyleSheet.create({
     height:10
   },
   textMenuShow:{
-    width:100,
+    width: 'auto',
     color: Colors.white,
     textAlign:"center",
     fontStyle: 'normal',
     fontSize: FontSize.xtraSmall,
     fontFamily: 'Roboto',
-    fontWeight: '400',
-    lineHeight: FontSize.small * 10 / 7
+    fontWeight: 'bold',
+    lineHeight: FontSize.small * 10 / 7,
+    marginHorizontal: '8%'
   },
   avatar:{
     width:ScaleHeight.small,

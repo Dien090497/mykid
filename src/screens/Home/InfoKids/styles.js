@@ -10,6 +10,12 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     paddingBottom: height * 0.03
   },
+  viewMain: {
+    width: '100%',
+    height: '24%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   tobMain: {
     backgroundColor: Colors.white,
     width: width * 0.9,
@@ -55,8 +61,9 @@ export const styles = StyleSheet.create({
     height: height * 0.04
   },
   image1: {
-    width: height * 0.03,
-    height: height * 0.03
+    width: height * 0.05,
+    height: height * 0.05,
+    resizeMode: 'cover'
   },
   viewImage: {
     flexDirection: 'row',

@@ -22,6 +22,7 @@ import HomeMainScreen from '../screens/Home/HomeMainScreen';
 import Images from '../assets/Images';
 import JourneyHistory from '../screens/Maps/Journey';
 import ListDeviceScreen from '../screens/VideoCall';
+import FriendsList from '../screens/FriendsList';
 //auth screen
 import Login from '../screens/auth/Login';
 import Maps from '../screens/Maps';
@@ -56,7 +57,6 @@ import SMSDetail from '../screens/SMS/SMSDetail'
 import {createStackNavigator} from '@react-navigation/stack';
 import LanguageTimeZone from '../screens/Profile/LanguageTimeZone';
 import OffDevice from '../screens/Settings/OffDevice';
-import DisconnectClock from '../screens/Settings/DisconnectClock';
 import InstallPosition from '../screens/Settings/InstallPosition';
 import StartDevice from '../screens/Settings/RestartDevice';
 import EditDevice from '../screens/Profile/DeviceManager/EditDevice'
@@ -394,8 +394,8 @@ function Routes ({},ref){
           component={JourneyHistory}
         />
         <Stack.Screen
-          name={Consts.ScreenIds.DisconnectClock}
-          component={DisconnectClock}
+          name={Consts.ScreenIds.FriendsList}
+          component={FriendsList}
         />
       </Stack.Navigator>
     </NavigationContainer>

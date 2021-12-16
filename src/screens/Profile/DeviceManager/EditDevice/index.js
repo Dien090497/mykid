@@ -78,7 +78,7 @@ export default function EditDevice({ navigation, route }) {
           <Text style={styles.containText}>{t('common:textDeviceNane')}</Text>
           {data && <TextInput style={styles.textNickName}
             onChangeText={(text) => { setDeviceName(text) }}
-            maxLength={10}
+            maxLength={30}
             value={data.deviceName} />}
         </View>
         <TouchableOpacity style={styles.input} onPress={onRelationship}>

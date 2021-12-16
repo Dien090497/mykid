@@ -30,16 +30,16 @@ import FastImage from 'react-native-fast-image';
 const encoder = new encoding.TextEncoder();
 let ws = null;
 let reconnect = false;
+const TIME_COUNT = 30;
 
 export default ({navigation, route}) => {
   const refMap = useRef(null);
   const refLoading = useRef(null);
   const refNotification = useRef(null);
   const [locationDevices, setLocationDevices] = useState([]);
-  const [locationName, setLocationName] = useState('');
   const [indexSelect, setIndexSelect] = useState(DataLocal.deviceIndex);
   const [isCount, setIsCount] = useState(false);
-  const [timeCount, setTimeCount] = useState(60);
+  const [timeCount, setTimeCount] = useState(TIME_COUNT);
   const [mapType, setMapType] = useState(true);
   const { t } = useTranslation();
   const infoDevice = route.params.listDevices;
@@ -77,9 +77,6 @@ export default ({navigation, route}) => {
               });
             }
           }
-          timer = getTime() + 60;
-          setIsCount(true);
-          refreshCountdown();
         },
         refLoading: refLoading,
         refNotification: refNotification,
@@ -103,20 +100,24 @@ export default ({navigation, route}) => {
   }, []);
 
   useEffect(() => {
-    if (locationDevices && locationDevices[indexSelect] && locationDevices[indexSelect].location) {
-      Geocoder.geocodePosition({
-        lat: locationDevices[indexSelect].location.lat,
-        lng: locationDevices[indexSelect].location.lng
-      }).then(res => {
-        const address = [res[0].streetNumber +' '+ res[0].streetName, res[0].subAdminArea, res[0].adminArea].join(', ')
-        setLocationName(address);
-      }).catch(err => console.log(err))
-    }
-
     if (!locationDevices.length > 0 || ws) return;
     handleWebSocketSetup();
     setReconnect(true)
   }, [locationDevices]);
+
+  useEffect(() => {
+    if (locationDevices && locationDevices[indexSelect] && locationDevices[indexSelect].location && !locationDevices[indexSelect].locationName) {
+      Geocoder.geocodePosition({
+        lat: locationDevices[indexSelect].location.lat,
+        lng: locationDevices[indexSelect].location.lng
+      }).then(res => {
+        const address = [(res[0].streetNumber || '') +' '+ res[0].streetName, res[0].subAdminArea, res[0].adminArea].join(', ');
+        const locations = Object.assign([], locationDevices);
+        locations[indexSelect].locationName = address;
+        setLocationDevices(locations)
+      }).catch(err => console.log(err))
+    }
+  }, [locationDevices, indexSelect]);
 
   const renderCircleMarker = (val,index) => {
     return (
@@ -127,7 +128,7 @@ export default ({navigation, route}) => {
           latitude: val.location.lat,
           longitude: val.location.lng,
         }}
-        radius={100}
+        radius={Math.round(val.maxAccuracy || 10)}
         strokeColor='#4F6D7A'
         strokeWidth={0.1}
       />
@@ -262,7 +263,6 @@ export default ({navigation, route}) => {
           }
         }
         if (newData===locationDevices) return;
-        console.log('123')
         setLocationDevices(newData)
       }
       console.log(message, 'WebSocket Location Message');
@@ -291,9 +291,10 @@ export default ({navigation, route}) => {
                   coordinate={{
                     latitude: obj?.location?.lat,
                     longitude: obj?.location?.lng,
-                  }}
-                  title={obj.deviceName}>
+                  }}>
                   <View style={{alignItems: 'center'}}>
+                    <Text style={styles.textMarker}>{obj.deviceName || ''}</Text>
+                    <View style={{height:5}}/>
                     <FastImage source={obj.avatar ? {uri: obj.avatar}: Images.icOther} style={[styles.avatar]} resizeMode={'cover'}/>
                     <View style={{height:5}}/>
                     <Image source={Images.icMarkerDefault} style={[styles.icMarker,{tintColor: Colors.colorMain}]}/>
@@ -310,9 +311,10 @@ export default ({navigation, route}) => {
                   coordinate={{
                     latitude: obj?.location?.lat,
                     longitude: obj?.location?.lng,
-                  }}
-                  title={obj.deviceName}>
+                  }}>
                   <View style={{alignItems: 'center'}}>
+                    <Text style={styles.textMarker}>{obj.deviceName || ''}</Text>
+                    <View style={{height:5}}/>
                     <FastImage source={obj.avatar ? {uri: obj.avatar}: Images.icOther} style={[styles.avatar]} resizeMode={'cover'}/>
                     <View style={{height:5}}/>
                     <Image source={Images.icMarkerDefault} style={[styles.icMarker,{tintColor: Colors.colorMain}]}/>
@@ -351,7 +353,7 @@ export default ({navigation, route}) => {
               </Text>
             </View>
             <View style={styles.containerLastTime}>
-              <Text style={styles.txtLocation}>{t('common:location')}{locationName}</Text>
+              <Text style={styles.txtLocation}>{t('common:location')}{locationDevices[indexSelect].locationName || ''}</Text>
               <Text style={[styles.txtTime,{flex: 1 ,fontSize: FontSize.xxtraSmall*0.8, textAlign: 'right'}]}>
                 {locationDevices[indexSelect].type + ' ('+ t('common:discrepancy') + locationDevices[indexSelect].maxAccuracy + 'm)'}
               </Text>
@@ -375,6 +377,9 @@ export default ({navigation, route}) => {
           onPress={()=>{
             if (isCount) return;
             getLocationDevice();
+            timer = getTime() + TIME_COUNT;
+            setIsCount(true);
+            refreshCountdown();
           }}>
           {isCount ?
             <View>
@@ -383,7 +388,7 @@ export default ({navigation, route}) => {
                 indeterminate={false}
                 color={Colors.colorMain}
                 showsText={true}
-                progress={timeCount/60}
+                progress={timeCount / TIME_COUNT}
                 borderWidth={0}
                 formatText={() => {
                   return timeCount.toString();

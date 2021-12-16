@@ -107,6 +107,11 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     width: '100%',
   },
+  textMarker: {
+    backgroundColor: 'white',
+    paddingHorizontal: 5,
+    fontFamily: 'Roboto-Bold'
+  },
   textContent: {
     fontSize: 16,
     fontFamily: 'Roboto-Bold',

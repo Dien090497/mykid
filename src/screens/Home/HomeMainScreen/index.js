@@ -157,7 +157,7 @@ export default function HomeMainScreen() {
     if (DataLocal.haveSim === '0') {
       return refNotification.current.open(t('errorMsg:kwa4067'));
     }
-    navigation.navigate(Consts.ScreenIds.ElectronicFence);
+    navigation.navigate(Consts.ScreenIds.ElectronicFence, {indexDevice: devices[selectedIndex]});
   };
 
   const pressSoundGuardian = () => {
@@ -238,6 +238,9 @@ export default function HomeMainScreen() {
     navigation.navigate(Consts.ScreenIds.SMS);
   }
 
+  const friendsList = () => {
+    navigation.navigate(Consts.ScreenIds.FriendsList);
+  }
   return (
     <View style={styles.container}>
       <StatusBar translucent backgroundColor='transparent'/>
@@ -344,19 +347,32 @@ export default function HomeMainScreen() {
             </View>
           </View>
           <View style={[styles.buttonContainerR, {height: '100%', marginTop: '0.5%'}]}>
-            <TouchableOpacity
-              {...buttonProps}
-              style={[styles.button, {marginBottom: '4%', height: '48%'}]}
-              onPress={pressVideoCall}>
-              <View style={styles.bgIcon}>
-                <Image source={Images.icVideoCall} style={styles.icon}/>
-              </View>
-              <Text style={styles.buttonText}>{t('common:home_videoCall')}</Text>
-            </TouchableOpacity>
-           <View style={{flexDirection: 'row', height: '48%'}}>
+            <View style={{flexDirection: 'row', height: '50%'}}>
+              <TouchableOpacity
+                {...buttonProps}
+                style={[styles.button, {marginBottom: '2%', marginRight: '2%'}]}
+                onPress={pressVideoCall}
+              >
+                <View style={styles.bgIcon}>
+                  <Image source={Images.icVideoCall} style={styles.icon}/>
+                </View>
+                <Text style={styles.buttonText}>{t('common:home_videoCall')}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                {...buttonProps}
+                style={[styles.button, {marginBottom: '2%', marginLeft: '2%'}]}
+                onPress={friendsList}
+              >
+                <View style={styles.bgIcon}>
+                  <Image source={Images.icFriendsList} style={styles.icon}/>
+                </View>
+                <Text style={[styles.buttonText, {paddingHorizontal: '5%'}]}>{t('common:home_friend')}</Text>
+              </TouchableOpacity>
+            </View>
+           <View style={{flexDirection: 'row', height: '50%'}}>
            <TouchableOpacity
               {...buttonProps}
-              style={[styles.button, {marginRight: '2%'}]}
+              style={[styles.button, {marginTop: '2%', marginRight: '2%'}]}
               onPress={onCall}
             >
               <View style={styles.bgIcon}>
@@ -366,7 +382,7 @@ export default function HomeMainScreen() {
             </TouchableOpacity>
             <TouchableOpacity
               {...buttonProps}
-              style={[styles.button, {marginLeft: '2%'}]}
+              style={[styles.button, {marginTop: '2%', marginLeft: '2%'}]}
               onPress={onSMS}
             >
               <View style={styles.bgIcon}>

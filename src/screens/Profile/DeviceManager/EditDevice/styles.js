@@ -58,6 +58,7 @@ export const styles = StyleSheet.create({
     color: Colors.grayTextTitleColor,
     fontSize: FontSize.small,
     fontFamily: "Roboto",
+    paddingHorizontal: '2%'
   },
   input: {
     width: "100%",

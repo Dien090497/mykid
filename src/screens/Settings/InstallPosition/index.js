@@ -157,7 +157,7 @@ export default function InstallPosition({ navigation }) {
                                             index={i}
                                             isSelected={choose === obj.value}
                                             onPress={(value) => {
-                                                chooseMinute(value);
+                                               chooseMinute (value)
                                             }}
                                             borderWidth={1}
                                             buttonInnerColor={Colors.red}
@@ -172,7 +172,7 @@ export default function InstallPosition({ navigation }) {
                                             index={i}
                                             labelHorizontal={false}
                                             onPress={(value) => {
-                                                onMethodChanged(value);
+                                                chooseMinute(value);
                                             }}
                                             labelStyle={styles.labelStyle}
                                             labelWrapStyle={{ width: '88%' }}

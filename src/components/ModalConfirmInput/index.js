@@ -93,7 +93,7 @@ export default class ModalConfirmInput extends Component {
                   </TouchableOpacity>
                 </View>
                 <View style={styles.TobOpacity}>
-                  {this.state.text !== '' ? (
+                  {this.state.text !== '' && this.state.text !== null ? (
                     <TouchableOpacity
                       style={[styles.smallButton, {backgroundColor: Colors.red}]}
                       onPress={() => {

@@ -91,7 +91,7 @@ export default function SMS({navigation}) {
           >
           <View style={styles.wrap}>
             <View style={{justifyContent: 'center', alignItems: 'center', width: '20%'}}>
-              <Image source={item.avatar ? {uri: item.avatar} : Images.icOther} style={{width: ScaleHeight.medium , height: ScaleHeight.medium, borderRadius: 20}} resizeMode = {'stretch'}/>
+              <Image source={item.avatar ? {uri: item.avatar} : Images.icOther} style={{width: ScaleHeight.medium , height: ScaleHeight.medium, borderRadius: ScaleHeight.medium / 2}} resizeMode = {'cover'}/>
             </View>
             <View style={{width: '80%', paddingHorizontal: 10}}>
               <Text style={selectedIndex === index ? [styles.textMenuShow, {color: Colors.gray}] : styles.textMenuShow }>
@@ -114,7 +114,6 @@ export default function SMS({navigation}) {
           <View onStartShouldSetResponder={() => {
             setShowMenu(true)
           }}
-           style={{width: '60%', justifyContent: 'center', alignItems: 'center'}}
           >
             <Text style={styles.textMenuShow}>{devices && devices[selectedIndex] && devices[selectedIndex].deviceName}</Text>
           </View>

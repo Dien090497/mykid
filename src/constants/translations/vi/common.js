@@ -84,7 +84,7 @@ export default {
   'header_sms': 'SMS',
   'header_installPosition': 'Chế độ tiết kiệm pin',
   'header_disconnectClock': 'Ngắt kết nối đồng hồ',
-
+  'header_friend': 'Danh sách bạn bè',
   // Codepush
   'codepushChecking': 'Đang kiểm tra bản cập nhật...',
   'codepushDownloading': 'Đang tải bản cập nhật...',
@@ -245,6 +245,7 @@ export default {
   'home_secretPhotoShoot': 'CHỤP ẢNH TỪ XA',
   'home_phone': 'GỌI NGAY',
   'home_sms': 'SMS',
+  'home_friend': 'DANH SÁCH BẠN BÈ',
 
   //setting
   'setting_contact': 'Danh bạ',
@@ -394,10 +395,14 @@ export default {
   '1_minute': '1 Phút',
   '10_minute': '10 Phút',
   '60_minute': '60 Phút',
+  'manual': 'Thủ công',
 
   //DiconnectClock
-  'alertDisconnectClock': 'Toàn bộ dữ liệu và kết nối với đồng hồ sẽ bị xóa. Đồng hồ sẽ về trạng thái mặc định. Bạn có chắc muốn thực hiện?',
+  'alertDisconnectClock': 'Đồng hồ sẽ ngắt kết nối với toàn bộ các tài khoản đã liên kết và khôi phục cài đặt gốc. Bạn có chắc chắn muốn ngắt kết nối không?',
 
   //SMS
-  'listDevice': 'Chọn thiết bị'
+  'listDevice': 'Chọn thiết bị',
+
+  //FriendsList:
+  'alertDelete': 'Bạn có chắc chắn hủy kết bạn này không ?'
 };
