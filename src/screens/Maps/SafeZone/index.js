@@ -81,7 +81,6 @@ export default ({navigation, route}) => {
     startWebSocket(route.params.indexDevice.deviceId,{autoShowMsg:false})
     getLocationDeviceApi(listID, {
       success: res => {
-        console.log('data', res.data);
         setLocationDevice(res.data[0]);
         if (res.data.length) {
           const {lat, lng} = res.data && res.data.location;
@@ -98,7 +97,7 @@ export default ({navigation, route}) => {
       }
     })
   }
-  console.log('location', route.params.indexDevice)
+
   useEffect(()=> {
     getListLocation();
   }, [])
@@ -110,7 +109,7 @@ export default ({navigation, route}) => {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
         };
-        console.log('deviceOutSafeZone', payload)
+
         setCurrentLocation(payload);
         if (deviceOutSafeZone) {
           refMap.current.animateCamera({
@@ -123,7 +122,7 @@ export default ({navigation, route}) => {
         }
       },
       error => {
-        console.log(error, 'error getLocation');
+
       },
       {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
     );
