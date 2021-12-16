@@ -27,7 +27,8 @@ import styles from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import NotificationModal from '../../../components/NotificationModal';
-import {useNavigation} from '@react-navigation/native';
+import {getLocationDeviceApi, startWebSocket} from "../../../network/DeviceService";
+import FastImage from "react-native-fast-image";
 
 const initialRegion = {
   latitude: 21.030653,
@@ -42,13 +43,16 @@ export default ({navigation, route}) => {
   const refNotification = useRef(null);
   const [listSafeArea, setListSafeArea] = useState([]);
   const [currentLocation, setCurrentLocation] = useState(null);
+  const [locationDevice, setLocationDevice] = useState();
   const [safeArea, setSafeArea] = useState({
     visible: false,
     area: null,
     latitude: null,
     longitude: null,
   });
+  const [ranges, setRanges] = useState(200);
   const [newLocationSafeArea, setNewLocation] = useState(null);
+  const [indexLocation, setIndexLocation] = useState(null);
   const [deviceOutSafeZone, setDeviceOutSafeZone] = useState(
     route?.params?.data,
   );
@@ -71,6 +75,34 @@ export default ({navigation, route}) => {
     return title.charAt(0).toUpperCase() + title.slice(1);
   };
 
+  const getListLocation = () => {
+    const listID = [];
+    listID.push(route.params.indexDevice.deviceId);
+    startWebSocket(route.params.indexDevice.deviceId,{autoShowMsg:false})
+    getLocationDeviceApi(listID, {
+      success: res => {
+        console.log('data', res.data);
+        setLocationDevice(res.data[0]);
+        if (res.data.length) {
+          const {lat, lng} = res.data && res.data.location;
+          if (lat && lng) {
+            refMap.current.animateCamera({
+              center: {
+                latitude: lat,
+                longitude: lng,
+              },
+              zoom: 15,
+            });
+          }
+        }
+      }
+    })
+  }
+  console.log('location', route.params.indexDevice)
+  useEffect(()=> {
+    getListLocation();
+  }, [])
+
   useEffect(() => {
     Geolocation.getCurrentPosition(
       position => {
@@ -78,6 +110,7 @@ export default ({navigation, route}) => {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
         };
+        console.log('deviceOutSafeZone', payload)
         setCurrentLocation(payload);
         if (deviceOutSafeZone) {
           refMap.current.animateCamera({
@@ -88,10 +121,6 @@ export default ({navigation, route}) => {
             zoom: 15,
           });
         }
-        // setNewLocation({
-        //   latitude: position.coords.latitude,
-        //   longitude: position.coords.longitude,
-        // });
       },
       error => {
         console.log(error, 'error getLocation');
@@ -129,6 +158,7 @@ export default ({navigation, route}) => {
         newListSafeArea.push(res.data);
         setListSafeArea(newListSafeArea);
         onToggleCreateArea();
+        setRanges(200);
       },
       refLoading: refLoading,
       refNotification: refNotification,
@@ -144,6 +174,8 @@ export default ({navigation, route}) => {
       updateSafeZoneApi(DataLocal.deviceId, zone.id, zone, {
         success: res => {
           setListSafeArea(newListSafeArea);
+          setIndexLocation(null);
+          setRanges(200);
         },
         refLoading: refLoading,
         refNotification: refNotification,
@@ -208,6 +240,8 @@ export default ({navigation, route}) => {
                     zoom: 15,
                   });
                   setSafeArea({visible: true, area: val});
+                  setIndexLocation(index);
+                  setRanges(val.radius)
                 }}
                 style={styles.rowDirection}>
                 <Text children={val.name} style={styles.txtName} />
@@ -240,6 +274,7 @@ export default ({navigation, route}) => {
             onEdit={onEdit}
             onRemove={()=>setShowModal(true)}
             newLocationSafeArea={newLocationSafeArea}
+            ranges={ranges}
           />
         )}
         {!safeArea.visible && listSafeArea.length < 3 && (
@@ -262,7 +297,6 @@ export default ({navigation, route}) => {
       });
     }
   }, [newLocationSafeArea]);
-
   const getRegion = () => {
     var result = initialRegion;
     if (newLocationSafeArea)
@@ -280,19 +314,19 @@ export default ({navigation, route}) => {
     return result;
   };
 
-  const renderCircleMarker = val => {
-    return (
-      <Circle
-        fillColor={'rgba(160, 214, 253, 0.5)'}
-        center={{
-          latitude: val.location.lat,
-          longitude: val.location.lng,
-        }}
-        radius={(1000 * val.radius) / 1000}
-        strokeColor='#4F6D7A'
-        strokeWidth={0.1}
-      />
-    );
+  const renderCircleMarker = (val, index) => {
+     return (
+       <Circle
+         fillColor={'rgba(160, 214, 253, 0.5)'}
+         center={{
+           latitude: val.location.lat,
+           longitude: val.location.lng,
+         }}
+         radius={index === indexLocation ? ranges : (1000 * val.radius) / 1000}
+         strokeColor='#4F6D7A'
+         strokeWidth={0.1}
+       />
+     );
   };
 
   const renderCustomMarker = val => {
@@ -320,6 +354,134 @@ export default ({navigation, route}) => {
       </Marker>
     );
   };
+
+  const ViewAddOrEditArea = ({area, toggle, onCreate, onEdit, onRemove, newLocationSafeArea, ranges}) => {
+
+    const [range, setRange] = useState(area?.radius || 200);
+    const [name, setName] = useState(area?.name || '');
+    const renderIncrementOrDecrement = (type = 'increment', onPress) => {
+      return (
+        <TouchableOpacity
+          onPress={onPress}
+          style={styles.containerAction}>
+          <Text
+            children={type === 'increment' ? '+' : '-'}
+            style={styles.txtAction}
+          />
+        </TouchableOpacity>
+      );
+    };
+
+    const onSave = () => {
+      if (!name.length) {
+        refNotification.current.open(t('common:errorNameArea'));
+        return;
+      }
+
+      if (area) {
+        onEdit({
+          ...area,
+          name,
+          radius: Math.floor(range),
+        });
+      } else {
+        if (!newLocationSafeArea) {
+          refNotification.current.open(t('common:errorLocationArea'));
+          return;
+        }
+        onCreate({
+          name,
+          radius: Math.floor(range),
+          status: 'ON',
+          location: {
+            lat: newLocationSafeArea.latitude,
+            lng: newLocationSafeArea.longitude,
+          },
+        });
+      }
+    };
+
+    const gotoHomeScreen = () => {
+      if (DataLocal.haveSim === '0') {
+        navigation.navigate(Consts.ScreenIds.Tabs)
+      }
+    }
+
+    return (
+      <View>
+        <View style={styles.textInput}>
+          <TextInput
+            style={styles.wrap}
+            clearButtonMode='always'
+            maxLength={32}
+            value={name}
+            onChangeText={text => setName(text)}
+          />
+          <Text children={t('common:maxLengthSafeAreaName')} style={styles.txtNote} />
+        </View>
+        <View style={styles.slide}>
+          <Text children={t('common:area')} style={{marginRight: 5, color:Colors.colorMain, fontFamily:'Roboto-Medium', fontSize: FontSize.small}} />
+          {renderIncrementOrDecrement('decrement', () =>
+            {
+              setRange(prev => {
+                return prev - 100 < 200 ? 200 : prev - 100;
+              })
+              setRanges(prev => {
+                  return prev - 100 < 200 ? 200 : prev - 100;
+                })
+            }
+          )}
+          <Slider
+            style={{flex: 1, marginHorizontal: 5}}
+            value={range}
+            onValueChange={value => {
+              setRange(value)
+              setRanges(value)
+            }}
+            thumbStyle={styles.thumb}
+            thumbProps={{
+              children: <View style={styles.thumbCircle} />,
+            }}
+            step={1}
+            minimumValue={200}
+            maximumValue={2000}
+            trackStyle={{paddingHorizontal: 0}}
+            minimumTrackTintColor={Colors.colorMain}
+            maximumTrackTintColor='#b7b7b7'
+          />
+          {renderIncrementOrDecrement('increment', () =>
+            {
+              setRange(prev => {
+                return prev + 100 <= 2000 ? prev + 100 : 2000;
+              })
+              setRanges(prev => {
+                  return prev + 100 <= 2000 ? prev + 100 : 2000;
+              })
+            }
+          )}
+          <Text style={{width: 55, fontFamily:'Roboto-Medium',color:Colors.grayTextColor}}>{`${range} m`}</Text>
+        </View>
+        <View
+          style={styles.containerTextInput}>
+          <TouchableOpacity style={[styles.containerTextAction,{backgroundColor:Colors.colorMain,marginRight:10}]} onPress={onSave}>
+            <Text children={t('common:save')} style={styles.txtSave} />
+          </TouchableOpacity>
+          {area && (
+            <TouchableOpacity
+              style={[styles.containerTextAction,{borderWidth:1, borderColor: Colors.colorMain}]}
+              onPress={onRemove}>
+              <Text children={t('common:member_remove')} style={styles.txtBack} />
+            </TouchableOpacity>
+          )}
+          <TouchableOpacity style={[styles.containerTextAction,{borderWidth:1, borderColor: Colors.grayTextColor,marginLeft:10}]} onPress={toggle}>
+            <Text children={t('common:back')} style={[styles.txtBack,{color:Colors.black}]} />
+          </TouchableOpacity>
+        </View>
+        <NotificationModal ref={refNotification} goBack={gotoHomeScreen}/>
+      </View>
+    );
+  };
+
 
   const gotoHomeScreen = () => {
     if (DataLocal.haveSim === '0') {
@@ -360,24 +522,55 @@ export default ({navigation, route}) => {
             ))}
             {listSafeArea
               .filter(val => val.status === 'ON')
-              .map(val => (
-                <View key={val.id}>{renderCircleMarker(val)}</View>
+              .map((val, i) => (
+                <View key={val.id}>{renderCircleMarker(val, i)}</View>
               ))}
             {deviceOutSafeZone && (
               <>
                 {renderCustomMarker(deviceOutSafeZone)}
                 <Circle
-                  fillColor={'rgba(255, 0, 0, 0.48)'}
+                  fillColor={'rgba(160, 214, 253, 0.5)'}
                   center={{
                     latitude: deviceOutSafeZone.location.lat,
                     longitude: deviceOutSafeZone.location.lng,
                   }}
-                  radius={500}
+                  radius={(1000 * deviceOutSafeZone.radius) / 1000}
                   strokeColor='#4F6D7A'
                   strokeWidth={0.1}
                 />
               </>
             )}
+            {locationDevice && (
+              Platform.OS === 'ios' ?
+                (<Marker
+                    coordinate={{
+                      latitude: locationDevice.location.lat,
+                      longitude: locationDevice.location.lng,
+                    }}>
+                    <View style={{alignItems: 'center'}}>
+                      <Text style={styles.textMarker}>{ route.params.indexDevice?.deviceName}</Text>
+                      <View style={{height:5}}/>
+                      <FastImage source={route.params.indexDevice?.avatar ? {uri: route.params.indexDevice?.avatar}: Images.icOther} style={[styles.avatar]} resizeMode={'cover'}/>
+                      <View style={{height:5}}/>
+                      <Image source={Images.icMarkerDefault} style={[styles.icMarker,{tintColor: Colors.colorMain}]}/>
+                    </View>
+                  </Marker>
+                ) : (
+                  <Marker
+                    coordinate={{
+                      latitude: locationDevice.location.lat,
+                      longitude: locationDevice.location.lng,
+                    }}>
+                    <View style={{alignItems: 'center'}}>
+                      <Text style={styles.textMarker}>{ route.params.indexDevice?.deviceName}</Text>
+                      <View style={{height:5}}/>
+                      <FastImage source={route.params.indexDevice?.avatar ? {uri: route.params.indexDevice?.avatar}: Images.icOther} style={[styles.avatar]} resizeMode={'cover'}/>
+                      <View style={{height:5}}/>
+                      <Image source={Images.icMarkerDefault} style={[styles.icMarker,{tintColor: Colors.colorMain}]}/>
+                    </View>
+                  </Marker>
+                ))
+              }
             {safeArea.visible && !safeArea.area && newLocationSafeArea && (
               <>
                 <Marker
@@ -398,6 +591,16 @@ export default ({navigation, route}) => {
                     style={styles.icMarker}
                   />
                 </Marker>
+                <Circle
+                  fillColor={'rgba(160, 214, 253, 0.5)'}
+                  center={{
+                    latitude: newLocationSafeArea.latitude,
+                    longitude: newLocationSafeArea.longitude,
+                  }}
+                  radius={ranges}
+                  strokeColor='#4F6D7A'
+                  strokeWidth={0.1}
+                />
               </>
             )}
           </MapView>
@@ -428,125 +631,3 @@ export default ({navigation, route}) => {
   );
 };
 
-const ViewAddOrEditArea = ({
-  area,
-  toggle,
-  onCreate,
-  onEdit,
-  onRemove,
-  newLocationSafeArea,
-}) => {
-  const [name, setName] = useState(area?.name || '');
-  const [range, setRange] = useState(area?.radius || 200);
-  const { t } = useTranslation();
-  const refNotification = useRef();
-  const {navigation} = useNavigation();
-  const renderIncrementOrDecrement = (type = 'increment', onPress) => {
-    return (
-      <TouchableOpacity
-        onPress={onPress}
-        style={styles.containerAction}>
-        <Text
-          children={type === 'increment' ? '+' : '-'}
-          style={styles.txtAction}
-        />
-      </TouchableOpacity>
-    );
-  };
-
-  const onSave = () => {
-    if (!name.length) {
-      refNotification.current.open(t('common:errorNameArea'));
-      return;
-    }
-
-    if (area) {
-      onEdit({
-        ...area,
-        name,
-        radius: Math.floor(range),
-      });
-    } else {
-      if (!newLocationSafeArea) {
-        refNotification.current.open(t('common:errorLocationArea'));
-        return;
-      }
-      onCreate({
-        name,
-        radius: Math.floor(range),
-        status: 'ON',
-        location: {
-          lat: newLocationSafeArea.latitude,
-          lng: newLocationSafeArea.longitude,
-        },
-      });
-    }
-  };
-
-  const gotoHomeScreen = () => {
-    if (DataLocal.haveSim === '0') {
-        navigation.navigate(Consts.ScreenIds.Tabs)
-    }
-  }
-
-  return (
-    <View>
-      <View style={styles.textInput}>
-        <TextInput
-          style={styles.wrap}
-          clearButtonMode='always'
-          maxLength={32}
-          value={name}
-          onChangeText={text => setName(text)}
-        />
-        <Text children={t('common:maxLengthSafeAreaName')} style={styles.txtNote} />
-      </View>
-      <View style={styles.slide}>
-        <Text children={t('common:area')} style={{marginRight: 5, color:Colors.colorMain, fontFamily:'Roboto-Medium', fontSize: FontSize.small}} />
-        {renderIncrementOrDecrement('decrement', () =>
-          setRange(prev => {
-            return prev - 100 < 200 ? 200 : prev - 100;
-          }),
-        )}
-        <Slider
-          style={{flex: 1, marginHorizontal: 5}}
-          value={range}
-          onValueChange={value => setRange(value)}
-          thumbStyle={styles.thumb}
-          thumbProps={{
-            children: <View style={styles.thumbCircle} />,
-          }}
-          step={1}
-          minimumValue={200}
-          maximumValue={2000}
-          trackStyle={{paddingHorizontal: 0}}
-          minimumTrackTintColor={Colors.colorMain}
-          maximumTrackTintColor='#b7b7b7'
-        />
-        {renderIncrementOrDecrement('increment', () =>
-          setRange(prev => {
-            return prev + 100 <= 2000 ? prev + 100 : 2000;
-          }),
-        )}
-        <Text style={{width: 55, fontFamily:'Roboto-Medium',color:Colors.grayTextColor}} children={`${Math.floor(range).toFixed(0)} m`} />
-      </View>
-      <View
-        style={styles.containerTextInput}>
-        <TouchableOpacity style={[styles.containerTextAction,{backgroundColor:Colors.colorMain,marginRight:10}]} onPress={onSave}>
-          <Text children={t('common:save')} style={styles.txtSave} />
-        </TouchableOpacity>
-        {area && (
-          <TouchableOpacity
-            style={[styles.containerTextAction,{borderWidth:1, borderColor: Colors.colorMain}]}
-            onPress={onRemove}>
-            <Text children={t('common:member_remove')} style={styles.txtBack} />
-          </TouchableOpacity>
-        )}
-        <TouchableOpacity style={[styles.containerTextAction,{borderWidth:1, borderColor: Colors.grayTextColor,marginLeft:10}]} onPress={toggle}>
-          <Text children={t('common:back')} style={[styles.txtBack,{color:Colors.black}]} />
-        </TouchableOpacity>
-      </View>
-      <NotificationModal ref={refNotification} goBack={gotoHomeScreen}/>
-    </View>
-  );
-};

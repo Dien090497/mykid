@@ -235,7 +235,18 @@ const styles = StyleSheet.create({
     marginBottom:35,
     fontSize: FontSize.small,
     textAlign: 'center'
-  }
+  },
+  textMarker: {
+    backgroundColor: 'white',
+    paddingHorizontal: 5,
+    fontFamily: 'Roboto-Bold'
+  },
+  avatar: {
+    width: 40,
+    height: 40,
+    resizeMode: 'contain',
+    borderRadius: 20,
+  },
 });
 
 export default styles;

@@ -157,7 +157,7 @@ export default function HomeMainScreen() {
     if (DataLocal.haveSim === '0') {
       return refNotification.current.open(t('errorMsg:kwa4067'));
     }
-    navigation.navigate(Consts.ScreenIds.ElectronicFence);
+    navigation.navigate(Consts.ScreenIds.ElectronicFence, {indexDevice: devices[selectedIndex]});
   };
 
   const pressSoundGuardian = () => {
@@ -241,7 +241,6 @@ export default function HomeMainScreen() {
   const friendsList = () => {
     navigation.navigate(Consts.ScreenIds.FriendsList);
   }
-
   return (
     <View style={styles.container}>
       <StatusBar translucent backgroundColor='transparent'/>
