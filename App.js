@@ -45,50 +45,49 @@ function setupCallKeep() {
   }
 }
 
-export function handleRemoteMessage(remoteMessage, isHeadless) {
+export async function handleRemoteMessage(remoteMessage, isHeadless) {
   dataVideoCall = remoteMessage?.data;
   isNotiFirebase = false;
-  DataLocal.saveVideoCallInfo(dataVideoCall).then(r => {
-    if (remoteMessage?.data?.type === "VIDEO_CALL") {
-      if (remoteMessage?.data?.status === "INIT") {
-        console.log("ready...");
-        console.log(remoteMessage);
-        if (remoteMessage?.data?.id) {
-          const callUUID = remoteMessage?.data?.id;
-          setupCallKeep();
-          RNCallKeep.displayIncomingCall(
-            callUUID,
-            "Cuộc gọi đến",
-            remoteMessage?.data.deviceName,
-            "generic",
-            true,
-          );
-          RNCallKeep.addEventListener("answerCall", ({ callUUID: uuid }) => {
-            RNCallKeep.setCurrentCallActive(uuid);
-            if (isHeadless) {
-              RNCallKeep.openAppFromHeadlessMode(uuid);
-            } else {
-              console.log(uuid);
-              RNCallKeep.backToForeground();
-            }
-          });
-          RNCallKeep.addEventListener("endCall", ({ callUUID: uuid }) => {
-            RNCallKeep.setCurrentCallActive(uuid);
-            if (isHeadless) {
-              RNCallKeep.openAppFromHeadlessMode(uuid);
-            } else {
-              console.log(uuid);
-              RNCallKeep.backToForeground();
-            }
-          });
-        }
-        // Could also persist data here for later uses
-      } else if (remoteMessage?.data?.status === "REJECTED" || remoteMessage?.data?.status === "ENDED") {
-        isNotiFirebase = true;
-        RNCallKeep.endCall(remoteMessage?.data?.id + "");
+  if (remoteMessage?.data?.type === "VIDEO_CALL") {
+    if (remoteMessage?.data?.status === "INIT") {
+      await DataLocal.saveVideoCallInfo(dataVideoCall)
+      console.log("ready...");
+      console.log(remoteMessage);
+      if (remoteMessage?.data?.id) {
+        const callUUID = remoteMessage?.data?.id;
+        setupCallKeep();
+        RNCallKeep.displayIncomingCall(
+          callUUID,
+          "Cuộc gọi đến",
+          remoteMessage?.data.deviceName,
+          "generic",
+          true,
+        );
+        RNCallKeep.addEventListener("answerCall", ({ callUUID: uuid }) => {
+          RNCallKeep.setCurrentCallActive(uuid);
+          if (isHeadless) {
+            RNCallKeep.openAppFromHeadlessMode(uuid);
+          } else {
+            console.log(uuid);
+            RNCallKeep.backToForeground();
+          }
+        });
+        RNCallKeep.addEventListener("endCall", ({ callUUID: uuid }) => {
+          RNCallKeep.setCurrentCallActive(uuid);
+          if (isHeadless) {
+            RNCallKeep.openAppFromHeadlessMode(uuid);
+          } else {
+            console.log(uuid);
+            RNCallKeep.backToForeground();
+          }
+        });
       }
+      // Could also persist data here for later uses
+    } else if (remoteMessage?.data?.status === "REJECTED" || remoteMessage?.data?.status === "ENDED") {
+      isNotiFirebase = true;
+      RNCallKeep.endCall(remoteMessage?.data?.id + "");
     }
-  });
+  }
 
 }
 
@@ -170,28 +169,6 @@ export default function App() {
   //call keep
   async function handleCallKeep() {
     const extras = await RNCallKeep.getExtrasFromHeadlessMode();
-    if (extras) {
-      console.log("getExtrasFromHeadlessMode", extras);
-      const dataCall = JSON.parse(DataLocal.getVideoCallInfo());
-      if (dataCall){
-        setVisibleCall({
-          visible: true,
-          device: { deviceName: dataCall?.deviceName },
-          data: {
-            id: Number(dataCall?.id),
-            status: dataCall?.status,
-            streamUrl: dataCall?.streamUrl,
-            password: dataCall?.password === "" ? null : dataCall?.password,
-            caller: {
-              accountId: Number(dataCall?.accountId),
-              relationship: dataCall?.relationship,
-              deviceName: dataCall?.deviceName,
-            },
-          },
-        });
-      }
-    }
-
     const scs = await RNCallKeep.supportConnectionService();
 
     console.log("supportConnectionService: ", scs);
@@ -236,6 +213,29 @@ export default function App() {
     RNCallKeep.addEventListener("didDisplayIncomingCall", payload => {
       console.log("didDisplayIncomingCall", payload);
     });
+
+    if (extras) {
+      console.log("getExtrasFromHeadlessMode", extras);
+      const dataCall = await DataLocal.getVideoCallInfo();
+      const data =  JSON.parse(dataCall);
+      if (data){
+        setVisibleCall({
+          visible: true,
+          device: { deviceName: data?.deviceName },
+          data: {
+            id: Number(data?.id),
+            status: data?.status,
+            streamUrl: data?.streamUrl,
+            password: data?.password === "" ? null : data?.password,
+            caller: {
+              accountId: Number(data?.accountId),
+              relationship: data?.relationship,
+              deviceName: data?.deviceName,
+            },
+          },
+        });
+      }
+    }
   }
 
   return (
