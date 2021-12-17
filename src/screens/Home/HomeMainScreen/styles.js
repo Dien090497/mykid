@@ -71,7 +71,6 @@ export const styles = StyleSheet.create({
     color: Colors.white,
     position: 'absolute',
     fontStyle: 'normal',
-    lineHeight: FontSize.xxxtraBig * 1.6
   },
   txtNotification: {
     fontSize: 10,
@@ -122,7 +121,6 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     padding: '1%',
     fontStyle: 'normal',
-    lineHeight: FontSize.small
   },
   icon: {
     height: height * 0.05,
@@ -153,7 +151,6 @@ export const styles = StyleSheet.create({
     fontSize: FontSize.xtraSmall,
     fontFamily: 'Roboto',
     fontWeight: 'bold',
-    lineHeight: FontSize.small * 10 / 7,
     marginHorizontal: '8%'
   },
   avatar:{
@@ -168,7 +165,6 @@ export const styles = StyleSheet.create({
     fontSize: FontSize.xtraSmall,
     fontFamily: 'Roboto',
     fontStyle: 'normal',
-    lineHeight: FontSize.small * 10 / 7
   },
   viewMenuDrop:{
     flexDirection: "row",

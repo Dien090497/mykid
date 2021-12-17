@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
     color:'#B5B4B4',
     fontSize:FontSize.small,
     fontFamily: 'Roboto-Medium',
-    lineHeight: FontSize.medium * 1.25
   },
   modalContainer:{
     flex: 1,

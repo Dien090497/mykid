@@ -27,7 +27,6 @@ export const styles = StyleSheet.create({
     fontWeight: '500',
     fontStyle: 'normal',
     fontFamily: 'Roboto',
-    lineHeight: FontSize.small * 10 / 7
   },
   tob: {
     width: '18%',
@@ -44,7 +43,6 @@ export const styles = StyleSheet.create({
     fontWeight: '500',
     fontStyle: 'normal',
     fontFamily: 'Roboto',
-    lineHeight: FontSize.small * 10 / 7
   },
   viewTxt: {
     width: '18%',
@@ -70,6 +68,5 @@ export const styles = StyleSheet.create({
     fontWeight: '500',
     fontStyle: 'normal',
     fontFamily: 'Roboto',
-    lineHeight: FontSize.small * 10 / 7
   }
 });

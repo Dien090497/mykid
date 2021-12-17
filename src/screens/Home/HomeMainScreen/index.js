@@ -265,7 +265,10 @@ export default function HomeMainScreen() {
                     style={styles.textMenuShow}>{devices && devices[selectedIndex] && devices[selectedIndex].deviceName}</Text>
                 </View>
                 <View onStartShouldSetResponder={() => {
-                  navigation.navigate(Consts.ScreenIds.InfoKits, devices[selectedIndex].avatar ? {avatar: devices[selectedIndex].avatar} : {avatar: null})
+                  navigation.navigate(Consts.ScreenIds.InfoKits,
+                    devices[selectedIndex].avatar ?
+                      {avatar: devices[selectedIndex].avatar, isAdmin: devices[selectedIndex].admin }
+                      : {avatar: null, isAdmin: devices[selectedIndex].admin})
                 }}>
                   <Image
                     source={devices && devices[selectedIndex] && devices[selectedIndex].avatar ? {uri: devices[selectedIndex].avatar} : Images.icOther}
