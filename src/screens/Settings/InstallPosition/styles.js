@@ -41,8 +41,7 @@ export const styles = StyleSheet.create({
     fontFamily: 'Roboto',
     color: 'rgba(181, 180, 180, 1)',
     fontWeight: '500',
-    fontStyle: 'normal',
-    lineHeight: FontSize.medium * 1.25
+    fontStyle: 'normal'
   },
    tob: {
        width: '90%',

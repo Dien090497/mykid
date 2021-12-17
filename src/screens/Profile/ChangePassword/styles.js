@@ -88,6 +88,5 @@ export const styles = StyleSheet.create({
     color: Colors.white,
     fontSize: FontSize.medium,
     fontFamily: 'Roboto-Medium',
-    lineHeight: FontSize.medium * 1.25
   }
 });

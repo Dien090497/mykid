@@ -50,7 +50,6 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     fontFamily: 'Roboto',
     fontStyle: 'normal',
-    lineHeight: FontSize.small * 10 / 7
   },
   txtInput: {
     marginLeft: 10,
@@ -60,7 +59,6 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     fontFamily: 'Roboto',
     fontStyle: 'normal',
-    lineHeight: FontSize.small * 10 / 7
   }
 });
 export default styles;

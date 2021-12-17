@@ -48,7 +48,6 @@ export const styles = StyleSheet.create({
     fontWeight: '600',
     fontFamily: 'Roboto',
     fontStyle: 'normal',
-    lineHeight: FontSize.medium * 1.25
   },
   row: {
     flexDirection: 'row',
@@ -96,7 +95,6 @@ export const styles = StyleSheet.create({
     fontWeight: '600',
     fontStyle: 'normal',
     fontFamily: 'Roboto',
-    lineHeight: FontSize.medium * 1.25
   },
   tobWheel: {
     width: '100%',

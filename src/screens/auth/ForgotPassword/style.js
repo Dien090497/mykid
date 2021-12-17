@@ -26,7 +26,6 @@ export const styles = StyleSheet.create({
     fontSize: FontSize.xtraSmall,
     fontFamily: 'Roboto',
     fontWeight: '400',
-    lineHeight: FontSize.small * 10 / 7
   },
   viewInput: {
     width: '75%',
@@ -58,7 +57,6 @@ export const styles = StyleSheet.create({
     fontStyle: 'normal',
     color: 'rgba(128, 128, 128, 1)',
     fontFamily: 'Roboto',
-    lineHeight: FontSize.small * 10 / 7
   },
   btnSubmit: {
     backgroundColor: Colors.colorMain,
@@ -74,7 +72,6 @@ export const styles = StyleSheet.create({
     fontSize: FontSize.small,
     color: Colors.white,
     fontStyle: 'normal',
-    lineHeight: FontSize.small * 10 / 7
   },
   txtGetCode: {
     fontSize: FontSize.small,
@@ -82,6 +79,5 @@ export const styles = StyleSheet.create({
     fontFamily: 'Roboto',
     fontWeight: '400',
     fontStyle: 'normal',
-    lineHeight: FontSize.small * 10 / 7
   }
 });

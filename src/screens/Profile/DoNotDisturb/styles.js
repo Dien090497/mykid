@@ -75,14 +75,12 @@ export const styles = StyleSheet.create({
     color: Colors.grayTxt,
     fontStyle: 'normal',
     fontWeight: '400',
-    lineHeight: FontSize.medium * 1.25
   },
   txtMode: {
     fontSize: FontSize.small,
     fontFamily: 'Roboto-Light',
     fontStyle: 'normal',
     fontWeight: '400',
-    lineHeight: FontSize.medium * 1.25
   },
   icArrow: {
     width: 14,

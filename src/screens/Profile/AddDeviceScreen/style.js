@@ -39,7 +39,6 @@ const styles = StyleSheet.create({
     fontSize: FontSize.small,
     fontFamily: 'Roboto',
     fontWeight: '500',
-    lineHeight: FontSize.medium * 1.25
   },
   modalContainer:{
     flex: 1,
@@ -138,7 +137,6 @@ const styles = StyleSheet.create({
     fontFamily:'Roboto-Medium',
     fontSize: FontSize.small,
     fontStyle: 'normal',
-    lineHeight: FontSize.medium * 1.25
   }
 });
 export default styles;

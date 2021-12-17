@@ -51,7 +51,6 @@ export const styles = StyleSheet.create({
     fontStyle: 'normal',
     fontFamily: 'Roboto',
     fontWeight: '400',
-    lineHeight: FontSize.small * 10 / 7
  },
   ViewResetPass: {
     flexDirection: 'row',
@@ -68,7 +67,6 @@ export const styles = StyleSheet.create({
     fontFamily: 'Roboto',
     fontWeight: '400',
     fontStyle: 'normal',
-    lineHeight: FontSize.small * 10 / 7
   },
   btnSubmit: {
     backgroundColor: Colors.colorMain,
@@ -82,7 +80,6 @@ export const styles = StyleSheet.create({
     fontSize: FontSize.small,
     color: Colors.white,
     fontStyle: 'normal',
-    lineHeight: FontSize.small * 10 / 7
   },
   Sty_iconCheckbox: {
     justifyContent: 'center',
@@ -107,7 +104,6 @@ export const styles = StyleSheet.create({
     color: Colors.colorMain,
     textDecorationLine: "underline",
     fontStyle: 'normal',
-    lineHeight: FontSize.small * 10 / 7
   },
   txt_Policy: {
     fontSize: FontSize.xtraSmall,
@@ -153,7 +149,6 @@ export const styles = StyleSheet.create({
     fontWeight: '600',
     fontStyle: 'normal',
     fontFamily: 'Roboto',
-    lineHeight: FontSize.small * 10 / 7
   },
   wheel: {
     width: "100%",

@@ -102,7 +102,6 @@ export const styles = StyleSheet.create({
     marginVertical: 15,
     fontWeight: '400',
     fontStyle: 'normal',
-    lineHeight: FontSize.medium * 1.25
   },
   viewMode: {
     width: '100%',
@@ -138,6 +137,5 @@ export const styles = StyleSheet.create({
     color: 'white',
     fontSize: FontSize.small,
     fontFamily: 'Roboto-Medium',
-    lineHeight: FontSize.medium * 1.25
   },
 });

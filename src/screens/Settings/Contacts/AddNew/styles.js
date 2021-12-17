@@ -60,7 +60,6 @@ export const styles = StyleSheet.create({
     fontSize: FontSize.medium,
     fontFamily: 'Roboto-Medium',
     fontStyle: 'normal',
-    lineHeight: FontSize.medium * 1.25
   },
   iconNodeBook:{
     height: 40,
@@ -84,7 +83,6 @@ export const styles = StyleSheet.create({
     fontSize: FontSize.medium,
     fontFamily: 'Roboto',
     fontStyle: 'normal',
-    lineHeight: FontSize.medium * 1.25
   },
   txtAction: {
     fontSize: FontSize.big,

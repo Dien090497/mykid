@@ -31,7 +31,6 @@ export const styles = StyleSheet.create({
     fontSize: FontSize.xtraSmall,
     fontFamily: 'Roboto',
     fontWeight: 'bold',
-    lineHeight: FontSize.small * 10 / 7,
     marginHorizontal: '4%'
   },
   avatar: {
@@ -57,7 +56,6 @@ export const styles = StyleSheet.create({
     width: '86%',
     overflow: 'hidden',
     fontFamily: 'Roboto-bold',
-    lineHeight: FontSize.medium * 1.25,
     fontStyle: 'normal'
   },
   containerItemContact: {

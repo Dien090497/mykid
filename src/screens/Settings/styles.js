@@ -55,7 +55,6 @@ export const styles = StyleSheet.create({
     fontWeight: '500',
     fontFamily: 'Roboto',
     fontStyle: 'normal',
-    lineHeight: FontSize.medium * 1.25
   },
   txtTob:{
     fontSize: FontSize.medium,
@@ -64,7 +63,6 @@ export const styles = StyleSheet.create({
     fontWeight: '500',
     fontFamily: 'Roboto',
     fontStyle: 'normal',
-    lineHeight: FontSize.medium * 1.25,
     color: Colors.redTitle
   },
   mainView: {
