@@ -125,6 +125,7 @@ export default {
   'registrationConfirmation': 'Registration confirmation',
   'txtNotification': 'The password must be between 6 and 20 characters in length, including letters and numbers.',
   'errorGmail': 'Format error',
+  'errorRange': 'Safe zone radius from 200 to 2000 meters',
   'errorNameArea': 'Please enter the area',
   'errorLocationArea': 'Please choose a location on the map as a safe area',
   'placeholderGmail': 'Enter email',

@@ -3,7 +3,6 @@ import {Modal, Text, TouchableOpacity, View} from 'react-native';
 import {styles} from './styles';
 import {Colors} from '../../assets/colors/Colors';
 import {ScaleHeight} from '../../functions/Consts';
-import {String} from '../../assets/strings/String';
 import i18next from 'i18next';
 
 export default class ModalConfirm extends Component {
