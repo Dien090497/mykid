@@ -51,11 +51,11 @@ const failureResponse = (err, rawResponse) => {
   return {success: null, failure: err, rawResponse};
 };
 
-function getHeaders(headers) {
+async function getHeaders(headers) {
   let requestHeaders = headers;
   if (!headers) requestHeaders = getDefaultHeaders();
 
-  const accessToken = DataLocal.accessToken;
+  const accessToken = await DataLocal.accessToken;
   if (accessToken) {
     requestHeaders['Authorization'] = 'Bearer ' + accessToken;
   }
@@ -138,7 +138,7 @@ export async function post(
     refNotification = null,
   } = {}) {
   showLoading(refLoading);
-  const headersGet = getHeaders(headers);
+  const headersGet = await getHeaders(headers);
   let response = await doRequest(url, headersGet, body, requestType.post);
   hideLoading(refLoading);
   return handleResp(response, autoShowMsg, success, failure, refLoading, refNotification);
@@ -147,7 +147,7 @@ export async function post(
 export async function path(
   url, {body, headers, success, failure, autoShowMsg = true, refLoading = null, refNotification = null} = {}) {
   showLoading(refLoading);
-  const headersGet = getHeaders(headers);
+  const headersGet = await getHeaders(headers);
   let response = await doRequest(url, headersGet, body, requestType.patch);
   hideLoading(refLoading);
 
@@ -157,7 +157,7 @@ export async function path(
 export async function put(
   url, {body, headers, success, failure, autoShowMsg = true, refLoading = null, refNotification = null} = {}) {
   showLoading(refLoading);
-  const headersGet = getHeaders(headers);
+  const headersGet = await getHeaders(headers);
   let response = await doRequest(url, headersGet, body, requestType.put);
   hideLoading(refLoading);
 
@@ -179,7 +179,7 @@ export async function get(
     url = url + '?' + strQuery;
   }
 
-  const headersGet = getHeaders(headers);
+  const headersGet = await getHeaders(headers);
   let response = await doRequest(url, headersGet, null, requestType.get);
   hideLoading(refLoading);
 
@@ -189,7 +189,7 @@ export async function get(
 export async function dele(
   url, {body = {}, headers, success, failure, autoShowMsg = true, refLoading = null, refNotification = null} = {}) {
   showLoading(refLoading);
-  const headersGet = getHeaders(headers);
+  const headersGet = await getHeaders(headers);
   let response = await doRequest(url, headersGet, body, requestType.delete);
   hideLoading(refLoading);
 

@@ -73,7 +73,7 @@ export async function handleRemoteMessage(remoteMessage, isHeadless) {
           }
         });
         RNCallKeep.addEventListener("endCall", ({ callUUID: uuid }) => {
-          RNCallKeep.setCurrentCallActive(uuid);
+          DataLocal.removeVideoCallInfo();
           if (isHeadless) {
             RNCallKeep.openAppFromHeadlessMode(uuid);
           } else {
@@ -218,7 +218,7 @@ export default function App() {
       console.log("getExtrasFromHeadlessMode", extras);
       const dataCall = await DataLocal.getVideoCallInfo();
       const data =  JSON.parse(dataCall);
-      if (data){
+      if (data && data?.status === "INIT"){
         setVisibleCall({
           visible: true,
           device: { deviceName: data?.deviceName },
