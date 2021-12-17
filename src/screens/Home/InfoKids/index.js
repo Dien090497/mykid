@@ -287,7 +287,7 @@ export default function InfoKits({route}) {
                     }]}>
                   {itemFlatlist.item.textName}
                 </Text>
-                { itemFlatlist.item.id !== '6'? (
+                { itemFlatlist.item.id !== '6' && route.params.isAdmin ? (
                   <TouchableOpacity
                     onPress={() => {
                       OnMoDal(itemFlatlist)

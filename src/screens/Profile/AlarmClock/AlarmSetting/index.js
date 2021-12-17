@@ -120,6 +120,14 @@ export default function AlarmSetting({navigation, route}) {
     }
   }
 
+  const getMinutes = () => {
+    let minutes = [];
+    for (let i = 0; i < 60; i++) {
+      minutes.push(i < 10 ? '0' + i.toString() : i.toString());
+    }
+    return minutes;
+  };
+
   return (
     <View style={styles.contain}>
       <Header title={t('common:header_alarmSetting')} />
@@ -128,6 +136,7 @@ export default function AlarmSetting({navigation, route}) {
           <View style={[styles.viewTime, Platform.OS !== 'ios' ? {height: 150, paddingTop: 20} : {}]}>
               {time && <TimePicker
                 initDate={time}
+                minutes={getMinutes()}
                 onTimeSelected={onTimeSelected}
                 format24
               />}
