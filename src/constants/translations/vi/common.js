@@ -125,6 +125,7 @@ export default {
   'txtNotification': 'Mật khẩu phải có độ dài từ 6 đến 20 ký tự bao gồm cả chữ và số',
   'errorGmail': 'Lỗi định dạng ',
   'errorNameArea': 'Vui lòng nhập tên vùng',
+  'errorRange': 'Bán kinh vùng an toàn từ 200 - 2000 mét',
   'errorLocationArea': 'Vui lòng chọn một vị trí trên bản đồ làm vùng an toàn',
   'placeholderGmail': 'Nhập email',
   'placeholderPhone': 'Số điện thoại',
@@ -405,4 +406,5 @@ export default {
 
   //FriendsList:
   'alertDelete': 'Bạn có chắc chắn hủy kết bạn này không ?'
+
 };

@@ -20,11 +20,8 @@ export default ({navigation, route}) => {
   const {t} = useTranslation();
   const refNotification = useRef();
   const refModalConfirm = useRef();
+
   const onModal = () => {
-    if (DataLocal.haveSim === '0') {
-      navigation.navigate(Consts.ScreenIds.Tabs);
-      return ;
-    }
     refModalConfirm.current.open(t('common:alertDisconnectClock'), () => {console.log('')})
   }
 

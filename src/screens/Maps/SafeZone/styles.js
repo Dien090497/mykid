@@ -152,10 +152,11 @@ const styles = StyleSheet.create({
     borderRadius: 40,
     marginHorizontal: 3,
     alignItems:'center',
-    backgroundColor:Colors.colorMain
   },
   txtAction: {
-    color: 'white',
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover'
   },
   containerTextAction: {
     flex: 1,
@@ -247,6 +248,30 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     borderRadius: 20,
   },
+  viewRange: {
+    width: '25%',
+    height: '60%',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: Colors.borderInputText,
+    justifyContent: "center",
+    alignItems: 'center',
+    flexDirection: 'row'
+  },
+  txtInputRan: {
+    padding: '3%',
+    width: 'auto',
+    minWidth: '8%',
+    fontFamily:'Roboto-Medium',
+    color:Colors.grayTextColor,
+    fontSize: FontSize.xxtraSmall,
+  },
+  txtRan: {
+    width: 'auto',
+    fontFamily:'Roboto-Medium',
+    color:Colors.grayTextColor,
+    fontSize: FontSize.xxtraSmall,
+  }
 });
 
 export default styles;

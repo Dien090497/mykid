@@ -156,8 +156,8 @@ export default ({navigation, route}) => {
       success: res => {
         newListSafeArea.push(res.data);
         setListSafeArea(newListSafeArea);
+        setNewLocation(null);
         onToggleCreateArea();
-        setRanges(200);
       },
       refLoading: refLoading,
       refNotification: refNotification,
@@ -174,7 +174,6 @@ export default ({navigation, route}) => {
         success: res => {
           setListSafeArea(newListSafeArea);
           setIndexLocation(null);
-          setRanges(200);
         },
         refLoading: refLoading,
         refNotification: refNotification,
@@ -192,6 +191,9 @@ export default ({navigation, route}) => {
         success: res => {
           newListSafeArea.splice(index, 1);
           setListSafeArea(newListSafeArea);
+          setNewLocation(null);
+          setRanges(200);
+          setIndexLocation(null);
         },
         refLoading: refLoading,
         refNotification: refNotification,
@@ -277,7 +279,11 @@ export default ({navigation, route}) => {
           />
         )}
         {!safeArea.visible && listSafeArea.length < 3 && (
-          <TouchableOpacity style={styles.btn} onPress={() => setSafeArea({visible: true, area: null})}>
+          <TouchableOpacity style={styles.btn} onPress={() => {
+            setSafeArea({visible: true, area: null});
+            {safeArea.area === null && setRanges(200)}
+            {safeArea.area === null && setIndexLocation(null)}
+          }}>
               <Text style={styles.textBtn}>{t('common:palaceHolderSafeZone')}</Text>
           </TouchableOpacity>
         )}
@@ -321,7 +327,7 @@ export default ({navigation, route}) => {
            latitude: val.location.lat,
            longitude: val.location.lng,
          }}
-         radius={index === indexLocation ? ranges : (1000 * val.radius) / 1000}
+         radius={index === indexLocation && ranges ? ranges : (1000 * val.radius) / 1000}
          strokeColor='#4F6D7A'
          strokeWidth={0.1}
        />
@@ -355,7 +361,9 @@ export default ({navigation, route}) => {
   };
 
   const ViewAddOrEditArea = ({area, toggle, onCreate, onEdit, onRemove, newLocationSafeArea, ranges}) => {
-
+    useEffect(() => {
+      setRanges(200);
+    }, [newLocationSafeArea])
     const [range, setRange] = useState(area?.radius || 200);
     const [name, setName] = useState(area?.name || '');
     const renderIncrementOrDecrement = (type = 'increment', onPress) => {
@@ -363,17 +371,21 @@ export default ({navigation, route}) => {
         <TouchableOpacity
           onPress={onPress}
           style={styles.containerAction}>
-          <Text
-            children={type === 'increment' ? '+' : '-'}
+          <Image
+            source={type === 'increment' ? Images.icAddMember : Images.icCancelMember}
             style={styles.txtAction}
           />
         </TouchableOpacity>
       );
     };
 
-    const onSave = () => {
+    const onSave = (range) => {
       if (!name.length) {
         refNotification.current.open(t('common:errorNameArea'));
+        return;
+      }
+      if (range < 200 || range > 2000) {
+        refNotification.current.open(t('common:errorRange'));
         return;
       }
 
@@ -385,7 +397,7 @@ export default ({navigation, route}) => {
         });
       } else {
         if (!newLocationSafeArea) {
-          refNotification.current.open(t('common:errorLocationArea'));
+          refNotification.current.open(t('common:errorLocationArea'), () => setRanges(200));
           return;
         }
         onCreate({
@@ -431,8 +443,8 @@ export default ({navigation, route}) => {
             }
           )}
           <Slider
-            style={{flex: 1, marginHorizontal: 5}}
-            value={range}
+            style={{flex: 1}}
+            value={range ? range : 200}
             onValueChange={value => {
               setRange(value)
               setRanges(value)
@@ -458,11 +470,25 @@ export default ({navigation, route}) => {
               })
             }
           )}
-          <Text style={{width: 55, fontFamily:'Roboto-Medium',color:Colors.grayTextColor}}>{`${range} m`}</Text>
+          {!newLocationSafeArea && !area && setRanges(200)}
+         <View style={styles.viewRange}>
+           <TextInput
+             value={range ? range.toString() : ''}
+             style={styles.txtInputRan}
+             minlength={3}
+             maxLength={4}
+             onChangeText={(text) => {
+               setRanges(parseInt(text.replace(/[^0-9]/g, '')))
+               setRange(parseInt(text.replace(/[^0-9]/g, '')))
+             }}
+             keyboardType={"number-pad"}
+           />
+           <Text style={styles.txtRan}>m</Text>
+         </View>
         </View>
         <View
           style={styles.containerTextInput}>
-          <TouchableOpacity style={[styles.containerTextAction,{backgroundColor:Colors.colorMain,marginRight:10}]} onPress={onSave}>
+          <TouchableOpacity style={[styles.containerTextAction,{backgroundColor:Colors.colorMain,marginRight:10}]} onPress={() => onSave(range)}>
             <Text children={t('common:save')} style={styles.txtSave} />
           </TouchableOpacity>
           {area && (
@@ -472,7 +498,10 @@ export default ({navigation, route}) => {
               <Text children={t('common:member_remove')} style={styles.txtBack} />
             </TouchableOpacity>
           )}
-          <TouchableOpacity style={[styles.containerTextAction,{borderWidth:1, borderColor: Colors.grayTextColor,marginLeft:10}]} onPress={toggle}>
+          <TouchableOpacity style={[styles.containerTextAction,{borderWidth:1, borderColor: Colors.grayTextColor,marginLeft:10}]} onPress={() => {
+            toggle();
+            setRanges(ranges);
+          }}>
             <Text children={t('common:back')} style={[styles.txtBack,{color:Colors.black}]} />
           </TouchableOpacity>
         </View>
@@ -596,7 +625,7 @@ export default ({navigation, route}) => {
                     latitude: newLocationSafeArea.latitude,
                     longitude: newLocationSafeArea.longitude,
                   }}
-                  radius={ranges}
+                  radius={ranges ? ranges : 200}
                   strokeColor='#4F6D7A'
                   strokeWidth={0.1}
                 />
