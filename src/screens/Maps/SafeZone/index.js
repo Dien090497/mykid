@@ -157,11 +157,11 @@ export default ({navigation, route}) => {
         newListSafeArea.push(res.data);
         setListSafeArea(newListSafeArea);
         setNewLocation(null);
-        onToggleCreateArea();
       },
       refLoading: refLoading,
       refNotification: refNotification,
     });
+    onToggleCreateArea();
   };
 
   const onEdit = data => {
@@ -192,7 +192,6 @@ export default ({navigation, route}) => {
           newListSafeArea.splice(index, 1);
           setListSafeArea(newListSafeArea);
           setNewLocation(null);
-          setRanges(200);
           setIndexLocation(null);
         },
         refLoading: refLoading,
@@ -242,7 +241,7 @@ export default ({navigation, route}) => {
                   });
                   setSafeArea({visible: true, area: val});
                   setIndexLocation(index);
-                  setRanges(val.radius)
+                  setRanges(val.radius);
                 }}
                 style={styles.rowDirection}>
                 <Text children={val.name} style={styles.txtName} />
@@ -545,14 +544,10 @@ export default ({navigation, route}) => {
             }
             minZoomLevel={10}
             region={getRegion()}>
-            {listSafeArea.map(val => (
-              <View key={val.id}>{renderCustomMarker(val)}</View>
-            ))}
+            {listSafeArea.map(val => renderCustomMarker(val))}
             {listSafeArea
               .filter(val => val.status === 'ON')
-              .map((val, i) => (
-                <View key={val.id}>{renderCircleMarker(val, i)}</View>
-              ))}
+              .map((val, i) => renderCircleMarker(val, i))}
             {deviceOutSafeZone && (
               <>
                 {renderCustomMarker(deviceOutSafeZone)}
