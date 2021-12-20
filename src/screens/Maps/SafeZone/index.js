@@ -361,7 +361,9 @@ export default ({navigation, route}) => {
 
   const ViewAddOrEditArea = ({area, toggle, onCreate, onEdit, onRemove, newLocationSafeArea, ranges}) => {
     useEffect(() => {
-      setRanges(200);
+      if (!indexLocation) {
+        setRanges(area?.radius ? area?.radius : 200);
+      }
     }, [newLocationSafeArea])
     const [range, setRange] = useState(area?.radius || 200);
     const [name, setName] = useState(area?.name || '');
