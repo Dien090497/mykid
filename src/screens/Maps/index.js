@@ -18,7 +18,6 @@ import LoadingIndicator from '../../components/LoadingIndicator';
 import {styles} from './styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
-import Geocoder from 'react-native-geocoder';
 import Moment from 'moment';
 import * as Progress from 'react-native-progress';
 import Geolocation from 'react-native-geolocation-service';
@@ -104,20 +103,6 @@ export default ({navigation, route}) => {
     handleWebSocketSetup();
     setReconnect(true)
   }, [locationDevices]);
-
-  useEffect(() => {
-    if (locationDevices && locationDevices[indexSelect] && locationDevices[indexSelect].location && !locationDevices[indexSelect].locationName) {
-      Geocoder.geocodePosition({
-        lat: locationDevices[indexSelect].location.lat,
-        lng: locationDevices[indexSelect].location.lng
-      }).then(res => {
-        const address = [(res[0].streetNumber || '') +' '+ res[0].streetName, res[0].subAdminArea, res[0].adminArea].join(', ');
-        const locations = Object.assign([], locationDevices);
-        locations[indexSelect].locationName = address;
-        setLocationDevices(locations)
-      }).catch(err => console.log(err))
-    }
-  }, [locationDevices, indexSelect]);
 
   const renderCircleMarker = (val,index) => {
     return (
@@ -252,6 +237,7 @@ export default ({navigation, route}) => {
         const data = JSON.parse(
           split[split.length - 1].replace('\u0000', '').replace('\\u0000', ''),
         );
+        console.log('AAAAAAA',data)
         const newData = Object.assign([], locationDevices);
         for (const obj of newData) {
           if (data.deviceId === obj.deviceId && data.location !== obj.location){
@@ -260,6 +246,7 @@ export default ({navigation, route}) => {
             obj.maxAccuracy = data.maxAccuracy;
             obj.power = data.power;
             obj.reportedAt = data.reportedAt;
+            obj.address = data.address;
           }
         }
         if (newData===locationDevices) return;
@@ -304,6 +291,7 @@ export default ({navigation, route}) => {
             }) : locationDevices.map((obj,i)=>{
               return(
                 <Marker
+                  zIndex={i === indexSelect ? locationDevices.length+1 : i}
                   key={i}
                   onPress={()=>{
                     setIndexSelect(i);
@@ -353,7 +341,7 @@ export default ({navigation, route}) => {
               </Text>
             </View>
             <View style={styles.containerLastTime}>
-              <Text style={styles.txtLocation}>{t('common:location')}{locationDevices[indexSelect].locationName || ''}</Text>
+              <Text style={styles.txtLocation}>{t('common:location')}{locationDevices[indexSelect].address}</Text>
               <Text style={[styles.txtTime,{flex: 1 ,fontSize: FontSize.xxtraSmall*0.8, textAlign: 'right'}]}>
                 {locationDevices[indexSelect].type + ' ('+ t('common:discrepancy') + locationDevices[indexSelect].maxAccuracy + 'm)'}
               </Text>
