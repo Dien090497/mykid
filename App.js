@@ -179,7 +179,7 @@ export default function App() {
       if (dataVideoCall) {
         setVisibleCall({
           visible: true,
-          device: { deviceName: dataVideoCall?.deviceName },
+          device: {deviceName: dataVideoCall?.deviceName},
           data: {
             id: Number(dataVideoCall?.id),
             status: dataVideoCall?.status,

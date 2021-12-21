@@ -191,6 +191,10 @@ const ListDeviceScreen = () => {
           connectionState: videoCallReducer.connectionState,
           data: videoCallReducer.connectionData,
         });
+        Vibration.cancel();
+        if (ringtone.current) {
+          ringtone.current.stop();
+        }
         reduxStore.store.dispatch(videoCallAction.reset());
       } else {
         setPresentRoomId(-1);
@@ -233,7 +237,7 @@ const ListDeviceScreen = () => {
     if (!microGranted || !cameraGranted) {
       return;
     }
-    
+
     createVideoCallApi(
       // DataLocal.deviceId,
       {deviceId: item.deviceId},
