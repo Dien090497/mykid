@@ -106,6 +106,7 @@ export default function FriendsList({navigation}) {
   const deleteFriendItem = () => {
     deleteFriend(devices[selectedIndex].deviceId, room, {
       success: res => {
+        getListDevice();
         refNotification.current.open(t('common:success'));
       }
     })

@@ -26,7 +26,7 @@ import Consts from "../../../functions/Consts";
 export default function LanguageTimeZone({navigation, route}) {
   const refLoading = useRef();
   const refNotification = useRef();
-  const [timeZoneSelect, setTimeZoneSelect] = useState(0);
+  const [timeZoneSelect, setTimeZoneSelect] = useState(5);
   const [numberLanguages, setNumberLanguage] = useState();
   const [languageConfirm, setLanguageConfirm] = useState();
   const [listLanguages, setListLanguage] = useState([]);
@@ -50,7 +50,11 @@ export default function LanguageTimeZone({navigation, route}) {
     getLanguageTimeZoneApi(DataLocal.deviceId, {
       success: res => {
         setLanguageConfirm(res.data.language);
-        setTimeZoneSelect(res.data.timeZone);
+        if (res.data.timeZone !== null) {
+          setTimeZoneSelect(res.data.timeZone);
+        } else {
+          setTimeZoneSelect(7);
+        }
         refRadioGroup.current.updateView(res.data.timeZone);
       },
       refNotification: refNotification,

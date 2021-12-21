@@ -1,6 +1,6 @@
 import { Image, Modal, ScrollView, Text, TextInput, TouchableOpacity, View, } from 'react-native';
 import React, { useLayoutEffect, useRef, useState } from 'react';
-import Consts from '../../../functions/Consts';
+import Consts, {ScaleHeight} from '../../../functions/Consts';
 import Header from '../../../components/Header';
 import Images from '../../../assets/Images';
 import LoadingIndicator from '../../../components/LoadingIndicator';
@@ -11,6 +11,9 @@ import { useTranslation } from 'react-i18next';
 import DataLocal from '../../../data/dataLocal';
 import NotificationModal from '../../../components/NotificationModal';
 import { Colors } from '../../../assets/colors/Colors';
+import reduxStore from "../../../redux/config/redux";
+import commonInfoAction from "../../../redux/actions/commonInfoAction";
+import {useSelector} from "react-redux";
 
 const AddDeviceScreen = ({ navigation, route }) => {
   const refNotification = useRef();
@@ -18,8 +21,10 @@ const AddDeviceScreen = ({ navigation, route }) => {
   const [deviceName, setDeviceName] = useState('');
   const [submitActive, setSubmitActive] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [modal, setModal] = useState(false);
   const [contentModal, setContentModal] = useState('');
   const { t } = useTranslation();
+  const commonInfoReducer = useSelector(state => state.commonInfoReducer.navigate);
   const [data, setData] = useState(
     {
       id: 1,
@@ -29,6 +34,11 @@ const AddDeviceScreen = ({ navigation, route }) => {
     });
   const refLoading = useRef();
 
+  useLayoutEffect(() => {
+    if (commonInfoReducer && route.params.isModalConfirm) {
+      setModal(true);
+    }
+  }, [commonInfoReducer]);
 
   useLayoutEffect(() => {
     setSubmitActive(deviceCode && deviceName);
@@ -66,6 +76,12 @@ const AddDeviceScreen = ({ navigation, route }) => {
             setShowModal(true);
             setDeviceCode('');
             setDeviceName('');
+            setData({
+              id: 1,
+              name: t('common:dad'),
+              icon: Images.icFather,
+              relationship: 'FATHER',
+            })
           } else if (resp.data.status === 'ACTIVE') {
             if (route.params && route.params.onRefresh()) {
               route.params.onRefresh();
@@ -124,6 +140,19 @@ const AddDeviceScreen = ({ navigation, route }) => {
     );
   }
 
+  const onNavigateHome = () => {
+    navigation.navigate(commonInfoReducer.navigate);
+    setModal(false);
+    setShowModal(false);
+    reduxStore.store.dispatch(commonInfoAction.reset());
+  }
+
+  const closeModal = () => {
+    setModal(false);
+    setShowModal(false);
+    reduxStore.store.dispatch(commonInfoAction.reset());
+  }
+
   return (
     <View style={styles.contain}>
       <Header title={t('common:header_addDevice')} />
@@ -152,6 +181,7 @@ const AddDeviceScreen = ({ navigation, route }) => {
             placeholder={t('common:deviceNickname')}
             onChangeText={name => setDeviceName(name)}
             placeholderTextColor='#B5B4B4'
+            value={deviceName}
             maxLength={30}
             style={styles.textInput} />
         </View>
@@ -171,6 +201,46 @@ const AddDeviceScreen = ({ navigation, route }) => {
       {showModalMes()}
       <LoadingIndicator ref={refLoading} />
       <NotificationModal ref={refNotification} />
+      <Modal
+        visible={modal}
+        transparent={true}
+        animationType={'none'}>
+        <View style={[styles.itemLeft]}>
+          <TouchableOpacity
+            style={styles.modal1}
+            onPress={closeModal}>
+            <View style={styles.tobModal}>
+              <View style={[styles.tobView, {marginTop: ScaleHeight.small}]}>
+                <Text style={styles.textModel}>{'oke'}</Text>
+              </View>
+              <View style={[styles.tobView, {width: '86%'}]}>
+                <View style={styles.tob}>
+                  <TouchableOpacity
+                    style={[
+                      styles.smallButton,
+                      {backgroundColor: Colors.white},
+                    ]}
+                    onPress={closeModal}>
+                    <Text style={[styles.smallButtonText, {color: Colors.red}]}>
+                      {t('common:cancel')}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+                <View style={styles.TobOpacity}>
+                  <TouchableOpacity
+                    style={[styles.smallButton, {backgroundColor: Colors.red}]}
+                    onPress={onNavigateHome}>
+                    <Text
+                      style={[styles.smallButtonText, {color: Colors.white}]}>
+                      {t('common:member_approval')}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </Modal>
     </View>
   );
 };
