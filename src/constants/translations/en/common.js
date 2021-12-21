@@ -43,7 +43,7 @@ export default {
   'once': '1 times',
   'everyday': 'Daily',
   'custom': 'Repeat',
-  'home': 'Hompage',
+  'home': 'Homepage',
   'profile': 'ME',
   'account': 'Account',
   'fail': 'Fail',
@@ -165,6 +165,7 @@ export default {
   'addDeviceSuccess': 'Callback request sent successfully, please wait the watch to call back for a moment',
   'addDeviceSuccess2':
     'Connection request has been sent.\n Please wait for admin to confirm',
+  'alertDevicesSuccess': 'Connection approved. Do you want to switch to Homepage?',
   'area': 'Area',
   'save': 'Save',
   'back': 'Back',
