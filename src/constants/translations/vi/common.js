@@ -164,6 +164,7 @@ export default {
   'addDeviceSuccess': 'Gửi yêu cầu gọi lại thành công, vui lòng đợi đồng hồ gọi lại trong giây lát',
   'addDeviceSuccess2':
     'Yêu cầu kết nối đã được gửi.\nVui lòng chờ admin xác nhận',
+  'alertDevicesSuccess': 'Kết nối đã được duyệt. Bạn có muốn chuyển sang màn hình Trang chủ không?',
   'area': 'Area',
   'save': 'Lưu',
   'back': 'Quay lại',

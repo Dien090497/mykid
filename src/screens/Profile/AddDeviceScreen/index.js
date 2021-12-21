@@ -211,7 +211,7 @@ const AddDeviceScreen = ({ navigation, route }) => {
             onPress={closeModal}>
             <View style={styles.tobModal}>
               <View style={[styles.tobView, {marginTop: ScaleHeight.small}]}>
-                <Text style={styles.textModel}>{'oke'}</Text>
+                <Text style={styles.textModel}>{t('common:alertDevicesSuccess')}</Text>
               </View>
               <View style={[styles.tobView, {width: '86%'}]}>
                 <View style={styles.tob}>
