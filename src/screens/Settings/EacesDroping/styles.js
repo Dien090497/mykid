@@ -42,7 +42,6 @@ export const styles = StyleSheet.create({
     fontFamily: 'Roboto',
     fontStyle: 'normal',
     fontWeight: '500',
-    lineHeight: FontSize.medium * 1.25
   },
   viewHeader: {
     marginTop: height * 0.05,

@@ -83,7 +83,6 @@ export const styles = StyleSheet.create({
     fontSize: FontSize.xtraSmall,
     fontFamily: 'Roboto',
     fontWeight: '500',
-    lineHeight: FontSize.small  * 10 / 7,
     fontStyle: 'normal'
   },
   txtAction: {

@@ -50,7 +50,6 @@ export const styles = StyleSheet.create({
     color: Colors.red,
     textDecorationLine: 'underline',
     fontFamily: 'Roboto',
-    lineHeight: FontSize.small * 10 / 7
   },
   txtPolicy1: {
     fontWeight: '500',
@@ -59,7 +58,6 @@ export const styles = StyleSheet.create({
     textDecorationLine: 'underline',
     marginLeft: -15,
     fontFamily: 'Roboto',
-    lineHeight: FontSize.small * 10 / 7
   },
   txt_Policy: {
     fontSize: FontSize.xtraSmall,
@@ -69,7 +67,6 @@ export const styles = StyleSheet.create({
     color: '#808080',
     fontFamily: 'Roboto',
     fontWeight: '400',
-    lineHeight: FontSize.small * 10 / 7
   },
   viewButton: {
     width: '96%',
@@ -90,6 +87,5 @@ export const styles = StyleSheet.create({
     fontFamily:'Roboto-Medium',
     fontSize:FontSize.small,
     color: Colors.white,
-    lineHeight: FontSize.small * 10 / 7
   },
 });

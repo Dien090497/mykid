@@ -24,7 +24,6 @@ export const styles = StyleSheet.create({
     color: Colors.grayTxt,
     fontFamily:'Roboto-Medium',
     fontStyle: 'normal',
-    lineHeight: FontSize.medium * 1.25
   },
   phoneText: {
     fontSize: FontSize.xtraSmall,
@@ -32,7 +31,6 @@ export const styles = StyleSheet.create({
     color: Colors.grayTxt,
     fontFamily: 'Roboto',
     fontStyle: 'normal',
-    lineHeight: FontSize.medium * 1.25
   },
   txtNull:{
     fontSize: FontSize.small,
@@ -69,7 +67,6 @@ export const styles = StyleSheet.create({
     width: '86%',
     overflow: 'hidden',
     fontFamily: 'Roboto-Medium',
-    lineHeight: FontSize.medium * 1.25,
     fontStyle: 'normal'
   },
   iconDetail: {
@@ -128,7 +125,6 @@ export const styles = StyleSheet.create({
     fontSize: FontSize.small,
     fontFamily: 'Roboto-Medium',
     fontStyle: 'normal',
-    lineHeight: FontSize.medium * 1.25
   },
   containerSwitch: {
     flex: 0.2,
@@ -151,7 +147,6 @@ export const styles = StyleSheet.create({
     fontStyle: 'normal',
     fontWeight: '500',
     fontFamily: 'Roboto',
-    lineHeight: FontSize.medium * 1.25
   },
   containerRemove: {
     paddingHorizontal: 30,
@@ -281,7 +276,6 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginVertical: '1%' ,
     fontStyle: 'normal',
-    lineHeight: FontSize.small * 1.25,
     fontFamily: 'Roboto',
     color: 'rgba(95, 95, 95, 1)'
   }

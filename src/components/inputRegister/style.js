@@ -21,7 +21,6 @@ const styles = StyleSheet.create({
     fontSize: FontSize.xtraSmall,
     fontFamily: 'Roboto',
     fontWeight: '400',
-    lineHeight: FontSize.small * 10 / 7
   },
   txtNotification: {
     padding: 0,

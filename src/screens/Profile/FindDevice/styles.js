@@ -31,7 +31,6 @@ export const styles = StyleSheet.create({
     color: Colors.colorTextPlus,
     marginBottom: height* 0.015,
     fontFamily: 'Roboto',
-    lineHeight: FontSize.medium * 1.25
   },
   button: {
     height: ScaleHeight.medium,
@@ -46,7 +45,6 @@ export const styles = StyleSheet.create({
     color: 'white',
     fontSize: FontSize.medium,
     fontFamily: 'Roboto-Bold',
-    lineHeight: FontSize.medium * 1.25
   },
   iconClock: {
     width: 102,

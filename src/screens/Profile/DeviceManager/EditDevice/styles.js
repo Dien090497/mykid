@@ -40,8 +40,7 @@ export const styles = StyleSheet.create({
   containText: {
     color: Colors.colorTextPlus,
     fontSize: FontSize.medium,
-    fontFamily: "Roboto-Medium",
-    lineHeight: FontSize.medium * 1.25
+    fontFamily: "Roboto-Medium"
   },
   viewContain: {
     borderRadius: 10,
@@ -89,7 +88,6 @@ export const styles = StyleSheet.create({
     color: 'white',
     fontSize: FontSize.medium,
     fontFamily: 'Roboto-Bold',
-    lineHeight: FontSize.medium * 1.25
   },
   textInput: {
     width: '100%',
@@ -116,13 +114,11 @@ export const styles = StyleSheet.create({
     fontSize: FontSize.small,
     fontFamily: 'Roboto',
     fontWeight: '500',
-    lineHeight: FontSize.medium * 1.25
   },
   txtDevices: {
     color: Colors.colorHeader,
     marginLeft: '1%' ,
     fontFamily: 'Roboto',
     fontWeight: '500',
-    lineHeight: FontSize.medium * 1.25
   }
 });

@@ -93,7 +93,7 @@ export const checkAccount = appUrl + '/sims';
 export const smsUrl = appUrl + '/sms-messages';
 
 // InstallPosition
-export const positionModeuRL = appUrl + '/position-configs';
+export const positionModelURL = appUrl + '/position-configs';
 
 //DisconnectClock
 export const disconnectUrl = appUrl + '/devices';

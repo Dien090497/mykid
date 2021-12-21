@@ -71,7 +71,6 @@ export const styles = StyleSheet.create({
     color: Colors.colorHeader,
     fontStyle: 'normal',
     fontFamily: 'Roboto',
-    lineHeight: FontSize.medium * 1.25
   },
   smallButton: {
     borderWidth: 1,

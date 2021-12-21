@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import Consts ,{ FontSize, ScaleHeight } from '../../../../functions/Consts';
+import { FontSize, ScaleHeight } from '../../../../functions/Consts';
 import {Colors} from '../../../../assets/colors/Colors';
 
 export const styles = StyleSheet.create({
@@ -67,7 +67,6 @@ export const styles = StyleSheet.create({
     fontSize: FontSize.small,
     fontFamily: 'Roboto',
     color: Colors.white,
-    lineHeight: ScaleHeight.medium * 1.25,
     fontStyle: 'normal',
     fontWeight: '400'
   },
@@ -86,13 +85,13 @@ export const styles = StyleSheet.create({
     color: 'white',
     fontSize: FontSize.small,
     fontFamily: 'Roboto-Medium',
-    lineHeight: FontSize.medium * 1.25,
     fontStyle: 'normal'
 
   },
-  fontSize: FontSize.small,
-  fontFamily: 'Roboto-Light',
-  fontStyle: 'normal',
-  fontWeight: '400',
-  lineHeight: FontSize.medium * 1.25
+  txtMode: {
+    fontSize: FontSize.small,
+    fontFamily: 'Roboto-Light',
+    fontStyle: 'normal',
+    fontWeight: '400',
+  },
 });

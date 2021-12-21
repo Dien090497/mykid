@@ -53,7 +53,6 @@ export const styles = StyleSheet.create({
     fontFamily: 'Roboto-Bold',
     fontWeight: '500',
     color: Colors.redTitle,
-    lineHeight: FontSize.medium * 1.25
   },
   iconSetting: {
     marginLeft: '1%',
@@ -159,7 +158,6 @@ export const styles = StyleSheet.create({
   smallButtonText: {
     fontFamily: 'Roboto-Bold',
     fontSize: FontSize.small,
-    lineHeight: FontSize.medium * 1.25
   },
   TobOpacity: {
     width: '50%',
