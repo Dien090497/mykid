@@ -328,6 +328,7 @@ export default function InfoKits({route}) {
            alignItems: 'center',
          }}
          onPress={OnActionSheet}
+         disabled={route.params.isAdmin ? false : true}
        >
          <Image source={avatar ? { uri: avatar } : Images.icAvatar}
                 style={styles.imageAvatar}

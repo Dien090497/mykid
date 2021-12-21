@@ -125,6 +125,7 @@ export default function App() {
         options,
       );
       if (notify && notify.type === "DEVICE_ACCEPTED") {
+        reduxStore.store.dispatch(commonInfoAction.navigate({ navigate: Consts.ScreenIds.Tabs, deviceId: null }));
         XmppClient.updateRooms();
       } else if (notify && notify.type === "VIDEO_CALL") {
         if (RNCallKeep.isCallActive(notify.id)) {

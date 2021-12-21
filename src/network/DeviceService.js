@@ -1,7 +1,6 @@
 import { dele, get, path, post, put } from "./http/HttpClient";
-import { deleteDeviceUrl, deviceUrl, listDeviceUrl, locationDeviceUrl, disconnectUrl, hostUrl } from "./http/ApiUrl";
+import { deleteDeviceUrl, deviceUrl, listDeviceUrl, locationDeviceUrl, disconnectUrl } from "./http/ApiUrl";
 import Consts from "../functions/Consts";
-import { Platform } from "react-native";
 
 export function getListDeviceConnected(payload) {
   const url = `${listDeviceUrl}?accountId=${payload?.accountId || ""}&page=${
