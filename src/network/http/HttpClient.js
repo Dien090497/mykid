@@ -55,9 +55,14 @@ async function getHeaders(headers) {
   let requestHeaders = headers;
   if (!headers) requestHeaders = getDefaultHeaders();
 
-  const accessToken = await DataLocal.accessToken;
-  if (accessToken) {
-    requestHeaders['Authorization'] = 'Bearer ' + accessToken;
+  if (!DataLocal.accessToken) {
+    const accessToken = await DataLocal.getAccessToken();
+    if (accessToken) {
+      DataLocal.accessToken = accessToken;
+      requestHeaders['Authorization'] = 'Bearer ' + accessToken;
+    }
+  } else {
+    requestHeaders['Authorization'] = 'Bearer ' + DataLocal.accessToken;
   }
 
   return requestHeaders;

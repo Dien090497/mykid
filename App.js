@@ -113,7 +113,7 @@ export default function App() {
     function onNotification(notify) {
       console.log("[App] onNotification: ", notify);
       const options = {
-        soundName: "default",
+        soundName: (notify && notify.type === "VIDEO_CALL" && notify.status === "INIT") ? "reng.mp3" : "default",
         playSound: true,
       };
       localNotificationService.showNotification(
@@ -271,6 +271,8 @@ export default function App() {
               finishVideoCallApi({}, visibleCall?.data?.id, {
                 success: res => {
                 },
+                failure: err => {
+                }
               });
             }
           }}
