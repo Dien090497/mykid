@@ -99,7 +99,7 @@ export default function FriendsList({navigation}) {
   };
 
   const onModal = item => {
-    setRoom(item.item.roomId)
+    setRoom(item.item.deviceCode)
     refModalConfirm.current.open(t('common:alertDelete'), () => {console.log('')});
   }
 
