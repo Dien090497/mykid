@@ -7,7 +7,7 @@
 
 #import <Firebase.h>
 #import <UserNotifications/UserNotifications.h>
-#import <RNCPushNotificationIOS.h>.                                                                                                                                                                             
+#import <RNCPushNotificationIOS.h>
 
 #ifdef FB_SONARKIT_ENABLED
 #import <FlipperKit/FlipperClient.h>
@@ -40,12 +40,6 @@ static void InitializeFlipper(UIApplication *application) {
 
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
   
-  [RNCallKeep setup:@{
-    @"appName": @"Awesome App",
-    @"maximumCallGroups": @3,
-    @"maximumCallsPerCallGroup": @1,
-    @"supportsVideo": @NO,
-  }];
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
                                                    moduleName:@"MyKid"
                                             initialProperties:nil];
@@ -73,8 +67,21 @@ static void InitializeFlipper(UIApplication *application) {
   UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
   center.delegate = self;
   
+//  [self voipRegistration];
+  
   return YES;
 }
+
+// Register for VoIP notifications
+//- (void) voipRegistration {
+//  dispatch_queue_t mainQueue = dispatch_get_main_queue();
+//  // Create a push registry object
+//  PKPushRegistry * voipRegistry = [[PKPushRegistry alloc] initWithQueue: mainQueue];
+//  // Set the registry's delegate to self
+//  voipRegistry.delegate = self;
+//  // Set the push type to VoIP
+//  voipRegistry.desiredPushTypes = [NSSet setWithObject:PKPushTypeVoIP];
+//}
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
 {
