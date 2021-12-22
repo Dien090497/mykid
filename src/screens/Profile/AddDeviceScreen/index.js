@@ -142,7 +142,7 @@ const AddDeviceScreen = ({ navigation, route }) => {
   }
 
   const onNavigateHome = () => {
-    navigation.navigate({
+    navigation.replace({
       params: commonInfoReducer.navigate,
       name: Consts.ScreenIds.Tabs
     });
