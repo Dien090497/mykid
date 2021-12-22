@@ -120,7 +120,9 @@ export default function HomeMainScreen() {
       setSelectedIndex(commonInfoReducer.selectDevice);
       reduxStore.store.dispatch(commonInfoAction.reset());
     } else if (commonInfoReducer.navigate !== null && commonInfoReducer.navigate !== undefined) {
-      navigation.navigate(commonInfoReducer.navigate);
+      if (commonInfoReducer.navigate !== Consts.ScreenIds.Tabs) {
+        navigation.navigate(commonInfoReducer.navigate);
+      }
       reduxStore.store.dispatch(commonInfoAction.reset());
     }
   }, [commonInfoReducer]);
