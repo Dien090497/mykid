@@ -56,7 +56,9 @@ export default function FriendsList({navigation}) {
     getFriendsList(devices[selectedIndex].deviceId, {
       success: res => {
         setFriendsList(res.data)
-      }
+      },
+      refNotification,
+      refLoading
     });
   }
 
@@ -108,7 +110,9 @@ export default function FriendsList({navigation}) {
       success: res => {
         getListDevice();
         refNotification.current.open(t('common:success'));
-      }
+      },
+      refNotification,
+      refLoading
     })
   }
 
