@@ -97,14 +97,10 @@ export default function HomeMainScreen() {
 
   useEffect(() => {
     if (logout) {
-      logoutService({
-        success: res => {
-          DataLocal.removeAll();
-          XmppClient.disconnectXmppServer();
-          WebSocketSafeZone.disconnect();
-          WebSocketVideoCall.disconnect();
-        }
-      })
+      DataLocal.removeAll();
+      XmppClient.disconnectXmppServer();
+      WebSocketSafeZone.disconnect();
+      WebSocketVideoCall.disconnect();
       navigation.replace(Consts.ScreenIds.Splash);
     }
   }, [logout]);
