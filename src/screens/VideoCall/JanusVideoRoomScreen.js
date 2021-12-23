@@ -138,6 +138,7 @@ class JanusVideoRoomScreen extends React.Component {
 
   componentWillUnmount = async () => {
     if (this.janus) {
+      this.state.stream.getTracks().stop();
       await this.janus.destroy();
     }
   };
