@@ -35,8 +35,7 @@ const AddDeviceScreen = ({ navigation, route }) => {
   const refLoading = useRef();
 
   useLayoutEffect(() => {
-    if (commonInfoReducer && route.params.isModalConfirm &&
-        commonInfoReducer.navigate !== null && commonInfoReducer.navigate !== undefined) {
+    if (route.params.isModalConfirm && commonInfoReducer !== null && commonInfoReducer !== undefined) {
       setModal(true);
     }
   }, [commonInfoReducer]);
@@ -142,10 +141,7 @@ const AddDeviceScreen = ({ navigation, route }) => {
   }
 
   const onNavigateHome = () => {
-    navigation.replace({
-      params: commonInfoReducer.navigate,
-      name: Consts.ScreenIds.Tabs
-    });
+    navigation.replace(Consts.ScreenIds.Tabs);
     setModal(false);
     setShowModal(false);
     reduxStore.store.dispatch(commonInfoAction.reset());
