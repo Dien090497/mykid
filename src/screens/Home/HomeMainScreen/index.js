@@ -30,9 +30,10 @@ export default function HomeMainScreen() {
   const refLoading = useRef();
   const refNotification = useRef();
   const [showMenu, setShowMenu] = useState(false);
-  const [devices, setDevices] = useState(null);
+  const [devices, setDevices] = useState([]);
   const isFocused = useIsFocused();
   const [selectedIndex, setSelectedIndex] = useState(DataLocal.deviceIndex);
+  const [checkSplash, setCheckSplash] = useState(false)
   const {t} = useTranslation();
   const appState = useRef(AppState.currentState);
 
@@ -85,16 +86,6 @@ export default function HomeMainScreen() {
     getListDevices();
   }, []);
 
-  const getListDevices = () => {
-    getListDeviceApi(DataLocal.userInfo.id, Consts.pageDefault, 100, '', 'ACTIVE', {
-      success: resData => {
-        setDevices(resData.data);
-      },
-      refLoading,
-      refNotification,
-    });
-  }
-
   useEffect(() => {
     if (logout) {
       DataLocal.removeAll();
@@ -121,7 +112,44 @@ export default function HomeMainScreen() {
       }
       reduxStore.store.dispatch(commonInfoAction.reset());
     }
+    else if (commonInfoReducer.replace !== null && commonInfoReducer.replace !== undefined) {
+      getListDevices();
+      let checkDevice = false;
+      console.log('deviceId', devices)
+      for (let i = 0; i < devices.length ; i++) {
+        if (DataLocal.deviceId === devices[i].deviceId) {
+          return checkDevice = true;
+        }
+      }
+      if (!checkDevice) {
+        setSelectedIndex(0);
+      }
+    }
   }, [commonInfoReducer]);
+
+  useEffect(() => {
+    if (checkSplash) {
+      gotoSplash();
+    }
+  },[checkSplash])
+
+  const getListDevices = () => {
+    getListDeviceApi(DataLocal.userInfo.id, Consts.pageDefault, 100, '', 'ACTIVE', {
+      success: resData => {
+        setDevices(resData.data);
+        if (resData.data.length === 0) {
+          setCheckSplash(true);
+        }
+      },
+      refLoading,
+      refNotification,
+    });
+  }
+
+  const gotoSplash = () => {
+      navigation.navigate(Consts.ScreenIds.AddDeviceScreen, {isModalConfirm: true});
+      setCheckSplash(false);
+  }
 
   const pressMap = () => {
     if (DataLocal.haveSim === '0') {

@@ -13,15 +13,22 @@ export const reset = payload => ({
   payload,
 });
 
+export const replace = payload => ({
+  type: CommonActionList.replace,
+  payload,
+});
+
 export default {
   selectDevice,
   navigate,
-  reset
+  reset,
+  replace
 };
 
 
 export const CommonActionList = {
   selectDevice: 'selectDevice',
   navigate: 'navigate',
-  reset: 'RESET'
+  reset: 'RESET',
+  replace: 'replace'
 }
