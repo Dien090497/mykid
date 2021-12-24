@@ -80,9 +80,18 @@ export default class XmppClient {
     getRoomsApi({
       success: resData => {
         const lstRoomNew = resData.data;
-        if (!lstRoomNew || lstRoomNew.length == 0) return;
+        if (!lstRoomNew || lstRoomNew.length === 0) return;
+        for (const roomInfo of this.lstRoom){
+          const lst = lstRoomNew.filter(val => val.roomAddress === roomInfo.roomAddress);
+          if (lst.length === 0){
+            this.removeRoom2(roomInfo.roomAddress);
+            reduxStore.store.dispatch(chatAction.updateMessage(this.lstMsg));
+          }
+        }
         for (const roomInfo of lstRoomNew) {
-          if (this.lstMsg[roomInfo.roomAddress] && this.lstMsg[roomInfo.roomAddress].length > 0) continue;
+          const lst = this.lstRoom.filter(val => val.roomAddress === roomInfo.roomAddress);
+          if (lst.length > 0 ) roomInfo.lastMsg = lst.lastMsg;
+          if (this.lstMsg[roomInfo.roomAddress] && this.lstMsg[roomInfo.roomAddress].length >= 0) continue;
           this.lstMsg[roomInfo.roomAddress] = [];
           this.joinRoom(roomInfo.roomAddress).then();
           this.getHistory(roomInfo.flagTime).then();
@@ -90,6 +99,14 @@ export default class XmppClient {
         }
       },
     }).then();
+  };
+
+  static removeRoom2 = (roomAddress) => {
+    const lst = this.lstRoom.filter(val => val.roomAddress === roomAddress);
+    this.lstRoom = this.lstRoom.filter(val => val.roomAddress !== roomAddress);
+    if (lst.length > 0) {
+      this.lstMsg[lst[0].roomAddress] = [];
+    }
   };
 
   static removeRoom = (deviceId) => {
