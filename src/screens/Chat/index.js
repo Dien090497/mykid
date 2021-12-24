@@ -1,10 +1,11 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import {
+  FlatList, RefreshControl,
   ScrollView,
   Text,
   TouchableOpacity,
   View,
-} from 'react-native';
+} from "react-native";
 import {styles} from './styles';
 import Header from '../../components/Header';
 import LoadingIndicator from '../../components/LoadingIndicator';
@@ -33,7 +34,7 @@ export default function Chat({navigation}) {
     }
   }, [chatReducer]);
 
-  const toggleChat = (obj, i) => {
+  const toggleChat = (obj) => {
     checkMicrophonePermission().then(microGranted => {
       if (microGranted) {
         navigation.navigate(Consts.ScreenIds.RoomChat, {roomInfo: obj});
@@ -41,34 +42,50 @@ export default function Chat({navigation}) {
     })
   };
 
+  console.log(devices);
+
+  const renderItemFlatList = (obj) =>{
+    return(
+      <View>
+        <View style={styles.viewTitleRoom}>
+          <Text style={styles.txtTitleRoom}>{obj.item.type === 'FAMILY' ? (obj.item.deviceName ? obj.item.deviceName : '')
+            : `${t('common:talkWithFriends')} (${obj.item.roomName || '0'})`}</Text>
+        </View>
+        <TouchableOpacity style={styles.viewItem} onPress={() => {toggleChat(obj.item);}}>
+          <View style={styles.viewImg}>
+            <FastImage source={obj.item.avatar ? {uri: obj.item.avatar} : Images.icAvatar} style={styles.icAvatar} resizeMode={FastImage.resizeMode.stretch} />
+          </View>
+          <View style={styles.viewText}>
+            <View style={styles.rowDirection}>
+              <Text style={styles.txtTitle}>{obj.item.type === 'FAMILY' ? (obj.item.roomName ? obj.item.roomName : t('common:talkWithFamily'))
+                : t('common:talk')}</Text>
+            </View>
+            <Text style={styles.txtContent}>{obj.item.lastMsg ? `[${obj.item.lastMsg.type}]` : ''}</Text>
+          </View>
+          <View style={styles.viewArrow}>
+            <Image source={Images.icRightArrow} style={styles.icArrow}/>
+          </View>
+        </TouchableOpacity>
+      </View>
+    )
+  }
+
   return (
     <View style={styles.contain}>
       <Header title={t('common:header_chat')} />
-      <ScrollView style={styles.container}>
-        {devices && devices.map((obj, i) => (
-          <View key={i}>
-            <View style={styles.viewTitleRoom}>
-              <Text style={styles.txtTitleRoom}>{obj.type === 'FAMILY' ? (obj.deviceName ? obj.deviceName : '')
-                                                  : `${t('common:talkWithFriends')} (${obj.roomName || '0'})`}</Text>
-            </View>
-            <TouchableOpacity style={styles.viewItem} onPress={() => {toggleChat(obj, i);}}>
-              <View style={styles.viewImg}>
-                <FastImage source={obj.avatar ? {uri: obj.avatar} : Images.icAvatar} style={styles.icAvatar} resizeMode={FastImage.resizeMode.stretch} />
-              </View>
-              <View style={styles.viewText}>
-                <View style={styles.rowDirection}>
-                  <Text style={styles.txtTitle}>{obj.type === 'FAMILY' ? (obj.roomName ? obj.roomName : t('common:talkWithFamily'))
-                                                  : t('common:talk')}</Text>
-                </View>
-                <Text style={styles.txtContent}>{obj.lastMsg ? `[${obj.lastMsg.type}]` : ''}</Text>
-              </View>
-              <View style={styles.viewArrow}>
-                <Image source={Images.icRightArrow} style={styles.icArrow}/>
-              </View>
-            </TouchableOpacity>
-          </View>
-        ))}
-      </ScrollView>
+      <FlatList
+        keyExtractor={item => item.id}
+        style={{flex:1}}
+        data={devices}
+        refreshControl={
+          <RefreshControl
+            onRefresh={()=>{
+              // setDevices(Array.from(new Set(XmppClient.lstRoom)))
+              setDevices(XmppClient.lstRoom)
+            }}
+            refreshing={false} />
+        }
+        renderItem={renderItemFlatList}/>
       <LoadingIndicator ref={refLoading} />
     </View>
   );
