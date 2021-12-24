@@ -134,6 +134,8 @@ export default function App() {
         //     RNCallKeep.endCall(notify?.id + "");
           }
         // }
+      }else if (notify && notify.type === "DEVICE_FRIEND"){
+        XmppClient.updateRooms();
       }
     }
 
