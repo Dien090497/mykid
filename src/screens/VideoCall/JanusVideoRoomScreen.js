@@ -18,6 +18,7 @@ Janus.setDependencies({
   RTCIceCandidate,
   MediaStream,
 });
+let media = null;
 class JanusVideoRoomScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -123,13 +124,16 @@ class JanusVideoRoomScreen extends React.Component {
       }
     }
 
-    let stream = await mediaDevices.getUserMedia({
+    mediaDevices.getUserMedia({
       audio: true,
       video: {
         facingMode: isFront ? 'user' : 'environment',
       },
+    }).then(stream =>{
+      media =stream;
+      this.initJanus(media);
     });
-    await this.initJanus(stream);
+    
   };
 
   async componentDidMount() {
@@ -138,7 +142,8 @@ class JanusVideoRoomScreen extends React.Component {
 
   componentWillUnmount = async () => {
     if (this.janus) {
-      this.state.stream.getTracks().stop();
+      // this.state.stream.getTracks().stop();
+      media.release();
       await this.janus.destroy();
     }
   };
