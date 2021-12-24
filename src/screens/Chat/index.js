@@ -42,8 +42,6 @@ export default function Chat({navigation}) {
     })
   };
 
-  console.log(devices);
-
   const renderItemFlatList = (obj) =>{
     return(
       <View>
