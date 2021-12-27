@@ -113,7 +113,7 @@ export default function App() {
     function onNotification(notify) {
       console.log("[App] onNotification: ", notify);
       const options = {
-        soundName: (notify && notify.type === "VIDEO_CALL" && notify.status === "INIT") ? "reng.mp3" : "default",
+        soundName: (notify && notify.type === "VIDEO_CALL" && notify.status === "INIT") ? (Platform.OS === 'android' ? "reng" : "reng.mp3") : "default",
         playSound: true,
       };
       localNotificationService.showNotification(
@@ -134,6 +134,8 @@ export default function App() {
         //     RNCallKeep.endCall(notify?.id + "");
           }
         // }
+      }else if (notify && notify.type === "DEVICE_FRIEND"){
+        XmppClient.updateRooms();
       }
        else if (notify && notify.type === "DEVICE_DELETED") {
         reduxStore.store.dispatch(commonInfoAction.replace({ replace: Consts.ScreenIds.AddDeviceScreen}));

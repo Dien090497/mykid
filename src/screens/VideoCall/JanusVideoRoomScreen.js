@@ -9,7 +9,6 @@ import {
 import React from 'react';
 import {StatusBar, View} from 'react-native';
 import {Janus, JanusVideoRoomPlugin} from 'react-native-janus';
-import Consts from '../../functions/Consts';
 import { Colors } from '../../assets/colors/Colors';
 
 Janus.setDependencies({
@@ -18,6 +17,7 @@ Janus.setDependencies({
   RTCIceCandidate,
   MediaStream,
 });
+let mediaStream =null;
 class JanusVideoRoomScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -123,13 +123,15 @@ class JanusVideoRoomScreen extends React.Component {
       }
     }
 
-    let stream = await mediaDevices.getUserMedia({
+    mediaDevices.getUserMedia({
       audio: true,
       video: {
         facingMode: isFront ? 'user' : 'environment',
       },
+    }).then(stream => {
+      mediaStream = stream;
+     this.initJanus(mediaStream);
     });
-    await this.initJanus(stream);
   };
 
   async componentDidMount() {
@@ -138,6 +140,7 @@ class JanusVideoRoomScreen extends React.Component {
 
   componentWillUnmount = async () => {
     if (this.janus) {
+      await mediaStream.release();
       await this.janus.destroy();
     }
   };
