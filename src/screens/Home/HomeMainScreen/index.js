@@ -33,7 +33,7 @@ export default function HomeMainScreen() {
   const [devices, setDevices] = useState([]);
   const isFocused = useIsFocused();
   const [selectedIndex, setSelectedIndex] = useState(DataLocal.deviceIndex);
-  const [checkSplash, setCheckSplash] = useState(false)
+  const [checkAddDevice, setCheckAddDevice] = useState(false)
   const {t} = useTranslation();
   const appState = useRef(AppState.currentState);
 
@@ -114,31 +114,38 @@ export default function HomeMainScreen() {
     }
     else if (commonInfoReducer.replace !== null && commonInfoReducer.replace !== undefined) {
       getListDevices();
-      let checkDevice = false;
-      console.log('deviceId', devices)
-      for (let i = 0; i < devices.length ; i++) {
-        if (DataLocal.deviceId === devices[i].deviceId) {
-          return checkDevice = true;
-        }
-      }
-      if (!checkDevice) {
-        setSelectedIndex(0);
-      }
     }
   }, [commonInfoReducer]);
 
   useEffect(() => {
-    if (checkSplash) {
-      gotoSplash();
+    let checkDevice = false;
+    if (devices.length > 0) {
+     for (let i = 0; i < devices.length ; i++) {
+       if (DataLocal.deviceId === devices[i].deviceId) {
+         return checkDevice = true;
+       }
+     }
+     if (!checkDevice) {
+       setSelectedIndex(0);
+       DataLocal.saveDeviceIndex(0);
+       DataLocal.saveDeviceId(devices[0].deviceId);
+
+     }
+   }
+  }, [devices])
+
+  useEffect(() => {
+    if (checkAddDevice) {
+      gotoAddDevices();
     }
-  },[checkSplash])
+  },[checkAddDevice])
 
   const getListDevices = () => {
     getListDeviceApi(DataLocal.userInfo.id, Consts.pageDefault, 100, '', 'ACTIVE', {
       success: resData => {
         setDevices(resData.data);
         if (resData.data.length === 0) {
-          setCheckSplash(true);
+          setCheckAddDevice(true);
         }
       },
       refLoading,
@@ -146,9 +153,13 @@ export default function HomeMainScreen() {
     });
   }
 
-  const gotoSplash = () => {
-      navigation.navigate(Consts.ScreenIds.AddDeviceScreen, {isModalConfirm: true});
-      setCheckSplash(false);
+  const gotoAddDevices = () => {
+    navigation.navigate(Consts.ScreenIds.AddDeviceScreen, {isModalConfirm: true, alertDevice: true});
+    DataLocal.removeAll();
+    XmppClient.disconnectXmppServer();
+    WebSocketSafeZone.disconnect();
+    WebSocketVideoCall.disconnect();
+    setCheckAddDevice(false);
   }
 
   const pressMap = () => {

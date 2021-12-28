@@ -182,6 +182,7 @@ export default {
   'alertDeleteDevices':'Disconnecting the watch will restore its factory settings and delete all data',
   'alertDeleteDevices1': 'Are you sure you want to delete the device (',
   'alertDeleteDevices2': ')?',
+  'alertEmptyDevices': 'Your account has been removed from the device by admin',
   'removeContactConfirm':
     'Are you sure to unlink this account?',
   'maxLengthSafeAreaName': 'Please enter 1-32 characters',

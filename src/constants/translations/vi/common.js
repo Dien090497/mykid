@@ -181,6 +181,7 @@ export default {
   'alertDeleteMessage': 'Bạn có chắc chắn muốn xóa cuộc trò chuyện của mình không?',
   'alertDeleteDevices1': 'Bạn có chắc chắn muốn xóa thiết bị (',
   'alertDeleteDevices2': ') không ?',
+  'alertEmptyDevices': 'Tài khoản của bạn đã bị admin xóa kết nối cùng thiết bị',
   'removeContactConfirm':
     'Bạn chắc chắn huỷ liên kết tài khoản này không ?',
   'maxLengthSafeAreaName': 'Vui lòng nhập 1-32 ký tự',
