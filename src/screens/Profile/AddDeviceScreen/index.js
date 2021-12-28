@@ -35,6 +35,12 @@ const AddDeviceScreen = ({ navigation, route }) => {
   const refLoading = useRef();
 
   useLayoutEffect(() => {
+    if (route.params.alertDevice) {
+      refNotification.current.open(t('common:alertEmptyDevices'));
+    }
+  }, [route.params.alertDevice])
+
+  useLayoutEffect(() => {
     if (route.params.isModalConfirm && commonInfoReducer !== null && commonInfoReducer !== undefined) {
       setModal(true);
     }

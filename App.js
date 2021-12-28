@@ -160,6 +160,9 @@ export default function App() {
       }else if (notify && notify.type === "DEVICE_FRIEND"){
         XmppClient.updateRooms();
       }
+       else if (notify && notify.type === "DEVICE_DELETED") {
+        reduxStore.store.dispatch(commonInfoAction.replace({ replace: Consts.ScreenIds.AddDeviceScreen}));
+      }
     }
 
     function onOpenNotification(notify) {
