@@ -49,10 +49,6 @@ export default function SplashScreen() {
     let devices = resData.data.filter(val => val.status === 'ACTIVE');
     if (devices.length === 0) {
       navigation.navigate(Consts.ScreenIds.AddDeviceScreen, {isShowAlert: resData.data.length > 0, isModalConfirm: true});
-      DataLocal.removeAll();
-      XmppClient.disconnectXmppServer();
-      WebSocketSafeZone.disconnect();
-      WebSocketVideoCall.disconnect();
     } else {
       if (DataLocal.deviceIndex >= devices.length) {
         DataLocal.deviceIndex = 0;
