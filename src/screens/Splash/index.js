@@ -12,9 +12,6 @@ import { saveUserDataFromToken } from '../../functions/utils';
 import { getListDeviceApi } from '../../network/DeviceService';
 import { useTranslation } from 'react-i18next';
 import NotificationModal from '../../components/NotificationModal'
-import XmppClient from "../../network/xmpp/XmppClient";
-import WebSocketSafeZone from "../../network/socket/WebSocketSafeZone";
-import WebSocketVideoCall from "../../network/socket/WebSocketVideoCall";
 
 export default function SplashScreen() {
   const refNotification = useRef();
