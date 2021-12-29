@@ -68,8 +68,6 @@ export default function Health({ navigation }) {
       });
   };
 
-  console.log(listTracking);
-
   const convertData = (arr) => {
     const data = {
       labels: [

@@ -158,7 +158,6 @@ export default ({ navigation }) => {
         })
         .catch(err => {
           SimpleToast.show(t('common:savePictureFail'))
-          console.log('err:', err)
         });
     } else {
       RNFetchBlob
@@ -173,12 +172,10 @@ export default ({ navigation }) => {
               SimpleToast.show(t('common:savePictureSuccess'))
             }).catch((error) => {
             SimpleToast.show(t('common:savePictureFail'))
-            console.log('err:', error)
           });
         })
         .catch(err => {
           SimpleToast.show(t('common:savePictureFail'))
-          console.log('err:', err)
         });
     }
   };

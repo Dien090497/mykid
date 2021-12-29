@@ -29,7 +29,8 @@ const styles = StyleSheet.create({
     color: Colors.colorMain,
     fontFamily: 'Roboto-Medium',
     flex: 1,
-    paddingRight:20
+    paddingRight:20,
+    overflow: 'visible'
   },
   containerPhone: {
     width: 50,

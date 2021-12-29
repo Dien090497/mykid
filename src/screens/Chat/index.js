@@ -1,7 +1,6 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import {
   FlatList, RefreshControl,
-  ScrollView,
   Text,
   TouchableOpacity,
   View,

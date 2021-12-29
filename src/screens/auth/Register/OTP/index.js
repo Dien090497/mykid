@@ -8,7 +8,6 @@ import LoadingIndicator from '../../../../components/LoadingIndicator';
 import {saveUserDataFromToken} from '../../../../functions/utils';
 import { useTranslation } from 'react-i18next';
 import NotificationModal from '../../../../components/NotificationModal'
-import {FontSize, ScaleHeight} from '../../../../functions/Consts';
 export default function OTP({navigation, route}) {
   const refLoading = useRef(null);
   const refNotification = useRef();

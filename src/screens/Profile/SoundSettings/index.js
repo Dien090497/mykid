@@ -38,9 +38,7 @@ export default function SoundSettings({navigation}) {
         if (resData.data && resData.data.mode) {
           setMode(resData.data.mode)
         }
-        console.log(resData.data.mode);
         if (resData.data.mode === -1) {
-          console.log('unknown mode => set to vibration');
           setSoundModes(3);
         }
       },
