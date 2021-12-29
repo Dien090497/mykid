@@ -130,14 +130,6 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-end'
   },
-  username: {
-    padding: 2,
-    fontWeight: 'bold',
-    fontSize: height * 0.025,
-    color: Colors.grayTxt,
-    fontStyle: 'normal',
-    fontFamily: 'Roboto',
-  },
   otherInfoText: {
     padding: 2,
     fontSize: height * 0.02,

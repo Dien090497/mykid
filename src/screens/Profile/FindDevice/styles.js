@@ -1,10 +1,7 @@
 import {StyleSheet, Dimensions} from 'react-native';
-import Consts, { FontSize, ScaleHeight } from '../../../functions/Consts';
+import { FontSize, ScaleHeight } from '../../../functions/Consts';
 import {Colors} from '../../../assets/colors/Colors';
 
-const settingHeight = (Consts.screenHeight /
-  (Consts.screenHeight < 800 ? Math.floor(Consts.screenHeight / 50) : Math.floor(
-    Consts.screenHeight / 70)));
 const {width,height} = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
@@ -15,13 +12,6 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.white,
-  },
-  txtPlus: {
-    width: '7%',
-    aspectRatio: 1,
-    fontSize: FontSize.xxxtraBig,
-    fontFamily: 'Roboto-Bold',
-    color: Colors.gray
   },
   textPlus: {
     alignSelf: 'center',

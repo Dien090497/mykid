@@ -26,11 +26,6 @@ export const styles = StyleSheet.create({
     height: height / 3,
     padding: '5%',
   },
-  zoneEnd: {
-    borderRadius: 150,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
   text: {
     textAlign: 'center',
     fontFamily: 'Roboto-Bold',

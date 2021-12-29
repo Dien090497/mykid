@@ -1,5 +1,5 @@
 import {
-  Image, Keyboard,
+  Image,
   Text, TextInput,
   TouchableOpacity,
   View,
@@ -8,7 +8,6 @@ import { styles } from './styles';
 import Header from '../../../../components/Header';
 import Images from '../../../../assets/Images';
 import Consts from '../../../../functions/Consts';
-import { Colors } from '../../../../assets/colors/Colors';
 import LoadingIndicator from '../../../../components/LoadingIndicator';
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import ModalConfirm from '../../../../components/ModalConfirm';
@@ -27,7 +26,6 @@ export default function EditDevice({ navigation, route }) {
 
   useLayoutEffect(() => {
     setData(route.params.data);
-    console.log('a',route.params.data)
   }, []);
 
   const onRelationship = () => {

@@ -77,8 +77,8 @@ export default ({navigation, route}) => {
 
   const getListLocation = () => {
     const listID = [];
-    listID.push(route.params.indexDevice.deviceId);
-    startWebSocket(route.params.indexDevice.deviceId,{autoShowMsg:false})
+    listID.push(DataLocal.deviceId);
+    startWebSocket(DataLocal.deviceId, {autoShowMsg:false})
     getLocationDeviceApi(listID, {
       success: res => {
         setLocationDevice(res.data[0]);
@@ -99,8 +99,10 @@ export default ({navigation, route}) => {
   }
 
   useEffect(()=> {
-    getListLocation();
-  }, [])
+    if (DataLocal.deviceId && route.params.indexDevice) {
+      getListLocation();
+    }
+  }, [DataLocal.deviceId])
 
   useEffect(() => {
     Geolocation.getCurrentPosition(
@@ -201,6 +203,7 @@ export default ({navigation, route}) => {
     setShowModal(false)
     onToggleCreateArea();
   };
+
   const removeModal =() =>{
     return(
       <Modal
@@ -244,10 +247,16 @@ export default ({navigation, route}) => {
                   setRanges(val.radius);
                 }}
                 style={styles.rowDirection}>
-                <Text children={val.name} style={styles.txtName} />
+                <Text children={val.name} style={styles.txtName} numberOfLines={1}/>
                 <View style={styles.containerRadius}>
-                  <Text children={`${val.radius}m`}  style={{fontFamily:'Roboto-Medium'}}/>
-                  <View style={{ flexDirection:'row', justifyContent:'center',alignItems:'center'}}>
+                  <Text children={`${val.radius}m`}
+                    style={{
+                      fontFamily:'Roboto-Medium',
+                      fontSize: FontSize.small,
+                     }}
+                    numberOfLines={1}
+                  />
+                  <View style={{ flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
                     <Switch
                       value={val.status === 'ON'}
                       thumbColor={Colors.white}
@@ -541,9 +550,6 @@ export default ({navigation, route}) => {
               }
             }}
             moveOnMarkerPress
-            showsUserLocation={
-              !(safeArea.visible && !safeArea.area && currentLocation)
-            }
             minZoomLevel={10}
             region={getRegion()}>
             {listSafeArea.map(val => renderCustomMarker(val))}
@@ -566,21 +572,6 @@ export default ({navigation, route}) => {
               </>
             )}
             {locationDevice && (
-              Platform.OS === 'ios' ?
-                (<Marker
-                    coordinate={{
-                      latitude: locationDevice.location.lat,
-                      longitude: locationDevice.location.lng,
-                    }}>
-                    <View style={{alignItems: 'center'}}>
-                      <Text style={styles.textMarker}>{ route.params.indexDevice?.deviceName}</Text>
-                      <View style={{height:5}}/>
-                      <FastImage source={route.params.indexDevice?.avatar ? {uri: route.params.indexDevice?.avatar}: Images.icOther} style={[styles.avatar]} resizeMode={'cover'}/>
-                      <View style={{height:5}}/>
-                      <Image source={Images.icMarkerDefault} style={[styles.icMarker,{tintColor: Colors.colorMain}]}/>
-                    </View>
-                  </Marker>
-                ) : (
                   <Marker
                     coordinate={{
                       latitude: locationDevice.location.lat,
@@ -594,7 +585,7 @@ export default ({navigation, route}) => {
                       <Image source={Images.icMarkerDefault} style={[styles.icMarker,{tintColor: Colors.colorMain}]}/>
                     </View>
                   </Marker>
-                ))
+                )
               }
             {safeArea.visible && !safeArea.area && newLocationSafeArea && (
               <>

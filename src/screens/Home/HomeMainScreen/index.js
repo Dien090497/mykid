@@ -64,6 +64,7 @@ export default function HomeMainScreen() {
           WebSocketCheckLogout.setReconnect(true);
           WebSocketCheckLogout._handleWebSocketSetup(navigation);
         }
+        getListDevices();
       }
     });
 
@@ -71,7 +72,6 @@ export default function HomeMainScreen() {
       subscription.remove();
     };
   }, []);
-
 
   useLayoutEffect(() => {
     XmppClient.connectXmppServer();
@@ -129,7 +129,6 @@ export default function HomeMainScreen() {
        setSelectedIndex(0);
        DataLocal.saveDeviceIndex(0);
        DataLocal.saveDeviceId(devices[0].deviceId);
-
      }
    }
   }, [devices])
@@ -155,7 +154,6 @@ export default function HomeMainScreen() {
 
   const gotoAddDevices = () => {
     navigation.navigate(Consts.ScreenIds.AddDeviceScreen, {isModalConfirm: true, alertDevice: true});
-    DataLocal.removeAll();
     XmppClient.disconnectXmppServer();
     WebSocketSafeZone.disconnect();
     WebSocketVideoCall.disconnect();

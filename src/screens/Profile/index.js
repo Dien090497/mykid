@@ -22,7 +22,6 @@ import LoadingIndicator from "../../components/LoadingIndicator";
 import NotificationModal from "../../components/NotificationModal";
 import ModalConfirm from "../../components/ModalConfirm";
 import reduxStore from "../../redux/config/redux";
-import commonInfoAction from "../../redux/actions/commonInfoAction";
 import loginAction, {logout} from "../../redux/actions/loginAction";
 
 const {width} = Dimensions.get('window');

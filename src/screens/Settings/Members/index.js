@@ -1,4 +1,4 @@
-import {FlatList, Image, Text, TouchableOpacity, View, Modal, RefreshControl,ScrollView} from 'react-native';
+import {FlatList, Image, Text, TouchableOpacity, View, Modal, RefreshControl} from 'react-native';
 import React, {useLayoutEffect, useRef, useState} from 'react';
 import {
   acceptContactApi,
@@ -78,7 +78,6 @@ export default ({navigation, route}) => {
   const getListDevice = () => {
     getListDeviceApi(null, 0, 100, DataLocal.deviceId, '', {
       success: res => {
-        console.log('res',res)
         const adminMem = res.data.filter(val => val.admin === true);
         if (adminMem.length > 0) {
           setAdmin(adminMem[0]);
@@ -248,7 +247,7 @@ export default ({navigation, route}) => {
       </View>
     );
   };
-   console.log(allMember);
+
   return (
     <View
       style={[styles.container, {paddingBottom: useSafeAreaInsets().bottom}]}>

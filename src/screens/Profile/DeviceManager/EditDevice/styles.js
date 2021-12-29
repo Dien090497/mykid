@@ -1,41 +1,12 @@
 import Consts, { FontSize, ScaleHeight } from "../../../../functions/Consts";
 
 import { Colors } from "../../../../assets/colors/Colors";
-import { Dimensions, StyleSheet } from "react-native";
-import { ScreenHeight } from "react-native-elements/dist/helpers";
-
-const settingHeight = (Consts.screenHeight /
-  (Consts.screenHeight < 800 ? Math.floor(Consts.screenHeight / 50) : Math.floor(
-    Consts.screenHeight / 70)));
-const { width, height } = Dimensions.get("window");
+import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   contain: {
     flex: 1,
     backgroundColor: Colors.white,
-  },
-  viewAvatar: {
-    flexDirection: "row",
-    height: ScaleHeight.big,
-    alignItems: "center",
-    justifyContent: "space-between",
-    borderRadius: 10,
-    shadowColor: "rgba(25,25,25, 0.5)",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-    backgroundColor: Colors.white,
-    paddingHorizontal: 10,
-    marginTop: 20,
-  },
-  avatar: {
-    width: ScaleHeight.medium,
-    height: ScaleHeight.medium,
-    borderRadius: ScaleHeight.medium/2,
   },
   containText: {
     color: Colors.colorTextPlus,
@@ -88,13 +59,6 @@ export const styles = StyleSheet.create({
     color: 'white',
     fontSize: FontSize.medium,
     fontFamily: 'Roboto-Bold',
-  },
-  textInput: {
-    width: '100%',
-    backgroundColor: "#FFF",
-    color: Colors.black,
-    borderColor: '#E7E7E7',
-    fontSize: FontSize.xtraSmall,
   },
   txt: {
     flex: 1,

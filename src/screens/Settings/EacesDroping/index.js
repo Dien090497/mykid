@@ -9,7 +9,6 @@ import Header from '../../../components/Header';
 import {styles} from './styles';
 import {
   setEacesDropApi,
-  getPhoneApi
 } from '../../../network/EacesDropingService';
 import DataLocal from '../../../data/dataLocal';
 import LoadingIndicator from '../../../components/LoadingIndicator';
