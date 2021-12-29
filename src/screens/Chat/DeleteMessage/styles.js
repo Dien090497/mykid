@@ -1,4 +1,4 @@
-import Consts, {FontSize, ScaleHeight} from '../../../functions/Consts';
+import {FontSize} from '../../../functions/Consts';
 
 import {Colors} from '../../../assets/colors/Colors';
 import {StyleSheet,Dimensions} from 'react-native';

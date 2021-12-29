@@ -3,8 +3,6 @@ import {Colors} from "../../assets/colors/Colors";
 import {Dimensions, StyleSheet} from 'react-native';
 
 const {width,height} = Dimensions.get('window');
-const searchHeight = (Consts.screenHeight / 24);
-
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -26,12 +24,6 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5
-  },
-  header: {
-    width: '95%',
-    height: searchHeight,
-    flexDirection: 'row',
-    alignItems: 'center',
   },
   titleText: {
     fontSize: FontSize.medium,

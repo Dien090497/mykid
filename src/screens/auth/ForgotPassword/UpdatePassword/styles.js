@@ -2,7 +2,6 @@ import {StyleSheet, Dimensions} from 'react-native';
 import {FontSize, ScaleHeight} from '../../../../functions/Consts';
 import {Colors} from "../../../../assets/colors/Colors";
 
-const {width, height} = Dimensions.get('window');
 const styles = StyleSheet.create({
   viewContainer: {
     width: '90%',

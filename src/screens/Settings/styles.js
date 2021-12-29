@@ -4,29 +4,10 @@ import {Dimensions, StyleSheet} from 'react-native';
 
 const {width,height} = Dimensions.get('window');
 const searchHeight = (Consts.screenHeight / 24);
-const bgHeight = (Consts.screenHeight / Math.floor(Consts.screenHeight / 200));
-const followHeight = (Consts.screenHeight / (Consts.screenHeight < 800 ? Math.floor(Consts.screenHeight / 80) : Math.floor(Consts.screenHeight / 90)))
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.white,
-  },
-  tobMain: {
-    backgroundColor: 'white',
-    borderRadius: 10,
-    padding: width* 0.012,
-    marginHorizontal: width* 0.04,
-    height: height* 0.08,
-    marginVertical: height* 0.008,
-    justifyContent: 'center',
-    shadowColor: 'rgba(25,25,25, 0.5)',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5
   },
   tob: {
     backgroundColor: 'white',

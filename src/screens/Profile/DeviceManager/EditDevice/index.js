@@ -1,5 +1,5 @@
 import {
-  Image, Keyboard,
+  Image,
   Text, TextInput,
   TouchableOpacity,
   View,

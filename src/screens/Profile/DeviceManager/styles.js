@@ -1,12 +1,7 @@
-import Consts, {FontSize, ScaleHeight} from '../../../functions/Consts';
-
+import {FontSize, ScaleHeight} from '../../../functions/Consts';
 import {Colors} from '../../../assets/colors/Colors';
 import {Dimensions, StyleSheet} from 'react-native';
-import {ScreenHeight} from "react-native-elements/dist/helpers";
 
-const settingHeight = (Consts.screenHeight /
-  (Consts.screenHeight < 800 ? Math.floor(Consts.screenHeight / 50) : Math.floor(
-    Consts.screenHeight / 70)));
 const {width, height} = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
