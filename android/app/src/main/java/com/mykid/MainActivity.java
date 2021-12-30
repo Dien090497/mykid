@@ -21,31 +21,16 @@ public class MainActivity extends ReactActivity {
   @Override
   protected void onCreate(Bundle saveInstanceState) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-      NotificationChannel notificationChannel = new NotificationChannel("sound_channel", "Notification", NotificationManager.IMPORTANCE_HIGH);
+      NotificationChannel notificationChannel = new NotificationChannel("sound_call", "Notification", NotificationManager.IMPORTANCE_HIGH);
       notificationChannel.setShowBadge(true);
       notificationChannel.setDescription("");
       AudioAttributes att = new AudioAttributes.Builder()
               .setUsage(AudioAttributes.USAGE_NOTIFICATION)
               .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
               .build();
-      notificationChannel.setSound(Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + getPackageName() + "/raw/sound"), att);
+      notificationChannel.setSound(Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + getPackageName() + "/raw/love"), att);
       notificationChannel.enableVibration(true);
-      notificationChannel.setVibrationPattern(new long[]{400, 400});
-      notificationChannel.setLockscreenVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-      NotificationManager manager = getSystemService(NotificationManager.class);
-      manager.createNotificationChannel(notificationChannel);
-    }
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-      NotificationChannel notificationChannel = new NotificationChannel("sound_channel2", "Notification", NotificationManager.IMPORTANCE_HIGH);
-      notificationChannel.setShowBadge(true);
-      notificationChannel.setDescription("");
-      AudioAttributes att = new AudioAttributes.Builder()
-              .setUsage(AudioAttributes.USAGE_NOTIFICATION)
-              .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
-              .build();
-      notificationChannel.setSound(Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + getPackageName() + "/raw/sound"), att);
-      notificationChannel.enableVibration(true);
-      notificationChannel.setVibrationPattern(new long[]{400, 400});
+      notificationChannel.setVibrationPattern(new long[]{0, 500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170, 40, 500,});
       notificationChannel.setLockscreenVisibility(NotificationCompat.VISIBILITY_PUBLIC);
       NotificationManager manager = getSystemService(NotificationManager.class);
       manager.createNotificationChannel(notificationChannel);
