@@ -78,6 +78,7 @@ export default function Chat({navigation}) {
           <RefreshControl
             onRefresh={()=>{
               setDevices(XmppClient.lstRoom)
+              XmppClient.updateRooms()
             }}
             refreshing={false} />
         }
