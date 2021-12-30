@@ -7,12 +7,6 @@ const {width} = Dimensions.get("window");
 const height = Consts.windowHeight;
 
 export const styles = StyleSheet.create({
-  btnClose: {
-    position: 'absolute',
-    zIndex: 99,
-    top: 35,
-    right: 20,
-  },
   container: {
     flex: 1,
     backgroundColor: '#FFF'
@@ -80,23 +74,6 @@ export const styles = StyleSheet.create({
     fontSize: FontSize.small,
     color: Colors.white,
     fontStyle: 'normal',
-  },
-  Sty_iconCheckbox: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderRadius: 10,
-    backgroundColor: "#FFFFFF",
-    height: 20,
-    width: 20,
-    borderColor: '#3CB371',
-  },
-  Sty_Checkbox: {
-    borderRadius: 10,
-    backgroundColor: "#3CB371",
-    height: 15,
-    width: 15,
-    borderColor: '#FFFFFF',
   },
   txtPolicy: {
     fontFamily: 'Roboto-Medium',

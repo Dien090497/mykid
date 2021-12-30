@@ -30,9 +30,10 @@ export default function HomeMainScreen() {
   const refLoading = useRef();
   const refNotification = useRef();
   const [showMenu, setShowMenu] = useState(false);
-  const [devices, setDevices] = useState(null);
+  const [devices, setDevices] = useState([]);
   const isFocused = useIsFocused();
   const [selectedIndex, setSelectedIndex] = useState(DataLocal.deviceIndex);
+  const [checkAddDevice, setCheckAddDevice] = useState(false)
   const {t} = useTranslation();
   const appState = useRef(AppState.currentState);
 
@@ -63,6 +64,7 @@ export default function HomeMainScreen() {
           WebSocketCheckLogout.setReconnect(true);
           WebSocketCheckLogout._handleWebSocketSetup(navigation);
         }
+        getListDevices();
       }
     });
 
@@ -70,7 +72,6 @@ export default function HomeMainScreen() {
       subscription.remove();
     };
   }, []);
-
 
   useLayoutEffect(() => {
     XmppClient.connectXmppServer();
@@ -84,16 +85,6 @@ export default function HomeMainScreen() {
     WebSocketCheckLogout._handleWebSocketSetup(navigation);
     getListDevices();
   }, []);
-
-  const getListDevices = () => {
-    getListDeviceApi(DataLocal.userInfo.id, Consts.pageDefault, 100, '', 'ACTIVE', {
-      success: resData => {
-        setDevices(resData.data);
-      },
-      refLoading,
-      refNotification,
-    });
-  }
 
   useEffect(() => {
     if (logout) {
@@ -121,7 +112,53 @@ export default function HomeMainScreen() {
       }
       reduxStore.store.dispatch(commonInfoAction.reset());
     }
+    else if (commonInfoReducer.replace !== null && commonInfoReducer.replace !== undefined) {
+      getListDevices();
+    }
   }, [commonInfoReducer]);
+
+  useEffect(() => {
+    let checkDevice = false;
+    if (devices.length > 0) {
+     for (let i = 0; i < devices.length ; i++) {
+       if (DataLocal.deviceId === devices[i].deviceId) {
+         return checkDevice = true;
+       }
+     }
+     if (!checkDevice) {
+       setSelectedIndex(0);
+       DataLocal.saveDeviceIndex(0);
+       DataLocal.saveDeviceId(devices[0].deviceId);
+     }
+   }
+  }, [devices])
+
+  useEffect(() => {
+    if (checkAddDevice) {
+      gotoAddDevices();
+    }
+  },[checkAddDevice])
+
+  const getListDevices = () => {
+    getListDeviceApi(DataLocal.userInfo.id, Consts.pageDefault, 100, '', 'ACTIVE', {
+      success: resData => {
+        setDevices(resData.data);
+        if (resData.data.length === 0) {
+          setCheckAddDevice(true);
+        }
+      },
+      refLoading,
+      refNotification,
+    });
+  }
+
+  const gotoAddDevices = () => {
+    navigation.navigate(Consts.ScreenIds.AddDeviceScreen, {isModalConfirm: true, alertDevice: true});
+    XmppClient.disconnectXmppServer();
+    WebSocketSafeZone.disconnect();
+    WebSocketVideoCall.disconnect();
+    setCheckAddDevice(false);
+  }
 
   const pressMap = () => {
     if (DataLocal.haveSim === '0') {

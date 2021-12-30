@@ -20,6 +20,7 @@ import XmppClient from "./src/network/xmpp/XmppClient";
 import Consts from "./src/functions/Consts";
 import { finishVideoCallApi, rejectVideoCallApi } from "./src/network/VideoCallService";
 import VideoCallModal from "./src/screens/VideoCall/VideoCallModal";
+import { AppState } from "react-native";
 
 let isNotiFirebase = false;
 let dataVideoCall = null;
@@ -99,6 +100,25 @@ export default function App() {
   });
 
   const routeRef = useRef();
+  const appState = useRef(AppState.currentState);
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener("change", nextAppState => {
+      if (
+        appState.current.match(/inactive|background/) &&
+        nextAppState === "active"
+      ) {
+      }
+
+      appState.current = nextAppState;
+      console.log(appState.current);
+    });
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
+
   // fire base msg
   useEffect(() => {
     fcmService.registerAppWithFCM();
@@ -116,13 +136,16 @@ export default function App() {
         soundName: (notify && notify.type === "VIDEO_CALL" && notify.status === "INIT") ? (Platform.OS === 'android' ? "reng" : "reng.mp3") : "default",
         playSound: true,
       };
-      localNotificationService.showNotification(
-        0,
-        notify.title,
-        notify.body,
-        notify,
-        options,
-      );
+
+      if (appState.current !== 'active' || (notify && (notify.type !== "VIDEO_CALL" || notify.status !== "INIT"))) {
+        localNotificationService.showNotification(
+          0,
+          notify.title,
+          notify.body,
+          notify,
+          options,
+        );
+      }
       if (notify && notify.type === "DEVICE_ACCEPTED") {
         reduxStore.store.dispatch(commonInfoAction.navigate({ navigate: Consts.ScreenIds.Tabs, deviceId: null }));
         XmppClient.updateRooms();
@@ -136,6 +159,9 @@ export default function App() {
         // }
       }else if (notify && notify.type === "DEVICE_FRIEND"){
         XmppClient.updateRooms();
+      }
+       else if (notify && notify.type === "DEVICE_DELETED") {
+        reduxStore.store.dispatch(commonInfoAction.replace({ replace: Consts.ScreenIds.AddDeviceScreen}));
       }
     }
 

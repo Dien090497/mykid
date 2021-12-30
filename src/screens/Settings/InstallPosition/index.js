@@ -84,7 +84,6 @@ export default function InstallPosition({ navigation }) {
     }
 
     const chooseMinute = (index) => {
-        console.log('index', index)
         if (index != choose) {
             setChoose(index);
             if (index === 1) {

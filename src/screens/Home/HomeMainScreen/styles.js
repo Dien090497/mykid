@@ -1,6 +1,5 @@
 import Const, {FontSize, ScaleHeight} from '../../../functions/Consts';
 import {Dimensions, StyleSheet} from 'react-native';
-
 import {Colors} from '../../../assets/colors/Colors';
 
 const {height} = Dimensions.get('window');
@@ -8,10 +7,6 @@ const searchHeight = Const.screenHeight / 24;
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.white,
-  },
-  tabView: {
-    flex: 6.5,
     backgroundColor: Colors.white,
   },
   statusBar: {
@@ -28,20 +23,6 @@ export const styles = StyleSheet.create({
     flexWrap: 'wrap',
     marginVertical: height * 0.008,
   },
-  support: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-  },
-  headphone: {
-    paddingHorizontal: 10,
-  },
-  chart: {
-    paddingLeft: 10,
-    paddingRight: 20,
-    borderLeftWidth: 1,
-    borderLeftColor: Colors.gray,
-  },
   banner: {
     width: '100%',
     alignContent: 'center',
@@ -54,14 +35,6 @@ export const styles = StyleSheet.create({
     right:5,
     width:'auto',
   },
-  textInput: {
-    width: '100%',
-    height: 20,
-  },
-  txt: {
-    width: '84%',
-    marginHorizontal: 5,
-  },
   txtTitle: {
     alignSelf: 'center',
     fontSize: FontSize.xxxtraBig * 1.2,
@@ -71,17 +44,6 @@ export const styles = StyleSheet.create({
     color: Colors.white,
     position: 'absolute',
     fontStyle: 'normal',
-  },
-  txtNotification: {
-    fontSize: 10,
-    color: Colors.blueNotification,
-    fontWeight: 'bold',
-    marginBottom: 2,
-  },
-  imageRanking: {
-    width: searchHeight,
-    height: searchHeight,
-    alignSelf: 'flex-end',
   },
   buttonContainerL: {
     width: Const.screenWidth/2,
@@ -154,8 +116,8 @@ export const styles = StyleSheet.create({
     marginHorizontal: '8%'
   },
   avatar:{
-    width:ScaleHeight.small,
-    height:ScaleHeight.small,
+    width: ScaleHeight.small,
+    height: ScaleHeight.small,
     borderRadius: 10000
   },
   textMenuDrop:{

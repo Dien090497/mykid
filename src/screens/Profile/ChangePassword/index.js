@@ -11,7 +11,6 @@ import React, {useLayoutEffect, useRef, useState} from "react";
 import {changePasswordApi} from '../../../network/UserInfoService';
 import {passwordTest, saveUserDataFromToken} from '../../../functions/utils';
 import Header from '../../../components/Header';
-import {Colors} from '../../../assets/colors/Colors';
 import CustomInput from '../../../components/inputRegister';
 import {styles} from './styles';
 import {ScaleHeight} from '../../../functions/Consts';

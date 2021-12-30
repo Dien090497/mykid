@@ -5,7 +5,7 @@ import {
   ImageBackground,
   Keyboard,
   KeyboardAvoidingView,
-  Platform, ScrollView,
+  Platform,
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -55,7 +55,6 @@ const Login = ({navigation}) => {
 
   }, [loggedInUserInfo, isLogout]);
 
-    console.log('isLogout',isLogout);
   const onLoggedIn = async () => {
     if (loggedInUserInfo.id && checkbox && !isLogout) {
       getListDeviceApi(loggedInUserInfo.id, Consts.pageDefault, 100, '', '', {

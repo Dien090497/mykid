@@ -195,7 +195,6 @@ export default ({navigation, route}) => {
 
   const onOpen = async () => {
     if (!ws) return;
-    console.log('Websocket Location Open!');
     let command =
       'CONNECT\n' +
       'accept-version:1.2\n' +
@@ -237,7 +236,6 @@ export default ({navigation, route}) => {
         const data = JSON.parse(
           split[split.length - 1].replace('\u0000', '').replace('\\u0000', ''),
         );
-        console.log('AAAAAAA',data)
         const newData = Object.assign([], locationDevices);
         for (const obj of newData) {
           if (data.deviceId === obj.deviceId && data.location !== obj.location){

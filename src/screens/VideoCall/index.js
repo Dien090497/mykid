@@ -211,15 +211,24 @@ const ListDeviceScreen = () => {
           setVisibleCallState({
             visible: false,
           });
-          Vibration.cancel();
-          if (ringtone.current) {
-            ringtone.current.stop();
-          }
-        }
 
+          setTimeout(() => {
+            Vibration.cancel();
+            if (ringtone.current) {
+              ringtone.current.stop();
+            }
+          }, 100);
+        }
         setVisibleCall({visible: false, device: null, data: []});
         reduxStore.store.dispatch(videoCallAction.reset());
       }
+    } else {
+      setTimeout(() => {
+        Vibration.cancel();
+        if (ringtone.current) {
+          ringtone.current.stop();
+        }
+      }, 100);
     }
   }, [videoCallReducer]);
 

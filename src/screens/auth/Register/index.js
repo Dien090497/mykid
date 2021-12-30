@@ -20,7 +20,6 @@ import NotificationModal from '../../../components/NotificationModal'
 
 const { height } = Dimensions.get('window');
 const Register = ({navigation}) => {
-  const refLoading = useRef(null);
   const refNotification = useRef();
   const [phone, setPhone] = useState('');
   const [checkPhone, setCheckPhone] = useState(false);

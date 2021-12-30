@@ -4,8 +4,6 @@ import {Dimensions, StyleSheet} from 'react-native';
 
 const {width,height} = Dimensions.get('window');
 const searchHeight = (Consts.screenHeight / 24);
-const bgHeight = (Consts.screenHeight / Math.floor(Consts.screenHeight / 200));
-const followHeight = (Consts.screenHeight / (Consts.screenHeight < 800 ? Math.floor(Consts.screenHeight / 80) : Math.floor(Consts.screenHeight / 90)))
 export const styles = StyleSheet.create({
   container: {
     flex: 1,

@@ -1,5 +1,5 @@
 import Consts, {FontSize} from '../../functions/Consts';
-import {Dimensions, FlatList, Image, Text, TouchableOpacity, View} from 'react-native';
+import {Dimensions, Image, Text, TouchableOpacity, View} from 'react-native';
 import React, {useRef} from 'react';
 import {Colors} from '../../assets/colors/Colors';
 import CustomIcon from '../../components/VectorIcons';

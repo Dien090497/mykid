@@ -79,48 +79,12 @@ const styles = StyleSheet.create({
     fontFamily:'Roboto-Medium',
     fontSize: FontSize.small
   },
-
-
-
-  Sty_information: {
-    marginVertical: 10,
-    width: "100%",
-  },
   txtInformation: {
     fontSize: FontSize.small,
     color: Colors.colorMain,
     marginTop:20,
     marginBottom: 10,
     fontFamily:'Roboto-Medium'
-  },
-  Sty_select: {
-    backgroundColor: '#DCDCDC40',
-    height: height*0.08,
-    borderWidth: 1,
-    borderRadius: 10,
-    borderColor: '#00000040',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingLeft: 5,
-    paddingRight: 20,
-},
-  Sty_icon: {
-    transform: [{rotate: "90deg"}],
-    height: height*0.06/3,
-    width: height*0.06/3,
-  },
-  Sty_iconUser: {
-    borderRadius: height*0.07 ,
-    borderWidth:1,
-    borderColor: '#00000040',
-    height: height*0.08/2,
-    width: height*0.08/2,
-  },
-  txtRelationship: {
-    marginLeft: 10,
-    fontSize: 16,
-    color: '#B5B4B4'
   },
   viewButton: {
     backgroundColor: Colors.colorMain,
@@ -138,23 +102,9 @@ const styles = StyleSheet.create({
     fontSize: FontSize.small,
     fontStyle: 'normal',
   },
-  itemView: {
-    flex: 1,
-    flexDirection: 'column',
-    marginHorizontal: width* 0.02,
-    marginTop: width* 0.04,
-    maxWidth: '20%',
-    alignItems: 'center',
-  },
   icon: {
     width: 50,
     height: 50
-  },
-  textItem: {
-    color: Colors.black,
-    fontSize: FontSize.medium,
-    marginTop: width* 0.01,
-    fontFamily: 'Roboto-Medium'
   },
   itemLeft: {
     flex: 1,
