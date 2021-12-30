@@ -1,6 +1,6 @@
 import {
-  PermissionsAndroid,
-  StatusBar, View,
+  Platform,
+  StatusBar,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { AlertDropHelper } from "./src/functions/AlertDropHelper";
