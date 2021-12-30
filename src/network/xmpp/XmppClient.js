@@ -90,12 +90,13 @@ export default class XmppClient {
         }
         for (const roomInfo of lstRoomNew) {
           const lst = this.lstRoom.filter(val => val.roomAddress === roomInfo.roomAddress);
-          if (lst.length > 0 ) roomInfo.lastMsg = lst.lastMsg;
-          if (this.lstMsg[roomInfo.roomAddress] && this.lstMsg[roomInfo.roomAddress].length >= 0) continue;
-          this.lstMsg[roomInfo.roomAddress] = [];
-          this.joinRoom(roomInfo.roomAddress).then();
-          this.getHistory(roomInfo.flagTime).then();
-          this.lstRoom.push(roomInfo);
+          if (lst[0]) roomInfo.lastMsg = lst.lastMsg;
+          else {
+            this.lstMsg[roomInfo.roomAddress] = [];
+            this.joinRoom(roomInfo.roomAddress).then();
+            this.getHistory(roomInfo.flagTime).then();
+            this.lstRoom.push(roomInfo);
+          }
         }
       },
     }).then();
