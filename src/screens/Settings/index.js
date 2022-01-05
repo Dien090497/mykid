@@ -208,7 +208,7 @@ export default ({navigation, route}) => {
             </View>
           </View>
         </TouchableOpacity>
-        {route.params.isAdmin &&
+        {route.params?.isAdmin &&
            <TouchableOpacity style={styles.tob} onPress={onModal}>
               <Text style={styles.txtTob}>{t('common:header_disconnectClock')}</Text>
            </TouchableOpacity>

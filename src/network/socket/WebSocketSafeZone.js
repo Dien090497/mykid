@@ -15,9 +15,12 @@ export default class WebSocketSafeZone {
   static isConnected = false;
   static navigationRef = null;
 
+  // static PATTERN = [
+  //   0, 500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170,
+  //   40, 500,
+  // ];
   static PATTERN = [
-    0, 500, 110, 500, 110, 450, 110, 200, 110, 170, 40, 450, 110, 200, 110, 170,
-    40, 500,
+    0, 100
   ];
 
   static setReconnect(autoReconnect) {
@@ -127,6 +130,7 @@ export default class WebSocketSafeZone {
                 this.ringtone.setNumberOfLoops(5);
               },
             );
+            console.log('DATA',infoDevice)
             this.navigationRef.navigate(Consts.ScreenIds.ElectronicFence, {
               data: infoDevice,
             });
