@@ -99,7 +99,7 @@ export default ({navigation, route}) => {
   }
 
   useEffect(()=> {
-    if (DataLocal.deviceId && route.params.indexDevice) {
+    if (DataLocal.deviceId && route.params?.indexDevice) {
       getListLocation();
     }
   }, [DataLocal.deviceId])
