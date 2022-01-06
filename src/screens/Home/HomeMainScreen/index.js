@@ -20,7 +20,6 @@ import WebSocketCheckSim from '../../../network/socket/WebSocketCheckSim';
 import {useTranslation} from 'react-i18next';
 import NotificationModal from '../../../components/NotificationModal';
 import { checkLocationPermission } from '../../../functions/permissions';
-import {logoutService} from "../../../network/UserInfoService";
 import WebSocketCheckLogout from "../../../network/socket/WebSocketCheckLogout";
 
 export default function HomeMainScreen() {
@@ -46,7 +45,6 @@ export default function HomeMainScreen() {
       }
 
       appState.current = nextAppState;
-      console.log(appState.current);
       if (appState.current === 'active'){
         if (WebSocketSafeZone.isConnected === false){
           WebSocketSafeZone.setReconnect(true);

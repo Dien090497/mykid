@@ -147,7 +147,7 @@ const AddDeviceScreen = ({ navigation, route }) => {
   }
 
   const onNavigateHome = () => {
-    navigation.replace(Consts.ScreenIds.Tabs);
+    navigation.replace(Consts.ScreenIds.HomeMainScreen);
     setModal(false);
     setShowModal(false);
     reduxStore.store.dispatch(commonInfoAction.reset());
