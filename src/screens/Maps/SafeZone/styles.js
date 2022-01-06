@@ -1,19 +1,20 @@
-import { Colors } from '../../../assets/colors/Colors';
-import { FontSize, ScaleHeight } from '../../../functions/Consts';
-import { StyleSheet } from 'react-native';
+import {Colors} from '../../../assets/colors/Colors';
+import {FontSize, ScaleHeight} from '../../../functions/Consts';
+import {Dimensions, StyleSheet} from 'react-native';
 
+const {width, height} = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.transparent
+    backgroundColor: Colors.transparent,
   },
   txtName: {
     fontSize: FontSize.small,
     color: Colors.colorMain,
     fontFamily: 'Roboto-Medium',
     flex: 1,
-    paddingRight:20,
-    overflow: 'visible'
+    paddingRight: 20,
+    overflow: 'visible',
   },
   containerBottomSheet: {
     paddingHorizontal: 20,
@@ -73,9 +74,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     alignItems: 'center',
-    paddingHorizontal:10,
+    paddingHorizontal: 10,
     height: ScaleHeight.big,
-    justifyContent:'center'
+    justifyContent: 'center',
   },
   textInput: {
     flexDirection: 'row',
@@ -85,11 +86,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     height: ScaleHeight.medium,
-    paddingHorizontal:10,
+    paddingHorizontal: 10,
   },
   wrap: {
     flex: 1,
-    color:Colors.black
+    color: Colors.black,
   },
   thumbCircle: {
     width: 20,
@@ -103,41 +104,40 @@ const styles = StyleSheet.create({
   thumb: {
     height: 40,
     width: 40,
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
   containerAction: {
-    height:ScaleHeight.xtraSmall,
-    width:ScaleHeight.xtraSmall,
+    height: ScaleHeight.xtraSmall,
+    width: ScaleHeight.xtraSmall,
     borderRadius: 40,
     marginHorizontal: 3,
-    alignItems:'center',
+    alignItems: 'center',
   },
   txtAction: {
     width: '100%',
     height: '100%',
-    resizeMode: 'cover'
+    resizeMode: 'cover',
   },
   containerTextAction: {
     flex: 1,
     alignItems: 'center',
     height: ScaleHeight.medium,
-    justifyContent:'center',
-    borderRadius:10
+    justifyContent: 'center',
+    borderRadius: 10,
   },
   txtSave: {
     color: Colors.white,
-    fontFamily:'Roboto-Medium'
-
+    fontFamily: 'Roboto-Medium',
   },
   txtBack: {
     color: Colors.red,
-    fontFamily:'Roboto-Medium'
+    fontFamily: 'Roboto-Medium',
   },
   icMarker: {
     width: 30,
     height: 30,
     resizeMode: 'contain',
-    tintColor: Colors.colorMain
+    tintColor: Colors.colorMain,
   },
   containerNote: {
     position: 'absolute',
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
   },
   txtNoteDrag: {
     textAlign: 'center',
-    fontSize: FontSize.small
+    fontSize: FontSize.small,
   },
   containerRadius: {
     flex: 1,
@@ -176,30 +176,30 @@ const styles = StyleSheet.create({
   txtMarkerName: {
     fontSize: FontSize.small,
   },
-  modal:{
-    flex:1,
+  modal: {
+    flex: 1,
     backgroundColor: Colors.blackTransparent,
-    alignItems:'center',
-    justifyContent:'center'
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  modalContain:{
+  modalContain: {
     backgroundColor: Colors.white,
-    paddingBottom:20,
-    paddingTop:20,
-    paddingHorizontal:20,
-    borderRadius:10,
-    marginHorizontal:30
+    paddingBottom: 20,
+    paddingTop: 20,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+    marginHorizontal: 30,
   },
-  modalTitle:{
-    fontFamily:'Roboto-Medium',
-    marginBottom:35,
+  modalTitle: {
+    fontFamily: 'Roboto-Medium',
+    marginBottom: 35,
     fontSize: FontSize.small,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   textMarker: {
     backgroundColor: 'white',
     paddingHorizontal: 5,
-    fontFamily: 'Roboto-Bold'
+    fontFamily: 'Roboto-Bold',
   },
   avatar: {
     width: 40,
@@ -213,24 +213,32 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     borderColor: Colors.borderInputText,
-    justifyContent: "center",
+    justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   txtInputRan: {
     padding: '3%',
     width: 'auto',
     minWidth: '8%',
-    fontFamily:'Roboto-Medium',
-    color:Colors.grayTextColor,
+    fontFamily: 'Roboto-Medium',
+    color: Colors.grayTextColor,
     fontSize: FontSize.xxtraSmall,
   },
   txtRan: {
     width: 'auto',
-    fontFamily:'Roboto-Medium',
-    color:Colors.grayTextColor,
+    fontFamily: 'Roboto-Medium',
+    color: Colors.grayTextColor,
     fontSize: FontSize.xxtraSmall,
-  }
+  },
+  viewMarker: {
+    alignItems: "center",
+    marginBottom: 40
+  },
+  viewMarkerUser: {
+    alignItems: "center",
+    marginBottom: 100
+  },
 });
 
 export default styles;

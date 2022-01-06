@@ -85,7 +85,6 @@ export default ({navigation, route}) => {
     getLocationDeviceApi(listID, {
       success: res => {
         setLocationDevice(res.data[0]);
-        console.log('locationDevice', res.data[0] )
         if (res.data.length) {
           const {lat, lng} = res.data && res.data.location;
           if (lat && lng) {
@@ -143,11 +142,10 @@ export default ({navigation, route}) => {
   const getListDevices = () => {
     getListDeviceApi(DataLocal.userInfo.id, Consts.pageDefault, 100, '', 'ACTIVE', {
       success: resData => {
-        console.log('resData', resData.data)
         for (let i = 0 ; i < resData.data.length ; i++) {
-          if(DataLocal.deviceId === resData.data[0].deviceId) {
-            setAvatar(resData.data[0].avatar);
-            setNameDevices(resData.data[0].deviceName);
+          if(DataLocal.deviceId === resData.data[i].deviceId) {
+            setAvatar(resData.data[i].avatar);
+            setNameDevices(resData.data[i].deviceName);
             return;
           }
         }
@@ -374,20 +372,22 @@ export default ({navigation, route}) => {
           latitude: val.location.lat,
           longitude: val.location.lng,
         }}>
-        <View style={styles.containerTitleMarker}>
-          <Text
-            children={val.name}
-            style={styles.txtMarkerName}
+        <View style={Platform.OS === 'android' ? { alignItems: "center"} : styles.viewMarker}>
+          <View style={styles.containerTitleMarker}>
+            <Text
+                children={val.name}
+                style={styles.txtMarkerName}
+            />
+          </View>
+          <Image
+              source={Images.icMarkerDefault}
+              style={[
+                styles.icMarkerDefault,
+                val.name ? {tintColor: Colors.red} : {},
+              ]}
+              resizeMode='contain'
           />
         </View>
-        <Image
-          source={Images.icMarkerDefault}
-          style={[
-            styles.icMarkerDefault,
-            val.name ? {tintColor: Colors.red} : {},
-          ]}
-          resizeMode='contain'
-        />
       </Marker>
     );
   };
@@ -580,15 +580,15 @@ export default ({navigation, route}) => {
             {listSafeArea
               .filter(val => val.status === 'ON')
               .map((val, i) => renderCircleMarker(val, i))}
-            {deviceOutSafeZone && locationDevice &&(
+            {deviceOutSafeZone && locationDevice && (
               <>
                 <Marker
                   coordinate={{
-                    latitude: locationDevice.location.lat,
-                    longitude: locationDevice.location.lng,
+                    latitude: deviceOutSafeZone.location.lat,
+                    longitude: deviceOutSafeZone.location.lng,
                   }}>
-                  <View style={{ alignItems: "center" }}>
-                    <Text style={styles.textMarker}>{deviceOutSafeZone ? null : nameDevices}</Text>
+                  <View style= { Platform.OS === 'android' ? { alignItems: "center"} : styles.viewMarkerUser}>
+                    <Text style={styles.textMarker}>{nameDevices}</Text>
                     <View style={{ height: 5 }} />
                     <FastImage source={avatar ? { uri: avatar } : Images.icOther} style={[styles.avatar]}
                                resizeMode={"cover"} />
@@ -602,20 +602,20 @@ export default ({navigation, route}) => {
                     latitude: deviceOutSafeZone.location.lat,
                     longitude: deviceOutSafeZone.location.lng,
                   }}
-                  radius={parseInt(locationDevice.maxAccuracy)}
+                  radius={parseInt(locationDevice?.maxAccuracy)}
                   strokeColor='#4F6D7A'
                   strokeWidth={0.1}
                 />
               </>
             )}
-            {locationDevice && (
+            {locationDevice && !deviceOutSafeZone && (
               <>
                 <Marker
                   coordinate={{
                     latitude: locationDevice.location.lat,
                     longitude: locationDevice.location.lng,
                   }}>
-                  <View style={{ alignItems: "center" }}>
+                  <View style= { Platform.OS === 'android' ? { alignItems: "center"} : styles.viewMarkerUser}>
                     <Text style={styles.textMarker}>{nameDevices}</Text>
                     <View style={{ height: 5 }} />
                     <FastImage source={avatar ? { uri: avatar } : Images.icOther} style={[styles.avatar]}
@@ -630,7 +630,7 @@ export default ({navigation, route}) => {
                     latitude: locationDevice.location.lat,
                     longitude: locationDevice.location.lng,
                   }}
-                  radius={parseInt(locationDevice.maxAccuracy)}
+                  radius={parseInt(locationDevice?.maxAccuracy)}
                   strokeColor="#4F6D7A"
                   strokeWidth={0.1}
                 />
