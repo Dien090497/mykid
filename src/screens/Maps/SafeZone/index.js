@@ -29,7 +29,6 @@ import { useTranslation } from 'react-i18next';
 import NotificationModal from '../../../components/NotificationModal';
 import { getListDeviceApi, getLocationDeviceApi, startWebSocket } from "../../../network/DeviceService";
 import FastImage from "react-native-fast-image";
-import uri from "react-native-fetch-blob/utils/uri";
 
 const initialRegion = {
   latitude: 21.030653,
@@ -590,7 +589,7 @@ export default ({navigation, route}) => {
                   <View style= { Platform.OS === 'android' ? { alignItems: "center"} : styles.viewMarkerUser}>
                     <Text style={styles.textMarker}>{nameDevices}</Text>
                     <View style={{ height: 5 }} />
-                    <FastImage source={avatar ? { uri: avatar } : Images.icOther} style={[styles.avatar]}
+                    <Image source={avatar ? { uri: avatar } : Images.icOther} style={[styles.avatar]}
                                resizeMode={"cover"} />
                     <View style={{ height: 5 }} />
                     <Image source={Images.icMarkerDefault} style={[styles.icMarker, { tintColor: Colors.colorMain }]} />
@@ -618,7 +617,7 @@ export default ({navigation, route}) => {
                   <View style= { Platform.OS === 'android' ? { alignItems: "center"} : styles.viewMarkerUser}>
                     <Text style={styles.textMarker}>{nameDevices}</Text>
                     <View style={{ height: 5 }} />
-                    <FastImage source={avatar ? { uri: avatar } : Images.icOther} style={[styles.avatar]}
+                    <Image source={avatar ? { uri: avatar } : Images.icOther} style={[styles.avatar]}
                                resizeMode={"cover"} />
                     <View style={{ height: 5 }} />
                     <Image source={Images.icMarkerDefault} style={[styles.icMarker, { tintColor: Colors.colorMain }]} />

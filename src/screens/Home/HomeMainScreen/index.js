@@ -45,7 +45,6 @@ export default function HomeMainScreen() {
       }
 
       appState.current = nextAppState;
-      console.log(appState.current);
       if (appState.current === 'active'){
         if (WebSocketSafeZone.isConnected === false){
           WebSocketSafeZone.setReconnect(true);

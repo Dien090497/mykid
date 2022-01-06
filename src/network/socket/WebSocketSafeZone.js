@@ -127,7 +127,6 @@ export default class WebSocketSafeZone {
                 this.ringtone.setNumberOfLoops(5);
               },
             );
-            console.log('DATA',infoDevice)
             this.navigationRef.navigate(Consts.ScreenIds.ElectronicFence, {
               data: infoDevice,
             });
