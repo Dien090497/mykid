@@ -164,7 +164,7 @@ const ListDeviceScreen = () => {
         setPresentRoomId(videoCallReducer.connectionData.id);
         Vibration.vibrate(PATTERN, true);
         Sound.setCategory('Playback');
-        ringtone.current = new Sound('reng.wav', Sound.MAIN_BUNDLE, error => {
+        ringtone.current = new Sound('reng.mp3', Sound.MAIN_BUNDLE, error => {
           console.log('error', error);
           ringtone.current.play(() => {});
           ringtone.current.setNumberOfLoops(5);

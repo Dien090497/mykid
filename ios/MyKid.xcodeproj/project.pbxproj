@@ -11,7 +11,7 @@
 		060BE987270EA9F1007A450D /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 060BE986270EA9F1007A450D /* File.swift */; };
 		061298DF26FADA4A00259F6A /* love.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 061298DC26FADA4A00259F6A /* love.mp3 */; };
 		061298E126FADA4A00259F6A /* nof_default.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 061298DE26FADA4A00259F6A /* nof_default.mp3 */; };
-		062D3E5A277D5512004485A3 /* reng.wav in Resources */ = {isa = PBXBuildFile; fileRef = 062D3E59277D5512004485A3 /* reng.wav */; };
+		063F1554277E951E00F9458F /* reng.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 063F1553277E951E00F9458F /* reng.mp3 */; };
 		066E2AD12708034A0068053A /* UTM Cookies.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 066E2AD02708034A0068053A /* UTM Cookies.ttf */; };
 		069FEF9027311CB30018A357 /* notify.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 069FEF8E27311CB30018A357 /* notify.mp3 */; };
 		069FEF9127311CB30018A357 /* message.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 069FEF8F27311CB30018A357 /* message.mp3 */; };
@@ -55,7 +55,7 @@
 		060BE986270EA9F1007A450D /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		061298DC26FADA4A00259F6A /* love.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = love.mp3; path = ../assets/sound/love.mp3; sourceTree = "<group>"; };
 		061298DE26FADA4A00259F6A /* nof_default.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = nof_default.mp3; path = ../assets/sound/nof_default.mp3; sourceTree = "<group>"; };
-		062D3E59277D5512004485A3 /* reng.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = reng.wav; path = ../assets/sound/reng.wav; sourceTree = "<group>"; };
+		063F1553277E951E00F9458F /* reng.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = reng.mp3; path = ../assets/sound/reng.mp3; sourceTree = "<group>"; };
 		065C519C277178C30037A049 /* CallKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CallKit.framework; path = System/Library/Frameworks/CallKit.framework; sourceTree = SDKROOT; };
 		065C519E277178D50037A049 /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
 		0668AC95274B39D3009242DA /* MyKid.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = MyKid.entitlements; path = MyKid/MyKid.entitlements; sourceTree = "<group>"; };
@@ -201,7 +201,7 @@
 		D106FF9E60164E82A736E0FA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				062D3E59277D5512004485A3 /* reng.wav */,
+				063F1553277E951E00F9458F /* reng.mp3 */,
 				069FEF8F27311CB30018A357 /* message.mp3 */,
 				069FEF8E27311CB30018A357 /* notify.mp3 */,
 				066E2AD02708034A0068053A /* UTM Cookies.ttf */,
@@ -329,7 +329,6 @@
 				C055AE26645049ECA4DA2DA0 /* Roboto-Bold.ttf in Resources */,
 				B784156762E14531BDDFD6AD /* Roboto-BoldItalic.ttf in Resources */,
 				F6621E1FCF83447E8617966A /* Roboto-Italic.ttf in Resources */,
-				062D3E5A277D5512004485A3 /* reng.wav in Resources */,
 				FE3887022745C0BD007C4FB0 /* GoogleService-Info.plist in Resources */,
 				69ABA06CA4D64958862F1522 /* Roboto-Light.ttf in Resources */,
 				2948954B67C940F0A2C7E725 /* Roboto-LightItalic.ttf in Resources */,
@@ -337,6 +336,7 @@
 				4C1C5BD22FC94CDE93C9AFF9 /* Roboto-MediumItalic.ttf in Resources */,
 				08C74E270C6F420FBAF916F6 /* Roboto-Regular.ttf in Resources */,
 				ADB1C95872734880950A0CC3 /* Roboto-Thin.ttf in Resources */,
+				063F1554277E951E00F9458F /* reng.mp3 in Resources */,
 				512AF3733B0A417FBC0679D0 /* Roboto-ThinItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -594,10 +594,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = MyKid/MyKid.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 197;
-				DEVELOPMENT_TEAM = 9M46AU3YMQ;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 202;
+				DEVELOPMENT_TEAM = 89ND8ZPTCM;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -760,9 +760,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ttc.mykid;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ttc.mykidavt;
 				PRODUCT_NAME = MyKid;
-				PROVISIONING_PROFILE_SPECIFIER = "Mykid AppStore";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "MyKid-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -777,10 +777,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = MyKid/MyKid.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 197;
-				DEVELOPMENT_TEAM = 9M46AU3YMQ;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 202;
+				DEVELOPMENT_TEAM = 89ND8ZPTCM;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -935,9 +935,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ttc.mykid;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ttc.mykidavt;
 				PRODUCT_NAME = MyKid;
-				PROVISIONING_PROFILE_SPECIFIER = "Mykid AppStore";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "MyKid-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";

@@ -133,7 +133,7 @@ export default function App() {
     function onNotification(notify) {
       console.log("[App] onNotification: ", notify);
       const options = {
-        soundName: (notify && notify.type === "VIDEO_CALL" && notify.status === "INIT") ? (Platform.OS === 'android' ? "love" : "love.mp3") : "default",
+        soundName: "default",
         playSound: true,
       };
 
