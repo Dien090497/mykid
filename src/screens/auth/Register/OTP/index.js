@@ -1,13 +1,14 @@
 import {View, Text, TouchableOpacity, TextInput} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import {Colors} from '../../../../assets/colors/Colors';
-import {getOtpApi, createAndLogin} from '../../../../network/UserInfoService';
+import {getOtpApi, createAndLogin, createTokenFirebase} from '../../../../network/UserInfoService';
 import Consts from '../../../../functions/Consts';
 import {styles} from './styles';
 import LoadingIndicator from '../../../../components/LoadingIndicator';
 import {saveUserDataFromToken} from '../../../../functions/utils';
 import { useTranslation } from 'react-i18next';
 import NotificationModal from '../../../../components/NotificationModal'
+import DataLocal from "../../../../data/dataLocal";
 export default function OTP({navigation, route}) {
   const refLoading = useRef(null);
   const refNotification = useRef();
@@ -65,6 +66,10 @@ export default function OTP({navigation, route}) {
       success: res => {
         const token = res.data.token;
         saveUserDataFromToken(token).then(_ => {
+          createTokenFirebase(DataLocal.tokenFirebase, {
+            success: resData => {
+            },
+          }).then();
         });
         navigation.navigate(Consts.ScreenIds.ConnectionScreen);
         setCheck(false);

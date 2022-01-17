@@ -25,6 +25,7 @@ const AddDeviceScreen = ({ navigation, route }) => {
   const [contentModal, setContentModal] = useState('');
   const { t } = useTranslation();
   const commonInfoReducer = useSelector(state => state.commonInfoReducer.navigate);
+  const commonInfoReducerUserDeleteDevices = useSelector(state => state.commonInfoReducer.userDeleteDevice);
   const [data, setData] = useState(
     {
       id: 1,
@@ -35,7 +36,7 @@ const AddDeviceScreen = ({ navigation, route }) => {
   const refLoading = useRef();
 
   useLayoutEffect(() => {
-    if (route.params.alertDevice) {
+    if (route.params.alertDevice && commonInfoReducerUserDeleteDevices === false) {
       refNotification.current.open(t('common:alertEmptyDevices'));
     }
   }, [route.params.alertDevice])
@@ -76,6 +77,7 @@ const AddDeviceScreen = ({ navigation, route }) => {
     if (!submitActive) return;
     addDeviceApi(deviceCode, deviceName, data.icon, data.relationship, data.relationshipName ,{
       success: resp => {
+        reduxStore.store.dispatch(commonInfoAction.userDeleteDevice({userDeleteDevice: false}));
         if (resp.data) {
           if (resp.data.status === 'PENDING') {
             setContentModal(t('common:addDeviceSuccess2'));

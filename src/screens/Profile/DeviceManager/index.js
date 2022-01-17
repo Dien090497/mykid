@@ -84,6 +84,7 @@ export default function DeviceManager({navigation}) {
     getListDeviceApi(DataLocal.userInfo.id, Consts.pageDefault, 100, '', 'ACTIVE', {
       success: resData => {
         if (resData.data.length <= 0) {
+          reduxStore.store.dispatch(commonInfoAction.userDeleteDevice({userDeleteDevice: true}));
           return navigation.replace(Consts.ScreenIds.Splash)
         }
         setDevices(resData.data);

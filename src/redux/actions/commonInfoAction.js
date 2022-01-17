@@ -18,11 +18,17 @@ export const replace = payload => ({
   payload,
 });
 
+export const userDeleteDevice = payload => ({
+  type: CommonActionList.userDeleteDevice,
+  payload,
+});
+
 export default {
   selectDevice,
   navigate,
   reset,
-  replace
+  replace,
+  userDeleteDevice
 };
 
 
@@ -30,5 +36,6 @@ export const CommonActionList = {
   selectDevice: 'selectDevice',
   navigate: 'navigate',
   reset: 'RESET',
-  replace: 'replace'
+  replace: 'replace',
+  userDeleteDevice: 'userDeleteDevice'
 }
