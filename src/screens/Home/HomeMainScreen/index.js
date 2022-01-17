@@ -132,7 +132,7 @@ export default function HomeMainScreen() {
   }, [devices])
 
   useEffect(() => {
-    if (checkAddDevice) {
+    if (checkAddDevice && commonInfoReducer.userDeleteDevice === false) {
       gotoAddDevices();
     }
   },[checkAddDevice])

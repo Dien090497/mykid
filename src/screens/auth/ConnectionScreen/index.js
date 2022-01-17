@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 const ConnectionScreen = ({navigation}) => {
   const { t } = useTranslation();
   const onclick = ()=>{
-    navigation.navigate(Consts.ScreenIds.AddDeviceScreen)
+    navigation.navigate(Consts.ScreenIds.AddDeviceScreen, {alertDevice: false, isModalConfirm: true})
   };
   return (
     <View style={styles.contain}>

@@ -1,9 +1,10 @@
-import { CommonActionList } from "../actions/commonInfoAction";
+import {CommonActionList, userDeleteDevice} from "../actions/commonInfoAction";
 
 const initData = {
   selectDevice: null,
   navigate: null,
-  replace: null
+  replace: null,
+  userDeleteDevice: false
 };
 
 const commonInfoReducer = (state = initData, { payload, type }) => {
@@ -34,6 +35,11 @@ const commonInfoReducer = (state = initData, { payload, type }) => {
         deviceId: null,
         selectDevice: null,
         replace: payload.replace
+      }
+     case CommonActionList.userDeleteDevice:
+      return {
+        ...state,
+        userDeleteDevice: payload.userDeleteDevice
       }
     default:
       return state;
