@@ -53,9 +53,10 @@ export const styles = StyleSheet.create ({
   },
   textModel: {
     fontSize: FontSize.medium,
-    fontFamily:'Roboto-Medium',
+    fontStyle: 'normal',
     textAlign: 'center',
-    color: Colors.grayTextColor
+    fontWeight: '500',
+    fontFamily: 'Roboto'
   },
   TobOpacity: {
     width: '50%',

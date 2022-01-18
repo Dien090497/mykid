@@ -129,7 +129,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   textModel: {
-    fontSize: FontSize.big,
+    fontSize: FontSize.medium,
     fontStyle: 'normal',
     textAlign: 'center',
     fontWeight: '500',
