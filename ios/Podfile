@@ -46,7 +46,10 @@ pod 'react-native-google-maps', :path => rn_maps_path
 
   pod 'RNAudioRecord', :path => '../node_modules/react-native-audio-record'
 
-  pod 'RNCallKeep', :path => '../node_modules/react-native-callkeep'
+  pod 'RNVoipCall', :path => '../node_modules/react-native-voip-call'
+
+  pod 'RNExitApp', :path => '../node_modules/react-native-exit-app'
+
   target 'MyKidTests' do
     inherit! :complete
     # Pods for testing

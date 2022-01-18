@@ -269,7 +269,7 @@ export default class XmppClient {
   }
 
   static callbackStanza = async function (stanza) {
-    if (stanza.children.length > 0) console.log('STANZA',stanza.children);
+    // if (stanza.children.length > 0) console.log('STANZA',stanza.children);
     //<enabled resume="true" max="300" id="g2gCbQAAABk5ODg1ODUyNjg2NDQ5MDcyODg0MzY5MzgxbQAAAAhUwCXVzTdFdA==" xmlns="urn:xmpp:sm:3"/>
     if (stanza.is('enabled')) {
       console.log(stanza.attrs.id);
@@ -288,7 +288,7 @@ export default class XmppClient {
         }
       }
       if (stanza.getChild('fin')) {
-        console.log(this.lstMsg);
+        // console.log(this.lstMsg);
         reduxStore.store.dispatch(chatAction.updateMessage(this.lstMsg));
         for (const key in this.lstMsg) {
           if (Object.hasOwnProperty.call(this.lstMsg, key)) {
