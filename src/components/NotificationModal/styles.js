@@ -40,11 +40,12 @@ export const styles = StyleSheet.create ({
     color: Colors.colorMain
   },
   textModel: {
-    fontSize: FontSize.xtraSmall,
-    fontFamily:'Roboto',
+    fontSize: FontSize.medium,
+    fontStyle: 'normal',
     textAlign: 'center',
+    fontWeight: '500',
+    fontFamily: 'Roboto',
     color: Colors.grayTextColor
-
   },
   smallButton: {
     marginVertical:15,
