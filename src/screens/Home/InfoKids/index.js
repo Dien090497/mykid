@@ -333,10 +333,11 @@ export default function InfoKits({route}) {
          <Image source={avatar ? { uri: avatar } : Images.icAvatar}
                 style={styles.imageAvatar}
                 resizeMode={avatar ? 'cover' : 'stretch'} />
-         <View style={{ flexDirection: 'row', marginTop: '4%', alignItems: 'center', justifyContent: 'center' }}>
-           <Image source={Images.icShootPhoto} style={styles.image1} />
-           <Text style={styles.txtAvatar}>{t('common:changeAvatar')}</Text>
-         </View>
+         {route.params.isAdmin &&
+           <View style={{flexDirection: 'row', marginTop: '4%', alignItems: 'center', justifyContent: 'center'}}>
+             <Image source={Images.icShootPhoto} style={styles.image1}/>
+             <Text style={styles.txtAvatar}>{t('common:changeAvatar')}</Text>
+           </View>}
        </TouchableOpacity>
      </View>
       <View style={{ justifyContent: 'center', alignItems: 'center', height: '75%', marginTop: -10 }}>
