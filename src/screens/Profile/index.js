@@ -79,11 +79,11 @@ export default function Profile({navigation}) {
     logoutService({
       success: res => {
         reduxStore.store.dispatch(loginAction.logout(true));
-        DataLocal.removeAll();
-        XmppClient.disconnectXmppServer();
-        WebSocketSafeZone.disconnect();
-        WebSocketVideoCall.disconnect();
-        navigation.replace(Consts.ScreenIds.Login);
+        // DataLocal.removeAll();
+        // XmppClient.disconnectXmppServer();
+        // WebSocketSafeZone.disconnect();
+        // WebSocketVideoCall.disconnect();
+        // navigation.replace(Consts.ScreenIds.Login);
       },
       refLoading,
       refNotification

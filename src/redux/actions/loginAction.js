@@ -18,9 +18,15 @@ export const logout = payload => ({
   payload,
 });
 
+export const reset = payload => ({
+  type: 'RESET',
+  payload,
+});
+
 export default {
   actionLogin,
   loginSuccess,
   loginFailure,
-  logout
+  logout,
+  reset
 };

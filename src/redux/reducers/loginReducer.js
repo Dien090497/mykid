@@ -35,6 +35,14 @@ const loginReducer = (state = initData, { type, payload }) => {
         isLogout: true,
         error: payload,
       };
+    case 'RESET':
+      return {
+        ...state,
+        dataInfo: {},
+        isLoading: false,
+        isLogout: false,
+        error: '',
+      };
     default:
       return state;
   }

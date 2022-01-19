@@ -5,7 +5,7 @@ import { getRoomsApi } from '../ChatService';
 import {wssXmppUrl} from '../http/ApiUrl';
 import chatAction from '../../redux/actions/chatAction';
 const {client, xml, jid} = require('@xmpp/client');
-const debug = require('@xmpp/debug');
+// const debug = require('@xmpp/debug');
 import reduxStore from '../../redux/config/redux';
 import Sound from 'react-native-sound';
 import SimpleToast from 'react-native-simple-toast';
@@ -19,14 +19,14 @@ export default class XmppClient {
   static ringtone = null;
 
   static connectXmppServer = () => {
-    if (!DataLocal.userInfo.id || !DataLocal.accessToken) return;
+    if (!DataLocal.userInfo || !DataLocal.userInfo.id || !DataLocal.accessToken) return;
     if (!this.clientXmpp) {
       clientXmpp = client({
         service: wssXmppUrl,
         username: DataLocal.userInfo.id,
         password: DataLocal.accessToken
       });
-      debug(clientXmpp, true);
+      // debug(clientXmpp, true);
     }
 
     clientXmpp.on('error', err => { console.log(err); });

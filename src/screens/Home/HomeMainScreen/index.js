@@ -21,6 +21,7 @@ import {useTranslation} from 'react-i18next';
 import NotificationModal from '../../../components/NotificationModal';
 import { checkLocationPermission } from '../../../functions/permissions';
 import WebSocketCheckLogout from "../../../network/socket/WebSocketCheckLogout";
+import loginAction from "../../../redux/actions/loginAction";
 
 export default function HomeMainScreen() {
   const navigation = useNavigation();
@@ -86,11 +87,12 @@ export default function HomeMainScreen() {
 
   useEffect(() => {
     if (logout) {
-      DataLocal.removeAll();
+      reduxStore.store.dispatch(loginAction.reset());
+      DataLocal.removeAll().then();
       XmppClient.disconnectXmppServer();
       WebSocketSafeZone.disconnect();
       WebSocketVideoCall.disconnect();
-      navigation.replace(Consts.ScreenIds.Splash);
+      navigation.replace(Consts.ScreenIds.Auth);
     }
   }, [logout]);
 

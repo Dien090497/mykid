@@ -209,6 +209,7 @@ async function removeVideoCallInfo() {
 }
 
 async function removeAll() {
+  DataLocal.userInfo = null;
   await removeAccessToken();
 }
 
