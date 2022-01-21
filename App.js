@@ -59,7 +59,7 @@ export async function handleRemoteMessage(remoteMessage, isHeadless) {
         setupCallKeep();
         RNCallKeep.displayIncomingCall(
           callUUID,
-          "Cuộc gọi đến",
+          "My - Kid",
           remoteMessage?.data.deviceName,
           "generic",
           true,
