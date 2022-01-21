@@ -24,6 +24,8 @@ import VideoCallModal from "./src/screens/VideoCall/VideoCallModal";
 import { AppState } from "react-native";
 import RNCallKeep from "react-native-callkeep";
 import RNExitApp from 'react-native-exit-app';
+import RNVoipCall, { RNVoipPushKit } from 'react-native-voip-call';
+
 
 let isNotiFirebase = false;
 let dataVideoCall = null;
@@ -102,9 +104,9 @@ export default function App() {
   const appState = useRef(AppState.currentState);
 
   useEffect(()=>{
+    if (Platform.OS === 'android') return;
     callKit();
     iosPushKit();
-    if (Platform.OS === 'android') return;
     rnVoipCallListners();
   },[])
 
@@ -155,19 +157,17 @@ export default function App() {
 
 
   const iosPushKit = () => {
-    if(IsIos){
-      //For Push Kit
-      RNVoipPushKit.requestPermissions();              // --- optional, you can use another library to request permissions
-      //Ios PushKit device token Listner
-      RNVoipPushKit.getPushKitDeviceToken((res) => {
-        if(res.platform === 'ios'){
-        }
-      });
-      //On Remote Push notification Recived in Forground
-      RNVoipPushKit.RemotePushKitNotificationReceived((notification)=>{
-        log('xxxxxxx: ' + notification);
-      });
-    }
+    //For Push Kit
+    RNVoipPushKit.requestPermissions();              // --- optional, you can use another library to request permissions
+    //Ios PushKit device token Listner
+    RNVoipPushKit.getPushKitDeviceToken((res) => {
+      if(res.platform === 'ios'){
+      }
+    });
+    //On Remote Push notification Recived in Forground
+    RNVoipPushKit.RemotePushKitNotificationReceived((notification)=>{
+      log('xxxxxxx: ' + notification);
+    });
   }
 
 
@@ -183,27 +183,6 @@ export default function App() {
     RNVoipCall.initializeCall(options).then(()=>{
       //Success Call Back
     }).catch(e=>console.log(e));
-    // RNVoipCall.addEventListener('didDisplayIncomingCall', ({ error, callUUID, handle, localizedCallerName, hasVideo, fromPushKit, payload }) => {
-    //   console.log('didDisplayIncomingCall');
-    //   console.log('callUUID', callUUID);
-    //   console.log('localizedCallerName', localizedCallerName);
-    //   console.log('hasVideo', hasVideo);
-    //   console.log('fromPushKit', fromPushKit);
-    //   console.log('payload', payload);
-    // });
-
-    // RNVoipCall.addEventListener('didActivateAudioSession', () => {
-    //   // you might want to do following things when receiving this event:
-    //   // - Start playing ringback if it is an outgoing call
-    //   console.log('didActivateAudioSession');
-    // });
-
-    // RNVoipCall.addEventListener('didPerformSetMutedCallAction', ({ muted, callUUID }) => {
-    //   console.log('didPerformSetMutedCallAction');
-    //   console.log('muted', muted);
-    //   console.log('callUUID', callUUID);
-
-    // });
   }
 
   useEffect(() => {
