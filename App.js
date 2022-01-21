@@ -31,20 +31,22 @@ let isNotiFirebase = false;
 let dataVideoCall = null;
 
 function setupCallKeep() {
-  const options = {
-    android: {
-      alertTitle: "Cấp quyền cuộc gọi cho ứng dụng",
-      alertDescription:
-        "Ứng dụng này cần truy cập vào tài khoản gọi điện thoại của bạn để thực hiện cuộc gọi",
-      cancelButton: "Huỷ",
-      okButton: "Đồng ý",
-      imageName: "ic_launcher",
-      additionalPermissions: [PermissionsAndroid.PERMISSIONS.READ_CONTACTS],
-    },
-  };
   try {
-    RNCallKeep.setup(options);
-    if (Platform.OS === 'android'){ RNCallKeep.setAvailable(true); }
+    if (Platform.OS === 'android') {
+      const options = {
+        android: {
+          alertTitle: "Cấp quyền cuộc gọi cho ứng dụng",
+          alertDescription:
+            "Ứng dụng này cần truy cập vào tài khoản gọi điện thoại của bạn để thực hiện cuộc gọi",
+          cancelButton: "Huỷ",
+          okButton: "Đồng ý",
+          imageName: "ic_launcher",
+          additionalPermissions: [PermissionsAndroid.PERMISSIONS.READ_CONTACTS],
+        },
+      };
+      RNCallKeep.setup(options);
+      RNCallKeep.setAvailable(true);
+    }
   } catch (err) {
     console.error("initializeCallKeep error:", err.message);
   }
@@ -58,37 +60,41 @@ export async function handleRemoteMessage(remoteMessage, isHeadless) {
       await DataLocal.saveVideoCallInfo(dataVideoCall)
       if (remoteMessage?.data?.id) {
         const callUUID = remoteMessage?.data?.id;
-        setupCallKeep();
-        RNCallKeep.displayIncomingCall(
-          callUUID,
-          "My - Kid",
-          remoteMessage?.data.deviceName,
-          "generic",
-          true,
-        );
-        RNCallKeep.addEventListener("answerCall", ({ callUUID: uuid }) => {
-          RNCallKeep.setCurrentCallActive(uuid);
-          if (isHeadless) {
-            RNCallKeep.openAppFromHeadlessMode(uuid);
-          } else {
-            console.log(uuid);
-            RNCallKeep.backToForeground();
-          }
-        });
-        RNCallKeep.addEventListener("endCall", ({ callUUID: uuid }) => {
-          DataLocal.removeVideoCallInfo();
-          finishVideoCallApi({}, remoteMessage?.data?.id, {
-            success: res => {
-            },
-            failure: err => {
+        if (Platform.OS === 'android') {
+          setupCallKeep();
+          RNCallKeep.displayIncomingCall(
+            callUUID,
+            "My - Kid",
+            remoteMessage?.data.deviceName,
+            "generic",
+            true,
+          );
+          RNCallKeep.addEventListener("answerCall", ({ callUUID: uuid }) => {
+            RNCallKeep.setCurrentCallActive(uuid);
+            if (isHeadless) {
+              RNCallKeep.openAppFromHeadlessMode(uuid);
+            } else {
+              console.log(uuid);
+              RNCallKeep.backToForeground();
             }
           });
-        });
+          RNCallKeep.addEventListener("endCall", ({ callUUID: uuid }) => {
+            DataLocal.removeVideoCallInfo();
+            finishVideoCallApi({}, remoteMessage?.data?.id, {
+              success: res => {
+              },
+              failure: err => {
+              }
+            });
+          });
+        }
       }
       // Could also persist data here for later uses
     } else if (remoteMessage?.data?.status === "REJECTED" || remoteMessage?.data?.status === "ENDED") {
       isNotiFirebase = true;
-      RNCallKeep.endCall(remoteMessage?.data?.id + "");
+      if (Platform.OS === 'android') {
+        RNCallKeep.endCall(remoteMessage?.data?.id + "");
+      }
     }
   }
 }
@@ -154,8 +160,6 @@ export default function App() {
     })
   }
 
-
-
   const iosPushKit = () => {
     //For Push Kit
     RNVoipPushKit.requestPermissions();              // --- optional, you can use another library to request permissions
@@ -166,10 +170,8 @@ export default function App() {
     });
     //On Remote Push notification Recived in Forground
     RNVoipPushKit.RemotePushKitNotificationReceived((notification)=>{
-      log('xxxxxxx: ' + notification);
     });
   }
-
 
   const callKit = () => {
     let options = {
@@ -194,7 +196,6 @@ export default function App() {
       }
 
       appState.current = nextAppState;
-      console.log(appState.current);
     });
 
     return () => {
@@ -233,22 +234,28 @@ export default function App() {
         reduxStore.store.dispatch(commonInfoAction.navigate({ navigate: Consts.ScreenIds.Tabs, deviceId: null }));
         XmppClient.updateRooms();
       } else if (notify && notify.type === "VIDEO_CALL") {
-        if (RNCallKeep.isCallActive(notify.id)) {
-          if (notify?.status === "REJECTED" || notify?.status === "ENDED") {
-            setVisibleCall({ visible: false, device: null, data: [] });
-            isNotiFirebase = true;
+        if (Platform.OS === 'android') {
+          if (RNCallKeep.isCallActive(notify.id)) {
+            if (notify?.status === "REJECTED" || notify?.status === "ENDED") {
+              setVisibleCall({ visible: false, device: null, data: [] });
+              isNotiFirebase = true;
 
-            RNCallKeep.endCall(notify?.id + "");
-            finishVideoCallApi({}, notify?.id, {
-              success: res => {
-              },
-              failure: err => {
-              },
-            });
-            DataLocal.removeVideoCallInfo().then(r => {
-              RNExitApp.exitApp();
-            });
+              RNCallKeep.endCall(notify?.id + "");
+              finishVideoCallApi({}, notify?.id, {
+                success: res => {
+                },
+                failure: err => {
+                },
+              });
+              DataLocal.removeVideoCallInfo().then(r => {
+                RNExitApp.exitApp();
+              });
+            }
           }
+        } else {
+          DataLocal.removeVideoCallInfo().then(r => {
+            RNExitApp.exitApp();
+          });
         }
       }else if (notify && notify.type === "DEVICE_FRIEND"){
         XmppClient.updateRooms();
@@ -300,6 +307,7 @@ export default function App() {
   }, []);
 
   useEffect(()=>{
+    if (Platform.OS === 'ios') return;
     RNCallKeep.removeEventListener('endCall');
     RNCallKeep.addEventListener('endCall',()=>{
       DataLocal.removeVideoCallInfo();
