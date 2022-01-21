@@ -53,7 +53,7 @@ export default function SplashScreen() {
       } else {
         await DataLocal.saveDeviceId(devices[DataLocal.deviceIndex].deviceId);
       }
-      navigation.navigate(Consts.ScreenIds.Tabs);
+      navigation.replace(Consts.ScreenIds.Tabs);
     }
   };
 

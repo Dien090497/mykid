@@ -170,7 +170,6 @@ export default function App() {
 
   const rnVoipCallListners = async () => {
     RNVoipCall.onCallAnswer(data => {
-      RNVoipCall.endAllCalls();
       DataLocal.getVideoCallInfo().then( dataCall => {
         DataLocal.removeVideoCallInfo().then();
         const data =  JSON.parse(dataCall);
@@ -191,12 +190,25 @@ export default function App() {
             },
           });
         }
+        RNVoipCall.endAllCalls();
       });
     });
 
     RNVoipCall.onEndCall(data=> {
       console.log("call endede",data);
-      DataLocal.removeVideoCallInfo().then();
+      RNVoipCall.endCall(data?.callerId);
+      DataLocal.getVideoCallInfo().then( dataCall => {
+        DataLocal.removeVideoCallInfo().then();
+        const data =  JSON.parse(dataCall);
+        if (data && data?.status === "INIT"){
+          finishVideoCallApi({}, data?.id, {
+            success: res => {
+            },
+            failure: err => {
+            }
+          });
+        }
+      });
     })
   }
 
