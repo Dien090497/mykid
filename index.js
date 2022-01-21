@@ -6,8 +6,10 @@ import {AppRegistry} from 'react-native';
 import App, {handleRemoteMessage} from './App';
 import {name as appName} from './app.json';
 import messaging from '@react-native-firebase/messaging';
+import DataLocal from "./src/data/dataLocal";
 
 messaging().setBackgroundMessageHandler(async remoteMessage => {
+  await DataLocal.removeVideoCallInfo();
   console.log('Message handled in the background!', remoteMessage);
   handleRemoteMessage(remoteMessage, true);
 });
