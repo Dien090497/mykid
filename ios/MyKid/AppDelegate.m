@@ -104,7 +104,7 @@ static void InitializeFlipper(UIApplication *application) {
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
-  NSString *callerName = @"RNVoip is Calling";
+  NSString *callerName = @"V - Kid Pro is Calling";
   NSString *callerId = [[[NSUUID UUID] UUIDString] lowercaseString];
   NSString *handle = @"1234567890";
   NSString *handleType = @"generic";
@@ -114,7 +114,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
   @try {
       NSDictionary *dataPayload = userInfo;
 
-      callerName = [dataPayload[@"body"] isKindOfClass:[NSString class]] ? dataPayload[@"body"] : @"RNVoip is Calling";
+      callerName = [dataPayload[@"body"] isKindOfClass:[NSString class]] ? dataPayload[@"body"] : @"V - Kid Pro is Calling";
 
       callerId = [dataPayload[@"key"] isKindOfClass:[NSString class]] ?  dataPayload[@"key"] : [[[NSUUID UUID] UUIDString] lowercaseString];
 
@@ -188,7 +188,7 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
   
   
   
-  NSString *callerName = @"RNVoip is Calling";
+  NSString *callerName = @"V - Kid Pro is Calling";
   NSString *callerId = [[[NSUUID UUID] UUIDString] lowercaseString];
   NSString *handle = @"1234567890";
   NSString *handleType = @"generic";
@@ -199,7 +199,7 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
     if([payload.dictionaryPayload[@"data"] isKindOfClass:[NSDictionary class]]){
       NSDictionary *dataPayload = payload.dictionaryPayload[@"data"];
       
-      callerName = [dataPayload[@"name"] isKindOfClass:[NSString class]] ?  [NSString stringWithFormat: @"%@ is Calling", dataPayload[@"name"]] : @"RNVoip is Calling";
+      callerName = [dataPayload[@"name"] isKindOfClass:[NSString class]] ?  [NSString stringWithFormat: @"%@ is Calling", dataPayload[@"name"]] : @"V - Kid Pro is Calling";
       
       callerId = [dataPayload[@"uuid"] isKindOfClass:[NSString class]] ?  dataPayload[@"uuid"] : [[[NSUUID UUID] UUIDString] lowercaseString];
       

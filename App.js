@@ -101,6 +101,111 @@ export default function App() {
   const routeRef = useRef();
   const appState = useRef(AppState.currentState);
 
+  useEffect(()=>{
+    callKit();
+    iosPushKit();
+    if (Platform.OS === 'android') return;
+    rnVoipCallListners();
+  },[])
+
+  const rnVoipCallListners = async () => {
+    RNVoipCall.onCallAnswer(data => {
+      DataLocal.getVideoCallInfo().then( dataCall => {
+        DataLocal.removeVideoCallInfo().then();
+        const data =  JSON.parse(dataCall);
+        if (data && data?.status === "INIT"){
+          setVisibleCall({
+            visible: true,
+            device: { deviceName: data?.deviceName },
+            data: {
+              id: Number(data?.id),
+              status: data?.status,
+              streamUrl: data?.streamUrl,
+              password: data?.password === "" ? null : data?.password,
+              caller: {
+                accountId: Number(data?.accountId),
+                relationship: data?.relationship,
+                deviceName: data?.deviceName,
+              },
+            },
+          });
+        }
+        RNVoipCall.endAllCalls();
+      });
+    });
+
+    RNVoipCall.onEndCall(data=> {
+      console.log("call endede",data);
+      RNVoipCall.endCall(data?.callerId);
+      DataLocal.getVideoCallInfo().then( dataCall => {
+        DataLocal.removeVideoCallInfo().then();
+        const data =  JSON.parse(dataCall);
+        if (data && data?.status === "INIT"){
+          finishVideoCallApi({}, data?.id, {
+            success: res => {
+            },
+            failure: err => {
+            }
+          });
+        }
+      });
+    })
+  }
+
+
+
+  const iosPushKit = () => {
+    if(IsIos){
+      //For Push Kit
+      RNVoipPushKit.requestPermissions();              // --- optional, you can use another library to request permissions
+      //Ios PushKit device token Listner
+      RNVoipPushKit.getPushKitDeviceToken((res) => {
+        if(res.platform === 'ios'){
+        }
+      });
+      //On Remote Push notification Recived in Forground
+      RNVoipPushKit.RemotePushKitNotificationReceived((notification)=>{
+        log('xxxxxxx: ' + notification);
+      });
+    }
+  }
+
+
+  const callKit = () => {
+    let options = {
+      appName:'initializeCall', // Required
+      imageName:  'logo',  //string (optional) in ios Resource Folder
+      ringtoneSound : '', //string (optional) If provided, it will be played when incoming calls received
+      includesCallsInRecents: false, // boolean (optional) If provided, calls will be shown in the recent calls
+      supportsVideo : true //boolean (optional) If provided, whether or not the application supports video calling (Default: true)
+    }
+    // Initlize Call Kit IOS is Required
+    RNVoipCall.initializeCall(options).then(()=>{
+      //Success Call Back
+    }).catch(e=>console.log(e));
+    // RNVoipCall.addEventListener('didDisplayIncomingCall', ({ error, callUUID, handle, localizedCallerName, hasVideo, fromPushKit, payload }) => {
+    //   console.log('didDisplayIncomingCall');
+    //   console.log('callUUID', callUUID);
+    //   console.log('localizedCallerName', localizedCallerName);
+    //   console.log('hasVideo', hasVideo);
+    //   console.log('fromPushKit', fromPushKit);
+    //   console.log('payload', payload);
+    // });
+
+    // RNVoipCall.addEventListener('didActivateAudioSession', () => {
+    //   // you might want to do following things when receiving this event:
+    //   // - Start playing ringback if it is an outgoing call
+    //   console.log('didActivateAudioSession');
+    // });
+
+    // RNVoipCall.addEventListener('didPerformSetMutedCallAction', ({ muted, callUUID }) => {
+    //   console.log('didPerformSetMutedCallAction');
+    //   console.log('muted', muted);
+    //   console.log('callUUID', callUUID);
+
+    // });
+  }
+
   useEffect(() => {
     const subscription = AppState.addEventListener("change", nextAppState => {
       if (
