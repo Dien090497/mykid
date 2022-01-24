@@ -45,16 +45,6 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name="io.wazo.callkeep.VoiceConnectionService"
-            android:label="Wazo"
-            android:foregroundServiceType="camera|microphone|phoneCall"
-            android:permission="android.permission.BIND_TELECOM_CONNECTION_SERVICE">
-            <meta-data android:name="android.telecom.PHONE_ACCOUNT_REGISTERED" android:value="true" />
-            <intent-filter>
-                <action android:name="android.telecom.ConnectionService" />
-            </intent-filter>
-        </service>
-        <service android:name="io.wazo.callkeep.RNCallKeepBackgroundMessagingService" />
 
         <meta-data  android:name="com.dieam.reactnativepushnotification.notification_foreground"
             android:value="false"/>

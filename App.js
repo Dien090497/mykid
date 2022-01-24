@@ -1,5 +1,5 @@
 import {
-  PermissionsAndroid,
+  // PermissionsAndroid,
   Platform,
   StatusBar,
 } from "react-native";
@@ -22,81 +22,81 @@ import Consts from "./src/functions/Consts";
 import { finishVideoCallApi, rejectVideoCallApi } from "./src/network/VideoCallService";
 import VideoCallModal from "./src/screens/VideoCall/VideoCallModal";
 import { AppState } from "react-native";
-import RNCallKeep from "react-native-callkeep";
-import RNExitApp from 'react-native-exit-app';
-import RNVoipCall, { RNVoipPushKit } from 'react-native-voip-call';
+// import RNCallKeep from "react-native-callkeep";
+// import RNExitApp from 'react-native-exit-app';
+// import RNVoipCall, { RNVoipPushKit } from 'react-native-voip-call';
 
 
-let isNotiFirebase = false;
-let dataVideoCall = null;
+// let isNotiFirebase = false;
+// let dataVideoCall = null;
 
-function setupCallKeep() {
-  try {
-    if (Platform.OS === 'android') {
-      const options = {
-        android: {
-          alertTitle: "Cấp quyền cuộc gọi cho ứng dụng",
-          alertDescription:
-            "Ứng dụng này cần truy cập vào tài khoản gọi điện thoại của bạn để thực hiện cuộc gọi",
-          cancelButton: "Huỷ",
-          okButton: "Đồng ý",
-          imageName: "ic_launcher",
-          additionalPermissions: [PermissionsAndroid.PERMISSIONS.READ_CONTACTS],
-        },
-      };
-      RNCallKeep.setup(options);
-      RNCallKeep.setAvailable(true);
-    }
-  } catch (err) {
-    console.error("initializeCallKeep error:", err.message);
-  }
-}
+// function setupCallKeep() {
+//   try {
+//     if (Platform.OS === 'android') {
+//       const options = {
+//         android: {
+//           alertTitle: "Cấp quyền cuộc gọi cho ứng dụng",
+//           alertDescription:
+//             "Ứng dụng này cần truy cập vào tài khoản gọi điện thoại của bạn để thực hiện cuộc gọi",
+//           cancelButton: "Huỷ",
+//           okButton: "Đồng ý",
+//           imageName: "ic_launcher",
+//           additionalPermissions: [PermissionsAndroid.PERMISSIONS.READ_CONTACTS],
+//         },
+//       };
+//       RNCallKeep.setup(options);
+//       RNCallKeep.setAvailable(true);
+//     }
+//   } catch (err) {
+//     console.error("initializeCallKeep error:", err.message);
+//   }
+// }
 
 export async function handleRemoteMessage(remoteMessage, isHeadless) {
-  dataVideoCall = remoteMessage?.data;
-  isNotiFirebase = false;
-  if (remoteMessage?.data?.type === "VIDEO_CALL") {
-    if (remoteMessage?.data?.status === "INIT") {
-      await DataLocal.saveVideoCallInfo(dataVideoCall)
-      if (remoteMessage?.data?.id) {
-        const callUUID = remoteMessage?.data?.id;
-        if (Platform.OS === 'android') {
-          setupCallKeep();
-          RNCallKeep.displayIncomingCall(
-            callUUID,
-            "My - Kid",
-            remoteMessage?.data.deviceName,
-            "generic",
-            true,
-          );
-          RNCallKeep.addEventListener("answerCall", ({ callUUID: uuid }) => {
-            RNCallKeep.setCurrentCallActive(uuid);
-            if (isHeadless) {
-              RNCallKeep.openAppFromHeadlessMode(uuid);
-            } else {
-              console.log(uuid);
-              RNCallKeep.backToForeground();
-            }
-          });
-          RNCallKeep.addEventListener("endCall", ({ callUUID: uuid }) => {
-            DataLocal.removeVideoCallInfo();
-            finishVideoCallApi({}, remoteMessage?.data?.id, {
-              success: res => {
-              },
-              failure: err => {
-              }
-            });
-          });
-        }
-      }
-      // Could also persist data here for later uses
-    } else if (remoteMessage?.data?.status === "REJECTED" || remoteMessage?.data?.status === "ENDED") {
-      isNotiFirebase = true;
-      if (Platform.OS === 'android') {
-        RNCallKeep.endCall(remoteMessage?.data?.id + "");
-      }
-    }
-  }
+//   dataVideoCall = remoteMessage?.data;
+//   isNotiFirebase = false;
+//   if (remoteMessage?.data?.type === "VIDEO_CALL") {
+//     if (remoteMessage?.data?.status === "INIT") {
+//       await DataLocal.saveVideoCallInfo(dataVideoCall)
+//       if (remoteMessage?.data?.id) {
+//         const callUUID = remoteMessage?.data?.id;
+//         if (Platform.OS === 'android') {
+//           setupCallKeep();
+//           RNCallKeep.displayIncomingCall(
+//             callUUID,
+//             "My - Kid",
+//             remoteMessage?.data.deviceName,
+//             "generic",
+//             true,
+//           );
+//           RNCallKeep.addEventListener("answerCall", ({ callUUID: uuid }) => {
+//             RNCallKeep.setCurrentCallActive(uuid);
+//             if (isHeadless) {
+//               RNCallKeep.openAppFromHeadlessMode(uuid);
+//             } else {
+//               console.log(uuid);
+//               RNCallKeep.backToForeground();
+//             }
+//           });
+//           RNCallKeep.addEventListener("endCall", ({ callUUID: uuid }) => {
+//             DataLocal.removeVideoCallInfo();
+//             finishVideoCallApi({}, remoteMessage?.data?.id, {
+//               success: res => {
+//               },
+//               failure: err => {
+//               }
+//             });
+//           });
+//         }
+//       }
+//       // Could also persist data here for later uses
+//     } else if (remoteMessage?.data?.status === "REJECTED" || remoteMessage?.data?.status === "ENDED") {
+//       isNotiFirebase = true;
+//       if (Platform.OS === 'android') {
+//         RNCallKeep.endCall(remoteMessage?.data?.id + "");
+//       }
+//     }
+//   }
 }
 
 export default function App() {
@@ -109,83 +109,83 @@ export default function App() {
   const routeRef = useRef();
   const appState = useRef(AppState.currentState);
 
-  useEffect(()=>{
-    if (Platform.OS === 'android') return;
-    callKit();
-    iosPushKit();
-    rnVoipCallListners();
-  },[])
+  // useEffect(()=>{
+  //   if (Platform.OS === 'android') return;
+  //   callKit();
+  //   iosPushKit();
+  //   rnVoipCallListners();
+  // },[])
 
-  const rnVoipCallListners = async () => {
-    RNVoipCall.onCallAnswer(data => {
-      DataLocal.getVideoCallInfo().then( dataCall => {
-        DataLocal.removeVideoCallInfo().then();
-        const data =  JSON.parse(dataCall);
-        if (data && data?.status === "INIT"){
-          setVisibleCall({
-            visible: true,
-            device: { deviceName: data?.deviceName },
-            data: {
-              id: Number(data?.id),
-              status: data?.status,
-              streamUrl: data?.streamUrl,
-              password: data?.password === "" ? null : data?.password,
-              caller: {
-                accountId: Number(data?.accountId),
-                relationship: data?.relationship,
-                deviceName: data?.deviceName,
-              },
-            },
-          });
-        }
-        RNVoipCall.endAllCalls();
-      });
-    });
+  // const rnVoipCallListners = async () => {
+  //   RNVoipCall.onCallAnswer(data => {
+  //     DataLocal.getVideoCallInfo().then( dataCall => {
+  //       DataLocal.removeVideoCallInfo().then();
+  //       const data =  JSON.parse(dataCall);
+  //       if (data && data?.status === "INIT"){
+  //         setVisibleCall({
+  //           visible: true,
+  //           device: { deviceName: data?.deviceName },
+  //           data: {
+  //             id: Number(data?.id),
+  //             status: data?.status,
+  //             streamUrl: data?.streamUrl,
+  //             password: data?.password === "" ? null : data?.password,
+  //             caller: {
+  //               accountId: Number(data?.accountId),
+  //               relationship: data?.relationship,
+  //               deviceName: data?.deviceName,
+  //             },
+  //           },
+  //         });
+  //       }
+  //       RNVoipCall.endAllCalls();
+  //     });
+  //   });
 
-    RNVoipCall.onEndCall(data=> {
-      console.log("call endede",data);
-      RNVoipCall.endCall(data?.callerId);
-      DataLocal.getVideoCallInfo().then( dataCall => {
-        DataLocal.removeVideoCallInfo().then();
-        const data =  JSON.parse(dataCall);
-        if (data && data?.status === "INIT"){
-          finishVideoCallApi({}, data?.id, {
-            success: res => {
-            },
-            failure: err => {
-            }
-          });
-        }
-      });
-    })
-  }
+  //   RNVoipCall.onEndCall(data=> {
+  //     console.log("call endede",data);
+  //     RNVoipCall.endCall(data?.callerId);
+  //     DataLocal.getVideoCallInfo().then( dataCall => {
+  //       DataLocal.removeVideoCallInfo().then();
+  //       const data =  JSON.parse(dataCall);
+  //       if (data && data?.status === "INIT"){
+  //         finishVideoCallApi({}, data?.id, {
+  //           success: res => {
+  //           },
+  //           failure: err => {
+  //           }
+  //         });
+  //       }
+  //     });
+  //   })
+  // }
 
-  const iosPushKit = () => {
-    //For Push Kit
-    RNVoipPushKit.requestPermissions();              // --- optional, you can use another library to request permissions
-    //Ios PushKit device token Listner
-    RNVoipPushKit.getPushKitDeviceToken((res) => {
-      if(res.platform === 'ios'){
-      }
-    });
-    //On Remote Push notification Recived in Forground
-    RNVoipPushKit.RemotePushKitNotificationReceived((notification)=>{
-    });
-  }
+  // const iosPushKit = () => {
+  //   //For Push Kit
+  //   RNVoipPushKit.requestPermissions();              // --- optional, you can use another library to request permissions
+  //   //Ios PushKit device token Listner
+  //   RNVoipPushKit.getPushKitDeviceToken((res) => {
+  //     if(res.platform === 'ios'){
+  //     }
+  //   });
+  //   //On Remote Push notification Recived in Forground
+  //   RNVoipPushKit.RemotePushKitNotificationReceived((notification)=>{
+  //   });
+  // }
 
-  const callKit = () => {
-    let options = {
-      appName:'initializeCall', // Required
-      imageName:  'logo',  //string (optional) in ios Resource Folder
-      ringtoneSound : '', //string (optional) If provided, it will be played when incoming calls received
-      includesCallsInRecents: false, // boolean (optional) If provided, calls will be shown in the recent calls
-      supportsVideo : true //boolean (optional) If provided, whether or not the application supports video calling (Default: true)
-    }
-    // Initlize Call Kit IOS is Required
-    RNVoipCall.initializeCall(options).then(()=>{
-      //Success Call Back
-    }).catch(e=>console.log(e));
-  }
+  // const callKit = () => {
+  //   let options = {
+  //     appName:'initializeCall', // Required
+  //     imageName:  'logo',  //string (optional) in ios Resource Folder
+  //     ringtoneSound : '', //string (optional) If provided, it will be played when incoming calls received
+  //     includesCallsInRecents: false, // boolean (optional) If provided, calls will be shown in the recent calls
+  //     supportsVideo : true //boolean (optional) If provided, whether or not the application supports video calling (Default: true)
+  //   }
+  //   // Initlize Call Kit IOS is Required
+  //   RNVoipCall.initializeCall(options).then(()=>{
+  //     //Success Call Back
+  //   }).catch(e=>console.log(e));
+  // }
 
   useEffect(() => {
     const subscription = AppState.addEventListener("change", nextAppState => {
@@ -234,29 +234,29 @@ export default function App() {
         reduxStore.store.dispatch(commonInfoAction.navigate({ navigate: Consts.ScreenIds.Tabs, deviceId: null }));
         XmppClient.updateRooms();
       } else if (notify && notify.type === "VIDEO_CALL") {
-        if (Platform.OS === 'android') {
-          if (RNCallKeep.isCallActive(notify.id)) {
-            if (notify?.status === "REJECTED" || notify?.status === "ENDED") {
-              setVisibleCall({ visible: false, device: null, data: [] });
-              isNotiFirebase = true;
+        // if (Platform.OS === 'android') {
+        //   if (RNCallKeep.isCallActive(notify.id)) {
+        //     if (notify?.status === "REJECTED" || notify?.status === "ENDED") {
+        //       setVisibleCall({ visible: false, device: null, data: [] });
+        //       isNotiFirebase = true;
 
-              RNCallKeep.endCall(notify?.id + "");
-              finishVideoCallApi({}, notify?.id, {
-                success: res => {
-                },
-                failure: err => {
-                },
-              });
-              DataLocal.removeVideoCallInfo().then(r => {
-                RNExitApp.exitApp();
-              });
-            }
-          }
-        } else {
-          DataLocal.removeVideoCallInfo().then(r => {
-            RNExitApp.exitApp();
-          });
-        }
+        //       RNCallKeep.endCall(notify?.id + "");
+        //       finishVideoCallApi({}, notify?.id, {
+        //         success: res => {
+        //         },
+        //         failure: err => {
+        //         },
+        //       });
+        //       DataLocal.removeVideoCallInfo().then(r => {
+        //         RNExitApp.exitApp();
+        //       });
+        //     }
+        //   }
+        // } else {
+        //   DataLocal.removeVideoCallInfo().then(r => {
+        //     RNExitApp.exitApp();
+        //   });
+        // }
       }else if (notify && notify.type === "DEVICE_FRIEND"){
         XmppClient.updateRooms();
       }
@@ -306,40 +306,39 @@ export default function App() {
     };
   }, []);
 
-  useEffect(()=>{
-    if (Platform.OS === 'ios') return;
-    RNCallKeep.removeEventListener('endCall');
-    RNCallKeep.addEventListener('endCall',()=>{
-      DataLocal.removeVideoCallInfo();
-    })
-    handleCallKeep().then(r => {
-      RNCallKeep.endAllCalls()
-    })
-
-  })
+  // useEffect(()=>{
+  //   if (Platform.OS === 'ios') return;
+  //   RNCallKeep.removeEventListener('endCall');
+  //   RNCallKeep.addEventListener('endCall',()=>{
+  //     DataLocal.removeVideoCallInfo();
+  //   })
+  //   handleCallKeep().then(r => {
+  //     RNCallKeep.endAllCalls()
+  //   })
+  // })
 
   //call keep
-  async function handleCallKeep() {
-    const dataCall = await DataLocal.getVideoCallInfo();
-    const data =  JSON.parse(dataCall);
-    if (data && data?.status === "INIT"){
-      setVisibleCall({
-        visible: true,
-        device: { deviceName: data?.deviceName },
-        data: {
-          id: Number(data?.id),
-          status: data?.status,
-          streamUrl: data?.streamUrl,
-          password: data?.password === "" ? null : data?.password,
-          caller: {
-            accountId: Number(data?.accountId),
-            relationship: data?.relationship,
-            deviceName: data?.deviceName,
-          },
-        },
-      });
-    }
-  }
+  // async function handleCallKeep() {
+  //   const dataCall = await DataLocal.getVideoCallInfo();
+  //   const data =  JSON.parse(dataCall);
+  //   if (data && data?.status === "INIT"){
+  //     setVisibleCall({
+  //       visible: true,
+  //       device: { deviceName: data?.deviceName },
+  //       data: {
+  //         id: Number(data?.id),
+  //         status: data?.status,
+  //         streamUrl: data?.streamUrl,
+  //         password: data?.password === "" ? null : data?.password,
+  //         caller: {
+  //           accountId: Number(data?.accountId),
+  //           relationship: data?.relationship,
+  //           deviceName: data?.deviceName,
+  //         },
+  //       },
+  //     });
+  //   }
+  // }
 
   return (
     <SafeAreaProvider>
@@ -356,9 +355,9 @@ export default function App() {
                 failure: err => {
                 }
               }).then(r => {
-                DataLocal.removeVideoCallInfo().then(r => {
-                  RNExitApp.exitApp();
-                });
+                // DataLocal.removeVideoCallInfo().then(r => {
+                //   RNExitApp.exitApp();
+                // });
               });
             }
           }}

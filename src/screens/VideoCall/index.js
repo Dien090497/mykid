@@ -259,15 +259,15 @@ const ListDeviceScreen = () => {
             data: res.data,
           });
           setPresentRoomId(res.data.id);
-          setTimeout(() => {
-            if (!isPickUp) {
-              finishVideoCallApi({}, res.data.id, {
-                success: res => {},
-                refLoading: refLoading,
-                refNotification: refNotification
-              });
-            }
-          }, 1000 * 59);
+          // setTimeout(() => {
+          //   if (!isPickUp) {
+          //     finishVideoCallApi({}, res.data.id, {
+          //       success: res => {},
+          //       refLoading: refLoading,
+          //       refNotification: refNotification
+          //     });
+          //   }
+          // }, 1000 * 59);
         },
         refLoading: refLoading,
         refNotification: refNotification

@@ -46,7 +46,7 @@ pod 'react-native-google-maps', :path => rn_maps_path
 
   pod 'RNAudioRecord', :path => '../node_modules/react-native-audio-record'
 
-  pod 'RNVoipCall', :path => '../node_modules/react-native-voip-call'
+#  pod 'RNVoipCall', :path => '../node_modules/react-native-voip-call'
 
   pod 'RNExitApp', :path => '../node_modules/react-native-exit-app'
 
