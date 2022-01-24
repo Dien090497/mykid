@@ -97,9 +97,9 @@ static void InitializeFlipper(UIApplication *application) {
  [RNCPushNotificationIOS didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
 }
 //// Required for the notification event. You must call the completion handler after handling the remote notification.
-//- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
-//fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
-//{
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
 //  NSString *callerName = @"V - Kid Pro is Calling";
 //  NSString *callerId = [[[NSUUID UUID] UUIDString] lowercaseString];
 //  NSString *handle = @"1234567890";
@@ -133,12 +133,12 @@ static void InitializeFlipper(UIApplication *application) {
 //
 //    [RNVoipCall reportNewIncomingCall:callerId handle:handle handleType:handleType hasVideo:hasVideo localizedCallerName:callerName fromPushKit: YES payload:extra withCompletionHandler:nil];
 //
-////    [RNVoipPushKit didReceiveIncomingPushWithPayload:userInfo forType:(NSString *)type];
-//
+//    [RNVoipPushKit didReceiveIncomingPushWithPayload:userInfo forType:(NSString *)type];
+
 //  }
 //
-//  [RNCPushNotificationIOS didReceiveRemoteNotification:userInfo fetchCompletionHandler:completionHandler];
-//}
+  [RNCPushNotificationIOS didReceiveRemoteNotification:userInfo fetchCompletionHandler:completionHandler];
+}
 //// Required for the registrationError event.
 //- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 //{
