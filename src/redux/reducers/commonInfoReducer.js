@@ -4,7 +4,8 @@ const initData = {
   selectDevice: null,
   navigate: null,
   replace: null,
-  userDeleteDevice: false
+  userDeleteDevice: false,
+  isInComing: null
 };
 
 const commonInfoReducer = (state = initData, { payload, type }) => {
@@ -40,6 +41,11 @@ const commonInfoReducer = (state = initData, { payload, type }) => {
       return {
         ...state,
         userDeleteDevice: payload.userDeleteDevice
+      }
+    case CommonActionList.isInComing:
+      return {
+        ...state,
+        isInComing: payload.isInComing
       }
     default:
       return state;
