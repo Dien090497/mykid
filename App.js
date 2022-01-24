@@ -19,7 +19,7 @@ import { localNotificationService } from "./src/LocalNotificationService";
 import DataLocal from "./src/data/dataLocal";
 import XmppClient from "./src/network/xmpp/XmppClient";
 import Consts from "./src/functions/Consts";
-import { finishVideoCallApi, rejectVideoCallApi } from "./src/network/VideoCallService";
+import { finishVideoCallApi } from "./src/network/VideoCallService";
 import VideoCallModal from "./src/screens/VideoCall/VideoCallModal";
 import { AppState } from "react-native";
 // import RNCallKeep from "react-native-callkeep";
@@ -278,24 +278,29 @@ export default function App() {
         reduxStore.store.dispatch(commonInfoAction.navigate({ navigate: Consts.ScreenIds.Chat, deviceId: null }));
       } else if (notify && notify.type === "VIDEO_CALL") {
         console.log("[App] onOpenNotification: VIDEO_CALL", notify);
-        isNotiFirebase = false;
+        // isNotiFirebase = false;
         if (notify.status === "INIT") {
-          // await DataLocal.saveVideoCallInfo(notify)
-          setVisibleCall({
-            visible: true,
-            device: { deviceName: notify.deviceName },
-            data: {
-              id: Number(notify.id),
-              status: notify.status,
-              streamUrl: notify.streamUrl,
-              password: notify.password === "" ? null : notify.password,
-              caller: {
-                accountId: Number(notify.accountId),
-                relationship: notify.relationship,
-                deviceName: notify.deviceName,
+          if (visibleCall.visible){
+
+          }else {
+            reduxStore.store.dispatch(commonInfoAction.isInComing({isInComing: notify.id }));
+            // await DataLocal.saveVideoCallInfo(notify)
+            setVisibleCall({
+              visible: true,
+              device: { deviceName: notify.deviceName },
+              data: {
+                id: Number(notify.id),
+                status: notify.status,
+                streamUrl: notify.streamUrl,
+                password: notify.password === "" ? null : notify.password,
+                caller: {
+                  accountId: Number(notify.accountId),
+                  relationship: notify.relationship,
+                  deviceName: notify.deviceName,
+                },
               },
-            },
-          });
+            });
+          }
         }
       }
     }
@@ -349,6 +354,7 @@ export default function App() {
           toggleModal={() => {
             if (visibleCall?.data?.id) {
               setVisibleCall({ visible: false, device: null, data: [] });
+              reduxStore.store.dispatch(commonInfoAction.isInComing({isInComing: null }));
               finishVideoCallApi({}, visibleCall?.data?.id, {
                 success: res => {
                 },

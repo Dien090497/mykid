@@ -23,12 +23,18 @@ export const userDeleteDevice = payload => ({
   payload,
 });
 
+export const isInComing = payload => ({
+  type: CommonActionList.isInComing,
+  payload,
+});
+
 export default {
   selectDevice,
   navigate,
   reset,
   replace,
-  userDeleteDevice
+  userDeleteDevice,
+  isInComing
 };
 
 
@@ -37,5 +43,6 @@ export const CommonActionList = {
   navigate: 'navigate',
   reset: 'RESET',
   replace: 'replace',
-  userDeleteDevice: 'userDeleteDevice'
+  userDeleteDevice: 'userDeleteDevice',
+  isInComing: 'isInComing'
 }

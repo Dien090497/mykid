@@ -5,6 +5,9 @@ import videoCallAction from '../../redux/actions/videoCallAction';
 import * as encoding from 'text-encoding';
 import { wsUrl } from '../http/ApiUrl';
 import Consts from '../../functions/Consts';
+import commonInfoAction from "../../redux/actions/commonInfoAction";
+import { rejectVideoCallApi } from "../VideoCallService";
+
 var encoder = new encoding.TextEncoder();
 
 export default class WebSocketVideoCall {
@@ -71,7 +74,7 @@ export default class WebSocketVideoCall {
       '\n\0';
     await this.ws.send(encoder.encode(command).buffer, true);
     this.isConnected = true;
-    
+
     this.ping();
   };
 
@@ -100,14 +103,37 @@ export default class WebSocketVideoCall {
         );
         if (split[1] === 'event:INCOMING_CALL') {
           // INCOMING_CALL
-          reduxStore.store.dispatch(videoCallAction.incomingCall(data));
-          this.navigationRef.navigate(Consts.ScreenIds.ListDevice);
+          if (reduxStore.store.getState().commonInfoReducer.isInComing === null){
+            reduxStore.store.dispatch(videoCallAction.incomingCall(data));
+            reduxStore.store.dispatch(commonInfoAction.isInComing({isInComing: data.id }));
+            this.navigationRef.navigate(Consts.ScreenIds.ListDevice);
+          }else if (reduxStore.store.getState().commonInfoReducer.isInComing === data.id){
+
+          }else {
+            rejectVideoCallApi({}, data.id)
+          }
         } else if (split[1] === 'event:REJECTED_CALL') {
           // REJECTED_CALL
-          reduxStore.store.dispatch(videoCallAction.rejectedCall(data));
+          if ( reduxStore.store.getState().commonInfoReducer.isInComing === data.id){
+            reduxStore.store.dispatch(videoCallAction.rejectedCall(data));
+            reduxStore.store.dispatch(commonInfoAction.isInComing({isInComing: null }));
+          }else if (reduxStore.store.getState().commonInfoReducer.isInComing === null ){
+            reduxStore.store.dispatch(videoCallAction.rejectedCall(data));
+            reduxStore.store.dispatch(commonInfoAction.isInComing({isInComing: null }));
+          } else {
+
+          }
         } else if (split[1] === 'event:ENDED_CALL') {
           // ENDED_CALL
-          reduxStore.store.dispatch(videoCallAction.endedCall(data));
+          if ( reduxStore.store.getState().commonInfoReducer.isInComing === data.id){
+            reduxStore.store.dispatch(commonInfoAction.isInComing({isInComing: null }));
+            reduxStore.store.dispatch(videoCallAction.endedCall(data));
+          }else if (reduxStore.store.getState().commonInfoReducer.isInComing === null ){
+            reduxStore.store.dispatch(commonInfoAction.isInComing({isInComing: null }));
+            reduxStore.store.dispatch(videoCallAction.endedCall(data));
+          } else {
+
+          }
         }
       }
       console.log(message, 'Websocket Message');
