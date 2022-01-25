@@ -22,6 +22,7 @@ import NotificationModal from '../../../components/NotificationModal';
 import { checkLocationPermission } from '../../../functions/permissions';
 import WebSocketCheckLogout from "../../../network/socket/WebSocketCheckLogout";
 import loginAction from "../../../redux/actions/loginAction";
+import SimpleToast from "react-native-simple-toast";
 
 export default function HomeMainScreen() {
   const navigation = useNavigation();
@@ -33,7 +34,7 @@ export default function HomeMainScreen() {
   const [devices, setDevices] = useState([]);
   const isFocused = useIsFocused();
   const [selectedIndex, setSelectedIndex] = useState(DataLocal.deviceIndex);
-  const [checkAddDevice, setCheckAddDevice] = useState(false)
+  const [typeNotifyDevice, setTypeNotifyDevice] = useState('')
   const {t} = useTranslation();
   const appState = useRef(AppState.currentState);
 
@@ -107,12 +108,11 @@ export default function HomeMainScreen() {
       setSelectedIndex(commonInfoReducer.selectDevice);
       reduxStore.store.dispatch(commonInfoAction.reset());
     } else if (commonInfoReducer.navigate !== null && commonInfoReducer.navigate !== undefined) {
+      getListDevices();
       if (commonInfoReducer.navigate !== Consts.ScreenIds.Tabs) {
         navigation.navigate(commonInfoReducer.navigate);
       }
-      reduxStore.store.dispatch(commonInfoAction.reset());
-    }
-    else if (commonInfoReducer.replace !== null && commonInfoReducer.replace !== undefined) {
+    } else if (commonInfoReducer.replace !== null && commonInfoReducer.replace !== undefined ) {
       getListDevices();
     }
   }, [commonInfoReducer]);
@@ -134,18 +134,30 @@ export default function HomeMainScreen() {
   }, [devices])
 
   useEffect(() => {
-    if (checkAddDevice && commonInfoReducer.userDeleteDevice === false) {
-      gotoAddDevices();
-    }
-  },[checkAddDevice])
+   if (typeNotifyDevice !== '' && commonInfoReducer.userDeleteDevice === false) {
+     if (typeNotifyDevice === 'DEVICE_HOLLOW' ) {
+       gotoAddDevices();
+     } else if (typeNotifyDevice === 'DEVICE_DELETED' ) {
+       SimpleToast.show(t('common:alertEmptyDevices'), 2000);
+     } else if (typeNotifyDevice === 'DEVICE_ACCEPTED' ) {
+       SimpleToast.show(t('common:alertDevicesAccepted'), 2000);
+     }
+     reduxStore.store.dispatch(commonInfoAction.reset());
+   }
+    setTypeNotifyDevice('');
+  },[typeNotifyDevice])
 
   const getListDevices = () => {
     getListDeviceApi(DataLocal.userInfo.id, Consts.pageDefault, 100, '', 'ACTIVE', {
       success: resData => {
         setDevices(resData.data);
         if (resData.data.length === 0) {
-          setCheckAddDevice(true);
-        }
+          setTypeNotifyDevice('DEVICE_HOLLOW');
+        } else if (resData.data.length > 1 && commonInfoReducer.navigate !== null && commonInfoReducer.navigate !== undefined && commonInfoReducer.navigate === Consts.ScreenIds.Tabs) {
+            setTypeNotifyDevice('DEVICE_ACCEPTED');
+        } else if (resData.data.length > 0 && commonInfoReducer.replace !== null && commonInfoReducer.replace !== undefined && commonInfoReducer.replace === Consts.ScreenIds.AddDeviceScreen) {
+            setTypeNotifyDevice('DEVICE_DELETED');
+          }
       },
       refLoading,
       refNotification,
@@ -157,7 +169,6 @@ export default function HomeMainScreen() {
     XmppClient.disconnectXmppServer();
     WebSocketSafeZone.disconnect();
     WebSocketVideoCall.disconnect();
-    setCheckAddDevice(false);
   }
 
   const pressMap = () => {
