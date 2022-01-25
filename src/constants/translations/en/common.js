@@ -274,6 +274,7 @@ export default {
   'reject': 'Reject',
   'acceptVideocall': 'Accept',
   'requestVideoCall': 'Incoming call',
+  'alertDevicesAccepted': 'Approved watch connection',
 
   // Chat
   'familyGroup': 'family group',
