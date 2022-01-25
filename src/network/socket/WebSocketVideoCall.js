@@ -109,7 +109,7 @@ export default class WebSocketVideoCall {
             this.navigationRef.navigate(Consts.ScreenIds.ListDevice);
           }else if (reduxStore.store.getState().commonInfoReducer.isInComing === data.id){
 
-          }else {
+          }else if (reduxStore.store.getState().commonInfoReducer.isInComing && reduxStore.store.getState().commonInfoReducer.isInComing !== data.id) {
             rejectVideoCallApi({}, data.id)
           }
         } else if (split[1] === 'event:REJECTED_CALL') {

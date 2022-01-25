@@ -19,7 +19,7 @@ import { localNotificationService } from "./src/LocalNotificationService";
 import DataLocal from "./src/data/dataLocal";
 import XmppClient from "./src/network/xmpp/XmppClient";
 import Consts from "./src/functions/Consts";
-import { finishVideoCallApi } from "./src/network/VideoCallService";
+import { finishVideoCallApi, rejectVideoCallApi } from "./src/network/VideoCallService";
 import VideoCallModal from "./src/screens/VideoCall/VideoCallModal";
 import { AppState } from "react-native";
 // import RNCallKeep from "react-native-callkeep";
@@ -257,6 +257,41 @@ export default function App() {
         //     RNExitApp.exitApp();
         //   });
         // }
+        const reduxID = reduxStore.store.getState().commonInfoReducer.isInComing.toString();
+
+        console.log(reduxID)
+        if (notify.status === 'INIT') {
+          // INCOMING_CALL
+          if (reduxID === null){
+            reduxStore.store.dispatch(commonInfoAction.isInComing({isInComing: notify.id }));
+          }else if ( notify.id === reduxID ){
+
+          }else if (reduxID !== null && notify.id !== reduxID ){
+            rejectVideoCallApi({}, notify.id)
+          }
+        } else if (notify.status === 'REJECTED') {
+          // REJECTED_CALL
+          if ( reduxID === notify.id){
+            setVisibleCall({ visible: false, device: null, data: [] });
+            reduxStore.store.dispatch(commonInfoAction.isInComing({isInComing: null }));
+          }else if (reduxID === null ){
+            setVisibleCall({ visible: false, device: null, data: [] });
+            reduxStore.store.dispatch(commonInfoAction.isInComing({isInComing: null }));
+          } else {
+
+          }
+        } else if (notify.status === 'ENDED') {
+          // ENDED_CALL
+          if ( reduxID === notify.id){
+            setVisibleCall({ visible: false, device: null, data: [] });
+            reduxStore.store.dispatch(commonInfoAction.isInComing({isInComing: null }));
+          }else if (reduxID === null ){
+            reduxStore.store.dispatch(commonInfoAction.isInComing({isInComing: null }));
+            setVisibleCall({ visible: false, device: null, data: [] });
+          } else {
+
+          }
+        }
       }else if (notify && notify.type === "DEVICE_FRIEND"){
         XmppClient.updateRooms();
       }
