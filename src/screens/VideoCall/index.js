@@ -39,6 +39,7 @@ import {keepScreenAwake} from '../../functions/utils';
 import { useTranslation } from 'react-i18next';
 import NotificationModal from "../../components/NotificationModal";
 import { checkCameraPermission, checkMicrophonePermission } from '../../functions/permissions';
+import commonInfoAction from "../../redux/actions/commonInfoAction";
 
 const initialState = {
   data: [],
@@ -266,6 +267,7 @@ const ListDeviceScreen = () => {
             data: res.data,
           });
           setPresentRoomId(res.data.id);
+          reduxStore.store.dispatch(commonInfoAction.isInComing({isInComing: res.data.id }));
           setTimeout(() => {
             if (!isPickUp) {
               finishVideoCallApi({}, res.data.id, {
@@ -287,6 +289,7 @@ const ListDeviceScreen = () => {
   };
 
   const toggleModal = roomId => {
+    reduxStore.store.dispatch(commonInfoAction.isInComing({isInComing: null }));
     finishVideoCallApi({}, roomId, {
       success: res => {
         setPresentRoomId(-1);
