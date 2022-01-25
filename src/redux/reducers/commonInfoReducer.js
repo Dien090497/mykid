@@ -28,6 +28,8 @@ const commonInfoReducer = (state = initData, { payload, type }) => {
         selectDevice: null,
         deviceId: null,
         navigate: null,
+        replace: null,
+        userDeleteDevice: false
       }
     case CommonActionList.replace:
       return {

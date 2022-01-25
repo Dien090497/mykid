@@ -85,6 +85,7 @@ const reducer = (state, action) => {
   }
 };
 
+let isPickUp = false;
 const ListDeviceScreen = () => {
   const refLoading = useRef();
   const refNotification = useRef();
@@ -96,7 +97,6 @@ const ListDeviceScreen = () => {
   const [videoCallData, setVideoCallData] = useState();
   const { t } = useTranslation();
 
-  let isPickUp = false;
   const [visibleCall, setVisibleCall] = useState({
     visible: false,
     server: null,
@@ -115,6 +115,13 @@ const ListDeviceScreen = () => {
     40, 500,
   ];
   var onEndReachedCalledDuringMomentum = true;
+
+  useEffect(() => {
+    return () => {
+      isPickUp = false;
+    }
+  }, [isPickUp])
+
   useEffect(() => {
     if (isFocused) {
       keepScreenAwake();
@@ -261,15 +268,15 @@ const ListDeviceScreen = () => {
           });
           setPresentRoomId(res.data.id);
           reduxStore.store.dispatch(commonInfoAction.isInComing({isInComing: res.data.id }));
-          // setTimeout(() => {
-          //   if (!isPickUp) {
-          //     finishVideoCallApi({}, res.data.id, {
-          //       success: res => {},
-          //       refLoading: refLoading,
-          //       refNotification: refNotification
-          //     });
-          //   }
-          // }, 1000 * 59);
+          setTimeout(() => {
+            if (!isPickUp) {
+              finishVideoCallApi({}, res.data.id, {
+                success: res => {},
+                refLoading: refLoading,
+                refNotification: refNotification
+              });
+            }
+          }, 1000 * 59);
         },
         refLoading: refLoading,
         refNotification: refNotification
@@ -280,6 +287,7 @@ const ListDeviceScreen = () => {
   const pickUp = isAccept => {
     isPickUp = isAccept;
   };
+
   const toggleModal = roomId => {
     reduxStore.store.dispatch(commonInfoAction.isInComing({isInComing: null }));
     finishVideoCallApi({}, roomId, {
@@ -297,6 +305,7 @@ const ListDeviceScreen = () => {
     });
     setVisibleCall({visible: false, device: null, data: []});
   };
+
   const onCreateVideoCall = item => {
     Vibration.cancel();
     if (ringtone.current) {
@@ -347,6 +356,7 @@ const ListDeviceScreen = () => {
       );
     }
   };
+
   const toggleModalState = ({connectionState, roomId}) => {
     Vibration.cancel();
     if (ringtone.current) {

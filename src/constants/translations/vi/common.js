@@ -273,6 +273,7 @@ export default {
   'reject': 'Từ chối',
   'acceptVideocall': 'Trả lời',
   'requestVideoCall': 'Cuộc gọi đến',
+  'alertDevicesAccepted': 'Kết nối đồng hồ đã được duyệt',
 
   // Chat
   'familyGroup': 'nhóm gia đình',
