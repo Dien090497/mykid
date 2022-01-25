@@ -109,12 +109,30 @@ export default function App() {
   const routeRef = useRef();
   const appState = useRef(AppState.currentState);
 
-  // useEffect(()=>{
-  //   if (Platform.OS === 'android') return;
-  //   callKit();
-  //   iosPushKit();
-  //   rnVoipCallListners();
-  // },[])
+  useEffect(()=>{
+    DataLocal.getVideoCallInfo().then( dataCall => {
+      if (!dataCall) return;
+      DataLocal.removeVideoCallInfo().then();
+      const data =  JSON.parse(dataCall);
+      if (data && data?.status === "INIT" && !visibleCall.visible){
+        setVisibleCall({
+          visible: true,
+          device: { deviceName: data?.deviceName },
+          data: {
+            id: Number(data?.id),
+            status: data?.status,
+            streamUrl: data?.streamUrl,
+            password: data?.password === "" ? null : data?.password,
+            caller: {
+              accountId: Number(data?.accountId),
+              relationship: data?.relationship,
+              deviceName: data?.deviceName,
+            },
+          },
+        });
+      }
+    });
+  },[])
 
   // const rnVoipCallListners = async () => {
   //   RNVoipCall.onCallAnswer(data => {
@@ -282,23 +300,24 @@ export default function App() {
         if (notify.status === "INIT") {
           if (visibleCall.visible){
 
-          }else {
-            reduxStore.store.dispatch(commonInfoAction.isInComing({isInComing: notify.id }));
-            // await DataLocal.saveVideoCallInfo(notify)
-            setVisibleCall({
-              visible: true,
-              device: { deviceName: notify.deviceName },
-              data: {
-                id: Number(notify.id),
-                status: notify.status,
-                streamUrl: notify.streamUrl,
-                password: notify.password === "" ? null : notify.password,
-                caller: {
-                  accountId: Number(notify.accountId),
-                  relationship: notify.relationship,
-                  deviceName: notify.deviceName,
+          } else {
+            DataLocal.saveVideoCallInfo(notify).then(() => {
+              reduxStore.store.dispatch(commonInfoAction.isInComing({isInComing: notify.id }));
+              setVisibleCall({
+                visible: true,
+                device: { deviceName: notify.deviceName },
+                data: {
+                  id: Number(notify.id),
+                  status: notify.status,
+                  streamUrl: notify.streamUrl,
+                  password: notify.password === "" ? null : notify.password,
+                  caller: {
+                    accountId: Number(notify.accountId),
+                    relationship: notify.relationship,
+                    deviceName: notify.deviceName,
+                  },
                 },
-              },
+              });
             });
           }
         }
