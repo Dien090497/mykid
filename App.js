@@ -277,7 +277,6 @@ export default function App() {
         // }
         const reduxID = reduxStore.store.getState().commonInfoReducer.isInComing.toString();
 
-        console.log(reduxID)
         if (notify.status === 'INIT') {
           // INCOMING_CALL
           if (reduxID === null){
