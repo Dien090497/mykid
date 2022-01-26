@@ -109,30 +109,30 @@ export default function App() {
   const routeRef = useRef();
   const appState = useRef(AppState.currentState);
 
-  useEffect(()=>{
-    DataLocal.getVideoCallInfo().then( dataCall => {
-      if (!dataCall) return;
-      DataLocal.removeVideoCallInfo().then();
-      const data =  JSON.parse(dataCall);
-      if (data && data?.status === "INIT" && !visibleCall.visible){
-        setVisibleCall({
-          visible: true,
-          device: { deviceName: data?.deviceName },
-          data: {
-            id: Number(data?.id),
-            status: data?.status,
-            streamUrl: data?.streamUrl,
-            password: data?.password === "" ? null : data?.password,
-            caller: {
-              accountId: Number(data?.accountId),
-              relationship: data?.relationship,
-              deviceName: data?.deviceName,
-            },
-          },
-        });
-      }
-    });
-  },[])
+  // useEffect(()=>{
+  //   DataLocal.getVideoCallInfo().then( dataCall => {
+  //     if (!dataCall) return;
+  //     DataLocal.removeVideoCallInfo().then();
+  //     const data =  JSON.parse(dataCall);
+  //     if (data && data?.status === "INIT" && !visibleCall.visible){
+  //       setVisibleCall({
+  //         visible: true,
+  //         device: { deviceName: data?.deviceName },
+  //         data: {
+  //           id: Number(data?.id),
+  //           status: data?.status,
+  //           streamUrl: data?.streamUrl,
+  //           password: data?.password === "" ? null : data?.password,
+  //           caller: {
+  //             accountId: Number(data?.accountId),
+  //             relationship: data?.relationship,
+  //             deviceName: data?.deviceName,
+  //           },
+  //         },
+  //       });
+  //     }
+  //   });
+  // },[])
 
   // const rnVoipCallListners = async () => {
   //   RNVoipCall.onCallAnswer(data => {
@@ -252,70 +252,112 @@ export default function App() {
         reduxStore.store.dispatch(commonInfoAction.navigate({ navigate: Consts.ScreenIds.Tabs, deviceId: null }));
         XmppClient.updateRooms();
       } else if (notify && notify.type === "VIDEO_CALL") {
-        if (Platform.OS === 'android') {
-        //   if (RNCallKeep.isCallActive(notify.id)) {
-        //     if (notify?.status === "REJECTED" || notify?.status === "ENDED") {
-        //       setVisibleCall({ visible: false, device: null, data: [] });
-        //       isNotiFirebase = true;
+        let reduxID = reduxStore.store.getState().commonInfoReducer.isInComing;
+        if (reduxID === null) { reduxID = '' }
+        else reduxID = reduxID + ''
+        if (notify.status === 'INIT') {
+          // INCOMING_CALL
+          if (reduxID === ''){
+            reduxStore.store.dispatch(commonInfoAction.isInComing({isInComing: notify.id }));
+              // reduxStore.store.dispatch(commonInfoAction.isInComing({isInComing: notify.id }));
+              setVisibleCall({
+                visible: true,
+                device: { deviceName: notify.deviceName },
+                data: {
+                  id: Number(notify.id),
+                  status: notify.status,
+                  streamUrl: notify.streamUrl,
+                  password: notify.password === "" ? null : notify.password,
+                  caller: {
+                    accountId: Number(notify.accountId),
+                    relationship: notify.relationship,
+                    deviceName: notify.deviceName,
+                  },
+                },
+              });
+          } else if ( notify.id === reduxID ) {
+          } else if (reduxID !== '' && notify.id !== reduxID ) {
+            rejectVideoCallApi({}, notify.id)
+          }
+        } else if (notify.status === 'REJECTED') {
+          // REJECTED_CALL
+          if ( reduxID === notify.id || reduxID === '' ){
+            setVisibleCall({ visible: false, device: null, data: [] });
+            reduxStore.store.dispatch(commonInfoAction.isInComing({isInComing: null }));
+          } else {
+          }
+        } else if (notify.status === 'ENDED') {
+          // ENDED_CALL
+          if ( reduxID === notify.id || reduxID === '' ){
+            reduxStore.store.dispatch(commonInfoAction.isInComing({isInComing: null }));
+            setVisibleCall({ visible: false, device: null, data: [] });
+          } else {
+          }
+        }
+        // if (Platform.OS === 'android') {
+        // //   if (RNCallKeep.isCallActive(notify.id)) {
+        // //     if (notify?.status === "REJECTED" || notify?.status === "ENDED") {
+        // //       setVisibleCall({ visible: false, device: null, data: [] });
+        // //       isNotiFirebase = true;
 
-        //       RNCallKeep.endCall(notify?.id + "");
-        //       finishVideoCallApi({}, notify?.id, {
-        //         success: res => {
-        //         },
-        //         failure: err => {
-        //         },
-        //       });
-        //       DataLocal.removeVideoCallInfo().then(r => {
-        //         RNExitApp.exitApp();
-        //       });
+        // //       RNCallKeep.endCall(notify?.id + "");
+        // //       finishVideoCallApi({}, notify?.id, {
+        // //         success: res => {
+        // //         },
+        // //         failure: err => {
+        // //         },
+        // //       });
+        // //       DataLocal.removeVideoCallInfo().then(r => {
+        // //         RNExitApp.exitApp();
+        // //       });
+        // //     }
+        // //   }
+        // // } else {
+        // //   DataLocal.removeVideoCallInfo().then(r => {
+        // //     RNExitApp.exitApp();
+        // //   });
+        // // }
+        //   const reduxID = reduxStore.store.getState().commonInfoReducer.isInComing.toString();
+
+        //   if (notify.status === 'INIT') {
+        //     // INCOMING_CALL
+        //     if (reduxID === null){
+        //       reduxStore.store.dispatch(commonInfoAction.isInComing({isInComing: notify.id }));
+        //     }else if ( notify.id === reduxID ){
+
+        //     }else if (reduxID !== null && notify.id !== reduxID ){
+        //       rejectVideoCallApi({}, notify.id)
+        //     }
+        //   } else if (notify.status === 'REJECTED') {
+        //     // REJECTED_CALL
+        //     if ( reduxID === notify.id){
+        //       setVisibleCall({ visible: false, device: null, data: [] });
+        //       reduxStore.store.dispatch(commonInfoAction.isInComing({isInComing: null }));
+        //     }else if (reduxID === null ){
+        //       setVisibleCall({ visible: false, device: null, data: [] });
+        //       reduxStore.store.dispatch(commonInfoAction.isInComing({isInComing: null }));
+        //     } else {
+
+        //     }
+        //   } else if (notify.status === 'ENDED') {
+        //     // ENDED_CALL
+        //     if ( reduxID === notify.id){
+        //       setVisibleCall({ visible: false, device: null, data: [] });
+        //       reduxStore.store.dispatch(commonInfoAction.isInComing({isInComing: null }));
+        //     }else if (reduxID === null ){
+        //       reduxStore.store.dispatch(commonInfoAction.isInComing({isInComing: null }));
+        //       setVisibleCall({ visible: false, device: null, data: [] });
+        //     } else {
+
         //     }
         //   }
         // } else {
-        //   DataLocal.removeVideoCallInfo().then(r => {
-        //     RNExitApp.exitApp();
-        //   });
+        //   if (notify.status === 'INIT' && visibleCall.visible) {
+        //     rejectVideoCallApi({}, notify.id)
+        //   } else if (notify.status === 'REJECTED' || notify.status === 'ENDED') {
+        //     setVisibleCall({ visible: false, device: null, data: [] });
+        //   }
         // }
-          const reduxID = reduxStore.store.getState().commonInfoReducer.isInComing.toString();
-
-          if (notify.status === 'INIT') {
-            // INCOMING_CALL
-            if (reduxID === null){
-              reduxStore.store.dispatch(commonInfoAction.isInComing({isInComing: notify.id }));
-            }else if ( notify.id === reduxID ){
-
-            }else if (reduxID !== null && notify.id !== reduxID ){
-              rejectVideoCallApi({}, notify.id)
-            }
-          } else if (notify.status === 'REJECTED') {
-            // REJECTED_CALL
-            if ( reduxID === notify.id){
-              setVisibleCall({ visible: false, device: null, data: [] });
-              reduxStore.store.dispatch(commonInfoAction.isInComing({isInComing: null }));
-            }else if (reduxID === null ){
-              setVisibleCall({ visible: false, device: null, data: [] });
-              reduxStore.store.dispatch(commonInfoAction.isInComing({isInComing: null }));
-            } else {
-
-            }
-          } else if (notify.status === 'ENDED') {
-            // ENDED_CALL
-            if ( reduxID === notify.id){
-              setVisibleCall({ visible: false, device: null, data: [] });
-              reduxStore.store.dispatch(commonInfoAction.isInComing({isInComing: null }));
-            }else if (reduxID === null ){
-              reduxStore.store.dispatch(commonInfoAction.isInComing({isInComing: null }));
-              setVisibleCall({ visible: false, device: null, data: [] });
-            } else {
-
-            }
-          }
-        } else {
-          if (notify.status === 'INIT' && visibleCall.visible) {
-            rejectVideoCallApi({}, notify.id)
-          } else if (notify.status === 'REJECTED' || notify.status === 'ENDED') {
-            setVisibleCall({ visible: false, device: null, data: [] });
-          }
-        }
       }else if (notify && notify.type === "DEVICE_FRIEND"){
         XmppClient.updateRooms();
       }
@@ -342,7 +384,7 @@ export default function App() {
           if (visibleCall.visible){
 
           } else {
-            DataLocal.saveVideoCallInfo(notify).then(() => {
+            // DataLocal.saveVideoCallInfo(notify).then(() => {
               // reduxStore.store.dispatch(commonInfoAction.isInComing({isInComing: notify.id }));
               setVisibleCall({
                 visible: true,
@@ -359,7 +401,7 @@ export default function App() {
                   },
                 },
               });
-            });
+            // });
           }
         }
       }
