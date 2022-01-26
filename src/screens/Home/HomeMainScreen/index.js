@@ -134,15 +134,15 @@ export default function HomeMainScreen() {
   }, [devices])
 
   useEffect(() => {
-   if (typeNotifyDevice !== '' && commonInfoReducer.userDeleteDevice === false) {
-     if (typeNotifyDevice === 'DEVICE_HOLLOW' ) {
-       gotoAddDevices();
-     } else if (typeNotifyDevice === 'DEVICE_DELETED' ) {
-       SimpleToast.show(t('common:alertEmptyDevices'), 2000);
-     } else if (typeNotifyDevice === 'DEVICE_ACCEPTED' ) {
-       SimpleToast.show(t('common:alertDevicesAccepted'), 2000);
-     }
-     reduxStore.store.dispatch(commonInfoAction.reset());
+    if (typeNotifyDevice !== '' && commonInfoReducer.userDeleteDevice === false) {
+      reduxStore.store.dispatch(commonInfoAction.reset());
+      if (typeNotifyDevice === 'DEVICE_HOLLOW' ) {
+        gotoAddDevices();
+      } else if (typeNotifyDevice === 'DEVICE_DELETED' ) {
+        SimpleToast.show(t('common:alertEmptyDevices'));
+      } else if (typeNotifyDevice === 'DEVICE_ACCEPTED' ) {
+        SimpleToast.show(t('common:alertDevicesAccepted'));
+      }
    }
     setTypeNotifyDevice('');
   },[typeNotifyDevice])

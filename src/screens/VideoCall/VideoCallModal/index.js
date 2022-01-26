@@ -11,6 +11,7 @@ import styles from './styles.js';
 import JanusVideoRoomScreen from '../JanusVideoRoomScreen';
 import Images from '../../../assets/Images';
 import { useTranslation } from "react-i18next";
+import KeepAwake from 'react-native-keep-awake';
 
 const VideoCallModal = ({visible, device, toggleModal, pickUp, data}) => {
   const refJanusVideoRoomScreen = useRef();
@@ -30,6 +31,7 @@ const VideoCallModal = ({visible, device, toggleModal, pickUp, data}) => {
           />
           <Text children={t('common:video_call')} style={styles.txtVideoCall} />
         </View>
+        <KeepAwake/>
         <JanusVideoRoomScreen
         ref={refJanusVideoRoomScreen}
         pickUp={pickUp}
