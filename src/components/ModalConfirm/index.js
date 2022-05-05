@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Modal, Text, TouchableOpacity, View} from 'react-native';
 import {styles} from './styles';
-import {Colors} from '../../assets/colors/Colors';
+import {Colors} from '../. ./assets/colors/Colors';
 import {ScaleHeight} from '../../functions/Consts';
 import i18next from 'i18next';
 

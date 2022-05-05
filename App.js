@@ -45,7 +45,7 @@ import { AppState } from 'react-native';
 //         },
 //       };
 //       RNCallKeep.setup(options);
-//       RNCallKeep.setAvailable(true);
+//       RNCall Keep.setAvailable(true);
 //     }
 //   } catch (err) {
 //     console.error('initializeCallKeep error:', err.message);
